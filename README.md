@@ -1,2 +1,3 @@
-# android
-The open source code section of Brainwallet Android
+
+## Easy and secure
+Brainwallet is a easy and fun way to use your crypto (Litecoin) and memorize your seed words
