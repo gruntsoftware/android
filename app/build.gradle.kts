@@ -23,7 +23,6 @@ android {
         versionName = "v4.0.1"
 
         multiDexEnabled = true
-        base.archivesBaseName = "${versionName}(${versionCode})"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -116,7 +115,25 @@ android {
                     targets("core-lib")
                 }
             }
+        }
 
+        create("screengrab") {
+            dimension = "mode"
+
+            applicationId = "ltd.grunt.litewallet" //TODO: create new appid for screengrab?
+            versionNameSuffix = "-screengrab"
+            resValue("string", "app_name", "Litewallet (screengrab)")
+            buildConfigField("boolean", "LITECOIN_TESTNET", "false")
+
+            externalNativeBuild {
+                cmake {
+                    // When you specify a version of CMake, as shown below,
+                    // the Android plugin searches for its binary within your
+                    // PATH environmental variable.
+                    cFlags("-DLITECOIN_TESTNET=0")
+                    targets("core-lib")
+                }
+            }
         }
     }
 
@@ -149,6 +166,8 @@ android {
             pickFirsts.add("protobuf.meta")
         }
     }
+
+    //TODO: rename output apk/bundle
 }
 
 val ktlint by configurations.creating
@@ -196,6 +215,9 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
+
+    androidTestImplementation(libs.bundles.android.test)
+    androidTestImplementation(libs.fastlane.screengrab)
 }
 
 val ktlintCheck by tasks.registering(JavaExec::class) {
