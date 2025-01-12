@@ -4,10 +4,12 @@ import com.litewallet.data.source.RemoteConfigSource
 import com.litewallet.di.Module
 import com.litewallet.util.cryptography.KeyStoreKeyGenerator
 import com.litewallet.util.cryptography.KeyStoreManager
+import timber.log.Timber
 
-class LitewalletApp : BreadApp() {
+class LitewalletScreengrabApp : BreadApp() {
 
     override fun initializeModule() {
+        Timber.d("Timber: initializeModule Screengrab")
         module = Module(
             remoteConfigSource = MockRemoteConfigSource()
         )
@@ -31,6 +33,7 @@ class MockRemoteConfigSource : RemoteConfigSource {
     }
 
     override fun getBoolean(key: String): Boolean {
+        Timber.d("timber: getBoolean")
         return true
     }
 
