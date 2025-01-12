@@ -146,16 +146,17 @@ public class BRKeyStore {
         validateSet(data, alias, alias_file, alias_iv, auth_required);
 
         boolean newKeyStoreManagerEnabled = BreadApp.module.getRemoteConfigSource().getBoolean(RemoteConfigSource.KEY_KEYSTORE_MANAGER_ENABLED);
+        Timber.d("timber: _set");
         if (newKeyStoreManagerEnabled) {
             try {
                 lock.lock();
                 return BreadApp.keyStoreManager.setDataBlocking(new AliasObject(alias, alias_file, alias_iv), data);
             } catch (UserNotAuthenticatedException e) {
-                Timber.e(e, "timber:_getData: showAuthenticationScreen: %s", alias);
+                Timber.e(e, "timber:_setData: showAuthenticationScreen: %s", alias);
                 showAuthenticationScreen(context, request_code, alias);
                 throw e;
             } catch (Exception e) {
-                Timber.e(e, "timber:getData: error retrieving");
+                Timber.e(e, "timber:setData: error retrieving");
                 FirebaseCrashlytics.getInstance().recordException(e);
                 return false;
             } finally {
