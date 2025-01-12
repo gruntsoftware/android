@@ -21,8 +21,9 @@ platform :android do
     gradle(task: "test")
   end
 
-  desc "Build debug and test APK for screenshots"
+  desc "Build screengrabDebug and test APK for screenshots"
   lane :build_and_screengrab do
+    adb(command: "shell pm clear ltd.grunt.litewallet") rescue nil
     gradle(
         tasks: ['clean', 'assembleScreengrabDebug', 'assembleScreengrabAndroidTest']
     )

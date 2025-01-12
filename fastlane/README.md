@@ -29,7 +29,7 @@ Runs all the unit tests
 [bundle exec] fastlane android build_and_screengrab
 ```
 
-Build debug and test APK for screenshots
+Build screengrabDebug and test APK for screenshots
 
 ----
 

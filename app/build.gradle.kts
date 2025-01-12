@@ -124,6 +124,10 @@ android {
             versionNameSuffix = "-screengrab"
             resValue("string", "app_name", "Litewallet (screengrab)")
             buildConfigField("boolean", "LITECOIN_TESTNET", "false")
+            buildConfigField("String[]", "SCREENGRAB_PAPERKEY", 
+                "new String[] {${localProperties.getProperty("SCREENGRAB_PAPERKEY", "")
+                    .split(",")
+                    .joinToString { "\"$it\"" }}}")
 
             externalNativeBuild {
                 cmake {
