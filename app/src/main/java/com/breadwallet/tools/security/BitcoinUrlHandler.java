@@ -167,7 +167,7 @@ public class BitcoinUrlHandler {
                 BRSender.getInstance()
                         .sendTransaction(app,
                                 new TransactionItem(requestObject.address,
-                                Utils.fetchPartnerKey(app, PartnerNames.LITEWALLETOPS),
+                                Utils.fetchPartnerKey(app, PartnerNames.WALLETOPS),
                                 null,
                                 new BigDecimal(amount).longValue(),
                                 Utils.tieredOpsFee(app,  new BigDecimal(amount).longValue()),
