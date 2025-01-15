@@ -228,7 +228,7 @@ public class Utils {
 
                 keyObject = new JSONObject(sb.toString()).getJSONObject("keys");
 
-                if (name == PartnerNames.LITEWALLETOPS) {
+                if (name == PartnerNames.WALLETOPS) {
                    JSONArray array = new JSONArray(keyObject.get(name.getKey()).toString());
                     int randomNum = ThreadLocalRandom.current().nextInt(0, array.length() - 1);
                     return array.getString(randomNum);
@@ -252,14 +252,14 @@ public class Utils {
                 else if (name == PartnerNames.AFDEVID) {
                     return keyObject.optString(name.getKey());
                 }
-                else if (name == PartnerNames.PUSHER) {
-                    JSONObject jsonObj = new JSONObject(keyObject.get(name.getKey()).toString());
-                    return jsonObj.toString();
-                }
-                else if (name == PartnerNames.PUSHERSTAGING) {
-                    JSONObject jsonObj = new JSONObject(keyObject.get(name.getKey()).toString());
-                    return jsonObj.toString();
-                }
+//                else if (name == PartnerNames.PUSHER) {
+//                    JSONObject jsonObj = new JSONObject(keyObject.get(name.getKey()).toString());
+//                    return jsonObj.toString();
+//                }
+//                else if (name == PartnerNames.PUSHERSTAGING) {
+//                    JSONObject jsonObj = new JSONObject(keyObject.get(name.getKey()).toString());
+//                    return jsonObj.toString();
+//                }
                 Timber.d("timber: fetchPartnerKey name key found %s",name.getKey());
 
                 return keyObject.get(name.getKey()).toString();
@@ -320,7 +320,7 @@ public class Utils {
         return lower <= x && x <= upper;
     }
     public static Set<String> litewalletOpsSet(Context app) {
-        List<String> addressList = Collections.singletonList(Utils.fetchPartnerKey(app, PartnerNames.LITEWALLETOPS));
+        List<String> addressList = Collections.singletonList(Utils.fetchPartnerKey(app, PartnerNames.WALLETOPS));
         return new HashSet<String>(addressList);
     }
 
