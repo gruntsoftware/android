@@ -8,6 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.rule.GrantPermissionRule
 import androidx.test.uiautomator.UiDevice
 import com.breadwallet.BuildConfig
 import com.breadwallet.R
@@ -28,6 +29,9 @@ class RecoverWalletTest {
     @Rule
     @JvmField
     val localeTestRule = LocaleTestRule()
+
+    @Rule @JvmField
+    val grantPermissionRule: GrantPermissionRule = GrantPermissionRule.grant(android.Manifest.permission.POST_NOTIFICATIONS)
 
     @get:Rule
     var activityScenarioRule = ActivityScenarioRule(IntroActivity::class.java)
