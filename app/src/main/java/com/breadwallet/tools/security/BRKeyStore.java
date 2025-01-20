@@ -145,6 +145,29 @@ public class BRKeyStore {
                                                  int request_code, boolean auth_required) throws UserNotAuthenticatedException {
         validateSet(data, alias, alias_file, alias_iv, auth_required);
 
+        boolean newKeyStoreManagerEnabled = BreadApp.module.getRemoteConfigSource().getBoolean(RemoteConfigSource.KEY_KEYSTORE_MANAGER_ENABLED);
+        Timber.d("timber: _set");
+        if (newKeyStoreManagerEnabled) {
+            try {
+                lock.lock();
+                return BreadApp.keyStoreManager.setDataBlocking(new AliasObject(alias, alias_file, alias_iv), data);
+            } catch (UserNotAuthenticatedException e) {
+                Timber.e(e, "timber:_setData: showAuthenticationScreen: %s", alias);
+                showAuthenticationScreen(context, request_code, alias);
+                throw e;
+            } catch (Exception e) {
+                Timber.e(e, "timber:setData: error retrieving");
+                FirebaseCrashlytics.getInstance().recordException(e);
+                return false;
+            } finally {
+                lock.unlock();
+            }
+        } else {
+            return _setDataLegacy(context, data, alias, alias_iv, request_code, auth_required);
+        }
+    }
+
+    private static boolean _setDataLegacy(Context context, byte[] data, String alias, String alias_iv, int request_code, boolean auth_required) throws UserNotAuthenticatedException {
         KeyStore keyStore;
         try {
             lock.lock();

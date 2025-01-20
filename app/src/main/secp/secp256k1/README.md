@@ -1,27 +1,19 @@
 libsecp256k1
 ============
 
-![Dependencies: None](https://img.shields.io/badge/dependencies-none-success)
-[![irc.libera.chat #secp256k1](https://img.shields.io/badge/irc.libera.chat-%23secp256k1-success)](https://web.libera.chat/#secp256k1)
+[![Build Status](https://travis-ci.org/bitcoin-core/secp256k1.svg?branch=master)](https://travis-ci.org/bitcoin-core/secp256k1)
 
-High-performance high-assurance C library for digital signatures and other cryptographic primitives on the secp256k1 elliptic curve.
+Optimized C library for EC operations on curve secp256k1.
 
-This library is intended to be the highest quality publicly available library for cryptography on the secp256k1 curve. However, the primary focus of its development has been for usage in the Bitcoin system and usage unlike Bitcoin's may be less well tested, verified, or suffer from a less well thought out interface. Correct usage requires some care and consideration that the library is fit for your application's purpose.
+This library is a work in progress and is being used to research best practices. Use at your own risk.
 
 Features:
 * secp256k1 ECDSA signing/verification and key generation.
-* Additive and multiplicative tweaking of secret/public keys.
-* Serialization/parsing of secret keys, public keys, signatures.
-* Constant time, constant memory access signing and public key generation.
-* Derandomized ECDSA (via RFC6979 or with a caller provided function.)
+* Adding/multiplying private/public keys.
+* Serialization/parsing of private keys, public keys, signatures.
+* Constant time, constant memory access signing and pubkey generation.
+* Derandomized DSA (via RFC6979 or with a caller provided function.)
 * Very efficient implementation.
-* Suitable for embedded systems.
-* No runtime dependencies.
-* Optional module for public key recovery.
-* Optional module for ECDH key exchange.
-* Optional module for Schnorr signatures according to [BIP-340](https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki).
-* Optional module for ElligatorSwift key exchange according to [BIP-324](https://github.com/bitcoin/bips/blob/master/bip-0324.mediawiki).
-* Optional module for MuSig2 Schnorr multi-signatures according to [BIP-327](https://github.com/bitcoin/bips/blob/master/bip-0327.mediawiki).
 
 Implementation details
 ----------------------
@@ -31,18 +23,16 @@ Implementation details
   * Extensive testing infrastructure.
   * Structured to facilitate review and analysis.
   * Intended to be portable to any system with a C89 compiler and uint64_t support.
-  * No use of floating types.
   * Expose only higher level interfaces to minimize the API surface and improve application security. ("Be difficult to use insecurely.")
 * Field operations
   * Optimized implementation of arithmetic modulo the curve's field size (2^256 - 0x1000003D1).
-    * Using 5 52-bit limbs
-    * Using 10 26-bit limbs (including hand-optimized assembly for 32-bit ARM, by Wladimir J. van der Laan).
-      * This is an experimental feature that has not received enough scrutiny to satisfy the standard of quality of this library but is made available for testing and review by the community.
+    * Using 5 52-bit limbs (including hand-optimized assembly for x86_64, by Diederik Huys).
+    * Using 10 26-bit limbs.
+  * Field inverses and square roots using a sliding window over blocks of 1s (by Peter Dettman).
 * Scalar operations
   * Optimized implementation without data-dependent branches of arithmetic modulo the curve's order.
     * Using 4 64-bit limbs (relying on __int128 support in the compiler).
     * Using 8 32-bit limbs.
-* Modular inverses (both field elements and scalars) based on [safegcd](https://gcd.cr.yp.to/index.html) with some modifications, and a variable-time variant (by Peter Dettman).
 * Group operations
   * Point addition formula specifically simplified for the curve equation (y^2 = x^3 + 7).
   * Use addition between points in Jacobian and affine coordinates where possible.
@@ -52,90 +42,20 @@ Implementation details
   * Use wNAF notation for point multiplicands.
   * Use a much larger window for multiples of G, using precomputed multiples.
   * Use Shamir's trick to do the multiplication with the public key and the generator simultaneously.
-  * Use secp256k1's efficiently-computable endomorphism to split the P multiplicand into 2 half-sized ones.
+  * Optionally (off by default) use secp256k1's efficiently-computable endomorphism to split the P multiplicand into 2 half-sized ones.
 * Point multiplication for signing
   * Use a precomputed table of multiples of powers of 16 multiplied with the generator, so general multiplication becomes a series of additions.
-  * Intended to be completely free of timing sidechannels for secret-key operations (on reasonable hardware/toolchains)
-    * Access the table with branch-free conditional moves so memory access is uniform.
-    * No data-dependent branches
-  * Optional runtime blinding which attempts to frustrate differential power analysis.
-  * The precomputed tables add and eventually subtract points for which no known scalar (secret key) is known, preventing even an attacker with control over the secret key used to control the data internally.
+  * Access the table with branch-free conditional moves so memory access is uniform.
+  * No data-dependent branches
+  * The precomputed tables add and eventually subtract points for which no known scalar (private key) is known, preventing even an attacker with control over the private key used to control the data internally.
 
-Building with Autotools
------------------------
-
-    $ ./autogen.sh       # Generate a ./configure script
-    $ ./configure        # Generate a build system
-    $ make               # Run the actual build process
-    $ make check         # Run the test suite
-    $ sudo make install  # Install the library into the system (optional)
-
-To compile optional modules (such as Schnorr signatures), you need to run `./configure` with additional flags (such as `--enable-module-schnorrsig`). Run `./configure --help` to see the full list of available flags.
-
-Building with CMake (experimental)
-----------------------------------
-
-To maintain a pristine source tree, CMake encourages to perform an out-of-source build by using a separate dedicated build tree.
-
-### Building on POSIX systems
-
-    $ cmake -B build              # Generate a build system in subdirectory "build"
-    $ cmake --build build         # Run the actual build process
-    $ ctest --test-dir build      # Run the test suite
-    $ sudo cmake --install build  # Install the library into the system (optional)
-
-To compile optional modules (such as Schnorr signatures), you need to run `cmake` with additional flags (such as `-DSECP256K1_ENABLE_MODULE_SCHNORRSIG=ON`). Run `cmake -B build -LH` or `ccmake -B build` to see the full list of available flags.
-
-### Cross compiling
-
-To alleviate issues with cross compiling, preconfigured toolchain files are available in the `cmake` directory.
-For example, to cross compile for Windows:
-
-    $ cmake -B build -DCMAKE_TOOLCHAIN_FILE=cmake/x86_64-w64-mingw32.toolchain.cmake
-
-To cross compile for Android with [NDK](https://developer.android.com/ndk/guides/cmake) (using NDK's toolchain file, and assuming the `ANDROID_NDK_ROOT` environment variable has been set):
-
-    $ cmake -B build -DCMAKE_TOOLCHAIN_FILE="${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake" -DANDROID_ABI=arm64-v8a -DANDROID_PLATFORM=28
-
-### Building on Windows
-
-To build on Windows with Visual Studio, a proper [generator](https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html#visual-studio-generators) must be specified for a new build tree.
-
-The following example assumes using of Visual Studio 2022 and CMake v3.21+.
-
-In "Developer Command Prompt for VS 2022":
-
-    >cmake -G "Visual Studio 17 2022" -A x64 -B build
-    >cmake --build build --config RelWithDebInfo
-
-Usage examples
+Build steps
 -----------
-Usage examples can be found in the [examples](examples) directory. To compile them you need to configure with `--enable-examples`.
-  * [ECDSA example](examples/ecdsa.c)
-  * [Schnorr signatures example](examples/schnorr.c)
-  * [Deriving a shared secret (ECDH) example](examples/ecdh.c)
-  * [ElligatorSwift key exchange example](examples/ellswift.c)
 
-To compile the Schnorr signature and ECDH examples, you also need to configure with `--enable-module-schnorrsig` and `--enable-module-ecdh`.
+libsecp256k1 is built using autotools:
 
-Benchmark
-------------
-If configured with `--enable-benchmark` (which is the default), binaries for benchmarking the libsecp256k1 functions will be present in the root directory after the build.
-
-To print the benchmark result to the command line:
-
-    $ ./bench_name
-
-To create a CSV file for the benchmark result :
-
-    $ ./bench_name | sed '2d;s/ \{1,\}//g' > bench_name.csv
-
-Reporting a vulnerability
-------------
-
-See [SECURITY.md](SECURITY.md)
-
-Contributing to libsecp256k1
-------------
-
-See [CONTRIBUTING.md](CONTRIBUTING.md)
+    $ ./autogen.sh
+    $ ./configure
+    $ make
+    $ ./tests
+    $ sudo make install  # optional

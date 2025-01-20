@@ -40,6 +40,14 @@ androidx-preference = { module = "androidx.preference:preference-ktx", version.r
 androidx-browser = { module = "androidx.browser:browser", version.ref = "androidx-browser" }
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
+androidx-test-core = "androidx.test:core:1.6.1"
+androidx-test-core-ktx = "androidx.test:core-ktx:1.6.1"
+androidx-test-runner = "androidx.test:runner:1.6.2"
+androidx-test-espresso-core = "androidx.test.espresso:espresso-core:3.6.1"
+androidx-test-rules = "androidx.test:rules:1.6.1"
+androidx-test-junit-ext = "androidx.test.ext:junit:1.2.1"
+androidx-test-juniext-ext-ktx = "androidx.test.ext:junit-ktx:1.2.1"
+androidx-test-uiautomator = "androidx.test.uiautomator:uiautomator:2.3.0"
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.7.1" }
 #google-dagger = { module = "com.google.dagger:dagger", version.ref = "google-dagger" }
 #google-dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "google-dagger" }
@@ -74,6 +82,8 @@ unstoppable-domain = "com.unstoppabledomains:resolution:5.0.0"
 razir-progressbutton = "com.github.razir.progressbutton:progressbutton:2.1.0"
 junit = { module = "junit:junit", version.ref = "junit" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+pinterest-ktlint = "com.pinterest.ktlint:ktlint-cli:1.5.0"
+fastlane-screengrab = "tools.fastlane:screengrab:2.1.1"
 
 [bundles]
 androidx-navigation = ["androidx-navigation-fragment", "androidx-navigation-ui"]
@@ -82,6 +92,7 @@ google-play-asset-delivery = ["google-play-asset-delivery", "google-play-asset-d
 google-play-feature-delivery = ["google-play-feature-delivery", "google-play-feature-delivery-ktx"]
 google-play-review = ["google-play-review", "google-play-review-ktx"]
 eclipse-jetty = ["eclipse-jetty-webapp", "eclipse-jetty-websocket", "eclipse-jetty-continuation"]
+android-test = ["androidx-test-core", "androidx-test-core-ktx", "androidx-test-rules","androidx-test-espresso-core", "androidx-test-junit-ext","androidx-test-juniext-ext-ktx", "androidx-test-runner", "androidx-test-uiautomator"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

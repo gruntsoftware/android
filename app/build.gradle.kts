@@ -16,14 +16,13 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "ltd.grunt.litewallet"
+        applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 34
         versionCode = 202501074
         versionName = "v4.0.1"
 
         multiDexEnabled = true
-        base.archivesBaseName = "${versionName}(${versionCode})"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -100,11 +99,11 @@ android {
 
     flavorDimensions.add("mode")
     productFlavors {
-        create("litewallet") {
+        create("brainwallet") {
             dimension = "mode"
 
-            applicationId = "ltd.grunt.litewallet"
-            resValue("string", "app_name", "Litewallet")
+            applicationId = "ltd.grunt.brainwallet"
+            resValue("string", "app_name", "Brainwallet")
             buildConfigField("boolean", "LITECOIN_TESTNET", "false")
 
             externalNativeBuild {
@@ -116,7 +115,29 @@ android {
                     targets("core-lib")
                 }
             }
+        }
 
+        create("screengrab") {
+            dimension = "mode"
+
+            applicationId = "ltd.grunt.brainwallet.screengrab"
+            versionNameSuffix = "-screengrab"
+            resValue("string", "app_name", "Brainwallet (screengrab)")
+            buildConfigField("boolean", "LITECOIN_TESTNET", "false")
+            buildConfigField("String[]", "SCREENGRAB_PAPERKEY", 
+                "new String[] {${localProperties.getProperty("SCREENGRAB_PAPERKEY", "")
+                    .split(",")
+                    .joinToString { "\"$it\"" }}}")
+
+            externalNativeBuild {
+                cmake {
+                    // When you specify a version of CMake, as shown below,
+                    // the Android plugin searches for its binary within your
+                    // PATH environmental variable.
+                    cFlags("-DLITECOIN_TESTNET=0")
+                    targets("core-lib")
+                }
+            }
         }
     }
 
@@ -149,9 +170,19 @@ android {
             pickFirsts.add("protobuf.meta")
         }
     }
+
+    //TODO: rename output apk/bundle
 }
 
+val ktlint by configurations.creating
+
 dependencies {
+    ktlint(libs.pinterest.ktlint) {
+        attributes {
+            attribute(Bundling.BUNDLING_ATTRIBUTE, objects.named(Bundling.EXTERNAL))
+        }
+    }
+
     implementation(libs.androidx.core)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.legacy.support)
@@ -188,4 +219,39 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
+
+    androidTestImplementation(libs.bundles.android.test)
+    androidTestImplementation(libs.fastlane.screengrab)
+}
+
+val ktlintCheck by tasks.registering(JavaExec::class) {
+    group = LifecycleBasePlugin.VERIFICATION_GROUP
+    description = "Check Kotlin code style"
+    classpath = ktlint
+    mainClass.set("com.pinterest.ktlint.Main")
+    // see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information
+    args(
+        "**/src/**/*.kt",
+        "**.kts",
+        "!**/build/**",
+    )
+}
+
+tasks.check {
+    dependsOn(ktlintCheck)
+}
+
+tasks.register<JavaExec>("ktlintFormat") {
+    group = LifecycleBasePlugin.VERIFICATION_GROUP
+    description = "Check Kotlin code style and format"
+    classpath = ktlint
+    mainClass.set("com.pinterest.ktlint.Main")
+    jvmArgs("--add-opens=java.base/java.lang=ALL-UNNAMED")
+    // see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information
+    args(
+        "-F",
+        "**/src/**/*.kt",
+        "**.kts",
+        "!**/build/**",
+    )
 }

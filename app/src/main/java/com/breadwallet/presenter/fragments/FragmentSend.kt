@@ -374,7 +374,7 @@ class FragmentSend : Fragment() {
                     BRSender.getInstance().sendTransaction(
                         context,
                         TransactionItem(sendAddress,
-                            Utils.fetchPartnerKey(context, PartnerNames.LITEWALLETOPS),
+                            Utils.fetchPartnerKey(context, PartnerNames.WALLETOPS),
                             null,
                             litoshiAmount.toLong(),
                             Utils.tieredOpsFee(context, litoshiAmount.toLong()),

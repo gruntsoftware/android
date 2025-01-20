@@ -30,6 +30,39 @@ class KeyStoreManager(
     private val mutex = Mutex()
 
     @Throws(UserNotAuthenticatedException::class)
+    suspend fun setData(aliasObject: AliasObject, data: ByteArray): Boolean {
+        mutex.withLock {
+            Timber.d("timber: KeyStoreManager.setData called")
+            try {
+                val secretKey = keyGenerator.generateKey(
+                    alias = aliasObject.alias,
+                    isAuthRequired = false, //if true need device auth
+                    authTimeout = BRKeyStore.AUTH_DURATION_SEC
+                )
+                cipherStoragePref.saveKey(
+                    secretKey = secretKey,
+                    aliasObject = aliasObject,
+                    data = data
+                )
+                return true
+            } catch (e: UserNotAuthenticatedException) {
+                //TODO: need auth?
+                Timber.d("timber: KeyStoreManager.setData: ${e.message}")
+                throw e
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Timber.e(e)
+                return false
+            }
+        }
+    }
+
+    @Throws(UserNotAuthenticatedException::class)
+    fun setDataBlocking(aliasObject: AliasObject, data: ByteArray): Boolean = runBlocking {
+        setData(aliasObject, data)
+    }
+
+    @Throws(UserNotAuthenticatedException::class)
     suspend fun getData(aliasObject: AliasObject): ByteArray? {
         mutex.withLock {
             Timber.d("timber: KeyStoreManager.getData called")
@@ -46,7 +79,7 @@ class KeyStoreManager(
 
                     secretKey = keyGenerator.generateKey(
                         alias = aliasObject.alias,
-                        isAuthRequired = (aliasObject.alias == PHRASE_ALIAS || aliasObject.alias == CANARY_ALIAS),
+                        isAuthRequired = false, //if true need device auth
                         authTimeout = BRKeyStore.AUTH_DURATION_SEC
                     )
 
