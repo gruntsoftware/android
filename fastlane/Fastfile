@@ -23,12 +23,13 @@ platform :android do
 
   desc "Build screengrabDebug and test APK for screenshots"
   lane :build_and_screengrab do
-    adb(command: "shell pm clear ltd.grunt.litewallet") rescue nil
+    adb(command: "shell pm clear ltd.grunt.brainwallet.screengrab") rescue nil
     gradle(
         tasks: ['clean', 'assembleScreengrabDebug', 'assembleScreengrabAndroidTest']
     )
     screengrab(
         clear_previous_screenshots: true,
+        app_package_name: 'ltd.grunt.brainwallet.screengrab',
         app_apk_path: "app/build/outputs/apk/screengrab/debug/app-screengrab-debug.apk",
         tests_apk_path: "app/build/outputs/apk/androidTest/screengrab/debug/app-screengrab-debug-androidTest.apk"
     )

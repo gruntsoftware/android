@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-        <application
-            tools:replace="android:name"
-            android:name=".LitewalletScreengrabApp"/>
+    <application
+        android:name=".BrainwalletScreengrabApp"
+        tools:replace="android:name" />
 
 </manifest>
