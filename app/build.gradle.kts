@@ -16,7 +16,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "ltd.grunt.litewallet"
+        applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 34
         versionCode = 202501074
@@ -99,11 +99,11 @@ android {
 
     flavorDimensions.add("mode")
     productFlavors {
-        create("litewallet") {
+        create("brainwallet") {
             dimension = "mode"
 
-            applicationId = "ltd.grunt.litewallet"
-            resValue("string", "app_name", "Litewallet")
+            applicationId = "ltd.grunt.brainwallet"
+            resValue("string", "app_name", "Brainwallet")
             buildConfigField("boolean", "LITECOIN_TESTNET", "false")
 
             externalNativeBuild {
@@ -120,9 +120,9 @@ android {
         create("screengrab") {
             dimension = "mode"
 
-            applicationId = "ltd.grunt.litewallet" //TODO: create new appid for screengrab?
+            applicationId = "ltd.grunt.brainwallet.screengrab"
             versionNameSuffix = "-screengrab"
-            resValue("string", "app_name", "Litewallet (screengrab)")
+            resValue("string", "app_name", "Brainwallet (screengrab)")
             buildConfigField("boolean", "LITECOIN_TESTNET", "false")
             buildConfigField("String[]", "SCREENGRAB_PAPERKEY", 
                 "new String[] {${localProperties.getProperty("SCREENGRAB_PAPERKEY", "")

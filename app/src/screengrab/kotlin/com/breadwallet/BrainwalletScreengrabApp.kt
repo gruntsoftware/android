@@ -6,7 +6,7 @@ import com.litewallet.util.cryptography.KeyStoreKeyGenerator
 import com.litewallet.util.cryptography.KeyStoreManager
 import timber.log.Timber
 
-class LitewalletScreengrabApp : BreadApp() {
+class BrainwalletScreengrabApp : BreadApp() {
 
     override fun initializeModule() {
         Timber.d("Timber: initializeModule Screengrab")
