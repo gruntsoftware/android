@@ -183,23 +183,23 @@ public class IntroActivity extends BRActivity implements Serializable {
         });
     }
 
-    public static boolean verifyInstallAssets(final Context context) {
-        Timber.d("timber: verify");
-
-        String pusherStagingKey = Utils.fetchPartnerKey(context, PartnerNames.PUSHERSTAGING);
-        boolean isCanaryFilePresent = false;
-        try (Scanner scanner = new Scanner(new File("canary-file.json"))) {
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                Timber.d("timber: canary file : %s", line);
-                isCanaryFilePresent = line.length() > 5;
-            }
-        } catch (RuntimeException | FileNotFoundException e) {
-            Timber.e(e);
-        }
-
-        return ( pusherStagingKey.contains("4cc2-94df") && isCanaryFilePresent );
-    }
+//    public static boolean verifyInstallAssets(final Context context) {
+//        Timber.d("timber: verify");
+//
+//        String pusherStagingKey = Utils.fetchPartnerKey(context, PartnerNames.PUSHERSTAGING);
+//        boolean isCanaryFilePresent = false;
+//        try (Scanner scanner = new Scanner(new File("canary-file.json"))) {
+//            while (scanner.hasNextLine()) {
+//                String line = scanner.nextLine();
+//                Timber.d("timber: canary file : %s", line);
+//                isCanaryFilePresent = line.length() > 5;
+//            }
+//        } catch (RuntimeException | FileNotFoundException e) {
+//            Timber.e(e);
+//        }
+//
+//        return ( pusherStagingKey.contains("4cc2-94df") && isCanaryFilePresent );
+//    }
 
     private void setListeners() {
         newWalletButton.setOnClickListener(new View.OnClickListener() {

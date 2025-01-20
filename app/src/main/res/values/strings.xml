@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- App name -->
+    <string name="app_name" translatable="false">Brainwallet</string>
     <!-- About screen blog label -->
     <string name="About.blog">Website</string>
     <!-- About screen footer -->

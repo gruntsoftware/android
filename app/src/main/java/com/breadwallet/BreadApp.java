@@ -51,9 +51,7 @@ public class BreadApp extends Application {
         boolean enableCrashlytics = !Utils.isEmulatorOrDebug(this);
         FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(enableCrashlytics);
 
-        module = new Module();
-        module.getRemoteConfigSource().initialize();
-        keyStoreManager = new KeyStoreManager(this, new KeyStoreKeyGenerator.Impl());
+        initializeModule();
 
         NotificationHandlerKt.setupNotificationChannels(this);
 
@@ -87,6 +85,12 @@ public class BreadApp extends Application {
         appsFlyerLib.setDebugLog(BuildConfig.DEBUG);
         appsFlyerLib.setCollectAndroidID(true);
         appsFlyerLib.start(this);
+    }
+
+    protected void initializeModule() {
+        module = new Module();
+        module.getRemoteConfigSource().initialize();
+        keyStoreManager = new KeyStoreManager(this, new KeyStoreKeyGenerator.Impl());
     }
 
     public static Context getBreadContext() {
