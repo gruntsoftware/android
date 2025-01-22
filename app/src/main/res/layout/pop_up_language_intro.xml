@@ -35,11 +35,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/litecoin_litewallet_blue"
-            android:fontFamily="@font/barlowsemicondensed_regular"
             android:background="@drawable/button_intro_left"
             android:clickable="true"
-            android:text="Yes" />
+            android:fontFamily="@font/barlowsemicondensed_regular"
+            android:text="Yes"
+            android:textColor="@color/black" />
 
         <View
             android:layout_width="1dp"

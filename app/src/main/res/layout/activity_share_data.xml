@@ -5,12 +5,12 @@
     android:id="@+id/activity_intro_set_pit"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/extra_light_blue_background"
+    android:background="@color/white"
     tools:context="com.breadwallet.presenter.activities.SetPinActivity">
 
     <TextView
-        style="@style/BRBoldTextStyle"
         android:id="@+id/title"
+        style="@style/BRBoldTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/bread_margin"
@@ -22,19 +22,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        style="@style/BRTextStyle"
         android:id="@+id/description"
+        style="@style/BRTextStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/ShareData.body"
         android:textColor="@color/almost_black"
         android:textSize="@dimen/sub_header"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/title"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <View
@@ -42,21 +42,21 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_margin="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@color/extra_light_gray"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
-        style="@style/BRBoldTextStyle"
         android:id="@+id/textView4"
+        style="@style/BRBoldTextStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/ShareData.toggleLabel"
         android:textColor="@color/almost_black"
         android:textSize="@dimen/sub_header"
@@ -68,9 +68,9 @@
         android:id="@+id/toggleButton"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/bread_toggle"
         android:textColor="@color/white"
-        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView4" />

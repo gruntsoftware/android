@@ -237,8 +237,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:weightSum="2.0"
-            app:backgroundColor="@color/extra_light_blue_background"
-            app:strokeColor="@color/extra_light_gray"
+            app:backgroundColor="@color/white"
+            app:strokeColor="@color/black"
             app:withStroke="true">
 
             <TextView
@@ -385,7 +385,7 @@
             android:textSize="20sp"
             app:buttonType="1"
             app:isBreadButton="true"
-            tools:background="@color/litecoin_litewallet_blue" />
+            tools:background="@color/black" />
 
     </LinearLayout>
 
