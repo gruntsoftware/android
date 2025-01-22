@@ -162,18 +162,18 @@ public class BRButtonIntro extends Button {
         this.type = type;
 
         if (type == 1) { //blue
-            bPaint.setColor(getContext().getColor(R.color.litecoin_litewallet_blue));
+            bPaint.setColor(getContext().getColor(R.color.black));
             setTextColor(getContext().getColor(R.color.white));
         } else if (type == 2) { //gray stroke
             setTextColor(getContext().getColor(R.color.light_gray));
             setOutline(R.color.extra_light_gray, R.color.button_secondary);
         } else if (type == 3) { //blue strokeww
-            setTextColor(getContext().getColor(R.color.litecoin_litewallet_blue));
-            setOutline(R.color.litecoin_litewallet_blue, R.color.button_secondary);
+            setTextColor(getContext().getColor(R.color.black));
+            setOutline(R.color.black, R.color.button_secondary);
         } else if (type == 4) { //white stroke
             setOutline(R.color.white, R.color.button_secondary);
         } else if (type == 5) {
-            setOutline(R.color.white, R.color.litecoin_litewallet_blue);
+            setOutline(R.color.white, R.color.black);
         }
         invalidate();
     }

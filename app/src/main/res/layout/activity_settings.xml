@@ -4,35 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_intro_set_pit"
     android:layout_width="match_parent"
-    android:background="@color/extra_light_blue_background"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="com.breadwallet.presenter.activities.SetPinActivity">
 
     <TextView
-        style="@style/BRBoldTextStyle"
         android:id="@+id/title"
+        style="@style/BRBoldTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/bread_margin"
         android:text="Settings"
         android:textColor="@color/almost_black"
         android:textSize="@dimen/header"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="@dimen/bread_margin" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/settings_list"
-        android:footerDividersEnabled="false"
-        android:headerDividersEnabled="false"
-        android:background="@color/extra_light_blue_background"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="32dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title"
+        android:background="@color/white"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <ImageButton
         android:id="@+id/close_button"
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="23dp"
-        android:backgroundTint="@color/extra_light_blue_background"
+        android:backgroundTint="@color/white"
         android:src="@drawable/ic_close_black_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
