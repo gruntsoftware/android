@@ -53,7 +53,7 @@
         <activity
             android:name=".presenter.activities.intro.IntroActivity"
             android:exported="true"
-            android:label="Litewallet"
+            android:label="Brainwallet"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter android:autoVerify="true">
@@ -65,7 +65,7 @@
         <activity
             android:name=".presenter.activities.BreadActivity"
             android:exported="true"
-            android:label="Litewallet"
+            android:label="Brainwallet"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
@@ -228,7 +228,7 @@
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/litewallet_logotype_white_notifications" />
+            android:resource="@drawable/brainwallet_logotype_white_notifications" />
     </application>
 
 </manifest>
