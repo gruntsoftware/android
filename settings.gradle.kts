@@ -19,7 +19,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Litewallet Android"
+rootProject.name = "Brainwallet Android"
 include(":app")
 include(":install_time_asset_pack")
 include(":fast_follow_asset_pack_01")

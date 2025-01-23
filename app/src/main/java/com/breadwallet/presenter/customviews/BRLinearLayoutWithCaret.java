@@ -86,7 +86,7 @@ public class BRLinearLayoutWithCaret extends LinearLayout {
 
         backgroundPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         backgroundPaint.setStyle(Paint.Style.FILL);
-        backgroundPaint.setColor(getContext().getColor(R.color.extra_light_blue_background));
+        backgroundPaint.setColor(getContext().getColor(R.color.white));
 
         setBackgroundColor(getContext().getColor(android.R.color.transparent));
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.BRLinearLayoutWithCaret);

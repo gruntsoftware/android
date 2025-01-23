@@ -69,8 +69,6 @@ public class IntroActivity extends BRActivity implements Serializable {
         Log.i("Some", getPackageName());
         newWalletButton = (Button) findViewById(R.id.button_new_wallet);
         recoverWalletButton = (Button) findViewById(R.id.button_recover_wallet);
-        TextView description = findViewById(R.id.textView);
-
         TextView versionText = findViewById(R.id.version_text);
         listLangRecyclerView = findViewById(R.id.language_list);
         View parentLayout = findViewById(android.R.id.content);
@@ -92,7 +90,6 @@ public class IntroActivity extends BRActivity implements Serializable {
                     int centerPosition = (lastVisibleItemPosition - firstVisibleItemPosition) / 2 + firstVisibleItemPosition;
                     if (centerPosition != RecyclerView.NO_POSITION) {
                         countryLanguageAdapter.updateCenterPosition(centerPosition);
-                        description.setText(countryLanguageAdapter.selectedDesc());
                         showDialogForItem(countryLanguageAdapter.selectedMessage());
                         listLangRecyclerView.smoothScrollToPosition(centerPosition);
                     }
