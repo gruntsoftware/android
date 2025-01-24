@@ -174,6 +174,27 @@ android {
     //TODO: rename output apk/bundle
 }
 
+sourceSets {
+    val commonMain by getting {
+        dependencies {
+            implementation(kotlin("stdlib-common"))
+            implementation("fr.acinq.secp256k1:secp256k1-kmp:$secp256k1_version")
+        }
+    }
+    val jvmMain by getting {
+        dependencies {
+            implementation(kotlin("stdlib"))
+            implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-jvm:$secp256k1_version")
+        }
+    }
+    val androidMain by getting {
+        dependencies {
+            implementation(kotlin("stdlib"))
+            implementation("fr.acinq.secp256k1:secp256k1-kmp-jni-android:$secp256k1_version")
+        }
+    }
+}
+
 val ktlint by configurations.creating
 
 dependencies {
