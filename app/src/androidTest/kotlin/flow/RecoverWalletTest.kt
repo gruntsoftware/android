@@ -21,7 +21,6 @@ import tools.fastlane.screengrab.FalconScreenshotStrategy
 import tools.fastlane.screengrab.Screengrab
 import tools.fastlane.screengrab.locale.LocaleTestRule
 
-
 @RunWith(JUnit4::class)
 @LargeTest
 class RecoverWalletTest {
