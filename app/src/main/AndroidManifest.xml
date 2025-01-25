@@ -53,7 +53,6 @@
         <activity
             android:name=".presenter.activities.intro.IntroActivity"
             android:exported="true"
-            android:label="Brainwallet"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter android:autoVerify="true">
@@ -65,7 +64,6 @@
         <activity
             android:name=".presenter.activities.BreadActivity"
             android:exported="true"
-            android:label="Brainwallet"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
