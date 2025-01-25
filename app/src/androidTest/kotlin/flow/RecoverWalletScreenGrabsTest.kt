@@ -23,14 +23,14 @@ import tools.fastlane.screengrab.locale.LocaleTestRule
 
 @RunWith(JUnit4::class)
 @LargeTest
-class RecoverWalletTest {
+class RecoverWalletScreenGrabsTest {
 
     @Rule
     @JvmField
     val localeTestRule = LocaleTestRule()
 
     @Rule @JvmField
-    val grantPermissionRule: GrantPermissionRule = GrantPermissionRule.grant(android.Manifest.permission.POST_NOTIFICATIONS)
+    val grantPermissionRule: GrantPermissionRule = GrantPermissionRule.grant(android.Manifest.permission.CAMERA)
 
     @get:Rule
     var activityScenarioRule = ActivityScenarioRule(IntroActivity::class.java)
