@@ -12,7 +12,7 @@ plugins {
 val localProperties = gradleLocalProperties(rootDir, providers)
 
 android {
-    namespace = "com.breadwallet"
+    namespace = "com.brainwallet"
     compileSdk = 34
 
     defaultConfig {
@@ -104,7 +104,6 @@ android {
 
             applicationId = "ltd.grunt.brainwallet"
             resValue("string", "app_name", "Brainwallet")
-            buildConfigField("boolean", "LITECOIN_TESTNET", "false")
 
             externalNativeBuild {
                 cmake {
@@ -123,7 +122,6 @@ android {
             applicationId = "ltd.grunt.brainwallet.screengrab"
             versionNameSuffix = "-screengrab"
             resValue("string", "app_name", "Brainwallet (screengrab)")
-            buildConfigField("boolean", "LITECOIN_TESTNET", "false")
             buildConfigField("String[]", "SCREENGRAB_PAPERKEY", 
                 "new String[] {${localProperties.getProperty("SCREENGRAB_PAPERKEY", "")
                     .split(",")
@@ -177,6 +175,7 @@ android {
 val ktlint by configurations.creating
 
 dependencies {
+    implementation(libs.fastlane.screengrab)
     ktlint(libs.pinterest.ktlint) {
         attributes {
             attribute(Bundling.BUNDLING_ATTRIBUTE, objects.named(Bundling.EXTERNAL))

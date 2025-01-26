@@ -1,24 +1,20 @@
-package com.breadwallet.tools.threads;
+package com.brainwallet.tools.threads;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.breadwallet.BreadApp;
-import com.breadwallet.R;
-import com.breadwallet.presenter.activities.BreadActivity;
-import com.breadwallet.presenter.customviews.BRToast;
-import com.breadwallet.presenter.entities.PaymentRequestWrapper;
-import com.breadwallet.tools.security.BitcoinUrlHandler;
-import com.breadwallet.tools.util.BytesUtil;
+import com.brainwallet.BrainwalletApp;
+import com.brainwallet.tools.security.BitcoinUrlHandler;
+import com.brainwallet.tools.util.BytesUtil;
+import com.brainwallet.R;
+import com.brainwallet.presenter.activities.BreadActivity;
+import com.brainwallet.presenter.customviews.BRToast;
+import com.brainwallet.presenter.entities.PaymentRequestWrapper;
 
 import java.io.DataOutputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -78,7 +74,7 @@ public class PaymentProtocolPostPaymentTask extends AsyncTask<String, String, St
 //            PostAuth.getInstance().setTmpPaymentRequest(paymentRequest);
 //            PostAuth.getInstance().onPaymentProtocolRequest(app,false);
         } catch (Exception e) {
-            Context app = BreadApp.getBreadContext();
+            Context app = BrainwalletApp.getBreadContext();
             if (e instanceof java.net.UnknownHostException) {
                 if (app != null) {
                     pendingErrorMessages.put(TITLE, app.getString(R.string.Alert_error));
@@ -121,7 +117,7 @@ public class PaymentProtocolPostPaymentTask extends AsyncTask<String, String, St
     }
 
     public static void handleMessage() {
-        Context app = BreadApp.getBreadContext();
+        Context app = BrainwalletApp.getBreadContext();
         if (app != null && message != null) {
             if (!message.isEmpty()) {
                 BRToast.
