@@ -161,13 +161,13 @@ class RecoverWalletScreenGrabsTest {
 
         Screengrab.screenshot("18_transaction_send")
 
-        device.pressBack()
+        onView(withId(R.id.close_button)).perform(click())
 
         onView(withId(R.id.nav_receive)).perform(click())
 
         Screengrab.screenshot("19_transaction_receive")
 
-        device.pressBack()
+        onView(withId(R.id.close_button)).perform(click())
 
         onView(withId(R.id.nav_buy)).perform(click())
 
