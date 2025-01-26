@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+        package="com.brainwallet"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <uses-sdk
         android:minSdkVersion="31"
@@ -217,7 +218,7 @@
             android:label="SyncReceiver" />
 
         <service
-            android:name="com.litewallet.notification.LitewalletMessagingService"
+            android:name="com.brainwallet.notification.BrainwalletMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

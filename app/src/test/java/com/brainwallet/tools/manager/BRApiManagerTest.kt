@@ -3,7 +3,6 @@ package com.brainwallet.tools.manager
 import android.app.Activity
 import android.content.Context
 import com.brainwallet.presenter.activities.util.ActivityUTILS
-import com.brainwallet.tools.manager.BRApiManager
 import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.tools.util.Utils
 import com.brainwallet.data.source.RemoteConfigSource

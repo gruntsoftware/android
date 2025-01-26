@@ -311,7 +311,7 @@ public class Utils {
     private static boolean isBetween(double x, double lower, double upper) {
         return lower <= x && x <= upper;
     }
-    public static Set<String> litewalletOpsSet(Context app) {
+    public static Set<String> brainwalletOpsSet(Context app) {
         List<String> addressList = Collections.singletonList(Utils.fetchPartnerKey(app, PartnerNames.WALLETOPS));
         return new HashSet<String>(addressList);
     }

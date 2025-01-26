@@ -12,7 +12,7 @@ import com.brainwallet.tools.sqlite.CurrencyDataSource;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.util.Utils;
 import com.brainwallet.presenter.entities.CurrencyEntity;
-import com.litewallet.data.source.RemoteConfigSource;
+import com.brainwallet.data.source.RemoteConfigSource;
 import com.platform.APIClient;
 
 import org.json.JSONArray;
