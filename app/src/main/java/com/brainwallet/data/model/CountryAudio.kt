@@ -1,4 +1,4 @@
-package com.brainwallet.entities
+package com.brainwallet.data.model
 
 @Retention(AnnotationRetention.RUNTIME)
 annotation class AudioRes

@@ -6,9 +6,9 @@
     android:background="@color/black"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.breadwallet.presenter.activities.intro.RecoverActivity">
+    tools:context="com.brainwallet.presenter.activities.intro.RecoverActivity">
 
-    <com.breadwallet.presenter.customviews.BRButton
+    <com.brainwallet.presenter.customviews.BRButton
         style="@style/BRButtonStyle"
         android:id="@+id/send_button"
         android:layout_width="0dp"

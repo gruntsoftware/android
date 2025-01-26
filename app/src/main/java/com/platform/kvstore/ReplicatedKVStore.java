@@ -6,11 +6,11 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.breadwallet.BreadApp;
-import com.breadwallet.tools.security.BRKeyStore;
-import com.breadwallet.tools.threads.BRExecutor;
-import com.breadwallet.tools.util.BRConstants;
-import com.breadwallet.tools.util.Utils;
+import com.brainwallet.BrainwalletApp;
+import com.brainwallet.tools.security.BRKeyStore;
+import com.brainwallet.tools.threads.BRExecutor;
+import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.tools.util.Utils;
 import com.jniwrappers.BRKey;
 import com.platform.interfaces.KVStoreAdaptor;
 import com.platform.sqlite.KVItem;
@@ -803,7 +803,7 @@ public class ReplicatedKVStore {
             Timber.i("timber: encrypt: data is null");
             return null;
         }
-        if (app == null) app = BreadApp.getBreadContext();
+        if (app == null) app = BrainwalletApp.getBreadContext();
         if (app == null) {
             Timber.i("timber: encrypt: app is null");
             return null;
@@ -839,7 +839,7 @@ public class ReplicatedKVStore {
             Timber.i("timber: decrypt: failed to decrypt: %s", data == null ? null : data.length);
             return null;
         }
-        if (app == null) app = BreadApp.getBreadContext();
+        if (app == null) app = BrainwalletApp.getBreadContext();
         if (app == null) return null;
         if (tempAuthKey == null)
             retrieveAuthKey(app);

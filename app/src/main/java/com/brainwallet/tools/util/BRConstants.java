@@ -104,7 +104,7 @@ public class BRConstants {
     public static final String LW_API_PROD_HOST = "https://prod.apigsltd.net";
     public static final String LW_API_DEV_HOST = "https://dev.apigsltd.net";
 
-    public static final String BLOCK_EXPLORER_BASE_URL = BuildConfig.LITECOIN_TESTNET ? "https://chain.so/tx/LTCTEST/" : "https://blockchair.com/litecoin/transaction/";
+    public static final String BLOCK_EXPLORER_BASE_URL = "https://blockchair.com/litecoin/transaction/";
 
     public static final String _20191105_AL = "app_launched";
     public static final String _20191105_VSC = "visit_send_controller";

@@ -34,7 +34,7 @@ public class ImportPrivKeyTask extends AsyncTask<String, String, String> {
 
     public ImportPrivKeyTask(Activity activity) {
         app = activity;
-        UNSPENT_URL = BuildConfig.LITECOIN_TESTNET ? "https://chain.so/tx/LTCTEST/" : "https://blockchair.com/litecoin/transaction/";
+        UNSPENT_URL = "https://blockchair.com/litecoin/transaction/";
     }
 
     @Override

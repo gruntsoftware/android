@@ -97,7 +97,7 @@
                 android:inputType="textPersonName"
                 android:singleLine="true" />
 
-            <com.breadwallet.presenter.customviews.BRButton
+            <com.brainwallet.presenter.customviews.BRButton
                 android:id="@+id/paste_button"
                 style="@style/Send_ActionButStyle"
                 android:layout_width="wrap_content"
@@ -108,7 +108,7 @@
                 app:buttonType="2"
                 app:isBreadButton="true" />
 
-            <com.breadwallet.presenter.customviews.BRButton
+            <com.brainwallet.presenter.customviews.BRButton
                 android:id="@+id/scan"
                 style="@style/Send_ActionButStyle"
                 android:layout_width="wrap_content"
@@ -200,7 +200,7 @@
                 app:layout_constraintStart_toStartOf="@+id/iso_text"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.breadwallet.presenter.customviews.BRButton
+            <com.brainwallet.presenter.customviews.BRButton
                 android:id="@+id/iso_button"
                 style="@style/Send_ActionButStyle"
                 android:layout_width="wrap_content"
@@ -231,7 +231,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.breadwallet.presenter.customviews.BRLinearLayoutWithCaret
+        <com.brainwallet.presenter.customviews.BRLinearLayoutWithCaret
             android:id="@+id/fee_buttons_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -311,7 +311,7 @@
                 tools:text="@string/FeeSelector.economyWarning"
                 tools:textColor="@color/red_text" />
 
-        </com.breadwallet.presenter.customviews.BRLinearLayoutWithCaret>
+        </com.brainwallet.presenter.customviews.BRLinearLayoutWithCaret>
 
         <View
             android:id="@+id/separator2"
@@ -325,7 +325,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.breadwallet.presenter.customviews.BRKeyboard
+            <com.brainwallet.presenter.customviews.BRKeyboard
                 android:id="@+id/keyboard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -370,7 +370,7 @@
             android:layout_height="1dp"
             android:background="@color/extra_light_gray" />
 
-        <com.breadwallet.presenter.customviews.BRButton
+        <com.brainwallet.presenter.customviews.BRButton
             android:id="@+id/send_button"
             style="@style/BRButtonStyle"
             android:layout_width="match_parent"

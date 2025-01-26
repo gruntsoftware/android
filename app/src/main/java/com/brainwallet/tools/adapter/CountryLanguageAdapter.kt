@@ -12,7 +12,7 @@ import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.brainwallet.R
-import com.brainwallet.entities.IntroLanguage
+import com.brainwallet.data.model.IntroLanguage
 
 class CountryLanguageAdapter(context: Context,val languages: Array<IntroLanguage>) : RecyclerView.Adapter<CountryLanguageAdapter.ViewHolder>() {
     private var mCountryLang: Array<IntroLanguage>? = null

@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.brainwallet.R;
-import com.brainwallet.entities.IntroLanguageResource;
-import com.brainwallet.entities.Language;
+import com.brainwallet.data.model.IntroLanguageResource;
+import com.brainwallet.data.model.Language;
 import com.brainwallet.presenter.activities.BreadActivity;
 import com.brainwallet.presenter.activities.SetPinActivity;
 import com.brainwallet.presenter.activities.util.BRActivity;

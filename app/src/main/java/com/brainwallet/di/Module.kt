@@ -7,14 +7,14 @@ import com.brainwallet.data.source.RemoteConfigSource
 
 
 class Module(
-    val remoteConfigSource: com.brainwallet.data.source.RemoteConfigSource = provideRemoteConfigSource(),
-    val apiManager: com.brainwallet.tools.manager.BRApiManager = provideBRApiManager(remoteConfigSource)
+    val remoteConfigSource: RemoteConfigSource = provideRemoteConfigSource(),
+    val apiManager: BRApiManager = provideBRApiManager(remoteConfigSource)
 )
 
-private fun provideBRApiManager(remoteConfigSource: com.litewallet.data.source.RemoteConfigSource): com.brainwallet.tools.manager.BRApiManager {
-    return com.brainwallet.tools.manager.BRApiManager(remoteConfigSource)
+private fun provideBRApiManager(remoteConfigSource: RemoteConfigSource): BRApiManager {
+    return BRApiManager(remoteConfigSource)
 }
 
-private fun provideRemoteConfigSource(): com.brainwallet.data.source.RemoteConfigSource {
-    return com.brainwallet.data.source.RemoteConfigSource.FirebaseImpl(Firebase.remoteConfig)
+private fun provideRemoteConfigSource(): RemoteConfigSource {
+    return RemoteConfigSource.FirebaseImpl(Firebase.remoteConfig)
 }

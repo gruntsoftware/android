@@ -6,7 +6,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.preference.PreferenceManager
-import com.brainwallet.entities.Language
+import com.brainwallet.data.model.Language
 import java.util.Locale
 
 class LocaleHelper private constructor() {

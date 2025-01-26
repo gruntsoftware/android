@@ -59,7 +59,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_text">
 
-        <com.breadwallet.presenter.customviews.BRButton
+        <com.brainwallet.presenter.customviews.BRButton
             style="@style/BRButtonStyle"
             android:id="@+id/pos_button"
             android:layout_width="wrap_content"
@@ -72,7 +72,7 @@
             android:textColor="@color/dark_blue"
             tools:text="Positive"/>
 
-        <com.breadwallet.presenter.customviews.BRButton
+        <com.brainwallet.presenter.customviews.BRButton
             style="@style/BRButtonStyle"
             android:id="@+id/neg_button"
             android:layout_width="wrap_content"

@@ -175,7 +175,6 @@ android {
 val ktlint by configurations.creating
 
 dependencies {
-    implementation(libs.fastlane.screengrab)
     ktlint(libs.pinterest.ktlint) {
         attributes {
             attribute(Bundling.BUNDLING_ATTRIBUTE, objects.named(Bundling.EXTERNAL))
