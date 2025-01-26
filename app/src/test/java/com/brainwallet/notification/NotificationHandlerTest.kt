@@ -47,7 +47,7 @@ class NotificationHandlerTest {
             MessageNotificationKeys.BODY to "This is Body!",
             MessageNotificationKeys.CHANNEL to "general",
             MessageNotificationKeys.ENABLE_NOTIFICATION to "1",
-            NotificationHandler.KEY_DATA_LITEWALLET to "true",
+            NotificationHandler.KEY_DATA_BRAINWALLET to "true",
             "title" to "Hello There!",
             "body" to "This is Body!"
         )
@@ -60,7 +60,7 @@ class NotificationHandlerTest {
             MessageNotificationKeys.BODY to "This is Body!",
             MessageNotificationKeys.CHANNEL to "general",
             MessageNotificationKeys.ENABLE_NOTIFICATION to "1",
-            NotificationHandler.KEY_DATA_LITEWALLET to "true",
+            NotificationHandler.KEY_DATA_BRAINWALLET to "true",
             "title" to "Hello There!",
             "body" to "This is Body!"
         )
