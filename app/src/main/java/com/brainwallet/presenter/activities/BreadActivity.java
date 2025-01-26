@@ -61,7 +61,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
-import com.litewallet.util.PermissionUtil;
+import com.brainwallet.util.PermissionUtil;
 
 import java.math.BigDecimal;
 

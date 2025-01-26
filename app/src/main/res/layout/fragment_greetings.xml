@@ -1,4 +1,4 @@
-<com.breadwallet.presenter.customviews.BRRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.brainwallet.presenter.customviews.BRRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout"
     android:layout_width="match_parent"
@@ -66,7 +66,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/BRText3" />
 
-        <com.breadwallet.presenter.customviews.BRButton
+        <com.brainwallet.presenter.customviews.BRButton
             style="@style/BRButtonStyle"
             android:id="@+id/ok"
             android:layout_width="0dp"
@@ -90,4 +90,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</com.breadwallet.presenter.customviews.BRRelativeLayout>
+</com.brainwallet.presenter.customviews.BRRelativeLayout>

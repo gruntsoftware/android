@@ -29,7 +29,7 @@ import com.brainwallet.exceptions.BRKeystoreErrorException;
 import com.brainwallet.presenter.customviews.BRDialogView;
 import com.brainwallet.wallet.BRWalletManager;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
-import com.litewallet.data.source.RemoteConfigSource;
+import com.brainwallet.data.source.RemoteConfigSource;
 import com.platform.entities.WalletInfo;
 import com.platform.tools.KVStoreManager;
 
@@ -65,6 +65,8 @@ import javax.crypto.spec.IvParameterSpec;
 
 import timber.log.Timber;
 
+//TODO: [yuana] please migrate the caller using [KeyStoreManager]
+@Deprecated
 public class BRKeyStore {
 
     public static final String KEY_STORE_PREFS_NAME = "keyStorePrefs";

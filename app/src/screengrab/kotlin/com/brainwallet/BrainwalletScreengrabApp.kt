@@ -6,7 +6,7 @@ import com.brainwallet.util.cryptography.KeyStoreKeyGenerator
 import com.brainwallet.util.cryptography.KeyStoreManager
 import timber.log.Timber
 
-class BrainwalletScreengrabApp : BreadApp() {
+class BrainwalletScreengrabApp : BrainwalletApp() {
 
     override fun initializeModule() {
         Timber.d("Timber: initializeModule Screengrab")

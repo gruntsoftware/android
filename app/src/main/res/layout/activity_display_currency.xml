@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="com.breadwallet.presenter.activities.SetPinActivity">
+    tools:context="com.brainwallet.presenter.activities.SetPinActivity">
 
     <TextView
         android:id="@+id/title"
@@ -65,7 +65,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/BRText2">
 
-        <com.breadwallet.presenter.customviews.BRButton
+        <com.brainwallet.presenter.customviews.BRButton
             android:id="@+id/left_button"
             style="@style/BRButtonStyle"
             android:layout_width="match_parent"
@@ -78,7 +78,7 @@
             android:textSize="14sp"
             app:isBreadButton="false" />
 
-        <com.breadwallet.presenter.customviews.BRButton
+        <com.brainwallet.presenter.customviews.BRButton
             android:id="@+id/right_button"
             style="@style/BRButtonStyle"
             android:layout_width="match_parent"

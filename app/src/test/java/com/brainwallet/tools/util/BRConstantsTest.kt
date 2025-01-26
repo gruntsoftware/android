@@ -1,18 +1,7 @@
 package com.brainwallet.tools.util
 
-import com.breadwallet.tools.util.BRConstants
-import org.junit.Assert
 import org.junit.Assert.assertSame
 
-import io.mockk.coVerify
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.spyk
-import io.mockk.verify
-import io.mockk.verifyOrder
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
-import org.junit.Assert.assertEquals
 import org.junit.Test
 
 //TODO: migrate from [com.brainwallet.analytics.ConstantsTests]

@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.brainwallet.R
 import com.brainwallet.databinding.ChangeLanguageBottomSheetBinding
-import com.brainwallet.entities.Language
+import com.brainwallet.data.model.Language
 import com.brainwallet.presenter.activities.intro.IntroActivity
 import com.brainwallet.tools.util.LocaleHelper
 import com.brainwallet.tools.util.Utils

@@ -1,6 +1,6 @@
 package com.brainwallet.tools.util
 
-import com.brainwallet.entities.Country
+import com.brainwallet.data.model.Country
 import java.util.Locale
 
 object CountryHelper {

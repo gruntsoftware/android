@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.breadwallet.presenter.customviews.BRButton
+        <com.brainwallet.presenter.customviews.BRButton
             style="@style/BRButtonStyle"
             android:id="@+id/cancel_button"
             android:layout_width="32dp"

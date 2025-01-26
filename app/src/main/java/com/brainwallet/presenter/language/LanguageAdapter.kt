@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import androidx.recyclerview.widget.RecyclerView
 import com.brainwallet.R
-import com.brainwallet.entities.Language
+import com.brainwallet.data.model.Language
 
 
 class LanguageAdapter(val languages: Array<Language>) : RecyclerView.Adapter<LanguageAdapter.ViewHolder>() {

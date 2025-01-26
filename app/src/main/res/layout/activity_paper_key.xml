@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="com.breadwallet.presenter.activities.intro.WriteDownActivity">
+    tools:context="com.brainwallet.presenter.activities.intro.WriteDownActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/gradient_layout"
@@ -86,7 +86,7 @@
         android:layout_marginBottom="32dp"
         android:weightSum="2.0">
 
-        <com.breadwallet.presenter.customviews.BRButton
+        <com.brainwallet.presenter.customviews.BRButton
             style="@style/BRButtonStyle"
             android:id="@+id/button_previous"
             android:layout_width="0dp"
@@ -107,7 +107,7 @@
             android:textSize="18sp"
             app:isBreadButton="true" />
 
-        <com.breadwallet.presenter.customviews.BRButton
+        <com.brainwallet.presenter.customviews.BRButton
             style="@style/BRButtonStyle"
             android:id="@+id/send_button"
             android:layout_width="0dp"
