@@ -10,18 +10,18 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.breadwallet.R
-import com.breadwallet.presenter.activities.BreadActivity
+import com.brainwallet.R
+import com.brainwallet.presenter.activities.BreadActivity
 import com.google.firebase.messaging.RemoteMessage
-import com.litewallet.notification.NotificationHandler.NOTIFICATION_CHANNEL_ID_GENERAL
-import com.litewallet.notification.NotificationHandler.NOTIFICATION_CHANNEL_ID_LITECOIN_NEWS
-import com.litewallet.notification.NotificationHandler.NOTIFICATION_CHANNEL_ID_LITEWALLET_UPDATE
+import com.brainwallet.notification.NotificationHandler.NOTIFICATION_CHANNEL_ID_GENERAL
+import com.brainwallet.notification.NotificationHandler.NOTIFICATION_CHANNEL_ID_LITECOIN_NEWS
+import com.brainwallet.notification.NotificationHandler.NOTIFICATION_CHANNEL_ID_LITEWALLET_UPDATE
 
 object NotificationHandler {
 
     @SuppressLint("MissingPermission")
     fun handleMessageReceived(context: Context, remoteMessage: RemoteMessage): Boolean {
-        if (remoteMessage.data.containsKey(KEY_DATA_LITEWALLET).not()) {
+        if (remoteMessage.data.containsKey(KEY_DATA_BRAINWALLET).not()) {
             return false
         }
 
@@ -51,11 +51,11 @@ object NotificationHandler {
         return true
     }
 
-    const val KEY_DATA_LITEWALLET = "litewallet"
+    const val KEY_DATA_BRAINWALLET = "brainwallet"
 
     const val NOTIFICATION_CHANNEL_ID_GENERAL = "general"
     const val NOTIFICATION_CHANNEL_ID_LITECOIN_NEWS = "litecoin-news"
-    const val NOTIFICATION_CHANNEL_ID_LITEWALLET_UPDATE = "litewallet-update"
+    const val NOTIFICATION_CHANNEL_ID_LITEWALLET_UPDATE = "brainwallet-update"
 
     val defaultNotificationChannels = setOf(
         NOTIFICATION_CHANNEL_ID_GENERAL,

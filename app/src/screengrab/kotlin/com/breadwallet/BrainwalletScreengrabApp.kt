@@ -1,9 +1,9 @@
-package com.breadwallet
+package com.brainwallet
 
-import com.litewallet.data.source.RemoteConfigSource
-import com.litewallet.di.Module
-import com.litewallet.util.cryptography.KeyStoreKeyGenerator
-import com.litewallet.util.cryptography.KeyStoreManager
+import com.brainwallet.data.source.RemoteConfigSource
+import com.brainwallet.di.Module
+import com.brainwallet.util.cryptography.KeyStoreKeyGenerator
+import com.brainwallet.util.cryptography.KeyStoreManager
 import timber.log.Timber
 
 class BrainwalletScreengrabApp : BreadApp() {

@@ -5,12 +5,12 @@ import com.google.firebase.messaging.RemoteMessage
 import timber.log.Timber
 
 
-class LitewalletMessagingService : FirebaseMessagingService() {
+class BrainwalletMessagingService : FirebaseMessagingService() {
 
     override fun onCreate() {
         super.onCreate()
 
-        Timber.d("timber: LitewalletMessagingService.onCreate")
+        Timber.d("timber: BrainwalletMessagingService.onCreate")
     }
 
     override fun onMessageReceived(message: RemoteMessage) {
