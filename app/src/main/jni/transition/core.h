@@ -1,7 +1,7 @@
 #include "jni.h"
 
-#ifndef BREADWALLET_CORE_H
-#define BREADWALLET_CORE_H
+#ifndef BRAINWALLET_CORE_H
+#define BRAINWALLET_CORE_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -21,4 +21,4 @@ Java_com_brainwallet_tools_security_BitcoinUrlHandler_parsePaymentACK(JNIEnv *en
 }
 #endif
 
-#endif //BREADWALLET_CORE_H
+#endif //BRAINWALLETWALLET_CORE_H

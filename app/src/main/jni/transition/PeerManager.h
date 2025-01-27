@@ -3,8 +3,8 @@
 #include "BRInt.h"
 #include "BRPeerManager.h"
 
-#ifndef BREADWALLET_PEERMANAGER_H
-#define BREADWALLET_PEERMANAGER_H
+#ifndef BRAINWALLET_PEERMANAGER_H
+#define BRAINWALLET_PEERMANAGER_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -81,4 +81,4 @@ JNIEXPORT jstring JNICALL Java_com_brainwallet_wallet_BRPeerManager_getCurrentPe
 }
 #endif
 
-#endif //BREADWALLET_PEERMANAGER_H
+#endif //BRAINWALLET_PEERMANAGER_H
