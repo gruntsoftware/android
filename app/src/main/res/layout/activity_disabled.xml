@@ -22,7 +22,7 @@
         android:paddingTop="8dp"
         android:paddingBottom="0dp"
         android:text="@string/UnlockScreen.resetPin"
-        android:textColor="@color/button_secondary_text"
+        android:textColor="@color/sunflower"
         android:textSize="18sp"
         app:isBreadButton="false"
         app:layout_constraintBottom_toBottomOf="parent"

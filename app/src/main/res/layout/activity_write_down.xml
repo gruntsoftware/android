@@ -71,7 +71,7 @@
         android:layout_margin="@dimen/bread_margin"
         android:layout_marginTop="51dp"
         android:text="@string/StartPaperPhrase.body"
-        android:textColor="@color/almost_black"
+        android:textColor="@color/midnight"
         android:textSize="18sp" />
 
     <com.brainwallet.presenter.customviews.BRButton

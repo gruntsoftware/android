@@ -33,8 +33,8 @@
             android:maxLines="1"
             android:padding="8dp"
             android:selectAllOnFocus="true"
-            android:textColor="@color/dark_gray"
-            android:textColorHint="@color/light_gray"
+            android:textColor="@color/dusky"
+            android:textColorHint="@color/sunflower"
             android:textCursorDrawable="@null"
             app:layout_constraintBottom_toTopOf="@+id/filter_buttons_layout"
             app:layout_constraintEnd_toStartOf="@+id/cancel_button"
@@ -68,7 +68,7 @@
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
                 android:text="@string/Search.sent"
-                android:textColor="@color/light_gray"
+                android:textColor="@color/sunflower"
                 android:textSize="@dimen/paragraph"
                 app:buttonType="2"
                 app:isBreadButton="true" />
@@ -85,7 +85,7 @@
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
                 android:text="@string/Search.received"
-                android:textColor="@color/light_gray"
+                android:textColor="@color/sunflower"
                 android:textSize="@dimen/paragraph"
                 app:buttonType="2"
                 app:isBreadButton="true" />
@@ -102,7 +102,7 @@
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
                 android:text="@string/Search.pending"
-                android:textColor="@color/light_gray"
+                android:textColor="@color/sunflower"
                 android:textSize="@dimen/paragraph"
                 app:buttonType="2"
                 app:isBreadButton="true" />
@@ -119,7 +119,7 @@
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
                 android:text="@string/Search.complete"
-                android:textColor="@color/light_gray"
+                android:textColor="@color/sunflower"
                 android:textSize="@dimen/paragraph"
                 app:buttonType="2"
                 app:isBreadButton="true" />
