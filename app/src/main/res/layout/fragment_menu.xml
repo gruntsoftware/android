@@ -1,4 +1,4 @@
-<com.breadwallet.presenter.customviews.BRRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.brainwallet.presenter.customviews.BRRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout"
@@ -93,4 +93,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</com.breadwallet.presenter.customviews.BRRelativeLayout>
+</com.brainwallet.presenter.customviews.BRRelativeLayout>

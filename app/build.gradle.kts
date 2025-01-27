@@ -12,14 +12,14 @@ plugins {
 val localProperties = gradleLocalProperties(rootDir, providers)
 
 android {
-    namespace = "com.breadwallet"
+    namespace = "com.brainwallet"
     compileSdk = 34
 
     defaultConfig {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 34
-        versionCode = 202501251
+        versionCode = 202501262
         versionName = "v4.1.1"
 
         multiDexEnabled = true
@@ -104,7 +104,6 @@ android {
 
             applicationId = "ltd.grunt.brainwallet"
             resValue("string", "app_name", "Brainwallet")
-            buildConfigField("boolean", "LITECOIN_TESTNET", "false")
 
             externalNativeBuild {
                 cmake {
@@ -123,7 +122,6 @@ android {
             applicationId = "ltd.grunt.brainwallet.screengrab"
             versionNameSuffix = "-screengrab"
             resValue("string", "app_name", "Brainwallet (screengrab)")
-            buildConfigField("boolean", "LITECOIN_TESTNET", "false")
             buildConfigField("String[]", "SCREENGRAB_PAPERKEY", 
                 "new String[] {${localProperties.getProperty("SCREENGRAB_PAPERKEY", "")
                     .split(",")

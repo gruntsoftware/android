@@ -125,7 +125,7 @@
             android:layout_height="1dp"
             android:background="@color/extra_light_gray" />
 
-        <com.breadwallet.presenter.customviews.BRButton
+        <com.brainwallet.presenter.customviews.BRButton
             android:id="@+id/show_seed_button"
             style="@style/BRButtonStyle"
             android:layout_width="match_parent"

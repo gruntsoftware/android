@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="com.breadwallet.presenter.activities.SetPinActivity">
+    tools:context="com.brainwallet.presenter.activities.SetPinActivity">
 
     <TextView
         android:id="@+id/sync_preferences"
@@ -95,7 +95,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <com.breadwallet.presenter.customviews.BRButton
+    <com.brainwallet.presenter.customviews.BRButton
         android:id="@+id/button_scan"
         style="@style/BRButtonStyle"
         android:layout_width="0dp"

@@ -1,4 +1,4 @@
-<com.breadwallet.presenter.customviews.BRRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.brainwallet.presenter.customviews.BRRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout"
     android:layout_width="match_parent"
@@ -128,4 +128,4 @@
         android:textColor="@color/almost_black"
         android:textSize="@dimen/sub_header" />
 
-</com.breadwallet.presenter.customviews.BRRelativeLayout>
+</com.brainwallet.presenter.customviews.BRRelativeLayout>

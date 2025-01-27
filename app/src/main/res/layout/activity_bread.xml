@@ -12,7 +12,7 @@
     android:filterTouchesWhenObscured="true"
     android:fitsSystemWindows="true"
     android:focusableInTouchMode="true"
-    tools:context="com.breadwallet.presenter.activities.BreadActivity">
+    tools:context="com.brainwallet.presenter.activities.BreadActivity">
 
     <LinearLayout
         android:id="@+id/toolbar_layout"

@@ -16,8 +16,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "litewallet-android unit test setup..."
-          command: "echo Building tests for litewallet-android! && ls"
+          name: "brainwallet-android unit test setup..."
+          command: "echo Building tests for brainwallet-android! && ls"
       - run:
           name: "Default for gradle.properties"
           command: "echo \"RELEASE_STORE_FILE=/\nRELEASE_STORE_PASSWORD=\nRELEASE_KEY_ALIAS=\nRELEASE_KEY_PASSWORD=\nandroid.useAndroidX=true\nandroid.enableJetifier=true\" >> gradle.properties && ls && cat gradle.properties"
@@ -33,7 +33,7 @@ jobs:
       - android/restore_gradle_cache
       - run:
           name: "Execute Unit Test"
-          command: ./gradlew testLitewalletDebugUnitTest
+          command: ./gradlew testBrainwalletDebugUnitTest
       - android/save_gradle_cache
       - run:
           name: Save test results

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.breadwallet.presenter.customviews.BRLockScreenConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.brainwallet.presenter.customviews.BRLockScreenConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/intro_layout"
@@ -37,7 +37,7 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:listitem="@layout/language_list" />
 
-    <com.breadwallet.presenter.customviews.BRButtonIntro
+    <com.brainwallet.presenter.customviews.BRButtonIntro
         android:id="@+id/button_new_wallet"
         style="@style/BRButtonStyle"
         android:layout_width="0dp"
@@ -57,7 +57,7 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:textColor="@color/white" />
 
-    <com.breadwallet.presenter.customviews.BRButtonIntro
+    <com.brainwallet.presenter.customviews.BRButtonIntro
         android:id="@+id/button_recover_wallet"
         style="@style/BRButtonStyle"
         android:layout_width="0dp"
@@ -90,4 +90,4 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="v1.19.0" />
-</com.breadwallet.presenter.customviews.BRLockScreenConstraintLayout>
+</com.brainwallet.presenter.customviews.BRLockScreenConstraintLayout>
