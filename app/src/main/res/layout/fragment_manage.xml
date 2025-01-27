@@ -25,7 +25,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="Manage Wallet"
-            android:textColor="@color/almost_black"
+            android:textColor="@color/midnight"
             android:textSize="22sp" />
 
         <View
@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginTop="16dp"
-            android:background="@color/separator_gray" />
+            android:background="@color/sunflower" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="Wallet Name"
-            android:textColor="@color/light_gray"
+            android:textColor="@color/sunflower"
             android:textSize="18sp" />
 
         <EditText
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text=""
-            android:textColor="@color/almost_black"
+            android:textColor="@color/midnight"
             android:textSize="18sp" />
 
         <View
@@ -59,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginTop="16dp"
-            android:background="@color/separator_gray" />
+            android:background="@color/sunflower" />
 
         <TextView
             style="@style/BRTextStyle"
@@ -68,7 +68,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="Your wallet name only appears in your account transaction history and cannot be seen by anyone you pay or receive money from."
-            android:textColor="@color/gray"
+            android:textColor="@color/sunflower"
             android:textSize="16sp" />
 
         <TextView
@@ -80,7 +80,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="You created your wallet on ..."
-            android:textColor="@color/gray"
+            android:textColor="@color/sunflower"
             android:textSize="16sp" />
 
     </LinearLayout>

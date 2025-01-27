@@ -27,7 +27,7 @@
             android:layout_gravity="center"
             android:fontFamily="@font/barlowsemicondensed_regular"
             android:text="@string/TransactionDetails.emptyMessage"
-            android:textColor="@color/light_gray"
+            android:textColor="@color/sunflower"
             android:textSize="18sp"
             android:visibility="gone"
             tools:visibility="visible" />

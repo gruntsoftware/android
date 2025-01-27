@@ -16,7 +16,7 @@
         android:layout_marginStart="@dimen/bread_margin"
         android:layout_marginTop="@dimen/bread_margin"
         android:text="@string/RecoverWallet.header"
-        android:textColor="@color/almost_black"
+        android:textColor="@color/midnight"
         android:textSize="@dimen/header"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,7 +40,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:text="@string/RecoverWallet.subheader"
-        android:textColor="@color/almost_black"
+        android:textColor="@color/midnight"
         android:textSize="@dimen/sub_header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/RecoverWallet.instruction"
-        android:textColor="@color/almost_black"
+        android:textColor="@color/midnight"
         android:textSize="@dimen/sub_header"
         app:layout_constraintStart_toStartOf="@+id/description"
         app:layout_constraintTop_toBottomOf="@+id/description" />
@@ -114,13 +114,13 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="fill_horizontal"
                     android:layout_weight="0.5"
-                    android:backgroundTint="@color/extra_light_gray"
+                    android:backgroundTint="@color/white"
                     android:imeOptions="actionNext"
                     android:inputType="textVisiblePassword"
                     android:lines="1"
                     android:nextFocusForward="@+id/word2"
-                    android:textColor="@color/almost_black"
-                    android:textColorHint="@color/extra_light_gray"
+                    android:textColor="@color/midnight"
+                    android:textColorHint="@color/white"
                     android:textCursorDrawable="@null" />
 
                 <TextView
@@ -131,7 +131,7 @@
                     android:layout_weight="1.5"
                     android:gravity="center"
                     android:text="1"
-                    android:textColor="@color/light_gray" />
+                    android:textColor="@color/sunflower" />
             </LinearLayout>
 
             <LinearLayout
@@ -148,13 +148,13 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="fill_horizontal"
                     android:layout_weight="0.5"
-                    android:backgroundTint="@color/extra_light_gray"
+                    android:backgroundTint="@color/white"
                     android:imeOptions="actionNext"
                     android:inputType="textVisiblePassword"
                     android:lines="1"
                     android:nextFocusForward="@+id/word3"
-                    android:textColor="@color/almost_black"
-                    android:textColorHint="@color/extra_light_gray" />
+                    android:textColor="@color/midnight"
+                    android:textColorHint="@color/white" />
 
                 <TextView
                     style="@style/BRTextStyle"
@@ -164,7 +164,7 @@
                     android:layout_weight="1.5"
                     android:gravity="center"
                     android:text="2"
-                    android:textColor="@color/light_gray" />
+                    android:textColor="@color/sunflower" />
             </LinearLayout>
 
             <LinearLayout
@@ -181,13 +181,13 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="fill_horizontal"
                     android:layout_weight="0.5"
-                    android:backgroundTint="@color/extra_light_gray"
+                    android:backgroundTint="@color/white"
                     android:imeOptions="actionNext"
                     android:inputType="textVisiblePassword"
                     android:lines="1"
                     android:nextFocusForward="@+id/word4"
-                    android:textColor="@color/almost_black"
-                    android:textColorHint="@color/extra_light_gray" />
+                    android:textColor="@color/midnight"
+                    android:textColorHint="@color/white" />
 
                 <TextView
                     style="@style/BRTextStyle"
@@ -197,7 +197,7 @@
                     android:layout_weight="1.5"
                     android:gravity="center"
                     android:text="3"
-                    android:textColor="@color/light_gray" />
+                    android:textColor="@color/sunflower" />
             </LinearLayout>
 
         </LinearLayout>
@@ -221,13 +221,13 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="fill_horizontal"
                     android:layout_weight="0.5"
-                    android:backgroundTint="@color/extra_light_gray"
+                    android:backgroundTint="@color/white"
                     android:imeOptions="actionNext"
                     android:inputType="textVisiblePassword"
                     android:lines="1"
                     android:nextFocusForward="@+id/word5"
-                    android:textColor="@color/almost_black"
-                    android:textColorHint="@color/extra_light_gray" />
+                    android:textColor="@color/midnight"
+                    android:textColorHint="@color/white" />
 
                 <TextView
                     style="@style/BRTextStyle"
@@ -237,7 +237,7 @@
                     android:layout_weight="1.5"
                     android:gravity="center"
                     android:text="4"
-                    android:textColor="@color/light_gray" />
+                    android:textColor="@color/sunflower" />
             </LinearLayout>
 
             <LinearLayout
@@ -254,13 +254,13 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="fill_horizontal"
                     android:layout_weight="0.5"
-                    android:backgroundTint="@color/extra_light_gray"
+                    android:backgroundTint="@color/white"
                     android:imeOptions="actionNext"
                     android:inputType="textVisiblePassword"
                     android:lines="1"
                     android:nextFocusForward="@+id/word6"
-                    android:textColor="@color/almost_black"
-                    android:textColorHint="@color/extra_light_gray" />
+                    android:textColor="@color/midnight"
+                    android:textColorHint="@color/white" />
 
                 <TextView
                     style="@style/BRTextStyle"
@@ -270,7 +270,7 @@
                     android:layout_weight="1.5"
                     android:gravity="center"
                     android:text="5"
-                    android:textColor="@color/light_gray" />
+                    android:textColor="@color/sunflower" />
             </LinearLayout>
 
             <LinearLayout
@@ -287,13 +287,13 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="fill_horizontal"
                     android:layout_weight="0.5"
-                    android:backgroundTint="@color/extra_light_gray"
+                    android:backgroundTint="@color/white"
                     android:imeOptions="actionNext"
                     android:inputType="textVisiblePassword"
                     android:lines="1"
                     android:nextFocusForward="@+id/word7"
-                    android:textColor="@color/almost_black"
-                    android:textColorHint="@color/extra_light_gray" />
+                    android:textColor="@color/midnight"
+                    android:textColorHint="@color/white" />
 
                 <TextView
                     style="@style/BRTextStyle"
@@ -303,7 +303,7 @@
                     android:layout_weight="1.5"
                     android:gravity="center"
                     android:text="6"
-                    android:textColor="@color/light_gray" />
+                    android:textColor="@color/sunflower" />
             </LinearLayout>
 
         </LinearLayout>
@@ -327,13 +327,13 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="fill_horizontal"
                     android:layout_weight="0.5"
-                    android:backgroundTint="@color/extra_light_gray"
+                    android:backgroundTint="@color/white"
                     android:imeOptions="actionNext"
                     android:inputType="textVisiblePassword"
                     android:lines="1"
                     android:nextFocusForward="@+id/word8"
-                    android:textColor="@color/almost_black"
-                    android:textColorHint="@color/extra_light_gray" />
+                    android:textColor="@color/midnight"
+                    android:textColorHint="@color/white" />
 
                 <TextView
                     style="@style/BRTextStyle"
@@ -343,7 +343,7 @@
                     android:layout_weight="1.5"
                     android:gravity="center"
                     android:text="7"
-                    android:textColor="@color/light_gray" />
+                    android:textColor="@color/sunflower" />
             </LinearLayout>
 
             <LinearLayout
@@ -360,13 +360,13 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="fill_horizontal"
                     android:layout_weight="0.5"
-                    android:backgroundTint="@color/extra_light_gray"
+                    android:backgroundTint="@color/white"
                     android:imeOptions="actionNext"
                     android:inputType="textVisiblePassword"
                     android:lines="1"
                     android:nextFocusForward="@+id/word9"
-                    android:textColor="@color/almost_black"
-                    android:textColorHint="@color/extra_light_gray" />
+                    android:textColor="@color/midnight"
+                    android:textColorHint="@color/white" />
 
                 <TextView
                     style="@style/BRTextStyle"
@@ -376,7 +376,7 @@
                     android:layout_weight="1.5"
                     android:gravity="center"
                     android:text="8"
-                    android:textColor="@color/light_gray" />
+                    android:textColor="@color/sunflower" />
             </LinearLayout>
 
             <LinearLayout
@@ -393,13 +393,13 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="fill_horizontal"
                     android:layout_weight="0.5"
-                    android:backgroundTint="@color/extra_light_gray"
+                    android:backgroundTint="@color/white"
                     android:imeOptions="actionNext"
                     android:inputType="textVisiblePassword"
                     android:lines="1"
                     android:nextFocusForward="@+id/word10"
-                    android:textColor="@color/almost_black"
-                    android:textColorHint="@color/extra_light_gray" />
+                    android:textColor="@color/midnight"
+                    android:textColorHint="@color/white" />
 
                 <TextView
                     style="@style/BRTextStyle"
@@ -409,7 +409,7 @@
                     android:layout_weight="1.5"
                     android:gravity="center"
                     android:text="9"
-                    android:textColor="@color/light_gray" />
+                    android:textColor="@color/sunflower" />
             </LinearLayout>
 
         </LinearLayout>
@@ -435,13 +435,13 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="fill_horizontal"
                     android:layout_weight="0.5"
-                    android:backgroundTint="@color/extra_light_gray"
+                    android:backgroundTint="@color/white"
                     android:imeOptions="actionNext"
                     android:inputType="textVisiblePassword"
                     android:lines="1"
                     android:nextFocusForward="@+id/word11"
-                    android:textColor="@color/almost_black"
-                    android:textColorHint="@color/extra_light_gray" />
+                    android:textColor="@color/midnight"
+                    android:textColorHint="@color/white" />
 
                 <TextView
                     style="@style/BRTextStyle"
@@ -451,7 +451,7 @@
                     android:layout_weight="1.5"
                     android:gravity="center"
                     android:text="10"
-                    android:textColor="@color/light_gray" />
+                    android:textColor="@color/sunflower" />
             </LinearLayout>
 
             <LinearLayout
@@ -469,13 +469,13 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="fill_horizontal"
                     android:layout_weight="0.5"
-                    android:backgroundTint="@color/extra_light_gray"
+                    android:backgroundTint="@color/white"
                     android:imeOptions="actionNext"
                     android:inputType="textVisiblePassword"
                     android:lines="1"
                     android:nextFocusForward="@+id/word12"
-                    android:textColor="@color/almost_black"
-                    android:textColorHint="@color/extra_light_gray" />
+                    android:textColor="@color/midnight"
+                    android:textColorHint="@color/white" />
 
                 <TextView
                     style="@style/BRTextStyle"
@@ -485,7 +485,7 @@
                     android:layout_weight="1.5"
                     android:gravity="center"
                     android:text="11"
-                    android:textColor="@color/light_gray" />
+                    android:textColor="@color/sunflower" />
             </LinearLayout>
 
             <LinearLayout
@@ -503,12 +503,12 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="fill_horizontal"
                     android:layout_weight="0.5"
-                    android:backgroundTint="@color/extra_light_gray"
+                    android:backgroundTint="@color/white"
                     android:imeOptions="actionDone"
                     android:inputType="textVisiblePassword"
                     android:lines="1"
-                    android:textColor="@color/almost_black"
-                    android:textColorHint="@color/extra_light_gray" />
+                    android:textColor="@color/midnight"
+                    android:textColorHint="@color/white" />
 
                 <TextView
                     style="@style/BRTextStyle"
@@ -518,7 +518,7 @@
                     android:layout_weight="1.5"
                     android:gravity="center"
                     android:text="12"
-                    android:textColor="@color/light_gray" />
+                    android:textColor="@color/sunflower" />
             </LinearLayout>
 
         </LinearLayout>

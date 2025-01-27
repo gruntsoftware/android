@@ -58,7 +58,7 @@ public class AutoFitTextureView extends TextureView {
         framePaint = new Paint();
         framePaint.setAntiAlias(true);
         framePaint.setStyle(Paint.Style.FILL);
-        framePaint.setColor(ctx.getColor(R.color.camera_guideline));
+        framePaint.setColor(ctx.getColor(R.color.grape));
     }
 
     /**

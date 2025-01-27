@@ -69,7 +69,7 @@
             android:layout_marginStart="16dp"
             android:layout_weight="1.0"
             android:background="@android:color/transparent"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/dusky"
             tools:text="Positive"/>
 
         <com.brainwallet.presenter.customviews.BRButton
@@ -81,7 +81,7 @@
             android:layout_marginStart="16dp"
             android:layout_weight="1.0"
             android:background="@android:color/transparent"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/dusky"
             tools:text="Negative"/>
 
     </LinearLayout>

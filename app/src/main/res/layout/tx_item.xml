@@ -22,7 +22,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="Sent"
-            android:textColor="@color/almost_black"
+            android:textColor="@color/midnight"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,7 +35,7 @@
             android:layout_marginTop="0dp"
             android:layout_marginBottom="0dp"
             android:text="$25"
-            android:textColor="@color/almost_black"
+            android:textColor="@color/midnight"
             app:layout_constraintBottom_toBottomOf="@+id/sent_received"
             app:layout_constraintStart_toEndOf="@+id/sent_received"
             app:layout_constraintTop_toTopOf="@+id/sent_received" />
@@ -48,7 +48,7 @@
             android:layout_marginStart="0dp"
             android:layout_marginTop="8dp"
             android:text="to"
-            android:textColor="@color/almost_black"
+            android:textColor="@color/midnight"
             app:layout_constraintStart_toStartOf="@+id/sent_received"
             app:layout_constraintTop_toBottomOf="@+id/sent_received" />
 
@@ -64,7 +64,7 @@
             android:ellipsize="middle"
             android:singleLine="true"
             android:text="account"
-            android:textColor="@color/almost_black"
+            android:textColor="@color/midnight"
             app:layout_constraintBottom_toBottomOf="@+id/to_from"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/to_from"
@@ -81,7 +81,7 @@
             android:layout_marginStart="0dp"
             android:layout_marginTop="8dp"
             android:text="Completed"
-            android:textColor="@color/almost_black"
+            android:textColor="@color/midnight"
             app:layout_constraintStart_toStartOf="@+id/sent_received"
             app:layout_constraintTop_toBottomOf="@+id/comment" />
 
@@ -108,7 +108,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="2d"
-            android:textColor="@color/light_gray"
+            android:textColor="@color/sunflower"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -120,7 +120,7 @@
             android:layout_marginStart="0dp"
             android:layout_marginTop="8dp"
             android:text="For Love"
-            android:textColor="@color/almost_black"
+            android:textColor="@color/midnight"
             app:layout_constraintStart_toStartOf="@+id/sent_received"
             app:layout_constraintTop_toBottomOf="@+id/to_from" />
 

@@ -2,10 +2,6 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
 
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:title">false</item>
         <item name="windowNoTitle">true</item>
@@ -16,6 +12,21 @@
         <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
         <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
     </style>
+    <!-- Base application theme. -->
+    <style name="Theme.Brainwallet" parent="Theme.MaterialComponents.DayNight">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/sunflower</item>
+        <item name="colorOnPrimary">@color/grape</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/midnight</item>
+        <item name="colorSecondaryVariant">@color/dusk</item>
+        <item name="colorOnSecondary">@color/sunflower</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/midnight</item>
+        <!-- Customize your theme here. -->
+        <item name="android:navigationBarColor">@color/rust</item>
+    </style>
 
     <style name="ToolbarTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize color of navigation drawer icon and back arrow -->
@@ -23,12 +34,12 @@
     </style>
 
     <style name="AppTheme.ProgressBarTheme">
-        <item name="colorAccent">@color/dark_blue</item>
+        <item name="colorAccent">@color/dusky</item>
     </style>
 
     <!-- ActionBar styles -->
     <style name="BreadActionBar" parent="@style/Widget.AppCompat.ActionBar">
-        <item name="android:background">@color/white_trans</item>
+        <item name="android:background">@color/white</item>
     </style>
 
     <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
@@ -37,7 +48,7 @@
 
     <style name="RobotoButtonStyle" parent="android:Widget.Holo.Button">
         <item name="android:fontFamily">sans-serif-light</item>
-        <item name="android:textColor">@color/dark_blue</item>
+        <item name="android:textColor">@color/midnight</item>
     </style>
 
     <style name="Send_ActionButStyle">
@@ -45,7 +56,7 @@
         <item name="android:background">@android:color/transparent</item>
         <item name="android:paddingStart">4dp</item>
         <item name="android:paddingEnd">4dp</item>
-        <item name="android:textColor">@color/light_gray</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textSize">16sp</item>
     </style>
 
@@ -73,7 +84,7 @@
 
     <style name="BottomNavTheme" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="colorPrimary">@color/white</item>
-        <item name="colorOnSurface">@color/blue_grey</item>
+        <item name="colorOnSurface">@color/grape</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textSize">12sp</item>
         <item name="fontFamily">@font/barlowsemicondensed_medium</item>

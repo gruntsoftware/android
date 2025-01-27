@@ -22,7 +22,7 @@
         android:paddingStart="16dp"
         android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/almost_black"
+        android:textColor="@color/midnight"
         android:textSize="@dimen/sub_header"
         tools:text="I am dollar here" />
 
