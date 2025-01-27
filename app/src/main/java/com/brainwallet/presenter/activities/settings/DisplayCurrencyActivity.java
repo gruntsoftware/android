@@ -132,11 +132,11 @@ public class DisplayCurrencyActivity extends BRActivity {
             BRSharedPrefs.putCurrencyUnit(this, BRConstants.CURRENT_UNIT_LITES);
             leftButton.setTextColor(getColor(R.color.white));
             leftButton.setBackground(getDrawable(R.drawable.b_half_left_blue));
-            rightButton.setTextColor(getColor(R.color.dark_blue));
+            rightButton.setTextColor(getColor(R.color.dusk));
             rightButton.setBackground(getDrawable(R.drawable.b_half_right_blue_stroke));
         } else {
             BRSharedPrefs.putCurrencyUnit(this, BRConstants.CURRENT_UNIT_LITECOINS);
-            leftButton.setTextColor(getColor(R.color.dark_blue));
+            leftButton.setTextColor(getColor(R.color.dusk));
             leftButton.setBackground(getDrawable(R.drawable.b_half_left_blue_stroke));
             rightButton.setTextColor(getColor(R.color.white));
             rightButton.setBackground(getDrawable(R.drawable.b_half_right_blue));

@@ -124,7 +124,7 @@ public class FingerprintUiHelper extends FingerprintManager.AuthenticationCallba
         mErrorTextView.removeCallbacks(mResetErrorTextRunnable);
         mIcon.setImageResource(R.drawable.ic_fingerprint_success);
         mErrorTextView.setTextColor(
-                mErrorTextView.getResources().getColor(R.color.success_color, null));
+                mErrorTextView.getResources().getColor(R.color.grape, null));
         mErrorTextView.setText(mContext.getString(R.string.Alerts_touchIdSucceeded_android));
         mIcon.postDelayed(new Runnable() {
             @Override
@@ -138,7 +138,7 @@ public class FingerprintUiHelper extends FingerprintManager.AuthenticationCallba
         mIcon.setImageResource(R.drawable.ic_fingerprint_error);
         mErrorTextView.setText(error);
         mErrorTextView.setTextColor(
-                mErrorTextView.getResources().getColor(R.color.warning_color, null));
+                mErrorTextView.getResources().getColor(R.color.rust, null));
         mErrorTextView.removeCallbacks(mResetErrorTextRunnable);
         mErrorTextView.postDelayed(mResetErrorTextRunnable, ERROR_TIMEOUT_MILLIS);
     }
@@ -147,7 +147,7 @@ public class FingerprintUiHelper extends FingerprintManager.AuthenticationCallba
         @Override
         public void run() {
             mErrorTextView.setTextColor(
-                    mErrorTextView.getResources().getColor(R.color.hint_color, null));
+                    mErrorTextView.getResources().getColor(R.color.grape, null));
             mErrorTextView.setText(mContext.getString(R.string.UnlockScreen_touchIdInstructions_android));
             mIcon.setImageResource(R.drawable.ic_fp_40px);
         }
