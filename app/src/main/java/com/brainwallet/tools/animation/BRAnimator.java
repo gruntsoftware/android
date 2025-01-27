@@ -360,8 +360,8 @@ public class BRAnimator {
     }
 
     public static void animateBackgroundDim(final ViewGroup backgroundLayout, boolean reverse) {
-        int transColor = reverse ? R.color.black_trans : android.R.color.transparent;
-        int blackTransColor = reverse ? android.R.color.transparent : R.color.black_trans;
+        int transColor = reverse ? R.color.midnight : android.R.color.transparent;
+        int blackTransColor = reverse ? android.R.color.transparent : R.color.midnight;
 
         ValueAnimator anim = new ValueAnimator();
         anim.setIntValues(transColor, blackTransColor);

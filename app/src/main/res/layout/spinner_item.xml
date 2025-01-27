@@ -11,7 +11,7 @@
     android:layout_marginEnd="8dp"
     android:layout_marginBottom="12dp"
     android:padding="8dp"
-    android:textColor="@color/light_gray"
+    android:textColor="@color/sunflower"
     android:textSize="@dimen/paragraph"
     app:buttonType="2"
     app:isBreadButton="true" />

@@ -103,7 +103,7 @@
             android:paddingBottom="8dp"
             android:paddingTop="8dp"
             android:text="@string/WritePaperPhrase.previous"
-            android:textColor="@color/extra_light_gray"
+            android:textColor="@color/white"
             android:textSize="18sp"
             app:isBreadButton="true" />
 
@@ -123,7 +123,7 @@
             android:paddingBottom="8dp"
             android:paddingTop="8dp"
             android:text="@string/RecoverWallet.next"
-            android:textColor="@color/button_secondary_text"
+            android:textColor="@color/sunflower"
             android:textSize="18sp"
             app:isBreadButton="true" />
 
@@ -138,7 +138,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:text="1 of 12"
-        android:textColor="@color/light_gray" />
+        android:textColor="@color/sunflower" />
 
 
 </RelativeLayout>

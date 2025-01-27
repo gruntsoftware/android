@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="bottom"
     android:animateLayoutChanges="true"
-    android:background="@color/black_trans"
+    android:background="@color/midnight"
     android:filterTouchesWhenObscured="true"
     android:isScrollContainer="false">
 
@@ -56,7 +56,7 @@
                 android:layout_marginEnd="@dimen/bread_margin"
                 android:layout_marginBottom="@dimen/bread_margin"
                 android:text="@string/settings_show_seed"
-                android:textColor="@color/almost_black"
+                android:textColor="@color/midnight"
                 android:textSize="@dimen/header"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="81dp" />
@@ -66,7 +66,7 @@
             android:id="@+id/separator0"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/extra_light_gray" />
+            android:background="@color/white" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -92,13 +92,13 @@
             android:id="@+id/separator"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/extra_light_gray" />
+            android:background="@color/white" />
 
         <View
             android:id="@+id/separator2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/extra_light_gray" />
+            android:background="@color/white" />
 
         <LinearLayout
             android:id="@+id/keyboard_layout"
@@ -110,7 +110,7 @@
                 android:id="@+id/separator3"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/extra_light_gray" />
+                android:background="@color/white" />
         </LinearLayout>
 
         <LinearLayout
@@ -123,7 +123,7 @@
             android:id="@+id/separator4"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/extra_light_gray" />
+            android:background="@color/white" />
 
         <com.brainwallet.presenter.customviews.BRButton
             android:id="@+id/show_seed_button"
