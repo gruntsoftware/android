@@ -10,9 +10,9 @@ import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.GrantPermissionRule
 import androidx.test.uiautomator.UiDevice
-import com.breadwallet.BuildConfig
-import com.breadwallet.R
-import com.breadwallet.presenter.activities.intro.IntroActivity
+import com.brainwallet.BuildConfig
+import com.brainwallet.R
+import com.brainwallet.presenter.activities.intro.IntroActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -161,13 +161,13 @@ class RecoverWalletScreenGrabsTest {
 
         Screengrab.screenshot("18_transaction_send")
 
-        device.pressBack()
+        onView(withId(R.id.close_button)).perform(click())
 
         onView(withId(R.id.nav_receive)).perform(click())
 
         Screengrab.screenshot("19_transaction_receive")
 
-        device.pressBack()
+        onView(withId(R.id.close_button)).perform(click())
 
         onView(withId(R.id.nav_buy)).perform(click())
 

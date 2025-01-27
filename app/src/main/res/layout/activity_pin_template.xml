@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="com.breadwallet.presenter.activities.SetPinActivity">
+    tools:context="com.brainwallet.presenter.activities.SetPinActivity">
 
     <TextView
         android:id="@+id/title"
@@ -39,7 +39,7 @@
         app:layout_constraintStart_toStartOf="@+id/title"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
-    <com.breadwallet.presenter.customviews.BRKeyboard
+    <com.brainwallet.presenter.customviews.BRKeyboard
         android:id="@+id/brkeyboard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -7,11 +7,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.NetworkOnMainThreadException;
 
-import com.breadwallet.BreadApp;
-import com.breadwallet.BuildConfig;
-import com.breadwallet.presenter.activities.util.ActivityUTILS;
-import com.breadwallet.tools.util.BRConstants;
-import com.breadwallet.tools.util.Utils;
+import com.brainwallet.BrainwalletApp;
+import com.brainwallet.BrainwalletApp;
+import com.brainwallet.BuildConfig;
+import com.brainwallet.presenter.activities.util.ActivityUTILS;
+import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.tools.util.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,10 +30,10 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import timber.log.Timber;
-import com.breadwallet.tools.manager.AnalyticsManager;
-import com.breadwallet.tools.util.BRConstants;
+import com.brainwallet.tools.manager.AnalyticsManager;
+import com.brainwallet.tools.util.BRConstants;
 
-import static com.breadwallet.tools.util.BRCompressor.gZipExtract;
+import static com.brainwallet.tools.util.BRCompressor.gZipExtract;
 
 public class APIClient {
 
@@ -40,7 +41,7 @@ public class APIClient {
     private static final String PROTO = "https";
 
     // convenience getter for the API endpoint
-    public static String BASE_URL = PROTO + "://" + BreadApp.HOST;
+    public static String BASE_URL = PROTO + "://" + BrainwalletApp.HOST;
     //feePerKb url
     private static final String FEE_PER_KB_URL = "/v1/fee-per-kb";
     //singleton instance
@@ -105,9 +106,11 @@ public class APIClient {
         if (ActivityUTILS.isMainThread()) {
             throw new NetworkOnMainThreadException();
         }
-        boolean isTestNet = BuildConfig.LITECOIN_TESTNET;
         String lang = getCurrentLocale(ctx);
-        Request request = locRequest.newBuilder().header("X-Litecoin-Testnet", isTestNet ? "true" : "false").header("Accept-Language", lang).build();
+        Request request = locRequest.newBuilder()
+                .header("X-Litecoin-Testnet", "false")
+                .header("Accept-Language", lang)
+                .build();
 
         Response response;
         ResponseBody postReqBody;
@@ -132,7 +135,7 @@ public class APIClient {
                 Uri newUri = Uri.parse(newLocation);
                 if (newUri == null) {
                     Timber.d("timber: sendRequest: redirect uri is null");
-                } else if (!newUri.getHost().equalsIgnoreCase(BreadApp.HOST) || !newUri.getScheme().equalsIgnoreCase(PROTO)) {
+                } else if (!newUri.getHost().equalsIgnoreCase(BrainwalletApp.HOST) || !newUri.getScheme().equalsIgnoreCase(PROTO)) {
                     Timber.d("timber: sendRequest: WARNING: redirect is NOT safe: %s", newLocation);
                 } else {
                     Timber.d("timber: redirecting: %s >>> %s", request.url(), newLocation);

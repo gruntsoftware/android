@@ -56,7 +56,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <com.breadwallet.presenter.customviews.BRButton
+            <com.brainwallet.presenter.customviews.BRButton
                 android:id="@+id/sent_filter"
                 style="@style/BRButtonStyle"
                 android:layout_width="60dp"
@@ -73,7 +73,7 @@
                 app:buttonType="2"
                 app:isBreadButton="true" />
 
-            <com.breadwallet.presenter.customviews.BRButton
+            <com.brainwallet.presenter.customviews.BRButton
                 android:id="@+id/received_filter"
                 style="@style/BRButtonStyle"
                 android:layout_width="85dp"
@@ -90,7 +90,7 @@
                 app:buttonType="2"
                 app:isBreadButton="true" />
 
-            <com.breadwallet.presenter.customviews.BRButton
+            <com.brainwallet.presenter.customviews.BRButton
                 android:id="@+id/pending_filter"
                 style="@style/BRButtonStyle"
                 android:layout_width="85dp"
@@ -107,7 +107,7 @@
                 app:buttonType="2"
                 app:isBreadButton="true" />
 
-            <com.breadwallet.presenter.customviews.BRButton
+            <com.brainwallet.presenter.customviews.BRButton
                 android:id="@+id/complete_filter"
                 style="@style/BRButtonStyle"
                 android:layout_width="85dp"
@@ -126,7 +126,7 @@
 
         </LinearLayout>
 
-        <com.breadwallet.presenter.customviews.BRButton
+        <com.brainwallet.presenter.customviews.BRButton
             android:id="@+id/cancel_button"
             style="@style/BRButtonStyle"
             android:layout_width="wrap_content"

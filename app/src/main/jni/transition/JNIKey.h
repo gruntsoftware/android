@@ -1,6 +1,6 @@
 
-#ifndef BREADWALLET_JNIKEY_H
-#define BREADWALLET_JNIKEY_H
+#ifndef BRAINWALLET_JNIKEY_H
+#define BRAINWALLET_JNIKEY_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -31,4 +31,4 @@ JNIEXPORT jbyteArray JNICALL Java_com_jniwrappers_BRKey_address(JNIEnv *env, job
 }
 #endif
 
-#endif //BREADWALLET_JNIKEY_H
+#endif //BRAINWALLET_JNIKEY_H

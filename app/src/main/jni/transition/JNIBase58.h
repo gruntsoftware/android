@@ -1,6 +1,6 @@
 
-#ifndef BREADWALLET_JNIBASE58_H
-#define BREADWALLET_JNIBASE58_H
+#ifndef BRAINWALLET_JNIBASE58_H
+#define BRAINWALLET_JNIBASE58_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -15,4 +15,4 @@ JNIEXPORT jstring JNICALL Java_com_jniwrappers_BRBase58_base58Encode(
 }
 #endif
 
-#endif //BREADWALLET_JNIBASE58_H
+#endif //BRAINWALLET_JNIBASE58_H

@@ -7,7 +7,7 @@
     android:orientation="horizontal"
     android:rowCount="4">
 
-    <com.breadwallet.presenter.customviews.BRButton
+    <com.brainwallet.presenter.customviews.BRButton
         style="@style/BRButtonStyle"
         android:id="@+id/num1"
         android:layout_column="0"
@@ -24,7 +24,7 @@
         android:textColor="@color/pin_pad_text"
         android:textSize="@dimen/pin_par_text_size" />
 
-    <com.breadwallet.presenter.customviews.BRButton
+    <com.brainwallet.presenter.customviews.BRButton
         style="@style/BRButtonStyle"
         android:id="@+id/num2"
         android:layout_column="1"
@@ -40,7 +40,7 @@
         android:textColor="@color/pin_pad_text"
         android:textSize="@dimen/pin_par_text_size" />
 
-    <com.breadwallet.presenter.customviews.BRButton
+    <com.brainwallet.presenter.customviews.BRButton
         style="@style/BRButtonStyle"
         android:id="@+id/num3"
         android:layout_column="2"
@@ -56,7 +56,7 @@
         android:textColor="@color/pin_pad_text"
         android:textSize="@dimen/pin_par_text_size" />
 
-    <com.breadwallet.presenter.customviews.BRButton
+    <com.brainwallet.presenter.customviews.BRButton
         style="@style/BRButtonStyle"
         android:id="@+id/num4"
         android:layout_column="0"
@@ -71,7 +71,7 @@
         android:textColor="@color/pin_pad_text"
         android:textSize="@dimen/pin_par_text_size" />
 
-    <com.breadwallet.presenter.customviews.BRButton
+    <com.brainwallet.presenter.customviews.BRButton
         style="@style/BRButtonStyle"
         android:id="@+id/num5"
         android:layout_column="1"
@@ -86,7 +86,7 @@
         android:textColor="@color/pin_pad_text"
         android:textSize="@dimen/pin_par_text_size" />
 
-    <com.breadwallet.presenter.customviews.BRButton
+    <com.brainwallet.presenter.customviews.BRButton
         style="@style/BRButtonStyle"
         android:id="@+id/num6"
         android:layout_column="2"
@@ -101,7 +101,7 @@
         android:textColor="@color/pin_pad_text"
         android:textSize="@dimen/pin_par_text_size" />
 
-    <com.breadwallet.presenter.customviews.BRButton
+    <com.brainwallet.presenter.customviews.BRButton
         style="@style/BRButtonStyle"
         android:id="@+id/num7"
         android:layout_column="0"
@@ -116,7 +116,7 @@
         android:textColor="@color/pin_pad_text"
         android:textSize="@dimen/pin_par_text_size" />
 
-    <com.breadwallet.presenter.customviews.BRButton
+    <com.brainwallet.presenter.customviews.BRButton
         style="@style/BRButtonStyle"
         android:id="@+id/num8"
         android:layout_column="1"
@@ -131,7 +131,7 @@
         android:textColor="@color/pin_pad_text"
         android:textSize="@dimen/pin_par_text_size" />
 
-    <com.breadwallet.presenter.customviews.BRButton
+    <com.brainwallet.presenter.customviews.BRButton
         style="@style/BRButtonStyle"
         android:id="@+id/num9"
         android:layout_column="2"
@@ -146,7 +146,7 @@
         android:textColor="@color/pin_pad_text"
         android:textSize="@dimen/pin_par_text_size" />
 
-    <com.breadwallet.presenter.customviews.BRButton
+    <com.brainwallet.presenter.customviews.BRButton
         style="@style/BRButtonStyle"
         android:id="@+id/numDot"
         android:layout_column="0"
@@ -161,7 +161,7 @@
         android:textColor="@color/pin_pad_text"
         android:textSize="@dimen/pin_par_text_size" />
 
-    <com.breadwallet.presenter.customviews.BRButton
+    <com.brainwallet.presenter.customviews.BRButton
         style="@style/BRButtonStyle"
         android:id="@+id/num0"
         android:layout_column="1"
