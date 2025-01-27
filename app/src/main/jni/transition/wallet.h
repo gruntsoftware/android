@@ -3,8 +3,8 @@
 #include "BRInt.h"
 #include "BRWallet.h"
 
-#ifndef BREADWALLET_WALLET_H
-#define BREADWALLET_WALLET_H
+#ifndef BRAINWALLET_WALLET_H
+#define BRAINWALLET_WALLET_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -223,4 +223,4 @@ JNIEXPORT jlong JNICALL Java_com_brainwallet_wallet_BRWalletManager_maxFee(JNIEn
 }
 #endif
 
-#endif //BREADWALLET_WALLET_H
+#endif //BRAINWALLET_WALLET_H
