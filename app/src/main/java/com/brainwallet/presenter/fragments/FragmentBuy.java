@@ -124,7 +124,7 @@ public class FragmentBuy extends Fragment {
         Partner partner = (Partner) getArguments().getSerializable(PARTNER_KEY);
 
         String bitrefillRef = "bAshL935";
-        String utmSource = "LitewalletAndroid";
+        String utmSource = "BrainwalletAndroid";
         String bitrefillUrl = String.format( BRConstants.BITREFILL_AFFILIATE_LINK + "/embed/?paymentMethod=litecoin&ref=%s&utm_source=%s", bitrefillRef,utmSource);
 
         String buyUrl = partner == Partner.BITREFILL ? bitrefillUrl : url(getContext(), partner, currency);

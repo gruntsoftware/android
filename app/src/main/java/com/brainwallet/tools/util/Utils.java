@@ -181,7 +181,7 @@ public class Utils {
                 Timber.e(e);
             }
         }
-        return String.format(Locale.ENGLISH, "%s/%d %s Android/%s", "Litewallet", versionNumber, cfnetwork, Build.VERSION.RELEASE);
+        return String.format(Locale.ENGLISH, "%s/%d %s Android/%s", "Brainwallet", versionNumber, cfnetwork, Build.VERSION.RELEASE);
     }
 
     public static String reverseHex(String hex) {

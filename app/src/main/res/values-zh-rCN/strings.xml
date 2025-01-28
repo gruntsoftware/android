@@ -26,7 +26,7 @@
   <!-- Error alert title -->
   <string name="Alert.error">错误</string>
   <!-- Keystore error -->
-  <string name="Alert.keystore.generic.android">您的安卓操作系统密钥库存在问题，请联系support.litewallet.io</string>
+  <string name="Alert.keystore.generic.android">您的安卓操作系统密钥库存在问题，请联系support.brainwallet.co</string>
   <!-- KeyStore error, keys are invalidated -->
   <string name="Alert.keystore.invalidated.android">您的 Loaf 加密数据最近因为您的安卓系统屏幕锁定被禁用而失效。</string>
   <!-- Keystore error title -->
@@ -104,7 +104,7 @@
   <!-- Email unavailable alert title -->
     <!-- Email unavailable alert title -->
   <!-- Messaging unavailable alert title -->
-    <string name="ErrorMessages.loopingLockScreen.android">由于您的 Android 版本存在错误，Litewallet 无法通过身份验证。 [请点击这里了解更多信息。]</string>
+    <string name="ErrorMessages.loopingLockScreen.android">由于您的 Android 版本存在错误，Brainwallet 无法通过身份验证。 [请点击这里了解更多信息。]</string>
     <string name="ErrorMessages.messagingUnavailableMessage">本设备未被配置来发送消息。</string>
   <!-- Messaging unavailable alert title -->
   <string name="ErrorMessages.messagingUnavailableTitle">消息发送不可用</string>
@@ -674,9 +674,9 @@
   <!-- Updating webview message -->
   <string name="Webview.updating">正在更新...</string>
   <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
-  <string name="Welcome.body">Litewallet 更名为 Loaf， 并增加了全新的界面和功能。如果您需要帮助，请使用在大多数设备屏幕右上角的(?)</string>
+  <string name="Welcome.body">Brainwallet 更名为 Loaf， 并增加了全新的界面和功能。如果您需要帮助，请使用在大多数设备屏幕右上角的(?)</string>
   <!-- Top title of welcome screen -->
-  <string name="Welcome.title">欢迎使用Litewallet！</string>
+  <string name="Welcome.title">欢迎使用Brainwallet！</string>
   <!-- Wipe wallet alert message -->
   <string name="WipeWallet.alertMessage">您确认要删除此钱包吗？</string>
   <!-- Wipe wallet alert title -->
@@ -729,7 +729,7 @@
   <!-- Announce Updates View -->
   <string name="Announce.title">不要错过任何东西！</string>
   <string name="Announce.close">关闭</string>
-  <string name="Announce.description">注册以了解 Litewallet 团队的更新和竞赛信息！接受通知，获取实时新闻、价格和市场信息！</string>
+  <string name="Announce.description">注册以了解 Brainwallet 团队的更新和竞赛信息！接受通知，获取实时新闻、价格和市场信息！</string>
   <string name="Announce.no_thanks">不用了，谢谢</string>
     <string name="Fees.Service">服务</string>
     <string name="Network.feeLabel">网络</string>
