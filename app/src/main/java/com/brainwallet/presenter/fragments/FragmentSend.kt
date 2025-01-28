@@ -23,7 +23,7 @@ import androidx.transition.TransitionManager
 import com.brainwallet.R
 import com.brainwallet.presenter.customviews.BRKeyboard
 import com.brainwallet.presenter.customviews.BRLinearLayoutWithCaret
-import com.brainwallet.presenter.entities.PartnerNames
+import com.brainwallet.presenter.entities.ServiceItems
 import com.brainwallet.presenter.entities.TransactionItem
 import com.brainwallet.tools.animation.BRAnimator
 import com.brainwallet.tools.animation.BRDialog
@@ -374,7 +374,7 @@ class FragmentSend : Fragment() {
                     BRSender.getInstance().sendTransaction(
                         context,
                         TransactionItem(sendAddress,
-                            Utils.fetchPartnerKey(context, PartnerNames.WALLETOPS),
+                            Utils.fetchServiceItem(context, ServiceItems.WALLETOPS),
                             null,
                             litoshiAmount.toLong(),
                             Utils.tieredOpsFee(context, litoshiAmount.toLong()),

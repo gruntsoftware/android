@@ -8,7 +8,7 @@ import com.brainwallet.tools.threads.PaymentProtocolTask;
 import com.brainwallet.tools.util.Utils;
 import com.brainwallet.R;
 import com.brainwallet.presenter.customviews.BRDialogView;
-import com.brainwallet.presenter.entities.PartnerNames;
+import com.brainwallet.presenter.entities.ServiceItems;
 import com.brainwallet.presenter.entities.PaymentRequestWrapper;
 import com.brainwallet.presenter.entities.RequestObject;
 import com.brainwallet.presenter.entities.TransactionItem;
@@ -163,7 +163,7 @@ public class BitcoinUrlHandler {
                 BRSender.getInstance()
                         .sendTransaction(app,
                                 new TransactionItem(requestObject.address,
-                                Utils.fetchPartnerKey(app, PartnerNames.WALLETOPS),
+                                Utils.fetchServiceItem(app, ServiceItems.WALLETOPS),
                                 null,
                                 new BigDecimal(amount).longValue(),
                                 Utils.tieredOpsFee(app,  new BigDecimal(amount).longValue()),
