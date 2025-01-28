@@ -15,7 +15,7 @@ import com.brainwallet.presenter.activities.BreadActivity
 import com.google.firebase.messaging.RemoteMessage
 import com.brainwallet.notification.NotificationHandler.NOTIFICATION_CHANNEL_ID_GENERAL
 import com.brainwallet.notification.NotificationHandler.NOTIFICATION_CHANNEL_ID_LITECOIN_NEWS
-import com.brainwallet.notification.NotificationHandler.NOTIFICATION_CHANNEL_ID_LITEWALLET_UPDATE
+import com.brainwallet.notification.NotificationHandler.NOTIFICATION_CHANNEL_ID_BRAINWALLET_UPDATE
 
 object NotificationHandler {
 
@@ -55,12 +55,12 @@ object NotificationHandler {
 
     const val NOTIFICATION_CHANNEL_ID_GENERAL = "general"
     const val NOTIFICATION_CHANNEL_ID_LITECOIN_NEWS = "litecoin-news"
-    const val NOTIFICATION_CHANNEL_ID_LITEWALLET_UPDATE = "brainwallet-update"
+    const val NOTIFICATION_CHANNEL_ID_BRAINWALLET_UPDATE = "brainwallet-update"
 
     val defaultNotificationChannels = setOf(
         NOTIFICATION_CHANNEL_ID_GENERAL,
         NOTIFICATION_CHANNEL_ID_LITECOIN_NEWS,
-        NOTIFICATION_CHANNEL_ID_LITEWALLET_UPDATE
+        NOTIFICATION_CHANNEL_ID_BRAINWALLET_UPDATE
     )
 }
 
@@ -77,8 +77,8 @@ fun setupNotificationChannels(context: Context) {
     )
     createNotificationChannel(
         context,
-        NOTIFICATION_CHANNEL_ID_LITEWALLET_UPDATE,
-        context.getString(R.string.notification_channel_name_litewallet_update)
+        NOTIFICATION_CHANNEL_ID_BRAINWALLET_UPDATE,
+        context.getString(R.string.notification_channel_name_brainwallet_update)
     )
 }
 
