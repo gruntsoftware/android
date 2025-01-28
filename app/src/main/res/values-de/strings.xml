@@ -26,7 +26,7 @@
   <!-- Error alert title -->
   <string name="Alert.error">Fehler</string>
   <!-- Keystore error -->
-  <string name="Alert.keystore.generic.android">Es liegt ein Problem mit dem KeyStore Ihres Android-Betriebssystems vor, bitte wenden Sie sich an support.litewallet.io</string>
+  <string name="Alert.keystore.generic.android">Es liegt ein Problem mit dem KeyStore Ihres Android-Betriebssystems vor, bitte wenden Sie sich an support.brainwallet.co</string>
   <!-- KeyStore error, keys are invalidated -->
   <string name="Alert.keystore.invalidated.android">Ihre mit Loaf verschlüsselten Daten wurden vor Kurzem für ungültig erklärt, da Ihre Android-Bildschirmsperre deaktiviert war.</string>
   <!-- Keystore error title -->
@@ -104,7 +104,7 @@
   <!-- Email unavailable alert title -->
   <!-- Email unavailable alert title -->
   <!-- Messaging unavailable alert title -->
-  <string name="ErrorMessages.loopingLockScreen.android">Litewallet kann aufgrund eines Fehlers in Ihrer Android-Version nicht authentifiziert werden. [Für weitere Informationen tippen Sie bitte hier.]</string>
+  <string name="ErrorMessages.loopingLockScreen.android">Brainwallet kann aufgrund eines Fehlers in Ihrer Android-Version nicht authentifiziert werden. [Für weitere Informationen tippen Sie bitte hier.]</string>
   <string name="ErrorMessages.messagingUnavailableMessage">Dieses Gerät ist nicht dafür eingerichtet, Nachrichten zu versenden.</string>
   <!-- Messaging unavailable alert title -->
   <string name="ErrorMessages.messagingUnavailableTitle">Nachrichtensystem nicht verfügbar</string>
@@ -522,7 +522,7 @@
   <string name="TouchIdSettings.spendingLimit">Ausgabelimit: %1$s  (%2$s)</string>
   <!-- Touch id switch label. -->
   <string name="TouchIdSettings.switchLabel">Touch ID für Loaf aktivieren</string>
-  <!-- Enable fingerprint for this wallet called Litewallet -->
+  <!-- Enable fingerprint for this wallet called Brainwallet -->
   <string name="TouchIdSettings.switchLabel.android">Fingerabdruck-Authentifizierung aktivieren</string>
   <!-- Touch ID settings view title -->
   <string name="TouchIdSettings.title">Touch ID</string>
@@ -674,9 +674,9 @@
   <!-- Updating webview message -->
   <string name="Webview.updating">Aktualisierung läuft …</string>
   <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
-  <string name="Welcome.body">Litewallet heißt jetzt und hat ein brandneues Erscheinungsbild sowie einige neue Funktionen.\n\nWenn Sie Hilfe benötigen, halten Sie Ausschau nach dem (?), das auf den meisten Bildschirm oben rechts zu finden ist.</string>
+  <string name="Welcome.body">Brainwallet heißt jetzt und hat ein brandneues Erscheinungsbild sowie einige neue Funktionen.\n\nWenn Sie Hilfe benötigen, halten Sie Ausschau nach dem (?), das auf den meisten Bildschirm oben rechts zu finden ist.</string>
   <!-- Top title of welcome screen -->
-  <string name="Welcome.title">Willkommen bei Litewallet!</string>
+  <string name="Welcome.title">Willkommen bei Brainwallet!</string>
   <!-- Wipe wallet alert message -->
   <string name="WipeWallet.alertMessage">Sind Sie sicher, dass Sie dieses Wallet löschen möchten?</string>
   <!-- Wipe wallet alert title -->
@@ -729,7 +729,7 @@
   <!-- Announce Updates View -->
   <string name="Announce.title">Verpassen Sie nichts!</string>
   <string name="Announce.close">Schließen</string>
-  <string name="Announce.description">Melden Sie sich an, um über Updates und Wettbewerbe vom Litewallet-Team zu erfahren! Akzeptieren Sie Benachrichtigungen, um Live-Nachrichten, Preise, \u0026 Marktinformationen zu erhalten!</string>
+  <string name="Announce.description">Melden Sie sich an, um über Updates und Wettbewerbe vom Brainwallet-Team zu erfahren! Akzeptieren Sie Benachrichtigungen, um Live-Nachrichten, Preise, \u0026 Marktinformationen zu erhalten!</string>
   <string name="Announce.no_thanks">Nein danke!</string>
     <string name="Fees.Service">Service</string>
     <string name="Network.feeLabel">Netzwerk</string>

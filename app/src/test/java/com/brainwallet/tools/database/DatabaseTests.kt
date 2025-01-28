@@ -41,11 +41,11 @@ class DatabaseTests {
 //    }
 //    @Test
 //    public void testAppExternalURLConstants() {
-//        Assert.assertSame(BRConstants.TWITTER_LINK,"https://twitter.com/Litewallet_App");
+//        Assert.assertSame(BRConstants.TWITTER_LINK,"https://twitter.com/Brainwallet_App");
 //        Assert.assertSame(BRConstants.INSTAGRAM_LINK,"https://www.instagram.com/litewallet.app");
-//        Assert.assertSame(BRConstants.WEB_LINK,"https://litewallet.io");
-//        Assert.assertSame(BRConstants.TOS_LINK,"https://litewallet.io/privacy");
-//        Assert.assertSame(BRConstants.CUSTOMER_SUPPORT_LINK,"https://support.litewallet.io/hc/en-us/requests/new");
+//        Assert.assertSame(BRConstants.WEB_LINK,"https://brainwallet.co");
+//        Assert.assertSame(BRConstants.TOS_LINK,"https://brainwallet.co/privacy");
+//        Assert.assertSame(BRConstants.CUSTOMER_SUPPORT_LINK,"https://support.brainwallet.co/hc/en-us/requests/new");
 //        Assert.assertSame(BRConstants.BITREFILL_AFFILIATE_LINK,"https://www.bitrefill.com/");
 //    }
 //    @Test

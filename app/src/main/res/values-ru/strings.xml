@@ -26,7 +26,7 @@
   <!-- Error alert title -->
   <string name="Alert.error">Ошибка</string>
   <!-- Keystore error -->
-  <string name="Alert.keystore.generic.android">Имеется проблема с хранилищем ключей в вашей ОС Android, обратитесь по адресу: support.litewallet.io</string>
+  <string name="Alert.keystore.generic.android">Имеется проблема с хранилищем ключей в вашей ОС Android, обратитесь по адресу: support.brainwallet.co</string>
   <!-- KeyStore error, keys are invalidated -->
   <string name="Alert.keystore.invalidated.android">Ваши зашифрованные данные приложения Loaf были недавно аннулированы, так как была отключена блокировка экрана вашего устройства Android.</string>
   <!-- Keystore error title -->
@@ -104,7 +104,7 @@
   <!-- Email unavailable alert title -->
     <!-- Email unavailable alert title -->
   <!-- Messaging unavailable alert title -->
-    <string name="ErrorMessages.loopingLockScreen.android">Litewallet не может быть аутентифицирован из-за ошибки в вашей версии Android. [Пожалуйста, нажмите здесь для получения дополнительной информации.]</string>
+    <string name="ErrorMessages.loopingLockScreen.android">Brainwallet не может быть аутентифицирован из-за ошибки в вашей версии Android. [Пожалуйста, нажмите здесь для получения дополнительной информации.]</string>
     <string name="ErrorMessages.messagingUnavailableMessage">Для этого устройства отправка сообщений не настроена.</string>
   <!-- Messaging unavailable alert title -->
   <string name="ErrorMessages.messagingUnavailableTitle">Опция обмена сообщениями недоступна</string>
@@ -674,9 +674,9 @@
   <!-- Updating webview message -->
   <string name="Webview.updating">Идет обновление...</string>
   <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
-  <string name="Welcome.body">Litewallet сменил свое название на Loaf и обзавелся новым дизайном и функциями.\n\nЕсли вам нужна помощь, то ищите иконку (?) в правом верхнем углу большинства экранов.</string>
+  <string name="Welcome.body">Brainwallet сменил свое название на Loaf и обзавелся новым дизайном и функциями.\n\nЕсли вам нужна помощь, то ищите иконку (?) в правом верхнем углу большинства экранов.</string>
   <!-- Top title of welcome screen -->
-  <string name="Welcome.title">Добро пожаловать в Litewallet!</string>
+  <string name="Welcome.title">Добро пожаловать в Brainwallet!</string>
   <!-- Wipe wallet alert message -->
   <string name="WipeWallet.alertMessage">Вы действительно хотите удалить этот кошелек?</string>
   <!-- Wipe wallet alert title -->
@@ -729,7 +729,7 @@
   <!-- Announce Updates View -->
   <string name="Announce.title">Не пропустите ничего!</string>
   <string name="Announce.close">Закрыть</string>
-  <string name="Announce.description">Подпишитесь, чтобы узнавать об обновлениях и конкурсах от команды Litewallet! Принимайте уведомления, чтобы получать новости, информацию о ценах и рынке в режиме реального времени!</string>
+  <string name="Announce.description">Подпишитесь, чтобы узнавать об обновлениях и конкурсах от команды Brainwallet! Принимайте уведомления, чтобы получать новости, информацию о ценах и рынке в режиме реального времени!</string>
   <string name="Announce.no_thanks">Нет, спасибо!</string>
     <string name="Fees.Service">Услуга</string>
     <string name="Network.feeLabel">Сеть</string>
