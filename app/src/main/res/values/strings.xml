@@ -767,7 +767,7 @@
 
   <string name="notification_channel_name_general" translatable="false">General</string>
   <string name="notification_channel_name_litecoin_news" translatable="false">Litecoin News</string>
-  <string name="notification_channel_name_litewallet_update" translatable="false">Litewallet Update</string>
+  <string name="notification_channel_name_brainwallet_update" translatable="false">Brainwallet Update</string>
   <string name="cancel">Cancel</string>
   <string name="ok">Ok</string>
   <string name="please_grant_notification_permission">Please grant notification permission</string>
