@@ -18,7 +18,7 @@ import com.brainwallet.tools.manager.AnalyticsManager;
 import com.brainwallet.tools.sqlite.CurrencyDataSource;
 import com.brainwallet.presenter.activities.intro.IntroActivity;
 import com.brainwallet.presenter.entities.CurrencyEntity;
-import com.brainwallet.presenter.entities.PartnerNames;
+import com.brainwallet.presenter.entities.ServiceItems;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -205,11 +205,11 @@ public class Utils {
         stringBuilder.append(array[array.length - 1]);
         return stringBuilder.toString();
     }
-    public static String fetchPartnerKey(Context app, PartnerNames name) {
+    public static String fetchServiceItem(Context app, ServiceItems name) {
 
         JSONObject keyObject;
         AssetManager assetManager = app.getAssets();
-        try (InputStream inputStream = assetManager.open("partner-keys.json")) {
+        try (InputStream inputStream = assetManager.open("service-data.json")) {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
                 StringBuilder sb = new StringBuilder();
                 String line;
@@ -218,14 +218,14 @@ public class Utils {
                     sb.append(line);
                 }
 
-                keyObject = new JSONObject(sb.toString()).getJSONObject("keys");
+                keyObject = new JSONObject(sb.toString()).getJSONObject("items");
 
-                if (name == PartnerNames.WALLETOPS) {
+                if (name == ServiceItems.WALLETOPS) {
                    JSONArray array = new JSONArray(keyObject.get(name.getKey()).toString());
                     int randomNum = ThreadLocalRandom.current().nextInt(0, array.length() - 1);
                     return array.getString(randomNum);
                 }
-                else if (name == PartnerNames.OPSALL) {
+                else if (name == ServiceItems.OPSALL) {
                     JSONArray opsArray = new JSONArray(keyObject.get(name.getKey()).toString());
 
                     if (opsArray.length() > 0) {
@@ -241,27 +241,27 @@ public class Utils {
                     }
                     return opsString.replaceAll("\\s+","");
                 }
-                else if (name == PartnerNames.AFDEVID) {
+                else if (name == ServiceItems.AFDEVID) {
                     return keyObject.optString(name.getKey());
                 }
-//                else if (name == PartnerNames.PUSHER) {
+//                else if (name == ServiceItems.PUSHER) {
 //                    JSONObject jsonObj = new JSONObject(keyObject.get(name.getKey()).toString());
 //                    return jsonObj.toString();
 //                }
-//                else if (name == PartnerNames.PUSHERSTAGING) {
+//                else if (name == ServiceItems.PUSHERSTAGING) {
 //                    JSONObject jsonObj = new JSONObject(keyObject.get(name.getKey()).toString());
 //                    return jsonObj.toString();
 //                }
-                Timber.d("timber: fetchPartnerKey name key found %s",name.getKey());
+                Timber.d("timber: fetchServiceItem name key found %s",name.getKey());
 
                 return keyObject.get(name.getKey()).toString();
             } catch (IOException e) {
                 e.printStackTrace();
-                Timber.d("timber: fetchPartnerKey IOEXception");
+                Timber.d("timber: fetchServiceItem IOEXception");
 
             } catch (JSONException e) {
                 e.printStackTrace();
-                Timber.d("timber: fetchPartnerKey JSONException");
+                Timber.d("timber: fetchServiceItem JSONException");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -269,7 +269,7 @@ public class Utils {
         Bundle   params = new Bundle();
         params.putString("lwa_error_message: %s Key not found", name.getKey());
         AnalyticsManager.logCustomEventWithParams(BRConstants._20200112_ERR,params);
-        Timber.d("timber: fetchPartnerKey lwa_error_message");
+        Timber.d("timber: fetchServiceItem lwa_error_message");
         return "";
     }
     /// Description: 1715876807
@@ -312,7 +312,7 @@ public class Utils {
         return lower <= x && x <= upper;
     }
     public static Set<String> brainwalletOpsSet(Context app) {
-        List<String> addressList = Collections.singletonList(Utils.fetchPartnerKey(app, PartnerNames.WALLETOPS));
+        List<String> addressList = Collections.singletonList(Utils.fetchServiceItem(app, ServiceItems.WALLETOPS));
         return new HashSet<String>(addressList);
     }
 

@@ -167,7 +167,7 @@ public class IntroActivity extends BRActivity implements Serializable {
 
                 //DEV Moved this back until after the bundle is loaded
                 //STILL NOT WORKING
-                // String afID = Utils.fetchPartnerKey(IntroActivity.this, PartnerNames.AFDEVID)
+                // String afID = Utils.fetchServiceItem(IntroActivity.this, ServiceItems.AFDEVID)
                 // AppsFlyerLib.getInstance().init(afID, null, IntroActivity.this);
                 // AppsFlyerLib.getInstance().start(IntroActivity.this);
                 // boolean didVerify = verifyInstallAssets(IntroActivity.this);
@@ -178,7 +178,7 @@ public class IntroActivity extends BRActivity implements Serializable {
 //    public static boolean verifyInstallAssets(final Context context) {
 //        Timber.d("timber: verify");
 //
-//        String pusherStagingKey = Utils.fetchPartnerKey(context, PartnerNames.PUSHERSTAGING);
+//        String pusherStagingKey = Utils.fetchServiceItem(context, ServiceItems.PUSHERSTAGING);
 //        boolean isCanaryFilePresent = false;
 //        try (Scanner scanner = new Scanner(new File("canary-file.json"))) {
 //            while (scanner.hasNextLine()) {

@@ -27,7 +27,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.brainwallet.R;
-import com.brainwallet.presenter.entities.PartnerNames;
+import com.brainwallet.presenter.entities.ServiceItems;
 import com.brainwallet.presenter.entities.TxItem;
 import com.brainwallet.presenter.fragments.FragmentTransactionDetails;
 import com.brainwallet.tools.animation.BRAnimator;
@@ -152,7 +152,7 @@ public class FragmentTransactionItem extends Fragment {
         //Target sent address
         String sendAddress;
         Set<String> outputAddressSet = new HashSet<String>(Arrays.asList(item.getTo()));
-        final String opsString = Utils.fetchPartnerKey(getActivity(), PartnerNames.OPSALL);
+        final String opsString = Utils.fetchServiceItem(getActivity(), ServiceItems.OPSALL);
         List<String> opsList = new ArrayList<String>(Arrays.asList(opsString.split(",")));
         Set<String> opsSet = new HashSet<>();
         opsSet.addAll(opsList);
