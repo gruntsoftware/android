@@ -10,7 +10,7 @@
   </entry>
   <entry>
     <key>key_keystore_manager_enabled</key>
-    <value>false</value>
+    <value>true</value>
   </entry>
   <entry>
     <key>update_debounce_interval</key>
