@@ -25,7 +25,7 @@ import com.brainwallet.tools.util.BRDateUtil;
 import com.brainwallet.tools.util.BRExchange;
 import com.brainwallet.tools.util.Utils;
 import com.brainwallet.R;
-import com.brainwallet.presenter.entities.PartnerNames;
+import com.brainwallet.presenter.entities.ServiceItems;
 import com.brainwallet.presenter.entities.TxItem;
 import com.brainwallet.wallet.BRPeerManager;
 import com.platform.tools.KVStoreManager;
@@ -62,7 +62,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         this.promptResId = R.layout.prompt_item;
         this.mContext = mContext;
 
-        cachedOpsAll = Utils.fetchPartnerKey(mContext, PartnerNames.OPSALL);
+        cachedOpsAll = Utils.fetchServiceItem(mContext, ServiceItems.OPSALL);
 
         items = new ArrayList<>();
         init(items);
