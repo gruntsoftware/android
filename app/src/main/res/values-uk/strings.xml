@@ -25,9 +25,9 @@
   <!-- Error alert title -->
   <string name="Alert.error">Помилка</string>
   <!-- Keystore error -->
-  <string name="Alert.keystore.generic.android">Виникла проблема зі сховищем ключів ОС Android, зв’яжіться з support@litewallet.io</string>
+  <string name="Alert.keystore.generic.android">Виникла проблема зі сховищем ключів ОС Android, зв’яжіться з support@brainwallet.co</string>
   <!-- KeyStore error, keys are invalidated -->
-  <string name="Alert.keystore.invalidated.android">Ваші зашифровані дані Litewallet нещодавно було визнано недійсними, оскільки екран блокування Android було вимкнено.</string>
+  <string name="Alert.keystore.invalidated.android">Ваші зашифровані дані Brainwallet нещодавно було визнано недійсними, оскільки екран блокування Android було вимкнено.</string>
   <!-- Keystore error title -->
   <string name="Alert.keystore.title.android">Помилка Android KeyStore</string>
   <!-- No internet alert message -->
@@ -102,7 +102,7 @@
   <!-- Email unavailable alert title -->
     <!-- Email unavailable alert title -->
   <!-- Message that gets shown when we've detected the user has encountered the looping lock-screen bug. (preserve [ ] characters) -->
-  <string name="ErrorMessages.loopingLockScreen.android">Litewallet не може бути автентифікований через помилку у вашій версії Android. [Будь ласка, торкніться тут для отримання додаткової інформації.]</string>
+  <string name="ErrorMessages.loopingLockScreen.android">Brainwallet не може бути автентифікований через помилку у вашій версії Android. [Будь ласка, торкніться тут для отримання додаткової інформації.]</string>
   <!-- Messaging unavailable alert title -->
   <string name="ErrorMessages.messagingUnavailableMessage">Цей пристрій не налаштовано на надсилання повідомлень.</string>
   <!-- Messaging unavailable alert title -->
@@ -144,7 +144,7 @@
   <!-- Caption for graphics -->
   <string name="Import.leftCaption">Гаманець для імпорту</string>
   <!-- Import wallet intro screen message -->
-  <string name="Import.message">Імпорт гаманця передає всі гроші з вашого іншого гаманця у ваш Litewallet за допомогою однієї транзакції.</string>
+  <string name="Import.message">Імпорт гаманця передає всі гроші з вашого іншого гаманця у ваш Brainwallet за допомогою однієї транзакції.</string>
   <!-- Enter password alert view title -->
   <string name="Import.password">Цей закритий ключ захищений паролем.</string>
   <!-- password textfield placeholder -->
@@ -171,13 +171,13 @@
   <!-- Jailbreak warning message -->
   <string name="JailbreakWarnings.messageWithBalance">БЕЗПЕКА ПРИСТРОЮ ПОГРУЗАНА\n Будь-яка програма \'джейлбрейка\' може отримати доступ до даних брелока та вкрасти ваш Litecoin! Негайно зітріть цей гаманець і відновіть його на захищеному пристрої.</string>
   <!-- Jailbreak warning message -->
-  <string name="JailbreakWarnings.messageWithoutBalance">БЕЗПЕКА ПРИСТРОЮ ПОГІДРЕНО\n Будь-яка програма \'джейлбрейка\' може отримати доступ до даних брелока та вкрасти ваш лайткоін. Будь ласка, використовуйте Litewallet лише на пристрої без джейлбрейка.</string>
+  <string name="JailbreakWarnings.messageWithoutBalance">БЕЗПЕКА ПРИСТРОЮ ПОГІДРЕНО\n Будь-яка програма \'джейлбрейка\' може отримати доступ до даних брелока та вкрасти ваш лайткоін. Будь ласка, використовуйте Brainwallet лише на пристрої без джейлбрейка.</string>
   <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">УВАГА</string>
   <!-- Location services disabled error -->
   <string name="LocationPlugin.disabled">Служби локації вимкнені.</string>
   <!-- No permissions for location services -->
-  <string name="LocationPlugin.notAuthorized">Litewallet не має дозволу на доступ до служб локації.</string>
+  <string name="LocationPlugin.notAuthorized">Brainwallet не має дозволу на доступ до служб локації.</string>
   <!-- Wallet creation date prefix -->
   <string name="ManageWallet.creationDatePrefix">Ви створили свій гаманець на %1$s</string>
   <!-- Manage wallet description text -->
@@ -252,7 +252,7 @@
   <!-- Transaction rejected prompt title -->
   <string name="Prompts.RecommendRescan.title">Транзакція відхилена</string>
   <!-- Share data prompt body -->
-  <string name="Prompts.ShareData.body">Допоможіть покращити Litewallet, поділившись з нами своїми анонімними даними</string>
+  <string name="Prompts.ShareData.body">Допоможіть покращити Brainwallet, поділившись з нами своїми анонімними даними</string>
   <!-- Share data prompt title -->
   <string name="Prompts.ShareData.title">Поділіться анонімними даними</string>
   <!-- Enable touch ID prompt body -->
@@ -266,11 +266,11 @@
   <!-- Button on fingerprint prompt so the user can enter their PIN instead -->
   <string name="Prompts.TouchId.usePin.android">PIN</string>
   <!-- Upgrade PIN prompt body. -->
-  <string name="Prompts.UpgradePin.body">Litewallet оновлено до використання 6-значного PIN-коду. Торкніться тут, щоб оновити.</string>
+  <string name="Prompts.UpgradePin.body">Brainwallet оновлено до використання 6-значного PIN-коду. Торкніться тут, щоб оновити.</string>
   <!-- Upgrade PIN prompt title. -->
   <string name="Prompts.UpgradePin.title">Оновлення PIN</string>
   <!-- Notifications will be added later but users can set their preferences now, which is why we specify "in the future". -->
-  <string name="PushNotifications.body">Увімкніть сповіщення, щоб у майбутньому отримувати спеціальні повідомлення від Litewallet.</string>
+  <string name="PushNotifications.body">Увімкніть сповіщення, щоб у майбутньому отримувати спеціальні повідомлення від Brainwallet.</string>
   <!-- Push notifications toggle switch label -->
   <string name="PushNotifications.label">Push-повідомлення</string>
   <!-- Push notifications are off label -->
@@ -299,7 +299,7 @@
   <!-- Enter paper key instruction -->
   <string name="RecoverWallet.instruction">Введіть ключ паперу</string>
   <!-- Recover wallet intro -->
-  <string name="RecoverWallet.intro">Відновіть свій Litewallet за допомогою паперового ключа.</string>
+  <string name="RecoverWallet.intro">Відновіть свій Brainwallet за допомогою паперового ключа.</string>
   <!-- Invalid paper key message -->
   <string name="RecoverWallet.invalid">Паперовий ключ, який ви ввели, недійсний. Перевірте кожне слово і повторіть спробу.</string>
   <!-- Previous button accessibility label -->
@@ -327,7 +327,7 @@
   <!-- extimated time -->
   <string name="ReScan.body1">20-45 хвилин</string>
   <!-- Syncing explanation -->
-  <string name="ReScan.body2">Якщо транзакція відображається як завершена в мережі Litecoin, але не у вашому Litewallet.</string>
+  <string name="ReScan.body2">Якщо транзакція відображається як завершена в мережі Litecoin, але не у вашому Brainwallet.</string>
   <!-- Syncing explanation -->
   <string name="ReScan.body3">Ви неодноразово отримуєте повідомлення про помилку, що ваша транзакція відхилена.</string>
   <!-- Start Sync button label -->
@@ -357,7 +357,7 @@
   <!-- Paper Key button title -->
   <string name="SecurityCenter.paperKeyTitle">Паперовий ключ</string>
   <!-- PIN button description -->
-  <string name="SecurityCenter.pinDescription">Захищає ваш Litewallet від неавторизованих користувачів.</string>
+  <string name="SecurityCenter.pinDescription">Захищає ваш Brainwallet від неавторизованих користувачів.</string>
   <!-- PIN button title -->
   <string name="SecurityCenter.pinTitle">6-значний PIN-код</string>
   <!-- Security Center Title -->
@@ -373,11 +373,11 @@
   <string name="Send.balance">Баланс: %1$s</string>
   <!-- Instructions how to allow the camera access for the app -->
   <!-- Permission required to access camera -->
-  <string name="Send.cameraUnavailabeTitle.android">Litewallet не має доступу до камери</string>
+  <string name="Send.cameraUnavailabeTitle.android">Brainwallet не має доступу до камери</string>
   <!-- Camera not allowed message -->
   <string name="Send.cameraunavailableMessage">Перейдіть до Налаштувань, щоб дозволити доступ до камери.</string>
   <!-- Camera not allowed alert title -->
-  <string name="Send.cameraUnavailableTitle">Litewallet не має доступу до камери</string>
+  <string name="Send.cameraUnavailableTitle">Brainwallet не має доступу до камери</string>
   <!-- Warning when sending to self. -->
   <string name="Send.containsAddress">Пунктом призначення є ваша власна адреса. Ви не можете відправити собі.</string>
   <!-- Could not create transaction alert title -->
@@ -442,7 +442,7 @@
   <!-- Join Early access label -->
   <string name="Settings.earlyAccess">Приєднуйтесь до раннього доступу</string>
   <!-- Are you enjoying loaf alert message body -->
-  <string name="Settings.enjoying">Вам подобається Litewallet?</string>
+  <string name="Settings.enjoying">Вам подобається Brainwallet?</string>
   <!-- Import wallet label -->
   <string name="Settings.importTitle">Імпорт гаманця</string>
   <!-- Manage settings section header -->
@@ -466,7 +466,7 @@
   <!-- Start or recover another wallet menu label. -->
   <string name="Settings.wipe">Запустити/Відновити інший гаманець</string>
   <!-- Share data view body -->
-  <string name="ShareData.body">Допоможіть покращити Litewallet, поділившись з нами своїми анонімними даними. Це не включає фінансову інформацію. Ми поважаємо вашу фінансову конфіденційність.</string>
+  <string name="ShareData.body">Допоможіть покращити Brainwallet, поділившись з нами своїми анонімними даними. Це не включає фінансову інформацію. Ми поважаємо вашу фінансову конфіденційність.</string>
   <!-- Share data header -->
   <string name="ShareData.header">Поділитися даними?</string>
   <!-- Share data switch label. -->
@@ -474,7 +474,7 @@
   <!-- button label -->
   <string name="StartPaperPhrase.againButtonTitle">Знову запишіть паперовий ключ</string>
   <!-- Paper key explanation text. -->
-  <string name="StartPaperPhrase.body">Ваш паперовий ключ – це єдиний спосіб відновити Litewallet, якщо ваш телефон втрачено, вкрадено, зламано чи оновлено.\n\nМи покажемо вам список слів, які потрібно записати на аркуші паперу та зберегти в безпеці.</string>
+  <string name="StartPaperPhrase.body">Ваш паперовий ключ – це єдиний спосіб відновити Brainwallet, якщо ваш телефон втрачено, вкрадено, зламано чи оновлено.\n\nМи покажемо вам список слів, які потрібно записати на аркуші паперу та зберегти в безпеці.</string>
   <!-- button label -->
   <string name="StartPaperPhrase.buttonTitle">Запишіть паперовий ключ</string>
   <!-- Argument is date -->
@@ -506,14 +506,14 @@
   <!-- Fingerprint Is Not Setup -->
   <string name="TouchIdSettings.disabledWarning.title.android">Аутентифікація за відбитком пальця не ввімкнена</string>
   <!-- Touch Id screen label -->
-  <string name="TouchIdSettings.label">Використовуйте відбиток пальця, щоб розблокувати свій Litewallet і надсилати гроші до встановленого ліміту.</string>
+  <string name="TouchIdSettings.label">Використовуйте відбиток пальця, щоб розблокувати свій Brainwallet і надсилати гроші до встановленого ліміту.</string>
   <!-- Link Text (see TouchIdSettings.customizeText) -->
   <string name="TouchIdSettings.linkText">Екран ліміту витрат Touch ID</string>
   <!-- Spending Limit: b100,000 ($100) -->
   <string name="TouchIdSettings.spendingLimit">Spending limit: %1$s (%2$s)</string>
   <!-- Touch id switch label. -->
-  <string name="TouchIdSettings.switchLabel">Увімкнути Touch ID для Litewallet</string>
-  <!-- Enable fingerprint for this wallet called Litewallet -->
+  <string name="TouchIdSettings.switchLabel">Увімкнути Touch ID для Brainwallet</string>
+  <!-- Enable fingerprint for this wallet called Brainwallet -->
   <string name="TouchIdSettings.switchLabel.android">Увімкнути аутентифікацію за відбитками пальців</string>
   <!-- Touch ID settings view title -->
   <string name="TouchIdSettings.title">Touch ID</string>
@@ -607,7 +607,7 @@
   <!-- Instruction to touch the sensor for fingerprint authentication -->
   <string name="UnlockScreen.touchIdInstructions.android">Сенсор дотику</string>
   <!-- TouchID prompt text -->
-  <string name="UnlockScreen.touchIdPrompt">Розблокуйте свій Litewallet.</string>
+  <string name="UnlockScreen.touchIdPrompt">Розблокуйте свій Brainwallet.</string>
   <!-- Device authentication body -->
   <string name="UnlockScreen.touchIdPrompt.android">Щоб продовжити, розблокуйте свій пристрій Android.</string>
   <!-- Unlock with TouchID accessibility label -->
@@ -622,7 +622,7 @@
   <!-- Update PIN caption text -->
   <string name="UpdatePin.caption">Запам’ятайте цей PIN-код. Якщо ви забудете його, ви не зможете отримати доступ до свого Litecoin.</string>
   <!-- PIN creation info. -->
-  <string name="UpdatePin.createInstruction">Ваш PIN-код буде використано для розблокування вашого Litewallet та надсилання грошей.</string>
+  <string name="UpdatePin.createInstruction">Ваш PIN-код буде використано для розблокування вашого Brainwallet та надсилання грошей.</string>
   <!-- Update PIN title -->
   <string name="UpdatePin.createTitle">Встановити PIN-код</string>
   <!-- Update PIN title -->
@@ -653,7 +653,7 @@
   <string name="VerifyPin.title">Потрібний PIN-код</string>
   <!-- Authorize transaction with touch id message -->
   <!-- 'No wallet' warning for watch app -->
-  <string name="Watch.noWalletWarning">Відкрийте додаток Litewallet для iPhone, щоб налаштувати гаманець.</string>
+  <string name="Watch.noWalletWarning">Відкрийте додаток Brainwallet для iPhone, щоб налаштувати гаманець.</string>
   <!-- Dismiss button label -->
   <string name="Webview.dismiss">Звільнити</string>
   <!-- Webview loading error message -->
@@ -661,9 +661,9 @@
   <!-- Updating webview message -->
   <string name="Webview.updating">Оновлення...</string>
   <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
-  <string name="Welcome.body">Litewallet щойно оновився! \nЯкщо вам потрібна допомога, знайдіть (?) у верхньому правому куті більшості екранів.</string>
+  <string name="Welcome.body">Brainwallet щойно оновився! \nЯкщо вам потрібна допомога, знайдіть (?) у верхньому правому куті більшості екранів.</string>
   <!-- Top title of welcome screen -->
-  <string name="Welcome.title">Ласкаво просимо до Litewallet!</string>
+  <string name="Welcome.title">Ласкаво просимо до Brainwallet!</string>
   <!-- Wipe wallet alert message -->
   <string name="WipeWallet.alertMessage">Ви впевнені, що хочете видалити цей гаманець?</string>
   <!-- Wipe wallet alert title -->
@@ -675,7 +675,7 @@
   <!-- Enter phrase to wipe wallet instruction. -->
   <string name="WipeWallet.instruction">Щоб запустити новий гаманець або відновити наявний гаманець, спочатку потрібно стерти гаманець, який зараз встановлено. Щоб продовжити, введіть паперовий ключ поточного гаманця.</string>
   <!-- Start wipe wallet view message -->
-  <string name="WipeWallet.startMessage">Запуск або відновлення іншого гаманця дає змогу отримати доступ до іншого Litewallet і керувати ним на цьому пристрої.</string>
+  <string name="WipeWallet.startMessage">Запуск або відновлення іншого гаманця дає змогу отримати доступ до іншого Brainwallet і керувати ним на цьому пристрої.</string>
   <!-- Start wipe wallet view warning -->
   <string name="WipeWallet.startWarning">Ваш поточний гаманець буде видалено з цього пристрою. Якщо ви хочете відновити його в майбутньому, вам потрібно буде ввести свій паперовий ключ.</string>
   <!-- Wipe wallet navigation item title. -->
@@ -711,14 +711,14 @@
   <string name="Settings.languages">Мови</string>
   <string name="Settings.ChangeLanguage.alertMessage">Dili Ukraynaca olarak değiştirmek istediğinizden emin misiniz?</string>
   <string name="Prompts.NoScreenLock.body.android">Для захисту вашого гаманця необхідне блокування екрана пристрою. Перейдіть до «Налаштування» &gt; \"Безпека\" &gt; «Блокування екрана» та увімкніть, щоб продовжити.</string>
-  <string name="Send.cameraUnavailabeMessage.android">Дозволити доступ до камери в \"Налаштуваннях\" &gt; \"Програми\" &gt; \\Litewallet\" &gt; \"Дозволи\"</string>
+  <string name="Send.cameraUnavailabeMessage.android">Дозволити доступ до камери в \"Налаштуваннях\" &gt; \"Програми\" &gt; \\Brainwallet\" &gt; \"Дозволи\"</string>
   <string name="Alerts.copiedAddressesSubheader">Усі адреси гаманців успішно скопійовано.</string>
   <string name="UnlockScreen.touchIdTitle.android">Потрібна автентифікація</string>
   <string name="VerifyPin.touchIdMessage">Авторизуйте цю трансакцію</string>
   <string name="PaymentProtocol.Errors.badPaymentRequest">Поганий запит на оплату</string>
   <string name="TransactionDetails.blockHeightLabel">Підтверджено в блоку</string>
   <string name="NodeSelector.connected">Підключено</string>
-  <string name="SecurityCenter.touchIdDescription">Зручно розблокуйте свій Litewallet і надсилайте гроші до встановленого ліміту.</string>
+  <string name="SecurityCenter.touchIdDescription">Зручно розблокуйте свій Brainwallet і надсилайте гроші до встановленого ліміту.</string>
   <string name="Receive.copied">Скопійовано в буфер обміну.</string>
   <string name="URLHandling.copy">Копія</string>
   <string name="URLHandling.addressListAlertTitle">Копіювати адреси гаманця</string>
@@ -735,7 +735,7 @@
   <!-- Announce Updates View -->
   <string name="Announce.title">Не проґавте нічого!</string>
   <string name="Announce.close">Закрити</string>
-  <string name="Announce.description">Підпишіться, щоб дізнаватися про оновлення та конкурси від команди Litewallet! Підписуйтесь на сповіщення, щоб отримувати актуальні новини, ціни та інформацію про ринок!</string>
+  <string name="Announce.description">Підпишіться, щоб дізнаватися про оновлення та конкурси від команди Brainwallet! Підписуйтесь на сповіщення, щоб отримувати актуальні новини, ціни та інформацію про ринок!</string>
   <string name="Announce.no_thanks">Ні, дякую!</string>
     <string name="Fees.Service">Сервіс</string>
     <string name="Network.feeLabel">Мережа</string>
