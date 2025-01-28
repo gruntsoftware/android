@@ -1,5 +1,6 @@
 package flow
 
+import android.Manifest
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
@@ -30,7 +31,10 @@ class RecoverWalletScreenGrabsTest {
     val localeTestRule = LocaleTestRule()
 
     @Rule @JvmField
-    val grantPermissionRule: GrantPermissionRule = GrantPermissionRule.grant(android.Manifest.permission.CAMERA)
+    val grantPermissionRule: GrantPermissionRule = GrantPermissionRule.grant(
+        Manifest.permission.CAMERA,
+        Manifest.permission.POST_NOTIFICATIONS,
+    )
 
     @get:Rule
     var activityScenarioRule = ActivityScenarioRule(IntroActivity::class.java)
