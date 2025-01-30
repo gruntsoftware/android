@@ -34,13 +34,13 @@ import com.brainwallet.ui.composable.SeedWordItem
 @Composable
 fun YourSeedWordsScreen(
     seedWords: List<String>,
-    onAction: (YourSeedWordsScreenAction) -> Unit = {},
+    onEvent: (YourSeedWordsEvent) -> Unit = {},
 ) {
     Scaffold(
         topBar = {
             TopAppBar(title = {}, navigationIcon = {
                 IconButton(
-                    onClick = { onAction.invoke(YourSeedWordsScreenAction.OnBackClick) },
+                    onClick = { onEvent.invoke(YourSeedWordsEvent.OnBackClick) },
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -63,6 +63,7 @@ fun YourSeedWordsScreen(
                 style = MaterialTheme.typography.headlineSmall,
             )
 
+            //todo: yuana private key text need to open dialog?
             Text(
                 text = stringResource(R.string.your_seed_words_desc),
                 style = MaterialTheme.typography.bodyMedium.copy(textAlign = TextAlign.Center)
@@ -79,9 +80,10 @@ fun YourSeedWordsScreen(
             ) {
                 seedWords.forEachIndexed { index, word ->
                     SeedWordItem(
-                        modifier = Modifier.weight(1f),
-                        number = index + 1,
-                        word = word
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1f),
+                        label = "${index + 1} $word"
                     )
                 }
             }
@@ -97,7 +99,7 @@ fun YourSeedWordsScreen(
 
             LargeButton(
                 onClick = {
-                    onAction.invoke(YourSeedWordsScreenAction.OnSavedItClick)
+                    onEvent.invoke(YourSeedWordsEvent.OnSavedItClick)
                 },
             ) {
                 Text(
@@ -107,9 +109,4 @@ fun YourSeedWordsScreen(
             }
         }
     }
-}
-
-sealed class YourSeedWordsScreenAction {
-    object OnBackClick : YourSeedWordsScreenAction()
-    object OnSavedItClick : YourSeedWordsScreenAction()
 }
