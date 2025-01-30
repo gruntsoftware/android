@@ -193,7 +193,7 @@ dependencies {
     implementation(libs.bundles.androidx.navigation)
     implementation(libs.androidx.preference)
     implementation(libs.androidx.lifecycle.runtime)
-    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.bundles.androidx.lifecycle)
     implementation(libs.androidx.browser)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.androidx.compose)
