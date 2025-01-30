@@ -66,7 +66,10 @@ fun YourSeedWordsScreen(
             //todo: yuana private key text need to open dialog?
             Text(
                 text = stringResource(R.string.your_seed_words_desc),
-                style = MaterialTheme.typography.bodyMedium.copy(textAlign = TextAlign.Center)
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    textAlign = TextAlign.Center,
+                    color = Color.Gray
+                )
             )
 
             Spacer(modifier = Modifier.height(48.dp))

@@ -781,4 +781,9 @@
     <string name="your_seed_words_desc">"Just for you. \n It is the <b>private key</b> that lets you send."</string>
     <string name="blockchain_litecoin">Blockchain: Litecoin</string>
     <string name="i_saved_it_on_paper">I saved it on paper or metal</string>
+    <string name="you_saved_it_right">You saved it, right?</string>
+    <string name="you_saved_it_right_desc">Prove it!\nDrag the words in the correct order.</string>
+    <string name="game_and_sync">Game &amp; Sync</string>
+    <string name="you_saved_your_keys">You saved your keys.</string>
+    <string name="you_saved_your_keys_desc">Crush the next level.</string>
 </resources>
