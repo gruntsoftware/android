@@ -1,7 +1,6 @@
 package com.brainwallet.ui.theme
 
 import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -10,6 +9,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 
 private val lightScheme = lightColorScheme(
@@ -275,4 +275,11 @@ fun BrainwalletAppTheme(
         typography = AppTypography,
         content = content
     )
+}
+
+//provide compose theme wrapper for transition
+fun ComposeView.setContentWithTheme(content: @Composable () -> Unit) {
+    setContent {
+        BrainwalletAppTheme { content.invoke() }
+    }
 }
