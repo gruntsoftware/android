@@ -4,9 +4,10 @@ import android.os.Bundle
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.brainwallet.databinding.ActivityPaperKeyBinding
 import com.brainwallet.presenter.activities.util.BRActivity
+import com.brainwallet.tools.security.PostAuth
 import com.brainwallet.ui.screen.yourseedwords.YourSeedWordsScreen
-import com.brainwallet.ui.screen.yourseedwords.YourSeedWordsScreenAction
-import com.brainwallet.ui.theme.BrainwalletAppTheme
+import com.brainwallet.ui.screen.yourseedwords.YourSeedWordsEvent
+import com.brainwallet.ui.theme.setContentWithTheme
 
 class PaperKeyActivity : BRActivity() {
 
@@ -33,23 +34,21 @@ class PaperKeyActivity : BRActivity() {
 
         binding.composeView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-            setContent {
-                BrainwalletAppTheme {
-                    YourSeedWordsScreen(
-                        seedWords = seedWords,
-                        onAction = { action ->
-                            when (action) {
-                                YourSeedWordsScreenAction.OnBackClick -> finish()
-                                YourSeedWordsScreenAction.OnSavedItClick -> onSavedItClick()
-                            }
+            setContentWithTheme {
+                YourSeedWordsScreen(
+                    seedWords = seedWords,
+                    onEvent = { action ->
+                        when (action) {
+                            YourSeedWordsEvent.OnBackClick -> finish()
+                            YourSeedWordsEvent.OnSavedItClick -> onSavedItClick()
                         }
-                    )
-                }
+                    }
+                )
             }
         }
     }
 
     private fun onSavedItClick() {
-        //todo
+        PostAuth.getInstance().onPhraseProveAuth(this, false)
     }
 }
