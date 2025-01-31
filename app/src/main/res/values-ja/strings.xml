@@ -26,7 +26,7 @@
   <!-- Error alert title -->
   <string name="Alert.error">エラー</string>
   <!-- Keystore error -->
-  <string name="Alert.keystore.generic.android">Android OSのKeystoreに問題があります。support.litewallet.io にお問い合わせください。</string>
+  <string name="Alert.keystore.generic.android">Android OSのKeystoreに問題があります。contact@brainwallet.co にお問い合わせください。</string>
   <!-- KeyStore error, keys are invalidated -->
   <string name="Alert.keystore.invalidated.android">お使いのAndroidロック画面が無効にされたため、暗号化されたブレッドのデータはつい最近無効になりました。</string>
   <!-- Keystore error title -->
@@ -104,7 +104,7 @@
   <!-- Email unavailable alert title -->
     <!-- Email unavailable alert title -->
   <!-- Messaging unavailable alert title -->
-    <string name="ErrorMessages.loopingLockScreen.android">お使いの Android のバージョンにバグがあるため、Litewallet を認証できません。 【詳しくはこちらをタップしてください。】</string>
+    <string name="ErrorMessages.loopingLockScreen.android">お使いの Android のバージョンにバグがあるため、Brainwallet を認証できません。 【詳しくはこちらをタップしてください。】</string>
     <string name="ErrorMessages.messagingUnavailableMessage">この端末はメール送信の設定がされていません。</string>
   <!-- Messaging unavailable alert title -->
   <string name="ErrorMessages.messagingUnavailableTitle">メッセージの送受信ができません</string>
@@ -674,9 +674,9 @@
   <!-- Updating webview message -->
   <string name="Webview.updating">更新中...</string>
   <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
-  <string name="Welcome.body">Litewalletは新しい見た目と新機能を備えて、Loafという名前に生まれ変わりました。\n\nヘルプをご覧になるには、ほとんどの画面の右上にある(?)をお探しください。</string>
+  <string name="Welcome.body">Brainwalletは新しい見た目と新機能を備えて、Loafという名前に生まれ変わりました。\n\nヘルプをご覧になるには、ほとんどの画面の右上にある(?)をお探しください。</string>
   <!-- Top title of welcome screen -->
-  <string name="Welcome.title">Litewalletへようこそ！</string>
+  <string name="Welcome.title">Brainwalletへようこそ！</string>
   <!-- Wipe wallet alert message -->
   <string name="WipeWallet.alertMessage">本当にこのウォレットを削除しますか？</string>
   <!-- Wipe wallet alert title -->
@@ -729,7 +729,7 @@
   <!-- Announce Updates View -->
   <string name="Announce.title">何も見逃してはいけない</string>
   <string name="Announce.close">閉じる</string>
-  <string name="Announce.description">登録すると、Litewalletチームからの最新情報やコンテストのお知らせを受け取ることができます！通知を受信して、ライブニュース、価格、マーケット情報を入手しましょう！</string>
+  <string name="Announce.description">登録すると、Brainwalletチームからの最新情報やコンテストのお知らせを受け取ることができます！通知を受信して、ライブニュース、価格、マーケット情報を入手しましょう！</string>
   <string name="Announce.no_thanks">いえ、結構です</string>
     <string name="Fees.Service">サービス</string>
     <string name="Network.feeLabel">通信網</string>

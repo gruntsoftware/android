@@ -25,9 +25,9 @@
   <!-- Error alert title -->
   <string name="Alert.error">Hata</string>
   <!-- Keystore error -->
-  <string name="Alert.keystore.generic.android">Android işletim sistemi anahtar deponuzla ilgili bir sorun var, lütfen support@litewallet.io ile iletişime geçin.</string>
+  <string name="Alert.keystore.generic.android">Android işletim sistemi anahtar deponuzla ilgili bir sorun var, lütfen contact@brainwallet.co ile iletişime geçin.</string>
   <!-- KeyStore error, keys are invalidated -->
-  <string name="Alert.keystore.invalidated.android">Litewallet şifreli verileriniz, Android kilit ekranınız devre dışı bırakıldığı için yakın zamanda geçersiz kılındı.</string>
+  <string name="Alert.keystore.invalidated.android">Brainwallet şifreli verileriniz, Android kilit ekranınız devre dışı bırakıldığı için yakın zamanda geçersiz kılındı.</string>
   <!-- Keystore error title -->
   <string name="Alert.keystore.title.android">Android KeyStore Hatası</string>
   <!-- No internet alert message -->
@@ -121,7 +121,7 @@
   <!-- Email unavailable alert title -->
     <!-- Email unavailable alert title -->
   <!-- Message that gets shown when we've detected the user has encountered the looping lock-screen bug. (preserve [ ] characters) -->
-  <string name="ErrorMessages.loopingLockScreen.android">Android sürümünüzdeki bir hata nedeniyle Litewallet kimliği doğrulanamıyor. [Daha fazla bilgi için lütfen buraya dokunun.]</string>
+  <string name="ErrorMessages.loopingLockScreen.android">Android sürümünüzdeki bir hata nedeniyle Brainwallet kimliği doğrulanamıyor. [Daha fazla bilgi için lütfen buraya dokunun.]</string>
   <!-- Messaging unavailable alert title -->
   <string name="ErrorMessages.messagingUnavailableMessage">Bu cihaz mesaj gönderecek şekilde yapılandırılmamış.</string>
   <!-- Messaging unavailable alert title -->
@@ -163,7 +163,7 @@
   <!-- Caption for graphics -->
   <string name="Import.leftCaption">İçe aktarılacak cüzdan</string>
   <!-- Import wallet intro screen message -->
-  <string name="Import.message">Bir cüzdanı içe aktarmak, diğer cüzdanınızdaki tüm parayı tek bir işlem kullanarak Litewallet\'inize aktarır.</string>
+  <string name="Import.message">Bir cüzdanı içe aktarmak, diğer cüzdanınızdaki tüm parayı tek bir işlem kullanarak Brainwallet\'inize aktarır.</string>
   <!-- Enter password alert view title -->
   <string name="Import.password">Bu özel anahtar şifre korumalıdır.</string>
   <!-- password textfield placeholder -->
@@ -190,12 +190,12 @@
   <!-- Jailbreak warning message -->
   <string name="JailbreakWarnings.messageWithBalance">CİHAZ GÜVENLİĞİNDEN ÖDÜLLENDİRİLMİŞTİR\n Hiç \'jailbreak\' uygulaması anahtarlık verilerine erişebilir ve Litecoin\'inizi çalabilir! Bu cüzdanı hemen silin ve güvenli bir cihazda geri yükleyin.</string>
   <!-- Jailbreak warning title -->
-    <string name="JailbreakWarnings.messageWithoutBalance">CİHAZ GÜVENLİĞİ TEHLİKELİ   Herhangi bir \"jailbreak\" uygulaması, anahtarlık verilerine erişebilir ve Litecoin\'inizi çalabilir. Lütfen Litewallet\'i yalnızca jailbreak yapılmamış bir cihazda kullanın.</string>
+    <string name="JailbreakWarnings.messageWithoutBalance">CİHAZ GÜVENLİĞİ TEHLİKELİ   Herhangi bir \"jailbreak\" uygulaması, anahtarlık verilerine erişebilir ve Litecoin\'inizi çalabilir. Lütfen Brainwallet\'i yalnızca jailbreak yapılmamış bir cihazda kullanın.</string>
     <string name="JailbreakWarnings.title">UYARI</string>
   <!-- Location services disabled error -->
   <string name="LocationPlugin.disabled">Konum hizmetleri devre dışı bırakıldı.</string>
   <!-- No permissions for location services -->
-  <string name="LocationPlugin.notAuthorized">Litewallet\'in konum hizmetlerine erişim izni yoktur.</string>
+  <string name="LocationPlugin.notAuthorized">Brainwallet\'in konum hizmetlerine erişim izni yoktur.</string>
   <!-- Wallet creation date prefix -->
   <string name="ManageWallet.creationDatePrefix">Cüzdanını üzerinde yarattın %1$s</string>
   <!-- Manage wallet description text -->
@@ -273,7 +273,7 @@
   <!-- Transaction rejected prompt title -->
   <string name="Prompts.RecommendRescan.title">İşlem Reddedildi</string>
   <!-- Share data prompt body -->
-  <string name="Prompts.ShareData.body">Anonim verilerinizi bizimle paylaşarak Litewallet\'in geliştirilmesine yardımcı olun</string>
+  <string name="Prompts.ShareData.body">Anonim verilerinizi bizimle paylaşarak Brainwallet\'in geliştirilmesine yardımcı olun</string>
   <!-- Share data prompt title -->
   <string name="Prompts.ShareData.title">Anonim Verileri Paylaşın</string>
   <!-- Enable touch ID prompt body -->
@@ -287,11 +287,11 @@
   <!-- Button on fingerprint prompt so the user can enter their PIN instead -->
   <string name="Prompts.TouchId.usePin.android">PIN</string>
   <!-- Upgrade PIN prompt body. -->
-  <string name="Prompts.UpgradePin.body">Litewallet, 6 basamaklı bir PIN kullanarak yükseltildi. Yükseltmek için buraya dokunun.</string>
+  <string name="Prompts.UpgradePin.body">Brainwallet, 6 basamaklı bir PIN kullanarak yükseltildi. Yükseltmek için buraya dokunun.</string>
   <!-- Upgrade PIN prompt title. -->
   <string name="Prompts.UpgradePin.title">PIN\'i yükselt</string>
   <!-- Notifications will be added later but users can set their preferences now, which is why we specify "in the future". -->
-  <string name="PushNotifications.body">Turn on notifications to receive special messages from Litewallet in the future.</string>
+  <string name="PushNotifications.body">Turn on notifications to receive special messages from Brainwallet in the future.</string>
   <!-- Push notifications toggle switch label -->
   <string name="PushNotifications.label">Push bildirimleri</string>
   <!-- Push notifications are off label -->
@@ -321,7 +321,7 @@
   <!-- Enter paper key instruction -->
   <string name="RecoverWallet.instruction">Kağıt Anahtarını Girin</string>
   <!-- Recover wallet intro -->
-  <string name="RecoverWallet.intro">Litewallet\'inizi kağıt anahtarınızla kurtarın.</string>
+  <string name="RecoverWallet.intro">Brainwallet\'inizi kağıt anahtarınızla kurtarın.</string>
   <!-- Invalid paper key message -->
   <string name="RecoverWallet.invalid">Girdiğiniz kağıt anahtarı geçersiz. Lütfen her kelimeyi iki kez kontrol edin ve tekrar deneyin.</string>
   <!-- Previous button accessibility label -->
@@ -349,7 +349,7 @@
   <!-- extimated time -->
   <string name="ReScan.body1">20-45 dakika</string>
   <!-- Syncing explanation -->
-  <string name="ReScan.body2">Bir işlem Litecoin ağında tamamlandı olarak gösteriliyor, ancak Litewallet\'ınızda gösterilmiyorsa.</string>
+  <string name="ReScan.body2">Bir işlem Litecoin ağında tamamlandı olarak gösteriliyor, ancak Brainwallet\'ınızda gösterilmiyorsa.</string>
   <!-- Syncing explanation -->
   <string name="ReScan.body3">Sürekli olarak işleminizin reddedildiğini belirten bir hata alıyorsunuz.</string>
   <!-- Start Sync button label -->
@@ -379,7 +379,7 @@
   <!-- Paper Key button title -->
   <string name="SecurityCenter.paperKeyTitle">Kağıt Anahtarı</string>
   <!-- PIN button description -->
-  <string name="SecurityCenter.pinDescription">Litewallet\'inizi yetkisiz kullanıcılardan korur.</string>
+  <string name="SecurityCenter.pinDescription">Brainwallet\'inizi yetkisiz kullanıcılardan korur.</string>
   <!-- PIN button title -->
   <string name="SecurityCenter.pinTitle">6 Haneli PIN</string>
   <!-- Security Center Title -->

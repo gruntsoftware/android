@@ -26,7 +26,7 @@
   <!-- Error alert title -->
   <string name="Alert.error">오류</string>
   <!-- Keystore error -->
-  <string name="Alert.keystore.generic.android">귀하의 안드로이드 OS 키스토어에 문제가 있습니다, support.litewallet.io로 연락해 주세요</string>
+  <string name="Alert.keystore.generic.android">귀하의 안드로이드 OS 키스토어에 문제가 있습니다, contact@brainwallet.co로 연락해 주세요</string>
   <!-- KeyStore error, keys are invalidated -->
   <string name="Alert.keystore.invalidated.android">귀하의 안드로이드 잠금 화면이 꺼져서 귀하의 암호화 된 데이터가 최근 무효화 되었습니다.</string>
   <!-- Keystore error title -->
@@ -104,7 +104,7 @@
   <!-- Email unavailable alert title -->
     <!-- Email unavailable alert title -->
   <!-- Messaging unavailable alert title -->
-    <string name="ErrorMessages.loopingLockScreen.android">Android 버전의 버그로 인해 Litewallet을 인증할 수 없습니다. [자세한 내용은 여기를 누르세요.]</string>
+    <string name="ErrorMessages.loopingLockScreen.android">Android 버전의 버그로 인해 Brainwallet을 인증할 수 없습니다. [자세한 내용은 여기를 누르세요.]</string>
     <string name="ErrorMessages.messagingUnavailableMessage">이 장치는 메시지를 보내도록 설정되지 않았습니다.</string>
   <!-- Messaging unavailable alert title -->
   <string name="ErrorMessages.messagingUnavailableTitle">메시지 사용불가</string>
@@ -674,9 +674,9 @@
   <!-- Updating webview message -->
   <string name="Webview.updating">업데이트 중...</string>
   <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
-  <string name="Welcome.body">Litewallet이 이름을 Litewallet로 바꾸고 새롭게 단장하였으며 새로운 기능도 갖췄습니다.\n\n도움이 필요하시면 대부분 화면에서 우측 상단에 있는 (?)을(를) 클릭하십시오.</string>
+  <string name="Welcome.body">Brainwallet이 이름을 Brainwallet로 바꾸고 새롭게 단장하였으며 새로운 기능도 갖췄습니다.\n\n도움이 필요하시면 대부분 화면에서 우측 상단에 있는 (?)을(를) 클릭하십시오.</string>
   <!-- Top title of welcome screen -->
-  <string name="Welcome.title">Litewallet에 환영합니다!</string>
+  <string name="Welcome.title">Brainwallet에 환영합니다!</string>
   <!-- Wipe wallet alert message -->
   <string name="WipeWallet.alertMessage">정말 이 월렛을 삭제할까요?</string>
   <!-- Wipe wallet alert title -->

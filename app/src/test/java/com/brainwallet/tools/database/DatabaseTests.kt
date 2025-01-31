@@ -45,7 +45,7 @@ class DatabaseTests {
 //        Assert.assertSame(BRConstants.INSTAGRAM_LINK,"https://www.instagram.com/litewallet.app");
 //        Assert.assertSame(BRConstants.WEB_LINK,"https://litewallet.io");
 //        Assert.assertSame(BRConstants.TOS_LINK,"https://litewallet.io/privacy");
-//        Assert.assertSame(BRConstants.CUSTOMER_SUPPORT_LINK,"https://support.litewallet.io/hc/en-us/requests/new");
+//        Assert.assertSame(BRConstants.CUSTOMER_SUPPORT_LINK,"https://contact@brainwallet.co/hc/en-us/requests/new");
 //        Assert.assertSame(BRConstants.BITREFILL_AFFILIATE_LINK,"https://www.bitrefill.com/");
 //    }
 //    @Test
