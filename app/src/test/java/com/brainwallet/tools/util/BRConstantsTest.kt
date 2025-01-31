@@ -15,12 +15,12 @@ class BRConstantsTest {
 
     @Test
     fun `validate App external URL constant`(){
-        assertSame(BRConstants.TWITTER_LINK,"https://twitter.com/Litewallet_App");
-        assertSame(BRConstants.INSTAGRAM_LINK,"https://www.instagram.com/litewallet.app");
-        assertSame(BRConstants.WEB_LINK,"https://litewallet.io");
-        assertSame(BRConstants.TOS_LINK,"https://litewallet.io/privacy");
+        assertSame(BRConstants.TWITTER_LINK,"https://twitter.com/Brainwallet2048");
+        assertSame(BRConstants.INSTAGRAM_LINK,"https://www.instagram.com/brainwalletapp");
+        assertSame(BRConstants.WEB_LINK,"https://brainwallet.co");
+        assertSame(BRConstants.TOS_LINK,"https://brainwallet.co/privacy-policy.html");
         assertSame(BRConstants.BITREFILL_AFFILIATE_LINK,"https://www.bitrefill.com/")
-        assertSame(BRConstants.CUSTOMER_SUPPORT_LINK,"https://support.litewallet.io/hc/en-us/requests/new");
+        assertSame(BRConstants.CUSTOMER_SUPPORT_LINK,"mailto://contact@brainwallet.co");
     }
 
     @Test
@@ -102,7 +102,7 @@ class BRConstantsTest {
 //        Assert.assertSame(BRConstants.INSTAGRAM_LINK,"https://www.instagram.com/litewallet.app");
 //        Assert.assertSame(BRConstants.WEB_LINK,"https://litewallet.io");
 //        Assert.assertSame(BRConstants.TOS_LINK,"https://litewallet.io/privacy");
-//        Assert.assertSame(BRConstants.CUSTOMER_SUPPORT_LINK,"https://support.litewallet.io/hc/en-us/requests/new");
+//        Assert.assertSame(BRConstants.CUSTOMER_SUPPORT_LINK,"https://contact@brainwallet.co/hc/en-us/requests/new");
 //        Assert.assertSame(BRConstants.BITREFILL_AFFILIATE_LINK,"https://www.bitrefill.com/");
 //    }
 //    @Test

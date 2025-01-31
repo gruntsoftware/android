@@ -26,9 +26,9 @@
   <!-- Error alert title -->
   <string name="Alert.error">Kesalahan</string>
   <!-- Keystore error -->
-  <string name="Alert.keystore.generic.android">Ada masalah dengan keystore OS Android Anda, harap hubungi support@litewallet.io</string>
+  <string name="Alert.keystore.generic.android">Ada masalah dengan keystore OS Android Anda, harap hubungi contact@brainwallet.co</string>
   <!-- KeyStore error, keys are invalidated -->
-  <string name="Alert.keystore.invalidated.android">Data terenkripsi Litewallet Anda baru-baru ini tidak valid karena layar kunci Android Anda dinonaktifkan.</string>
+  <string name="Alert.keystore.invalidated.android">Data terenkripsi Brainwallet Anda baru-baru ini tidak valid karena layar kunci Android Anda dinonaktifkan.</string>
   <!-- Keystore error title -->
   <string name="Alert.keystore.title.android">Kesalahan Android KeyStore</string>
   <!-- No internet alert message -->
@@ -104,8 +104,8 @@
   <!-- Email unavailable alert title -->
     <!-- Email unavailable alert title -->
   <!-- Messaging unavailable alert title -->
-  <string name="ErrorMessages.loopingLockScreen.android">Litewallet tidak dapat diautentikasi karena bug di versi Android Anda. [Harap ketuk di sini untuk informasi lebih lanjut.]</string>
-  <string name="ErrorMessages.messagingUnavailableMessage">Litewallet tidak dapat diautentikasi karena ada bug di versi Android Anda. [Harap ketuk di sini untuk informasi lebih lanjut.]</string>
+  <string name="ErrorMessages.loopingLockScreen.android">Brainwallet tidak dapat diautentikasi karena bug di versi Android Anda. [Harap ketuk di sini untuk informasi lebih lanjut.]</string>
+  <string name="ErrorMessages.messagingUnavailableMessage">Brainwallet tidak dapat diautentikasi karena ada bug di versi Android Anda. [Harap ketuk di sini untuk informasi lebih lanjut.]</string>
   <!-- Messaging unavailable alert title -->
   <string name="ErrorMessages.messagingUnavailableTitle">Perangkat ini tidak dikonfigurasi untuk mengirim pesan.</string>
   <!-- Fingerprint was not recognized by the scanner, please try scanning again -->
@@ -145,7 +145,7 @@
   <!-- Caption for graphics -->
   <string name="Import.leftCaption">Dompet untuk diimpor</string>
   <!-- Import wallet intro screen message -->
-  <string name="Import.message">Mengimpor dompet mentransfer semua uang dari dompet Anda yang lain ke Litewallet Anda menggunakan satu transaksi.</string>
+  <string name="Import.message">Mengimpor dompet mentransfer semua uang dari dompet Anda yang lain ke Brainwallet Anda menggunakan satu transaksi.</string>
   <!-- Enter password alert view title -->
   <string name="Import.password">This private key is password protected.</string>
   <!-- password textfield placeholder -->
@@ -172,14 +172,14 @@
   <!-- Jailbreak warning message -->
   <string name="JailbreakWarnings.messageWithBalance">KEAMANAN PERANGKAT DIPERHATIKAN\n Aplikasi \'jailbreak\' apa pun dapat mengakses data rantai kunci dan mencuri Litecoin Anda! Segera bersihkan dompet ini dan pulihkan di perangkat yang aman.</string>
   <!-- Jailbreak warning message -->
-  <string name="JailbreakWarnings.messageWithoutBalance">KEAMANAN PERANGKAT DIPERHATIKAN\n Aplikasi \'jailbreak\' apa pun dapat mengakses data rantai kunci dan mencuri Litecoin Anda. Harap gunakan Litewallet hanya pada perangkat yang tidak di-jailbreak.</string>
+  <string name="JailbreakWarnings.messageWithoutBalance">KEAMANAN PERANGKAT DIPERHATIKAN\n Aplikasi \'jailbreak\' apa pun dapat mengakses data rantai kunci dan mencuri Litecoin Anda. Harap gunakan Brainwallet hanya pada perangkat yang tidak di-jailbreak.</string>
   <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">PERINGATAN</string>
   <!-- Wipe wallet button -->
   <!-- Location services disabled error -->
   <string name="LocationPlugin.disabled">Layanan lokasi dinonaktifkan.</string>
   <!-- No permissions for location services -->
-  <string name="LocationPlugin.notAuthorized">Litewallet tidak memiliki izin untuk mengakses layanan lokasi.</string>
+  <string name="LocationPlugin.notAuthorized">Brainwallet tidak memiliki izin untuk mengakses layanan lokasi.</string>
   <!-- Wallet creation date prefix -->
   <string name="ManageWallet.creationDatePrefix">Anda membuat dompet Anda di %1$s</string>
   <!-- Manage wallet description text -->
@@ -257,7 +257,7 @@
   <!-- Transaction rejected prompt title -->
   <string name="Prompts.RecommendRescan.title">Transaksi Ditolak</string>
   <!-- Share data prompt body -->
-  <string name="Prompts.ShareData.body">Bantu tingkatkan Litewallet dengan membagikan data anonim Anda kepada kami</string>
+  <string name="Prompts.ShareData.body">Bantu tingkatkan Brainwallet dengan membagikan data anonim Anda kepada kami</string>
   <!-- Share data prompt title -->
   <string name="Prompts.ShareData.title">Bagikan Data Anonim</string>
   <!-- Enable touch ID prompt body -->
@@ -271,11 +271,11 @@
   <!-- Button on fingerprint prompt so the user can enter their PIN instead -->
   <string name="Prompts.TouchId.usePin.android">PIN</string>
   <!-- Upgrade PIN prompt body. -->
-  <string name="Prompts.UpgradePin.body">Litewallet has upgraded to using a pin 6 angka. Tap here to upgrade. Litewallet telah ditingkatkan untuk menggunakan pin 6 angka. Ketuk di sini untuk meningkatkan.</string>
+  <string name="Prompts.UpgradePin.body">Brainwallet has upgraded to using a pin 6 angka. Tap here to upgrade. Brainwallet telah ditingkatkan untuk menggunakan pin 6 angka. Ketuk di sini untuk meningkatkan.</string>
   <!-- Upgrade PIN prompt title. -->
   <string name="Prompts.UpgradePin.title">Tingkatkan PIN</string>
   <!-- Notifications will be added later but users can set their preferences now, which is why we specify "in the future". -->
-  <string name="PushNotifications.body">Hidupkan notifikasi untuk menerima pesan khusus dari Litewallet di masa mendatang.</string>
+  <string name="PushNotifications.body">Hidupkan notifikasi untuk menerima pesan khusus dari Brainwallet di masa mendatang.</string>
   <!-- Push notifications toggle switch label -->
   <string name="PushNotifications.label">Pemberitahuan Push</string>
   <!-- Push notifications are off label -->
@@ -305,7 +305,7 @@
   <!-- Enter paper key instruction -->
   <string name="RecoverWallet.instruction">Masukkan Kunci Kertas</string>
   <!-- Recover wallet intro -->
-  <string name="RecoverWallet.intro">Pulihkan Litewallet Anda dengan kunci kertas Anda.</string>
+  <string name="RecoverWallet.intro">Pulihkan Brainwallet Anda dengan kunci kertas Anda.</string>
   <!-- Invalid paper key message -->
   <string name="RecoverWallet.invalid">Kunci kertas yang Anda masukkan tidak valid. Harap periksa kembali setiap kata dan coba lagi.</string>
   <!-- Previous button accessibility label -->
@@ -333,7 +333,7 @@
   <!-- extimated time -->
   <string name="ReScan.body1">20-45 menit</string>
   <!-- Syncing explanation -->
-  <string name="ReScan.body2">Jika transaksi ditampilkan sebagai selesai di jaringan Litecoin tetapi tidak di Litewallet Anda.</string>
+  <string name="ReScan.body2">Jika transaksi ditampilkan sebagai selesai di jaringan Litecoin tetapi tidak di Brainwallet Anda.</string>
   <!-- Syncing explanation -->
   <string name="ReScan.body3">Anda berulang kali mendapatkan kesalahan yang mengatakan transaksi Anda ditolak.</string>
   <!-- Start Sync button label -->
@@ -363,13 +363,13 @@
   <!-- Paper Key button title -->
   <string name="SecurityCenter.paperKeyTitle">Kunci Kertas</string>
   <!-- PIN button description -->
-  <string name="SecurityCenter.pinDescription">Melindungi Litewallet Anda dari pengguna yang tidak sah.</string>
+  <string name="SecurityCenter.pinDescription">Melindungi Brainwallet Anda dari pengguna yang tidak sah.</string>
   <!-- PIN button title -->
   <string name="SecurityCenter.pinTitle">pin 6 angka</string>
   <!-- Security Center Title -->
   <string name="SecurityCenter.title">Pusat Keamanan</string>
   <!-- Touch ID button description -->
-  <string name="SecurityCenter.touchIdDescription">Buka kunci Litewallet Anda dengan mudah dan kirim uang hingga batas yang ditentukan.</string>
+  <string name="SecurityCenter.touchIdDescription">Buka kunci Brainwallet Anda dengan mudah dan kirim uang hingga batas yang ditentukan.</string>
   <!-- Touch ID button title -->
   <string name="SecurityCenter.touchIdTitle">Touch ID</string>
   <!-- Security center fingerprint authentication button -->
@@ -379,13 +379,13 @@
   <!-- Balance: $4.00 -->
   <string name="Send.balance">Keseimbangan: %1$s</string>
   <!-- Instructions how to allow the camera access for the app -->
-  <string name="Send.cameraUnavailabeMessage.android">Izinkan akses kamera di \"Pengaturan\" > \"Aplikasi\" > \"Litewallet\" > \"Izin\"</string>
+  <string name="Send.cameraUnavailabeMessage.android">Izinkan akses kamera di \"Pengaturan\" > \"Aplikasi\" > \"Brainwallet\" > \"Izin\"</string>
   <!-- Permission required to access camera -->
-  <string name="Send.cameraUnavailabeTitle.android">Litewallet tidak diizinkan untuk mengakses kamera</string>
+  <string name="Send.cameraUnavailabeTitle.android">Brainwallet tidak diizinkan untuk mengakses kamera</string>
   <!-- Camera not allowed message -->
   <string name="Send.cameraunavailableMessage">Buka Pengaturan untuk mengizinkan akses kamera.</string>
   <!-- Camera not allowed alert title -->
-  <string name="Send.cameraUnavailableTitle">Litewallet tidak diizinkan untuk mengakses kamera</string>
+  <string name="Send.cameraUnavailableTitle">Brainwallet tidak diizinkan untuk mengakses kamera</string>
   <!-- Warning when sending to self. -->
   <string name="Send.containsAddress">Tujuannya adalah alamat Anda sendiri. Anda tidak dapat mengirim ke diri Anda sendiri.</string>
   <!-- Could not create transaction alert title -->
@@ -450,8 +450,8 @@
   <string name="Settings.currency">Tampilan Mata Uang</string>
   <!-- Join Early access label -->
   <string name="Settings.earlyAccess">Bergabunglah dengan Akses Awal</string>
-  <!-- Are you enjoying litewallet alert message body -->
-  <string name="Settings.enjoying">Apakah Anda menikmati Litewallet?</string>
+  <!-- Are you enjoying brainwallet alert message body -->
+  <string name="Settings.enjoying">Apakah Anda menikmati Brainwallet?</string>
   <!-- Import wallet label -->
   <string name="Settings.importTitle">Impor Dompet</string>
   <!-- Manage settings section header -->
@@ -475,7 +475,7 @@
   <!-- Start or recover another wallet menu label. -->
   <string name="Settings.wipe">Mulai / Pulihkan Dompet Lain</string>
   <!-- Share data view body -->
-  <string name="ShareData.body">Bantu tingkatkan Litewallet dengan membagikan data anonim Anda kepada kami. Ini tidak termasuk informasi keuangan apa pun. Kami menghormati privasi finansial Anda.</string>
+  <string name="ShareData.body">Bantu tingkatkan Brainwallet dengan membagikan data anonim Anda kepada kami. Ini tidak termasuk informasi keuangan apa pun. Kami menghormati privasi finansial Anda.</string>
   <!-- Share data header -->
   <string name="ShareData.header">Bagikan Data?</string>
   <!-- Share data switch label. -->
@@ -483,7 +483,7 @@
   <!-- button label -->
   <string name="StartPaperPhrase.againButtonTitle">Tuliskan Kunci Kertas Lagi</string>
   <!-- Paper key explanation text. -->
-  <string name="StartPaperPhrase.body">Kunci kertas Anda adalah satu-satunya cara untuk memulihkan Litewallet jika ponsel Anda hilang, dicuri, rusak, atau ditingkatkan.\n\nKami akan menampilkan daftar kata untuk ditulis di selembar kertas dan tetap aman.</string>
+  <string name="StartPaperPhrase.body">Kunci kertas Anda adalah satu-satunya cara untuk memulihkan Brainwallet jika ponsel Anda hilang, dicuri, rusak, atau ditingkatkan.\n\nKami akan menampilkan daftar kata untuk ditulis di selembar kertas dan tetap aman.</string>
   <!-- button label -->
   <string name="StartPaperPhrase.buttonTitle">Tuliskan Kunci Kertas</string>
   <!-- Argument is date -->
@@ -515,14 +515,14 @@
   <!-- Fingerprint Is Not Setup -->
   <string name="TouchIdSettings.disabledWarning.title.android">Otentikasi Sidik Jari Tidak Diaktifkan</string>
   <!-- Touch Id screen label -->
-  <string name="TouchIdSettings.label">Gunakan sidik jari Anda untuk membuka kunci Litewallet dan mengirim uang hingga batas yang ditentukan.</string>
+  <string name="TouchIdSettings.label">Gunakan sidik jari Anda untuk membuka kunci Brainwallet dan mengirim uang hingga batas yang ditentukan.</string>
   <!-- Link Text (see TouchIdSettings.customizeText) -->
   <string name="TouchIdSettings.linkText">Sentuh Layar Batas Pengeluaran ID</string>
   <!-- Spending Limit: b100,000 ($100) -->
   <string name="TouchIdSettings.spendingLimit">Batas pengeluaran: %1$s (%2$s)</string>
   <!-- Touch id switch label. -->
-  <string name="TouchIdSettings.switchLabel">Aktifkan Touch ID untuk Litewallet</string>
-  <!-- Enable fingerprint for this wallet called Litewallet -->
+  <string name="TouchIdSettings.switchLabel">Aktifkan Touch ID untuk Brainwallet</string>
+  <!-- Enable fingerprint for this wallet called Brainwallet -->
   <string name="TouchIdSettings.switchLabel.android">Aktifkan Otentikasi Sidik Jari</string>
   <!-- Touch ID settings view title -->
   <string name="TouchIdSettings.title">Touch ID</string>
@@ -617,7 +617,7 @@
   <!-- Instruction to touch the sensor for fingerprint authentication -->
   <string name="UnlockScreen.touchIdInstructions.android">Sensor Sentuh</string>
   <!-- TouchID prompt text -->
-  <string name="UnlockScreen.touchIdPrompt">Buka kunci Litewallet Anda.</string>
+  <string name="UnlockScreen.touchIdPrompt">Buka kunci Brainwallet Anda.</string>
   <!-- Device authentication body -->
   <string name="UnlockScreen.touchIdPrompt.android">Harap buka kunci perangkat Android Anda untuk melanjutkan.</string>
   <!-- Unlock with TouchID accessibility label -->

@@ -25,9 +25,9 @@
   <!-- Error alert title -->
   <string name="Alert.error">Помилка</string>
   <!-- Keystore error -->
-  <string name="Alert.keystore.generic.android">Виникла проблема зі сховищем ключів ОС Android, зв’яжіться з support@litewallet.io</string>
+  <string name="Alert.keystore.generic.android">Виникла проблема зі сховищем ключів ОС Android, зв’яжіться з contact@brainwallet.co</string>
   <!-- KeyStore error, keys are invalidated -->
-  <string name="Alert.keystore.invalidated.android">Ваші зашифровані дані Litewallet нещодавно було визнано недійсними, оскільки екран блокування Android було вимкнено.</string>
+  <string name="Alert.keystore.invalidated.android">Ваші зашифровані дані Brainwallet нещодавно було визнано недійсними, оскільки екран блокування Android було вимкнено.</string>
   <!-- Keystore error title -->
   <string name="Alert.keystore.title.android">Помилка Android KeyStore</string>
   <!-- No internet alert message -->
@@ -102,7 +102,7 @@
   <!-- Email unavailable alert title -->
     <!-- Email unavailable alert title -->
   <!-- Message that gets shown when we've detected the user has encountered the looping lock-screen bug. (preserve [ ] characters) -->
-  <string name="ErrorMessages.loopingLockScreen.android">Litewallet не може бути автентифікований через помилку у вашій версії Android. [Будь ласка, торкніться тут для отримання додаткової інформації.]</string>
+  <string name="ErrorMessages.loopingLockScreen.android">Brainwallet не може бути автентифікований через помилку у вашій версії Android. [Будь ласка, торкніться тут для отримання додаткової інформації.]</string>
   <!-- Messaging unavailable alert title -->
   <string name="ErrorMessages.messagingUnavailableMessage">Цей пристрій не налаштовано на надсилання повідомлень.</string>
   <!-- Messaging unavailable alert title -->
@@ -144,7 +144,7 @@
   <!-- Caption for graphics -->
   <string name="Import.leftCaption">Гаманець для імпорту</string>
   <!-- Import wallet intro screen message -->
-  <string name="Import.message">Імпорт гаманця передає всі гроші з вашого іншого гаманця у ваш Litewallet за допомогою однієї транзакції.</string>
+  <string name="Import.message">Імпорт гаманця передає всі гроші з вашого іншого гаманця у ваш Brainwallet за допомогою однієї транзакції.</string>
   <!-- Enter password alert view title -->
   <string name="Import.password">Цей закритий ключ захищений паролем.</string>
   <!-- password textfield placeholder -->

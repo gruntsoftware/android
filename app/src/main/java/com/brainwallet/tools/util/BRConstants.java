@@ -92,10 +92,10 @@ public class BRConstants {
      */
 
     public static final String TWITTER_LINK = "https://twitter.com/Litewallet_App";
-    public static final String INSTAGRAM_LINK = "https://www.instagram.com/litewallet.app";
-    public static final String WEB_LINK = "https://litewallet.io";
-    public static final String TOS_LINK = "https://litewallet.io/privacy";
-    public static String CUSTOMER_SUPPORT_LINK = "https://support.litewallet.io/hc/en-us/requests/new";
+    public static final String INSTAGRAM_LINK = "https://www.instagram.com/brainwalletapp";
+    public static final String WEB_LINK = "https://brainwallet.co";
+    public static final String TOS_LINK = "https://brainwallet.co/privacy-policy.html";
+    public static String CUSTOMER_SUPPORT_LINK = "mailto://contact@brainwallet.co";
     public static String BITREFILL_AFFILIATE_LINK = "https://www.bitrefill.com/";
 
     /**

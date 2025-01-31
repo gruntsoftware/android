@@ -78,7 +78,7 @@ fun setupNotificationChannels(context: Context) {
     createNotificationChannel(
         context,
         NOTIFICATION_CHANNEL_ID_LITEWALLET_UPDATE,
-        context.getString(R.string.notification_channel_name_litewallet_update)
+        context.getString(R.string.notification_channel_name_brainwallet_update)
     )
 }
 
