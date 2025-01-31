@@ -26,7 +26,7 @@
   <!-- Error alert title -->
   <string name="Alert.error">Kesalahan</string>
   <!-- Keystore error -->
-  <string name="Alert.keystore.generic.android">Ada masalah dengan keystore OS Android Anda, harap hubungi support@brainwallet.co</string>
+  <string name="Alert.keystore.generic.android">Ada masalah dengan keystore OS Android Anda, harap hubungi support.brainwallet.co</string>
   <!-- KeyStore error, keys are invalidated -->
   <string name="Alert.keystore.invalidated.android">Data terenkripsi Brainwallet Anda baru-baru ini tidak valid karena layar kunci Android Anda dinonaktifkan.</string>
   <!-- Keystore error title -->
@@ -450,7 +450,7 @@
   <string name="Settings.currency">Tampilan Mata Uang</string>
   <!-- Join Early access label -->
   <string name="Settings.earlyAccess">Bergabunglah dengan Akses Awal</string>
-  <!-- Are you enjoying litewallet alert message body -->
+  <!-- Are you enjoying brainwallet alert message body -->
   <string name="Settings.enjoying">Apakah Anda menikmati Brainwallet?</string>
   <!-- Import wallet label -->
   <string name="Settings.importTitle">Impor Dompet</string>

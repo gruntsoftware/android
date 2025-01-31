@@ -25,7 +25,7 @@
   <!-- Error alert title -->
   <string name="Alert.error">Hata</string>
   <!-- Keystore error -->
-  <string name="Alert.keystore.generic.android">Android işletim sistemi anahtar deponuzla ilgili bir sorun var, lütfen support@brainwallet.co ile iletişime geçin.</string>
+  <string name="Alert.keystore.generic.android">Android işletim sistemi anahtar deponuzla ilgili bir sorun var, lütfen support.brainwallet.co ile iletişime geçin.</string>
   <!-- KeyStore error, keys are invalidated -->
   <string name="Alert.keystore.invalidated.android">Brainwallet şifreli verileriniz, Android kilit ekranınız devre dışı bırakıldığı için yakın zamanda geçersiz kılındı.</string>
   <!-- Keystore error title -->
