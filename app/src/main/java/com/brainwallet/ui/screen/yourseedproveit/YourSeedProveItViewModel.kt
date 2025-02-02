@@ -32,6 +32,12 @@ class YourSeedProveItViewModel : ViewModel() {
                 )
             }
 
+            YourSeedProveItEvent.OnClear -> _state.update {
+                it.copy(
+                    correctSeedWords = it.correctSeedWords.mapValues { "" }
+                )
+            }
+
             else -> Unit
         }
     }

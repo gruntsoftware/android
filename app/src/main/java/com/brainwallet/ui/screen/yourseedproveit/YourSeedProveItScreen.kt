@@ -7,6 +7,7 @@ package com.brainwallet.ui.screen.yourseedproveit
 
 import android.content.ClipData
 import android.content.ClipDescription
+import android.media.MediaPlayer
 import android.view.View
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -24,7 +25,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -44,6 +47,7 @@ import androidx.compose.ui.draganddrop.DragAndDropTransferData
 import androidx.compose.ui.draganddrop.mimeTypes
 import androidx.compose.ui.draganddrop.toAndroidDragEvent
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -60,9 +64,18 @@ fun YourSeedProveItScreen(
     viewModel: YourSeedProveItViewModel = viewModel()
 ) {
     val state by viewModel.state.collectAsState()
+    val context = LocalContext.current
+    val clickAudioPlayer = remember { MediaPlayer.create(context, R.raw.clickseedword) }
+    val coinAudioPlayer = remember { MediaPlayer.create(context, R.raw.coinflip) }
 
     LaunchedEffect(Unit) {
         viewModel.onEvent(YourSeedProveItEvent.OnLoad(seedWords))
+    }
+
+    LaunchedEffect(state.orderCorrected) {
+        if (state.orderCorrected) {
+            coinAudioPlayer.start()
+        }
     }
 
     Scaffold(
@@ -77,6 +90,17 @@ fun YourSeedProveItScreen(
                     )
                 }
             })
+        },
+        floatingActionButton = {
+            if (state.orderCorrected.not()) {
+                FloatingActionButton(
+                    onClick = {
+                        viewModel.onEvent(YourSeedProveItEvent.OnClear)
+                    }
+                ) {
+                    Icon(Icons.Default.Clear, contentDescription = null)
+                }
+            }
         }
     ) { paddingValues ->
         Column(
@@ -139,6 +163,8 @@ fun YourSeedProveItScreen(
                                                     actualWord = text.toString()
                                                 )
                                             )
+
+                                            clickAudioPlayer.start()
 
                                             return true
                                         }
