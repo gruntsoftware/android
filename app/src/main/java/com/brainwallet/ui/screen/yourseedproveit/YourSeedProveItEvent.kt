@@ -13,4 +13,6 @@ sealed class YourSeedProveItEvent {
     object OnBackClick : YourSeedProveItEvent()
 
     object OnGameAndSync : YourSeedProveItEvent()
+
+    object OnClear : YourSeedProveItEvent()
 }

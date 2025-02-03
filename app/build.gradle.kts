@@ -125,7 +125,7 @@ android {
             resValue("string", "app_name", "Brainwallet (screengrab)")
             buildConfigField("String[]", "SCREENGRAB_PAPERKEY", 
                 "new String[] {${localProperties.getProperty("SCREENGRAB_PAPERKEY", "")
-                    .split(",")
+                    .split(" ")
                     .joinToString { "\"$it\"" }}}")
 
             externalNativeBuild {
