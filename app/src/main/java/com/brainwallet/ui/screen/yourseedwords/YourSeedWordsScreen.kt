@@ -36,6 +36,13 @@ fun YourSeedWordsScreen(
     seedWords: List<String>,
     onEvent: (YourSeedWordsEvent) -> Unit = {},
 ) {
+
+    /// Layout values
+    val columnPadding = 16
+    val horizontalVerticalSpacing = 8
+    val spacerHeight = 48
+    val maxItemsPerRow = 3
+
     Scaffold(
         topBar = {
             TopAppBar(title = {}, navigationIcon = {
@@ -53,10 +60,10 @@ fun YourSeedWordsScreen(
         Column(
             modifier = Modifier
                 .padding(paddingValues)
-                .padding(16.dp)
+                .padding(columnPadding.dp)
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
         ) {
             Text(
                 text = stringResource(R.string.your_seed_words),
@@ -72,14 +79,14 @@ fun YourSeedWordsScreen(
                 )
             )
 
-            Spacer(modifier = Modifier.height(48.dp))
+            Spacer(modifier = Modifier.height(spacerHeight.dp))
 
             FlowRow(
                 modifier = Modifier
                     .fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                maxItemsInEachRow = 3
+                horizontalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
+                verticalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
+                maxItemsInEachRow = maxItemsPerRow
             ) {
                 seedWords.forEachIndexed { index, word ->
                     SeedWordItem(
@@ -107,7 +114,7 @@ fun YourSeedWordsScreen(
             ) {
                 Text(
                     text = stringResource(R.string.i_saved_it_on_paper),
-                    style = MaterialTheme.typography.labelLarge.copy(color = Color.White) //for now just hardcoded, need to create button composable later and adjust the theme later at [com.brainwallet.ui.theme.Theme]
+                    style = MaterialTheme.typography.titleLarge.copy(color = Color.White) //for now just hardcoded, need to create button composable later and adjust the theme later at [com.brainwallet.ui.theme.Theme]
                 )
             }
         }
