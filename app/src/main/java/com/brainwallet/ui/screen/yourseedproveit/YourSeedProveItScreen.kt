@@ -65,6 +65,13 @@ fun YourSeedProveItScreen(
 ) {
     val state by viewModel.state.collectAsState()
     val context = LocalContext.current
+
+    /// Layout values
+    val columnPadding = 18
+    val horizontalVerticalSpacing = 8
+    val spacerHeight = 48
+    val maxItemsPerRow = 3
+
     val clickAudioPlayer = remember { MediaPlayer.create(context, R.raw.clickseedword) }
     val coinAudioPlayer = remember { MediaPlayer.create(context, R.raw.coinflip) }
 
@@ -106,10 +113,10 @@ fun YourSeedProveItScreen(
         Column(
             modifier = Modifier
                 .padding(paddingValues)
-                .padding(16.dp)
+                .padding(columnPadding.dp)
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
         ) {
             Text(
                 text = stringResource(if (state.orderCorrected) R.string.you_saved_your_keys else R.string.you_saved_it_right),
@@ -124,14 +131,14 @@ fun YourSeedProveItScreen(
                 )
             )
 
-            Spacer(modifier = Modifier.height(48.dp))
+            Spacer(modifier = Modifier.height(spacerHeight.dp))
 
             FlowRow(
                 modifier = Modifier
                     .fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                maxItemsInEachRow = 3
+                horizontalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
+                verticalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
+                maxItemsInEachRow = maxItemsPerRow
             ) {
                 state.correctSeedWords.entries.forEachIndexed { index, (expectedWord, actualWord) ->
 
@@ -183,9 +190,9 @@ fun YourSeedProveItScreen(
                 FlowRow(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    maxItemsInEachRow = 3
+                    horizontalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
+                    verticalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
+                    maxItemsInEachRow = maxItemsPerRow
                 ) {
                     state.shuffledSeedWords.forEachIndexed { index, word ->
                         SeedWordItem(
