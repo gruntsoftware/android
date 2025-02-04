@@ -170,9 +170,10 @@ fun YourSeedProveItScreen(
                                                     actualWord = text.toString()
                                                 )
                                             )
-
-                                            clickAudioPlayer.start()
-
+                                            
+                                            if (expectedWord == actualWord) {
+                                                clickAudioPlayer.start()
+                                            }
                                             return true
                                         }
                                     }
