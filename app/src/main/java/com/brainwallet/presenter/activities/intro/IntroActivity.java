@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.compose.ui.platform.ComposeView;
+import androidx.compose.ui.platform.ViewCompositionStrategy;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +21,8 @@ import com.brainwallet.R;
 import com.brainwallet.data.model.IntroLanguageResource;
 import com.brainwallet.data.model.Language;
 import com.brainwallet.presenter.activities.BreadActivity;
+import com.brainwallet.presenter.activities.PaperKeyProveActivity;
+import com.brainwallet.presenter.activities.SetPasscodeActivity;
 import com.brainwallet.presenter.activities.SetPinActivity;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.tools.adapter.CountryLanguageAdapter;
@@ -175,35 +179,41 @@ public class IntroActivity extends BRActivity implements Serializable {
         });
     }
 
-//    public static boolean verifyInstallAssets(final Context context) {
-//        Timber.d("timber: verify");
-//
-//        String pusherStagingKey = Utils.fetchPartnerKey(context, PartnerNames.PUSHERSTAGING);
-//        boolean isCanaryFilePresent = false;
-//        try (Scanner scanner = new Scanner(new File("canary-file.json"))) {
-//            while (scanner.hasNextLine()) {
-//                String line = scanner.nextLine();
-//                Timber.d("timber: canary file : %s", line);
-//                isCanaryFilePresent = line.length() > 5;
-//            }
-//        } catch (RuntimeException | FileNotFoundException e) {
-//            Timber.e(e);
-//        }
-//
-//        return ( pusherStagingKey.contains("4cc2-94df") && isCanaryFilePresent );
-//    }
-
     private void setListeners() {
         newWalletButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!BRAnimator.isClickAllowed()) return;
-                BreadActivity bApp = BreadActivity.getApp();
-                if (bApp != null) bApp.finish();
-                Intent intent = new Intent(IntroActivity.this, SetPinActivity.class);
-                startActivity(intent);
+
+                Intent intent = new Intent(app, SetPasscodeActivity.class);
+                app.startActivity(intent);
+                app.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
             }
         });
+//
+//        binding.composeView.apply {
+//            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+//            setContentWithTheme {
+//                YourSeedProveItScreen(
+//                        seedWords = seedWords,
+//                        onEvent = { event ->
+//                                when (event) {
+//                                YourSeedProveItEvent.OnBackClick -> finish()
+//                YourSeedProveItEvent.OnGameAndSync -> {
+//                    BRSharedPrefs.putPhraseWroteDown(this@PaperKeyProveActivity, true)
+//                    BRAnimator.startBreadActivity(
+//                            this@PaperKeyProveActivity,
+//                    false
+//                                )
+//                    finishAffinity()
+//                }
+//
+//                            else -> Unit
+//                        }
+//                    }
+//                )
+//            }
+//        }
 
         recoverWalletButton.setOnClickListener(new View.OnClickListener() {
             @Override
