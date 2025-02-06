@@ -31,6 +31,7 @@ import com.brainwallet.R
 import com.brainwallet.ui.composable.LargeButton
 import com.brainwallet.ui.composable.SeedWordItem
 
+@JvmOverloads
 @Composable
 fun YourSeedWordsScreen(
     seedWords: List<String>,

@@ -1,22 +1,18 @@
 package com.brainwallet.ui.screen.setpasscode
 
+import com.brainwallet.ui.screen.yourseedproveit.YourSeedProveItEvent
+
 sealed class SetPasscodeScreenEvent {
 
-    data class OnSetDigit(
-        val digit1: Int,
-        val digit2: Int,
-        val digit3: Int,
-        val digit4: Int,
-        val digit5: Int,
-        val digit6: Int,
+    data class OnLoad(
+        val digits: List<Int>,
     ) : SetPasscodeScreenEvent()
 
-    object OnSetBiometrics : SetPasscodeScreenEvent()
+    data class OnSetPasscode (
+        val actualDigits: List<Int>,
+    ) : SetPasscodeScreenEvent()
 
     object OnBackClick : SetPasscodeScreenEvent()
-
     object OnClear : SetPasscodeScreenEvent()
-
-    object OnSetPasscode : SetPasscodeScreenEvent()
-
+    object OnEnterPasscode : SetPasscodeScreenEvent()
 }

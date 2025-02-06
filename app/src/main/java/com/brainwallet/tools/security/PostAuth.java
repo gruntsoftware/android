@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.NetworkOnMainThreadException;
 import android.security.keystore.UserNotAuthenticatedException;
 
+import com.brainwallet.presenter.activities.SetPasscodeActivity;
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.threads.PaymentProtocolPostPaymentTask;
@@ -49,16 +50,19 @@ public class PostAuth {
     public void onCreateWalletAuth(Activity app, boolean authAsked) {
         boolean success = BRWalletManager.getInstance().generateRandomSeed(app);
         if (success) {
-            Intent intent = new Intent(app, WriteDownActivity.class);
+            //////////////////////////
+            ///DEV Sync STARTS HERE!!!////
+          /////////////////////////////////
+            Intent intent = new Intent(app, SetPasscodeActivity.class);
             app.startActivity(intent);
             app.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+
         } else {
             if (authAsked) {
                 Timber.d("timber: %s: WARNING!!!! LOOP", new Object() {
                 }.getClass().getEnclosingMethod().getName());
                 isStuckWithAuthLoop = true;
             }
-            return;
         }
     }
 
