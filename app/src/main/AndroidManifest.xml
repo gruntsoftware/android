@@ -159,6 +159,11 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".presenter.activities.SetPasscodeActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".presenter.activities.settings.SpendLimitActivity"
             android:exported="true"
             android:launchMode="singleTask"

@@ -190,30 +190,6 @@ public class IntroActivity extends BRActivity implements Serializable {
                 app.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
             }
         });
-//
-//        binding.composeView.apply {
-//            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-//            setContentWithTheme {
-//                YourSeedProveItScreen(
-//                        seedWords = seedWords,
-//                        onEvent = { event ->
-//                                when (event) {
-//                                YourSeedProveItEvent.OnBackClick -> finish()
-//                YourSeedProveItEvent.OnGameAndSync -> {
-//                    BRSharedPrefs.putPhraseWroteDown(this@PaperKeyProveActivity, true)
-//                    BRAnimator.startBreadActivity(
-//                            this@PaperKeyProveActivity,
-//                    false
-//                                )
-//                    finishAffinity()
-//                }
-//
-//                            else -> Unit
-//                        }
-//                    }
-//                )
-//            }
-//        }
 
         recoverWalletButton.setOnClickListener(new View.OnClickListener() {
             @Override
