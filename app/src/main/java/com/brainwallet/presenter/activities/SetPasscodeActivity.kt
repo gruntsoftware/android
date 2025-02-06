@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.brainwallet.databinding.ActivitySetPasscodeBinding
 import com.brainwallet.presenter.activities.util.BRActivity
-import com.brainwallet.tools.security.PostAuth
 import com.brainwallet.ui.screen.setpasscode.SetPasscodeReadyScreen
 import com.brainwallet.ui.screen.setpasscode.SetPasscodeReadyScreenEvent
 import com.brainwallet.ui.screen.setpasscode.SetPasscodeScreen
@@ -39,8 +38,13 @@ class SetPasscodeActivity: BRActivity() {
                         when (action) {
                             SetPasscodeScreenEvent.OnBackClick -> finish()
                             SetPasscodeScreenEvent.OnEnterPasscode -> onEnterPasscode()
+                            SetPasscodeScreenEvent.OnClear -> TODO()
+                            is SetPasscodeScreenEvent.OnLoad -> TODO()
+                            is SetPasscodeScreenEvent.OnSetPasscode -> TODO()
                         }
-                    }
+                    },
+                    digits = TODO(),
+                    viewModel = TODO()
                 )
 
             }
