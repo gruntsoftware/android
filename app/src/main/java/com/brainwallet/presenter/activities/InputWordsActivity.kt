@@ -2,15 +2,13 @@ package com.brainwallet.presenter.activities
 
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import androidx.compose.ui.platform.ViewCompositionStrategy
-import com.brainwallet.R
 import com.brainwallet.databinding.ActivityInputWordsBinding
-import com.brainwallet.presenter.activities.intro.IntroActivity
 import com.brainwallet.presenter.activities.util.BRActivity
 import com.brainwallet.tools.animation.BRAnimator
-import com.brainwallet.tools.animation.BRDialog
+import com.brainwallet.tools.manager.BRSharedPrefs
+import com.brainwallet.tools.security.PostAuth
 import com.brainwallet.tools.security.SmartValidator
 import com.brainwallet.tools.util.Utils
 import com.brainwallet.ui.screen.inputwords.InputWordsEvent
@@ -51,67 +49,15 @@ class InputWordsActivity : BRActivity() {
         val app: Activity = this@InputWordsActivity
 
         val cleanPhrase = SmartValidator.cleanPaperKey(app, paperkey)
-        if (SmartValidator.isPaperKeyValid(app, cleanPhrase)) {
 
-            if (SmartValidator.isPaperKeyCorrect(cleanPhrase, app)) {
-                Utils.hideKeyboard(app)
+        val m = BRWalletManager.getInstance()
+        m.wipeWalletButKeystore(app)
+        m.wipeKeyStore(app)
+        PostAuth.getInstance().setPhraseForKeyStore(cleanPhrase)
+        BRSharedPrefs.putAllowSpend(app, false)
 
-                BRDialog.showCustomDialog(
-                    this@InputWordsActivity,
-                    getString(R.string.WipeWallet_alertTitle),
-                    getString(R.string.WipeWallet_alertMessage),
-                    getString(R.string.WipeWallet_wipe),
-                    getString(R.string.Button_cancel),
-                    { brDialogView ->
-                        brDialogView.dismissWithAnimation()
-                        val m = BRWalletManager.getInstance()
-                        m.wipeWalletButKeystore(app)
-                        m.wipeKeyStore(app)
-                        val intent = Intent(
-                            app, IntroActivity::class.java
-                        )
-                        finalizeIntent(intent)
-                    },
-                    { brDialogView -> brDialogView.dismissWithAnimation() },
-                    null,
-                    0
-                )
-
-            } else {
-                BRDialog.showCustomDialog(
-                    app,
-                    "",
-                    getString(R.string.RecoverWallet_invalid),
-                    getString(R.string.AccessibilityLabels_close),
-                    null,
-                    { brDialogView -> brDialogView.dismissWithAnimation() },
-                    null,
-                    null,
-                    0
-                )
-            }
-
-        } else {
-            BRDialog.showCustomDialog(
-                app,
-                "",
-                resources.getString(R.string.RecoverWallet_invalid),
-                getString(R.string.AccessibilityLabels_close),
-                null,
-                { brDialogView -> brDialogView.dismissWithAnimation() },
-                null,
-                null,
-                0
-            )
-        }
-    }
-
-    private fun finalizeIntent(intent: Intent) {
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left)
-        startActivity(intent)
-        if (!this@InputWordsActivity.isDestroyed) finish()
-        val app: Activity? = BreadActivity.getApp()
-        if (app != null && !app.isDestroyed) app.finish()
+        //if this screen is shown then we did not upgrade to the new app, we installed it
+        BRSharedPrefs.putGreetingsShown(app, true)
+        PostAuth.getInstance().onRecoverWalletAuth(app, false)
     }
 }
