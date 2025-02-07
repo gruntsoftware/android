@@ -13,6 +13,7 @@ import java.util.List;
 
 import timber.log.Timber;
 
+//todo refactor to repository
 public class Bip39Reader {
 
     private static final String TAG = Bip39Reader.class.getName();

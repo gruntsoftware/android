@@ -1,6 +1,8 @@
 package com.brainwallet.ui.screen.inputwords
 
 import androidx.lifecycle.ViewModel
+import com.brainwallet.BrainwalletApp
+import com.brainwallet.tools.util.Bip39Reader
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -11,6 +13,13 @@ class InputWordsViewModel : ViewModel() {
     private val _state = MutableStateFlow(InputWordsState())
     val state: StateFlow<InputWordsState> = _state.asStateFlow()
 
+    init {
+        //TODO: revisit later, please move to repostiory, for now just reuse the existing
+        Bip39Reader.bip39List(BrainwalletApp.getBreadContext(), "en").also { bip39Words ->
+            _state.update { it.copy(bip39Words = bip39Words) }
+        }
+    }
+
     fun onEvent(event: InputWordsEvent) {
         //todo
         when (event) {
@@ -18,12 +27,15 @@ class InputWordsViewModel : ViewModel() {
                 it.copy(
                     seedWords = it.seedWords.toMutableMap().apply {
                         put(event.index, event.text)
+                    },
+                    suggestionsSeedWords = it.bip39Words.filter {
+                        it.startsWith(event.text) && event.text.isNotEmpty()
                     }
                 )
             }
 
             InputWordsEvent.OnClearSeedWords -> _state.update {
-                InputWordsState()
+                InputWordsState(bip39Words = it.bip39Words)
             }
 
             else -> Unit
