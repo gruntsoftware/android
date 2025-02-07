@@ -254,10 +254,10 @@ val unspecified_scheme = ColorFamily(
 
 @Composable
 fun BrainwalletAppTheme(
-    darkTheme: Boolean = true,
+    darkTheme: Boolean = true, //TODO: will change this later, will be using toggle
 //    darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = true, //dynamic color will disable or not?
     content: @Composable() () -> Unit
 ) {
     val colorScheme = when {
