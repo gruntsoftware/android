@@ -3,6 +3,7 @@ package com.brainwallet.ui.composable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -21,26 +22,36 @@ fun SeedWordItem(
     trailingIcon: @Composable (() -> Unit)? = null,
     isError: Boolean = false,
 ) {
+    SeedWordItemBox(modifier = modifier) {
+        Text(
+            modifier = Modifier.padding(vertical = 12.dp),
+            text = label,
+            style = MaterialTheme.typography.bodyMedium,
+            color = if (isError) Color.Red else Color.White
+        )
+        trailingIcon?.let { icon ->
+            Spacer(modifier = Modifier.width(8.dp))
+            icon()
+        }
+    }
+}
+
+@Composable
+fun SeedWordItemBox(
+    modifier: Modifier = Modifier,
+    content: @Composable RowScope.() -> Unit
+) {
     Box(modifier = modifier) {
         Row(
             modifier = modifier
                 .background(
-                    color = Color(0xFF2C2C2C),
+                    color = Color(0xFF2C2C2C), //todo: change using MaterialTheme.colorScheme
                     shape = MaterialTheme.shapes.extraLarge
                 )
                 .padding(horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                modifier = Modifier.padding(vertical = 12.dp),
-                text = label,
-                style = MaterialTheme.typography.bodyMedium,
-                color = if (isError) Color.Red else Color.White
-            )
-            trailingIcon?.let { icon ->
-                Spacer(modifier = Modifier.width(8.dp))
-                icon()
-            }
+            content.invoke(this)
         }
     }
 }
