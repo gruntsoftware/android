@@ -5,3 +5,7 @@ data class InputWordsState(
     val suggestionsSeedWords: List<String> = emptyList(),
     val seedWords: Map<Int, String> = (0..11).associateWith { "" } //12 seed words
 )
+
+fun InputWordsState.asPaperKey(): String {
+    return seedWords.values.joinToString(" ")
+}

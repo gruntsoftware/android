@@ -21,12 +21,11 @@ class InputWordsViewModel : ViewModel() {
     }
 
     fun onEvent(event: InputWordsEvent) {
-        //todo
         when (event) {
             is InputWordsEvent.OnSeedWordItemChange -> _state.update {
                 it.copy(
                     seedWords = it.seedWords.toMutableMap().apply {
-                        put(event.index, event.text)
+                        put(event.index, Bip39Reader.cleanWord(event.text.lowercase()))
                     },
                     suggestionsSeedWords = it.bip39Words.filter {
                         it.startsWith(event.text) && event.text.isNotEmpty()
@@ -37,6 +36,11 @@ class InputWordsViewModel : ViewModel() {
             InputWordsEvent.OnClearSeedWords -> _state.update {
                 InputWordsState(bip39Words = it.bip39Words)
             }
+
+//            InputWordsEvent.OnRestoreClick -> {
+                //todo: move here from [InputWordsActivity] after new UI implemented
+
+//            }
 
             else -> Unit
         }
