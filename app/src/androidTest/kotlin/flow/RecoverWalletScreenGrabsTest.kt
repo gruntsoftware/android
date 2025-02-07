@@ -57,6 +57,8 @@ class RecoverWalletScreenGrabsTest {
 
         Screengrab.screenshot("3_input_paperkey_screen")
 
+        //TODO: please fix this, since the UI changed
+
         val editTextIds = listOf(
             R.id.word1,
             R.id.word2,
