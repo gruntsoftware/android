@@ -9,4 +9,6 @@ sealed class InputWordsEvent {
     ) : InputWordsEvent()
 
     object OnClearSeedWords : InputWordsEvent()
+
+    data class OnRestoreClick(val paperkey: String) : InputWordsEvent()
 }
