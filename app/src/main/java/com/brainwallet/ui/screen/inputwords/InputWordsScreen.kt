@@ -3,18 +3,15 @@
 package com.brainwallet.ui.screen.inputwords
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -23,7 +20,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -32,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,12 +37,14 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
 import com.brainwallet.ui.composable.LargeButton
-import com.brainwallet.ui.composable.SeedWordItemBox
+import com.brainwallet.ui.composable.SeedWordItemTextField
+import timber.log.Timber
 
 @Composable
 fun InputWordsScreen(
@@ -114,22 +113,15 @@ fun InputWordsScreen(
                 verticalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
                 maxItemsInEachRow = maxItemsPerRow
             ) {
-
                 state.seedWords.entries.forEach { (index, text) ->
-
-                    val modifier = if (index == 0)
-                        Modifier
-                            .focusRequester(focusRequester)
-                            .weight(1f)
-                    else Modifier.weight(1f)
-
-                    BasicTextField(
-                        modifier = modifier,
+                    SeedWordItemTextField(
+                        modifier = if (index == 0)
+                            Modifier
+                                .focusRequester(focusRequester)
+                                .weight(1f)
+                        else Modifier.weight(1f),
                         value = text,
-                        textStyle = LocalTextStyle.current.copy(
-                            color = Color.White
-                        ),
-                        cursorBrush = androidx.compose.ui.graphics.SolidColor(Color.White),
+                        suggestions = state.suggestionsSeedWords,
                         onValueChange = {
                             viewModel.onEvent(
                                 InputWordsEvent.OnSeedWordItemChange(
@@ -137,25 +129,11 @@ fun InputWordsScreen(
                                 )
                             )
                         },
-                        singleLine = true,
                         keyboardOptions = KeyboardOptions(
                             imeAction = if (index < 11) ImeAction.Next else ImeAction.Done
                         ),
-                        decorationBox = { innerTextField ->
-                            SeedWordItemBox {
-                                Box(
-                                    modifier = Modifier.padding(vertical = 8.dp)
-                                ) {
-                                    Row(
-                                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                        verticalAlignment = Alignment.Bottom
-
-                                    ) {
-                                        Text("${index + 1}")
-                                        innerTextField.invoke()
-                                    }
-                                }
-                            }
+                        prefix = {
+                            Text("${index + 1}")
                         }
                     )
 
