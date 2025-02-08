@@ -9,6 +9,7 @@ sealed class SetPasscodeScreenEvent {
     ) : SetPasscodeScreenEvent()
 
     data class OnSetPasscode (
+        val selectedDigits: List<Int>,
         val actualDigits: List<Int>,
     ) : SetPasscodeScreenEvent()
 

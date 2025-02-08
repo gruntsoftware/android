@@ -15,11 +15,15 @@ class SetPasscodeActivity: BRActivity() {
 
     private lateinit var binding: ActivitySetPasscodeBinding
 
+    private val codeListSize = 6
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivitySetPasscodeBinding.inflate(layoutInflater)
         val view = binding.root
+        val digits = listOf<Int>(codeListSize)
+
         setContentView(view)
 
         binding.composeView.apply {
@@ -34,14 +38,11 @@ class SetPasscodeActivity: BRActivity() {
                     }
                 )
                 SetPasscodeScreen(
-                    digits = TODO(),
+                    digits = digits,
                     onEvent = { action ->
                         when (action) {
                             SetPasscodeScreenEvent.OnBackClick -> finish()
                             SetPasscodeScreenEvent.OnEnterPasscode -> onEnterPasscode()
-                            SetPasscodeScreenEvent.OnClear -> TODO()
-                            is SetPasscodeScreenEvent.OnLoad -> TODO()
-                            is SetPasscodeScreenEvent.OnSetPasscode -> TODO()
                         }
                     }
                 )

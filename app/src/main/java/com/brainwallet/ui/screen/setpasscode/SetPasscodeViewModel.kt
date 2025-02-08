@@ -23,8 +23,9 @@ class SetPasscodeViewModel : ViewModel() {
 
             is SetPasscodeScreenEvent.OnSetPasscode -> _state.update {
                val preferredPasscode = it.digits.apply {
-                    this[event] = event
-                }
+                    this[event.selectedDigits] = event.actualDigits
+
+               }
                         it.copy( digits = preferredPasscode)
             }
             is SetPasscodeScreenEvent.OnClear -> _state.update {
