@@ -34,6 +34,7 @@ class SetPasscodeActivity: BRActivity() {
                     }
                 )
                 SetPasscodeScreen(
+                    digits = TODO(),
                     onEvent = { action ->
                         when (action) {
                             SetPasscodeScreenEvent.OnBackClick -> finish()
@@ -42,9 +43,7 @@ class SetPasscodeActivity: BRActivity() {
                             is SetPasscodeScreenEvent.OnLoad -> TODO()
                             is SetPasscodeScreenEvent.OnSetPasscode -> TODO()
                         }
-                    },
-                    digits = TODO(),
-                    viewModel = TODO()
+                    }
                 )
 
             }
