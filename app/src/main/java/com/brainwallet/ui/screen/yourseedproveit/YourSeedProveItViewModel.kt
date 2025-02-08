@@ -11,7 +11,6 @@ class YourSeedProveItViewModel : ViewModel() {
     private val _state = MutableStateFlow(YourSeedProveItState())
     val state: StateFlow<YourSeedProveItState> = _state.asStateFlow()
 
-    //
     fun onEvent(event: YourSeedProveItEvent) {
         when (event) {
             is YourSeedProveItEvent.OnLoad -> _state.update {
