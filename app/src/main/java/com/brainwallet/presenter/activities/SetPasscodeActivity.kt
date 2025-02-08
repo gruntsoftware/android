@@ -4,10 +4,9 @@ import android.os.Bundle
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.brainwallet.databinding.ActivitySetPasscodeBinding
 import com.brainwallet.presenter.activities.util.BRActivity
+import com.brainwallet.ui.screen.setpasscode.SetPasscodeMainScreen
 import com.brainwallet.ui.screen.setpasscode.SetPasscodeReadyScreen
-import com.brainwallet.ui.screen.setpasscode.SetPasscodeReadyScreenEvent
 import com.brainwallet.ui.screen.setpasscode.SetPasscodeScreen
-import com.brainwallet.ui.screen.setpasscode.SetPasscodeScreenEvent
 import com.brainwallet.ui.theme.setContentWithTheme
 
 
@@ -29,23 +28,33 @@ class SetPasscodeActivity: BRActivity() {
         binding.composeView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContentWithTheme {
-                SetPasscodeReadyScreen(
-                    onEvent = { action ->
-                        when (action) {
-                            SetPasscodeReadyScreenEvent.OnBackClick -> finish()
-                            SetPasscodeReadyScreenEvent.OnReadyClick -> onReadyClick()
-                        }
-                    }
+
+                SetPasscodeMainScreen(
+                    onBackClick = {
+                        finish()
+                    },
+                    digits = digits
                 )
-                SetPasscodeScreen(
-                    digits = digits,
-                    onEvent = { action ->
-                        when (action) {
-                            SetPasscodeScreenEvent.OnBackClick -> finish()
-                            SetPasscodeScreenEvent.OnEnterPasscode -> onEnterPasscode()
-                        }
-                    }
-                )
+
+
+
+//                SetPasscodeReadyScreen(
+//                    onEvent = { action ->
+//                        when (action) {
+//                            SetPasscodeReadyScreenEvent.OnBackClick -> finish()
+//                            SetPasscodeReadyScreenEvent.OnReadyClick -> onReadyClick()
+//                        }
+//                    }
+//                )
+//                SetPasscodeScreen(
+//                    digits = digits,
+//                    onEvent = { action ->
+//                        when (action) {
+//                            SetPasscodeScreenEvent.OnBackClick -> finish()
+//                            SetPasscodeScreenEvent.OnEnterPasscode -> onEnterPasscode()
+//                        }
+//                    }
+//                )
 
             }
         }
