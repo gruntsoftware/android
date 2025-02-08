@@ -4,18 +4,15 @@
 )
 package com.brainwallet.ui.screen.setpasscode
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -33,9 +30,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -56,8 +51,7 @@ import com.brainwallet.ui.composable.LargeButton
 @Composable
 fun SetPasscodeConfirmScreen(
     digits: List<Int>,
-    onEvent: (SetPasscodeConfirmScreenEvent) -> Unit = {},
-    viewModel: SetPasscodeViewModel = viewModel()
+    viewModel: SetPasscodeMainViewModel = viewModel()
 ) {
     val state by viewModel.state.collectAsState()
     val context = LocalContext.current
@@ -76,7 +70,7 @@ fun SetPasscodeConfirmScreen(
 
 
     LaunchedEffect(Unit) {
-        viewModel.onEvent(SetPasscodeScreenEvent.OnLoad(digits))
+//        viewModel.onEvent(SetPasscodeScreenEvent.OnLoad(digits))
     }
 
     LaunchedEffect(Unit) {
@@ -95,7 +89,7 @@ fun SetPasscodeConfirmScreen(
                 },
                 navigationIcon = {
                     IconButton(
-                        onClick = { onEvent.invoke(SetPasscodeConfirmScreenEvent.OnBackClick) },
+                        onClick = {  },
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -161,7 +155,7 @@ fun SetPasscodeConfirmScreen(
 
             LargeButton(
                 onClick = {
-                    onEvent.invoke(SetPasscodeConfirmScreenEvent.OnConfirmClick)
+
                 },
             ) {
                 Text(
@@ -181,7 +175,6 @@ fun SetPasscodeConfirmScreen(
 fun SetPasscodeConfirmScreenPreview() {
     SetPasscodeConfirmScreen(
         digits = TODO(),
-        onEvent = TODO(),
         viewModel = TODO()
     )
 }

@@ -49,12 +49,12 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
-import com.brainwallet.ui.screen.yourseedwords.YourSeedWordsEvent
 
 @Composable
 fun SetPasscodeReadyScreen (
-    onEvent: (SetPasscodeReadyScreenEvent) -> Unit = {},
-    viewModel: SetPasscodeViewModel = viewModel()
+    onBackClick: () -> Unit,
+    onReadyClick: () -> Unit,
+    viewModel: SetPasscodeMainViewModel = viewModel()
 ) {
     val state by viewModel.state.collectAsState()
     val context = LocalContext.current
@@ -91,7 +91,7 @@ fun SetPasscodeReadyScreen (
                 },
                 navigationIcon = {
                     IconButton(
-                        onClick = { onEvent.invoke(SetPasscodeReadyScreenEvent.OnBackClick) },
+                        onClick = onBackClick,
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -175,9 +175,7 @@ fun SetPasscodeReadyScreen (
             Spacer(modifier = Modifier.weight(0.1f))
 
             LargeButton(
-                onClick = {
-                    onEvent.invoke(SetPasscodeReadyScreenEvent.OnReadyClick)
-                },
+                onClick = onReadyClick,
             ) {
                 Text(
                     text = stringResource(R.string.setup_app_passcode),
@@ -193,7 +191,10 @@ fun SetPasscodeReadyScreen (
 @Preview
 @Composable
 fun SetPasscodeReadyScreenPreview() {
-    SetPasscodeReadyScreen()
+    SetPasscodeReadyScreen(
+        onReadyClick = {},
+        onBackClick = {}
+    )
 }
 
 
