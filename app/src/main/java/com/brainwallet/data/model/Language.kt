@@ -6,20 +6,22 @@ enum class Language(
     val desc: String,
 ) {
     ENGLISH("en", "English", "Select language"),
-    GERMAN("de", "Deutsch", "Sprache auswählen"),
     SPANISH("es", "Español", "Seleccione el idioma"),
-    FRENCH("fr", "Français", "Sélectionner la langue"),
     INDONESIAN("in", "Indonesia", "Pilih bahasa"),
-    ITALIAN("it", "Italiano", "Seleziona la lingua"),
-    PORTUGUESE("pt", "Português", "Selecione o idioma"),
-    TURKISH("tr", "Türkçe", "Dil Seçin"),
+    ARABIC("ar", "عربي", "اختر اللغة"),
     UKRAINIAN("uk", "Yкраїнський", "Оберіть мову"),
     RUSSIAN("ru", "Pусский", "Выберите язык"),
+    PORTUGUESE("pt", "Português", "Selecione o idioma"),
     KOREAN("ko", "한국어", "언어 선택"),
-    JAPANESE("ja", "日本語", "言語を選択する"),
-    CHINESE_SIMPLIFIED("zh-CN", "简化字", "选择语言"),
+    FRENCH("fr", "Français", "Sélectionner la langue"),
     CHINESE_TRADITIONAL("zh-TW", "繁體字", "選擇語言"),
-    ARABIC("ar", "عربي", "اختر اللغة")
+    TURKISH("tr", "Türkçe", "Dil Seçin"),
+    JAPANESE("ja", "日本語", "言語を選択する"),
+    GERMAN("de", "Deutsch", "Sprache auswählen"),
+    CHINESE_SIMPLIFIED("zh-CN", "简化字", "选择语言"),
+    HINDI("hi", "हिंदी", "भाषा चुने"),
+    ITALIAN("it", "Italiano", "Seleziona la lingua"),
+    BLANK(" ", " ", " "),
     ;
 
     companion object {
