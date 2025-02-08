@@ -56,27 +56,29 @@ class LocaleHelperTest {
     fun `check all language codes`() {
         Language.entries
             .also { languages ->
-                assertEquals(15, languages.size)
+                assertEquals(17, languages.size)
             }
             .map { it.code }
             .also { langCodes ->
                 assertEquals(
                     listOf(
                         "en",
-                        "de",
                         "es",
-                        "fr",
                         "in",
-                        "it",
-                        "pt",
-                        "tr",
+                        "ar",
                         "uk",
                         "ru",
+                        "pt",
                         "ko",
-                        "ja",
-                        "zh-CN",
+                        "fr",
                         "zh-TW",
-                        "ar"
+                        "tr",
+                        "ja",
+                        "de",
+                        "zh-CN",
+                        "hi",
+                        "it",
+                        " " ///Hack: implementation and allow the user to pick the last language
                     ),
                     langCodes
                 )
