@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.brainwallet.R
 import com.brainwallet.databinding.ActivityInputWordsBinding
+import com.brainwallet.presenter.activities.intro.IntroActivity
 import com.brainwallet.presenter.activities.util.BRActivity
 import com.brainwallet.tools.animation.BRAnimator
 import com.brainwallet.tools.animation.BRDialog
@@ -23,8 +24,8 @@ import com.brainwallet.wallet.BRWalletManager
 class InputWordsActivity : BRActivity() {
 
     private lateinit var binding: ActivityInputWordsBinding
-
     private var resetPin: Boolean = false
+    private var restore: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +34,8 @@ class InputWordsActivity : BRActivity() {
         val view = binding.root
         setContentView(view)
 
-        resetPin = intent.extras?.getBoolean("resetPin") ?: false
+        resetPin = intent.getBooleanExtra("resetPin", false)
+        restore = intent.getBooleanExtra("restore", false)
 
         binding.composeView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
@@ -56,24 +58,23 @@ class InputWordsActivity : BRActivity() {
 
         val cleanPhrase = SmartValidator.cleanPaperKey(app, paperkey)
 
-        //TODO: resetPin and restore flow ?
+        if (resetPin and SmartValidator.isPaperKeyCorrect(cleanPhrase, app).not()) {
+            BRDialog.showCustomDialog(
+                app,
+                "",
+                getString(R.string.RecoverWallet_invalid),
+                getString(R.string.AccessibilityLabels_close),
+                null,
+                { brDialogView -> brDialogView.dismissWithAnimation() },
+                null,
+                null,
+                0
+            )
+            return
+        }
+
+
         if (resetPin) {
-            if (SmartValidator.isPaperKeyCorrect(cleanPhrase, app).not()) {
-                BRDialog.showCustomDialog(
-                    app,
-                    "",
-                    getString(R.string.RecoverWallet_invalid),
-                    getString(R.string.AccessibilityLabels_close),
-                    null,
-                    { brDialogView -> brDialogView.dismissWithAnimation() },
-                    null,
-                    null,
-                    0
-                )
-                return
-            }
-
-
             AuthManager.getInstance().setPinCode("", this@InputWordsActivity)
             val intent = Intent(
                 app,
@@ -81,6 +82,28 @@ class InputWordsActivity : BRActivity() {
             )
             intent.putExtra("noPin", true)
             finalizeIntent(intent)
+            return
+        }
+
+        if (restore) {
+            BRDialog.showCustomDialog(
+                this@InputWordsActivity,
+                getString(R.string.WipeWallet_alertTitle),
+                getString(R.string.WipeWallet_alertMessage),
+                getString(R.string.WipeWallet_wipe),
+                getString(R.string.Button_cancel),
+                { brDialogView ->
+                    brDialogView.dismissWithAnimation()
+                    val m = BRWalletManager.getInstance()
+                    m.wipeWalletButKeystore(app)
+                    m.wipeKeyStore(app)
+                    val intent = Intent(app, IntroActivity::class.java)
+                    finalizeIntent(intent)
+                },
+                { brDialogView -> brDialogView.dismissWithAnimation() },
+                null,
+                0
+            )
             return
         }
 
