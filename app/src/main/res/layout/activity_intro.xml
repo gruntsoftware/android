@@ -24,13 +24,16 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/language_list"
         android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
         android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/lang_rounded_background"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/button_new_wallet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -90,4 +93,12 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="v1.19.0" />
+
+<!--    <TextView-->
+<!--        android:id="@+id/item_text"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:text="Item Title"-->
+<!--        android:textSize="18sp"/>-->
 </com.brainwallet.presenter.customviews.BRLockScreenConstraintLayout>
