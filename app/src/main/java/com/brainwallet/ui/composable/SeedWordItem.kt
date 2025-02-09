@@ -1,6 +1,8 @@
 package com.brainwallet.ui.composable
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.focusable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -83,9 +85,12 @@ fun SeedWordItemTextField(
     prefix: @Composable (() -> Unit)? = null,
 ) {
     var suggestionsExpanded by remember { mutableStateOf(false) }
+    val interactionSource = remember { MutableInteractionSource() }
 
     Box(modifier = modifier) {
-        BasicTextField(value = value,
+        BasicTextField(
+            modifier = Modifier.focusable(interactionSource = interactionSource),
+            value = value,
             textStyle = textStyle.copy(
                 color = Color.White //todo: change with materialtheme so it will be adapt automatically when switch darkmode
             ),
@@ -97,6 +102,7 @@ fun SeedWordItemTextField(
             singleLine = true,
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions,
+            interactionSource = interactionSource,
             decorationBox = { innerTextField ->
                 SeedWordItemBox {
                     Box(

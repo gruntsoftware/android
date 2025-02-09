@@ -1,12 +1,16 @@
 package flow
 
 import android.Manifest
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onChild
+import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextInput
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.GrantPermissionRule
@@ -30,18 +34,19 @@ class RecoverWalletScreenGrabsTest {
     @JvmField
     val localeTestRule = LocaleTestRule()
 
-    @Rule @JvmField
+    @Rule
+    @JvmField
     val grantPermissionRule: GrantPermissionRule = GrantPermissionRule.grant(
         Manifest.permission.CAMERA,
         Manifest.permission.POST_NOTIFICATIONS,
     )
 
     @get:Rule
-    var activityScenarioRule = ActivityScenarioRule(IntroActivity::class.java)
+    val composeTestRule = createAndroidComposeRule<IntroActivity>()
 
     @Test
     fun onRecoverFlowSuccess() {
-        activityScenarioRule.scenario.onActivity {
+        composeTestRule.activityRule.scenario.onActivity {
             Screengrab.setDefaultScreenshotStrategy(FalconScreenshotStrategy(it))
         }
 
@@ -57,29 +62,22 @@ class RecoverWalletScreenGrabsTest {
 
         Screengrab.screenshot("3_input_paperkey_screen")
 
-        //TODO: please fix this, since the UI changed
+        //seed words input
+        val editTextTags = (0..11).map { index -> "textFieldSeedWord$index" }
 
-        val editTextIds = listOf(
-            R.id.word1,
-            R.id.word2,
-            R.id.word3,
-            R.id.word4,
-            R.id.word5,
-            R.id.word6,
-            R.id.word7,
-            R.id.word8,
-            R.id.word9,
-            R.id.word10,
-            R.id.word11,
-            R.id.word12
-        )
         val paperKey = BuildConfig.SCREENGRAB_PAPERKEY
 
-        editTextIds.zip(paperKey).forEachIndexed { index, (editTextId, value) ->
-            onView(withId(editTextId)).perform(typeText(value))
-            device.pressEnter()
+        editTextTags.zip(paperKey).forEachIndexed { index, (textFieldTag, value) ->
+            device.waitForIdle(100)
+            val textForTyping = value.dropLast(1)
+            composeTestRule.onNodeWithTag(textFieldTag).onChild().performTextInput(textForTyping)
+            composeTestRule.onNodeWithText(value).performClick()
 
         }
+
+        composeTestRule.onNodeWithTag("buttonRestore").performClick()
+
+        device.waitForIdle(300)
 
         Screengrab.screenshot("4_input_paperkey_screen_2")
 

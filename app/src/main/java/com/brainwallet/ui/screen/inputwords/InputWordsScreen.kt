@@ -1,4 +1,7 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@file:OptIn(
+    ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class,
+    ExperimentalComposeUiApi::class
+)
 
 package com.brainwallet.ui.screen.inputwords
 
@@ -25,16 +28,19 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -49,8 +55,8 @@ fun InputWordsScreen(
     viewModel: InputWordsViewModel = viewModel()
 ) {
     val state by viewModel.state.collectAsState()
-    val focusRequester = remember { FocusRequester() }
-
+    val focusRequesters = List(12) { FocusRequester() } //12 seed words
+    val focusManager = LocalFocusManager.current
 
     /// Layout values
     val columnPadding = 16
@@ -58,11 +64,8 @@ fun InputWordsScreen(
     val spacerHeight = 48
     val maxItemsPerRow = 3
 
-    LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
-    }
-
     Scaffold(
+        modifier = Modifier.semantics { testTagsAsResourceId = true },
         topBar = {
             TopAppBar(
                 title = {},
@@ -112,11 +115,10 @@ fun InputWordsScreen(
             ) {
                 state.seedWords.entries.forEach { (index, text) ->
                     SeedWordItemTextField(
-                        modifier = if (index == 0)
-                            Modifier
-                                .focusRequester(focusRequester)
-                                .weight(1f)
-                        else Modifier.weight(1f),
+                        modifier = Modifier
+                            .focusRequester(focusRequesters[index])
+                            .weight(1f)
+                            .testTag("textFieldSeedWord$index"),
                         value = text,
                         suggestions = state.suggestionsSeedWords,
                         onValueChange = {
@@ -143,7 +145,7 @@ fun InputWordsScreen(
             FilledTonalButton(
                 onClick = {
                     viewModel.onEvent(InputWordsEvent.OnClearSeedWords)
-                    focusRequester.requestFocus()
+                    focusRequesters.first().requestFocus()
                 },
             ) {
                 Text(stringResource(R.string.clear))
@@ -169,8 +171,10 @@ fun InputWordsScreen(
             Spacer(modifier = Modifier.weight(1f))
 
             LargeButton(
+                modifier = Modifier.testTag("buttonRestore"),
                 onClick = {
                     onEvent(InputWordsEvent.OnRestoreClick(state.asPaperKey()))
+                    focusManager.clearFocus()
                 },
             ) {
                 Text(
