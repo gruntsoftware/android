@@ -1,6 +1,6 @@
 package com.brainwallet.ui.screen.unlock
 
 data class UnLockState(
-    val pinCode: List<Int> = emptyList()
+    val pinDigits: List<Int> = List(6) { -1 }
 )
 //todo
