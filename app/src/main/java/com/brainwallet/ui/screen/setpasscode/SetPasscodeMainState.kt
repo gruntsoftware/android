@@ -1,5 +1,11 @@
 package com.brainwallet.ui.screen.setpasscode
 
+enum class ScreenStep {
+    ReadyScreen,
+    SetPasscodeScreen,
+    ConfirmScreen
+}
+
 data class SetPasscodeMainState(
     val didSetPasscode: Boolean = false,
     val didSelectBiometrics: Boolean = false,
@@ -7,12 +13,6 @@ data class SetPasscodeMainState(
     val setPasscodeScreenStep: ScreenStep = ScreenStep.ReadyScreen
 )
 
-fun SetPasscodeMainState.isScrenStep(screenStep: ScreenStep): Boolean =
+fun SetPasscodeMainState.isScreenStep(screenStep: ScreenStep): Boolean =
     setPasscodeScreenStep == screenStep
 
-
-enum class ScreenStep {
-    ReadyScreen,
-    SetPasscodeScreen,
-    ConfirmScreen
-}

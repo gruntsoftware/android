@@ -78,7 +78,6 @@ fun SetPasscodeConfirmScreen(
     }
 
     Scaffold(
-
         topBar = {
             TopAppBar(
                 colors = topAppBarColors(
@@ -115,9 +114,6 @@ fun SetPasscodeConfirmScreen(
             verticalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
         ) {
 
-
-
-
             Text(
                 text = stringResource(R.string.setup_app_passcode),
                 color = Color.White,
@@ -153,18 +149,7 @@ fun SetPasscodeConfirmScreen(
             )
             Spacer(modifier = Modifier.weight(0.1f))
 
-            LargeButton(
-                onClick = {
 
-                },
-            ) {
-                Text(
-                    text = stringResource(R.string.setup_app_passcode),
-                    style = MaterialTheme.typography.titleLarge
-                        .copy(color = Color.White)
-                )
-            }
-            Spacer(modifier = Modifier.weight(0.05f))
         }
 
     }

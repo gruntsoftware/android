@@ -4,9 +4,11 @@
 )
 
 package com.brainwallet.ui.screen.setpasscode
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -50,6 +52,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 
+
 @Composable
 fun SetPasscodeReadyScreen (
     onBackClick: () -> Unit,
@@ -69,11 +72,6 @@ fun SetPasscodeReadyScreen (
     val headlineFontSize = 44
     val paragraphFontSize = 22
     val lineHeight = 35
-
-
-    LaunchedEffect(Unit) {
-        //viewModel.onEvent(SetPasscodeScreenEvent.OnLoad(seedWords))
-    }
 
     LaunchedEffect(Unit) {
         ///
@@ -176,6 +174,10 @@ fun SetPasscodeReadyScreen (
 
             LargeButton(
                 onClick = onReadyClick,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = leadingCopyPadding.dp)
+
             ) {
                 Text(
                     text = stringResource(R.string.setup_app_passcode),
@@ -183,6 +185,7 @@ fun SetPasscodeReadyScreen (
                         .copy(color = Color.White)
                 )
             }
+
             Spacer(modifier = Modifier.weight(0.05f))
         }
     }

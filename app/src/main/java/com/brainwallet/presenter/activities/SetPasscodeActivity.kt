@@ -35,27 +35,6 @@ class SetPasscodeActivity: BRActivity() {
                     },
                     digits = digits
                 )
-
-
-
-//                SetPasscodeReadyScreen(
-//                    onEvent = { action ->
-//                        when (action) {
-//                            SetPasscodeReadyScreenEvent.OnBackClick -> finish()
-//                            SetPasscodeReadyScreenEvent.OnReadyClick -> onReadyClick()
-//                        }
-//                    }
-//                )
-//                SetPasscodeScreen(
-//                    digits = digits,
-//                    onEvent = { action ->
-//                        when (action) {
-//                            SetPasscodeScreenEvent.OnBackClick -> finish()
-//                            SetPasscodeScreenEvent.OnEnterPasscode -> onEnterPasscode()
-//                        }
-//                    }
-//                )
-
             }
         }
     }
