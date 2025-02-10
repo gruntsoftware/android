@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 fun CircleButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     colors: IconButtonColors = IconButtonDefaults.filledIconButtonColors(
         containerColor = Color.White.copy(alpha = 0.1f)
     ),
@@ -22,6 +23,7 @@ fun CircleButton(
     FilledIconButton(
         onClick = onClick,
         modifier = modifier.size(72.dp),
+        enabled = enabled,
         shape = CircleShape,
         colors = colors,
         content = content
