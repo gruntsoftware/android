@@ -24,6 +24,7 @@ android {
         versionName = "v4.1.1"
 
         multiDexEnabled = true
+        base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -123,10 +124,13 @@ android {
             applicationId = "ltd.grunt.brainwallet.screengrab"
             versionNameSuffix = "-screengrab"
             resValue("string", "app_name", "Brainwallet (screengrab)")
-            buildConfigField("String[]", "SCREENGRAB_PAPERKEY", 
-                "new String[] {${localProperties.getProperty("SCREENGRAB_PAPERKEY", "")
-                    .split(" ")
-                    .joinToString { "\"$it\"" }}}")
+            buildConfigField("String[]", "SCREENGRAB_PAPERKEY",
+                "new String[] {${
+                    localProperties.getProperty("SCREENGRAB_PAPERKEY", "")
+                        .split(" ")
+                        .joinToString { "\"$it\"" }
+                }}"
+            )
 
             externalNativeBuild {
                 cmake {
