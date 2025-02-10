@@ -48,7 +48,7 @@ import com.brainwallet.ui.composable.LargeButton
 
 //OnSetBiometrics
 
-
+var currentDigitList = emptyList<Int>()
 @Composable
 fun SetPasscodeScreen (
     digits: List<Int>,
@@ -155,20 +155,21 @@ fun SetPasscodeScreen (
             )
             Spacer(modifier = Modifier.weight(0.1f))
 
-            LargeButton(
-                onClick = {
-                    onEvent.invoke(SetPasscodeMainEvent.OnEnterPasscode)
-                },
-            ) {
-                Text(
-                    text = stringResource(R.string.setup_app_passcode),
-                    style = MaterialTheme.typography.titleLarge
-                        .copy(color = Color.White)
+            PasscodeKeypad {
+                onKeyPressed(
+
+                keyValue = TODO()
                 )
             }
             Spacer(modifier = Modifier.weight(0.05f))
         }
 
+    }
+}
+
+fun onKeyPressed(keyValue: String) {
+    if (currentDigitList.count() < 4) {
+        currentDigitList.
     }
 }
 
