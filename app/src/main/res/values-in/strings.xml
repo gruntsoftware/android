@@ -26,7 +26,7 @@
   <!-- Error alert title -->
   <string name="Alert.error">Kesalahan</string>
   <!-- Keystore error -->
-  <string name="Alert.keystore.generic.android">Ada masalah dengan keystore OS Android Anda, harap hubungi support@brainwallet.co</string>
+  <string name="Alert.keystore.generic.android">Ada masalah dengan keystore OS Android Anda, harap hubungi support.brainwallet.co</string>
   <!-- KeyStore error, keys are invalidated -->
   <string name="Alert.keystore.invalidated.android">Data terenkripsi Brainwallet Anda baru-baru ini tidak valid karena layar kunci Android Anda dinonaktifkan.</string>
   <!-- Keystore error title -->
