@@ -14,7 +14,6 @@ import com.brainwallet.tools.util.TypesConverter;
 import com.brainwallet.tools.util.Utils;
 import com.brainwallet.R;
 import com.brainwallet.presenter.activities.PaperKeyActivity;
-import com.brainwallet.presenter.activities.PaperKeyProveActivity;
 import com.brainwallet.presenter.activities.SetPinActivity;
 import com.brainwallet.presenter.activities.intro.WriteDownActivity;
 import com.brainwallet.presenter.activities.util.ActivityUTILS;
@@ -98,7 +97,7 @@ public class PostAuth {
             }
             return;
         }
-        Intent intent = new Intent(app, PaperKeyProveActivity.class);
+        Intent intent = new Intent(app, PaperKeyActivity.class);
         intent.putExtra("phrase", cleanPhrase);
         app.startActivity(intent);
         app.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
