@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 import com.brainwallet.R;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.tools.animation.BRAnimator;
+import com.brainwallet.tools.security.PostAuth;
 
 public class WriteDownActivity extends BRActivity {
     private Button writeButton;
@@ -56,6 +57,7 @@ public class WriteDownActivity extends BRActivity {
             public void onClick(View v) {
                 if (!BRAnimator.isClickAllowed()) return;
                 /// DEV NOTES: Remove this call to auth Prompt
+                PostAuth.getInstance().onPhraseCheckAuth(getApp() , false);
 
             }
         });

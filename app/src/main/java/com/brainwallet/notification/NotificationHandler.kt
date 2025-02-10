@@ -17,6 +17,7 @@ import com.brainwallet.notification.NotificationHandler.NOTIFICATION_CHANNEL_ID_
 import com.brainwallet.notification.NotificationHandler.NOTIFICATION_CHANNEL_ID_LITECOIN_NEWS
 import com.brainwallet.notification.NotificationHandler.NOTIFICATION_CHANNEL_ID_BRAINWALLET_UPDATE
 
+
 object NotificationHandler {
 
     @SuppressLint("MissingPermission")
