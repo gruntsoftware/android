@@ -139,19 +139,31 @@ fun UnLockScreen(
                 }
 
                 // Bottom row with biometric, 0, and backspace
-                CircleButton(
-                    onClick = {
-                        //
-                    },
-                    colors = IconButtonDefaults.filledIconButtonColors(
-                        containerColor = Color.Transparent
-                    ),
-                ) {
-                    Icon(
-                        Icons.Default.Face,
-                        contentDescription = "Biometric",
-                        tint = Color.White
-                    )
+                if (state.biometricEnabled) {
+                    CircleButton(
+                        onClick = {
+                            //
+                        },
+                        colors = IconButtonDefaults.filledIconButtonColors(
+                            containerColor = Color.Transparent
+                        ),
+                    ) {
+                        Icon(
+                            Icons.Default.Face,
+                            contentDescription = "Biometric",
+                            tint = Color.White
+                        )
+                    }
+                } else {
+                    CircleButton(
+                        onClick = { },
+                        colors = IconButtonDefaults.filledIconButtonColors(
+                            disabledContainerColor = Color.Transparent
+                        ),
+                        enabled = false,
+                    ) {
+                        Spacer(modifier = Modifier)
+                    }
                 }
 
                 CircleButton(
