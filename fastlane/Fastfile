@@ -27,11 +27,30 @@ platform :android do
     gradle(
         tasks: ['clean', 'assembleScreengrabDebug', 'assembleScreengrabAndroidTest']
     )
+    build_dir = "#{ENV['PWD']}/app/build/"
+    UI.message "Build directory: #{build_dir}"
+    
+    # Check if APK files exist
+    app_apk = "#{build_dir}/outputs/apk/screengrab/debug/*screengrab-debug.apk"
+    test_apk = "#{build_dir}/outputs/apk/androidTest/screengrab/debug/*screengrab-debug-androidTest.apk"
+
+    app_apks = Dir.glob(app_apk)
+    test_apks = Dir.glob(test_apk)
+    if app_apks.empty?
+      UI.user_error!("App APK file not found. Please check the build output directory.")
+    end
+
+    if test_apks.empty?
+      UI.user_error!("Test APK file not found. Please check the build output directory.")
+    end
+    app_apk = app_apks.first
+    test_apk = test_apks.first
+
     screengrab(
-        clear_previous_screenshots: true,
-        app_package_name: 'ltd.grunt.brainwallet.screengrab',
-        app_apk_path: "app/build/outputs/apk/screengrab/debug/app-screengrab-debug.apk",
-        tests_apk_path: "app/build/outputs/apk/androidTest/screengrab/debug/app-screengrab-debug-androidTest.apk"
+      clear_previous_screenshots: true,
+      app_package_name: 'ltd.grunt.brainwallet.screengrab',
+      app_apk_path: app_apk,
+      tests_apk_path: test_apk
     )
   end
 
