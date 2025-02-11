@@ -108,6 +108,7 @@ google-play-feature-delivery = ["google-play-feature-delivery", "google-play-fea
 google-play-review = ["google-play-review", "google-play-review-ktx"]
 eclipse-jetty = ["eclipse-jetty-webapp", "eclipse-jetty-websocket", "eclipse-jetty-continuation"]
 android-test = ["androidx-test-core", "androidx-test-core-ktx", "androidx-test-rules","androidx-test-espresso-core", "androidx-test-junit-ext","androidx-test-juniext-ext-ktx", "androidx-test-runner", "androidx-test-uiautomator"]
+androidx-compose-ui-test = ["androidx-compose-ui-test-junit4", "androidx-compose-ui-test-manifest"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
