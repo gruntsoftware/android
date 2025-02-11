@@ -161,19 +161,19 @@ public class BRButton extends Button {
         if (type == 3) onTouch(true, 1);
         this.type = type;
 
-        if (type == 1) { //blue
-            bPaint.setColor(getContext().getColor(R.color.black));
+        if (type == 1) {
+            bPaint.setColor(getContext().getColor(R.color.near_black));
             setTextColor(getContext().getColor(R.color.white));
-        } else if (type == 2) { //gray stroke
+        } else if (type == 2) {
             setTextColor(getContext().getColor(R.color.white));
-            setOutline(R.color.sunflower, R.color.dusky);
-        } else if (type == 3) { //blue strokeww
-            setTextColor(getContext().getColor(R.color.black));
-            setOutline(R.color.black, R.color.dusky);
-        } else if (type == 4) { //white stroke
-            setOutline(R.color.white, R.color.dusky);
+            setOutline(R.color.cheddar, R.color.midnight);
+        } else if (type == 3) {
+            setTextColor(getContext().getColor(R.color.white));
+            setOutline(R.color.cheddar, R.color.midnight);
+        } else if (type == 4) {
+            setOutline(R.color.white, R.color.midnight);
         } else if (type == 5) {
-            setOutline(R.color.white, R.color.black);
+            setOutline(R.color.white, R.color.near_black);
         }
         invalidate();
     }

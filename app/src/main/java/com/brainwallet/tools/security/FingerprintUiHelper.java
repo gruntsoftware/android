@@ -138,7 +138,7 @@ public class FingerprintUiHelper extends FingerprintManager.AuthenticationCallba
         mIcon.setImageResource(R.drawable.ic_fingerprint_error);
         mErrorTextView.setText(error);
         mErrorTextView.setTextColor(
-                mErrorTextView.getResources().getColor(R.color.rust, null));
+                mErrorTextView.getResources().getColor(R.color.chili, null));
         mErrorTextView.removeCallbacks(mResetErrorTextRunnable);
         mErrorTextView.postDelayed(mResetErrorTextRunnable, ERROR_TIMEOUT_MILLIS);
     }

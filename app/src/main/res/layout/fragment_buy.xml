@@ -30,7 +30,7 @@
             android:layout_marginTop="-5dp"
             android:layout_marginBottom="-5dp"
             android:max="100"
-            android:theme="@style/AppTheme.ProgressBarTheme"
+            android:theme="@style/Theme.Brainwallet.ProgressBarTheme"
             tools:progress="50" />
 
 

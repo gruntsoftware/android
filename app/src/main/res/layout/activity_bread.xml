@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@color/white"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:descendantFocusability="beforeDescendants"
@@ -35,7 +34,7 @@
                 android:id="@+id/bread_bar"
                 android:layout_width="match_parent"
                 android:layout_height="85dp"
-                android:background="@color/black"
+                android:background="@color/near_black"
                 android:clipChildren="false"
                 android:clipToPadding="false"
                 app:contentInsetEnd="0dp"
@@ -129,13 +128,11 @@
         android:layout_below="@+id/toolbar_layout" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        style="@style/BottomNavTheme"
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:layout_alignParentBottom="true"
-        android:theme="@style/BottomNavTheme"
-        app:backgroundTint="@color/black"
-        app:itemIconTint="@color/bottom_nav_icon_tint_selector"
         app:labelVisibilityMode="labeled"
         tools:menu="@menu/bottom_nav_menu_us" />
 

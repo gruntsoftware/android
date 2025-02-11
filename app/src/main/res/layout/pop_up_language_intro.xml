@@ -12,7 +12,7 @@
         android:fontFamily="@font/barlowsemicondensed_semibold"
         android:textSize="20sp"
         android:paddingTop="20dp"
-        android:textColor="@color/black"
+        android:textColor="@color/near_black"
         android:paddingEnd="60dp"
         android:paddingStart="60dp"
         android:textAlignment="center"
@@ -22,7 +22,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/sunflower"
+        android:background="@color/cheddar"
         />
 
     <LinearLayout
@@ -39,12 +39,12 @@
             android:clickable="true"
             android:fontFamily="@font/barlowsemicondensed_regular"
             android:text="Yes"
-            android:textColor="@color/black" />
+            android:textColor="@color/near_black" />
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/sunflower"
+            android:background="@color/cheddar"
             />
         <Button
             android:id="@+id/button_no"
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/barlowsemicondensed_regular"
-            android:textColor="@color/rust"
+            android:textColor="@color/chili"
             android:clickable="true"
             android:background="@drawable/button_intro_right"
             android:text="Cancel" />

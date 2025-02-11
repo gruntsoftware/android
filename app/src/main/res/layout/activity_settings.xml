@@ -5,7 +5,6 @@
     android:id="@+id/activity_intro_set_pit"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context="com.brainwallet.presenter.activities.SetPinActivity">
 
     <TextView
@@ -15,7 +14,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/bread_margin"
         android:text="Settings"
-        android:textColor="@color/midnight"
         android:textSize="@dimen/header"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,7 +23,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="32dp"
-        android:background="@color/white"
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -40,7 +37,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="23dp"
-        android:backgroundTint="@color/white"
+        android:background="@null"
+        android:tint="?attr/colorOnSurface"
+        app:tint="?attr/colorOnSurface"
         android:src="@drawable/ic_close_black_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

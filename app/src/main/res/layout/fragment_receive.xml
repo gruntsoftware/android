@@ -32,7 +32,6 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:text="@string/Receive.title"
-                    android:textColor="@color/midnight"
                     android:textSize="@dimen/header"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintHorizontal_bias="0.498"
@@ -45,7 +44,7 @@
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_marginTop="16dp"
-                    android:background="@color/sunflower"
+                    android:background="@color/cheddar"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -122,7 +121,7 @@
                     android:drawablePadding="4dp"
                     android:minHeight="40dp"
                     android:text="iso"
-                    android:textColor="@color/sunflower"
+                    android:textColor="@color/cheddar"
                     android:textSize="18sp"
                     app:buttonType="2"
                     app:isBreadButton="true" />
@@ -147,7 +146,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_gravity="center_vertical"
-                    android:background="@color/sunflower" />
+                    android:background="@color/cheddar" />
 
             </LinearLayout>
 
@@ -196,7 +195,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:text="----------------------------------"
-                android:textColor="@color/sunflower"
+                android:textColor="@color/cheddar"
                 android:textSize="16sp" />
 
             <com.brainwallet.presenter.customviews.BRLinearLayoutWithCaret
@@ -204,7 +203,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginBottom="8dp"
-                app:backgroundColor="@color/dusky"
+                app:backgroundColor="@color/midnight"
                 app:withStroke="false">
 
                 <TextView
@@ -235,7 +234,6 @@
                 android:paddingEnd="48dp"
                 android:paddingTop="12dp"
                 android:text="@string/Receive.share"
-                android:textColor="@color/sunflower"
                 android:textSize="18sp"
                 app:buttonType="2"
                 app:isBreadButton="true" />
@@ -263,7 +261,6 @@
                     android:paddingTop="12dp"
                     android:paddingBottom="12dp"
                     android:text="@string/Receive.emailButton"
-                    android:textColor="@color/sunflower"
                     android:textSize="14sp"
                     app:buttonType="2"
                     app:isBreadButton="true" />
@@ -274,7 +271,7 @@
                 android:id="@+id/separator"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/sunflower" />
+                android:background="@color/cheddar" />
 
             <com.brainwallet.presenter.customviews.BRButton
                 style="@style/BRButtonStyle"

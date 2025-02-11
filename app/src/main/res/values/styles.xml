@@ -1,62 +1,30 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+
+    <style name="Theme.Brainwallet" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/grape</item>
+        <item name="colorPrimaryVariant">@color/midnight</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- todo -->
+        <item name="colorSurface">@color/white</item>
+        <item name="android:statusBarColor">?attr/colorOnPrimary</item>
 
         <item name="android:windowLightStatusBar">true</item>
-        <item name="android:title">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">true</item>
-        <item name="android:windowBackground">@color/white</item>
-        <item name="android:statusBarColor">@color/black</item>
-        <item name="android:actionBarStyle">@style/BreadActionBar</item>
-        <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
-        <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
-    </style>
-    <!-- Base application theme. -->
-    <style name="Theme.Brainwallet" parent="Theme.MaterialComponents.DayNight">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryVariant">@color/sunflower</item>
-        <item name="colorOnPrimary">@color/grape</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/midnight</item>
-        <item name="colorSecondaryVariant">@color/dusk</item>
-        <item name="colorOnSecondary">@color/sunflower</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/midnight</item>
-        <!-- Customize your theme here. -->
-        <item name="android:navigationBarColor">@color/rust</item>
     </style>
 
-    <style name="ToolbarTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize color of navigation drawer icon and back arrow -->
-        <item name="colorControlNormal">@color/white</item>
+    <style name="ToolbarTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorControlNormal">?attr/colorOnPrimary</item>
     </style>
 
-    <style name="AppTheme.ProgressBarTheme">
-        <item name="colorAccent">@color/dusky</item>
+    <style name="Theme.Brainwallet.ProgressBarTheme">
+        <item name="colorAccent">?attr/colorPrimaryVariant</item>
     </style>
 
-    <!-- ActionBar styles -->
-    <style name="BreadActionBar" parent="@style/Widget.AppCompat.ActionBar">
-        <item name="android:background">@color/white</item>
-    </style>
-
-    <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
-        <item name="android:fontFamily">sans-serif-light</item>
-    </style>
-
-    <style name="RobotoButtonStyle" parent="android:Widget.Holo.Button">
-        <item name="android:fontFamily">sans-serif-light</item>
-        <item name="android:textColor">@color/midnight</item>
-    </style>
 
     <style name="Send_ActionButStyle">
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:background">@android:color/transparent</item>
         <item name="android:paddingStart">4dp</item>
         <item name="android:paddingEnd">4dp</item>
-        <item name="android:textColor">@color/white</item>
         <item name="android:textSize">16sp</item>
     </style>
 
@@ -83,20 +51,15 @@
     </style>
 
     <style name="BottomNavTheme" parent="Widget.MaterialComponents.BottomNavigationView">
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorOnSurface">@color/grape</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textSize">12sp</item>
         <item name="fontFamily">@font/barlowsemicondensed_medium</item>
         <item name="android:fontFamily">@font/barlowsemicondensed_medium</item>
+        <item name="itemIconTint">?attr/colorOnSurface</item>
+        <item name="itemTextColor">?attr/colorOnSurface</item>
     </style>
 
-    <style name="RegisterFieldStyle">
-        <item name="fontFamily">@font/barlowsemicondensed_semibold</item>
-        <item name="android:fontFamily">@font/barlowsemicondensed_semibold</item>
-    </style>
-
-    <!-- set the rounded drawable as background to your bottom sheet -->
+    <!--    &lt;!&ndash; set the rounded drawable as background to your bottom sheet &ndash;&gt;-->
     <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/auth_sheet_shape</item>
     </style>
@@ -115,7 +78,6 @@
         <item name="android:padding">10dp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:background">@drawable/rounded_16_lite_blue</item>
         <item name="android:fontFamily">@font/barlowsemicondensed_medium</item>
     </style>
 

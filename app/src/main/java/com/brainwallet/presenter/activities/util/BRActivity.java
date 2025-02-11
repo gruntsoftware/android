@@ -1,12 +1,15 @@
 package com.brainwallet.presenter.activities.util;
 
 import android.app.Activity;
+import android.app.UiModeManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.FragmentActivity;
 
 import com.brainwallet.BrainwalletApp;
@@ -27,7 +30,7 @@ import com.brainwallet.wallet.BRWalletManager;
 
 import timber.log.Timber;
 
-public class BRActivity extends FragmentActivity {
+public class BRActivity extends AppCompatActivity {
 
     static {
         System.loadLibrary(BRConstants.NATIVE_LIB_NAME);
@@ -36,6 +39,7 @@ public class BRActivity extends FragmentActivity {
     @Override 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         LocaleHelper.Companion.getInstance().setLocale(this);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES); //for now only using dark mode
         super.onCreate(savedInstanceState);
     }
 
