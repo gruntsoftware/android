@@ -94,7 +94,7 @@ class FragmentSend : Fragment() {
         /// Setup Currency Button that switches between LTC and the preferred fiat (e.g.; "USD")
         isoCurrencySymbolText.text = getString(R.string.Send_amountLabel)
         isoCurrencySymbolText.textSize = 18f
-        isoCurrencySymbolText.setTextColor(requireContext().getColor(R.color.sunflower))
+        isoCurrencySymbolText.setTextColor(requireContext().getColor(R.color.cheddar))
         isoCurrencySymbolText.requestLayout()
 
         /// Setup Fees Description
@@ -141,7 +141,7 @@ class FragmentSend : Fragment() {
                 setFeeInformation(
                     R.string.FeeSelector_economyTime,
                     R.string.FeeSelector_economyWarning,
-                    R.color.rust,
+                    R.color.chili,
                     View.VISIBLE,
                 )
             }
@@ -151,7 +151,7 @@ class FragmentSend : Fragment() {
                 setFeeInformation(
                     R.string.FeeSelector_luxuryTime,
                     R.string.FeeSelector_luxuryMessage,
-                    R.color.sunflower,
+                    R.color.cheddar,
                     View.VISIBLE,
                 )
             }
@@ -587,14 +587,14 @@ class FragmentSend : Fragment() {
 
         // Update UI with alert red when over balance
         if (BigDecimal(currentAmountInLitoshis).toDouble() > currentBalance.toDouble()) {
-            balanceText.setTextColor(requireContext().getColor(R.color.rust))
-            feeText.setTextColor(requireContext().getColor(R.color.rust))
-            amountEdit.setTextColor(requireContext().getColor(R.color.rust))
-            if (!amountLabelOn) isoCurrencySymbolText.setTextColor(requireContext().getColor(R.color.rust))
+            balanceText.setTextColor(requireContext().getColor(R.color.chili))
+            feeText.setTextColor(requireContext().getColor(R.color.chili))
+            amountEdit.setTextColor(requireContext().getColor(R.color.chili))
+            if (!amountLabelOn) isoCurrencySymbolText.setTextColor(requireContext().getColor(R.color.chili))
         }
         else {
-            balanceText.setTextColor(requireContext().getColor(R.color.sunflower))
-            feeText.setTextColor(requireContext().getColor(R.color.sunflower))
+            balanceText.setTextColor(requireContext().getColor(R.color.cheddar))
+            feeText.setTextColor(requireContext().getColor(R.color.cheddar))
             amountEdit.setTextColor(requireContext().getColor(R.color.midnight))
             if (!amountLabelOn) isoCurrencySymbolText.setTextColor(requireContext().getColor(R.color.midnight))
         }

@@ -4,9 +4,9 @@
         <shape>
             <corners android:radius="@dimen/radius"/>
             <gradient
-                android:centerColor="@color/sunflower"
-                android:endColor="@color/sunflower"
-                android:startColor="@color/sunflower"
+                android:centerColor="@color/cheddar"
+                android:endColor="@color/cheddar"
+                android:startColor="@color/cheddar"
                 />
         </shape>
     </item>

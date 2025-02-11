@@ -5,7 +5,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@color/white"
         android:paddingStart="8dp"
         android:paddingEnd="8dp">
 
@@ -27,7 +26,7 @@
             android:layout_gravity="center"
             android:fontFamily="@font/barlowsemicondensed_regular"
             android:text="@string/TransactionDetails.emptyMessage"
-            android:textColor="@color/sunflower"
+            android:textColor="@color/cheddar"
             android:textSize="18sp"
             android:visibility="gone"
             tools:visibility="visible" />

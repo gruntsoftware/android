@@ -9,5 +9,5 @@
     <solid android:color="@color/midnight"/>
     <stroke
         android:width="1px"
-        android:color="@color/sunflower" />
+        android:color="@color/cheddar" />
 </shape>

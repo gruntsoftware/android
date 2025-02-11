@@ -16,13 +16,13 @@
         android:elevation="8dp"
         android:keepScreenOn="true"
         android:visibility="visible"
-        tools:layout_constraintStart_creator="1"
         tools:layout_constraintEnd_creator="1"
+        tools:layout_constraintStart_creator="1"
         tools:layout_constraintTop_creator="1">
 
         <TextView
-            style="@style/BRTextStyle"
             android:id="@+id/sync_date"
+            style="@style/BRTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -30,19 +30,20 @@
             android:textSize="@dimen/paragraph"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/syncing_label"
-            app:layout_constraintTop_toBottomOf="@+id/sync_progress" />
+            app:layout_constraintTop_toBottomOf="@+id/sync_progress"
+            tools:text="lorem ipsum dolor" />
 
         <TextView
-            style="@style/BRBoldTextStyle"
             android:id="@+id/syncing_label"
+            style="@style/BRBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:textColor="@color/midnight"
             android:textSize="@dimen/sub_header"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="lorem ipsum dolor" />
 
         <ProgressBar
             android:id="@+id/sync_progress"
@@ -52,9 +53,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
+            android:progress="20"
             android:progressDrawable="@drawable/sync_wallet_progress"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/syncing_label" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

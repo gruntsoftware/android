@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:layout_gravity="bottom"
     android:animateLayoutChanges="true"
-    android:background="@color/midnight"
     android:filterTouchesWhenObscured="true"
     android:isScrollContainer="false">
 
@@ -38,11 +37,14 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/bread_margin"
                 android:layout_marginEnd="@dimen/bread_margin"
-                android:background="@drawable/ic_close_black_24dp"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="81dp"
+                android:background="@android:color/transparent"
                 android:contentDescription="close"
-                android:hint="close"/>
+                android:hint="close"
+                android:src="@drawable/ic_close_black_24dp"
+                android:tint="?attr/colorOnSurface"
+                app:tint="?attr/colorOnSurface"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="81dp" />
 
             <TextView
                 android:id="@+id/show_seed_title"
@@ -56,7 +58,7 @@
                 android:layout_marginEnd="@dimen/bread_margin"
                 android:layout_marginBottom="@dimen/bread_margin"
                 android:text="@string/settings_show_seed"
-                android:textColor="@color/midnight"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="@dimen/header"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="81dp" />
@@ -82,9 +84,9 @@
                 android:layout_marginEnd="@dimen/bread_margin"
                 android:layout_marginBottom="@dimen/bread_margin"
                 android:layout_weight="1"
-                android:visibility="invisible"
                 android:text="@string/seed_phrase.label"
-                android:textIsSelectable="true"/>
+                android:textIsSelectable="true"
+                android:visibility="invisible" />
 
         </LinearLayout>
 
@@ -117,7 +119,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="vertical"/>
+            android:orientation="vertical" />
 
         <View
             android:id="@+id/separator4"
@@ -140,7 +142,7 @@
             android:textSize="20sp"
             app:buttonType="1"
             app:isBreadButton="true"
-            tools:background="@color/black" />
+            tools:background="@color/near_black" />
 
     </LinearLayout>
 

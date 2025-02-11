@@ -63,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@+id/title"
-                android:background="@color/sunflower" />
+                android:background="@color/cheddar" />
 
 
         </RelativeLayout>
@@ -86,7 +86,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="some date"
-                    android:textColor="@color/sunflower"
+                    android:textColor="@color/cheddar"
                     android:textIsSelectable="true"
                     android:textSize="18sp" />
 
@@ -124,7 +124,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@color/sunflower" />
+                    android:background="@color/cheddar" />
 
                 <TextView
                     style="@style/BRBoldTextStyle"
@@ -133,7 +133,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="@string/TransactionDetails.statusHeader"
-                    android:textColor="@color/sunflower" />
+                    android:textColor="@color/cheddar" />
 
                 <TextView
                     android:id="@+id/confirmation_text"
@@ -160,7 +160,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@color/sunflower" />
+                    android:background="@color/cheddar" />
 
                 <TextView
                     style="@style/BRBoldTextStyle"
@@ -169,7 +169,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="@string/TransactionDetails.commentsHeader"
-                    android:textColor="@color/sunflower" />
+                    android:textColor="@color/cheddar" />
 
                 <EditText
                     android:id="@+id/comment_text"
@@ -185,7 +185,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@color/sunflower" />
+                    android:background="@color/cheddar" />
 
                 <TextView
                     android:id="@+id/to_from"
@@ -195,7 +195,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="@string/Confirmation.to"
-                    android:textColor="@color/sunflower" />
+                    android:textColor="@color/cheddar" />
 
                 <TextView
                     android:id="@+id/address_text"
@@ -213,7 +213,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@color/sunflower" />
+                    android:background="@color/cheddar" />
 
                 <TextView
                     style="@style/BRTextStyle"
@@ -222,7 +222,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="@string/TransactionDetails.txHashHeader"
-                    android:textColor="@color/sunflower" />
+                    android:textColor="@color/cheddar" />
 
                 <TextView
                     android:id="@+id/tx_hash"
@@ -243,14 +243,14 @@
                     android:layout_marginEnd="16dp"
                     android:clickable="true"
                     android:text="@string/ViewOnBlockchain"
-                    android:textColor="@color/dusky" />
+                    android:textColor="@color/midnight" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="32dp"
-                    android:background="@color/sunflower" />
+                    android:background="@color/cheddar" />
 
             </LinearLayout>
 

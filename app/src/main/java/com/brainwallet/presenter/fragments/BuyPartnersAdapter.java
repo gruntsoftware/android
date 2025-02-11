@@ -64,7 +64,7 @@ class BuyPartnersAdapter extends RecyclerView.Adapter<BuyPartnersAdapter.Partner
             String currency = context.getString(currencyResId);
             if (partner.getCode() == FragmentBuy.Partner.MOONPAY) {
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder()
-                        .setDefaultColorSchemeParams(new CustomTabColorSchemeParams.Builder().setToolbarColor(context.getColor(R.color.black)).build())
+                        .setDefaultColorSchemeParams(new CustomTabColorSchemeParams.Builder().setToolbarColor(context.getColor(R.color.near_black)).build())
                         .setUrlBarHidingEnabled(true);
                 CustomTabsIntent customTabsIntent = builder.build();
                 String buyUrl = FragmentBuy.url(context, partner.getCode(), currency);

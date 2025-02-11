@@ -16,7 +16,7 @@
         android:fontFamily="@font/barlowsemicondensed_light"
         android:text="English"
         android:textSize="20sp"
-        android:textColor="@color/white"
+        android:textColor="?attr/colorOnPrimary"
         />
 
 </RelativeLayout>

@@ -3,7 +3,6 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:filterTouchesWhenObscured="true"
     android:orientation="vertical">
 
@@ -11,7 +10,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:background="@color/black"
+        android:background="@color/cheddar"
         android:orientation="vertical">
 
 
