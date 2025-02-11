@@ -226,6 +226,8 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
 
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.bundles.androidx.compose.ui.test)
     androidTestImplementation(libs.bundles.android.test)
     androidTestImplementation(libs.fastlane.screengrab)
 }

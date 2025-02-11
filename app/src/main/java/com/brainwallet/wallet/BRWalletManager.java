@@ -108,9 +108,8 @@ public class BRWalletManager {
         SecureRandom sr = new SecureRandom();
         final String[] words;
         List<String> list;
-        String languageCode = Locale.getDefault().getLanguage();
-        if (languageCode == null) languageCode = "en";
-        list = Bip39Reader.bip39List(ctx, languageCode);
+        String languageCode = "en";
+        list = Bip39Reader.bip39List(ctx, "en");
         words = list.toArray(new String[list.size()]);
         final byte[] randomSeed = sr.generateSeed(16);
         if (words.length != 2048) {
