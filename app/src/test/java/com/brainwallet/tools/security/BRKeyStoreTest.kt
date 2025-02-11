@@ -3,9 +3,9 @@ package com.brainwallet.tools.security
 //import com.breadwallet.presenter.activities.intro.WriteDownActivity
 //import com.breadwallet.tools.threads.BRExecutor
 //import com.breadwallet.tools.util.BRConstants
-//import com.litewallet.example.DependencyOne
-//import com.litewallet.example.DependencyTwo
-//import com.litewallet.example.SystemUnderTest
+//import com.brainwallet.example.DependencyOne
+//import com.brainwallet.example.DependencyTwo
+//import com.brainwallet.example.SystemUnderTest
 //import com.platform.entities.TxMetaData
 //import com.platform.interfaces.KVStoreAdaptor
 //import com.platform.kvstore.CompletionObject
@@ -36,8 +36,8 @@ class BRKeyStoreTest {
 
 }
 
-//  from com.litewallet.security;
-//package com.litewallet.security;
+//  from com.brainwallet.security;
+//package com.brainwallet.security;
 //
 //import android.security.keystore.UserNotAuthenticatedException;
 //import androidx.test.rule.ActivityTestRule;
@@ -83,7 +83,7 @@ class BRKeyStoreTest {
 //        }
 //        Assert.assertArrayEquals(freshGet, phrase);
 //
-//        //set get Japaneese phrase
+//        //set get Japanese phrase
 //        byte[] japPhrase = "こせき　ぎじにってい　けっこん　せつぞく　うんどう　ふこう　にっすう　こせい　きさま　なまみ　たきび　はかい".getBytes();
 //        try {
 //            BRKeyStore.putPhrase(japPhrase, mActivityRule.getActivity(), 0);

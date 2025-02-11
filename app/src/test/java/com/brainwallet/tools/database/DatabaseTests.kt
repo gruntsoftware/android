@@ -3,7 +3,7 @@ package com.brainwallet.tools.database
 class DatabaseTests {
 }
 
-//package com.litewallet.analytics;
+//package com.brainwallet.analytics;
 //import androidx.test.ext.junit.runners.AndroidJUnit4;
 //import android.util.Log;
 //import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -42,7 +42,7 @@ class DatabaseTests {
 //    @Test
 //    public void testAppExternalURLConstants() {
 //        Assert.assertSame(BRConstants.TWITTER_LINK,"https://twitter.com/Brainwallet_App");
-//        Assert.assertSame(BRConstants.INSTAGRAM_LINK,"https://www.instagram.com/litewallet.app");
+//        Assert.assertSame(BRConstants.INSTAGRAM_LINK,"https://www.instagram.com/brainwalletapp");
 //        Assert.assertSame(BRConstants.WEB_LINK,"https://brainwallet.co");
 //        Assert.assertSame(BRConstants.TOS_LINK,"https://brainwallet.co/privacy");
 //        Assert.assertSame(BRConstants.CUSTOMER_SUPPORT_LINK,"https://support.brainwallet.co/hc/en-us/requests/new");

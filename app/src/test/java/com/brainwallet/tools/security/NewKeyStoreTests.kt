@@ -12,8 +12,8 @@ import org.junit.Test
 class NewKeyStoreTests {
 }
 
-//package com.litewallet.security;
-//
+// package com.brainwallet.security
+// android.app.Activity;
 //import android.app.Activity;
 //import android.security.keystore.UserNotAuthenticatedException;
 //import androidx.test.rule.ActivityTestRule;
