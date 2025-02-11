@@ -4,3 +4,6 @@
 [submodule "app/src/main/jni/core"]
 	path = app/src/main/jni/core
 	url = https://github.com/brainwallet-co/core.git
+[submodule "app/src/main/secp/app/src/main/jni/secp/secp256k1"]
+	path = app/src/main/secp/app/src/main/jni/secp/secp256k1
+	url = https://github.com/bitcoin-core/secp256k1.git

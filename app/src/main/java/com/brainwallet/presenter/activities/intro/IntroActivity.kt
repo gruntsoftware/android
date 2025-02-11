@@ -1,251 +1,336 @@
+package com.brainwallet.presenter.activities.intro
 
-package com.brainwallet.presenter.activities.intro;
+import android.media.MediaPlayer
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.indication
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.rotate
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.Role.Companion.Image
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModelProvider
+import com.brainwallet.R
+import com.brainwallet.presenter.activities.util.ThemePreferences
+import com.brainwallet.ui.composable.SettingsDayAndNight
+import com.brainwallet.ui.screen.intro.ThemeViewModel
+import com.brainwallet.ui.screen.intro.ThemeViewModelFactory
+import com.brainwallet.ui.theme.BrainwalletAppTheme
 
-import android.app.Dialog;
-import android.content.Intent;
-import android.graphics.Point;
-import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+class IntroActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val themePreferences = ThemePreferences(this)
+        val viewModelFactory = ThemeViewModelFactory(themePreferences)
+        val viewModel = ViewModelProvider(this, viewModelFactory).get(ThemeViewModel::class.java)
 
-import com.brainwallet.R;
-import com.brainwallet.data.model.IntroLanguageResource;
-import com.brainwallet.data.model.Language;
-import com.brainwallet.presenter.activities.BreadActivity;
-import com.brainwallet.presenter.activities.SetPinActivity;
-import com.brainwallet.presenter.activities.util.BRActivity;
-import com.brainwallet.tools.adapter.CountryLanguageAdapter;
-import com.brainwallet.tools.animation.BRAnimator;
-import com.brainwallet.tools.security.BRKeyStore;
-import com.brainwallet.tools.security.PostAuth;
-import com.brainwallet.tools.security.SmartValidator;
-import com.brainwallet.tools.threads.BRExecutor;
-import com.brainwallet.tools.util.BRConstants;
-import com.brainwallet.tools.util.LocaleHelper;
-import com.brainwallet.tools.util.Utils;
-import com.brainwallet.wallet.BRWalletManager;
-import com.platform.APIClient;
+        setContent {
+            val isDarkMode by viewModel.isDarkMode.collectAsState()
 
-import java.io.Serializable;
-import java.util.Objects;
-
-import timber.log.Timber;
-
-public class IntroActivity extends BRActivity implements Serializable {
-    public Button newWalletButton;
-    public Button recoverWalletButton;
-    public static IntroActivity introActivity;
-    public static boolean appVisible = false;
-    private static IntroActivity app;
-    public CountryLanguageAdapter countryLanguageAdapter;
-    public RecyclerView listLangRecyclerView;
-    public IntroLanguageResource introLanguageResource = new IntroLanguageResource();
-    public static IntroActivity getApp() {
-        return app;
+            // note for the next developing:
+            // pass the view model to navigation for the next activity so it will be persistence across the app
+            BrainwalletApp(isDarkMode)
+        }
     }
+}
 
-    public static final Point screenParametersPoint = new Point();
-    @Override
-    protected void onRestart() {
-        super.onRestart();  // Always call the superclass method first
+@Composable
+fun BrainwalletApp(darkMode: Boolean){
+
+    BrainwalletAppTheme(darkTheme = darkMode, dynamicColor = true) {
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+        ) {
+            val audio = MediaPlayer()
+            BrainwalletUI(darkMode)
+        }
     }
+}
+@Composable
+fun LanguageDropdown(
+    selectedLanguage: String,
+    isDarkTheme: Boolean,
+    onLanguageSelected: (String) -> Unit
+) {
+    var expanded by remember { mutableStateOf(false) }
+    val languages = listOf("Français", "English", "Español", "Deutsch")
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_intro);
-        Log.i("Some", getPackageName());
-        newWalletButton = (Button) findViewById(R.id.button_new_wallet);
-        recoverWalletButton = (Button) findViewById(R.id.button_recover_wallet);
-        TextView versionText = findViewById(R.id.version_text);
-        listLangRecyclerView = findViewById(R.id.language_list);
-        View parentLayout = findViewById(android.R.id.content);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        countryLanguageAdapter = new CountryLanguageAdapter(this, introLanguageResource.loadResources());
-        listLangRecyclerView.setAdapter(countryLanguageAdapter);
+    Box(
+        modifier = Modifier.wrapContentSize(Alignment.TopStart)
+    ) {
+        Button(
+            onClick = { expanded = true },
+            shape = RoundedCornerShape(50),
+            colors = ButtonDefaults.buttonColors(containerColor = if (isDarkTheme) Color.Black else Color.White), // Black background
+            modifier = Modifier
+                .border(2.dp, if (!isDarkTheme) Color.Black else Color.White, RoundedCornerShape(25.dp)) // White border
+                .padding(2.dp)
+        ) {
+            Text(text = selectedLanguage, fontSize = 12.sp, color = if (!isDarkTheme) Color.Black else Color.White)
+        }
 
-        Language currentLanguage = LocaleHelper.Companion.getInstance().getCurrentLocale();
-        int currentIndex = introLanguageResource.findLanguageIndex(currentLanguage);
-        countryLanguageAdapter.updateCenterPosition(currentIndex);
-        new Handler().post(() -> listLangRecyclerView.scrollToPosition(currentIndex));
-        listLangRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
-                    int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
-                    int centerPosition = (lastVisibleItemPosition - firstVisibleItemPosition) / 2 + firstVisibleItemPosition;
-                    if (centerPosition != RecyclerView.NO_POSITION) {
-                        countryLanguageAdapter.updateCenterPosition(centerPosition);
-                        showDialogForItem(countryLanguageAdapter.selectedMessage());
-                        listLangRecyclerView.smoothScrollToPosition(centerPosition);
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            modifier = Modifier.background(Color.White)
+        ) {
+//            languages.forEach { language ->
+//                DropdownMenuItem(onClick = {
+//                    onLanguageSelected(language)
+//                    expanded = false
+//                }) {
+//                    Text(text = language)
+//                }
+//            }
+        }
+    }
+}
+
+@Composable
+fun FiatDropdown(
+    selectedFiat: String,
+    isDarkTheme: Boolean,
+    onFiatSelected: (String) -> Unit
+) {
+    var expanded by remember { mutableStateOf(false) }
+    val languages = listOf("EUR", "USD", "IDR", "¥")
+
+    Box(
+        modifier = Modifier.wrapContentSize(Alignment.TopStart)
+    ) {
+        Button(
+            onClick = { expanded = true },
+            shape = RoundedCornerShape(50),
+            colors = ButtonDefaults.buttonColors(containerColor = if (isDarkTheme) Color.Black else Color.White),
+            modifier = Modifier
+                .border(2.dp, if (!isDarkTheme) Color.Black else Color.White, RoundedCornerShape(25.dp))
+                .height(50.dp)
+                .width(100.dp)
+        ) {
+            Text(text = selectedFiat, fontSize = 14.sp, color = if (!isDarkTheme) Color.Black else Color.White)
+        }
+
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            modifier = Modifier.background(Color.White)
+        ) {
+//            languages.forEach { language ->
+//                DropdownMenuItem(onClick = {
+//                    onFiatSelected(language)
+//                    expanded = false
+//                }) {
+//                    Text(text = language)
+//                }
+//            }
+        }
+    }
+}
+
+
+// toggle button
+fun DrawScope.drawHalfCircle(rotation: Float) {
+    rotate(rotation) {
+        // black half circle
+        drawArc(
+            color = Color.Black,
+            startAngle = -90f,
+            sweepAngle = 180f,
+            useCenter = true,
+            size = Size(size.width, size.height),
+            topLeft = Offset.Zero
+        )
+        // white half circle
+        drawArc(
+            color = Color.White,
+            startAngle = 90f,
+            sweepAngle = 180f,
+            useCenter = true,
+            size = Size(size.width, size.height),
+            topLeft = Offset.Zero
+        )
+    }
+}
+
+@Composable
+fun BrainwalletUI(isDarkTheme: Boolean) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+            .background(if (isDarkTheme) Color.Black else Color.White),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Image(
+                painter = painterResource(id = if (isDarkTheme) {R.drawable.brainwallet_logo_white}
+                                            else {R.drawable.brainwallet_logo_black}),
+                contentDescription = "Brainwallet Logo",
+                modifier = Modifier
+                    .height(220.dp)
+                    .width(300.dp)
+                    .padding(top = 60.dp)
+            )
+        }
+
+        // Animation Placeholder
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(350.dp)
+                .padding(16.dp)
+                .background(if (!isDarkTheme) Color.Black else Color.White),
+            contentAlignment = Alignment.Center,
+        ) {
+            Text(
+                text = "Animation: Language + Fiat + Emoji",
+                color = if (isDarkTheme) Color.Black else Color.White,
+                fontSize = 14.sp,
+                textAlign = TextAlign.Center
+            )
+        }
+
+        var selectedLanguage by remember { mutableStateOf("Français") }
+        var selectedFiat by remember { mutableStateOf("EUR") }
+
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = if (isDarkTheme) Color.Black else Color.White
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    LanguageDropdown(selectedLanguage, isDarkTheme = isDarkTheme) { newLanguage ->
+                        selectedLanguage = newLanguage
+                    }
+
+
+                    // Animated rotation to smoothly swap colors
+                    val rotation by animateFloatAsState(if (isDarkTheme) 0f else 180f, label = "")
+
+                    // Canvas for custom drawing
+//                    Canvas(
+//                        modifier = Modifier
+//                            .size(48.dp)
+//                            .border(1.dp, color = if(isDarkTheme){ Color.White } else {Color.Black}, RoundedCornerShape(30.dp))
+//                            .clickable(interactionSource = remember { MutableInteractionSource() }, // No interaction ripple
+//                                indication = null) { isDarkTheme = !isDarkTheme} // Toggle state on click
+//                    ) {
+//                        drawHalfCircle(rotation)
+//                    }
+
+//                Switch(
+//                    checked = isDarkTheme,
+//                    onCheckedChange = { isDarkTheme = it },
+//                    modifier = Modifier.padding(horizontal = 8.dp),
+//                    colors = SwitchDefaults.colors(
+//                        checkedThumbColor = Color.White,
+//                        uncheckedThumbColor = Color.Black
+//                    )
+//                )
+                    SettingsDayAndNight()
+                    FiatDropdown(selectedFiat, isDarkTheme = isDarkTheme) {newFiat ->
+                        selectedFiat = newFiat
                     }
                 }
-            }
 
-        });
-        listLangRecyclerView.setLayoutManager(layoutManager);
+                Spacer(modifier = Modifier.height(24.dp))
 
-        setListeners();
-        updateBundles();
-        if (BRKeyStore.AUTH_DURATION_SEC != 300) {
-            RuntimeException ex = new RuntimeException("onCreate: AUTH_DURATION_SEC should be 300");
-            Timber.e(ex);
-            throw ex;
-        }
-        introActivity = this;
+                // Ready Button
+                Button(
+                    onClick = { /* Handle Ready Action */ },
+                    shape = RoundedCornerShape(50),
+                    colors = ButtonDefaults.buttonColors(containerColor = if (isDarkTheme) Color.Black else Color.White), // Black background
+                    modifier = Modifier
+                        .border(2.dp, if (!isDarkTheme) Color.Black else Color.White, RoundedCornerShape(25.dp)) // White border
+                        .fillMaxWidth(0.8f)
+                        .height(50.dp)
+                ) {
+                    Text(text = "Ready!", fontSize = 16.sp, color=if (!isDarkTheme) Color.Black else Color.White)
+                }
 
-        getWindowManager().getDefaultDisplay().getSize(screenParametersPoint);
-        versionText.setText(BRConstants.APP_VERSION_NAME_CODE);
+                Spacer(modifier = Modifier.height(16.dp))
 
-        if (Utils.isEmulatorOrDebug(this))
-            Utils.printPhoneSpecs();
-
-        byte[] masterPubKey = BRKeyStore.getMasterPublicKey(this);
-        boolean isFirstAddressCorrect = false;
-        if (masterPubKey != null && masterPubKey.length != 0) {
-            Timber.d("timber: masterPubkey exists");
-
-            isFirstAddressCorrect = SmartValidator.checkFirstAddress(this, masterPubKey);
-        }
-        if (!isFirstAddressCorrect) {
-            Timber.d("timber: Calling wipeWalletButKeyStore");
-            BRWalletManager.getInstance().wipeWalletButKeystore(this);
-        }
-
-        PostAuth.getInstance().onCanaryCheck(this, false);
-    }
-
-    private void showDialogForItem(String title) {
-        Dialog dialog = new Dialog(IntroActivity.this);
-        dialog.setContentView(R.layout.pop_up_language_intro);
-        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(R.drawable.rounded_pop_up_intro);
-        Button btnYes = dialog.findViewById(R.id.button_yes);
-        Button btnNo = dialog.findViewById(R.id.button_no);
-        TextView txtTitle = dialog.findViewById(R.id.dialog_message);
-        txtTitle.setText(title);
-        btnYes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (LocaleHelper.Companion.getInstance().setLocaleIfNeeded(countryLanguageAdapter.selectedLang())) {
-                    dialog.dismiss();
-                    recreate();
-                }else {
-                    dialog.dismiss();
+                // Restore Button
+                Button(
+                    onClick = { /* Handle Restore Action */ },
+                    shape = RoundedCornerShape(50),
+                    colors = ButtonDefaults.buttonColors(containerColor = if (isDarkTheme) Color.Black else Color.White), // Black background
+                    modifier = Modifier
+                        .border(2.dp, if (!isDarkTheme) Color.Black else Color.White, RoundedCornerShape(25.dp)) // White border
+                        .fillMaxWidth(0.8f)
+                        .height(50.dp)
+                ) {
+                    Text(text = "Restore", fontSize = 16.sp, color = if (!isDarkTheme) Color.Black else Color.White)
                 }
             }
-        });
+        }
 
-
-        btnNo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
-    }
-
-    private void updateBundles() {
-        BRExecutor.getInstance().forBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                Thread.currentThread().setName("updateBundle");
-                final long startTime = System.currentTimeMillis();
-                APIClient apiClient = APIClient.getInstance(IntroActivity.this);
-                long endTime = System.currentTimeMillis();
-                Timber.d("timber: updateBundle DONE in %sms",endTime - startTime);
-
-
-                //DEV Moved this back until after the bundle is loaded
-                //STILL NOT WORKING
-                // String afID = Utils.fetchPartnerKey(IntroActivity.this, PartnerNames.AFDEVID)
-                // AppsFlyerLib.getInstance().init(afID, null, IntroActivity.this);
-                // AppsFlyerLib.getInstance().start(IntroActivity.this);
-                // boolean didVerify = verifyInstallAssets(IntroActivity.this);
-            }
-        });
-    }
-
-//    public static boolean verifyInstallAssets(final Context context) {
-//        Timber.d("timber: verify");
-//
-//        String pusherStagingKey = Utils.fetchPartnerKey(context, PartnerNames.PUSHERSTAGING);
-//        boolean isCanaryFilePresent = false;
-//        try (Scanner scanner = new Scanner(new File("canary-file.json"))) {
-//            while (scanner.hasNextLine()) {
-//                String line = scanner.nextLine();
-//                Timber.d("timber: canary file : %s", line);
-//                isCanaryFilePresent = line.length() > 5;
-//            }
-//        } catch (RuntimeException | FileNotFoundException e) {
-//            Timber.e(e);
-//        }
-//
-//        return ( pusherStagingKey.contains("4cc2-94df") && isCanaryFilePresent );
-//    }
-
-    private void setListeners() {
-        newWalletButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                BreadActivity bApp = BreadActivity.getApp();
-                if (bApp != null) bApp.finish();
-                Intent intent = new Intent(IntroActivity.this, SetPinActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        recoverWalletButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                BreadActivity bApp = BreadActivity.getApp();
-                if (bApp != null) bApp.finish();
-                Intent intent = new Intent(IntroActivity.this, RecoverActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        appVisible = true;
-        app = this;
 
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        appVisible = false;
-    }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
+}
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-
-    }
-
+@Preview(showBackground = true)
+@Composable
+fun BrainwalletPreview() {
+    BrainwalletApp(isSystemInDarkTheme())
 }

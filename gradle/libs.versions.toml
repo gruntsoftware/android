@@ -11,6 +11,7 @@ androidx-cardview = "1.0.0"
 androidx-preference = "1.2.1"
 androidx-browser = "1.7.0"
 androidx-navigation = "2.7.7"
+androidx-datastore="1.0.0"
 #androidx-test-ext = "1.2.1"
 androidx-lifecycle = "2.7.0"
 androidx-compose-bom = "2025.01.00"
@@ -28,8 +29,10 @@ eclipse-jetty = "9.2.19.v20160908"
 junit = "4.13.2"
 mockk = "1.13.13"
 
+
 [libraries]
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core-ktx" }
+androidx-datastore = { module = "androidx.datastore:datastore-preferences", version.ref = "androidx-datastore" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 androidx-legacy-support = { module = "androidx.legacy:legacy-support-v13", version.ref = "androidx-legacy-support" }
 androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidx-navigation" }

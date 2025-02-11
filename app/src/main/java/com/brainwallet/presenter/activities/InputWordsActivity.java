@@ -14,7 +14,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.brainwallet.R;
-import com.brainwallet.presenter.activities.intro.IntroActivity;
+import com.brainwallet.presenter.activities.intro.IntroActivityJava;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.presenter.customviews.BRDialogView;
 import com.brainwallet.tools.animation.BRAnimator;
@@ -176,7 +176,7 @@ public class InputWordsActivity extends BRActivity {
                                         BRWalletManager m = BRWalletManager.getInstance();
                                         m.wipeWalletButKeystore(app);
                                         m.wipeKeyStore(app);
-                                        Intent intent = new Intent(app, IntroActivity.class);
+                                        Intent intent = new Intent(app, IntroActivityJava.class);
                                         finalizeIntent(intent);
                                     }
                                 }, new BRDialogView.BROnClickListener() {
