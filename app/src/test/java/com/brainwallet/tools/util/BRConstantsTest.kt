@@ -16,7 +16,7 @@ class BRConstantsTest {
     @Test
     fun `validate App external URL constant`(){
         assertSame(BRConstants.TWITTER_LINK,"https://twitter.com/Brainwallet_App");
-        assertSame(BRConstants.INSTAGRAM_LINK,"https://www.instagram.com/litewallet.app");
+        assertSame(BRConstants.INSTAGRAM_LINK,"https://www.instagram.com/brainwalletapp");
         assertSame(BRConstants.WEB_LINK,"https://brainwallet.co");
         assertSame(BRConstants.TOS_LINK,"https://brainwallet.co/privacy");
         assertSame(BRConstants.BITREFILL_AFFILIATE_LINK,"https://www.bitrefill.com/")
