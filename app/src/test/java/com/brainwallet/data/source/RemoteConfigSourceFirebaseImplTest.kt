@@ -44,16 +44,16 @@ class RemoteConfigSourceFirebaseImplTest {
     fun `call getString, then should return with expected config value`() {
 
         every { firebaseRemoteConfig.getString(any()) } returns """
-            {"enabled":false,"title":"litewallet-io-android repository","url":"https://github.com/litewallet-io/android"}
+            {"enabled":false,"title":"brainwallet-co-android repository","url":"https://github.com/brainwallet-co/android"}
         """.trimIndent()
         val actual =
             remoteConfigSource.getString(RemoteConfigSource.KEY_FEATURE_MENU_HIDDEN_EXAMPLE)
         runCatching { JSONObject(actual) }
             .onSuccess { configValue ->
                 assertEquals(false, configValue.optBoolean("enabled"))
-                assertEquals("litewallet-io-android repository", configValue.optString("title"))
+                assertEquals("brainwallet-co-android repository", configValue.optString("title"))
                 assertEquals(
-                    "https://github.com/litewallet-io/android",
+                    "https://github.com/brainwallet-co/android",
                     configValue.optString("url")
                 )
             }

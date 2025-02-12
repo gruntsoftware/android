@@ -6,8 +6,7 @@ class SeedWordTests {
 
 //
 //
-//package com.litewallet;
-//
+//package com.brainwallet
 //import android.util.Log;
 //
 //import com.breadwallet.tools.util.Bip39Reader;

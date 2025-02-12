@@ -1,6 +1,6 @@
 package com.brainwallet.presenter.entities
 
-enum class PartnerNames(val key: String) {
+enum class ServiceItems(val key: String) {
     WALLETOPS("wallet-ops"),
     OPSALL("wallet-ops"),
     WALLETSTART("start-date"),

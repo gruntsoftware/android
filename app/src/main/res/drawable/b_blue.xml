@@ -7,7 +7,7 @@
         <!--android:right="8dp"/>-->
     <item android:bottom="16dp">
         <shape xmlns:android="http://schemas.android.com/apk/res/android">
-            <solid android:color="@color/button_primary_normal"/>
+            <solid android:color="@color/chili"/>
             <corners android:radius="@dimen/radius"/>
         </shape>
     </item>

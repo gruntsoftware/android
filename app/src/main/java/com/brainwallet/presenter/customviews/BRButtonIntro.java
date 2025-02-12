@@ -161,19 +161,21 @@ public class BRButtonIntro extends Button {
         if (type == 3) onTouch(true, 1);
         this.type = type;
 
-        if (type == 1) { //blue
-            bPaint.setColor(getContext().getColor(R.color.black));
+        if (type == 1) {
+            bPaint.setColor(getContext().getColor(com.google.android.material.R.color.design_default_color_on_primary));
             setTextColor(getContext().getColor(R.color.white));
-        } else if (type == 2) { //gray stroke
-            setTextColor(getContext().getColor(R.color.light_gray));
-            setOutline(R.color.extra_light_gray, R.color.button_secondary);
-        } else if (type == 3) { //blue strokeww
-            setTextColor(getContext().getColor(R.color.black));
-            setOutline(R.color.black, R.color.button_secondary);
-        } else if (type == 4) { //white stroke
-            setOutline(R.color.white, R.color.button_secondary);
+        } else if (type == 2) {
+            setTextColor(getContext().getColor(R.color.white));
+            setOutline(R.color.white, R.color.midnight);
+        } else if (type == 3) {
+            setTextColor(getContext().getColor(R.color.white));
+            setOutline(R.color.near_black, R.color.midnight);
+        } else if (type == 4) {
+            setTextColor(getContext().getColor(R.color.white));
+            setOutline(R.color.white, R.color.grape);
         } else if (type == 5) {
-            setOutline(R.color.white, R.color.black);
+            setTextColor(getContext().getColor(R.color.white));
+            setOutline(R.color.white, R.color.near_black);
         }
         invalidate();
     }

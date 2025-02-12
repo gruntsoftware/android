@@ -7,9 +7,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.brainwallet.R;
-import com.brainwallet.presenter.activities.InputWordsActivity;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.tools.animation.BRAnimator;
+import com.brainwallet.presenter.activities.InputWordsActivity;
+
 
 
 public class WipeActivity extends BRActivity {

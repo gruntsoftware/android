@@ -9,8 +9,9 @@ import android.os.Looper;
 
 import com.brainwallet.R;
 import com.brainwallet.presenter.activities.DisabledActivity;
-import com.brainwallet.presenter.activities.InputWordsActivity;
 import com.brainwallet.presenter.activities.SetPinActivity;
+import com.brainwallet.presenter.activities.InputWordsActivity;
+
 
 import java.util.List;
 

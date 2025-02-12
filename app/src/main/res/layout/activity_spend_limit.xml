@@ -16,7 +16,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:text="@string/TouchIdSpendingLimit.title.android"
-        android:textColor="@color/almost_black"
+        android:textColor="@color/midnight"
         android:textSize="@dimen/header"
         app:layout_constraintEnd_toStartOf="@+id/faq_button"
         app:layout_constraintStart_toStartOf="parent"

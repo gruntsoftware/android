@@ -3,7 +3,7 @@
     android:id="@+id/background_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_trans"
+    android:background="@color/midnight"
     android:filterTouchesWhenObscured="true">
 
     <ScrollView
@@ -32,7 +32,6 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:text="@string/Receive.title"
-                    android:textColor="@color/almost_black"
                     android:textSize="@dimen/header"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintHorizontal_bias="0.498"
@@ -45,7 +44,7 @@
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_marginTop="16dp"
-                    android:background="@color/separator_gray"
+                    android:background="@color/cheddar"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -122,7 +121,7 @@
                     android:drawablePadding="4dp"
                     android:minHeight="40dp"
                     android:text="iso"
-                    android:textColor="@color/light_gray"
+                    android:textColor="@color/cheddar"
                     android:textSize="18sp"
                     app:buttonType="2"
                     app:isBreadButton="true" />
@@ -140,14 +139,14 @@
                     android:id="@+id/separator5"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/extra_light_gray" />
+                    android:background="@color/white" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/cur_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_gravity="center_vertical"
-                    android:background="@color/button_secondary" />
+                    android:background="@color/cheddar" />
 
             </LinearLayout>
 
@@ -155,7 +154,7 @@
                 android:id="@+id/separator2"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/extra_light_gray" />
+                android:background="@color/white" />
 
             <LinearLayout
                 android:id="@+id/keyboard_layout"
@@ -168,13 +167,13 @@
                     android:id="@+id/keyboard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/extra_light_gray" />
+                    android:background="@color/white" />
 
                 <View
                     android:id="@+id/separator3"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/extra_light_gray" />
+                    android:background="@color/white" />
             </LinearLayout>
 
             <ImageView
@@ -196,7 +195,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:text="----------------------------------"
-                android:textColor="@color/light_gray"
+                android:textColor="@color/cheddar"
                 android:textSize="16sp" />
 
             <com.brainwallet.presenter.customviews.BRLinearLayoutWithCaret
@@ -204,7 +203,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginBottom="8dp"
-                app:backgroundColor="@color/dark_blue"
+                app:backgroundColor="@color/midnight"
                 app:withStroke="false">
 
                 <TextView
@@ -235,7 +234,6 @@
                 android:paddingEnd="48dp"
                 android:paddingTop="12dp"
                 android:text="@string/Receive.share"
-                android:textColor="@color/light_gray"
                 android:textSize="18sp"
                 app:buttonType="2"
                 app:isBreadButton="true" />
@@ -247,7 +245,7 @@
                 android:orientation="horizontal"
                 android:weightSum="2.0"
                 app:backgroundColor="@color/white"
-                app:strokeColor="@color/extra_light_gray"
+                app:strokeColor="@color/white"
                 app:withStroke="true">
 
                 <com.brainwallet.presenter.customviews.BRButton
@@ -263,7 +261,6 @@
                     android:paddingTop="12dp"
                     android:paddingBottom="12dp"
                     android:text="@string/Receive.emailButton"
-                    android:textColor="@color/light_gray"
                     android:textSize="14sp"
                     app:buttonType="2"
                     app:isBreadButton="true" />
@@ -274,7 +271,7 @@
                 android:id="@+id/separator"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/separator_gray" />
+                android:background="@color/cheddar" />
 
             <com.brainwallet.presenter.customviews.BRButton
                 style="@style/BRButtonStyle"
@@ -287,7 +284,7 @@
                 android:layout_marginTop="16dp"
                 android:padding="10dp"
                 android:text="@string/Receive.request"
-                android:textColor="@color/almost_black"
+                android:textColor="@color/midnight"
                 android:textSize="18sp"
                 app:buttonType="2"
                 app:isBreadButton="true" />

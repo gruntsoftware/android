@@ -3,11 +3,12 @@ package com.brainwallet;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 
 import com.appsflyer.AppsFlyerLib;
 import com.brainwallet.presenter.activities.util.BRActivity;
-import com.brainwallet.presenter.entities.PartnerNames;
+import com.brainwallet.presenter.entities.ServiceItems;
 import com.brainwallet.tools.listeners.SyncReceiver;
 import com.brainwallet.tools.manager.AnalyticsManager;
 import com.brainwallet.tools.util.BRConstants;
@@ -75,7 +76,7 @@ public class BrainwalletApp extends Application {
         if (BuildConfig.DEBUG) Timber.plant(new Timber.DebugTree());
         DISPLAY_HEIGHT_PX = Resources.getSystem().getDisplayMetrics().heightPixels;
 
-        String afID = Utils.fetchPartnerKey(this, PartnerNames.AFDEVID);
+        String afID = Utils.fetchServiceItem(this, ServiceItems.AFDEVID);
         AppsFlyerLib appsFlyerLib = AppsFlyerLib.getInstance();
         appsFlyerLib.init(afID, null, this);
         appsFlyerLib.setDebugLog(BuildConfig.DEBUG);

@@ -80,7 +80,7 @@ public class BRLinearLayoutWithCaret extends LinearLayout {
         strokePaint.setStyle(Paint.Style.STROKE);
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics());
         strokePaint.setStrokeWidth(px);
-        strokePaint.setColor(getContext().getColor(R.color.separator_gray));
+        strokePaint.setColor(getContext().getColor(R.color.white));
 
         path_stroke = new Path();
         path_background = new Path();
