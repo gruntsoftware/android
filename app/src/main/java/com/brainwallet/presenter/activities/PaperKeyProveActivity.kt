@@ -6,8 +6,8 @@ import com.brainwallet.databinding.ActivityPaperKeyProveBinding
 import com.brainwallet.presenter.activities.util.BRActivity
 import com.brainwallet.tools.animation.BRAnimator
 import com.brainwallet.tools.manager.BRSharedPrefs
-import com.brainwallet.ui.screen.yourseedproveit.YourSeedProveItEvent
-import com.brainwallet.ui.screen.yourseedproveit.YourSeedProveItScreen
+import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItEvent
+import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItScreen
 import com.brainwallet.ui.theme.setContentWithTheme
 
 

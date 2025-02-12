@@ -1,4 +1,4 @@
-package com.brainwallet.ui.screen.inputwords
+package com.brainwallet.ui.screens.welcome
 
 import androidx.lifecycle.ViewModel
 import com.brainwallet.BrainwalletApp
@@ -8,10 +8,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-class InputWordsViewModel : ViewModel() {
+class WelcomeViewModel : ViewModel() {
 
-    private val _state = MutableStateFlow(InputWordsState())
-    val state: StateFlow<InputWordsState> = _state.asStateFlow()
+    private val _state = MutableStateFlow(WelcomeState())
+    val state: StateFlow<WelcomeState> = _state.asStateFlow()
 
     init {
         //TODO: revisit later, please move to repostiory, for now just reuse the existing
@@ -20,9 +20,9 @@ class InputWordsViewModel : ViewModel() {
         }
     }
 
-    fun onEvent(event: InputWordsEvent) {
+    fun onEvent(event: WelcomeEvent) {
         when (event) {
-            is InputWordsEvent.OnSeedWordItemChange -> _state.update {
+            is WelcomeEvent.OnSeedWordItemChange -> _state.update {
                 it.copy(
                     seedWords = it.seedWords.toMutableMap().apply {
                         put(event.index, Bip39Reader.cleanWord(event.text.lowercase()))
@@ -33,14 +33,9 @@ class InputWordsViewModel : ViewModel() {
                 )
             }
 
-            InputWordsEvent.OnClearSeedWords -> _state.update {
-                InputWordsState(bip39Words = it.bip39Words)
+            WelcomeEvent.OnClearSeedWords -> _state.update {
+                WelcomeState(bip39Words = it.bip39Words)
             }
-
-//            InputWordsEvent.OnRestoreClick -> {
-                //todo: move here from [InputWordsActivity] after new UI implemented
-
-//            }
 
             else -> Unit
         }

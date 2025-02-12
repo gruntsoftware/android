@@ -1,4 +1,4 @@
-package com.brainwallet.ui.screen.yourseedwords
+package com.brainwallet.ui.screens.yourseedwords
 
 sealed class YourSeedWordsEvent {
     object OnBackClick : YourSeedWordsEvent()

@@ -15,8 +15,8 @@ import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.security.AuthManager
 import com.brainwallet.tools.security.PostAuth
 import com.brainwallet.tools.security.SmartValidator
-import com.brainwallet.ui.screen.inputwords.InputWordsEvent
-import com.brainwallet.ui.screen.inputwords.InputWordsScreen
+import com.brainwallet.ui.screens.inputwords.InputWordsEvent
+import com.brainwallet.ui.screens.inputwords.InputWordsScreen
 import com.brainwallet.ui.theme.setContentWithTheme
 import com.brainwallet.wallet.BRWalletManager
 

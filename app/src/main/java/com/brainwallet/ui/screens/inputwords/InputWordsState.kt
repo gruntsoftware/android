@@ -1,4 +1,4 @@
-package com.brainwallet.ui.screen.inputwords
+package com.brainwallet.ui.screens.inputwords
 
 data class InputWordsState(
     val bip39Words: List<String> = emptyList(),

@@ -3,7 +3,7 @@
     ExperimentalComposeUiApi::class
 )
 
-package com.brainwallet.ui.screen.inputwords
+package com.brainwallet.ui.screens.welcome
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -50,9 +50,9 @@ import com.brainwallet.ui.composable.LargeButton
 import com.brainwallet.ui.composable.SeedWordItemTextField
 
 @Composable
-fun InputWordsScreen(
-    onEvent: (InputWordsEvent) -> Unit = {},
-    viewModel: InputWordsViewModel = viewModel()
+fun WelcomeScreen(
+    onEvent: (WelcomeEvent) -> Unit = {},
+    viewModel: WelcomeViewModel = viewModel()
 ) {
     val state by viewModel.state.collectAsState()
     val focusRequesters = List(12) { FocusRequester() } //12 seed words
@@ -71,7 +71,7 @@ fun InputWordsScreen(
                 title = {},
                 navigationIcon = {
                     IconButton(
-                        onClick = { onEvent.invoke(InputWordsEvent.OnBackClick) },
+                        onClick = { onEvent.invoke(WelcomeEvent.OnBackClick) },
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -123,7 +123,7 @@ fun InputWordsScreen(
                         suggestions = state.suggestionsSeedWords,
                         onValueChange = {
                             viewModel.onEvent(
-                                InputWordsEvent.OnSeedWordItemChange(
+                                WelcomeEvent.OnSeedWordItemChange(
                                     index = index, text = it,
                                 )
                             )
@@ -144,7 +144,7 @@ fun InputWordsScreen(
 
             FilledTonalButton(
                 onClick = {
-                    viewModel.onEvent(InputWordsEvent.OnClearSeedWords)
+                    viewModel.onEvent(WelcomeEvent.OnClearSeedWords)
                     focusRequesters.first().requestFocus()
                 },
             ) {
@@ -173,7 +173,7 @@ fun InputWordsScreen(
             LargeButton(
                 modifier = Modifier.testTag("buttonRestore"),
                 onClick = {
-                    onEvent(InputWordsEvent.OnRestoreClick(state.asPaperKey()))
+                    onEvent(WelcomeEvent.OnRestoreClick(state.asPaperKey()))
                     focusManager.clearFocus()
                 },
             ) {
