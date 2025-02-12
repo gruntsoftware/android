@@ -45,7 +45,6 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="@dimen/bread_margin"
                 android:text="@string/TransactionDetails.title"
-                android:textColor="@color/midnight"
                 android:textSize="@dimen/header" />
 
             <ImageButton
@@ -99,7 +98,6 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:text="sent --- "
-                    android:textColor="@color/midnight"
                     android:textIsSelectable="true"
                     android:textSize="30sp" />
 
@@ -114,7 +112,6 @@
                     android:ellipsize="middle"
                     android:singleLine="true"
                     android:text=""
-                    android:textColor="@color/midnight"
                     android:textIsSelectable="false"
                     android:textSize="16sp" />
 
@@ -141,7 +138,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:textColor="@color/midnight"
                     android:textIsSelectable="true" />
 
                 <TextView
@@ -151,7 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="@string/Transaction.available"
-                    android:textColor="#48F0B8"
+                    android:textColor="@color/pesto"
                     android:textIsSelectable="true" />
 
                 <View
@@ -176,8 +172,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:textColor="@color/midnight" />
+                    android:layout_marginEnd="16dp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -204,7 +199,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:textColor="@color/midnight"
                     android:textIsSelectable="true" />
 
                 <View
@@ -230,8 +224,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:textColor="@color/midnight" />
+                    android:layout_marginEnd="16dp" />
 
                 <TextView
                     android:id="@+id/tx_hash_link"
@@ -242,8 +235,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:clickable="true"
-                    android:text="@string/ViewOnBlockchain"
-                    android:textColor="@color/midnight" />
+                    android:text="@string/ViewOnBlockchain"/>
 
                 <View
                     android:layout_width="match_parent"
