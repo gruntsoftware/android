@@ -57,21 +57,21 @@ public class BrainwalletApp extends Application {
 
         if (BuildConfig.DEBUG) Timber.plant(new Timber.DebugTree());
 
-        //dev: uncomment for debugging
-//        FirebaseMessaging.getInstance()
-//                .getToken()
-//                .addOnSuccessListener(new OnSuccessListener<String>() {
-//                    @Override
-//                    public void onSuccess(String s) {
-//                        Timber.d("timber: fcm getToken= %s", s);
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Timber.d(e, "timber: fcm getToken failure");
-//                    }
-//                });
+        //  DEV: uncomment for debugging
+        //        FirebaseMessaging.getInstance()
+        //                .getToken()
+        //                .addOnSuccessListener(new OnSuccessListener<String>() {
+        //                    @Override
+        //                    public void onSuccess(String s) {
+        //                        Timber.d("timber: fcm getToken= %s", s);
+        //                    }
+        //                })
+        //                .addOnFailureListener(new OnFailureListener() {
+        //                    @Override
+        //                    public void onFailure(@NonNull Exception e) {
+        //                        Timber.d(e, "timber: fcm getToken failure");
+        //                    }
+        //                });
 
         if (BuildConfig.DEBUG) Timber.plant(new Timber.DebugTree());
         DISPLAY_HEIGHT_PX = Resources.getSystem().getDisplayMetrics().heightPixels;

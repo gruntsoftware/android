@@ -5,6 +5,8 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.brainwallet.databinding.ActivityWelcomeBinding
 import com.brainwallet.presenter.activities.util.BRActivity
 import com.brainwallet.tools.security.PostAuth
+import com.brainwallet.ui.screens.welcome.WelcomeEvent
+import com.brainwallet.ui.screens.welcome.WelcomeScreen
 import com.brainwallet.ui.screens.yourseedwords.YourSeedWordsScreen
 import com.brainwallet.ui.screens.yourseedwords.YourSeedWordsEvent
 import com.brainwallet.ui.theme.setContentWithTheme
@@ -20,27 +22,15 @@ class WelcomeActivity : BRActivity() {
         val view = binding.root
         setContentView(view)
 
-        val phrase = intent.getStringExtra("phrase")
-        if (phrase == null || phrase[phrase.length - 1] == '\u0000') {
-            finish()
-            return
-        }
-        val seedWords = phrase.split(" ")
-
-        if (seedWords.size != 12) {
-            finish()
-            return
-        }
-
         binding.composeView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContentWithTheme {
-                YourSeedWordsScreen(
-                    seedWords = seedWords,
+                WelcomeScreen(
                     onEvent = { action ->
                         when (action) {
-                            YourSeedWordsEvent.OnBackClick -> finish()
-                            YourSeedWordsEvent.OnSavedItClick -> onSavedItClick()
+                            WelcomeEvent.OnReadyClick -> onReadyClick()
+                            WelcomeEvent.OnRestoreClick -> onRestoreClick()
+                            WelcomeEvent.OnToggleTheme -> onToggleThemeClick()
                         }
                     }
                 )
@@ -48,7 +38,12 @@ class WelcomeActivity : BRActivity() {
         }
     }
 
-    private fun onSavedItClick() {
-        PostAuth.getInstance().onPhraseProveAuth(this, false)
+    private fun onReadyClick() {
+    }
+
+    private fun onRestoreClick() {
+    }
+
+    private fun onToggleThemeClick() {
     }
 }
