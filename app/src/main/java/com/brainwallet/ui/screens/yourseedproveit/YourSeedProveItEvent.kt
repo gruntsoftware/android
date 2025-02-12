@@ -1,4 +1,4 @@
-package com.brainwallet.ui.screen.yourseedproveit
+package com.brainwallet.ui.screens.yourseedproveit
 
 sealed class YourSeedProveItEvent {
     data class OnLoad(

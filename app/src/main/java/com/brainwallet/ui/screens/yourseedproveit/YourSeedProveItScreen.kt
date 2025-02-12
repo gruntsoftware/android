@@ -3,7 +3,7 @@
     ExperimentalFoundationApi::class
 )
 
-package com.brainwallet.ui.screen.yourseedproveit
+package com.brainwallet.ui.screens.yourseedproveit
 
 import android.content.ClipData
 import android.content.ClipDescription

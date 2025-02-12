@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 
-package com.brainwallet.ui.screen.yourseedwords
+package com.brainwallet.ui.screens.yourseedwords
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

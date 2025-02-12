@@ -1,4 +1,4 @@
-package com.brainwallet.ui.screen.inputwords
+package com.brainwallet.ui.screens.inputwords
 
 sealed class InputWordsEvent {
     object OnBackClick : InputWordsEvent()
