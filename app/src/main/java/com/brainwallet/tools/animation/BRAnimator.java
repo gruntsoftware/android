@@ -9,7 +9,6 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -114,22 +113,6 @@ public class BRAnimator {
                     .add(android.R.id.content, fragmentSend, FragmentSend.class.getName())
                     .addToBackStack(FragmentSend.class.getName()).commit();
         } finally {
-        }
-    }
-
-    public static void popBackStackTillEntry(Activity app, int entryIndex) {
-
-        if (app.getFragmentManager() == null) {
-            return;
-        }
-        if (app.getFragmentManager().getBackStackEntryCount() <= entryIndex) {
-            return;
-        }
-        FragmentManager.BackStackEntry entry = app.getFragmentManager().getBackStackEntryAt(
-                entryIndex);
-        if (entry != null) {
-            app.getFragmentManager().popBackStackImmediate(entry.getId(),
-                    FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
     }
 
