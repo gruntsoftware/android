@@ -153,6 +153,11 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".presenter.activities.WelcomeActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".presenter.activities.PaperKeyActivity"
             android:exported="true"
             android:launchMode="singleTask"
