@@ -1,0 +1,40 @@
+{
+  "items": {
+    "brainwallet-ops": [
+      "ltc1q6s24teyh0re7nfm7shr5rwc0ulnq7wvfz8cra3",
+      "ltc1q4lhdwu6dxfnkhtr36uw7z3w3486j4tg9lr9mk7",
+      "ltc1q5frkl7206rsn0vur90dpfs0khkwf5dxzyv5z9r",
+      "ltc1qt558s39ddpxxd973d3z04ahyp7as86m8m40x3x",
+      "ltc1qzee2mvx8z63tzfwvnazxgn8lmze8d90zp4krlc",
+      "ltc1qdxrfnhwe8axt733x8thndqvwfshddvcpma7zjf",
+      "ltc1qq9t2en95dvx96kj9pqrjgww53vns0wd8y3less",
+      "ltc1qnhx3edjyjzatz7sx0tf6qpxvx84hkw4swze8w0",
+      "ltc1qw98pcyrecqgny883l8ye6eylxv7pn7hyl2zdps",
+      "ltc1qn73fzlkhmd555mcahqfqsuasnc0jf43u6cv7fa",
+      "ltc1qw9hk6frsnqmpvlchrq3sxy0uyhpqhzs097q6ry",
+      "ltc1qv8w4xxlr6cdqk97j6y9jtme2706xcdzv07k6dh",
+      "ltc1qptk2duq8saq0kllhecczvhyqnggypaqatejgtf",
+      "ltc1qyrn0w0hpkhmdtux3vk6mqt72eyv507epsj0cc8",
+      "ltc1q27pkey730npehusswu82mjeuuxvzj5y9y66dhk",
+      "ltc1qmd6etg4u6f54ryhk7h7gn6rc3sesp53fhcr854",
+      "ltc1qp52qqxdxwf6g0yfkfjcw633gdglu9k03r28d36",
+      "ltc1q7lnhq93npdn3hk4duu0pfaqkxfr9qzvww2lgf9",
+      "ltc1qafjdjssjp60mwdmvweh55ur6jp7fescdhdluq8",
+      "ltc1qry6u9xg0wyqjmc3zdtcsxegywfhxux32fd0wyh",
+      "ltc1qff0e6rn93p5fma076d2uc2fqr8n6smgwwsh3q7",
+      "ltc1qtr043yhpr9kwnfdvlm2d6gh9dkmzexhxw6dhh5",
+      "ltc1qm27j844w6qgula7f9zdxk2at0vl3ycsct04sfx",
+      "ltc1qlqmuztl4z2jalm4sfrz2qd4tyc9acys4la0r88",
+      "ltc1qf4xdqcug4fc5lu0jfr5tpvdhmv8jxq4n3ehc6f",
+      "ltc1qg4tlyr7dn7ls9098ncjd9vu074kdd8rz4zjxte",
+      "ltc1q4ppqhyc66wj92g0hvxtul00pxs6305g4pedl5n",
+      "ltc1qthlrtvlt9w0pyxf0gs3yas94nvugv6kse3rg8e",
+      "ltc1q5h5xk3fqx89a2e7l2arw3ld4mhj4pf0wk26cm9",
+      "ltc1q4cg9lq460937kr6xfrfqs75g2hpxhlfg4nxx74",
+      "ltc1qh9jmf8fwvwj5hxz949msg38vvllvy9mlejkm82",
+      "ltc1qxzsk9dqah7s2vuxhdtjn86e6mkjpek7q66hsgy"
+    ],
+    "wallet-start": "131011",
+    "af-dev-id": "CTv3A2tRPgtv8AAWnfpFbD"
+  }
+}

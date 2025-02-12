@@ -28,7 +28,7 @@ class NotificationHandlerTest {
     }
 
     @Test
-    fun `invoke handleMessageReceived with data not contains key litewallet, then should return false`() {
+    fun `invoke handleMessageReceived with data not contains key brainwallet, then should return false`() {
 
         val remoteMessage = RemoteMessage(Bundle())
 

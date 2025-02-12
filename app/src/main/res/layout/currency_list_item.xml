@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:filterTouchesWhenObscured="true"
     android:orientation="vertical">
 
@@ -22,7 +21,6 @@
         android:paddingStart="16dp"
         android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/almost_black"
         android:textSize="@dimen/sub_header"
         tools:text="I am dollar here" />
 

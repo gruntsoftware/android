@@ -5,7 +5,7 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@color/near_black"
     tools:context="com.brainwallet.presenter.activities.DisabledActivity">
 
 
@@ -22,7 +22,7 @@
         android:paddingTop="8dp"
         android:paddingBottom="0dp"
         android:text="@string/UnlockScreen.resetPin"
-        android:textColor="@color/button_secondary_text"
+        android:textColor="@color/cheddar"
         android:textSize="18sp"
         app:isBreadButton="false"
         app:layout_constraintBottom_toBottomOf="parent"

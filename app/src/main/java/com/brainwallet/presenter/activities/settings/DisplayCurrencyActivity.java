@@ -130,15 +130,15 @@ public class DisplayCurrencyActivity extends BRActivity {
     private void setButton(boolean left) {
         if (left) {
             BRSharedPrefs.putCurrencyUnit(this, BRConstants.CURRENT_UNIT_LITES);
-            leftButton.setTextColor(getColor(R.color.white));
+            leftButton.setTextColor(getColor(R.color.grape));
             leftButton.setBackground(getDrawable(R.drawable.b_half_left_blue));
-            rightButton.setTextColor(getColor(R.color.dark_blue));
+            rightButton.setTextColor(getColor(R.color.cheddar));
             rightButton.setBackground(getDrawable(R.drawable.b_half_right_blue_stroke));
         } else {
             BRSharedPrefs.putCurrencyUnit(this, BRConstants.CURRENT_UNIT_LITECOINS);
-            leftButton.setTextColor(getColor(R.color.dark_blue));
+            leftButton.setTextColor(getColor(R.color.cheddar));
             leftButton.setBackground(getDrawable(R.drawable.b_half_left_blue_stroke));
-            rightButton.setTextColor(getColor(R.color.white));
+            rightButton.setTextColor(getColor(R.color.grape));
             rightButton.setBackground(getDrawable(R.drawable.b_half_right_blue));
         }
         updateExchangeRate();

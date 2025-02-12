@@ -33,7 +33,7 @@
         android:textSize="18sp"
         android:shadowDx="3"
         android:shadowRadius="5"
-        android:shadowColor="@color/black"
+        android:shadowColor="@color/near_black"
         android:shadowDy="3"
         android:layout_height="wrap_content" />
 

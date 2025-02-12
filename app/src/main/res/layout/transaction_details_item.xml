@@ -45,7 +45,6 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="@dimen/bread_margin"
                 android:text="@string/TransactionDetails.title"
-                android:textColor="@color/almost_black"
                 android:textSize="@dimen/header" />
 
             <ImageButton
@@ -63,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@+id/title"
-                android:background="@color/separator_gray" />
+                android:background="@color/cheddar" />
 
 
         </RelativeLayout>
@@ -86,7 +85,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="some date"
-                    android:textColor="@color/light_gray"
+                    android:textColor="@color/cheddar"
                     android:textIsSelectable="true"
                     android:textSize="18sp" />
 
@@ -99,7 +98,6 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:text="sent --- "
-                    android:textColor="@color/almost_black"
                     android:textIsSelectable="true"
                     android:textSize="30sp" />
 
@@ -114,7 +112,6 @@
                     android:ellipsize="middle"
                     android:singleLine="true"
                     android:text=""
-                    android:textColor="@color/almost_black"
                     android:textIsSelectable="false"
                     android:textSize="16sp" />
 
@@ -124,7 +121,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@color/separator_gray" />
+                    android:background="@color/cheddar" />
 
                 <TextView
                     style="@style/BRBoldTextStyle"
@@ -133,7 +130,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="@string/TransactionDetails.statusHeader"
-                    android:textColor="@color/light_gray" />
+                    android:textColor="@color/cheddar" />
 
                 <TextView
                     android:id="@+id/confirmation_text"
@@ -141,7 +138,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:textColor="@color/almost_black"
                     android:textIsSelectable="true" />
 
                 <TextView
@@ -151,7 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="@string/Transaction.available"
-                    android:textColor="#48F0B8"
+                    android:textColor="@color/pesto"
                     android:textIsSelectable="true" />
 
                 <View
@@ -160,7 +156,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@color/separator_gray" />
+                    android:background="@color/cheddar" />
 
                 <TextView
                     style="@style/BRBoldTextStyle"
@@ -169,15 +165,14 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="@string/TransactionDetails.commentsHeader"
-                    android:textColor="@color/light_gray" />
+                    android:textColor="@color/cheddar" />
 
                 <EditText
                     android:id="@+id/comment_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:textColor="@color/almost_black" />
+                    android:layout_marginEnd="16dp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -185,7 +180,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@color/separator_gray" />
+                    android:background="@color/cheddar" />
 
                 <TextView
                     android:id="@+id/to_from"
@@ -195,7 +190,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="@string/Confirmation.to"
-                    android:textColor="@color/light_gray" />
+                    android:textColor="@color/cheddar" />
 
                 <TextView
                     android:id="@+id/address_text"
@@ -204,7 +199,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:textColor="@color/almost_black"
                     android:textIsSelectable="true" />
 
                 <View
@@ -213,7 +207,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@color/separator_gray" />
+                    android:background="@color/cheddar" />
 
                 <TextView
                     style="@style/BRTextStyle"
@@ -222,7 +216,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="@string/TransactionDetails.txHashHeader"
-                    android:textColor="@color/light_gray" />
+                    android:textColor="@color/cheddar" />
 
                 <TextView
                     android:id="@+id/tx_hash"
@@ -230,8 +224,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:textColor="@color/almost_black" />
+                    android:layout_marginEnd="16dp" />
 
                 <TextView
                     android:id="@+id/tx_hash_link"
@@ -242,15 +235,14 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:clickable="true"
-                    android:text="@string/ViewOnBlockchain"
-                    android:textColor="@color/dark_blue" />
+                    android:text="@string/ViewOnBlockchain"/>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="32dp"
-                    android:background="@color/separator_gray" />
+                    android:background="@color/cheddar" />
 
             </LinearLayout>
 
