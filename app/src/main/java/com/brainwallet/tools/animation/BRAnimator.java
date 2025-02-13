@@ -36,7 +36,6 @@ import com.brainwallet.presenter.customviews.BRDialogView;
 import com.brainwallet.presenter.entities.TxItem;
 import com.brainwallet.presenter.fragments.FragmentBalanceSeedReminder;
 import com.brainwallet.presenter.fragments.FragmentBuy;
-import com.brainwallet.presenter.fragments.FragmentGreetings;
 import com.brainwallet.presenter.fragments.FragmentMenu;
 import com.brainwallet.presenter.fragments.FragmentReceive;
 import com.brainwallet.presenter.fragments.FragmentRequestAmount;
@@ -283,18 +282,6 @@ public class BRAnimator {
         transaction.setCustomAnimations(0, 0, 0, R.animator.plain_300);
         transaction.add(android.R.id.content, new FragmentMenu(), FragmentMenu.class.getName());
         transaction.addToBackStack(FragmentMenu.class.getName());
-        transaction.commit();
-    }
-
-    public static void showGreetingsMessage(Activity app) {
-        if (app == null) {
-            Timber.i("timber: showGreetingsMessage: app is null");
-            return;
-        }
-        FragmentTransaction transaction = app.getFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(0, 0, 0, R.animator.plain_300);
-        transaction.add(android.R.id.content, new FragmentGreetings(), FragmentGreetings.class.getName());
-        transaction.addToBackStack(FragmentGreetings.class.getName());
         transaction.commit();
     }
 
