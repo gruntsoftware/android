@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.Text
@@ -18,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.material3.DropdownMenuItem
 
 @Composable
 fun LanguageDropdown(
@@ -46,19 +48,31 @@ fun LanguageDropdown(
             onDismissRequest = { expanded = false },
             modifier = Modifier.background(Color.White)
         ) {
-//            languages.forEach { language ->
-//                DropdownMenuItem(onClick = {
-//                    onLanguageSelected(language)
-//                    expanded = false
-//                }) {
+            languages.forEach { language ->
+//                DropdownMenuItem(
+//                    onClick = {
+//                        onLanguageSelected(language)
+//                    }) {
+//                    Text("land")
+//                }
+
+//                DropdownMenuItem(
+//                    onClick = {
+//                        onLanguageSelected(language)
+//                    }
+//                ) {
 //                    Text(text = language)
 //                }
-//            }
+            }
         }
     }
 }
 
-@Composable
-fun Button(onClick: () -> Unit, shape: Any, colors: Any, modifier: Any, content: @Composable () -> Unit) {
 
-}
+//DropdownMenuItem(
+//onClick = {
+//    onLanguageSelected(language)
+//    expanded = false
+//}) {
+//    Text(text = language)
+//}
