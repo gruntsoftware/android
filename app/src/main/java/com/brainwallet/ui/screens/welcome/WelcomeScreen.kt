@@ -5,6 +5,7 @@
 
 package com.brainwallet.ui.screens.welcome
 
+import android.content.res.Resources.Theme
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -64,7 +65,9 @@ import com.brainwallet.ui.composable.LargeButton
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalConfiguration
 import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.brainwallet.ui.theme.ColorFamily
 
 @Composable
 fun WelcomeScreen(
@@ -95,20 +98,7 @@ fun WelcomeScreen(
         var selectedLanguage by remember { mutableStateOf("Français") }
         var selectedFiat by remember { mutableStateOf("EUR") }
         val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.welcomeemoji20250212))
-        var isPlaying by remember { mutableStateOf(true) }
-        val flyingEmojisProgress by animateLottieCompositionAsState(
-            composition = composition,
-            isPlaying = isPlaying
-        )
-
-    LaunchedEffect( key1 = flyingEmojisProgress) {
-        if (flyingEmojisProgress ==0f){
-            isPlaying = true
-        }
-        if (flyingEmojisProgress ==1f){
-            isPlaying = false
-        }
-    }
+        val progress by animateLottieCompositionAsState(composition = composition, iterations = LottieConstants.IterateForever)
 
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Spacer(modifier = Modifier.weight(1f))
@@ -119,18 +109,20 @@ fun WelcomeScreen(
                 text = "TEST",
             )
 
+            Image()
+
             // Animation Placeholder
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(thirdOfScreenHeight.dp)
+                    .height(thirdOfScreenHeight.dp).background(Color(0xFF0F0853))
                     .padding(leadTrailPadding.dp),
                 contentAlignment = Alignment.Center,
             ) {
 
                 LottieAnimation(
                     composition = composition,
-                    isPlaying = isPlaying
+                    progress = { progress }
                 )
             }
             Spacer(modifier = Modifier.weight(1f))
