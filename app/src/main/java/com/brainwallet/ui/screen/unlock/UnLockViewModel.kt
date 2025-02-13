@@ -1,10 +1,17 @@
 package com.brainwallet.ui.screen.unlock
 
 import androidx.lifecycle.ViewModel
+import com.brainwallet.tools.manager.BRSharedPrefs
+import com.brainwallet.tools.sqlite.CurrencyDataSource
+import com.brainwallet.tools.util.BRConstants
+import com.brainwallet.tools.util.BRCurrency
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import timber.log.Timber
+import java.math.BigDecimal
+
 
 class UnLockViewModel : ViewModel() {
 
@@ -39,6 +46,31 @@ class UnLockViewModel : ViewModel() {
             }
 
             UnLockEvent.OnBackClick -> Unit
+            is UnLockEvent.OnLoad -> {
+                val iso = BRSharedPrefs.getIsoSymbol(event.context)
+
+                var formattedCurrency: String? = null
+                val currency = CurrencyDataSource.getInstance(event.context).getCurrencyByIso(iso)
+                if (currency != null) {
+                    val roundedPriceAmount: BigDecimal =
+                        BigDecimal(currency.rate.toDouble()).multiply(BigDecimal(100))
+                            .divide(BigDecimal(100), 2, BRConstants.ROUNDING_MODE)
+                    formattedCurrency =
+                        BRCurrency.getFormattedCurrencyString(
+                            event.context,
+                            iso,
+                            roundedPriceAmount
+                        )
+                } else {
+                    Timber.w("The currency related to %s is NULL", iso)
+                }
+
+                if (formattedCurrency != null) {
+                    _state.update {
+                        it.copy(iso = iso, formattedCurrency = formattedCurrency)
+                    }
+                }
+            }
         }
     }
 }
