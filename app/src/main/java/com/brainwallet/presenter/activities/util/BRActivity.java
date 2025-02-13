@@ -15,7 +15,6 @@ import androidx.fragment.app.FragmentActivity;
 import com.brainwallet.BrainwalletApp;
 import com.brainwallet.presenter.activities.DisabledActivity;
 import com.brainwallet.presenter.activities.WelcomeActivity;
-import com.brainwallet.presenter.activities.intro.IntroActivity;
 import com.brainwallet.presenter.activities.intro.RecoverActivity;
 import com.brainwallet.presenter.activities.intro.WriteDownActivity;
 import com.brainwallet.tools.animation.BRAnimator;
@@ -145,7 +144,7 @@ public class BRActivity extends AppCompatActivity {
         InternetManager.getInstance();
 
 
-        if (!(app instanceof IntroActivity || app instanceof WelcomeActivity || app instanceof RecoverActivity || app instanceof WriteDownActivity)) {
+        if (!(app instanceof WelcomeActivity || app instanceof WelcomeActivity || app instanceof RecoverActivity || app instanceof WriteDownActivity)) {
             BrainwalletApp.module.getApiManager().startTimer(app);
         }
 

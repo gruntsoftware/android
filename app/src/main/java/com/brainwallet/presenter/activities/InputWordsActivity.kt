@@ -7,7 +7,7 @@ import android.os.Bundle
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.brainwallet.R
 import com.brainwallet.databinding.ActivityInputWordsBinding
-import com.brainwallet.presenter.activities.intro.IntroActivity
+import com.brainwallet.presenter.activities.WelcomeActivity
 import com.brainwallet.presenter.activities.util.BRActivity
 import com.brainwallet.tools.animation.BRAnimator
 import com.brainwallet.tools.animation.BRDialog
@@ -97,7 +97,7 @@ class InputWordsActivity : BRActivity() {
                     val m = BRWalletManager.getInstance()
                     m.wipeWalletButKeystore(app)
                     m.wipeKeyStore(app)
-                    val intent = Intent(app, IntroActivity::class.java)
+                    val intent = Intent(app, WelcomeActivity::class.java)
                     finalizeIntent(intent)
                 },
                 { brDialogView -> brDialogView.dismissWithAnimation() },
