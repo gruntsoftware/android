@@ -9,7 +9,7 @@
         android:id="@+id/dialog_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/barlowsemicondensed_semibold"
+        android:fontFamily="@font/open_sauce_one_semi_bold"
         android:textSize="20sp"
         android:paddingTop="20dp"
         android:textColor="@color/near_black"
@@ -37,7 +37,7 @@
             android:layout_weight="1"
             android:background="@drawable/button_intro_left"
             android:clickable="true"
-            android:fontFamily="@font/barlowsemicondensed_regular"
+            android:fontFamily="@font/open_sauce_one_regular"
             android:text="Yes"
             android:textColor="@color/near_black" />
 
@@ -51,7 +51,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/barlowsemicondensed_regular"
+            android:fontFamily="@font/open_sauce_one_regular"
             android:textColor="@color/chili"
             android:clickable="true"
             android:background="@drawable/button_intro_right"

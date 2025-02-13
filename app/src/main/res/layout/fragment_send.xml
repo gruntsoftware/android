@@ -104,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
-                android:fontFamily="@font/barlowsemicondensed_medium"
+                android:fontFamily="@font/open_sauce_one_medium"
                 android:text="@string/Send.pasteLabel"
                 app:buttonType="2"
                 app:isBreadButton="true" />
@@ -115,7 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/bread_margin"
-                android:fontFamily="@font/barlowsemicondensed_medium"
+                android:fontFamily="@font/open_sauce_one_medium"
                 android:text="@string/Send.scanLabel"
                 app:buttonType="2"
                 app:isBreadButton="true" />
@@ -209,7 +209,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:fontFamily="@font/barlowsemicondensed_medium"
+                android:fontFamily="@font/open_sauce_one_medium"
                 android:text="iso"
                 android:textSize="18sp"
                 app:buttonType="2"
