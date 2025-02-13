@@ -35,6 +35,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -52,6 +53,11 @@ fun UnLockScreen(
     viewModel: UnLockViewModel = viewModel()
 ) {
     val state by viewModel.state.collectAsState()
+    val context = LocalContext.current
+
+    LaunchedEffect(Unit) {
+        viewModel.onEvent(UnLockEvent.OnLoad(context))
+    }
 
     LaunchedEffect(state.pinDigits.all { it > -1 }) {
         //
@@ -92,7 +98,8 @@ fun UnLockScreen(
                 contentDescription = "logo"
             )
 
-            Spacer(Modifier.height(24.dp))
+            Text(stringResource(R.string.Login_ltcPrice, state.formattedCurrency))
+            Text(stringResource(R.string.Login_currentLtcPrice, state.iso))
 
             Box(
                 modifier = Modifier
