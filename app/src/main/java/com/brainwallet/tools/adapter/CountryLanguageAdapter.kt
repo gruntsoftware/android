@@ -34,7 +34,7 @@ class CountryLanguageAdapter(context: Context,val languages: Array<IntroLanguage
         this.mCountryLang = languages
         this.mContext = context
         this.mInflater = LayoutInflater.from(context)
-        this.barlowFont = ResourcesCompat.getFont(context, R.font.barlowsemicondensed_light)
+        this.barlowFont = ResourcesCompat.getFont(context, R.font.open_sauce_one_light)
         this.mediaPlayer = MediaPlayer()
     }
 
