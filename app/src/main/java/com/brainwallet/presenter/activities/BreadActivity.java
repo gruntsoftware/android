@@ -35,7 +35,7 @@ import androidx.transition.TransitionSet;
 
 import com.brainwallet.BrainwalletApp;
 import com.brainwallet.R;
-import com.brainwallet.presenter.activities.intro.IntroActivity;
+import com.brainwallet.presenter.activities.WelcomeActivity;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.presenter.customviews.BRNotificationBar;
 import com.brainwallet.presenter.fragments.BuyTabFragment;
@@ -121,7 +121,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         primaryPrice.setTextSize(PRIMARY_TEXT_SIZE);
         secondaryPrice.setTextSize(SECONDARY_TEXT_SIZE);
 
-        finishActivities(SetPinActivity.introSetPitActivity, IntroActivity.introActivity, ReEnterPinActivity.reEnterPinActivity);
+        finishActivities(SetPinActivity.introSetPitActivity, ReEnterPinActivity.reEnterPinActivity);
 
         onConnectionChanged(InternetManager.getInstance().isConnected(this));
 

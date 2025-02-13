@@ -45,7 +45,7 @@
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute"
         tools:replace="android:fullBackupContent,android:allowBackup">
         <activity
-            android:name=".presenter.activities.intro.IntroActivity"
+            android:name=".presenter.activities.WelcomeActivity"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
@@ -149,11 +149,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".presenter.activities.intro.WriteDownActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".presenter.activities.WelcomeActivity"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />

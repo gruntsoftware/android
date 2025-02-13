@@ -10,7 +10,7 @@ import android.widget.FrameLayout
 import com.brainwallet.R
 import com.brainwallet.databinding.ChangeLanguageBottomSheetBinding
 import com.brainwallet.data.model.Language
-import com.brainwallet.presenter.activities.intro.IntroActivity
+import com.brainwallet.presenter.activities.WelcomeActivity
 import com.brainwallet.tools.util.LocaleHelper
 import com.brainwallet.tools.util.Utils
 import com.brainwallet.tools.util.getString
@@ -58,7 +58,7 @@ class ChangeLanguageBottomSheet : RoundedBottomSheetDialogFragment() {
         binding.okButton.setOnClickListener {
             dismiss()
             if (LocaleHelper.instance.setLocaleIfNeeded(adapter.selectedLanguage())) {
-                val intent = Intent(requireContext(), IntroActivity::class.java)
+                val intent = Intent(requireContext(), WelcomeActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
             }

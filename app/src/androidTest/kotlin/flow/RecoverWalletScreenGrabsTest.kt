@@ -17,7 +17,7 @@ import androidx.test.rule.GrantPermissionRule
 import androidx.test.uiautomator.UiDevice
 import com.brainwallet.BuildConfig
 import com.brainwallet.R
-import com.brainwallet.presenter.activities.intro.IntroActivity
+import com.brainwallet.presenter.activities.WelcomeActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -42,7 +42,7 @@ class RecoverWalletScreenGrabsTest {
     )
 
     @get:Rule
-    val composeTestRule = createAndroidComposeRule<IntroActivity>()
+    val composeTestRule = createAndroidComposeRule<WelcomeActivity>()
 
     @Test
     fun onRecoverFlowSuccess() {
