@@ -114,8 +114,7 @@ class InputWordsActivity : BRActivity() {
         PostAuth.getInstance().setPhraseForKeyStore(cleanPhrase)
         BRSharedPrefs.putAllowSpend(app, false)
 
-        //if this screen is shown then we did not upgrade to the new app, we installed it
-        BRSharedPrefs.putGreetingsShown(app, true)
+        //Did not upgrade to the new app, we installed it
         PostAuth.getInstance().onRecoverWalletAuth(app, false)
     }
 
