@@ -30,7 +30,7 @@ import timber.log.Timber;
 
 public class BrainwalletApp extends Application {
     public static int DISPLAY_HEIGHT_PX;
-    public static String HOST = "api.loafwallet.org";
+    public static String HOST = "apigsltd.net";
     private static List<OnAppBackgrounded> listeners;
     private static Timer isBackgroundChecker;
     public static AtomicInteger activityCounter = new AtomicInteger();
