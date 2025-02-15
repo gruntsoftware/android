@@ -16,6 +16,9 @@ sealed class Route : JavaSerializable {
     object SetPasscode : Route()
 
     @Serializable
+    object SetPasscodeConfirm : Route()
+
+    @Serializable
     data class InputWords(val source: Source? = null) : Route() {
         enum class Source {
             RESET_PIN,

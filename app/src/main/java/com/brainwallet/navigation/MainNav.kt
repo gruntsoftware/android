@@ -10,6 +10,7 @@ import androidx.navigation.toRoute
 import com.brainwallet.ui.screens.inputwords.InputWordsScreen
 import com.brainwallet.ui.screens.ready.ReadyScreen
 import com.brainwallet.ui.screens.setpasscode.SetPasscodeScreen
+import com.brainwallet.ui.screens.setpasscodeconfirm.SetPasscodeConfirmScreen
 import com.brainwallet.ui.screens.welcome.WelcomeScreen
 import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItScreen
 import com.brainwallet.ui.screens.yourseedwords.YourSeedWordsScreen
@@ -66,6 +67,9 @@ fun NavGraphBuilder.mainNavGraph(
     }
     composable<Route.SetPasscode> {
         SetPasscodeScreen(onNavigate = onNavigate)
+    }
+    composable<Route.SetPasscodeConfirm> {
+        SetPasscodeConfirmScreen(onNavigate = onNavigate)
     }
     composable<Route.InputWords> { navBackStackEntry ->
         val route: Route.InputWords = navBackStackEntry.toRoute()
