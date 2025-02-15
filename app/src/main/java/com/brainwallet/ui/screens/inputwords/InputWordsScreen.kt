@@ -28,6 +28,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -36,6 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
@@ -46,17 +48,89 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
+import com.brainwallet.navigation.OnNavigate
+import com.brainwallet.navigation.Route
+import com.brainwallet.navigation.UiEffect
+import com.brainwallet.tools.animation.BRDialog
 import com.brainwallet.ui.composable.LargeButton
 import com.brainwallet.ui.composable.SeedWordItemTextField
+import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.EFFECT_LEGACY_RECOVER_WALLET_AUTH
+import com.brainwallet.wallet.BRWalletManager
 
 @Composable
 fun InputWordsScreen(
-    onEvent: (InputWordsEvent) -> Unit = {},
+    onNavigate: OnNavigate,
+    source: Route.InputWords.Source? = null,
     viewModel: InputWordsViewModel = viewModel()
 ) {
     val state by viewModel.state.collectAsState()
     val focusRequesters = List(12) { FocusRequester() } //12 seed words
     val focusManager = LocalFocusManager.current
+    val context = LocalContext.current
+
+    LaunchedEffect(Unit) {
+        viewModel.onEvent(InputWordsEvent.OnLoad(source))
+        viewModel.uiEffect.collect { effect ->
+            when (effect) {
+                is UiEffect.Navigate -> onNavigate.invoke(effect)
+                is UiEffect.ShowDialog -> when (effect.name) {
+                    InputWordsViewModel.DIALOG_INVALID -> {
+                        //todo: will refactor later, currently just using old dialog
+                        BRDialog.showCustomDialog(
+                            context,
+                            "",
+                            context.getString(R.string.RecoverWallet_invalid),
+                            context.getString(R.string.AccessibilityLabels_close),
+                            null,
+                            { brDialogView ->
+                                brDialogView.dismissWithAnimation()
+                            },
+                            null,
+                            null,
+                            0
+                        )
+                    }
+
+                    InputWordsViewModel.DIALOG_WIPE_ALERT -> {
+                        //todo: will refactor later, currently just using old dialog
+                        BRDialog.showCustomDialog(
+                            context,
+                            context.getString(R.string.WipeWallet_alertTitle),
+                            context.getString(R.string.WipeWallet_alertMessage),
+                            context.getString(R.string.WipeWallet_wipe),
+                            context.getString(R.string.Button_cancel),
+                            { brDialogView ->
+                                brDialogView.dismissWithAnimation()
+                                val m = BRWalletManager.getInstance()
+                                m.wipeWalletButKeystore(context)
+                                m.wipeKeyStore(context)
+
+                                onNavigate.invoke(UiEffect.Navigate(
+                                    destinationRoute = Route.Welcome
+                                ) {
+                                    popUpTo(route = Route.InputWords) {
+                                        inclusive = true
+                                    }
+                                })
+
+                            },
+                            { brDialogView -> brDialogView.dismissWithAnimation() },
+                            null,
+                            0
+                        )
+                    }
+                }
+
+                is UiEffect.ShowMessage -> {
+                    //hacky solution for now to communicate with old legacy
+                    if (effect.message == EFFECT_LEGACY_RECOVER_WALLET_AUTH) {
+
+                        //
+                    }
+                }
+            }
+        }
+    }
 
     /// Layout values
     val columnPadding = 16
@@ -71,7 +145,7 @@ fun InputWordsScreen(
                 title = {},
                 navigationIcon = {
                     IconButton(
-                        onClick = { onEvent.invoke(InputWordsEvent.OnBackClick) },
+                        onClick = { onNavigate.invoke(UiEffect.Navigate.Back()) },
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -173,7 +247,7 @@ fun InputWordsScreen(
             LargeButton(
                 modifier = Modifier.testTag("buttonRestore"),
                 onClick = {
-                    onEvent(InputWordsEvent.OnRestoreClick(state.asPaperKey()))
+                    viewModel.onEvent(InputWordsEvent.OnRestoreClick(context = context))
                     focusManager.clearFocus()
                 },
             ) {

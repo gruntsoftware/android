@@ -209,7 +209,7 @@ dependencies {
     implementation(libs.bundles.google.play.feature.delivery)
     implementation(libs.bundles.google.play.review)
     implementation(libs.kotlinx.serialization.json)
-    implementation ("com.airbnb.android:lottie-compose:6.5.2")
+    implementation (libs.airbnb.lottie.compose)
 
     implementation(libs.squareup.okhttp)
     implementation(libs.jakewarthon.timber)

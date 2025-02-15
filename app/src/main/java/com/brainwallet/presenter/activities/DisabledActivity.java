@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.brainwallet.R;
+import com.brainwallet.navigation.LegacyNavigation;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.tools.animation.BRAnimator;
 import com.brainwallet.tools.animation.SpringAnimator;
