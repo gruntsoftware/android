@@ -31,4 +31,7 @@ sealed class Route : JavaSerializable {
 
     @Serializable
     data class YourSeedProveIt(val seedWords: List<String>) : Route()
+
+    @Serializable
+    object Home : Route()
 }

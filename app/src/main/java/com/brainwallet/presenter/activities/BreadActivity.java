@@ -229,20 +229,22 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     public boolean handleNavigationItemSelected(int menuItemId) {
         if (mSelectedBottomNavItem == menuItemId) return true;
         mSelectedBottomNavItem = menuItemId;
+        //TODO: revisit
+        // we are using compose, that's why commented, will remove it after fully migrated to compose
         if (menuItemId == R.id.nav_history) {
-            ExtensionKt.replaceFragment(BreadActivity.this, new HistoryFragment(), false, R.id.fragment_container);
+//            ExtensionKt.replaceFragment(BreadActivity.this, new HistoryFragment(), false, R.id.fragment_container);
         } else if (menuItemId == R.id.nav_send) {
             if (BRAnimator.isClickAllowed()) {
-                BRAnimator.showSendFragment(BreadActivity.this, null);
+//                BRAnimator.showSendFragment(BreadActivity.this, null);
             }
             mSelectedBottomNavItem = 0;
         } else if (menuItemId == R.id.nav_receive) {
             if (BRAnimator.isClickAllowed()) {
-                BRAnimator.showReceiveFragment(BreadActivity.this, true);
+//                BRAnimator.showReceiveFragment(BreadActivity.this, true);
             }
             mSelectedBottomNavItem = 0;
         } else if (menuItemId == R.id.nav_buy) {
-            ExtensionKt.replaceFragment(BreadActivity.this, new BuyTabFragment(), false, R.id.fragment_container);
+//            ExtensionKt.replaceFragment(BreadActivity.this, new BuyTabFragment(), false, R.id.fragment_container);
         }
         return true;
     }
