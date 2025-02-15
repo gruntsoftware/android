@@ -1,18 +1,19 @@
 package com.brainwallet.ui.screens.yourseedproveit
 
 import androidx.lifecycle.ViewModel
+import com.brainwallet.ui.BrainwalletViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-class YourSeedProveItViewModel : ViewModel() {
+class YourSeedProveItViewModel : BrainwalletViewModel<YourSeedProveItEvent>() {
 
     private val _state = MutableStateFlow(YourSeedProveItState())
     val state: StateFlow<YourSeedProveItState> = _state.asStateFlow()
 
     //
-    fun onEvent(event: YourSeedProveItEvent) {
+    override fun onEvent(event: YourSeedProveItEvent) {
         when (event) {
             is YourSeedProveItEvent.OnLoad -> _state.update {
                 it.copy(
