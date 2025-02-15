@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.NetworkOnMainThreadException;
 import android.security.keystore.UserNotAuthenticatedException;
 
+import androidx.fragment.app.FragmentActivity;
+
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.threads.PaymentProtocolPostPaymentTask;
@@ -103,7 +105,7 @@ public class PostAuth {
         app.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
     }
 
-    public void onRecoverWalletAuth(Activity app, boolean authAsked) {
+    public void onRecoverWalletAuth(FragmentActivity app, boolean authAsked) {
         if (phraseForKeyStore == null) {
             Timber.e(new NullPointerException("onRecoverWalletAuth: phraseForKeyStore is null"));
             return;

@@ -1,14 +1,23 @@
 package com.brainwallet.ui.screens.inputwords
 
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.brainwallet.BrainwalletApp
+import com.brainwallet.navigation.Route
+import com.brainwallet.navigation.UiEffect
+import com.brainwallet.tools.manager.BRSharedPrefs
+import com.brainwallet.tools.security.PostAuth
+import com.brainwallet.tools.security.SmartValidator
 import com.brainwallet.tools.util.Bip39Reader
+import com.brainwallet.ui.BrainwalletViewModel
+import com.brainwallet.util.EventBus
+import com.brainwallet.wallet.BRWalletManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
-class InputWordsViewModel : ViewModel() {
+class InputWordsViewModel : BrainwalletViewModel<InputWordsEvent>() {
 
     private val _state = MutableStateFlow(InputWordsState())
     val state: StateFlow<InputWordsState> = _state.asStateFlow()
@@ -20,7 +29,7 @@ class InputWordsViewModel : ViewModel() {
         }
     }
 
-    fun onEvent(event: InputWordsEvent) {
+    override fun onEvent(event: InputWordsEvent) {
         when (event) {
             is InputWordsEvent.OnSeedWordItemChange -> _state.update {
                 it.copy(
@@ -37,13 +46,49 @@ class InputWordsViewModel : ViewModel() {
                 InputWordsState(bip39Words = it.bip39Words)
             }
 
-//            InputWordsEvent.OnRestoreClick -> {
-                //todo: move here from [InputWordsActivity] after new UI implemented
+            is InputWordsEvent.OnLoad -> _state.update { it.copy(source = event.source) }
+            is InputWordsEvent.OnRestoreClick -> {
 
-//            }
+                //TODO: WIP
 
-            else -> Unit
+                val currentState = state.value
+                val paperKey = currentState.seedWords.asPaperKey()
+
+                val cleanPhrase = SmartValidator.cleanPaperKey(event.context, paperKey)
+
+                if (currentState.isFrom(Route.InputWords.Source.RESET_PIN) &&
+                    SmartValidator.isPaperKeyCorrect(cleanPhrase, event.context).not()
+                ) {
+                    sendUiEffect(UiEffect.ShowDialog(DIALOG_INVALID))
+                    return
+                }
+
+                if (currentState.isFrom(Route.InputWords.Source.SETTING_WIPE)) {
+                    sendUiEffect(UiEffect.ShowDialog(DIALOG_WIPE_ALERT))
+                    return
+                }
+
+
+                BRWalletManager.getInstance().run {
+                    wipeWalletButKeystore(event.context)
+                    wipeKeyStore(event.context)
+                    PostAuth.getInstance().setPhraseForKeyStore(cleanPhrase)
+                    BRSharedPrefs.putAllowSpend(event.context, false)
+                }
+
+                //TODO: this to recover wallet
+                viewModelScope.launch {
+                    EventBus.emit(EventBus.Event.Message(EFFECT_LEGACY_RECOVER_WALLET_AUTH))
+                }
+            }
         }
+    }
+
+    companion object {
+        const val DIALOG_INVALID = "dialog_invalid"
+        const val DIALOG_WIPE_ALERT = "dialog_wipe_alert"
+
+        const val EFFECT_LEGACY_RECOVER_WALLET_AUTH = "onRecoverWalletAuth"
     }
 
 }

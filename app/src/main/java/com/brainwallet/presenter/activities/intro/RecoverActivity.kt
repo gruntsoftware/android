@@ -1,64 +1,48 @@
-package com.brainwallet.presenter.activities.intro;
+package com.brainwallet.presenter.activities.intro
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.os.Bundle
+import android.view.View
+import com.brainwallet.databinding.ActivityIntroRecoverBinding
+import com.brainwallet.navigation.LegacyNavigation
+import com.brainwallet.navigation.Route
+import com.brainwallet.presenter.activities.util.BRActivity
+import com.brainwallet.tools.animation.BRAnimator
 
-import com.brainwallet.R;
-import com.brainwallet.presenter.activities.InputWordsActivity;
-import com.brainwallet.presenter.activities.util.BRActivity;
-import com.brainwallet.tools.animation.BRAnimator;
+@Deprecated(message = "not used, migrate to compose")
+class RecoverActivity : BRActivity() {
 
-public class RecoverActivity extends BRActivity {
-    private Button nextButton;
-    public static boolean appVisible = false;
-    private static RecoverActivity app;
+    private lateinit var binding: ActivityIntroRecoverBinding
 
-    public static RecoverActivity getApp() {
-        return app;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        binding = ActivityIntroRecoverBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
+        binding.sendButton.setOnClickListener(View.OnClickListener {
+            if (!BRAnimator.isClickAllowed()) return@OnClickListener
+            LegacyNavigation.openComposeScreen(
+                context = this@RecoverActivity,
+                destination = Route.InputWords()
+            )
+        })
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_intro_recover);
-
-        nextButton = (Button) findViewById(R.id.send_button);
-
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                Intent intent = new Intent(RecoverActivity.this, InputWordsActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-            }
-        });
+    override fun onResume() {
+        super.onResume()
+        appVisible = true
+        app = this
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        appVisible = true;
-        app = this;
+    override fun onPause() {
+        super.onPause()
+        appVisible = false
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        appVisible = false;
-    }
-
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+    companion object {
+        var appVisible: Boolean = false
+        var app: RecoverActivity? = null
+            private set
     }
 }

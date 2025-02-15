@@ -1,7 +1,12 @@
 package com.brainwallet.ui.screens.inputwords
 
+import android.content.Context
+import com.brainwallet.navigation.Route
+
 sealed class InputWordsEvent {
-    object OnBackClick : InputWordsEvent()
+    data class OnLoad(
+        val source: Route.InputWords.Source? = null
+    ) : InputWordsEvent()
 
     data class OnSeedWordItemChange(
         val index: Int,
@@ -10,5 +15,7 @@ sealed class InputWordsEvent {
 
     object OnClearSeedWords : InputWordsEvent()
 
-    data class OnRestoreClick(val paperkey: String) : InputWordsEvent()
+    data class OnRestoreClick(
+        val context: Context
+    ) : InputWordsEvent()
 }

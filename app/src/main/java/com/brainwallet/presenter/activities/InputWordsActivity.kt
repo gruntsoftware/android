@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.fragment.app.FragmentActivity
 import com.brainwallet.R
 import com.brainwallet.databinding.ActivityInputWordsBinding
 import com.brainwallet.presenter.activities.WelcomeActivity
@@ -20,7 +21,7 @@ import com.brainwallet.ui.screens.inputwords.InputWordsScreen
 import com.brainwallet.ui.theme.setContentWithTheme
 import com.brainwallet.wallet.BRWalletManager
 
-
+@Deprecated(message = "migrate to compose")
 class InputWordsActivity : BRActivity() {
 
     private lateinit var binding: ActivityInputWordsBinding
@@ -40,13 +41,13 @@ class InputWordsActivity : BRActivity() {
         binding.composeView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContentWithTheme {
-                InputWordsScreen(onEvent = { event ->
-                    when (event) {
-                        InputWordsEvent.OnBackClick -> finish()
-                        is InputWordsEvent.OnRestoreClick -> onRestore(event.paperkey)
-                        else -> Unit
-                    }
-                })
+//                InputWordsScreen(onEvent = { event ->
+//                    when (event) {
+////                        InputWordsEvent.OnBackClick -> finish()
+//                        is InputWordsEvent.OnRestoreClick -> onRestore(event.paperkey)
+//                        else -> Unit
+//                    }
+//                })
             }
         }
     }
@@ -54,7 +55,7 @@ class InputWordsActivity : BRActivity() {
     //TODO: revisit later, please move into new architecture
     private fun onRestore(paperkey: String) {
         if (!BRAnimator.isClickAllowed()) return
-        val app: Activity = this@InputWordsActivity
+        val app: FragmentActivity = this@InputWordsActivity
 
         val cleanPhrase = SmartValidator.cleanPaperKey(app, paperkey)
 
