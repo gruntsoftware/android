@@ -43,6 +43,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
+import com.brainwallet.navigation.OnNavigate
+import com.brainwallet.navigation.UiEffect
 import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.composable.CircleButton
 import com.brainwallet.ui.composable.PinDotItem
@@ -50,7 +52,7 @@ import com.brainwallet.ui.composable.PinDotItem
 //TODO: WIP here
 @Composable
 fun UnLockScreen(
-    onEvent: (UnLockEvent) -> Unit,
+    onNavigate: OnNavigate,
     viewModel: UnLockViewModel = viewModel()
 ) {
     val state by viewModel.state.collectAsState()
@@ -74,7 +76,7 @@ fun UnLockScreen(
         topBar = {
             TopAppBar(title = {}, navigationIcon = {
                 IconButton(
-                    onClick = { onEvent.invoke(UnLockEvent.OnBackClick) },
+                    onClick = { onNavigate.invoke(UiEffect.Navigate.Back()) },
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,

@@ -45,7 +45,6 @@ class UnLockViewModel : ViewModel() {
                 }
             }
 
-            UnLockEvent.OnBackClick -> Unit
             is UnLockEvent.OnLoad -> {
                 val iso = BRSharedPrefs.getIsoSymbol(event.context)
 
