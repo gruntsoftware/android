@@ -9,23 +9,18 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Face
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -47,8 +42,9 @@ import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.UiEffect
 import com.brainwallet.tools.util.BRConstants
-import com.brainwallet.ui.composable.CircleButton
-import com.brainwallet.ui.composable.PinDotItem
+import com.brainwallet.ui.composable.PasscodeIndicator
+import com.brainwallet.ui.composable.PasscodeKeypad
+import com.brainwallet.ui.composable.PasscodeKeypadEvent
 
 //TODO: WIP here
 @Composable
@@ -117,96 +113,17 @@ fun UnLockScreen(
 
             Spacer(Modifier.height(16.dp))
 
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                state.pinDigits.forEach { digit ->
-                    PinDotItem(checked = digit > -1)
-                }
-            }
+            PasscodeIndicator(passcode = state.pinDigits)
 
             Spacer(Modifier.height(16.dp))
 
-            FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(24.dp),
-                verticalArrangement = Arrangement.spacedBy(24.dp),
-                maxItemsInEachRow = maxItemsPerRow
-            ) {
-                //pin number button
-                val modifierCircleButton = Modifier.size(75.dp)
-
-                repeat(9) { index ->
-                    val number = index + 1
-                    CircleButton(
-                        modifier = modifierCircleButton,
-                        onClick = {
-                            viewModel.onEvent(UnLockEvent.OnPinDigitChange(digit = number))
-                        },
-                    ) {
-                        Text(
-                            text = number.toString(),
-                            style = MaterialTheme.typography.headlineMedium,
-                            color = Color.White
+            PasscodeKeypad { passcodeKeypadEvent ->
+                when (passcodeKeypadEvent) {
+                    PasscodeKeypadEvent.OnDelete -> viewModel.onEvent(UnLockEvent.OnDeletePinDigit)
+                    is PasscodeKeypadEvent.OnPressed -> viewModel.onEvent(
+                        UnLockEvent.OnPinDigitChange(
+                            digit = passcodeKeypadEvent.digit
                         )
-                    }
-                }
-
-                // Bottom row with biometric, 0, and backspace
-                if (state.biometricEnabled) {
-                    CircleButton(
-                        modifier = modifierCircleButton,
-                        onClick = {
-                            //
-                        },
-                        colors = IconButtonDefaults.filledIconButtonColors(
-                            containerColor = Color.Transparent
-                        ),
-                    ) {
-                        Icon(
-                            Icons.Default.Face,
-                            contentDescription = "Biometric",
-                            tint = Color.White
-                        )
-                    }
-                } else {
-                    CircleButton(
-                        modifier = modifierCircleButton,
-                        onClick = { },
-                        colors = IconButtonDefaults.filledIconButtonColors(
-                            disabledContainerColor = Color.Transparent
-                        ),
-                        enabled = false,
-                    ) {
-                        Spacer(modifier = Modifier)
-                    }
-                }
-
-                CircleButton(
-                    modifier = modifierCircleButton,
-                    onClick = {
-                        viewModel.onEvent(UnLockEvent.OnPinDigitChange(digit = 0))
-                    },
-                ) {
-                    Text(
-                        text = "0",
-                        style = MaterialTheme.typography.headlineMedium,
-                        color = Color.White
-                    )
-                }
-
-                CircleButton(
-                    modifier = modifierCircleButton,
-                    onClick = {
-                        viewModel.onEvent(UnLockEvent.OnDeletePinDigit)
-                    },
-                    colors = IconButtonDefaults.filledIconButtonColors(
-                        containerColor = Color.Transparent
-                    ),
-                ) {
-                    Icon(
-                        Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Delete",
-                        tint = Color.White
                     )
                 }
             }

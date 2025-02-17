@@ -88,23 +88,22 @@ fun ReadyScreen(
         Column(
             modifier = Modifier
                 .padding(paddingValues)
+                .padding(horizontal = leadingCopyPadding.dp)
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
         ) {
 
             Spacer(modifier = Modifier.weight(1f))
-            Row(
-                modifier = Modifier.padding(horizontal = leadingCopyPadding.dp)
-            ) {
+            Row{
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowForward,
                     contentDescription = "down-left-arrow",
                     modifier = Modifier
                         .rotate(45f)
                         .graphicsLayer(
-                            scaleX = 3f,
-                            scaleY = 3f
+                            scaleX = 2f,
+                            scaleY = 2f
                         )
                 )
                 Spacer(modifier = Modifier.weight(1f))
@@ -112,12 +111,8 @@ fun ReadyScreen(
 
             Text(
                 text = stringResource(R.string.ready_setup),
-                color = Color.White,
-                textAlign = TextAlign.Left,
-                fontSize = headlineFontSize.sp,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(leadingCopyPadding.dp)
+                style = MaterialTheme.typography.displaySmall.copy(textAlign = TextAlign.Left),
+                modifier = Modifier.fillMaxWidth()
             )
 
             Text(
@@ -131,33 +126,24 @@ fun ReadyScreen(
                     ) {
                         append(stringResource(R.string.ready_setup_details_2))
                     }
-                    append("\n")
+                    append(". ")
                     append(stringResource(R.string.ready_setup_details_3))
                 },
-                style = MaterialTheme.typography.labelLarge.copy(color = Color.White),
-                textAlign = TextAlign.Left,
-                lineHeight = lineHeight.sp,
-                fontSize = paragraphFontSize.sp,
-                fontWeight = FontWeight.Light,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = leadingCopyPadding.dp)
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.weight(0.1f))
 
             LargeButton(
                 onClick = {
-                    onNavigate.invoke(UiEffect.Navigate(Route.SetPasscode))
+                    onNavigate.invoke(UiEffect.Navigate(Route.SetPasscode()))
                 },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = leadingCopyPadding.dp)
+                modifier = Modifier.fillMaxWidth()
 
             ) {
                 Text(
                     text = stringResource(R.string.setup_app_passcode),
-                    style = MaterialTheme.typography.titleLarge
-                        .copy(color = Color.White)
+                    style = MaterialTheme.typography.bodyLarge.copy(color = Color.White) //for now just hardcoded, need to create button composable later and adjust the theme later at [com.brainwallet.ui.theme.Theme]
                 )
             }
 

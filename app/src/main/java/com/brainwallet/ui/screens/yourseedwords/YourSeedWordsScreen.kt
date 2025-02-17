@@ -29,14 +29,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
+import com.brainwallet.navigation.OnNavigate
+import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.composable.LargeButton
 import com.brainwallet.ui.composable.SeedWordItem
 
 @Composable
 fun YourSeedWordsScreen(
+    onNavigate: OnNavigate,
     seedWords: List<String>,
-    onEvent: (YourSeedWordsEvent) -> Unit = {},
+    viewModel: YourSeedWordsViewModel = viewModel()
 ) {
 
     /// Layout values
@@ -47,16 +51,18 @@ fun YourSeedWordsScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(title = {}, navigationIcon = {
-                IconButton(
-                    onClick = { onEvent.invoke(YourSeedWordsEvent.OnBackClick) },
-                ) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(R.string.back),
-                    )
-                }
-            })
+            TopAppBar(
+                title = {},
+                navigationIcon = {
+                    IconButton(
+                        onClick = { onNavigate.invoke(UiEffect.Navigate.Back()) },
+                    ) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.back),
+                        )
+                    }
+                })
         }
     ) { paddingValues ->
         Column(
@@ -112,12 +118,12 @@ fun YourSeedWordsScreen(
 
             LargeButton(
                 onClick = {
-                    onEvent.invoke(YourSeedWordsEvent.OnSavedItClick)
+                    viewModel.onEvent(YourSeedWordsEvent.OnSavedItClick)
                 },
             ) {
                 Text(
                     text = stringResource(R.string.i_saved_it_on_paper),
-                    style = MaterialTheme.typography.titleLarge.copy(color = Color.White) //for now just hardcoded, need to create button composable later and adjust the theme later at [com.brainwallet.ui.theme.Theme]
+                    style = MaterialTheme.typography.bodyLarge.copy(color = Color.White) //for now just hardcoded, need to create button composable later and adjust the theme later at [com.brainwallet.ui.theme.Theme]
                 )
             }
         }

@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -19,6 +18,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,19 +32,32 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.UiEffect
-import com.brainwallet.ui.screens.setpasscode.composable.PasscodeKeypad
+import com.brainwallet.ui.composable.PasscodeIndicator
+import com.brainwallet.ui.composable.PasscodeKeypad
+import com.brainwallet.ui.composable.PasscodeKeypadEvent
 
 @Composable
 fun SetPasscodeScreen(
-    onNavigate: OnNavigate
+    onNavigate: OnNavigate,
+    passcode: List<Int> = emptyList(),
+    viewModel: SetPasscodeViewModel = viewModel()
 ) {
-
+    val state by viewModel.state.collectAsState()
     val context = LocalContext.current
 
+    LaunchedEffect(Unit) {
+        viewModel.onEvent(SetPasscodeEvent.OnLoad(passcode))
+        viewModel.uiEffect.collect { effect ->
+            when (effect) {
+                is UiEffect.Navigate -> onNavigate.invoke(effect)
+                else -> Unit
+            }
+        }
+    }
 
     /// Layout values
     val leadingCopyPadding = 16
@@ -57,7 +72,6 @@ fun SetPasscodeScreen(
 
 
     Scaffold(
-
         topBar = {
             TopAppBar(
                 title = {
@@ -76,54 +90,64 @@ fun SetPasscodeScreen(
         }
 
     ) { paddingValues ->
-
         Spacer(modifier = Modifier.height(spacerHeight.dp))
         Column(
             modifier = Modifier
                 .padding(paddingValues)
+                .padding(leadingCopyPadding.dp)
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
         ) {
-
-
             Text(
-                text = stringResource(R.string.setup_app_passcode),
-                color = Color.White,
-                textAlign = TextAlign.Center,
-                fontSize = headlineFontSize.sp,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(leadingCopyPadding.dp)
+                text = stringResource(if (state.isConfirm) R.string.confirm else R.string.setup_app_passcode),
+                style = MaterialTheme.typography.headlineSmall,
             )
 
-            Text(
-                text = buildAnnotatedString {
-                    append(stringResource(R.string.setup_app_details_1))
-                    append(" ")
-                    withStyle(
-                        style = SpanStyle(
-                            fontWeight = FontWeight.Bold,
-                        )
-                    ) {
-                        append(stringResource(R.string.setup_app_details_2))
-                    }
-                    append("\n")
-                    append(stringResource(R.string.setup_app_details_3))
-                },
-                style = MaterialTheme.typography.labelLarge.copy(color = Color.White),
-                textAlign = TextAlign.Left,
-                lineHeight = lineHeight.sp,
-                fontSize = paragraphFontSize.sp,
-                fontWeight = FontWeight.Light,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = leadingCopyPadding.dp)
-            )
+            if (state.isConfirm) {
+                Text(
+                    text = stringResource(R.string.confirm_desc),
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        textAlign = TextAlign.Center,
+                        color = Color.Gray
+                    ),
+                )
+            } else {
+                Text(
+                    text = buildAnnotatedString {
+                        append(stringResource(R.string.setup_app_details_1))
+                        append("\n")
+                        withStyle(
+                            style = SpanStyle(
+                                fontWeight = FontWeight.Bold,
+                            )
+                        ) {
+                            append(stringResource(R.string.setup_app_details_2))
+                        }
+                        append("\n")
+                        append(stringResource(R.string.setup_app_details_3))
+                    },
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        textAlign = TextAlign.Center,
+                        color = Color.Gray
+                    ),
+                )
+            }
             Spacer(modifier = Modifier.weight(0.1f))
 
-            PasscodeKeypad { key ->
-                //todo here
+            PasscodeIndicator(passcode = if (state.isConfirm) state.passcodeConfirm else state.passcode)
+
+            Spacer(modifier = Modifier.weight(0.1f))
+
+            PasscodeKeypad { passcodeKeypadEvent ->
+                when (passcodeKeypadEvent) {
+                    PasscodeKeypadEvent.OnDelete -> viewModel.onEvent(SetPasscodeEvent.OnDeleteDigit)
+                    is PasscodeKeypadEvent.OnPressed -> viewModel.onEvent(
+                        SetPasscodeEvent.OnDigitChange(
+                            passcodeKeypadEvent.digit
+                        )
+                    )
+                }
             }
             Spacer(modifier = Modifier.weight(0.05f))
         }
