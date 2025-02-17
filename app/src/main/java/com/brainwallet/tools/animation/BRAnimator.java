@@ -24,6 +24,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.brainwallet.navigation.LegacyNavigation;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.util.BRConstants;
 import com.brainwallet.tools.util.Utils;
@@ -298,17 +299,11 @@ public class BRAnimator {
             startBreadActivity(app, false);
     }
 
+    /**
+     * wrap using [com.brainwallet.navigation.LegacyNavigation.startBreadActivity]
+     */
     public static void startBreadActivity(Activity from, boolean auth) {
-        if (from == null) return;
-        Timber.i("timber: startBreadActivity: %s", from.getClass().getName());
-        Class toStart = auth ? LoginActivity.class : BreadActivity.class;
-        Intent intent = new Intent(from, toStart);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        from.startActivity(intent);
-        from.overridePendingTransition(R.anim.fade_up, R.anim.fade_down);
-        if (!from.isDestroyed()) {
-            from.finish();
-        }
+        LegacyNavigation.startBreadActivity(from, auth);
     }
 
     public static void animateSignalSlide(ViewGroup signalLayout, final boolean reverse, @Nullable final OnSlideAnimationEnd listener) {
