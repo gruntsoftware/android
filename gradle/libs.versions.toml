@@ -10,11 +10,12 @@ androidx-gridlayout = "1.0.0"
 androidx-cardview = "1.0.0"
 androidx-preference = "1.2.1"
 androidx-browser = "1.7.0"
-androidx-navigation = "2.7.7"
+androidx-navigation = "2.8.7"
 #androidx-test-ext = "1.2.1"
 androidx-lifecycle = "2.7.0"
 androidx-compose-bom = "2025.01.00"
 androidx-activity-compose = "1.9.3"
+androidx-fragment-compose = "1.8.5"
 google-material = "1.11.0"
 google-zxing = "3.5.2"
 #google-dagger = "2.50"
@@ -53,10 +54,12 @@ androidx-test-juniext-ext-ktx = "androidx.test.ext:junit-ktx:1.2.1"
 androidx-test-uiautomator = "androidx.test.uiautomator:uiautomator:2.3.0"
 androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "androidx-compose-bom" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity-compose" }
+androidx-fragment-compose = { module = "androidx.fragment:fragment-compose", version.ref = "androidx-fragment-compose" }
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-compose-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-navigation = { group = "androidx.navigation", name = "navigation-compose"}
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
@@ -97,11 +100,12 @@ junit = { module = "junit:junit", version.ref = "junit" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 pinterest-ktlint = "com.pinterest.ktlint:ktlint-cli:1.5.0"
 fastlane-screengrab = "tools.fastlane:screengrab:2.1.1"
+airbnb-lottie-compose = "com.airbnb.android:lottie-compose:6.5.2"
 
 [bundles]
 androidx-lifecycle = ["androidx-lifecycle-runtime", "androidx-lifecycle-viewmodel", "androidx-lifecycle-viewmodel-compose"]
 androidx-navigation = ["androidx-navigation-fragment", "androidx-navigation-ui"]
-androidx-compose = ["androidx-activity-compose", "androidx-compose-ui", "androidx-compose-ui-graphics", "androidx-compose-ui-tooling", "androidx-compose-ui-tooling-preview", "androidx-compose-material3", "androidx-compose-ui-text-google-fonts"]
+androidx-compose = ["androidx-activity-compose", "androidx-compose-ui", "androidx-compose-ui-graphics", "androidx-compose-ui-tooling", "androidx-compose-ui-tooling-preview", "androidx-compose-material3", "androidx-compose-ui-text-google-fonts", "androidx-compose-navigation", "androidx-fragment-compose"]
 firebase = ["firebase-analytics", "firebase-crashlytics", "firebase-crashlytics-ndk", "firebase-messaging", "firebase-inappmessaging", "firebase-config"]
 google-play-asset-delivery = ["google-play-asset-delivery", "google-play-asset-delivery-ktx"]
 google-play-feature-delivery = ["google-play-feature-delivery", "google-play-feature-delivery-ktx"]

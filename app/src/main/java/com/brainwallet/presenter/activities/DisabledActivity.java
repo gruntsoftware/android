@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.brainwallet.R;
+import com.brainwallet.navigation.LegacyNavigation;
+import com.brainwallet.navigation.Route;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.tools.animation.BRAnimator;
 import com.brainwallet.tools.animation.SpringAnimator;
@@ -48,9 +50,14 @@ public class DisabledActivity extends BRActivity {
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DisabledActivity.this, InputWordsActivity.class);
-                intent.putExtra("resetPin", true);
-                startActivity(intent);
+//                Intent intent = new Intent(DisabledActivity.this, InputWordsActivity.class);
+//                intent.putExtra("resetPin", true);
+//                startActivity(intent);
+                //to navigate into compose screen
+                LegacyNavigation.openComposeScreen(
+                        DisabledActivity.this,
+                        new Route.InputWords(Route.InputWords.Source.RESET_PIN)
+                );
                 overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
             }
         });

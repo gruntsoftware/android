@@ -17,7 +17,7 @@ import androidx.test.rule.GrantPermissionRule
 import androidx.test.uiautomator.UiDevice
 import com.brainwallet.BuildConfig
 import com.brainwallet.R
-import com.brainwallet.presenter.activities.intro.IntroActivity
+import com.brainwallet.ui.BrainwalletActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -26,6 +26,9 @@ import tools.fastlane.screengrab.FalconScreenshotStrategy
 import tools.fastlane.screengrab.Screengrab
 import tools.fastlane.screengrab.locale.LocaleTestRule
 
+/**
+ * TODO: revisit this, since breaking with new navigation
+ */
 @RunWith(JUnit4::class)
 @LargeTest
 class RecoverWalletScreenGrabsTest {
@@ -42,7 +45,7 @@ class RecoverWalletScreenGrabsTest {
     )
 
     @get:Rule
-    val composeTestRule = createAndroidComposeRule<IntroActivity>()
+    val composeTestRule = createAndroidComposeRule<BrainwalletActivity>()
 
     @Test
     fun onRecoverFlowSuccess() {

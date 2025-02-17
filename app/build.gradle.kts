@@ -209,6 +209,7 @@ dependencies {
     implementation(libs.bundles.google.play.feature.delivery)
     implementation(libs.bundles.google.play.review)
     implementation(libs.kotlinx.serialization.json)
+    implementation (libs.airbnb.lottie.compose)
 
     implementation(libs.squareup.okhttp)
     implementation(libs.jakewarthon.timber)
@@ -219,7 +220,6 @@ dependencies {
     implementation(libs.sigpipe.jbsdiff)
     implementation(libs.unstoppable.domain)
     implementation(libs.razir.progressbutton)
-
     implementation(libs.appsflyer)
     implementation(libs.android.installreferrer)
 

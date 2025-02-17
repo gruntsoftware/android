@@ -9,7 +9,6 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -25,6 +24,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.brainwallet.navigation.LegacyNavigation;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.util.BRConstants;
 import com.brainwallet.tools.util.Utils;
@@ -114,22 +114,6 @@ public class BRAnimator {
                     .add(android.R.id.content, fragmentSend, FragmentSend.class.getName())
                     .addToBackStack(FragmentSend.class.getName()).commit();
         } finally {
-        }
-    }
-
-    public static void popBackStackTillEntry(Activity app, int entryIndex) {
-
-        if (app.getFragmentManager() == null) {
-            return;
-        }
-        if (app.getFragmentManager().getBackStackEntryCount() <= entryIndex) {
-            return;
-        }
-        FragmentManager.BackStackEntry entry = app.getFragmentManager().getBackStackEntryAt(
-                entryIndex);
-        if (entry != null) {
-            app.getFragmentManager().popBackStackImmediate(entry.getId(),
-                    FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
     }
 
@@ -315,17 +299,11 @@ public class BRAnimator {
             startBreadActivity(app, false);
     }
 
+    /**
+     * wrap using [com.brainwallet.navigation.LegacyNavigation.startBreadActivity]
+     */
     public static void startBreadActivity(Activity from, boolean auth) {
-        if (from == null) return;
-        Timber.i("timber: startBreadActivity: %s", from.getClass().getName());
-        Class toStart = auth ? LoginActivity.class : BreadActivity.class;
-        Intent intent = new Intent(from, toStart);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        from.startActivity(intent);
-        from.overridePendingTransition(R.anim.fade_up, R.anim.fade_down);
-        if (!from.isDestroyed()) {
-            from.finish();
-        }
+        LegacyNavigation.startBreadActivity(from, auth);
     }
 
     public static void animateSignalSlide(ViewGroup signalLayout, final boolean reverse, @Nullable final OnSlideAnimationEnd listener) {

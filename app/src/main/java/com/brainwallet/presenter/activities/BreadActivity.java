@@ -35,7 +35,6 @@ import androidx.transition.TransitionSet;
 
 import com.brainwallet.BrainwalletApp;
 import com.brainwallet.R;
-import com.brainwallet.presenter.activities.intro.IntroActivity;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.presenter.customviews.BRNotificationBar;
 import com.brainwallet.presenter.fragments.BuyTabFragment;
@@ -54,6 +53,7 @@ import com.brainwallet.tools.util.BRCurrency;
 import com.brainwallet.tools.util.BRExchange;
 import com.brainwallet.tools.util.ExtensionKt;
 import com.brainwallet.tools.util.Utils;
+import com.brainwallet.util.PermissionUtil;
 import com.brainwallet.wallet.BRPeerManager;
 import com.brainwallet.wallet.BRWalletManager;
 import com.google.android.gms.tasks.Task;
@@ -61,7 +61,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
-import com.brainwallet.util.PermissionUtil;
 
 import java.math.BigDecimal;
 
@@ -121,7 +120,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         primaryPrice.setTextSize(PRIMARY_TEXT_SIZE);
         secondaryPrice.setTextSize(SECONDARY_TEXT_SIZE);
 
-        finishActivities(SetPinActivity.introSetPitActivity, IntroActivity.introActivity, ReEnterPinActivity.reEnterPinActivity);
+        finishActivities(SetPinActivity.introSetPitActivity, ReEnterPinActivity.reEnterPinActivity);
 
         onConnectionChanged(InternetManager.getInstance().isConnected(this));
 
@@ -229,6 +228,8 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     public boolean handleNavigationItemSelected(int menuItemId) {
         if (mSelectedBottomNavItem == menuItemId) return true;
         mSelectedBottomNavItem = menuItemId;
+        //TODO: revisit
+        // we are using compose, that's why commented, will remove it after fully migrated to compose
         if (menuItemId == R.id.nav_history) {
             ExtensionKt.replaceFragment(BreadActivity.this, new HistoryFragment(), false, R.id.fragment_container);
         } else if (menuItemId == R.id.nav_send) {

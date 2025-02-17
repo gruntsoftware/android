@@ -10,8 +10,7 @@ import android.os.Looper;
 import com.brainwallet.R;
 import com.brainwallet.presenter.activities.DisabledActivity;
 import com.brainwallet.presenter.activities.SetPinActivity;
-import com.brainwallet.presenter.activities.InputWordsActivity;
-
+import com.brainwallet.ui.BrainwalletActivity;
 
 import java.util.List;
 
@@ -21,7 +20,8 @@ public class ActivityUTILS {
 
     //return true if the app does need to show the disabled wallet screen
     public static boolean isAppSafe(Activity app) {
-        return app instanceof SetPinActivity || app instanceof InputWordsActivity;
+//        return app instanceof SetPinActivity || app instanceof InputWordsActivity;
+        return app instanceof SetPinActivity || app instanceof BrainwalletActivity;
     }
 
     public static void showWalletDisabled(Activity app) {

@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:fontFamily="@font/barlowsemicondensed_regular"
+            android:fontFamily="@font/open_sauce_one_regular"
             android:text="@string/TransactionDetails.emptyMessage"
             android:textColor="@color/cheddar"
             android:textSize="18sp"
