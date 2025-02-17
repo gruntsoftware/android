@@ -16,7 +16,6 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.brainwallet.tools.manager.AnalyticsManager;
 import com.brainwallet.tools.sqlite.CurrencyDataSource;
-import com.brainwallet.presenter.activities.WelcomeActivity;
 import com.brainwallet.presenter.entities.CurrencyEntity;
 import com.brainwallet.presenter.entities.ServiceItems;
 
