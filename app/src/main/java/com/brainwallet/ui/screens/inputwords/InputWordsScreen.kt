@@ -54,7 +54,6 @@ import com.brainwallet.navigation.UiEffect
 import com.brainwallet.tools.animation.BRDialog
 import com.brainwallet.ui.composable.LargeButton
 import com.brainwallet.ui.composable.SeedWordItemTextField
-import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.EFFECT_LEGACY_RECOVER_WALLET_AUTH
 import com.brainwallet.wallet.BRWalletManager
 
 @Composable
@@ -121,13 +120,7 @@ fun InputWordsScreen(
                     }
                 }
 
-                is UiEffect.ShowMessage -> {
-                    //hacky solution for now to communicate with old legacy
-                    if (effect.message == EFFECT_LEGACY_RECOVER_WALLET_AUTH) {
-
-                        //
-                    }
-                }
+                else -> Unit
             }
         }
     }

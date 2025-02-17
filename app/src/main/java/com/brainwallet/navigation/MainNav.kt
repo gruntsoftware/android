@@ -7,11 +7,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.brainwallet.ui.screens.home.HomeScreen
 import com.brainwallet.ui.screens.inputwords.InputWordsScreen
 import com.brainwallet.ui.screens.ready.ReadyScreen
 import com.brainwallet.ui.screens.setpasscode.SetPasscodeScreen
 import com.brainwallet.ui.screens.setpasscodeconfirm.SetPasscodeConfirmScreen
+import com.brainwallet.ui.screens.unlock.UnLockScreen
 import com.brainwallet.ui.screens.welcome.WelcomeScreen
 import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItScreen
 import com.brainwallet.ui.screens.yourseedwords.YourSeedWordsScreen
@@ -87,9 +87,17 @@ fun NavGraphBuilder.mainNavGraph(
         val route: Route.YourSeedProveIt = navBackStackEntry.toRoute()
         YourSeedProveItScreen(seedWords = route.seedWords)
     }
-    composable<Route.Home> {
-        HomeScreen(onNavigate = onNavigate)
+    /**
+     * for now, still using old activity & fragment [com.brainwallet.presenter.activities.BreadActivity]
+     */
+//    composable<Route.Home> {
+//        HomeScreen(onNavigate = onNavigate)
+//    }
+
+    composable<Route.UnLock> {
+        UnLockScreen(onNavigate = onNavigate)
     }
+
     //todo add more composable screens
 }
 
