@@ -112,27 +112,28 @@ fun WelcomeScreen(
         }
         Spacer(modifier = Modifier.weight(1f))
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(activeRowHeight.dp)
-                .padding(horizontal = halfLeadTrailPadding.dp)
-                .padding(vertical = rowPadding.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly
-
-        ) {
-            LanguageDropdown(
-                selectedLanguage,
-                isDarkTheme = true
-            ) { newLanguage ->
-                selectedLanguage = newLanguage
-            }
-
-            //SettingsDayAndNight()
-            FiatDropdown(selectedFiat, isDarkTheme = true) { newFiat ->
-                selectedFiat = newFiat
-            }
-        }
+//        TODO: implement later, for now just comment this
+//        Row(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .height(activeRowHeight.dp)
+//                .padding(horizontal = halfLeadTrailPadding.dp)
+//                .padding(vertical = rowPadding.dp),
+//            horizontalArrangement = Arrangement.SpaceEvenly
+//
+//        ) {
+//            LanguageDropdown(
+//                selectedLanguage,
+//                isDarkTheme = true
+//            ) { newLanguage ->
+//                selectedLanguage = newLanguage
+//            }
+//
+//            //SettingsDayAndNight()
+//            FiatDropdown(selectedFiat, isDarkTheme = true) { newFiat ->
+//                selectedFiat = newFiat
+//            }
+//        }
         // Ready Button
         LargeButton(
             onClick = {
