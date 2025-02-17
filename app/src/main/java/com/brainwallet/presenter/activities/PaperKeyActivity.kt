@@ -9,6 +9,7 @@ import com.brainwallet.ui.screens.yourseedwords.YourSeedWordsScreen
 import com.brainwallet.ui.screens.yourseedwords.YourSeedWordsEvent
 import com.brainwallet.ui.theme.setContentWithTheme
 
+@Deprecated(message = "move to compose")
 class PaperKeyActivity : BRActivity() {
 
     private lateinit var binding: ActivityPaperKeyBinding

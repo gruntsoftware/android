@@ -85,7 +85,10 @@ fun NavGraphBuilder.mainNavGraph(
     }
     composable<Route.YourSeedProveIt> { navBackStackEntry ->
         val route: Route.YourSeedProveIt = navBackStackEntry.toRoute()
-        YourSeedProveItScreen(seedWords = route.seedWords)
+        YourSeedProveItScreen(
+            onNavigate = onNavigate,
+            seedWords = route.seedWords
+        )
     }
     /**
      * for now, still using old activity & fragment [com.brainwallet.presenter.activities.BreadActivity]

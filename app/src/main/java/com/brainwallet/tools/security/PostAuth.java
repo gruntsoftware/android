@@ -8,6 +8,8 @@ import android.security.keystore.UserNotAuthenticatedException;
 
 import androidx.fragment.app.FragmentActivity;
 
+import com.brainwallet.navigation.LegacyNavigation;
+import com.brainwallet.navigation.Route;
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.threads.PaymentProtocolPostPaymentTask;
@@ -26,6 +28,7 @@ import com.platform.entities.TxMetaData;
 import com.platform.tools.KVStoreManager;
 
 import java.util.Arrays;
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -81,9 +84,16 @@ public class PostAuth {
             }
             return;
         }
-        Intent intent = new Intent(app, PaperKeyActivity.class);
-        intent.putExtra("phrase", cleanPhrase);
-        app.startActivity(intent);
+
+        String[] seedWords = cleanPhrase.split(" ");
+        LegacyNavigation.openComposeScreen(
+            app,
+            new Route.YourSeedWords(Arrays.asList(seedWords))
+        );
+//
+//        Intent intent = new Intent(app, PaperKeyActivity.class);
+//        intent.putExtra("phrase", cleanPhrase);
+//        app.startActivity(intent);
         app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
     }
 
@@ -99,9 +109,14 @@ public class PostAuth {
             }
             return;
         }
-        Intent intent = new Intent(app, PaperKeyActivity.class);
-        intent.putExtra("phrase", cleanPhrase);
-        app.startActivity(intent);
+        String[] seedWords = cleanPhrase.split(" ");
+        LegacyNavigation.openComposeScreen(
+                app,
+                new Route.YourSeedProveIt(Arrays.asList(seedWords))
+        );
+//        Intent intent = new Intent(app, PaperKeyActivity.class);
+//        intent.putExtra("phrase", cleanPhrase);
+//        app.startActivity(intent);
         app.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
     }
 
