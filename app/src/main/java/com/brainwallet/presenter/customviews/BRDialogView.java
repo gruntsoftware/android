@@ -2,7 +2,6 @@ package com.brainwallet.presenter.customviews;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -15,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.DialogFragment;
 
 import com.brainwallet.R;
 import com.brainwallet.tools.animation.BRAnimator;
@@ -42,11 +42,12 @@ public class BRDialogView extends DialogFragment {
 
     private ConstraintLayout mainLayout;
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.bread_alert_dialog, null);
         TextView titleText = (TextView) view.findViewById(R.id.dialog_title);
         TextView messageText = (TextView) view.findViewById(R.id.dialog_text);
