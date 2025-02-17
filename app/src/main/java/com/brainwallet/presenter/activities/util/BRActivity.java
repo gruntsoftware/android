@@ -1,7 +1,6 @@
 package com.brainwallet.presenter.activities.util;
 
 import android.app.Activity;
-import android.app.UiModeManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,11 +9,9 @@ import android.os.Handler;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.fragment.app.FragmentActivity;
 
 import com.brainwallet.BrainwalletApp;
 import com.brainwallet.presenter.activities.DisabledActivity;
-import com.brainwallet.presenter.activities.intro.IntroActivity;
 import com.brainwallet.presenter.activities.intro.RecoverActivity;
 import com.brainwallet.presenter.activities.intro.WriteDownActivity;
 import com.brainwallet.tools.animation.BRAnimator;
@@ -26,6 +23,7 @@ import com.brainwallet.tools.security.PostAuth;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.util.BRConstants;
 import com.brainwallet.tools.util.LocaleHelper;
+import com.brainwallet.ui.BrainwalletActivity;
 import com.brainwallet.wallet.BRWalletManager;
 
 import timber.log.Timber;
@@ -36,7 +34,7 @@ public class BRActivity extends AppCompatActivity {
         System.loadLibrary(BRConstants.NATIVE_LIB_NAME);
     }
 
-    @Override 
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         LocaleHelper.Companion.getInstance().setLocale(this);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES); //for now only using dark mode
@@ -48,7 +46,7 @@ public class BRActivity extends AppCompatActivity {
         super.attachBaseContext(LocaleHelper.Companion.getInstance().setLocale(newBase));
     }
 
-    @Override 
+    @Override
     protected void onStop() {
         super.onStop();
         BrainwalletApp.activityCounter.decrementAndGet();
@@ -142,8 +140,12 @@ public class BRActivity extends AppCompatActivity {
 
     public static void init(Activity app) {
         InternetManager.getInstance();
-        if (!(app instanceof IntroActivity || app instanceof RecoverActivity || app instanceof WriteDownActivity))
+
+
+        if (!(app instanceof BrainwalletActivity || app instanceof RecoverActivity || app instanceof WriteDownActivity)) {
             BrainwalletApp.module.getApiManager().startTimer(app);
+        }
+
         //show wallet locked if it is
         if (!ActivityUTILS.isAppSafe(app))
             if (AuthManager.getInstance().isWalletDisabled(app))

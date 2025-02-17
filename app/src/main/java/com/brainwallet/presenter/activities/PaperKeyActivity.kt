@@ -5,10 +5,11 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.brainwallet.databinding.ActivityPaperKeyBinding
 import com.brainwallet.presenter.activities.util.BRActivity
 import com.brainwallet.tools.security.PostAuth
-import com.brainwallet.ui.screen.yourseedwords.YourSeedWordsScreen
-import com.brainwallet.ui.screen.yourseedwords.YourSeedWordsEvent
+import com.brainwallet.ui.screens.yourseedwords.YourSeedWordsScreen
+import com.brainwallet.ui.screens.yourseedwords.YourSeedWordsEvent
 import com.brainwallet.ui.theme.setContentWithTheme
 
+@Deprecated(message = "move to compose")
 class PaperKeyActivity : BRActivity() {
 
     private lateinit var binding: ActivityPaperKeyBinding
@@ -35,15 +36,15 @@ class PaperKeyActivity : BRActivity() {
         binding.composeView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContentWithTheme {
-                YourSeedWordsScreen(
-                    seedWords = seedWords,
-                    onEvent = { action ->
-                        when (action) {
-                            YourSeedWordsEvent.OnBackClick -> finish()
-                            YourSeedWordsEvent.OnSavedItClick -> onSavedItClick()
-                        }
-                    }
-                )
+//                YourSeedWordsScreen(
+//                    seedWords = seedWords,
+//                    onEvent = { action ->
+//                        when (action) {
+//                            YourSeedWordsEvent.OnBackClick -> finish()
+//                            YourSeedWordsEvent.OnSavedItClick -> onSavedItClick()
+//                        }
+//                    }
+//                )
             }
         }
     }

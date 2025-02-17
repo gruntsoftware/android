@@ -64,7 +64,7 @@ public class SmartValidator {
         return Arrays.equals(pubKey, pubKeyFromKeyStore);
     }
 
-    public static boolean checkFirstAddress(Activity app, byte[] mpk) {
+    public static boolean checkFirstAddress(Context app, byte[] mpk) {
         String addressFromPrefs = BRSharedPrefs.getFirstAddress(app);
         String generatedAddress = BRWalletManager.getFirstAddress(mpk);
         if (!addressFromPrefs.equalsIgnoreCase(generatedAddress) && addressFromPrefs.length() != 0 && generatedAddress.length() != 0) {

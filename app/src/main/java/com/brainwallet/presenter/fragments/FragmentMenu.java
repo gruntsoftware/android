@@ -100,7 +100,7 @@ public class FragmentMenu extends Fragment {
             Timber.d("timber: [RemoteConfig] -> " + string);
             JSONObject configValue = new JSONObject(string);
             if (configValue.optBoolean("enabled", false)) {
-                itemList.add(new BRMenuItem(configValue.optString("title"), R.drawable.brainwalletlogo, V -> {
+                itemList.add(new BRMenuItem(configValue.optString("title"), R.drawable.bw_logo_1024x, V -> {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setData(Uri.parse(configValue.optString("url")));
                     startActivity(intent);
