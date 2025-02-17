@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -132,10 +133,12 @@ fun UnLockScreen(
                 maxItemsInEachRow = maxItemsPerRow
             ) {
                 //pin number button
+                val modifierCircleButton = Modifier.size(75.dp)
 
                 repeat(9) { index ->
                     val number = index + 1
                     CircleButton(
+                        modifier = modifierCircleButton,
                         onClick = {
                             viewModel.onEvent(UnLockEvent.OnPinDigitChange(digit = number))
                         },
@@ -151,6 +154,7 @@ fun UnLockScreen(
                 // Bottom row with biometric, 0, and backspace
                 if (state.biometricEnabled) {
                     CircleButton(
+                        modifier = modifierCircleButton,
                         onClick = {
                             //
                         },
@@ -166,6 +170,7 @@ fun UnLockScreen(
                     }
                 } else {
                     CircleButton(
+                        modifier = modifierCircleButton,
                         onClick = { },
                         colors = IconButtonDefaults.filledIconButtonColors(
                             disabledContainerColor = Color.Transparent
@@ -177,6 +182,7 @@ fun UnLockScreen(
                 }
 
                 CircleButton(
+                    modifier = modifierCircleButton,
                     onClick = {
                         viewModel.onEvent(UnLockEvent.OnPinDigitChange(digit = 0))
                     },
@@ -189,6 +195,7 @@ fun UnLockScreen(
                 }
 
                 CircleButton(
+                    modifier = modifierCircleButton,
                     onClick = {
                         viewModel.onEvent(UnLockEvent.OnDeletePinDigit)
                     },

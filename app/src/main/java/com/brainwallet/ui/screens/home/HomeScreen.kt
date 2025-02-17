@@ -24,6 +24,7 @@ import androidx.fragment.compose.rememberFragmentState
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.presenter.history.HistoryFragment
 
+//TODO: wip
 @Composable
 fun HomeScreen(
     onNavigate: OnNavigate
@@ -36,6 +37,7 @@ fun HomeScreen(
             modifier = Modifier.padding(paddingValues)
         ) {
             val fragmentState = rememberFragmentState()
+            //using old fragment
             AndroidFragment<HistoryFragment>(
                 fragmentState = fragmentState
             )

@@ -1,16 +1,15 @@
 package com.brainwallet.presenter.activities.settings;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.brainwallet.R;
+import com.brainwallet.navigation.LegacyNavigation;
+import com.brainwallet.navigation.Route;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.tools.animation.BRAnimator;
-import com.brainwallet.presenter.activities.InputWordsActivity;
-
 
 
 public class WipeActivity extends BRActivity {
@@ -39,9 +38,10 @@ public class WipeActivity extends BRActivity {
             @Override
             public void onClick(View v) {
                 if (!BRAnimator.isClickAllowed()) return;
-                Intent intent = new Intent(WipeActivity.this, InputWordsActivity.class);
-                intent.putExtra("restore", true);
-                startActivity(intent);
+                LegacyNavigation.openComposeScreen(
+                        WipeActivity.this,
+                        new Route.InputWords(Route.InputWords.Source.SETTING_WIPE)
+                );
                 overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
                 if (!WipeActivity.this.isDestroyed()) finish();
             }
