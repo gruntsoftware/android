@@ -21,7 +21,15 @@ object EventBus {
 
 
     sealed class Event {
-        data class Message(val message: String) : Event()
+        data class Message(
+            val message: String,
+        ) : Event()
+
+
+        //provide this for old flow
+        data class LegacyPasscodeVerified(
+            val passcode: List<Int>
+        ) : Event()
     }
 }
 

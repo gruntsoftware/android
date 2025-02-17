@@ -1,14 +1,16 @@
 package com.brainwallet.ui.screens.setpasscode
 
-import android.util.Log
+import androidx.lifecycle.viewModelScope
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.BrainwalletViewModel
+import com.brainwallet.util.EventBus
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.flow.updateAndGet
+import kotlinx.coroutines.launch
 
 class SetPasscodeViewModel : BrainwalletViewModel<SetPasscodeEvent>() {
 
@@ -71,27 +73,34 @@ class SetPasscodeViewModel : BrainwalletViewModel<SetPasscodeEvent>() {
 
                 //if passcode confirm all filled, then goto your seed words
                 if (it.isMatchPasscode()) {
-                    //seedwords
-                    sendUiEffect(
-                        UiEffect.Navigate(
-                            destinationRoute = Route.YourSeedWords(
-                                seedWords = listOf(
-                                    "one",
-                                    "two",
-                                    "three",
-                                    "four",
-                                    "five",
-                                    "six",
-                                    "seventh",
-                                    "eight",
-                                    "nine",
-                                    "ten",
-                                    "eleven",
-                                    "twelve"
-                                )
+                    viewModelScope.launch {
+                        EventBus.emit(
+                            EventBus.Event.LegacyPasscodeVerified(
+                                passcode = it.passcodeConfirm
                             )
                         )
-                    )
+                    }
+//                    //seedwords
+//                    sendUiEffect(
+//                        UiEffect.Navigate(
+//                            destinationRoute = Route.YourSeedWords(
+//                                seedWords = listOf(
+//                                    "one",
+//                                    "two",
+//                                    "three",
+//                                    "four",
+//                                    "five",
+//                                    "six",
+//                                    "seventh",
+//                                    "eight",
+//                                    "nine",
+//                                    "ten",
+//                                    "eleven",
+//                                    "twelve"
+//                                )
+//                            )
+//                        )
+//                    )
                 }
             }
 
@@ -107,5 +116,4 @@ class SetPasscodeViewModel : BrainwalletViewModel<SetPasscodeEvent>() {
             }
         }
     }
-
 }

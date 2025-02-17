@@ -56,13 +56,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
+import com.brainwallet.navigation.OnNavigate
+import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.composable.LargeButton
 import com.brainwallet.ui.composable.SeedWordItem
 
 @Composable
 fun YourSeedProveItScreen(
+    onNavigate: OnNavigate,
     seedWords: List<String>,
-    onEvent: (YourSeedProveItEvent) -> Unit = {},
     viewModel: YourSeedProveItViewModel = viewModel()
 ) {
     val state by viewModel.state.collectAsState()
@@ -91,7 +93,7 @@ fun YourSeedProveItScreen(
         topBar = {
             TopAppBar(title = {}, navigationIcon = {
                 IconButton(
-                    onClick = { onEvent.invoke(YourSeedProveItEvent.OnBackClick) },
+                    onClick = { onNavigate.invoke(UiEffect.Navigate.Back()) },
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -231,7 +233,7 @@ fun YourSeedProveItScreen(
             AnimatedVisibility(visible = state.orderCorrected) {
                 LargeButton(
                     onClick = {
-                        onEvent.invoke(YourSeedProveItEvent.OnGameAndSync)
+                        viewModel.onEvent(YourSeedProveItEvent.OnGameAndSync)
                     },
                 ) {
                     Text(

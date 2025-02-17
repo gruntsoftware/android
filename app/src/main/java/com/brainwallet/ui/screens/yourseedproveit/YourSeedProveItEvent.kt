@@ -10,8 +10,6 @@ sealed class YourSeedProveItEvent {
         val actualWord: String
     ) : YourSeedProveItEvent()
 
-    object OnBackClick : YourSeedProveItEvent()
-
     object OnGameAndSync : YourSeedProveItEvent()
 
     object OnClear : YourSeedProveItEvent()
