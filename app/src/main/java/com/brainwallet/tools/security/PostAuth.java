@@ -90,10 +90,6 @@ public class PostAuth {
             app,
             new Route.YourSeedWords(Arrays.asList(seedWords))
         );
-//
-//        Intent intent = new Intent(app, PaperKeyActivity.class);
-//        intent.putExtra("phrase", cleanPhrase);
-//        app.startActivity(intent);
         app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
     }
 
@@ -114,9 +110,6 @@ public class PostAuth {
                 app,
                 new Route.YourSeedProveIt(Arrays.asList(seedWords))
         );
-//        Intent intent = new Intent(app, PaperKeyActivity.class);
-//        intent.putExtra("phrase", cleanPhrase);
-//        app.startActivity(intent);
         app.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
     }
 
