@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.text.SpannableString;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.presenter.customviews.BRDialogView;
@@ -40,7 +41,7 @@ public class BRDialog {
                 dialog.setNegListener(negListener);
                 dialog.setDismissListener(dismissListener);
                 dialog.setIconRes(iconRes);
-                dialog.show(((Activity) app).getFragmentManager(), dialog.getClass().getName());
+                dialog.show(((FragmentActivity) app).getSupportFragmentManager(), dialog.getClass().getName());
             }
         });
 
@@ -67,7 +68,7 @@ public class BRDialog {
                 dialog.setNegListener(negListener);
                 dialog.setDismissListener(dismissListener);
                 dialog.setIconRes(iconRes);
-                dialog.show(((Activity) app).getFragmentManager(), dialog.getClass().getName());
+                dialog.show(((FragmentActivity) app).getSupportFragmentManager(), dialog.getClass().getName());
             }
         });
     }
