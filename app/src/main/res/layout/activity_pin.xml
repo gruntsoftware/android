@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.breadwallet.presenter.customviews.BRLockScreenConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.brainwallet.presenter.customviews.BRLockScreenConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_pit"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/litecoin_litewallet_dark_blue"
-    tools:context="com.breadwallet.presenter.activities.LoginActivity">
+    android:background="@color/near_black"
+    tools:context="com.brainwallet.presenter.activities.LoginActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ltcPriceConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/litecoin_litewallet_dark_blue">
+        android:background="@color/near_black">
 
         <TextView
             android:id="@+id/ltcPriceTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:fontFamily="@font/barlowsemicondensed_medium"
+            android:fontFamily="@font/open_sauce_one_medium"
             tools:text="@string/Login.ltcPrice"
             android:textColor="@color/white"
             android:textSize="22sp"
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:fontFamily="@font/barlowsemicondensed_light"
+            android:fontFamily="@font/open_sauce_one_light"
             tools:text="@string/Login.currentLtcPrice"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
@@ -61,7 +61,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:adjustViewBounds="true"
-        android:src="@drawable/litewallet_logotype_white"
+        android:src="@drawable/bw_white_logotype"
         app:layout_constraintBottom_toTopOf="@+id/brkeyboard"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -140,7 +140,7 @@
             android:background="@drawable/ic_pin_dot_white" />
     </LinearLayout>
 
-    <com.breadwallet.presenter.customviews.BRKeyboard
+    <com.brainwallet.presenter.customviews.BRKeyboard
         android:id="@+id/brkeyboard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -221,4 +221,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-</com.breadwallet.presenter.customviews.BRLockScreenConstraintLayout>
+</com.brainwallet.presenter.customviews.BRLockScreenConstraintLayout>

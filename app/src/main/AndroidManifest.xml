@@ -2,17 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-sdk
-        android:minSdkVersion="31"
-        android:targetSdkVersion="34" />
-
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -37,38 +31,38 @@
         android:name="android.hardware.camera.autofocus"
         android:required="false" />
 
-    <application xmlns:tools="http://schemas.android.com/tools"
-        android:name=".BreadApp"
+    <application
+        android:name=".BrainwalletApp"
         android:allowBackup="false"
         android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
-        android:label="Litewallet"
+        android:label="@string/app_name"
         android:largeHeap="true"
         android:launchMode="singleTask"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/Theme.Brainwallet"
         android:windowSoftInputMode="stateVisible|adjustResize"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute"
         tools:replace="android:fullBackupContent,android:allowBackup">
+
+        <!-- Main Compose Activity -->
         <activity
-            android:name=".presenter.activities.intro.IntroActivity"
+            android:name=".ui.BrainwalletActivity"
             android:exported="true"
-            android:label="Litewallet"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".presenter.activities.BreadActivity"
             android:exported="true"
-            android:label="Litewallet"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -219,7 +213,7 @@
             android:label="SyncReceiver" />
 
         <service
-            android:name="com.litewallet.notification.LitewalletMessagingService"
+            android:name="com.brainwallet.notification.BrainwalletMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -228,7 +222,7 @@
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/litewallet_logotype_white_notifications" />
+            android:resource="@drawable/bw_white_logotype" />
     </application>
 
 </manifest>

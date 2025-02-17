@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="bottom"
-    android:background="@color/black_trans"
+    android:background="@color/midnight"
     android:filterTouchesWhenObscured="true"
     android:isScrollContainer="false"
     android:orientation="vertical">
@@ -18,7 +18,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
+            android:background="@color/grape"
             android:theme="@style/ToolbarTheme"
             app:navigationIcon="?attr/homeAsUpIndicator" />
 
@@ -30,7 +30,7 @@
             android:layout_marginTop="-5dp"
             android:layout_marginBottom="-5dp"
             android:max="100"
-            android:theme="@style/AppTheme.ProgressBarTheme"
+            android:theme="@style/Theme.Brainwallet.ProgressBarTheme"
             tools:progress="50" />
 
 

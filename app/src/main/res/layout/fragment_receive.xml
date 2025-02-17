@@ -3,7 +3,7 @@
     android:id="@+id/background_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_trans"
+    android:background="@color/midnight"
     android:filterTouchesWhenObscured="true">
 
     <ScrollView
@@ -32,7 +32,6 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:text="@string/Receive.title"
-                    android:textColor="@color/almost_black"
                     android:textSize="@dimen/header"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintHorizontal_bias="0.498"
@@ -45,7 +44,7 @@
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_marginTop="16dp"
-                    android:background="@color/separator_gray"
+                    android:background="@color/cheddar"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -111,7 +110,7 @@
                     android:textIsSelectable="false"
                     android:textSize="24sp" />
 
-                <com.breadwallet.presenter.customviews.BRButton
+                <com.brainwallet.presenter.customviews.BRButton
                     style="@style/BRButtonStyle"
                     android:id="@+id/iso_button"
                     android:layout_width="70dp"
@@ -122,7 +121,7 @@
                     android:drawablePadding="4dp"
                     android:minHeight="40dp"
                     android:text="iso"
-                    android:textColor="@color/light_gray"
+                    android:textColor="@color/cheddar"
                     android:textSize="18sp"
                     app:buttonType="2"
                     app:isBreadButton="true" />
@@ -140,14 +139,14 @@
                     android:id="@+id/separator5"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/extra_light_gray" />
+                    android:background="@color/white" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/cur_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_gravity="center_vertical"
-                    android:background="@color/button_secondary" />
+                    android:background="@color/cheddar" />
 
             </LinearLayout>
 
@@ -155,7 +154,7 @@
                 android:id="@+id/separator2"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/extra_light_gray" />
+                android:background="@color/white" />
 
             <LinearLayout
                 android:id="@+id/keyboard_layout"
@@ -164,17 +163,17 @@
                 android:orientation="vertical"
                 android:visibility="gone">
 
-                <com.breadwallet.presenter.customviews.BRKeyboard
+                <com.brainwallet.presenter.customviews.BRKeyboard
                     android:id="@+id/keyboard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/extra_light_gray" />
+                    android:background="@color/white" />
 
                 <View
                     android:id="@+id/separator3"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/extra_light_gray" />
+                    android:background="@color/white" />
             </LinearLayout>
 
             <ImageView
@@ -196,15 +195,15 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:text="----------------------------------"
-                android:textColor="@color/light_gray"
+                android:textColor="@color/cheddar"
                 android:textSize="16sp" />
 
-            <com.breadwallet.presenter.customviews.BRLinearLayoutWithCaret
+            <com.brainwallet.presenter.customviews.BRLinearLayoutWithCaret
                 android:id="@+id/copied_layout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginBottom="8dp"
-                app:backgroundColor="@color/dark_blue"
+                app:backgroundColor="@color/midnight"
                 app:withStroke="false">
 
                 <TextView
@@ -219,9 +218,9 @@
                     android:textSize="@dimen/paragraph"
                     android:text="@string/Receive.copied"
                     android:textColor="@color/white" />
-            </com.breadwallet.presenter.customviews.BRLinearLayoutWithCaret>
+            </com.brainwallet.presenter.customviews.BRLinearLayoutWithCaret>
 
-            <com.breadwallet.presenter.customviews.BRButton
+            <com.brainwallet.presenter.customviews.BRButton
                 style="@style/BRButtonStyle"
                 android:id="@+id/share_button"
                 android:layout_width="match_parent"
@@ -235,48 +234,46 @@
                 android:paddingEnd="48dp"
                 android:paddingTop="12dp"
                 android:text="@string/Receive.share"
-                android:textColor="@color/light_gray"
                 android:textSize="18sp"
                 app:buttonType="2"
                 app:isBreadButton="true" />
 
-            <com.breadwallet.presenter.customviews.BRLinearLayoutWithCaret xmlns:app="http://schemas.android.com/apk/res-auto"
+            <com.brainwallet.presenter.customviews.BRLinearLayoutWithCaret
                 android:id="@+id/share_buttons_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="2.0"
-                app:backgroundColor="@color/extra_light_blue_background"
-                app:strokeColor="@color/extra_light_gray"
+                app:backgroundColor="@color/white"
+                app:strokeColor="@color/white"
                 app:withStroke="true">
 
-                <com.breadwallet.presenter.customviews.BRButton
-                    style="@style/BRButtonStyle"
+                <com.brainwallet.presenter.customviews.BRButton
                     android:id="@+id/share_email"
+                    style="@style/BRButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="32dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_weight="1.0"
-                    android:paddingBottom="12dp"
                     android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:text="@string/Receive.emailButton"
-                    android:textColor="@color/light_gray"
                     android:textSize="14sp"
                     app:buttonType="2"
                     app:isBreadButton="true" />
 
-            </com.breadwallet.presenter.customviews.BRLinearLayoutWithCaret>
+            </com.brainwallet.presenter.customviews.BRLinearLayoutWithCaret>
 
             <View
                 android:id="@+id/separator"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/separator_gray" />
+                android:background="@color/cheddar" />
 
-            <com.breadwallet.presenter.customviews.BRButton
+            <com.brainwallet.presenter.customviews.BRButton
                 style="@style/BRButtonStyle"
                 android:id="@+id/request_button"
                 android:layout_width="match_parent"
@@ -287,7 +284,7 @@
                 android:layout_marginTop="16dp"
                 android:padding="10dp"
                 android:text="@string/Receive.request"
-                android:textColor="@color/almost_black"
+                android:textColor="@color/midnight"
                 android:textSize="18sp"
                 app:buttonType="2"
                 app:isBreadButton="true" />

@@ -5,55 +5,55 @@
     android:id="@+id/activity_intro_recover"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/extra_light_blue_background"
-    tools:context="com.breadwallet.presenter.activities.intro.RecoverActivity">
+    android:background="@color/white"
+    tools:context="com.brainwallet.presenter.activities.intro.RecoverActivity">
 
-    <com.breadwallet.presenter.customviews.BRButton
-        style="@style/BRButtonStyle"
+    <com.brainwallet.presenter.customviews.BRButton
         android:id="@+id/scan_button"
+        style="@style/BRButtonStyle"
         android:layout_width="0dp"
         android:layout_height="@dimen/big_button_height"
         android:layout_margin="@dimen/bread_margin"
-        app:buttonType="1"
         android:padding="10dp"
         android:text="@string/Import.scan"
         android:textColor="@color/white"
-        app:isBreadButton="true"
         android:textSize="18sp"
+        app:buttonType="1"
+        app:isBreadButton="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        style="@style/BRTextStyle"
         android:id="@+id/textView8"
+        style="@style/BRTextStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/Import.message"
-        android:textColor="@color/almost_black"
+        android:textColor="@color/midnight"
         android:textSize="@dimen/paragraph"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
     <TextView
-        style="@style/BRTextStyle"
         android:id="@+id/textView12"
+        style="@style/BRTextStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="0dp"
+        android:layout_marginEnd="32dp"
         android:text="@string/Import.warning"
-        android:textColor="@color/almost_black"
+        android:textColor="@color/midnight"
         android:textSize="@dimen/paragraph"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageView8"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView8" />
 
     <ImageView
@@ -71,16 +71,16 @@
         android:layout_height="200dp"
         android:background="@drawable/import_gradient"
         app:layout_constraintBaseline_toBaselineOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         tools:layout_constraintBaseline_creator="1"
-        tools:layout_constraintStart_creator="1"
-        tools:layout_constraintEnd_creator="1">
+        tools:layout_constraintEnd_creator="1"
+        tools:layout_constraintStart_creator="1">
 
         <TextView
-            style="@style/BRBoldTextStyle"
             android:id="@+id/textView2"
+            style="@style/BRBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"

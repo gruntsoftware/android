@@ -3,6 +3,7 @@ import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.jetbrains.kotlin.compose)
     alias(libs.plugins.jetbrains.kotlin.kapt)
     alias(libs.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.google.services)
@@ -12,18 +13,18 @@ plugins {
 val localProperties = gradleLocalProperties(rootDir, providers)
 
 android {
-    namespace = "com.breadwallet"
+    namespace = "com.brainwallet"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "ltd.grunt.litewallet"
+        applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 34
-        versionCode = 202501074
-        versionName = "v4.0.1"
+        versionCode = 202502171
+        versionName = "v4.2.2"
 
         multiDexEnabled = true
-        base.archivesBaseName = "${versionName}(${versionCode})"
+        base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -100,12 +101,11 @@ android {
 
     flavorDimensions.add("mode")
     productFlavors {
-        create("litewallet") {
+        create("brainwallet") {
             dimension = "mode"
 
-            applicationId = "ltd.grunt.litewallet"
-            resValue("string", "app_name", "Litewallet")
-            buildConfigField("boolean", "LITECOIN_TESTNET", "false")
+            applicationId = "ltd.grunt.brainwallet"
+            resValue("string", "app_name", "Brainwallet")
 
             externalNativeBuild {
                 cmake {
@@ -116,7 +116,31 @@ android {
                     targets("core-lib")
                 }
             }
+        }
 
+        create("screengrab") {
+            dimension = "mode"
+
+            applicationId = "ltd.grunt.brainwallet.screengrab"
+            versionNameSuffix = "-screengrab"
+            resValue("string", "app_name", "Brainwallet (screengrab)")
+            buildConfigField("String[]", "SCREENGRAB_PAPERKEY",
+                "new String[] {${
+                    localProperties.getProperty("SCREENGRAB_PAPERKEY", "")
+                        .split(" ")
+                        .joinToString { "\"$it\"" }
+                }}"
+            )
+
+            externalNativeBuild {
+                cmake {
+                    // When you specify a version of CMake, as shown below,
+                    // the Android plugin searches for its binary within your
+                    // PATH environmental variable.
+                    cFlags("-DLITECOIN_TESTNET=0")
+                    targets("core-lib")
+                }
+            }
         }
     }
 
@@ -134,6 +158,7 @@ android {
         buildConfig = true
         dataBinding = true
         viewBinding = true
+        compose = true
     }
 
     compileOptions {
@@ -149,9 +174,19 @@ android {
             pickFirsts.add("protobuf.meta")
         }
     }
+
+    //TODO: rename output apk/bundle
 }
 
+val ktlint by configurations.creating
+
 dependencies {
+    ktlint(libs.pinterest.ktlint) {
+        attributes {
+            attribute(Bundling.BUNDLING_ATTRIBUTE, objects.named(Bundling.EXTERNAL))
+        }
+    }
+
     implementation(libs.androidx.core)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.legacy.support)
@@ -162,8 +197,10 @@ dependencies {
     implementation(libs.bundles.androidx.navigation)
     implementation(libs.androidx.preference)
     implementation(libs.androidx.lifecycle.runtime)
-    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.bundles.androidx.lifecycle)
     implementation(libs.androidx.browser)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.bundles.androidx.compose)
     implementation(libs.google.material)
     implementation(libs.google.zxing)
     implementation(platform(libs.firebase.bom))
@@ -172,6 +209,7 @@ dependencies {
     implementation(libs.bundles.google.play.feature.delivery)
     implementation(libs.bundles.google.play.review)
     implementation(libs.kotlinx.serialization.json)
+    implementation (libs.airbnb.lottie.compose)
 
     implementation(libs.squareup.okhttp)
     implementation(libs.jakewarthon.timber)
@@ -182,10 +220,46 @@ dependencies {
     implementation(libs.sigpipe.jbsdiff)
     implementation(libs.unstoppable.domain)
     implementation(libs.razir.progressbutton)
-
     implementation(libs.appsflyer)
     implementation(libs.android.installreferrer)
 
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
+
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.bundles.androidx.compose.ui.test)
+    androidTestImplementation(libs.bundles.android.test)
+    androidTestImplementation(libs.fastlane.screengrab)
+}
+
+val ktlintCheck by tasks.registering(JavaExec::class) {
+    group = LifecycleBasePlugin.VERIFICATION_GROUP
+    description = "Check Kotlin code style"
+    classpath = ktlint
+    mainClass.set("com.pinterest.ktlint.Main")
+    // see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information
+    args(
+        "**/src/**/*.kt",
+        "**.kts",
+        "!**/build/**",
+    )
+}
+
+tasks.check {
+    dependsOn(ktlintCheck)
+}
+
+tasks.register<JavaExec>("ktlintFormat") {
+    group = LifecycleBasePlugin.VERIFICATION_GROUP
+    description = "Check Kotlin code style and format"
+    classpath = ktlint
+    mainClass.set("com.pinterest.ktlint.Main")
+    jvmArgs("--add-opens=java.base/java.lang=ALL-UNNAMED")
+    // see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information
+    args(
+        "-F",
+        "**/src/**/*.kt",
+        "**.kts",
+        "!**/build/**",
+    )
 }

@@ -10,7 +10,7 @@
   </entry>
   <entry>
     <key>key_keystore_manager_enabled</key>
-    <value>false</value>
+    <value>true</value>
   </entry>
   <entry>
     <key>update_debounce_interval</key>
@@ -22,6 +22,6 @@
   </entry>
   <entry>
     <key>feature_menu_hidden_example</key>
-    <value>{"enabled":true,"title":"litewallet-android repository","url":"https://github.com/litewallet-io/android"}</value>
+    <value>{"enabled":true,"title":"brainwallet-android repository","url":"https://github.com/brainwallet-co/android"}</value>
   </entry>
 </defaults>

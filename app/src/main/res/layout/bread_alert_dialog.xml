@@ -5,7 +5,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/bread_dialog_rounded"
     android:filterTouchesWhenObscured="true"
     android:orientation="vertical">
 
@@ -59,7 +58,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_text">
 
-        <com.breadwallet.presenter.customviews.BRButton
+        <com.brainwallet.presenter.customviews.BRButton
             style="@style/BRButtonStyle"
             android:id="@+id/pos_button"
             android:layout_width="wrap_content"
@@ -69,10 +68,9 @@
             android:layout_marginStart="16dp"
             android:layout_weight="1.0"
             android:background="@android:color/transparent"
-            android:textColor="@color/dark_blue"
             tools:text="Positive"/>
 
-        <com.breadwallet.presenter.customviews.BRButton
+        <com.brainwallet.presenter.customviews.BRButton
             style="@style/BRButtonStyle"
             android:id="@+id/neg_button"
             android:layout_width="wrap_content"
@@ -81,7 +79,6 @@
             android:layout_marginStart="16dp"
             android:layout_weight="1.0"
             android:background="@android:color/transparent"
-            android:textColor="@color/dark_blue"
             tools:text="Negative"/>
 
     </LinearLayout>

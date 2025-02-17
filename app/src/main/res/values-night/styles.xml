@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Brainwallet" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/grape</item>
+        <item name="colorPrimaryVariant">@color/midnight</item>
+        <item name="colorOnPrimary">@color/near_black</item>
+        <!-- todo -->
+        <item name="colorSurface">@color/near_black</item>
+        <item name="colorSurfaceBright">#2A2A2A</item>
+        <item name="android:statusBarColor">?attr/colorOnPrimary</item>
+
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+
+</resources>

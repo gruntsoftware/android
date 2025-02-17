@@ -14,7 +14,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.breadwallet.presenter.activities.camera.AutoFitTextureView
+    <com.brainwallet.presenter.activities.camera.AutoFitTextureView
         android:id="@+id/texture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         android:layout_height="112dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:background="@color/almost_black">
+        android:background="@color/midnight">
 
         <ImageButton
             android:id="@+id/take_picture"

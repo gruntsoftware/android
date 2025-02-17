@@ -1,9 +1,8 @@
-<com.breadwallet.presenter.customviews.BRRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.brainwallet.presenter.customviews.BRRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:filterTouchesWhenObscured="true"
     android:orientation="vertical">
 
@@ -11,7 +10,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:background="@color/litecoin_litewallet_blue"
+        android:background="@color/cheddar"
         android:orientation="vertical">
 
 
@@ -21,8 +20,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/view"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageButton
@@ -33,14 +32,14 @@
                 android:background="@drawable/ic_close_white_24dp" />
 
             <TextView
-                style="@style/BRBoldTextStyle"
                 android:id="@+id/title"
+                style="@style/BRBoldTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:text="@string/SecurityCenter.title"
                 android:textColor="@color/white"
                 android:textSize="@dimen/header" />
@@ -73,7 +72,7 @@
         android:layout_below="@+id/linearLayout"
         android:layout_margin="@dimen/bread_margin"
         android:text="@string/SecurityCenter.info"
-        android:textColor="@color/almost_black"
+        android:textColor="@color/midnight"
         android:textSize="@dimen/sub_header" />
 
     <ListView
@@ -87,4 +86,4 @@
 
     </ListView>
 
-</com.breadwallet.presenter.customviews.BRRelativeLayout>
+</com.brainwallet.presenter.customviews.BRRelativeLayout>

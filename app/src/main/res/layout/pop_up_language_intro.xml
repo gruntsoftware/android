@@ -9,10 +9,10 @@
         android:id="@+id/dialog_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/barlowsemicondensed_semibold"
+        android:fontFamily="@font/open_sauce_one_semi_bold"
         android:textSize="20sp"
         android:paddingTop="20dp"
-        android:textColor="@color/black"
+        android:textColor="@color/near_black"
         android:paddingEnd="60dp"
         android:paddingStart="60dp"
         android:textAlignment="center"
@@ -22,7 +22,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray_shadow"
+        android:background="@color/cheddar"
         />
 
     <LinearLayout
@@ -35,24 +35,24 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/litecoin_litewallet_blue"
-            android:fontFamily="@font/barlowsemicondensed_regular"
             android:background="@drawable/button_intro_left"
             android:clickable="true"
-            android:text="Yes" />
+            android:fontFamily="@font/open_sauce_one_regular"
+            android:text="Yes"
+            android:textColor="@color/near_black" />
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/gray_shadow"
+            android:background="@color/cheddar"
             />
         <Button
             android:id="@+id/button_no"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/barlowsemicondensed_regular"
-            android:textColor="@color/red"
+            android:fontFamily="@font/open_sauce_one_regular"
+            android:textColor="@color/chili"
             android:clickable="true"
             android:background="@drawable/button_intro_right"
             android:text="Cancel" />

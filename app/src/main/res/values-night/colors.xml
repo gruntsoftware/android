@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="midnight">#0F0853</color>
+    <color name="grape">#402DAE</color>
+    <color name="cheddar">#FFAE00</color>
+    <color name="chili">#CE3025</color>
+    <color name="pesto">#25AA2C</color>
+    <color name="near_black">#151515</color>
+    <color name="white">#FFFFFF</color>
+</resources>

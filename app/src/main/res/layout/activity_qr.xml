@@ -6,7 +6,7 @@
     android:gravity="center">
 
 
-    <com.breadwallet.tools.qrcode.QRCodeReaderView
+    <com.brainwallet.tools.qrcode.QRCodeReaderView
         android:id="@+id/qrdecoderview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -33,7 +33,7 @@
         android:textSize="18sp"
         android:shadowDx="3"
         android:shadowRadius="5"
-        android:shadowColor="@color/black"
+        android:shadowColor="@color/near_black"
         android:shadowDy="3"
         android:layout_height="wrap_content" />
 

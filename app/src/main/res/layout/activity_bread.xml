@@ -5,14 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@color/extra_light_blue_background"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:descendantFocusability="beforeDescendants"
     android:filterTouchesWhenObscured="true"
     android:fitsSystemWindows="true"
     android:focusableInTouchMode="true"
-    tools:context="com.breadwallet.presenter.activities.BreadActivity">
+    tools:context="com.brainwallet.presenter.activities.BreadActivity">
 
     <LinearLayout
         android:id="@+id/toolbar_layout"
@@ -35,7 +34,7 @@
                 android:id="@+id/bread_bar"
                 android:layout_width="match_parent"
                 android:layout_height="85dp"
-                android:background="@color/litecoin_litewallet_blue"
+                android:background="@color/near_black"
                 android:clipChildren="false"
                 android:clipToPadding="false"
                 app:contentInsetEnd="0dp"
@@ -57,7 +56,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="4dp"
-                        android:fontFamily="@font/barlowsemicondensed_medium"
+                        android:fontFamily="@font/open_sauce_one_medium"
                         android:text="@string/ManageWallet.balance"
                         android:textColor="@color/white"
                         android:textSize="18sp"
@@ -71,7 +70,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="?attr/selectableItemBackground"
-                        android:fontFamily="@font/barlowsemicondensed_medium"
+                        android:fontFamily="@font/open_sauce_one_medium"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
                         android:textColor="@color/white"
@@ -83,7 +82,7 @@
                         android:id="@+id/equals"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/barlowsemicondensed_medium"
+                        android:fontFamily="@font/open_sauce_one_medium"
                         android:text="="
                         android:textColor="@color/white"
                         android:textSize="14sp"
@@ -94,7 +93,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="?attr/selectableItemBackground"
-                        android:fontFamily="@font/barlowsemicondensed_medium"
+                        android:fontFamily="@font/open_sauce_one_medium"
                         android:gravity="start"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
@@ -129,13 +128,11 @@
         android:layout_below="@+id/toolbar_layout" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        style="@style/BottomNavTheme"
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:layout_alignParentBottom="true"
-        android:theme="@style/BottomNavTheme"
-        app:backgroundTint="@color/litecoin_litewallet_blue"
-        app:itemIconTint="@color/bottom_nav_icon_tint_selector"
         app:labelVisibilityMode="labeled"
         tools:menu="@menu/bottom_nav_menu_us" />
 

@@ -5,59 +5,54 @@
     android:id="@+id/activity_intro_recover"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/extra_light_blue_background"
-    tools:context="com.breadwallet.presenter.activities.intro.RecoverActivity">
+    tools:context="com.brainwallet.presenter.activities.intro.RecoverActivity">
 
-    <com.breadwallet.presenter.customviews.BRButton
-        style="@style/BRButtonStyle"
+    <com.brainwallet.presenter.customviews.BRButton
         android:id="@+id/send_button"
+        style="@style/BRButtonStyle"
         android:layout_width="0dp"
         android:layout_height="@dimen/big_button_height"
-        android:background="@android:color/transparent"
-        android:elevation="8dp"
-        android:padding="10dp"
         android:layout_marginStart="@dimen/bread_margin"
         android:layout_marginEnd="@dimen/bread_margin"
+        android:elevation="8dp"
+        android:padding="10dp"
         android:text="@string/RecoverWallet.next"
-        android:textColor="@color/white"
         android:textSize="18sp"
         app:buttonType="1"
         app:isBreadButton="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        style="@style/BRTextStyle"
         android:id="@+id/textView8"
+        style="@style/BRTextStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/WipeWallet.startMessage"
-        android:textColor="@color/almost_black"
         android:textSize="@dimen/sub_header"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
     <TextView
-        style="@style/BRTextStyle"
         android:id="@+id/textView12"
+        style="@style/BRTextStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="32dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/WipeWallet.startWarning"
-        android:textColor="@color/almost_black"
         android:textSize="@dimen/sub_header"
         app:layout_constraintBottom_toTopOf="@+id/send_button"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toEndOf="@+id/imageView8"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
         app:layout_constraintVertical_bias="0.100000024" />
 
@@ -65,38 +60,37 @@
         android:id="@+id/imageView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/icon_delete_cirlce_grey"
-        app:layout_constraintStart_toStartOf="@+id/textView8"
         android:layout_marginStart="0dp"
-        app:layout_constraintTop_toTopOf="@+id/textView12"
         android:layout_marginTop="0dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/icon_delete_cirlce_grey"
         app:layout_constraintBottom_toBottomOf="@+id/textView12"
-        android:layout_marginBottom="8dp" />
+        app:layout_constraintStart_toStartOf="@+id/textView8"
+        app:layout_constraintTop_toTopOf="@+id/textView12" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="0dp"
         android:layout_height="200dp"
-        android:background="@drawable/restore_gradient"
+        android:background="@color/cheddar"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_constraintBaseline_creator="1"
-        tools:layout_constraintStart_creator="1"
-        tools:layout_constraintEnd_creator="1">
+        tools:layout_constraintEnd_creator="1"
+        tools:layout_constraintStart_creator="1">
 
         <TextView
-            style="@style/BRBoldTextStyle"
             android:id="@+id/textView2"
+            style="@style/BRBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
             android:text="@string/Settings.wipe"
-            android:textColor="@color/white"
             android:textSize="16sp"
             tools:layout_constraintTop_creator="1" />
 
@@ -115,16 +109,16 @@
             android:layout_alignBottom="@+id/textView2"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="15dp"
-            android:visibility="invisible"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:visibility="invisible" />
 
         <ImageButton
             android:id="@+id/close_button"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_alignTop="@+id/textView2"
             android:layout_alignBottom="@+id/textView2"
             android:layout_alignParentStart="true"
-            android:layout_alignTop="@+id/textView2"
             android:layout_marginStart="16dp"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_close_white_24dp" />

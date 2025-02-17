@@ -1,4 +1,4 @@
-<com.breadwallet.presenter.customviews.BRRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.brainwallet.presenter.customviews.BRRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginTop="16dp"
-            android:background="@color/separator_gray" />
+            android:background="@color/cheddar" />
 
         <ImageView
             android:id="@+id/qr_image"
@@ -58,4 +58,4 @@
     </LinearLayout>
 
 
-</com.breadwallet.presenter.customviews.BRRelativeLayout>
+</com.brainwallet.presenter.customviews.BRRelativeLayout>

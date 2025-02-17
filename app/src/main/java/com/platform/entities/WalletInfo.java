@@ -3,7 +3,7 @@ package com.platform.entities;
 public class WalletInfo {
 
     // Not certain this is necessary as it is used for the KeyStores
-    // Which are not able to call and not part of the Litewallet architecture
+    // Which are not able to call and not part of the Brainwallet architecture
     // To Be Removed
     /**WalletInfo Mock:
 

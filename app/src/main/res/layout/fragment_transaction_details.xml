@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="bottom"
-    android:background="@color/black_trans"
+    android:background="@color/midnight"
     android:filterTouchesWhenObscured="true">
 
     <androidx.viewpager2.widget.ViewPager2
