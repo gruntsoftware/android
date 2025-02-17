@@ -117,10 +117,7 @@ fun WelcomeScreen(
                 .fillMaxWidth()
                 .height(activeRowHeight.dp)
                 .padding(horizontal = halfLeadTrailPadding.dp)
-                .padding(vertical = rowPadding.dp)
-                .background(
-                    color = Color.Red
-                ),
+                .padding(vertical = rowPadding.dp),
             horizontalArrangement = Arrangement.SpaceEvenly
 
         ) {

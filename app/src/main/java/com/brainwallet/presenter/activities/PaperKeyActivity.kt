@@ -35,15 +35,15 @@ class PaperKeyActivity : BRActivity() {
         binding.composeView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContentWithTheme {
-                YourSeedWordsScreen(
-                    seedWords = seedWords,
-                    onEvent = { action ->
-                        when (action) {
-                            YourSeedWordsEvent.OnBackClick -> finish()
-                            YourSeedWordsEvent.OnSavedItClick -> onSavedItClick()
-                        }
-                    }
-                )
+//                YourSeedWordsScreen(
+//                    seedWords = seedWords,
+//                    onEvent = { action ->
+//                        when (action) {
+//                            YourSeedWordsEvent.OnBackClick -> finish()
+//                            YourSeedWordsEvent.OnSavedItClick -> onSavedItClick()
+//                        }
+//                    }
+//                )
             }
         }
     }
