@@ -188,7 +188,6 @@ class FragmentSend : Fragment() {
                 balanceText.visibility = View.VISIBLE
                 feeText.visibility = View.VISIBLE
                 edit.visibility = View.VISIBLE
-                isoCurrencySymbolText.setTextColor(requireContext().getColor(R.color.midnight))
                 isoCurrencySymbolText.text = BRCurrency.getSymbolByIso(activity, selectedIsoCurrencySymbol)
                 isoCurrencySymbolText.textSize = 28f
                 val scaleX = amountEdit.scaleX
@@ -595,8 +594,8 @@ class FragmentSend : Fragment() {
         else {
             balanceText.setTextColor(requireContext().getColor(R.color.cheddar))
             feeText.setTextColor(requireContext().getColor(R.color.cheddar))
-            amountEdit.setTextColor(requireContext().getColor(R.color.midnight))
-            if (!amountLabelOn) isoCurrencySymbolText.setTextColor(requireContext().getColor(R.color.midnight))
+            amountEdit.setTextColor(requireContext().getColor(R.color.cheddar))
+            if (!amountLabelOn) isoCurrencySymbolText.setTextColor(requireContext().getColor(R.color.cheddar))
         }
 
         balanceText.text = getString(R.string.Send_balance, formattedBalance)
