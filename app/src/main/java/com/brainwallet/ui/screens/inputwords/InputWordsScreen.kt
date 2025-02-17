@@ -51,10 +51,8 @@ import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
-import com.brainwallet.tools.animation.BRDialog
 import com.brainwallet.ui.composable.LargeButton
 import com.brainwallet.ui.composable.SeedWordItemTextField
-import com.brainwallet.wallet.BRWalletManager
 
 @Composable
 fun InputWordsScreen(
@@ -72,54 +70,6 @@ fun InputWordsScreen(
         viewModel.uiEffect.collect { effect ->
             when (effect) {
                 is UiEffect.Navigate -> onNavigate.invoke(effect)
-                is UiEffect.ShowDialog -> when (effect.name) {
-                    InputWordsViewModel.DIALOG_INVALID -> {
-                        //todo: will refactor later, currently just using old dialog
-                        BRDialog.showCustomDialog(
-                            context,
-                            "",
-                            context.getString(R.string.RecoverWallet_invalid),
-                            context.getString(R.string.AccessibilityLabels_close),
-                            null,
-                            { brDialogView ->
-                                brDialogView.dismissWithAnimation()
-                            },
-                            null,
-                            null,
-                            0
-                        )
-                    }
-
-                    InputWordsViewModel.DIALOG_WIPE_ALERT -> {
-                        //todo: will refactor later, currently just using old dialog
-                        BRDialog.showCustomDialog(
-                            context,
-                            context.getString(R.string.WipeWallet_alertTitle),
-                            context.getString(R.string.WipeWallet_alertMessage),
-                            context.getString(R.string.WipeWallet_wipe),
-                            context.getString(R.string.Button_cancel),
-                            { brDialogView ->
-                                brDialogView.dismissWithAnimation()
-                                val m = BRWalletManager.getInstance()
-                                m.wipeWalletButKeystore(context)
-                                m.wipeKeyStore(context)
-
-                                onNavigate.invoke(UiEffect.Navigate(
-                                    destinationRoute = Route.Welcome
-                                ) {
-                                    popUpTo(route = Route.InputWords) {
-                                        inclusive = true
-                                    }
-                                })
-
-                            },
-                            { brDialogView -> brDialogView.dismissWithAnimation() },
-                            null,
-                            0
-                        )
-                    }
-                }
-
                 else -> Unit
             }
         }
