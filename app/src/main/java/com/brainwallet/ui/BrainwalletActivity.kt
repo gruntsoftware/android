@@ -11,6 +11,7 @@ import com.brainwallet.navigation.MainNavHost
 import com.brainwallet.navigation.Route
 import com.brainwallet.presenter.activities.util.BRActivity
 import com.brainwallet.tools.animation.BRAnimator
+import com.brainwallet.tools.animation.BRDialog
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.security.AuthManager
 import com.brainwallet.tools.security.BRKeyStore
@@ -18,6 +19,8 @@ import com.brainwallet.tools.security.PostAuth
 import com.brainwallet.tools.security.SmartValidator
 import com.brainwallet.tools.util.Utils
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.EFFECT_LEGACY_RECOVER_WALLET_AUTH
+import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGACY_DIALOG_INVALID
+import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGACY_DIALOG_WIPE_ALERT
 import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItViewModel.Companion.LEGACY_EFFECT_ON_PAPERKEY_PROVED
 import com.brainwallet.ui.screens.yourseedwords.YourSeedWordsViewModel.Companion.LEGACY_EFFECT_ON_SAVED_PAPERKEY
 import com.brainwallet.ui.theme.BrainwalletAppTheme
@@ -59,18 +62,61 @@ class BrainwalletActivity : BRActivity() {
                 delay(70)
                 when (event) {
                     is EventBus.Event.Message -> {
-                        if (event.message == EFFECT_LEGACY_RECOVER_WALLET_AUTH) {
-                            PostAuth.getInstance()
-                                .onRecoverWalletAuth(this@BrainwalletActivity, false)
-                        } else if (event.message == LEGACY_EFFECT_ON_SAVED_PAPERKEY) {
-                            PostAuth.getInstance().onPhraseProveAuth(this, false)
-                        } else if (event.message == LEGACY_EFFECT_ON_PAPERKEY_PROVED) {
-                            BRSharedPrefs.putPhraseWroteDown(this@BrainwalletActivity, true)
-                            LegacyNavigation.startBreadActivity(
-                                this@BrainwalletActivity,
-                                false
+                        when (event.message) {
+                            EFFECT_LEGACY_RECOVER_WALLET_AUTH -> {
+                                PostAuth.getInstance()
+                                    .onRecoverWalletAuth(this@BrainwalletActivity, false)
+                            }
+
+                            LEGACY_EFFECT_ON_SAVED_PAPERKEY -> {
+                                PostAuth.getInstance().onPhraseProveAuth(this, false)
+                            }
+
+                            LEGACY_EFFECT_ON_PAPERKEY_PROVED -> {
+                                BRSharedPrefs.putPhraseWroteDown(this@BrainwalletActivity, true)
+                                LegacyNavigation.startBreadActivity(
+                                    this@BrainwalletActivity,
+                                    false
+                                )
+                                finishAffinity()
+                            }
+
+                            LEGACY_DIALOG_INVALID -> BRDialog.showCustomDialog(
+                                this,
+                                "",
+                                getString(R.string.RecoverWallet_invalid),
+                                getString(R.string.AccessibilityLabels_close),
+                                null,
+                                { brDialogView ->
+                                    brDialogView.dismissWithAnimation()
+                                },
+                                null,
+                                null,
+                                0
                             )
-                            finishAffinity()
+
+                            LEGACY_DIALOG_WIPE_ALERT -> BRDialog.showCustomDialog(
+                                this,
+                                getString(R.string.WipeWallet_alertTitle),
+                                getString(R.string.WipeWallet_alertMessage),
+                                getString(R.string.WipeWallet_wipe),
+                                getString(R.string.Button_cancel),
+                                { brDialogView ->
+                                    brDialogView.dismissWithAnimation()
+                                    val m = BRWalletManager.getInstance()
+                                    m.wipeWalletButKeystore(this@BrainwalletActivity)
+                                    m.wipeKeyStore(this@BrainwalletActivity)
+
+                                    createIntent(this@BrainwalletActivity).apply {
+                                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                    }.also { startActivity(it) }
+
+                                },
+                                { brDialogView -> brDialogView.dismissWithAnimation() },
+                                null,
+                                0
+                            )
+
                         }
                     }
 
@@ -128,7 +174,7 @@ class BrainwalletActivity : BRActivity() {
 
         fun createIntent(
             context: Context,
-            startDestination: Route
+            startDestination: Route = Route.Welcome
         ) = Intent(context, BrainwalletActivity::class.java).apply {
             putExtra(EXTRA_START_DESTINATION, startDestination)
         }

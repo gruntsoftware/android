@@ -3,7 +3,6 @@ package com.brainwallet.ui.screens.inputwords
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.BrainwalletApp
 import com.brainwallet.navigation.Route
-import com.brainwallet.navigation.UiEffect
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.security.PostAuth
 import com.brainwallet.tools.security.SmartValidator
@@ -59,12 +58,24 @@ class InputWordsViewModel : BrainwalletViewModel<InputWordsEvent>() {
                 if (currentState.isFrom(Route.InputWords.Source.RESET_PIN) &&
                     SmartValidator.isPaperKeyCorrect(cleanPhrase, event.context).not()
                 ) {
-                    sendUiEffect(UiEffect.ShowDialog(DIALOG_INVALID))
+                    viewModelScope.launch {
+                        EventBus.emit(
+                            EventBus.Event.Message(
+                                LEGACY_DIALOG_INVALID
+                            )
+                        )
+                    }
                     return
                 }
 
                 if (currentState.isFrom(Route.InputWords.Source.SETTING_WIPE)) {
-                    sendUiEffect(UiEffect.ShowDialog(DIALOG_WIPE_ALERT))
+                    viewModelScope.launch {
+                        EventBus.emit(
+                            EventBus.Event.Message(
+                                LEGACY_DIALOG_INVALID
+                            )
+                        )
+                    }
                     return
                 }
 
@@ -85,8 +96,8 @@ class InputWordsViewModel : BrainwalletViewModel<InputWordsEvent>() {
     }
 
     companion object {
-        const val DIALOG_INVALID = "dialog_invalid"
-        const val DIALOG_WIPE_ALERT = "dialog_wipe_alert"
+        const val LEGACY_DIALOG_INVALID = "dialog_invalid"
+        const val LEGACY_DIALOG_WIPE_ALERT = "dialog_wipe_alert"
 
         const val EFFECT_LEGACY_RECOVER_WALLET_AUTH = "onRecoverWalletAuth"
     }
