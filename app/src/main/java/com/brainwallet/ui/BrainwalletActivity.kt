@@ -131,7 +131,7 @@ class BrainwalletActivity : BRActivity() {
      */
     private fun onPasscodeVerified(passcode: List<Int>) {
         AuthManager.getInstance().authSuccess(this)
-        AuthManager.getInstance().setPinCode(passcode.joinToString(), this)
+        AuthManager.getInstance().setPinCode(passcode.joinToString(separator = ""), this)
         if (intent.getBooleanExtra("noPin", false)) {
             LegacyNavigation.startBreadActivity(this, false)
         } else {
