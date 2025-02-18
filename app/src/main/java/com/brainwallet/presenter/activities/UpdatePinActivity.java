@@ -24,10 +24,8 @@ public class UpdatePinActivity extends BRActivity {
     private View dot2;
     private View dot3;
     private View dot4;
-    private View dot5;
-    private View dot6;
     private StringBuilder pin = new StringBuilder();
-    private int pinLimit = 6;
+    private int pinLimit = 4;
     //    private boolean allowInserting = true;
     private TextView title;
     private TextView description;
@@ -62,8 +60,6 @@ public class UpdatePinActivity extends BRActivity {
         dot2 = findViewById(R.id.dot2);
         dot3 = findViewById(R.id.dot3);
         dot4 = findViewById(R.id.dot4);
-        dot5 = findViewById(R.id.dot5);
-        dot6 = findViewById(R.id.dot6);
 
         //TODO: all views are using the layout of this button. Views should be refactored without it
         // Hiding until layouts are built.
@@ -129,7 +125,7 @@ public class UpdatePinActivity extends BRActivity {
 
     private void updateDots() {
 
-        AuthManager.getInstance().updateDots(this, pinLimit, pin.toString(), dot1, dot2, dot3, dot4, dot5, dot6, R.drawable.ic_pin_dot_gray, new AuthManager.OnPinSuccess() {
+        AuthManager.getInstance().updateDots(this, pinLimit, pin.toString(), dot1, dot2, dot3, dot4, R.drawable.ic_pin_dot_gray, new AuthManager.OnPinSuccess() {
             @Override
             public void onSuccess() {
                 new Handler().postDelayed(new Runnable() {

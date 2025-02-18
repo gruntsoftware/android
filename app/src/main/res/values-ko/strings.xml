@@ -365,7 +365,7 @@
   <!-- PIN button description -->
   <string name="SecurityCenter.pinDescription">허가받지 않은 사용자로부터 브레드를 보호하세요.</string>
   <!-- PIN button title -->
-  <string name="SecurityCenter.pinTitle">6자리 PIN</string>
+  <string name="SecurityCenter.pinTitle">4자리 PIN</string>
   <!-- Security Center Title -->
   <string name="SecurityCenter.title">보안 센터</string>
   <!-- Touch ID button description -->
