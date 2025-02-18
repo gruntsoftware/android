@@ -111,31 +111,32 @@ public class LoginActivity extends BRActivity {
         keyboard.setDeleteImage(getDrawable(R.drawable.ic_delete_white));
         versionText.setText(BRConstants.APP_VERSION_NAME_CODE);
 
-        findViewById(R.id.scanQRCodeImgBut).setOnClickListener(v -> {
-            if (!BRAnimator.isClickAllowed()) return;
-            try {
-                // Check if the camera permission is granted
-                if (ContextCompat.checkSelfPermission(app,
-                        Manifest.permission.CAMERA)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(app,
-                            Manifest.permission.CAMERA)) {
-                        BRDialog.showCustomDialog(app, getString(R.string.Send_cameraUnavailabeTitle_android),
-                                getString(R.string.Send_cameraUnavailabeMessage_android), getString(R.string.AccessibilityLabels_close), null, brDialogView -> brDialogView.dismiss(), null, null, 0);
-                    } else {
-                        ActivityCompat.requestPermissions(app,
-                                new String[]{Manifest.permission.CAMERA},
-                                BRConstants.CAMERA_REQUEST_ID);
-                    }
-                } else {
-                    Intent intent = new Intent(app, ScanQRActivity.class);
-                    app.startActivityForResult(intent, SCANNER_REQUEST);
-                    app.overridePendingTransition(R.anim.fade_up, 0);
-                }
-            } catch (Exception e) {
-                Timber.e(e);
-            }
-        });
+// DEV:  Keeping for reference when REFACTORING
+//        findViewById(R.id.scanQRCodeImgBut).setOnClickListener(v -> {
+//            if (!BRAnimator.isClickAllowed()) return;
+//            try {
+//                // Check if the camera permission is granted
+//                if (ContextCompat.checkSelfPermission(app,
+//                        Manifest.permission.CAMERA)
+//                        != PackageManager.PERMISSION_GRANTED) {
+//                    if (ActivityCompat.shouldShowRequestPermissionRationale(app,
+//                            Manifest.permission.CAMERA)) {
+//                        BRDialog.showCustomDialog(app, getString(R.string.Send_cameraUnavailabeTitle_android),
+//                                getString(R.string.Send_cameraUnavailabeMessage_android), getString(R.string.AccessibilityLabels_close), null, brDialogView -> brDialogView.dismiss(), null, null, 0);
+//                    } else {
+//                        ActivityCompat.requestPermissions(app,
+//                                new String[]{Manifest.permission.CAMERA},
+//                                BRConstants.CAMERA_REQUEST_ID);
+//                    }
+//                } else {
+//                    Intent intent = new Intent(app, ScanQRActivity.class);
+//                    app.startActivityForResult(intent, SCANNER_REQUEST);
+//                    app.overridePendingTransition(R.anim.fade_up, 0);
+//                }
+//            } catch (Exception e) {
+//                Timber.e(e);
+//            }
+//        });
 
         setCurrentLtcPrice();
     }
