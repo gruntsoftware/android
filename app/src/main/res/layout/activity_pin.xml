@@ -124,20 +124,6 @@
             android:layout_height="32dp"
             android:alpha="0.5"
             android:background="@drawable/ic_pin_dot_white" />
-
-        <View
-            android:id="@+id/dot5"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:alpha="0.5"
-            android:background="@drawable/ic_pin_dot_white" />
-
-        <View
-            android:id="@+id/dot6"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:alpha="0.5"
-            android:background="@drawable/ic_pin_dot_white" />
     </LinearLayout>
 
     <com.brainwallet.presenter.customviews.BRKeyboard
