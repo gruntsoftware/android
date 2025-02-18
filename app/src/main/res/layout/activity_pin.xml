@@ -19,14 +19,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
             android:fontFamily="@font/open_sauce_one_medium"
             tools:text="@string/Login.ltcPrice"
             android:textColor="@color/white"
-            android:textSize="22sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/ltcPriceDescTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed" />
 
@@ -35,18 +36,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
             android:fontFamily="@font/open_sauce_one_light"
             tools:text="@string/Login.currentLtcPrice"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ltcPriceTextView" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#8DD6DAE1"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ltcPriceDescTextView" />
@@ -54,10 +55,10 @@
 
     <ImageView
         android:id="@+id/title"
-        android:layout_width="186dp"
-        android:layout_height="48dp"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:adjustViewBounds="true"
@@ -67,22 +68,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ltcPriceConstraintLayout"
-        app:layout_constraintVertical_bias="0.25" />
-
-    <ImageButton
-        android:id="@+id/scanQRCodeImgBut"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:adjustViewBounds="true"
-        android:background="?attr/selectableItemBackground"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_qr_code_white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/title"
-        app:layout_constraintTop_toBottomOf="@+id/ltcPriceConstraintLayout" />
+        app:layout_constraintVertical_bias="0.10" />
 
     <LinearLayout
         android:id="@+id/pinLayout"
@@ -95,7 +81,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title"
-        app:layout_constraintVertical_bias="0.75">
+        app:layout_constraintVertical_bias="0.85">
 
         <View
             android:id="@+id/dot1"
@@ -130,7 +116,7 @@
         android:id="@+id/brkeyboard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/forgot_seed_phrase_or_pin_text"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -154,7 +140,7 @@
         android:id="@+id/unlocked_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="70dp"
         android:alpha="0"
         android:src="@drawable/ic_unlocked"
         app:layout_constraintBottom_toBottomOf="@+id/brkeyboard"
@@ -185,11 +171,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingHorizontal="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="8dp"
         android:clickable="true"
         android:text="@string/UnlockScreen.forgetSeedPhraseOrPIN"
         android:textColor="#85FFFFFF"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/version_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -202,7 +188,7 @@
         android:layout_marginBottom="10dp"
         android:text="@string/About.appVersion"
         android:textColor="@color/white"
-        android:textSize="14sp"
+        android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
