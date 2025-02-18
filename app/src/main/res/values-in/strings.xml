@@ -365,7 +365,7 @@
   <!-- PIN button description -->
   <string name="SecurityCenter.pinDescription">Melindungi Brainwallet Anda dari pengguna yang tidak sah.</string>
   <!-- PIN button title -->
-  <string name="SecurityCenter.pinTitle">pin 6 angka</string>
+  <string name="SecurityCenter.pinTitle">pin 4 angka</string>
   <!-- Security Center Title -->
   <string name="SecurityCenter.title">Pusat Keamanan</string>
   <!-- Touch ID button description -->

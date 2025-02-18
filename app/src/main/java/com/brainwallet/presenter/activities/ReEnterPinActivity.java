@@ -26,11 +26,9 @@ public class ReEnterPinActivity extends BRActivity {
     private View dot2;
     private View dot3;
     private View dot4;
-    private View dot5;
-    private View dot6;
     private StringBuilder pin = new StringBuilder();
     private TextView title;
-    private int pinLimit = 6;
+    private int pinLimit = 4;
     private String firstPIN;
     private boolean isPressAllowed = true;
     private LinearLayout pinLayout;
@@ -65,8 +63,6 @@ public class ReEnterPinActivity extends BRActivity {
         dot2 = findViewById(R.id.dot2);
         dot3 = findViewById(R.id.dot3);
         dot4 = findViewById(R.id.dot4);
-        dot5 = findViewById(R.id.dot5);
-        dot6 = findViewById(R.id.dot6);
 
         keyboard.addOnInsertListener(new BRKeyboard.OnInsertListener() {
             @Override
@@ -138,11 +134,8 @@ public class ReEnterPinActivity extends BRActivity {
         selectedDots--;
         dot4.setBackground(getDrawable(selectedDots <= 0 ? R.drawable.ic_pin_dot_gray : R.drawable.ic_pin_dot_black));
         selectedDots--;
-        dot5.setBackground(getDrawable(selectedDots <= 0 ? R.drawable.ic_pin_dot_gray : R.drawable.ic_pin_dot_black));
-        selectedDots--;
-        dot6.setBackground(getDrawable(selectedDots <= 0 ? R.drawable.ic_pin_dot_gray : R.drawable.ic_pin_dot_black));
 
-        if (pin.length() == 6) {
+        if (pin.length() == 4) {
             verifyPin();
         }
     }

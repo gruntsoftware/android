@@ -381,7 +381,7 @@
   <!-- PIN button description -->
   <string name="SecurityCenter.pinDescription">Brainwallet\'inizi yetkisiz kullanıcılardan korur.</string>
   <!-- PIN button title -->
-  <string name="SecurityCenter.pinTitle">6 Haneli PIN</string>
+  <string name="SecurityCenter.pinTitle">4 Haneli PIN</string>
   <!-- Security Center Title -->
   <string name="SecurityCenter.title">Güvenlik Merkezi</string>
   <!-- Touch ID button description -->
