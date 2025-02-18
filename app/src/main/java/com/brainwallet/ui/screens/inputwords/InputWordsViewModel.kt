@@ -47,38 +47,35 @@ class InputWordsViewModel : BrainwalletViewModel<InputWordsEvent>() {
 
             is InputWordsEvent.OnLoad -> _state.update { it.copy(source = event.source) }
             is InputWordsEvent.OnRestoreClick -> {
-
-                //TODO: WIP
-
                 val currentState = state.value
                 val paperKey = currentState.seedWords.asPaperKey()
 
                 val cleanPhrase = SmartValidator.cleanPaperKey(event.context, paperKey)
 
-                if (currentState.isFrom(Route.InputWords.Source.RESET_PIN) &&
-                    SmartValidator.isPaperKeyCorrect(cleanPhrase, event.context).not()
-                ) {
+                if (SmartValidator.isPaperKeyValid(event.context, cleanPhrase).not()) {
                     viewModelScope.launch {
                         EventBus.emit(
                             EventBus.Event.Message(
                                 LEGACY_DIALOG_INVALID
                             )
                         )
+                    }
+                    return
+                }
+
+                if (currentState.isFrom(Route.InputWords.Source.RESET_PIN)) {
+                    viewModelScope.launch {
+                        EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_RESET_PIN))
                     }
                     return
                 }
 
                 if (currentState.isFrom(Route.InputWords.Source.SETTING_WIPE)) {
                     viewModelScope.launch {
-                        EventBus.emit(
-                            EventBus.Event.Message(
-                                LEGACY_DIALOG_INVALID
-                            )
-                        )
+                        EventBus.emit(EventBus.Event.Message(LEGACY_DIALOG_WIPE_ALERT))
                     }
                     return
                 }
-
 
                 BRWalletManager.getInstance().run {
                     wipeWalletButKeystore(event.context)
@@ -87,7 +84,6 @@ class InputWordsViewModel : BrainwalletViewModel<InputWordsEvent>() {
                     BRSharedPrefs.putAllowSpend(event.context, false)
                 }
 
-                //TODO: this to recover wallet
                 viewModelScope.launch {
                     EventBus.emit(EventBus.Event.Message(EFFECT_LEGACY_RECOVER_WALLET_AUTH))
                 }
@@ -100,6 +96,7 @@ class InputWordsViewModel : BrainwalletViewModel<InputWordsEvent>() {
         const val LEGACY_DIALOG_WIPE_ALERT = "dialog_wipe_alert"
 
         const val EFFECT_LEGACY_RECOVER_WALLET_AUTH = "onRecoverWalletAuth"
+        const val LEGACY_EFFECT_RESET_PIN = "onResetPin"
     }
 
 }

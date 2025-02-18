@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.brainwallet.ui.theme.BrainwalletTheme
 
 @Composable
 fun PinDotItem(
@@ -20,8 +21,8 @@ fun PinDotItem(
         modifier = modifier
             .padding(horizontal = 4.dp)
             .size(16.dp)
-            .background(if (checked) Color.White else Color.Transparent, CircleShape)
-            .border(1.dp, Color.White, CircleShape),
+            .background(if (checked) BrainwalletTheme.colors.content else Color.Transparent, CircleShape)
+            .border(1.dp, BrainwalletTheme.colors.content, CircleShape),
 
         )
 }

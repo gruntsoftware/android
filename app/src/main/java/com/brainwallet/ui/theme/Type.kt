@@ -22,37 +22,37 @@ val manropeFontFamily = FontFamily(
 
 val AppTypography = Typography(
     displayLarge = TextStyle(
-        fontFamily = manropeFontFamily,
+        fontFamily = openSauceOneFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 57.sp
     ),
     displayMedium = TextStyle(
-        fontFamily = manropeFontFamily,
+        fontFamily = openSauceOneFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 45.sp
     ),
     displaySmall = TextStyle(
-        fontFamily = manropeFontFamily,
+        fontFamily = openSauceOneFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 36.sp
     ),
     headlineLarge = TextStyle(
-        fontFamily = manropeFontFamily,
+        fontFamily = openSauceOneFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 32.sp
     ),
     headlineMedium = TextStyle(
-        fontFamily = manropeFontFamily,
+        fontFamily = openSauceOneFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 28.sp
     ),
     headlineSmall = TextStyle(
-        fontFamily = manropeFontFamily,
+        fontFamily = openSauceOneFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 24.sp
     ),
     titleLarge = TextStyle(
-        fontFamily = manropeFontFamily,
+        fontFamily = openSauceOneFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 22.sp
     ),
@@ -62,37 +62,37 @@ val AppTypography = Typography(
         fontSize = 16.sp
     ),
     titleSmall = TextStyle(
-        fontFamily = manropeFontFamily,
+        fontFamily = openSauceOneFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp
     ),
     bodyLarge = TextStyle(
-        fontFamily = manropeFontFamily,
+        fontFamily = openSauceOneFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp
     ),
     bodyMedium = TextStyle(
-        fontFamily = manropeFontFamily,
+        fontFamily = openSauceOneFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp
     ),
     bodySmall = TextStyle(
-        fontFamily = manropeFontFamily,
+        fontFamily = openSauceOneFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 12.sp
     ),
     labelLarge = TextStyle(
-        fontFamily = manropeFontFamily,
+        fontFamily = openSauceOneFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp
     ),
     labelMedium = TextStyle(
-        fontFamily = manropeFontFamily,
+        fontFamily = openSauceOneFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 12.sp
     ),
     labelSmall = TextStyle(
-        fontFamily = manropeFontFamily,
+        fontFamily = openSauceOneFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 11.sp
     )

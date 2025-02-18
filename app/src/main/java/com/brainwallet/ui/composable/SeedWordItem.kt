@@ -32,6 +32,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
+import com.brainwallet.ui.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.chilli
+import com.brainwallet.ui.theme.darken
 
 @Composable
 fun SeedWordItem(
@@ -45,7 +48,7 @@ fun SeedWordItem(
             modifier = Modifier.padding(vertical = 12.dp),
             text = label,
             style = MaterialTheme.typography.bodyMedium,
-            color = if (isError) Color.Red else Color.White
+            color = if (isError) chilli else BrainwalletTheme.colors.content
         )
         trailingIcon?.let { icon ->
             Spacer(modifier = Modifier.width(8.dp))
@@ -62,7 +65,7 @@ fun SeedWordItemBox(
         Row(
             modifier = modifier
                 .background(
-                    color = Color(0xFF2C2C2C), //todo: change using MaterialTheme.colorScheme
+                    color = BrainwalletTheme.colors.background.copy(alpha = 0.3f),
                     shape = MaterialTheme.shapes.extraLarge
                 )
                 .padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically
@@ -78,10 +81,12 @@ fun SeedWordItemTextField(
     onValueChange: (String) -> Unit,
     suggestions: List<String> = emptyList(),
     modifier: Modifier = Modifier,
-    textStyle: TextStyle = TextStyle.Default,
+    textStyle: TextStyle = TextStyle.Default.copy(
+        color = BrainwalletTheme.colors.content
+    ),
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
-    cursorBrush: Brush = SolidColor(Color.White), //todo: change with materialtheme so it will be adapt automatically when switch darkmode
+    cursorBrush: Brush = SolidColor(BrainwalletTheme.colors.content), //todo: change with materialtheme so it will be adapt automatically when switch darkmode
     prefix: @Composable (() -> Unit)? = null,
 ) {
     var suggestionsExpanded by remember { mutableStateOf(false) }
@@ -91,9 +96,7 @@ fun SeedWordItemTextField(
         BasicTextField(
             modifier = Modifier.focusable(interactionSource = interactionSource),
             value = value,
-            textStyle = textStyle.copy(
-                color = Color.White //todo: change with materialtheme so it will be adapt automatically when switch darkmode
-            ),
+            textStyle = textStyle,
             cursorBrush = cursorBrush,
             onValueChange = { newValue ->
                 onValueChange.invoke(newValue)
@@ -124,7 +127,7 @@ fun SeedWordItemTextField(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .background(
-                    color = Color(0xFF2C2C2C), shape = MaterialTheme.shapes.medium
+                    color = BrainwalletTheme.colors.background.copy(alpha = 0.3f), shape = MaterialTheme.shapes.medium
                 )
                 .heightIn(max = 250.dp),
             properties = PopupProperties(focusable = false),
@@ -137,7 +140,6 @@ fun SeedWordItemTextField(
                     Text(
                         text = suggestion,
                         style = MaterialTheme.typography.bodyMedium,
-                        color = Color.White
                     )
                 }, onClick = {
                     onValueChange(suggestion)

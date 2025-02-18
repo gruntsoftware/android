@@ -33,9 +33,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -58,6 +56,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.UiEffect
+import com.brainwallet.ui.composable.BrainwalletScaffold
+import com.brainwallet.ui.composable.BrainwalletTopAppBar
 import com.brainwallet.ui.composable.LargeButton
 import com.brainwallet.ui.composable.SeedWordItem
 
@@ -89,18 +89,19 @@ fun YourSeedProveItScreen(
         }
     }
 
-    Scaffold(
+    BrainwalletScaffold(
         topBar = {
-            TopAppBar(title = {}, navigationIcon = {
-                IconButton(
-                    onClick = { onNavigate.invoke(UiEffect.Navigate.Back()) },
-                ) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(R.string.back),
-                    )
-                }
-            })
+            BrainwalletTopAppBar(
+                navigationIcon = {
+                    IconButton(
+                        onClick = { onNavigate.invoke(UiEffect.Navigate.Back()) },
+                    ) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.back),
+                        )
+                    }
+                })
         },
         floatingActionButton = {
             if (state.orderCorrected.not()) {
@@ -175,7 +176,7 @@ fun YourSeedProveItScreen(
                                                     actualWord = text.toString()
                                                 )
                                             )
-                                            
+
                                             if (expectedWord == actualWord) {
                                                 clickAudioPlayer.start()
                                             }
@@ -238,7 +239,7 @@ fun YourSeedProveItScreen(
                 ) {
                     Text(
                         text = stringResource(R.string.game_and_sync),
-                        style = MaterialTheme.typography.labelLarge.copy(color = Color.White) //for now just hardcoded, need to create button composable later and adjust the theme later at [com.brainwallet.ui.theme.Theme]
+                        style = MaterialTheme.typography.labelLarge
                     )
                 }
             }
