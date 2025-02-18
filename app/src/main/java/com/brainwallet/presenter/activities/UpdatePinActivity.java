@@ -143,7 +143,7 @@ public class UpdatePinActivity extends BRActivity {
             case ENTER_PIN:
                 if (AuthManager.getInstance().checkAuth(pin.toString(), this)) {
                     setMode(ENTER_NEW_PIN);
-                    pinLimit = 6;
+                    pinLimit = 4;
                 } else {
                     SpringAnimator.failShakeAnimation(this, pinLayout);
                 }
