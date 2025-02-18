@@ -77,7 +77,7 @@ public class LoginActivity extends BRActivity {
         setContentView(R.layout.activity_pin); 
         View parentLayout = findViewById(android.R.id.content);
         String pin = BRKeyStore.getPinCode(this);
-        if (pin.isEmpty() || (pin.length() != 6 && pin.length() != 4)) {
+        if (pin.isEmpty() || (pin.length() != 4 && pin.length() != 2)) {
             Intent intent = new Intent(this, SetPinActivity.class);
             intent.putExtra("noPin", true);
             startActivity(intent);
@@ -102,8 +102,6 @@ public class LoginActivity extends BRActivity {
         dot2 = findViewById(R.id.dot2);
         dot3 = findViewById(R.id.dot3);
         dot4 = findViewById(R.id.dot4);
-        dot5 = findViewById(R.id.dot5);
-        dot6 = findViewById(R.id.dot6);
 
         keyboard.addOnInsertListener(key -> handleClick(key));
         keyboard.setBRButtonTextColor(R.color.white);
@@ -255,7 +253,7 @@ public class LoginActivity extends BRActivity {
     }
 
     private void updateDots() {
-        AuthManager.getInstance().updateDots(this, pinLimit, pin.toString(), dot1, dot2, dot3, dot4, dot5, dot6, R.drawable.ic_pin_dot_white,
+        AuthManager.getInstance().updateDots(this, pinLimit, pin.toString(), dot1, dot2, dot3, dot4, R.drawable.ic_pin_dot_white,
                 () -> {
                     inputAllowed = false;
                     if (AuthManager.getInstance().checkAuth(pin.toString(), LoginActivity.this)) {

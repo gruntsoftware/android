@@ -177,7 +177,7 @@
     <string name="SecurityCenter.paperKeyDescription">الطريقة الوحيدة للوصول إلى Litecoin الخاصة بك في حالة فقدان هاتفك أو ترقيته.</string>
     <string name="SecurityCenter.paperKeyTitle">مفتاح الورق</string>
     <string name="SecurityCenter.pinDescription">يحمي Brainwallet الخاص بك من المستخدمين غير المصرح لهم.</string>
-    <string name="SecurityCenter.pinTitle">رقم التعريف الشخصي المكون من 6 أرقام</string>
+    <string name="SecurityCenter.pinTitle">رقم التعريف الشخصي المكون من 4 أرقام</string>
     <string name="SecurityCenter.title">مركز الأمن</string>
     <string name="SecurityCenter.touchIdDescription">قم بإلغاء قفل Brainwallet الخاص بك بسهولة وأرسل الأموال إلى حد معين.</string>
     <string name="SecurityCenter.touchIdTitle">معرف اللمس</string>

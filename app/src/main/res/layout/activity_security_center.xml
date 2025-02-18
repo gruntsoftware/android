@@ -72,7 +72,7 @@
         android:layout_below="@+id/linearLayout"
         android:layout_margin="@dimen/bread_margin"
         android:text="@string/SecurityCenter.info"
-        android:textColor="@color/midnight"
+        android:textColor="@color/white"
         android:textSize="@dimen/sub_header" />
 
     <ListView

@@ -365,7 +365,7 @@
   <!-- PIN button description -->
   <string name="SecurityCenter.pinDescription">保护您的 Loaf 免遭未授权用户盗用。</string>
   <!-- PIN button title -->
-  <string name="SecurityCenter.pinTitle">6 位 PIN</string>
+  <string name="SecurityCenter.pinTitle">4 位 PIN</string>
   <!-- Security Center Title -->
   <string name="SecurityCenter.title">安全中心</string>
   <!-- Touch ID button description -->

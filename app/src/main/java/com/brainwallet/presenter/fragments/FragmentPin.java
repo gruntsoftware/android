@@ -37,10 +37,8 @@ public class FragmentPin extends Fragment {
     private View dot2;
     private View dot3;
     private View dot4;
-    private View dot5;
-    private View dot6;
     private StringBuilder pin = new StringBuilder();
-    private int pinLimit = 6;
+    private int pinLimit = 4;
     private TextView title;
     private TextView message;
     private RelativeLayout dialogLayout;
@@ -73,8 +71,6 @@ public class FragmentPin extends Fragment {
         dot2 = rootView.findViewById(R.id.dot2);
         dot3 = rootView.findViewById(R.id.dot3);
         dot4 = rootView.findViewById(R.id.dot4);
-        dot5 = rootView.findViewById(R.id.dot5);
-        dot6 = rootView.findViewById(R.id.dot6);
 
         keyboard.addOnInsertListener(new BRKeyboard.OnInsertListener() {
             @Override
@@ -156,7 +152,7 @@ public class FragmentPin extends Fragment {
 
     private void updateDots() {
         if (dot1 == null) return;
-        AuthManager.getInstance().updateDots(getActivity(), pinLimit, pin.toString(), dot1, dot2, dot3, dot4, dot5, dot6, R.drawable.ic_pin_dot_gray, new AuthManager.OnPinSuccess() {
+        AuthManager.getInstance().updateDots(getActivity(), pinLimit, pin.toString(), dot1, dot2, dot3, dot4, R.drawable.ic_pin_dot_gray, new AuthManager.OnPinSuccess() {
             @Override
             public void onSuccess() {
                 if (AuthManager.getInstance().checkAuth(pin.toString(), getContext())) {
