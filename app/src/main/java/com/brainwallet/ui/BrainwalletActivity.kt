@@ -37,6 +37,7 @@ import com.brainwallet.wallet.BRWalletManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 
@@ -50,6 +51,11 @@ class BrainwalletActivity : BRActivity() {
 
         val startDestination =
             intent.getSerializableExtra(EXTRA_START_DESTINATION) ?: Route.Welcome
+
+        if (startDestination is Route.UnLock) {
+            onCheckPin()
+            return
+        }
 
         if (startDestination is Route.Welcome) {
             onLegacyLogic()
@@ -86,14 +92,18 @@ class BrainwalletActivity : BRActivity() {
                             }
 
                             LEGACY_EFFECT_RESET_PIN -> {
-                                //TODO: wip, revisit this logic when wallet disabled then need to setup new pin/passcode
+                                /**
+                                 * when the wallet disabled after wrong passcode/pin
+                                 * we can enable by reset the pin
+                                 */
                                 AuthManager.getInstance().setPinCode("", this)
                                 createIntent(
                                     context = this,
                                     startDestination = Route.SetPasscode()
                                 ).apply {
                                     putExtra("noPin", true)
-                                    flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                    flags =
+                                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                                 }.also {
                                     startActivity(it)
                                 }
@@ -113,13 +123,14 @@ class BrainwalletActivity : BRActivity() {
                             }
 
                             LEGACY_DIALOG_INVALID -> BRDialog.showCustomDialog(
-                                this,
+                                BrainwalletApp.getBreadContext(),
                                 "",
                                 getString(R.string.RecoverWallet_invalid),
                                 getString(R.string.AccessibilityLabels_close),
                                 null,
                                 { brDialogView ->
                                     brDialogView.dismissWithAnimation()
+                                    BRDialog.hideDialog()
                                 },
                                 null,
                                 null,
@@ -139,7 +150,8 @@ class BrainwalletActivity : BRActivity() {
                                     m.wipeKeyStore(this@BrainwalletActivity)
 
                                     createIntent(this@BrainwalletActivity).apply {
-                                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                        flags =
+                                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                                     }.also { startActivity(it) }
 
                                 },
@@ -156,6 +168,24 @@ class BrainwalletActivity : BRActivity() {
                 }
             }
             .launchIn(lifecycleScope)
+    }
+
+
+    /**
+     * legacy logic, when the pin/passcode empty (not set)
+     * then should go to setpasscode
+     */
+    private fun onCheckPin() {
+        val pin = BRKeyStore.getPinCode(this)
+        if (pin.isEmpty()) {
+            lifecycleScope.launch {
+                EventBus.emit(
+                    EventBus.Event.Message(
+                        LEGACY_EFFECT_RESET_PIN
+                    )
+                )
+            }
+        }
     }
 
     /**

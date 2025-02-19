@@ -52,7 +52,9 @@ class InputWordsViewModel : BrainwalletViewModel<InputWordsEvent>() {
 
                 val cleanPhrase = SmartValidator.cleanPaperKey(event.context, paperKey)
 
-                if (SmartValidator.isPaperKeyValid(event.context, cleanPhrase).not()) {
+                if (SmartValidator.isPaperKeyValid(event.context, cleanPhrase)
+                        .not() && SmartValidator.isPaperKeyCorrect(cleanPhrase, event.context).not()
+                ) {
                     viewModelScope.launch {
                         EventBus.emit(
                             EventBus.Event.Message(
