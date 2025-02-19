@@ -28,6 +28,7 @@ import com.brainwallet.tools.util.Utils
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.EFFECT_LEGACY_RECOVER_WALLET_AUTH
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGACY_DIALOG_INVALID
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGACY_DIALOG_WIPE_ALERT
+import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGACY_EFFECT_RESET_PIN
 import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItViewModel.Companion.LEGACY_EFFECT_ON_PAPERKEY_PROVED
 import com.brainwallet.ui.screens.yourseedwords.YourSeedWordsViewModel.Companion.LEGACY_EFFECT_ON_SAVED_PAPERKEY
 import com.brainwallet.ui.theme.BrainwalletAppTheme
@@ -48,7 +49,7 @@ class BrainwalletActivity : BRActivity() {
         super.onCreate(savedInstanceState)
 
         val startDestination =
-            intent.getSerializableExtra(EXTRA_START_DESTINATION) ?: Route.UnLock
+            intent.getSerializableExtra(EXTRA_START_DESTINATION) ?: Route.Welcome
 
         if (startDestination is Route.Welcome) {
             onLegacyLogic()
@@ -82,6 +83,20 @@ class BrainwalletActivity : BRActivity() {
                             EFFECT_LEGACY_RECOVER_WALLET_AUTH -> {
                                 PostAuth.getInstance()
                                     .onRecoverWalletAuth(this@BrainwalletActivity, false)
+                            }
+
+                            LEGACY_EFFECT_RESET_PIN -> {
+                                //TODO: wip, revisit this logic when wallet disabled then need to setup new pin/passcode
+                                AuthManager.getInstance().setPinCode("", this)
+                                createIntent(
+                                    context = this,
+                                    startDestination = Route.SetPasscode()
+                                ).apply {
+                                    putExtra("noPin", true)
+                                    flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                }.also {
+                                    startActivity(it)
+                                }
                             }
 
                             LEGACY_EFFECT_ON_SAVED_PAPERKEY -> {
@@ -124,7 +139,7 @@ class BrainwalletActivity : BRActivity() {
                                     m.wipeKeyStore(this@BrainwalletActivity)
 
                                     createIntent(this@BrainwalletActivity).apply {
-                                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                                     }.also { startActivity(it) }
 
                                 },
@@ -147,7 +162,7 @@ class BrainwalletActivity : BRActivity() {
      * provide old logic to use compose unlock screen instead of LoginActivity
      */
     private fun onUnlock(passcode: List<Int>) {
-        if (AuthManager.getInstance().checkAuth(passcode.joinToString(""),this)) {
+        if (AuthManager.getInstance().checkAuth(passcode.joinToString(""), this)) {
             AuthManager.getInstance().authSuccess(this)
             AnalyticsManager.logCustomEvent(BRConstants._20200217_DUWB)
             AnalyticsManager.logCustomEvent(BRConstants._20200217_DUWB)
