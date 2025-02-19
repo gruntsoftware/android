@@ -80,27 +80,6 @@ class SetPasscodeViewModel : BrainwalletViewModel<SetPasscodeEvent>() {
                             )
                         )
                     }
-//                    //seedwords
-//                    sendUiEffect(
-//                        UiEffect.Navigate(
-//                            destinationRoute = Route.YourSeedWords(
-//                                seedWords = listOf(
-//                                    "one",
-//                                    "two",
-//                                    "three",
-//                                    "four",
-//                                    "five",
-//                                    "six",
-//                                    "seventh",
-//                                    "eight",
-//                                    "nine",
-//                                    "ten",
-//                                    "eleven",
-//                                    "twelve"
-//                                )
-//                            )
-//                        )
-//                    )
                 }
             }
 
