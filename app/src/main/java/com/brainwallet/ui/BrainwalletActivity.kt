@@ -3,6 +3,7 @@ package com.brainwallet.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -16,11 +17,13 @@ import com.brainwallet.navigation.Route
 import com.brainwallet.presenter.activities.util.BRActivity
 import com.brainwallet.tools.animation.BRAnimator
 import com.brainwallet.tools.animation.BRDialog
+import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.security.AuthManager
 import com.brainwallet.tools.security.BRKeyStore
 import com.brainwallet.tools.security.PostAuth
 import com.brainwallet.tools.security.SmartValidator
+import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.tools.util.Utils
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.EFFECT_LEGACY_RECOVER_WALLET_AUTH
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGACY_DIALOG_INVALID
@@ -45,7 +48,7 @@ class BrainwalletActivity : BRActivity() {
         super.onCreate(savedInstanceState)
 
         val startDestination =
-            intent.getSerializableExtra(EXTRA_START_DESTINATION) ?: Route.Welcome
+            intent.getSerializableExtra(EXTRA_START_DESTINATION) ?: Route.UnLock
 
         if (startDestination is Route.Welcome) {
             onLegacyLogic()
@@ -129,9 +132,27 @@ class BrainwalletActivity : BRActivity() {
                     }
 
                     is EventBus.Event.LegacyPasscodeVerified -> onPasscodeVerified(event.passcode)
+                    is EventBus.Event.LegacyUnLock -> onUnlock(event.passcode)
                 }
             }
             .launchIn(lifecycleScope)
+    }
+
+    /**
+     * provide old logic to use compose unlock screen instead of LoginActivity
+     */
+    private fun onUnlock(passcode: List<Int>) {
+        if (AuthManager.getInstance().checkAuth(passcode.joinToString(""),this)) {
+            AuthManager.getInstance().authSuccess(this)
+            AnalyticsManager.logCustomEvent(BRConstants._20200217_DUWB)
+            AnalyticsManager.logCustomEvent(BRConstants._20200217_DUWB)
+
+            LegacyNavigation.startBreadActivity(this, false)
+        } else {
+            AuthManager.getInstance().authFail(this)
+            //for now just toast
+            Toast.makeText(this, R.string.incorrect_passcode, Toast.LENGTH_SHORT).show()
+        }
     }
 
     /**

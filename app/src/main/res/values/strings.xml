@@ -804,4 +804,5 @@
     <string name="confirm_desc">You didn’t forget did you? Enter it again. Or, go back to start over.</string>
     <string name="ready">Ready</string>
     <string name="restore">Restore</string>
+    <string name="incorrect_passcode">Incorrect Passcode, please try again!</string>
 </resources>
