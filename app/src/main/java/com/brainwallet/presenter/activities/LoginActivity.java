@@ -21,6 +21,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.brainwallet.R;
+import com.brainwallet.navigation.Route;
 import com.brainwallet.presenter.activities.camera.ScanQRActivity;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.presenter.customviews.BRKeyboard;
@@ -36,6 +37,7 @@ import com.brainwallet.tools.sqlite.CurrencyDataSource;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.util.BRConstants;
 import com.brainwallet.tools.util.BRCurrency;
+import com.brainwallet.ui.BrainwalletActivity;
 import com.brainwallet.wallet.BRWalletManager;
 
 import java.math.BigDecimal;
@@ -78,7 +80,8 @@ public class LoginActivity extends BRActivity {
         View parentLayout = findViewById(android.R.id.content);
         String pin = BRKeyStore.getPinCode(this);
         if (pin.isEmpty() || (pin.length() != 4 && pin.length() != 2)) {
-            Intent intent = new Intent(this, SetPinActivity.class);
+            //using setpasscode compose
+            Intent intent = BrainwalletActivity.createIntent(this, new Route.SetPasscode());
             intent.putExtra("noPin", true);
             startActivity(intent);
             if (!LoginActivity.this.isDestroyed()) finish();
