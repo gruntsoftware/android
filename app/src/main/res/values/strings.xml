@@ -802,4 +802,6 @@
     <string name="dont_guess_desc">Don’t guess.\n\nIt would take you \n5,444,517,950,000,000,000,000,000,000,000,000,000,000,000,000,000 tries</string>
     <string name="confirm">Confirm</string>
     <string name="confirm_desc">You didn’t forget did you? Enter it again. Or, go back to start over.</string>
+    <string name="ready">Ready</string>
+    <string name="restore">Restore</string>
 </resources>
