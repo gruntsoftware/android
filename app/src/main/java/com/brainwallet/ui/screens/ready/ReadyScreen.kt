@@ -18,15 +18,12 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -36,12 +33,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
-import com.brainwallet.ui.composable.LargeButton
+import com.brainwallet.ui.composable.BorderedLargeButton
+import com.brainwallet.ui.composable.BrainwalletScaffold
+import com.brainwallet.ui.composable.BrainwalletTopAppBar
 
 
 @Composable
@@ -65,10 +63,9 @@ fun ReadyScreen(
         ///
     }
 
-    Scaffold(
+    BrainwalletScaffold(
         topBar = {
-            TopAppBar(
-                title = {},
+            BrainwalletTopAppBar(
                 navigationIcon = {
                     IconButton(
                         onClick = { onNavigate.invoke(UiEffect.Navigate.Back()) },
@@ -93,9 +90,8 @@ fun ReadyScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
         ) {
-
             Spacer(modifier = Modifier.weight(1f))
-            Row{
+            Row {
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowForward,
                     contentDescription = "down-left-arrow",
@@ -134,7 +130,7 @@ fun ReadyScreen(
             )
             Spacer(modifier = Modifier.weight(0.1f))
 
-            LargeButton(
+            BorderedLargeButton(
                 onClick = {
                     onNavigate.invoke(UiEffect.Navigate(Route.SetPasscode()))
                 },
@@ -143,7 +139,7 @@ fun ReadyScreen(
             ) {
                 Text(
                     text = stringResource(R.string.setup_app_passcode),
-                    style = MaterialTheme.typography.bodyLarge.copy(color = Color.White) //for now just hardcoded, need to create button composable later and adjust the theme later at [com.brainwallet.ui.theme.Theme]
+                    style = MaterialTheme.typography.bodyLarge
                 )
             }
 

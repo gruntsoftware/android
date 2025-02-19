@@ -44,7 +44,6 @@ fun PasscodeKeypad(
                 Text(
                     text = number.toString(),
                     style = MaterialTheme.typography.headlineMedium,
-                    color = Color.White
                 )
             }
         }
@@ -63,7 +62,6 @@ fun PasscodeKeypad(
                 Icon(
                     Icons.Default.Face,
                     contentDescription = "Biometric",
-                    tint = Color.White
                 )
             }
         } else {
@@ -88,7 +86,6 @@ fun PasscodeKeypad(
             Text(
                 text = "0",
                 style = MaterialTheme.typography.headlineMedium,
-                color = Color.White
             )
         }
 
@@ -104,7 +101,6 @@ fun PasscodeKeypad(
             Icon(
                 Icons.AutoMirrored.Filled.ArrowBack,
                 contentDescription = "Delete",
-                tint = Color.White
             )
         }
     }

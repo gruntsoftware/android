@@ -2,7 +2,6 @@ package com.brainwallet.ui.screens.welcome
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,10 +11,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,13 +25,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
@@ -39,15 +44,17 @@ import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
+import com.brainwallet.ui.composable.BorderedLargeButton
 import com.brainwallet.ui.composable.FiatDropdown
 import com.brainwallet.ui.composable.LanguageDropdown
-import com.brainwallet.ui.composable.LargeButton
-import com.brainwallet.ui.theme.openSauceOneFamily
+import com.brainwallet.ui.theme.BrainwalletTheme
 
 @Composable
 fun WelcomeScreen(
-    onNavigate: OnNavigate = {}
+    onNavigate: OnNavigate = {},
+    viewModel: WelcomeViewModel = viewModel()
 ) {
+    val state by viewModel.state.collectAsState()
     // Global layout
 
     val configuration = LocalConfiguration.current
@@ -56,6 +63,7 @@ fun WelcomeScreen(
     var mainBoxFactor = 0.5
     val thirdOfScreenHeight = (screenHeight * mainBoxFactor).toInt()
 
+    //todo: the following sizing can be move to BrainwalletTheme
     val buttonFontSize = 16
     val thinButtonFontSize = 14
 
@@ -79,7 +87,7 @@ fun WelcomeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(midnightColor),
+            .background(BrainwalletTheme.colors.surface),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
@@ -90,6 +98,9 @@ fun WelcomeScreen(
             painterResource(R.drawable.bw_white_logotype),
             contentDescription = "bw_white_logotype",
             contentScale = ContentScale.Fit,
+            colorFilter = ColorFilter.tint(
+                BrainwalletTheme.colors.content,
+            ),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(doubleLeadTrailPadding.dp)
@@ -104,8 +115,7 @@ fun WelcomeScreen(
         ) {
 
             LottieAnimation(
-                modifier = Modifier
-                    .background(midnightColor),
+                modifier = Modifier.background(BrainwalletTheme.colors.surface),
                 composition = composition,
                 progress = { progress }
             )
@@ -113,85 +123,93 @@ fun WelcomeScreen(
         Spacer(modifier = Modifier.weight(1f))
 
 //        TODO: implement later, for now just comment this
-//        Row(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .height(activeRowHeight.dp)
-//                .padding(horizontal = halfLeadTrailPadding.dp)
-//                .padding(vertical = rowPadding.dp),
-//            horizontalArrangement = Arrangement.SpaceEvenly
-//
-//        ) {
-//            LanguageDropdown(
-//                selectedLanguage,
-//                isDarkTheme = true
-//            ) { newLanguage ->
-//                selectedLanguage = newLanguage
-//            }
-//
-//            //SettingsDayAndNight()
-//            FiatDropdown(selectedFiat, isDarkTheme = true) { newFiat ->
-//                selectedFiat = newFiat
-//            }
-//        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(activeRowHeight.dp)
+                .padding(horizontal = halfLeadTrailPadding.dp)
+                .padding(vertical = rowPadding.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly
+
+        ) {
+            LanguageDropdown(
+                selectedLanguage,
+                isDarkTheme = true
+            ) { newLanguage ->
+                selectedLanguage = newLanguage
+            }
+
+            DarkModeToggleButton(
+                checked = state.darkMode,
+                onCheckedChange = {
+                    viewModel.onEvent(WelcomeEvent.OnToggleDarkMode)
+                }
+            ) {
+                Icon(
+                    painter = painterResource(if (state.darkMode) R.drawable.ic_light_mode else R.drawable.ic_dark_mode),
+                    contentDescription = "toggle-dark-mode"
+                )
+            }
+
+            FiatDropdown(selectedFiat, isDarkTheme = true) { newFiat ->
+                selectedFiat = newFiat
+            }
+
+        }
         // Ready Button
-        LargeButton(
+        BorderedLargeButton(
             onClick = {
                 onNavigate.invoke(UiEffect.Navigate(Route.Ready))
             },
             shape = RoundedCornerShape(50),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF402DAE)), // Black background
             modifier = Modifier
                 .padding(horizontal = halfLeadTrailPadding.dp)
                 .padding(vertical = rowPadding.dp)
-                .border(
-                    buttonBorder.dp,
-                    Color.White,
-                    RoundedCornerShape(50)
-                )
-                .fillMaxWidth()
                 .height(activeRowHeight.dp)
 
         ) {
             Text(
-                text = "Ready",
+                text = stringResource(R.string.ready),
                 fontSize = buttonFontSize.sp,
-                fontFamily = openSauceOneFamily,
-                fontWeight = FontWeight.Bold,
-                color = Color.White
             )
         }
 
         // Restore Button
-        LargeButton(
+        BorderedLargeButton(
             onClick = {
                 onNavigate.invoke(UiEffect.Navigate(Route.InputWords()))
             },
             shape = RoundedCornerShape(50),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF402DAE)), // Black background
             modifier = Modifier
                 .padding(horizontal = halfLeadTrailPadding.dp)
                 .padding(vertical = rowPadding.dp)
-                .border(
-                    buttonBorder.dp,
-                    Color.White,
-                    RoundedCornerShape(50)
-                ) // White border
-                .fillMaxWidth()
                 .height(activeRowHeight.dp)
         ) {
             Text(
-                text = "Restore",
+                text = stringResource(R.string.restore),
                 fontSize = thinButtonFontSize.sp,
-                fontFamily = openSauceOneFamily,
                 fontWeight = FontWeight.Thin,
-                color = Color.White
             )
         }
 
         Spacer(modifier = Modifier.weight(0.5f))
 
     }
+}
+
+@Composable
+fun DarkModeToggleButton(
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+) {
+    IconToggleButton(
+        checked = checked,
+        onCheckedChange = onCheckedChange,
+        modifier = modifier,
+        content = content
+    )
 }
 
 @Preview

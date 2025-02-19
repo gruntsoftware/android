@@ -1,70 +1,46 @@
 package com.brainwallet.ui.theme
 
-import android.os.Build
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.platform.LocalContext
 
-private val lightScheme = lightColorScheme(
-    primary = primaryBackgroundLight,
-    onPrimary = onPrimaryBackgroundLight,
-    secondary = secondaryBackgroundLight,
-    onSecondary = onSecondaryBackgroundLight,
-    error = errorBackgroundLight,
-    onError = onErrorBackgroundLight,
-    background = infoBackgroundLight,
-    onBackground = onInfoBackgroundLight,
 
-    /// DEV Why do Material 3 FORCES us to use the whole struct!!
-    /// This is insane
-    /// I just want to map the color to custom meanings
-    //    val affirmBackgroundLight = Color(0xFFFFFFFF)
-    //    val onAffirmBackgroundLight = Color(0xFF25AA2C)
-    //    val warnBackgroundLight = Color(0xFFFFFFFF)
-    //    val onWarnBackgroundLight = Color(0xFFFFAE00)
-    //    val primaryBackgroundWhite = Color(0xFFFFFFFF)
-    //    val onPrimaryBackgroundWhite = Color(0xFF151515)
-)
-
-private val darkScheme = darkColorScheme(
-    primary = primaryBackgroundDark,
-    onPrimary = onPrimaryBackgroundDark,
-    secondary = secondaryBackgroundDark,
-    onSecondary = onSecondaryBackgroundDark,
-    error = errorBackgroundDark,
-    onError = onErrorBackgroundDark,
-    background = infoBackgroundDark,
-    onBackground = onInfoBackgroundDark,
-
-    /// DEV Why do Material 3 FORCES us to use the whole struct!!
-    /// This is insane
-    /// I just want to map the color to custom meanings
-    // val affirmBackgroundDark = Color(0xFF2968F2)
-    // val onAffirmBackgroundDark = Color(0xFF25AA2C)
-    // val warnBackgroundDark = Color(0xFF0F0853)
-    // val onWarnBackgroundDark = Color(0xFFCE3025)
-    // val primaryBackgroundNearBlack= Color(0xFF151515)
-    // val onPrimaryBackgroundNearBlack = Color(0xFFFFFFFF)
-)
-
+/**
+ * define custom colors naming for brainwallet colors
+ */
 @Immutable
-data class ColorFamily(
-    val color: Color,
-    val onColor: Color,
-    val colorContainer: Color,
-    val onColorContainer: Color
+data class BrainwalletColors(
+    val surface: Color = Color.Unspecified,
+    val background: Color = Color.Unspecified,
+    val content: Color = Color.Unspecified,
+    val border: Color = Color.Unspecified
+
+    //todo: please add more term here
 )
 
-val unspecified_scheme = ColorFamily(
-    Color.Unspecified, Color.Unspecified, Color.Unspecified, Color.Unspecified
+private val darkColorScheme = BrainwalletColors(
+    surface = midnight,
+    background = grape,
+    content = white,
+    border = white
 )
+
+private val ligthColorScheme = BrainwalletColors(
+    surface = white,
+    background = white,
+    content = midnight,
+    border = midnight
+
+
+)
+
+val LocalBrainwalletColors = staticCompositionLocalOf {
+    BrainwalletColors()
+}
 
 @Composable
 fun BrainwalletAppTheme(
@@ -72,16 +48,20 @@ fun BrainwalletAppTheme(
 //    darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable() () -> Unit
 ) {
-    val colorScheme = when {
-        darkTheme -> darkScheme
-        else -> lightScheme
-    }
+    val colors = if (darkTheme) darkColorScheme else ligthColorScheme
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = AppTypography,
-        content = content
-    )
+    CompositionLocalProvider(LocalBrainwalletColors provides colors) {
+        MaterialTheme(
+            typography = AppTypography,
+            content = content
+        )
+    }
+}
+
+object BrainwalletTheme {
+    val colors: BrainwalletColors
+        @Composable
+        get() = LocalBrainwalletColors.current
 }
 
 //provide compose theme wrapper for transition

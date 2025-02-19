@@ -4,8 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.lifecycle.lifecycleScope
+import com.brainwallet.BrainwalletApp
 import com.brainwallet.R
+import com.brainwallet.data.model.AppSetting
 import com.brainwallet.navigation.LegacyNavigation
 import com.brainwallet.navigation.MainNavHost
 import com.brainwallet.navigation.Route
@@ -48,7 +52,11 @@ class BrainwalletActivity : BRActivity() {
         }
 
         setContent {
-            BrainwalletAppTheme {
+            val appSetting by BrainwalletApp.module.settingRepository.settings.collectAsState(
+                AppSetting()
+            )
+
+            BrainwalletAppTheme(darkTheme = appSetting.isDarkMode) {
                 MainNavHost(
                     startDestination = startDestination,
                     onFinish = { finish() }
