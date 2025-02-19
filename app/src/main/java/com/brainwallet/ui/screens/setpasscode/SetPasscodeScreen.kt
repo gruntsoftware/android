@@ -100,7 +100,7 @@ fun SetPasscodeScreen(
             verticalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
         ) {
             Text(
-                text = stringResource(if (state.isConfirm) R.string.confirm else R.string.setup_app_passcode),
+                text = stringResource(if (state.isConfirm) R.string.confirm else R.string.setup_app_pin),
                 style = MaterialTheme.typography.headlineSmall,
             )
 

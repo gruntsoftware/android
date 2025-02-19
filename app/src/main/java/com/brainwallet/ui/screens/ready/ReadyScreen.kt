@@ -142,7 +142,7 @@ fun ReadyScreen(
 
             ) {
                 Text(
-                    text = stringResource(R.string.setup_app_passcode),
+                    text = stringResource(R.string.setup_app_pin),
                     style = MaterialTheme.typography.bodyLarge.copy(color = Color.White) //for now just hardcoded, need to create button composable later and adjust the theme later at [com.brainwallet.ui.theme.Theme]
                 )
             }

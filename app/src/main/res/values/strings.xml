@@ -788,8 +788,8 @@
     <string name="ready_setup_details_1">Do this for you. Please do it</string>
     <string name="ready_setup_details_2">alone</string>
     <string name="ready_setup_details_3">Grab a pen, paper and 5 minutes</string>
-    <string name="setup_app_passcode">Setup app passcode</string>
-    <string name="setup_app_details_1">Pick  a passcode to unlock your Brainwallet</string>
+    <string name="setup_app_pin">Setup app PIN</string>
+    <string name="setup_app_details_1">Pick  a PIN to unlock your Brainwallet</string>
     <string name="setup_app_details_2">Not a phone lock code!</string>
     <string name="setup_app_details_3">Make it different. Make it cool.</string>
     <string name="setup_app_biometrics">Use biometrics</string>
