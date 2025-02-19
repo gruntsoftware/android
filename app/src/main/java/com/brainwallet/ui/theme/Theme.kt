@@ -34,8 +34,6 @@ private val ligthColorScheme = BrainwalletColors(
     background = white,
     content = midnight,
     border = midnight
-
-
 )
 
 val LocalBrainwalletColors = staticCompositionLocalOf {
