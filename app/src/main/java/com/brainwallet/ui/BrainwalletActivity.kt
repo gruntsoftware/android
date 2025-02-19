@@ -180,6 +180,7 @@ class BrainwalletActivity : BRActivity() {
     companion object {
         private const val EXTRA_START_DESTINATION = "start_destination"
 
+        @JvmStatic
         fun createIntent(
             context: Context,
             startDestination: Route = Route.Welcome

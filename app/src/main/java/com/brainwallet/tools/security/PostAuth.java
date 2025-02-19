@@ -23,6 +23,7 @@ import com.brainwallet.presenter.activities.intro.WriteDownActivity;
 import com.brainwallet.presenter.activities.util.ActivityUTILS;
 import com.brainwallet.presenter.entities.PaymentRequestWrapper;
 import com.brainwallet.presenter.entities.TransactionItem;
+import com.brainwallet.ui.BrainwalletActivity;
 import com.brainwallet.wallet.BRWalletManager;
 import com.platform.entities.TxMetaData;
 import com.platform.tools.KVStoreManager;
@@ -149,10 +150,15 @@ public class PostAuth {
                     byte[] pubKey = BRWalletManager.getInstance().getMasterPubKey(bytePhrase);
                     BRKeyStore.putMasterPublicKey(pubKey, app);
                     app.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-                    Intent intent = new Intent(app, SetPinActivity.class);
+
+                    //using setpasscode from
+                    Intent intent = BrainwalletActivity.createIntent(
+                            app, new Route.SetPasscode()
+                    );
                     intent.putExtra("noPin", true);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     app.startActivity(intent);
+
                     if (!app.isDestroyed()) app.finish();
                     phraseForKeyStore = null;
                 }
