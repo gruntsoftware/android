@@ -17,23 +17,33 @@ data class BrainwalletColors(
     val surface: Color = Color.Unspecified,
     val background: Color = Color.Unspecified,
     val content: Color = Color.Unspecified,
-    val border: Color = Color.Unspecified
-
-    //todo: please add more term here
+    val border: Color = Color.Unspecified,
+    val info: Color = Color.Unspecified,
+    val affirm: Color = Color.Unspecified,
+    val warn: Color = Color.Unspecified,
+    val error: Color = Color.Unspecified
 )
 
 private val darkColorScheme = BrainwalletColors(
     surface = midnight,
     background = grape,
     content = white,
-    border = white
+    border = white,
+    info = blue,
+    affirm = pesto,
+    warn = cheddar,
+    error = chilli
 )
 
 private val ligthColorScheme = BrainwalletColors(
     surface = white,
     background = white,
     content = midnight,
-    border = midnight
+    border = midnight,
+    info = blue,
+    affirm = pesto,
+    warn = cheddar,
+    error = chilli
 )
 
 val LocalBrainwalletColors = staticCompositionLocalOf {

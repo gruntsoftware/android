@@ -3,18 +3,24 @@ package com.brainwallet.ui.screens.welcome
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Arrangement.Center
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconToggleButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -24,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
@@ -66,12 +73,12 @@ fun WelcomeScreen(
     //todo: the following sizing can be move to BrainwalletTheme
     val buttonFontSize = 16
     val thinButtonFontSize = 14
-
+    val toggleButtonSize = 50
     val leadTrailPadding = 24
     val halfLeadTrailPadding = leadTrailPadding / 2
     val doubleLeadTrailPadding = leadTrailPadding * 2
     val rowPadding = 8
-    val buttonBorder = 1
+    val tinyPad = 4
     val activeRowHeight = 70
 
     val midnightColor = Color(0xFF0F0853)
@@ -145,10 +152,22 @@ fun WelcomeScreen(
                     viewModel.onEvent(WelcomeEvent.OnToggleDarkMode)
                 }
             ) {
-                Icon(
-                    painter = painterResource(if (state.darkMode) R.drawable.ic_light_mode else R.drawable.ic_dark_mode),
-                    contentDescription = "toggle-dark-mode"
-                )
+
+                Box(modifier = Modifier
+                    .fillMaxSize()
+                    .width(toggleButtonSize.dp)
+                    .height(toggleButtonSize.dp)
+                    .padding(tinyPad.dp)
+                    .clip(CircleShape)
+                    .background(if (state.darkMode) BrainwalletTheme.colors.warn else BrainwalletTheme.colors.surface )) {
+                        Icon(
+                            modifier = Modifier
+                                .align(Alignment.Center),
+                            painter = painterResource(if (state.darkMode) R.drawable.ic_light_mode else R.drawable.ic_dark_mode),
+                            contentDescription = "toggle-dark-mode",
+                        )
+                    }
+
             }
 
             FiatDropdown(selectedFiat, isDarkTheme = true) { newFiat ->
