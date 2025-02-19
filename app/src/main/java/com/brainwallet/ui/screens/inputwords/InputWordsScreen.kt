@@ -25,9 +25,7 @@ import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -52,9 +50,9 @@ import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
+import com.brainwallet.ui.composable.BorderedLargeButton
 import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
-import com.brainwallet.ui.composable.LargeButton
 import com.brainwallet.ui.composable.SeedWordItemTextField
 import com.brainwallet.ui.theme.BrainwalletTheme
 
@@ -194,7 +192,7 @@ fun InputWordsScreen(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            LargeButton(
+            BorderedLargeButton(
                 modifier = Modifier.testTag("buttonRestore"),
                 onClick = {
                     viewModel.onEvent(InputWordsEvent.OnRestoreClick(context = context))
@@ -203,7 +201,7 @@ fun InputWordsScreen(
             ) {
                 Text(
                     text = stringResource(R.string.restore_my_brainwallet),
-                    style = MaterialTheme.typography.bodyLarge.copy(color = Color.White) //for now just hardcoded, need to create button composable later and adjust the theme later at [com.brainwallet.ui.theme.Theme]
+                    style = MaterialTheme.typography.bodyLarge
                 )
             }
         }

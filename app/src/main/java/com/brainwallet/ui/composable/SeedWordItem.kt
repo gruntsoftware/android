@@ -33,6 +33,8 @@ import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
 import com.brainwallet.ui.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.chilli
+import com.brainwallet.ui.theme.darken
 
 @Composable
 fun SeedWordItem(
@@ -46,7 +48,7 @@ fun SeedWordItem(
             modifier = Modifier.padding(vertical = 12.dp),
             text = label,
             style = MaterialTheme.typography.bodyMedium,
-            color = if (isError) Color.Red else Color.White
+            color = if (isError) chilli else BrainwalletTheme.colors.content
         )
         trailingIcon?.let { icon ->
             Spacer(modifier = Modifier.width(8.dp))
