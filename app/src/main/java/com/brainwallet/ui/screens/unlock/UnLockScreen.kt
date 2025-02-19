@@ -4,10 +4,12 @@ package com.brainwallet.ui.screens.unlock
 
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -40,6 +42,7 @@ import com.brainwallet.ui.composable.BrainwalletTopAppBar
 import com.brainwallet.ui.composable.PasscodeIndicator
 import com.brainwallet.ui.composable.PasscodeKeypad
 import com.brainwallet.ui.composable.PasscodeKeypadEvent
+import com.brainwallet.ui.theme.BrainwalletTheme
 
 //TODO: WIP here
 @Composable
@@ -89,8 +92,12 @@ fun UnLockScreen(
             verticalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
         ) {
 
+            // TODO: pass system dark mode preference
+            // painter = painterResource(if (state.darkMode) R.drawable.bw_white_logotype else R.drawable.bw_logotype ),
             Image(
-                painter = painterResource(R.mipmap.ic_launcher_foreground),
+                modifier = Modifier.fillMaxWidth(0.80f)
+                    .padding(horizontalVerticalSpacing.dp),
+                painter = painterResource(R.drawable.bw_white_logotype),
                 contentDescription = "logo"
             )
 
