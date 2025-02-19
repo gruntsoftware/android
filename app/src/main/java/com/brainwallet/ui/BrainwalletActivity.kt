@@ -67,7 +67,12 @@ class BrainwalletActivity : BRActivity() {
             }
         }
 
-        //communication from compose
+        /**
+         * Communication between compose and legacy logic using the following event bus
+         * why we are using this event bus?
+         * we need to migrate gradually to compose, so that's why we still use legacy logic here
+         * from compose just send event using this EventBus
+         */
         EventBus.events
             .onEach { event ->
                 delay(70)
