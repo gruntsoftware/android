@@ -15,6 +15,7 @@ import com.brainwallet.ui.theme.BrainwalletTheme
 fun BrainwalletScaffold(
     modifier: Modifier = Modifier,
     topBar: @Composable () -> Unit = {},
+    floatingActionButton: @Composable () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit
 ) {
     Scaffold(
@@ -22,6 +23,7 @@ fun BrainwalletScaffold(
         containerColor = BrainwalletTheme.colors.surface,
         contentColor = BrainwalletTheme.colors.content,
         topBar = topBar,
+        floatingActionButton = floatingActionButton,
         content = content
     )
 }
