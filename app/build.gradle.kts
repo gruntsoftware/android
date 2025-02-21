@@ -20,8 +20,8 @@ android {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 34
-        versionCode = 202502192
-        versionName = "v4.2.4"
+        versionCode = 202502211
+        versionName = "v4.2.5"
 
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
