@@ -10,6 +10,7 @@ import androidx.navigation.toRoute
 import com.brainwallet.ui.screens.inputwords.InputWordsScreen
 import com.brainwallet.ui.screens.ready.ReadyScreen
 import com.brainwallet.ui.screens.setpasscode.SetPasscodeScreen
+import com.brainwallet.ui.screens.settings.SettingsScreen
 import com.brainwallet.ui.screens.unlock.UnLockScreen
 import com.brainwallet.ui.screens.welcome.WelcomeScreen
 import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItScreen
@@ -99,6 +100,11 @@ fun NavGraphBuilder.mainNavGraph(
 
     composable<Route.UnLock> {
         UnLockScreen(onNavigate = onNavigate)
+    }
+
+    composable<Route.Settings> {
+        // val route: Route.Home = navBackStackEntry.toRoute()
+        SettingsScreen(onNavigate = onNavigate)
     }
 
     //todo add more composable screens

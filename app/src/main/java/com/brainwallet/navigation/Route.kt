@@ -37,4 +37,7 @@ sealed class Route : JavaSerializable {
 
     @Serializable
     object UnLock : Route()
+
+    @Serializable
+    object Settings : Route()
 }

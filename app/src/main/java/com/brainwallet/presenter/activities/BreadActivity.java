@@ -1,5 +1,7 @@
 package com.brainwallet.presenter.activities;
 
+import static com.brainwallet.ui.BrainwalletActivity.createIntent;
+
 import android.Manifest;
 import android.animation.LayoutTransition;
 import android.content.Context;
@@ -35,6 +37,7 @@ import androidx.transition.TransitionSet;
 
 import com.brainwallet.BrainwalletApp;
 import com.brainwallet.R;
+import com.brainwallet.presenter.activities.settings.SettingsActivity;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.presenter.customviews.BRNotificationBar;
 import com.brainwallet.presenter.fragments.BuyTabFragment;
@@ -219,9 +222,15 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         primaryPrice.setOnClickListener(v -> swap());
         secondaryPrice.setOnClickListener(v -> swap());
         menuBut.setOnClickListener(v -> {
-            if (BRAnimator.isClickAllowed()) {
-                BRAnimator.showMenuFragment(BreadActivity.this);
-            }
+//            if (BRAnimator.isClickAllowed()) {
+//                BRAnimator.showMenuFragment(BreadActivity.this);
+//            }
+            Intent intent = new Intent(this, this@SettingsActivity);
+            startActivity(intent);
+
+//            createIntent(this@SettingsActivity).apply {
+//            }.also { startActivity(it) }
+
         });
     }
 
