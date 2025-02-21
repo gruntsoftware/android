@@ -64,21 +64,12 @@ fun UnLockScreen(
     /// Layout values
     val columnPadding = 18
     val horizontalVerticalSpacing = 8
-    val spacerHeight = 48
-    val maxItemsPerRow = 3
 
     BrainwalletScaffold(
         topBar = {
             BrainwalletTopAppBar(
                 navigationIcon = {
-                    IconButton(
-                        onClick = { onNavigate.invoke(UiEffect.Navigate.Back()) },
-                    ) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(R.string.back),
-                        )
-                    }
+                    /// No-op Retained spacing for remote banner
                 })
         }
     ) { paddingValues ->
@@ -100,21 +91,24 @@ fun UnLockScreen(
                 painter = painterResource(R.drawable.bw_white_logotype),
                 contentDescription = "logo"
             )
+            Spacer(modifier = Modifier.weight(1f))
 
             Text(stringResource(R.string.Login_ltcPrice, state.formattedCurrency))
             Text(stringResource(R.string.Login_currentLtcPrice, state.iso))
 
-//            Box(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .height(100.dp)
-//                    .background(Color.White)
-//            ) {
-//                //todo
-//                Text("todo")
-//            }
+            // TODO
+            // https://developer.android.com/develop/ui/compose/animation/customize
+            //            Box(
+            //                modifier = Modifier
+            //                    .fillMaxWidth()
+            //                    .height(100.dp)
+            //                    .background(Color.White)
+            //            ) {
+            //                //todo
+            //                Text("todo")
+            //            }
 
-            Spacer(Modifier.height(16.dp))
+            Spacer(modifier = Modifier.weight(1f))
 
             PasscodeIndicator(passcode = state.passcode)
 
