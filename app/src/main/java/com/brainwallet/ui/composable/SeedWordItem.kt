@@ -3,6 +3,7 @@ package com.brainwallet.ui.composable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -19,6 +20,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,7 +28,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.DpOffset
@@ -34,7 +35,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
 import com.brainwallet.ui.theme.BrainwalletTheme
 import com.brainwallet.ui.theme.chilli
-import com.brainwallet.ui.theme.darken
 
 @Composable
 fun SeedWordItem(
@@ -91,6 +91,13 @@ fun SeedWordItemTextField(
 ) {
     var suggestionsExpanded by remember { mutableStateOf(false) }
     val interactionSource = remember { MutableInteractionSource() }
+    val isFocused by interactionSource.collectIsFocusedAsState()
+
+    LaunchedEffect(isFocused) {
+        if (!isFocused) {
+            suggestionsExpanded = false // Dismiss dropdown when focus is lost
+        }
+    }
 
     Box(modifier = modifier) {
         BasicTextField(
@@ -127,7 +134,8 @@ fun SeedWordItemTextField(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .background(
-                    color = BrainwalletTheme.colors.background.copy(alpha = 0.3f), shape = MaterialTheme.shapes.medium
+                    color = BrainwalletTheme.colors.background.copy(alpha = 0.3f),
+                    shape = MaterialTheme.shapes.medium
                 )
                 .heightIn(max = 250.dp),
             properties = PopupProperties(focusable = false),

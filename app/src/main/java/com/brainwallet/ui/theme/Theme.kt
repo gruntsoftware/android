@@ -70,6 +70,8 @@ object BrainwalletTheme {
     val colors: BrainwalletColors
         @Composable
         get() = LocalBrainwalletColors.current
+
+    //todo: add typography, shape? for the design system
 }
 
 //provide compose theme wrapper for transition
