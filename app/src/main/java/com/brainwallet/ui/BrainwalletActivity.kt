@@ -54,7 +54,6 @@ class BrainwalletActivity : BRActivity() {
 
         if (startDestination is Route.UnLock) {
             onCheckPin()
-            return
         }
 
         if (startDestination is Route.Welcome) {
@@ -177,7 +176,7 @@ class BrainwalletActivity : BRActivity() {
      */
     private fun onCheckPin() {
         val pin = BRKeyStore.getPinCode(this)
-        if (pin.isEmpty()) {
+        if (pin.isEmpty() && pin.length != 4) {
             lifecycleScope.launch {
                 EventBus.emit(
                     EventBus.Event.Message(
