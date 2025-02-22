@@ -4,3 +4,6 @@
 [submodule "app/src/main/jni/core"]
 	path = app/src/main/jni/core
 	url = https://github.com/brainwallet-co/core.git
+[submodule "app/src/main/remote_data"]
+	path = app/src/main/remote_data
+	url = https://github.com/brainwallet-co/data.git
