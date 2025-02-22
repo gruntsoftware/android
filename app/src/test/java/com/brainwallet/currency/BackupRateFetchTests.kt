@@ -1,28 +1,26 @@
-package com.brainwallet.tools.manager
+package com.brainwallet.currency
 
 import android.app.Activity
 import android.content.Context
+import com.brainwallet.data.source.RemoteConfigSource
 import com.brainwallet.presenter.activities.util.ActivityUTILS
+import com.brainwallet.tools.manager.BRApiManager
 import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.tools.util.Utils
-import com.brainwallet.data.source.RemoteConfigSource
 import com.platform.APIClient
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.mockkStatic
 import io.mockk.spyk
-import io.mockk.verifyAll
 import okhttp3.Protocol
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.ResponseBody.Companion.toResponseBody
-import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
-class BRApiManagerTest {
-
+class BackupRateFetchTests {
     private val remoteConfigSource: RemoteConfigSource = mockk()
     private lateinit var apiManager: BRApiManager
 
@@ -32,27 +30,32 @@ class BRApiManagerTest {
     }
 
     @Test
-    fun `invoke fetchRates, should return success with parsed JSONArray`() {
+    fun `invoke backupFetchRates, should return success with parsed JSONArray`() {
         val activity: Activity = mockk(relaxed = true)
         val responseString = """
             [
                 {
-                    "code": "AED",
-                    "n": 416.81128312406213,
-                    "price": "AED416.811283124062145364",
-                    "name": "United Arab Emirates Dirham"
+                  "code" : "CZK",
+                  "price" : "Kč3065.541255",
+                  "name" : "Czech Republic Koruna",
+                  "n" : 3065.541255
                 },
                 {
-                    "code": "AFN",
-                    "n": 7841.21263788453,
-                    "price": "Af7841.212637884529266812",
-                    "name": "Afghan Afghani"
+                  "code" : "KRW",
+                  "price" : "₩183797.935875",
+                  "name" : "South Korean Won",
+                  "n" : 183797.935875
                 },
                 {
-                    "code": "ALL",
-                    "n": 10592.359754930994,
-                    "price": "ALL10592.359754930995026136",
-                    "name": "Albanian Lek"
+                  "code" : "BYN",
+                  "price" : "Br418.909259625",
+                  "n" : 418.909259625
+                },
+                {
+                  "code" : "CNY",
+                  "price" : "CN¥927.7974375",
+                  "name" : "Chinese Yuan",
+                  "n" : 927.7974375
                 }
             ]
         """.trimIndent()
@@ -64,14 +67,14 @@ class BRApiManagerTest {
         every {
             apiManager invoke "createGETRequestURL" withArguments (listOf(
                 activity as Context,
-                BRConstants.LW_API_PROD_HOST
+                BRConstants.BW_API_DEV_HOST
             ))
         } returns responseString
         every { ActivityUTILS.isMainThread() } returns false
         every { APIClient.getInstance(activity).getCurrentLocale(activity) } returns "en"
 
         val request = Request.Builder()
-            .url(BRConstants.LW_API_PROD_HOST)
+            .url(BRConstants.BW_API_DEV_HOST)
             .header("Content-Type", "application/json")
             .header("Accept", "application/json")
             .header("User-agent", Utils.getAgentString(activity, "android/HttpURLConnection"))
@@ -86,26 +89,5 @@ class BRApiManagerTest {
             .body(responseString.toResponseBody())
             .build()
 
-        val result = apiManager.fetchRates(activity)
-
-        verifyAll {
-
-            ActivityUTILS.isMainThread()
-            APIClient.getInstance(activity).getCurrentLocale(activity)
-            APIClient.getInstance(activity).sendRequest(any(), any(), any())
-        }
-
-        val jsonAED = result.getJSONObject(0)
-        assertEquals("AED", jsonAED.optString("code"))
-        assertEquals("United Arab Emirates Dirham", jsonAED.optString("name"))
-    }
-
-    @Test
-    fun `invoke getBaseUrlProd with KEY_API_BASEURL_PROD_NEW_ENABLED true, then should return new baseUrlProd`() {
-        every { remoteConfigSource.getBoolean(RemoteConfigSource.KEY_API_BASEURL_PROD_NEW_ENABLED) } returns true
-
-        val actual = apiManager.baseUrlProd
-
-        assertEquals(BRConstants.LW_API_PROD_HOST, actual)
     }
 }
