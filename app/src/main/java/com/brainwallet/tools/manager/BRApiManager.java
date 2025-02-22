@@ -1,13 +1,15 @@
 package com.brainwallet.tools.manager;
 
-import static com.brainwallet.tools.util.BRConstants.LW_API_DEV_HOST;
-import static com.brainwallet.tools.util.BRConstants.LW_API_PROD_HOST;
+import static com.brainwallet.tools.util.BRConstants.BW_API_DEV_HOST;
+import static com.brainwallet.tools.util.BRConstants.BW_API_PROD_HOST;
 import static com.brainwallet.tools.util.BRConstants._20230113_BAC;
+import static com.brainwallet.tools.util.BRConstants._20250222_PAC;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 
+import com.brainwallet.BuildConfig;
 import com.brainwallet.tools.sqlite.CurrencyDataSource;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.util.Utils;
@@ -132,19 +134,19 @@ public class BRApiManager {
         try {
             jsonArray = new JSONArray(jsonString);
             // DEV Uncomment to view values
-//            Timber.d("timber: baseUrlProd: %s", getBaseUrlProd());
-//            Timber.d("timber: JSON %s",jsonArray.toString());
-
+            // Timber.d("timber: baseUrlProd: %s", getBaseUrlProd());
+            // Timber.d("timber: JSON %s",jsonArray.toString());
         } catch (JSONException ex) {
             Timber.e(ex);
+        }
+        if (jsonArray != null && !BuildConfig.DEBUG) {
+            AnalyticsManager.logCustomEvent(_20250222_PAC);
         }
         return jsonArray == null ? backupFetchRates(activity) : jsonArray;
     }
 
     public JSONArray backupFetchRates(Activity activity) {
-        String jsonString = createGETRequestURL(activity, LW_API_DEV_HOST + "/api/v1/rates");
-
-        AnalyticsManager.logCustomEvent(_20230113_BAC);
+        String jsonString = createGETRequestURL(activity, BW_API_DEV_HOST + "/api/v1/rates");
 
         JSONArray jsonArray = null;
         if (jsonString == null) return null;
@@ -154,6 +156,10 @@ public class BRApiManager {
         } catch (JSONException e) {
             Timber.e(e);
         }
+        if (jsonArray != null && !BuildConfig.DEBUG) {
+            AnalyticsManager.logCustomEvent(_20230113_BAC);
+        }
+        
         return jsonArray;
     }
 
@@ -193,6 +199,6 @@ public class BRApiManager {
     }
 
     public String getBaseUrlProd() {
-        return LW_API_PROD_HOST;
+        return BW_API_PROD_HOST;
     }
 }
