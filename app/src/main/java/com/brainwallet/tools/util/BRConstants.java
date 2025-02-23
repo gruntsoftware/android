@@ -106,8 +106,8 @@ public class BRConstants {
     /**
      * API Hosts
      */
-    public static final String LW_API_PROD_HOST = "https://prod.apigsltd.net";
-    public static final String LW_API_DEV_HOST = "https://dev.apigsltd.net";
+    public static final String BW_API_PROD_HOST = "https://prod.apigsltd.net";
+    public static final String BW_API_DEV_HOST = "https://dev.apigsltd.net";
 
     public static final String BLOCK_EXPLORER_BASE_URL = "https://blockchair.com/litecoin/transaction/";
 
@@ -145,6 +145,7 @@ public class BRConstants {
     public static final String _20241006_DRR = "did_request_rating";
     public static final String _20241006_UCR = "user_completed_rating";
     public static final String _HOME_OPEN = "home_open";
+    public static final String _20250222_PAC = "prod_apiserver_called";
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
@@ -180,7 +181,8 @@ public class BRConstants {
             _20240101_US,
             _20241006_DRR,
             _20241006_UCR,
-            _HOME_OPEN
+            _HOME_OPEN,
+            _20250222_PAC
     })
     public @interface Event {
     }
