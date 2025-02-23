@@ -10,20 +10,12 @@ import androidx.compose.ui.unit.sp
 import com.brainwallet.R
 
 
-val provider = GoogleFont.Provider(
-    providerAuthority = "com.google.android.gms.fonts",
-    providerPackage = "com.google.android.gms",
-    certificates = R.array.com_google_android_gms_fonts_certs
-)
-
-val manropeFontFamily = FontFamily(
-    Font(googleFont = GoogleFont("Manrope"), fontProvider = provider)
-)
+// DEV Dislike this because it block all options
 
 val AppTypography = Typography(
     displayLarge = TextStyle(
         fontFamily = openSauceOneFamily,
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.SemiBold,
         fontSize = 57.sp
     ),
     displayMedium = TextStyle(
@@ -57,7 +49,7 @@ val AppTypography = Typography(
         fontSize = 22.sp
     ),
     titleMedium = TextStyle(
-        fontFamily = manropeFontFamily,
+        fontFamily = openSauceOneFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 16.sp
     ),
@@ -83,7 +75,7 @@ val AppTypography = Typography(
     ),
     labelLarge = TextStyle(
         fontFamily = openSauceOneFamily,
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.SemiBold,
         fontSize = 14.sp
     ),
     labelMedium = TextStyle(
@@ -93,7 +85,7 @@ val AppTypography = Typography(
     ),
     labelSmall = TextStyle(
         fontFamily = openSauceOneFamily,
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.Thin,
         fontSize = 11.sp
     )
 )

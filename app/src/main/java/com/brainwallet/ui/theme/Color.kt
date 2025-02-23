@@ -9,7 +9,7 @@ val chilli = Color(0xFFCE3025)
 val pesto = Color(0xFF25AA2C)
 val blue = Color(0xFF2968F2)
 val nearBlack = Color(0xFF151515)
-val gray = Color(0xFFB8B8B8)
+val lavender = Color(0xFFDDD5FA)
 val white = Color.White
 
 //to make color darken, since we are not providing all colors for specific case

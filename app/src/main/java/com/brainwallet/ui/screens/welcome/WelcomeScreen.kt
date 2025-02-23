@@ -55,6 +55,7 @@ import com.brainwallet.ui.composable.BorderedLargeButton
 import com.brainwallet.ui.composable.FiatDropdown
 import com.brainwallet.ui.composable.LanguageDropdown
 import com.brainwallet.ui.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.openSauceOneFamily
 
 @Composable
 fun WelcomeScreen(
@@ -66,22 +67,20 @@ fun WelcomeScreen(
 
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp
-    val screenWidth = configuration.screenWidthDp
     var mainBoxFactor = 0.5
     val thirdOfScreenHeight = (screenHeight * mainBoxFactor).toInt()
 
     //todo: the following sizing can be move to BrainwalletTheme
-    val buttonFontSize = 16
-    val thinButtonFontSize = 14
-    val toggleButtonSize = 50
+
+    val buttonFontSize = 24
+    val buttonMediumFontSize = 20
+    val toggleButtonSize = 70
     val leadTrailPadding = 24
     val halfLeadTrailPadding = leadTrailPadding / 2
     val doubleLeadTrailPadding = leadTrailPadding * 2
     val rowPadding = 8
     val tinyPad = 4
-    val activeRowHeight = 70
-
-    val midnightColor = Color(0xFF0F0853)
+    val activeRowHeight = 60
 
     var selectedLanguage by remember { mutableStateOf("Français") }
     var selectedFiat by remember { mutableStateOf("EUR") }
@@ -99,7 +98,7 @@ fun WelcomeScreen(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
 
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.weight(0.4f))
 
         Image(
             painterResource(R.drawable.bw_white_logotype),
@@ -124,10 +123,11 @@ fun WelcomeScreen(
             LottieAnimation(
                 modifier = Modifier.background(BrainwalletTheme.colors.surface),
                 composition = composition,
+                contentScale = ContentScale.Fit,
                 progress = { progress }
             )
         }
-        Spacer(modifier = Modifier.weight(1f))
+       // Spacer(modifier = Modifier.weight(1f))
 
 //        TODO: implement later, for now just comment this
         Row(
@@ -139,12 +139,16 @@ fun WelcomeScreen(
             horizontalArrangement = Arrangement.SpaceEvenly
 
         ) {
+            Spacer(modifier = Modifier.weight(0.2f))
+
             LanguageDropdown(
                 selectedLanguage,
                 isDarkTheme = true
             ) { newLanguage ->
                 selectedLanguage = newLanguage
             }
+
+            Spacer(modifier = Modifier.weight(0.1f))
 
             DarkModeToggleButton(
                 checked = state.darkMode,
@@ -167,12 +171,14 @@ fun WelcomeScreen(
                             contentDescription = "toggle-dark-mode",
                         )
                     }
-
             }
+
+            Spacer(modifier = Modifier.weight(0.1f))
 
             FiatDropdown(selectedFiat, isDarkTheme = true) { newFiat ->
                 selectedFiat = newFiat
             }
+            Spacer(modifier = Modifier.weight(0.2f))
 
         }
         // Ready Button
@@ -190,7 +196,8 @@ fun WelcomeScreen(
             Text(
                 text = stringResource(R.string.ready),
                 fontSize = buttonFontSize.sp,
-            )
+                fontWeight = FontWeight.SemiBold,
+                )
         }
 
         // Restore Button
@@ -203,10 +210,11 @@ fun WelcomeScreen(
                 .padding(horizontal = halfLeadTrailPadding.dp)
                 .padding(vertical = rowPadding.dp)
                 .height(activeRowHeight.dp)
+                .clip(RoundedCornerShape(50))
         ) {
             Text(
                 text = stringResource(R.string.restore),
-                fontSize = thinButtonFontSize.sp,
+                fontSize = buttonMediumFontSize.sp,
                 fontWeight = FontWeight.Thin,
             )
         }

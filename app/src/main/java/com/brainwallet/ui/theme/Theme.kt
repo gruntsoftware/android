@@ -35,9 +35,9 @@ private val darkColorScheme = BrainwalletColors(
     error = chilli
 )
 
-private val ligthColorScheme = BrainwalletColors(
+private val lightColorScheme = BrainwalletColors(
     surface = white,
-    background = white,
+    background = lavender,
     content = midnight,
     border = midnight,
     info = blue,
@@ -56,7 +56,7 @@ fun BrainwalletAppTheme(
 //    darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable() () -> Unit
 ) {
-    val colors = if (darkTheme) darkColorScheme else ligthColorScheme
+    val colors = if (darkTheme) darkColorScheme else lightColorScheme
 
     CompositionLocalProvider(LocalBrainwalletColors provides colors) {
         MaterialTheme(

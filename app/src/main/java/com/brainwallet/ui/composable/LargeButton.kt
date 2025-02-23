@@ -10,7 +10,9 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.unit.dp
 import com.brainwallet.ui.theme.BrainwalletColors
 import com.brainwallet.ui.theme.BrainwalletTheme
@@ -42,7 +44,7 @@ fun BorderedLargeButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     colors: ButtonColors = ButtonDefaults.buttonColors(
-        containerColor = BrainwalletTheme.colors.background,
+        containerColor = BrainwalletTheme.colors.surface,
         contentColor = BrainwalletTheme.colors.content
     ),
     shape: Shape = RoundedCornerShape(50),
@@ -50,7 +52,7 @@ fun BorderedLargeButton(
 ) {
     LargeButton(
         modifier = modifier.border(
-            2.dp,
+            1.dp,
             colors.contentColor,
             shape
         ),

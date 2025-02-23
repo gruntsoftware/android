@@ -34,6 +34,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.brainwallet.R
+import com.brainwallet.data.model.AppSetting
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
@@ -53,15 +54,6 @@ fun ReadyScreen(
 
     val horizontalVerticalSpacing = 8
     val spacerHeight = 90
-    val imageMedium = 80
-
-    val headlineFontSize = 44
-    val paragraphFontSize = 22
-    val lineHeight = 35
-
-    LaunchedEffect(Unit) {
-        ///
-    }
 
     BrainwalletScaffold(
         topBar = {
