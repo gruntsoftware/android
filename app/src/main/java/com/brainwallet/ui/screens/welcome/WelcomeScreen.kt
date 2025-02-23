@@ -2,12 +2,14 @@ package com.brainwallet.ui.screens.welcome
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Center
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -71,10 +73,17 @@ fun WelcomeScreen(
     val thirdOfScreenHeight = (screenHeight * mainBoxFactor).toInt()
 
     //todo: the following sizing can be move to BrainwalletTheme
+<<<<<<< Updated upstream
 
     val buttonFontSize = 24
     val buttonMediumFontSize = 20
     val toggleButtonSize = 70
+=======
+    val buttonFontSize = 16
+    val thinButtonFontSize = 14
+    val iconButtonSize = 35
+    val toggleButtonSize = 50
+>>>>>>> Stashed changes
     val leadTrailPadding = 24
     val halfLeadTrailPadding = leadTrailPadding / 2
     val doubleLeadTrailPadding = leadTrailPadding * 2
@@ -151,6 +160,9 @@ fun WelcomeScreen(
             Spacer(modifier = Modifier.weight(0.1f))
 
             DarkModeToggleButton(
+                modifier = Modifier
+                    .width(toggleButtonSize.dp)
+                    .aspectRatio(1f),
                 checked = state.darkMode,
                 onCheckedChange = {
                     viewModel.onEvent(WelcomeEvent.OnToggleDarkMode)
@@ -159,14 +171,18 @@ fun WelcomeScreen(
 
                 Box(modifier = Modifier
                     .fillMaxSize()
-                    .width(toggleButtonSize.dp)
-                    .height(toggleButtonSize.dp)
-                    .padding(tinyPad.dp)
+                    .width(iconButtonSize.dp)
+                    .aspectRatio(1f)
                     .clip(CircleShape)
-                    .background(if (state.darkMode) BrainwalletTheme.colors.warn else BrainwalletTheme.colors.surface )) {
+                    .border(1.dp, if (state.darkMode) BrainwalletTheme.colors.warn else BrainwalletTheme.colors.surface,
+                        CircleShape)
+                    .background(if (state.darkMode) BrainwalletTheme.colors.surface else BrainwalletTheme.colors.content )) {
                         Icon(
                             modifier = Modifier
-                                .align(Alignment.Center),
+                                .align(Alignment.Center)
+                                .width(iconButtonSize.dp)
+                                .aspectRatio(1f),
+                            tint = if (state.darkMode) BrainwalletTheme.colors.warn else BrainwalletTheme.colors.surface,
                             painter = painterResource(if (state.darkMode) R.drawable.ic_light_mode else R.drawable.ic_dark_mode),
                             contentDescription = "toggle-dark-mode",
                         )
