@@ -24,6 +24,7 @@ import com.brainwallet.tools.security.BRKeyStore
 import com.brainwallet.tools.security.PostAuth
 import com.brainwallet.tools.security.SmartValidator
 import com.brainwallet.tools.util.BRConstants
+import com.brainwallet.tools.util.BRConstants.BW_PIN_LENGTH
 import com.brainwallet.tools.util.Utils
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.EFFECT_LEGACY_RECOVER_WALLET_AUTH
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGACY_DIALOG_INVALID
@@ -176,7 +177,7 @@ class BrainwalletActivity : BRActivity() {
      */
     private fun onCheckPin() {
         val pin = BRKeyStore.getPinCode(this)
-        if (pin.isEmpty() && pin.length != 4) {
+        if (pin.isEmpty() && pin.length != BW_PIN_LENGTH) {
             lifecycleScope.launch {
                 EventBus.emit(
                     EventBus.Event.Message(
