@@ -88,6 +88,11 @@ public class BRConstants {
     public static final String loopBug = "android-loop-bug";
 
     /**
+     * brainwallet pin/passcode length
+     */
+    public static final int BW_PIN_LENGTH = 4;
+
+    /**
      * App External URLs
      */
 
