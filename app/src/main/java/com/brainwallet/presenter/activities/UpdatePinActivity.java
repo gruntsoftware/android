@@ -1,5 +1,7 @@
 package com.brainwallet.presenter.activities;
 
+import static com.brainwallet.tools.util.BRConstants.BW_PIN_LENGTH;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -53,7 +55,7 @@ public class UpdatePinActivity extends BRActivity {
         title = (TextView) findViewById(R.id.title);
         description = (TextView) findViewById(R.id.description);
         pinLayout = (LinearLayout) findViewById(R.id.pinLayout);
-        if (BRKeyStore.getPinCode(this).length() == 4) pinLimit = 4;
+        if (BRKeyStore.getPinCode(this).length() == BW_PIN_LENGTH) pinLimit = BW_PIN_LENGTH;
         setMode(ENTER_PIN);
         title.setText(getString(R.string.UpdatePin_updateTitle));
         dot1 = findViewById(R.id.dot1);

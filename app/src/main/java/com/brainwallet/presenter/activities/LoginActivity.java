@@ -44,6 +44,7 @@ import java.math.BigDecimal;
 
 import timber.log.Timber;
 
+@Deprecated
 public class LoginActivity extends BRActivity {
     private BRKeyboard keyboard;
     private LinearLayout pinLayout;
