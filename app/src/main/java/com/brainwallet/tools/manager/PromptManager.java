@@ -4,6 +4,7 @@ import static com.brainwallet.tools.manager.PromptManager.PromptItem.PAPER_KEY;
 import static com.brainwallet.tools.manager.PromptManager.PromptItem.RECOMMEND_RESCAN;
 import static com.brainwallet.tools.manager.PromptManager.PromptItem.SHARE_DATA;
 import static com.brainwallet.tools.manager.PromptManager.PromptItem.UPGRADE_PIN;
+import static com.brainwallet.tools.util.BRConstants.BW_PIN_LENGTH;
 
 import android.app.Activity;
 import android.content.Context;
@@ -61,7 +62,7 @@ public class PromptManager {
             case PAPER_KEY:
                 return !BRSharedPrefs.getPhraseWroteDown(app);
             case UPGRADE_PIN:
-                return BRKeyStore.getPinCode(app).length() != 4;
+                return BRKeyStore.getPinCode(app).length() != BW_PIN_LENGTH;
             case RECOMMEND_RESCAN:
                 return BRSharedPrefs.getScanRecommended(app);
             case SHARE_DATA:

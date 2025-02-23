@@ -1,5 +1,7 @@
 package com.brainwallet.presenter.fragments;
 
+import static com.brainwallet.tools.util.BRConstants.BW_PIN_LENGTH;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -53,7 +55,7 @@ public class FragmentPin extends Fragment {
         keyboard = (BRKeyboard) rootView.findViewById(R.id.brkeyboard);
         pinLayout = (LinearLayout) rootView.findViewById(R.id.pinLayout);
 
-        if (BRKeyStore.getPinCode(getContext()).length() == 4) pinLimit = 4;
+        if (BRKeyStore.getPinCode(getContext()).length() == BW_PIN_LENGTH) pinLimit = BW_PIN_LENGTH;
 
         title = (TextView) rootView.findViewById(R.id.title);
         message = (TextView) rootView.findViewById(R.id.message);
