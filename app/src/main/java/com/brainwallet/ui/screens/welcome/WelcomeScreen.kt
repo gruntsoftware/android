@@ -73,17 +73,10 @@ fun WelcomeScreen(
     val thirdOfScreenHeight = (screenHeight * mainBoxFactor).toInt()
 
     //todo: the following sizing can be move to BrainwalletTheme
-<<<<<<< Updated upstream
-
-    val buttonFontSize = 24
-    val buttonMediumFontSize = 20
-    val toggleButtonSize = 70
-=======
     val buttonFontSize = 16
     val thinButtonFontSize = 14
-    val iconButtonSize = 35
-    val toggleButtonSize = 50
->>>>>>> Stashed changes
+    val iconButtonSize = 32
+    val toggleButtonSize = 45
     val leadTrailPadding = 24
     val halfLeadTrailPadding = leadTrailPadding / 2
     val doubleLeadTrailPadding = leadTrailPadding * 2
@@ -157,7 +150,7 @@ fun WelcomeScreen(
                 selectedLanguage = newLanguage
             }
 
-            Spacer(modifier = Modifier.weight(0.1f))
+            Spacer(modifier = Modifier.weight(0.2f))
 
             DarkModeToggleButton(
                 modifier = Modifier
@@ -189,7 +182,7 @@ fun WelcomeScreen(
                     }
             }
 
-            Spacer(modifier = Modifier.weight(0.1f))
+            Spacer(modifier = Modifier.weight(0.2f))
 
             FiatDropdown(selectedFiat, isDarkTheme = true) { newFiat ->
                 selectedFiat = newFiat
@@ -230,7 +223,7 @@ fun WelcomeScreen(
         ) {
             Text(
                 text = stringResource(R.string.restore),
-                fontSize = buttonMediumFontSize.sp,
+                fontSize = thinButtonFontSize.sp,
                 fontWeight = FontWeight.Thin,
             )
         }
