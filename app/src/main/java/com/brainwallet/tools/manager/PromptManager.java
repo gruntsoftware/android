@@ -61,7 +61,7 @@ public class PromptManager {
             case PAPER_KEY:
                 return !BRSharedPrefs.getPhraseWroteDown(app);
             case UPGRADE_PIN:
-                return BRKeyStore.getPinCode(app).length() != 6;
+                return BRKeyStore.getPinCode(app).length() != 4;
             case RECOMMEND_RESCAN:
                 return BRSharedPrefs.getScanRecommended(app);
             case SHARE_DATA:
