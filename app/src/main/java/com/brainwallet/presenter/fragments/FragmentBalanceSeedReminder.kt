@@ -70,6 +70,8 @@ class FragmentBalanceSeedReminder : Fragment() {
         setListeners()
         fetchSeedPhrase()
     }
+    ///DEV: Potiential crash location
+
     private fun registerAnalyticsError(errorString: String) {
         Timber.d("Fragment Balance Seed: RegisterError : %s", errorString)
         val params = Bundle()

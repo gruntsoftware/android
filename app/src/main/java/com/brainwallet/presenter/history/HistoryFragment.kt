@@ -54,6 +54,7 @@ class HistoryFragment :
         BRPeerManager.getInstance().removeListener(this)
         BRSharedPrefs.removeListener(this)
     }
+    ///DEV: Potiential crash location
     private fun registerAnalyticsError(errorString: String) {
         val params = Bundle()
         params.putString("lwa_error_message", errorString);
