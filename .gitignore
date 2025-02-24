@@ -27,8 +27,9 @@ render.experimental.xml
 *.keystore
 
 # Google Services (e.g. APIs or Firebase)
-google-services.json
+app/google-services.json
 /app/google-services.json
+google-services.json
 
 # Android Profiling
 *.hprof
@@ -41,3 +42,5 @@ app/src/.DS_Store
 # Service files
 /app/src/main/assets/service-data.json
 /app/src/main/assets/canary-file.json
+service-data.json
+canary-file.json
