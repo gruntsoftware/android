@@ -76,7 +76,7 @@ fun WelcomeScreen(
     val buttonFontSize = 16
     val thinButtonFontSize = 14
     val iconButtonSize = 32
-    val toggleButtonSize = 45
+    val toggleButtonSize = 42
     val leadTrailPadding = 24
     val halfLeadTrailPadding = leadTrailPadding / 2
     val doubleLeadTrailPadding = leadTrailPadding * 2
