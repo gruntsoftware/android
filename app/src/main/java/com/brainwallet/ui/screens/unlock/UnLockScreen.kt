@@ -4,7 +4,6 @@ package com.brainwallet.ui.screens.unlock
 
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,11 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,6 +22,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -35,7 +31,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
-import com.brainwallet.navigation.UiEffect
 import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
@@ -83,13 +78,15 @@ fun UnLockScreen(
             verticalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
         ) {
 
-            // TODO: pass system dark mode preference
-            // painter = painterResource(if (state.darkMode) R.drawable.bw_white_logotype else R.drawable.bw_logotype ),
             Image(
-                modifier = Modifier.fillMaxWidth(0.80f)
+                modifier = Modifier
+                    .fillMaxWidth(0.80f)
                     .padding(horizontalVerticalSpacing.dp),
                 painter = painterResource(R.drawable.bw_white_logotype),
-                contentDescription = stringResource(R.string.logo)
+                contentDescription = stringResource(R.string.logo),
+                colorFilter = ColorFilter.tint(
+                    BrainwalletTheme.colors.content,
+                ),
             )
             Spacer(modifier = Modifier.weight(1f))
 
