@@ -9,7 +9,7 @@
         <!-- todo -->
         <item name="colorSurface">@color/near_black</item>
         <item name="colorSurfaceBright">#2A2A2A</item>
-        <item name="android:statusBarColor">?attr/colorOnPrimary</item>
+        <item name="android:statusBarColor">@color/surface</item>
 
         <item name="android:windowLightStatusBar">false</item>
     </style>

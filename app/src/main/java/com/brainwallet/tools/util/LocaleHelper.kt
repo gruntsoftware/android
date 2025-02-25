@@ -9,6 +9,7 @@ import androidx.preference.PreferenceManager
 import com.brainwallet.data.model.Language
 import java.util.Locale
 
+@Deprecated(message = "migrate using SettingRepository")
 class LocaleHelper private constructor() {
     private lateinit var sharedPreferences: SharedPreferences
     lateinit var currentLocale: Language

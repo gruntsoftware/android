@@ -7,7 +7,7 @@
         <item name="colorOnPrimary">@color/white</item>
         <!-- todo -->
         <item name="colorSurface">@color/white</item>
-        <item name="android:statusBarColor">?attr/colorOnPrimary</item>
+        <item name="android:statusBarColor">@color/surface</item>
 
         <item name="android:windowLightStatusBar">true</item>
     </style>

@@ -2,6 +2,7 @@ package com.brainwallet.ui.screens.inputwords
 
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.BrainwalletApp
+import com.brainwallet.data.model.Language
 import com.brainwallet.navigation.Route
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.security.PostAuth
@@ -23,7 +24,7 @@ class InputWordsViewModel : BrainwalletViewModel<InputWordsEvent>() {
 
     init {
         //TODO: revisit later, please move to repostiory, for now just reuse the existing
-        Bip39Reader.bip39List(BrainwalletApp.getBreadContext(), "en").also { bip39Words ->
+        Bip39Reader.bip39List(BrainwalletApp.breadContext, Language.ENGLISH.code).also { bip39Words ->
             _state.update { it.copy(bip39Words = bip39Words) }
         }
     }

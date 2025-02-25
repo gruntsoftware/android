@@ -7,6 +7,8 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
+import com.brainwallet.data.model.AppSetting
+import com.brainwallet.data.model.Language
 
 
 /**
@@ -50,15 +52,21 @@ val LocalBrainwalletColors = staticCompositionLocalOf {
     BrainwalletColors()
 }
 
+val LocalLanguageCode = staticCompositionLocalOf {
+    Language.ENGLISH.code //default
+}
+
 @Composable
 fun BrainwalletAppTheme(
-    darkTheme: Boolean = true, //TODO: will change this later, will be using toggle
-//    darkTheme: Boolean = isSystemInDarkTheme(),
+    appSetting: AppSetting = AppSetting(),
     content: @Composable() () -> Unit
 ) {
-    val colors = if (darkTheme) darkColorScheme else lightColorScheme
+    val colors = if (appSetting.isDarkMode) darkColorScheme else lightColorScheme
 
-    CompositionLocalProvider(LocalBrainwalletColors provides colors) {
+    CompositionLocalProvider(
+        LocalBrainwalletColors provides colors,
+        LocalLanguageCode provides appSetting.languageCode
+    ) {
         MaterialTheme(
             typography = AppTypography,
             content = content

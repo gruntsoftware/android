@@ -25,6 +25,6 @@ enum class Language(
     ;
 
     companion object {
-        fun find(code: String?): Language = values().find { it.code == code } ?: ENGLISH
+        fun find(code: String?): Language = entries.find { it.code == code } ?: ENGLISH
     }
 }

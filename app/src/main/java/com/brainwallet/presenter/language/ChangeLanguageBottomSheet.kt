@@ -1,25 +1,34 @@
 package com.brainwallet.presenter.language
 
 import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import com.brainwallet.BrainwalletApp
 import com.brainwallet.R
-import com.brainwallet.databinding.ChangeLanguageBottomSheetBinding
 import com.brainwallet.data.model.Language
+import com.brainwallet.data.repository.SettingRepository
+import com.brainwallet.databinding.ChangeLanguageBottomSheetBinding
 import com.brainwallet.navigation.LegacyNavigation
-import com.brainwallet.tools.util.LocaleHelper
 import com.brainwallet.tools.util.Utils
 import com.brainwallet.tools.util.getString
 import com.brainwallet.ui.RoundedBottomSheetDialogFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import java.util.Locale
 
 class ChangeLanguageBottomSheet : RoundedBottomSheetDialogFragment() {
     lateinit var binding: ChangeLanguageBottomSheetBinding
+
+    lateinit var settingRepository: SettingRepository
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        settingRepository = BrainwalletApp.module!!.settingRepository
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,15 +47,16 @@ class ChangeLanguageBottomSheet : RoundedBottomSheetDialogFragment() {
 
         binding.toolbar.setNavigationOnClickListener { dismiss() }
 
-        val currentLanguage = LocaleHelper.instance.currentLocale
+        val currentLanguage = settingRepository.getCurrentLanguage()
         binding.toolbar.title = currentLanguage.desc
 
         val adapter =
-            LanguageAdapter(Language.values()).apply {
+            LanguageAdapter(Language.entries.toTypedArray()).apply {
                 selectedPosition = currentLanguage.ordinal
                 onLanguageChecked = {
                     binding.toolbar.title = it.desc
-                    binding.okButton.text = getString(LocaleHelper.getLocale(it), R.string.Button_ok)
+                    binding.okButton.text =
+                        getString(getLocale(it), R.string.Button_ok)
                 }
             }
         binding.recyclerView.adapter = adapter
@@ -56,12 +66,13 @@ class ChangeLanguageBottomSheet : RoundedBottomSheetDialogFragment() {
         }
 
         binding.okButton.setOnClickListener {
-            dismiss()
-            if (LocaleHelper.instance.setLocaleIfNeeded(adapter.selectedLanguage())) {
+            if (settingRepository.getCurrentLanguage() != adapter.selectedLanguage()) {
+                settingRepository.updateCurrentLanguage(adapter.selectedLanguage().code)
                 LegacyNavigation.openComposeScreen(
                     context = requireContext(),
                 )
             }
+            dismiss()
         }
     }
 
@@ -96,11 +107,22 @@ class ChangeLanguageBottomSheet : RoundedBottomSheetDialogFragment() {
         )
 
         dialog.setOnShowListener {
-            val bottomSheet: FrameLayout? = dialog.findViewById(com.google.android.material.R.id.design_bottom_sheet)
+            val bottomSheet: FrameLayout? =
+                dialog.findViewById(com.google.android.material.R.id.design_bottom_sheet)
             val lp = bottomSheet?.layoutParams
             lp?.height = ViewGroup.LayoutParams.MATCH_PARENT
             bottomSheet?.layoutParams = lp
         }
         return dialog
+    }
+
+    //for now, need to provide [getLocale]
+    private fun getLocale(language: Language): Locale {
+        val codes = language.code.split("-")
+        return if (codes.size == 2) {
+            Locale(codes[0], codes[1])
+        } else {
+            Locale(codes[0])
+        }
     }
 }

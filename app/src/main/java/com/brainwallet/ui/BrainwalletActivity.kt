@@ -62,11 +62,11 @@ class BrainwalletActivity : BRActivity() {
         }
 
         setContent {
-            val appSetting by BrainwalletApp.module.settingRepository.settings.collectAsState(
+            val appSetting by BrainwalletApp.module!!.settingRepository.settings.collectAsState(
                 AppSetting()
             )
 
-            BrainwalletAppTheme(darkTheme = appSetting.isDarkMode) {
+            BrainwalletAppTheme(appSetting = appSetting) {
                 MainNavHost(
                     startDestination = startDestination,
                     onFinish = { finish() }
@@ -123,7 +123,7 @@ class BrainwalletActivity : BRActivity() {
                             }
 
                             LEGACY_DIALOG_INVALID -> BRDialog.showCustomDialog(
-                                BrainwalletApp.getBreadContext(),
+                                BrainwalletApp.breadContext,
                                 "",
                                 getString(R.string.RecoverWallet_invalid),
                                 getString(R.string.AccessibilityLabels_close),
