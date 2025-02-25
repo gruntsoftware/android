@@ -33,6 +33,8 @@ interface SettingRepository {
      */
     fun isDarkMode(): Boolean
 
+    fun toggleDarkMode(isDarkMode: Boolean)
+
     class Impl(
         private val sharedPreferences: SharedPreferences,
         private val currencyDataSource: CurrencyDataSource
@@ -65,6 +67,13 @@ interface SettingRepository {
 
         override fun isDarkMode(): Boolean {
             return sharedPreferences.getBoolean(KEY_IS_DARK_MODE, true)
+        }
+
+        override fun toggleDarkMode(isDarkMode: Boolean) {
+            sharedPreferences.edit {
+                putBoolean(KEY_IS_DARK_MODE, isDarkMode)
+            }
+            _state.update { it.copy(isDarkMode = isDarkMode) }
         }
 
         private fun load(): AppSetting {

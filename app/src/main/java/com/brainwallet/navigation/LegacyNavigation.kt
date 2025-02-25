@@ -37,6 +37,7 @@ object LegacyNavigation {
 
     //open compose from old activity
     @JvmStatic
+    @JvmOverloads
     fun openComposeScreen(
         context: Context,
         destination: Route = Route.Welcome
