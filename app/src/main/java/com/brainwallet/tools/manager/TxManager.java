@@ -119,9 +119,6 @@ public class TxManager {
 
     void hidePrompt(final Activity app, final PromptManager.PromptItem item) {
         crashIfNotMain();
-        if (currentPrompt == PromptManager.PromptItem.SHARE_DATA) {
-            BRSharedPrefs.putShareDataDismissed(app, true);
-        }
         currentPrompt = null;
         if (txList.getAdapter() != null)
             txList.getAdapter().notifyItemRemoved(0);
