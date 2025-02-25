@@ -23,7 +23,7 @@ class InputWordsViewModel : BrainwalletViewModel<InputWordsEvent>() {
     val state: StateFlow<InputWordsState> = _state.asStateFlow()
 
     init {
-        //TODO: revisit later, please move to repostiory, for now just reuse the existing
+        //TODO: revisit later, please move to repository, for now just reuse the existing
         Bip39Reader.bip39List(BrainwalletApp.breadContext, Language.ENGLISH.code).also { bip39Words ->
             _state.update { it.copy(bip39Words = bip39Words) }
         }

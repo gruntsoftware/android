@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
@@ -36,6 +37,7 @@ import com.brainwallet.ui.composable.BrainwalletTopAppBar
 import com.brainwallet.ui.composable.LargeButton
 import com.brainwallet.ui.composable.SeedWordItem
 
+@JvmOverloads
 @Composable
 fun YourSeedWordsScreen(
     onNavigate: OnNavigate,
@@ -47,6 +49,8 @@ fun YourSeedWordsScreen(
     val horizontalVerticalSpacing = 8
     val spacerHeight = 48
     val maxItemsPerRow = 3
+    val leadingCopyPadding = 16
+    val detailLineHeight = 28
 
     BrainwalletScaffold(
         topBar = {
@@ -78,10 +82,12 @@ fun YourSeedWordsScreen(
             )
 
             //todo: yuana private key text need to open dialog?
-            Text(
+            Text(modifier = Modifier
+                .padding(top = leadingCopyPadding.dp),
                 text = stringResource(R.string.your_seed_words_desc),
-                style = MaterialTheme.typography.bodyMedium.copy(
+                style = MaterialTheme.typography.bodyLarge.copy(
                     textAlign = TextAlign.Center,
+                    lineHeight = detailLineHeight.sp,
                     color = Color.Gray
                 )
             )
