@@ -5,8 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.brainwallet.data.model.CurrencyEntity;
 import com.brainwallet.tools.util.BRConstants;
-import com.brainwallet.presenter.entities.CurrencyEntity;
 
 import java.util.ArrayList;
 import java.util.Collection;

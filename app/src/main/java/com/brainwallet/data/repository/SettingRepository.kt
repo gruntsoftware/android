@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.model.Language
+import com.brainwallet.tools.sqlite.CurrencyDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -33,7 +34,8 @@ interface SettingRepository {
     fun isDarkMode(): Boolean
 
     class Impl(
-        private val sharedPreferences: SharedPreferences
+        private val sharedPreferences: SharedPreferences,
+        private val currencyDataSource: CurrencyDataSource
     ) : SettingRepository {
 
         private val _state = MutableStateFlow(load())
@@ -46,6 +48,7 @@ interface SettingRepository {
             sharedPreferences.edit {
                 putBoolean(KEY_IS_DARK_MODE, setting.isDarkMode)
                 putString(KEY_LANGUAGE_CODE, setting.languageCode)
+                putString(KEY_FIAT_CURRENCY_CODE, setting.currency.code)
             }
             _state.update { setting }
         }
@@ -68,7 +71,11 @@ interface SettingRepository {
             return AppSetting(
                 isDarkMode = sharedPreferences.getBoolean(KEY_IS_DARK_MODE, true),
                 languageCode = sharedPreferences.getString(KEY_LANGUAGE_CODE, Language.ENGLISH.code)
-                    ?: Language.ENGLISH.code
+                    ?: Language.ENGLISH.code,
+                currency = sharedPreferences.getString(KEY_FIAT_CURRENCY_CODE, "USD").let {
+                    currencyDataSource.getCurrencyByIso(it)
+                }
+
             )
         }
     }
@@ -76,5 +83,6 @@ interface SettingRepository {
     companion object {
         const val KEY_IS_DARK_MODE = "is_dark_mode"
         const val KEY_LANGUAGE_CODE = "language_code"
+        const val KEY_FIAT_CURRENCY_CODE = "fiat_currency_code"
     }
 }

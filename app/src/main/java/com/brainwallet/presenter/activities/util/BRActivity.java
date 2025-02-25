@@ -1,6 +1,7 @@
 package com.brainwallet.presenter.activities.util;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,6 +29,8 @@ import com.brainwallet.tools.util.ExtensionKt;
 import com.brainwallet.ui.BrainwalletActivity;
 import com.brainwallet.wallet.BRWalletManager;
 
+import java.util.Locale;
+
 import timber.log.Timber;
 
 public class BRActivity extends AppCompatActivity {
@@ -36,11 +39,14 @@ public class BRActivity extends AppCompatActivity {
         System.loadLibrary(BRConstants.NATIVE_LIB_NAME);
     }
 
+    SettingRepository settingRepository;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
-        SettingRepository settingRepository = BrainwalletApp.module.getSettingRepository();
+        settingRepository = BrainwalletApp.module.getSettingRepository();  //just inject here
         String languageCode = settingRepository.getCurrentLanguage().getCode();
+        Locale.setDefault(settingRepository.getCurrentLanguage().toLocale());
         AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(languageCode));
         AppCompatDelegate.setDefaultNightMode(settingRepository.isDarkMode() ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
 
@@ -148,7 +154,7 @@ public class BRActivity extends AppCompatActivity {
         InternetManager.getInstance();
 
 
-        if (!(app instanceof BrainwalletActivity || app instanceof RecoverActivity || app instanceof WriteDownActivity)) {
+        if (!(app instanceof RecoverActivity || app instanceof WriteDownActivity)) {
             BrainwalletApp.module.getApiManager().startTimer(app);
         }
 

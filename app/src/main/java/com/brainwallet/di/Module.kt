@@ -6,6 +6,7 @@ import com.brainwallet.BuildConfig
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.source.RemoteConfigSource
 import com.brainwallet.tools.manager.BRApiManager
+import com.brainwallet.tools.sqlite.CurrencyDataSource
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 
@@ -16,7 +17,8 @@ class Module(
     val apiManager: BRApiManager = provideBRApiManager(remoteConfigSource),
     val sharedPreferences: SharedPreferences = provideSharedPreferences(context),
     val settingRepository: SettingRepository = provideSettingRepository(
-        sharedPreferences = sharedPreferences
+        sharedPreferences = sharedPreferences,
+        currencyDataSource = CurrencyDataSource.getInstance(context)
     )
 )
 
@@ -28,8 +30,11 @@ private fun provideRemoteConfigSource(): RemoteConfigSource {
     return RemoteConfigSource.FirebaseImpl(Firebase.remoteConfig)
 }
 
-private fun provideSettingRepository(sharedPreferences: SharedPreferences): SettingRepository {
-    return SettingRepository.Impl(sharedPreferences)
+private fun provideSettingRepository(
+    sharedPreferences: SharedPreferences,
+    currencyDataSource: CurrencyDataSource
+): SettingRepository {
+    return SettingRepository.Impl(sharedPreferences, currencyDataSource)
 }
 
 private fun provideSharedPreferences(
