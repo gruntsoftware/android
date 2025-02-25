@@ -177,7 +177,7 @@ fun WelcomeScreen(
                                 .aspectRatio(1f),
                             tint = if (state.darkMode) BrainwalletTheme.colors.warn else BrainwalletTheme.colors.surface,
                             painter = painterResource(if (state.darkMode) R.drawable.ic_light_mode else R.drawable.ic_dark_mode),
-                            contentDescription = "toggle-dark-mode",
+                            contentDescription = stringResource(R.string.toggle_dark_mode),
                         )
                     }
             }

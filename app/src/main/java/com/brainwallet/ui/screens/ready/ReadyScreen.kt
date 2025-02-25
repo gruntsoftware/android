@@ -86,7 +86,7 @@ fun ReadyScreen(
             Row {
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowForward,
-                    contentDescription = "down-left-arrow",
+                    contentDescription = stringResource(R.string.down_left_arrow),
                     modifier = Modifier
                         .rotate(45f)
                         .graphicsLayer(

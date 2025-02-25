@@ -89,7 +89,7 @@ fun UnLockScreen(
                 modifier = Modifier.fillMaxWidth(0.80f)
                     .padding(horizontalVerticalSpacing.dp),
                 painter = painterResource(R.drawable.bw_white_logotype),
-                contentDescription = "logo"
+                contentDescription = stringResource(R.string.logo)
             )
             Spacer(modifier = Modifier.weight(1f))
 

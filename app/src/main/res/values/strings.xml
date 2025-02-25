@@ -805,4 +805,7 @@
     <string name="ready">Ready</string>
     <string name="restore">Restore</string>
     <string name="incorrect_passcode">Incorrect Passcode, please try again!</string>
+    <string name="down_left_arrow">down-left-arrow</string>
+    <string name="logo">logo</string>
+    <string name="toggle_dark_mode">toggle-dark-mode</string>
 </resources>
