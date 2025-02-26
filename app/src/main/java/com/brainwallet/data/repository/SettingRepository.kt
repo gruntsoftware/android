@@ -3,6 +3,7 @@ package com.brainwallet.data.repository
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.brainwallet.data.model.AppSetting
+import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.Language
 import com.brainwallet.tools.sqlite.CurrencyDataSource
 import kotlinx.coroutines.flow.Flow
@@ -83,6 +84,11 @@ interface SettingRepository {
                     ?: Language.ENGLISH.code,
                 currency = sharedPreferences.getString(KEY_FIAT_CURRENCY_CODE, "USD").let {
                     currencyDataSource.getCurrencyByIso(it)
+                        ?: return@let CurrencyEntity(
+                            "USD",
+                            "USD",
+                            -1f
+                        )
                 }
 
             )
