@@ -37,7 +37,6 @@ import com.brainwallet.ui.composable.BrainwalletTopAppBar
 import com.brainwallet.ui.composable.LargeButton
 import com.brainwallet.ui.composable.SeedWordItem
 
-@JvmOverloads
 @Composable
 fun YourSeedWordsScreen(
     onNavigate: OnNavigate,
