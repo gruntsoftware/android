@@ -213,39 +213,6 @@ public class PostAuth {
         }
     }
 
-    public void onPaymentProtocolRequest(Activity app, boolean authAsked) {
-
-        byte[] rawSeed;
-        try {
-            rawSeed = BRKeyStore.getPhrase(app, BRConstants.PAYMENT_PROTOCOL_REQUEST_CODE);
-        } catch (UserNotAuthenticatedException e) {
-            if (authAsked) {
-                Timber.d("timber: %s: WARNING!!!! LOOP", new Object() {
-                }.getClass().getEnclosingMethod().getName());
-                isStuckWithAuthLoop = true;
-            }
-            return;
-        }
-        if (rawSeed == null || rawSeed.length < 10 || paymentRequest.serializedTx == null) {
-            Timber.d("timber: onPaymentProtocolRequest() returned: rawSeed is malformed: %s", Arrays.toString(rawSeed));
-            return;
-        }
-
-        final byte[] seed = TypesConverter.getNullTerminatedPhrase(rawSeed);
-
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                byte[] txHash = BRWalletManager.getInstance().publishSerializedTransaction(paymentRequest.serializedTx, seed);
-                if (Utils.isNullOrEmpty(txHash)) throw new NullPointerException("txHash is null!");
-                PaymentProtocolPostPaymentTask.sent = true;
-                Arrays.fill(seed, (byte) 0);
-                paymentRequest = null;
-            }
-        });
-
-    }
-
     public void setPhraseForKeyStore(String phraseForKeyStore) {
         this.phraseForKeyStore = phraseForKeyStore;
     }

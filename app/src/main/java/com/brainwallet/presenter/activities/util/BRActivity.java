@@ -86,11 +86,6 @@ public class BRActivity extends AppCompatActivity {
                     });
                 }
                 break;
-            case BRConstants.PAYMENT_PROTOCOL_REQUEST_CODE:
-                if (resultCode == RESULT_OK) {
-                    PostAuth.getInstance().onPaymentProtocolRequest(this, true);
-                }
-                break;
 
             case BRConstants.CANARY_REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
