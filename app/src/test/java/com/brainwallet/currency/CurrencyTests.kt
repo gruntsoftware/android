@@ -40,7 +40,14 @@ class CurrencyTests {
     fun `invoke CurrencyDataSource instance and getAllCurrencies, should return the correct number of currencies`() {
         //The actual number of currencies is 174. The 0 is a placeholder and needs to be replaced with a db query.
         mockCursorDataFromDatabase()
-        assertEquals(currencyDataSource?.allCurrencies?.count(), 0)
+        assertEquals(currencyDataSource?.getAllCurrencies(false)?.count(), 0)
+    }
+
+    @Test
+    fun `invoke CurrencyDataSource instance and Brainwallet filtered Fiats, should return the correct number of Brainwallet currencies`() {
+        //The actual number of BW currencies is 16. The 0 is a placeholder and needs to be replaced with a db query.
+        mockCursorDataFromDatabase()
+        assertEquals(currencyDataSource?.getAllCurrencies(true)?.count(), 0)
     }
 
     @Test
