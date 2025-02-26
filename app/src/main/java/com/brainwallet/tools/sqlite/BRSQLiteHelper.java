@@ -4,7 +4,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -78,7 +80,6 @@ public class BRSQLiteHelper extends SQLiteOpenHelper {
     public static final String CURRENCY_CODE = "code";
     public static final String CURRENCY_NAME = "name";
     public static final String CURRENCY_RATE = "rate";
-
     private static final String CURRENCY_DATABASE_CREATE = "create table if not exists " + CURRENCY_TABLE_NAME + "(" +
             CURRENCY_CODE + " text primary key," +
             CURRENCY_NAME + " text," +
