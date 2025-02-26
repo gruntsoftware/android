@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.brainwallet.R;
 import com.brainwallet.presenter.activities.util.BRActivity;
-import com.brainwallet.presenter.entities.CurrencyEntity;
+import com.brainwallet.data.model.CurrencyEntity;
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.sqlite.CurrencyDataSource;
 import com.brainwallet.tools.util.BRConstants;

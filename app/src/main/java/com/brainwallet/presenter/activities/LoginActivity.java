@@ -1,8 +1,5 @@
 package com.brainwallet.presenter.activities;
 
-import static com.brainwallet.tools.util.BRConstants.SCANNER_REQUEST;
-
-import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
@@ -17,17 +14,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.brainwallet.R;
 import com.brainwallet.navigation.Route;
-import com.brainwallet.presenter.activities.camera.ScanQRActivity;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.presenter.customviews.BRKeyboard;
-import com.brainwallet.presenter.entities.CurrencyEntity;
+import com.brainwallet.data.model.CurrencyEntity;
 import com.brainwallet.tools.animation.BRAnimator;
-import com.brainwallet.tools.animation.BRDialog;
 import com.brainwallet.tools.animation.SpringAnimator;
 import com.brainwallet.tools.manager.AnalyticsManager;
 import com.brainwallet.tools.manager.BRSharedPrefs;

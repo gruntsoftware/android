@@ -1,16 +1,25 @@
 package com.brainwallet.di
 
+import android.content.Context
+import android.content.SharedPreferences
+import com.brainwallet.BuildConfig
 import com.brainwallet.data.repository.SettingRepository
+import com.brainwallet.data.source.RemoteConfigSource
 import com.brainwallet.tools.manager.BRApiManager
+import com.brainwallet.tools.sqlite.CurrencyDataSource
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
-import com.brainwallet.data.source.RemoteConfigSource
 
-
+//TODO: revisit later
 class Module(
+    val context: Context,
     val remoteConfigSource: RemoteConfigSource = provideRemoteConfigSource(),
     val apiManager: BRApiManager = provideBRApiManager(remoteConfigSource),
-    val settingRepository: SettingRepository = provideSettingRepository()
+    val sharedPreferences: SharedPreferences = provideSharedPreferences(context),
+    val settingRepository: SettingRepository = provideSettingRepository(
+        sharedPreferences = sharedPreferences,
+        currencyDataSource = CurrencyDataSource.getInstance(context)
+    )
 )
 
 private fun provideBRApiManager(remoteConfigSource: RemoteConfigSource): BRApiManager {
@@ -21,6 +30,16 @@ private fun provideRemoteConfigSource(): RemoteConfigSource {
     return RemoteConfigSource.FirebaseImpl(Firebase.remoteConfig)
 }
 
-private fun provideSettingRepository(): SettingRepository {
-    return SettingRepository.Impl()
+private fun provideSettingRepository(
+    sharedPreferences: SharedPreferences,
+    currencyDataSource: CurrencyDataSource
+): SettingRepository {
+    return SettingRepository.Impl(sharedPreferences, currencyDataSource)
+}
+
+private fun provideSharedPreferences(
+    context: Context,
+    name: String = "${BuildConfig.APPLICATION_ID}.prefs"
+): SharedPreferences {
+    return context.getSharedPreferences(name, Context.MODE_PRIVATE)
 }

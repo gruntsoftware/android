@@ -23,8 +23,6 @@ import androidx.compose.ui.unit.dp
 fun PasscodeKeypad(
     onEvent: (PasscodeKeypadEvent) -> Unit
 ) {
-    //TODO: will change using CircleButton from another branch later
-    //
     FlowRow(
         horizontalArrangement = Arrangement.spacedBy(24.dp),
         verticalArrangement = Arrangement.spacedBy(24.dp),

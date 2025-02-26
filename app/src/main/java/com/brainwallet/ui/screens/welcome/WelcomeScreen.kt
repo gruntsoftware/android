@@ -4,13 +4,11 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Arrangement.Center
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,11 +16,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconToggleButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -33,7 +29,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
@@ -54,10 +49,10 @@ import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.composable.BorderedLargeButton
-import com.brainwallet.ui.composable.FiatDropdown
-import com.brainwallet.ui.composable.LanguageDropdown
+import com.brainwallet.ui.composable.BrainwalletButton
+import com.brainwallet.ui.composable.bottomsheet.FiatSelectorBottomSheet
+import com.brainwallet.ui.composable.bottomsheet.LanguageSelectorBottomSheet
 import com.brainwallet.ui.theme.BrainwalletTheme
-import com.brainwallet.ui.theme.openSauceOneFamily
 
 @Composable
 fun WelcomeScreen(
@@ -129,7 +124,7 @@ fun WelcomeScreen(
                 progress = { progress }
             )
         }
-       // Spacer(modifier = Modifier.weight(1f))
+        // Spacer(modifier = Modifier.weight(1f))
 
 //        TODO: implement later, for now just comment this
         Row(
@@ -141,13 +136,19 @@ fun WelcomeScreen(
             horizontalArrangement = Arrangement.SpaceEvenly
 
         ) {
-            Spacer(modifier = Modifier.weight(0.2f))
+            Spacer(modifier = Modifier.weight(0.1f))
 
-            LanguageDropdown(
-                selectedLanguage,
-                isDarkTheme = true
-            ) { newLanguage ->
-                selectedLanguage = newLanguage
+            BrainwalletButton(
+                modifier = Modifier.weight(0.9f),
+                onClick = {
+                    viewModel.onEvent(WelcomeEvent.OnLanguageSelectorButtonClick)
+                }
+            ) {
+                Text(
+                    text = state.selectedLanguage.title,
+                    fontSize = 14.sp,
+                    color = BrainwalletTheme.colors.content
+                )
             }
 
             Spacer(modifier = Modifier.weight(0.2f))
@@ -162,32 +163,45 @@ fun WelcomeScreen(
                 }
             ) {
 
-                Box(modifier = Modifier
-                    .fillMaxSize()
-                    .width(iconButtonSize.dp)
-                    .aspectRatio(1f)
-                    .clip(CircleShape)
-                    .border(1.dp, if (state.darkMode) BrainwalletTheme.colors.warn else BrainwalletTheme.colors.surface,
-                        CircleShape)
-                    .background(if (state.darkMode) BrainwalletTheme.colors.surface else BrainwalletTheme.colors.content )) {
-                        Icon(
-                            modifier = Modifier
-                                .align(Alignment.Center)
-                                .width(iconButtonSize.dp)
-                                .aspectRatio(1f),
-                            tint = if (state.darkMode) BrainwalletTheme.colors.warn else BrainwalletTheme.colors.surface,
-                            painter = painterResource(if (state.darkMode) R.drawable.ic_light_mode else R.drawable.ic_dark_mode),
-                            contentDescription = "toggle-dark-mode",
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .width(iconButtonSize.dp)
+                        .aspectRatio(1f)
+                        .clip(CircleShape)
+                        .border(
+                            1.dp,
+                            if (state.darkMode) BrainwalletTheme.colors.warn else BrainwalletTheme.colors.surface,
+                            CircleShape
                         )
-                    }
+                        .background(if (state.darkMode) BrainwalletTheme.colors.surface else BrainwalletTheme.colors.content)
+                ) {
+                    Icon(
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .width(iconButtonSize.dp)
+                            .aspectRatio(1f),
+                        tint = if (state.darkMode) BrainwalletTheme.colors.warn else BrainwalletTheme.colors.surface,
+                        painter = painterResource(if (state.darkMode) R.drawable.ic_light_mode else R.drawable.ic_dark_mode),
+                        contentDescription = stringResource(R.string.toggle_dark_mode),
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.weight(0.2f))
 
-            FiatDropdown(selectedFiat, isDarkTheme = true) { newFiat ->
-                selectedFiat = newFiat
+            BrainwalletButton(
+                modifier = Modifier.weight(0.9f),
+                onClick = { viewModel.onEvent(WelcomeEvent.OnFiatButtonClick) }
+            ) {
+                Text(
+                    text = state.selectedCurrency.name,
+                    fontSize = 14.sp,
+                    color = BrainwalletTheme.colors.content
+                )
             }
-            Spacer(modifier = Modifier.weight(0.2f))
+
+            Spacer(modifier = Modifier.weight(0.1f))
 
         }
         // Ready Button
@@ -206,7 +220,7 @@ fun WelcomeScreen(
                 text = stringResource(R.string.ready),
                 fontSize = buttonFontSize.sp,
                 fontWeight = FontWeight.SemiBold,
-                )
+            )
         }
 
         // Restore Button
@@ -229,7 +243,36 @@ fun WelcomeScreen(
         }
 
         Spacer(modifier = Modifier.weight(0.5f))
+    }
 
+    //language selector
+    if (state.languageSelectorBottomSheetVisible) {
+        LanguageSelectorBottomSheet(
+            selectedLanguage = state.selectedLanguage,
+            onLanguageSelect = { language ->
+                viewModel.onEvent(
+                    WelcomeEvent.OnLanguageChange(
+                        language
+                    )
+                )
+            },
+            onDismissRequest = {
+                viewModel.onEvent(WelcomeEvent.OnLanguageSelectorDismiss)
+            },
+        )
+    }
+
+    //fiat/currency selector
+    if (state.fiatSelectorBottomSheetVisible) {
+        FiatSelectorBottomSheet(
+            selectedCurrency = state.selectedCurrency,
+            onFiatSelect = {
+                viewModel.onEvent(WelcomeEvent.OnFiatChange(it))
+            },
+            onDismissRequest = {
+                viewModel.onEvent(WelcomeEvent.OnFiatSelectorDismiss)
+            }
+        )
     }
 }
 

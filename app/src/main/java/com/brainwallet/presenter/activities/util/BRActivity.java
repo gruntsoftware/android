@@ -9,8 +9,11 @@ import android.os.Handler;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.os.LocaleListCompat;
 
 import com.brainwallet.BrainwalletApp;
+import com.brainwallet.data.repository.SettingRepository;
+import com.brainwallet.di.Module;
 import com.brainwallet.presenter.activities.DisabledActivity;
 import com.brainwallet.presenter.activities.intro.RecoverActivity;
 import com.brainwallet.presenter.activities.intro.WriteDownActivity;
@@ -22,9 +25,11 @@ import com.brainwallet.tools.security.BitcoinUrlHandler;
 import com.brainwallet.tools.security.PostAuth;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.util.BRConstants;
-import com.brainwallet.tools.util.LocaleHelper;
+import com.brainwallet.tools.util.ExtensionKt;
 import com.brainwallet.ui.BrainwalletActivity;
 import com.brainwallet.wallet.BRWalletManager;
+
+import java.util.Locale;
 
 import timber.log.Timber;
 
@@ -34,17 +39,24 @@ public class BRActivity extends AppCompatActivity {
         System.loadLibrary(BRConstants.NATIVE_LIB_NAME);
     }
 
+    SettingRepository settingRepository;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        LocaleHelper.Companion.getInstance().setLocale(this);
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES); //for now only using dark mode
+
+        settingRepository = BrainwalletApp.module.getSettingRepository();  //just inject here
+        String languageCode = settingRepository.getCurrentLanguage().getCode();
+        Locale.setDefault(settingRepository.getCurrentLanguage().toLocale());
+        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(languageCode));
+        AppCompatDelegate.setDefaultNightMode(settingRepository.isDarkMode() ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(LocaleHelper.Companion.getInstance().setLocale(newBase));
-    }
+//    @Override
+//    protected void attachBaseContext(Context newBase) {
+//        super.attachBaseContext(LocaleHelper.Companion.getInstance().setLocale(newBase));
+//    }
 
     @Override
     protected void onStop() {
@@ -142,7 +154,7 @@ public class BRActivity extends AppCompatActivity {
         InternetManager.getInstance();
 
 
-        if (!(app instanceof BrainwalletActivity || app instanceof RecoverActivity || app instanceof WriteDownActivity)) {
+        if (!(app instanceof RecoverActivity || app instanceof WriteDownActivity)) {
             BrainwalletApp.module.getApiManager().startTimer(app);
         }
 

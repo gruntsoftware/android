@@ -10,10 +10,10 @@ import android.content.Context;
 import android.os.Handler;
 
 import com.brainwallet.BuildConfig;
+import com.brainwallet.data.model.CurrencyEntity;
 import com.brainwallet.tools.sqlite.CurrencyDataSource;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.util.Utils;
-import com.brainwallet.presenter.entities.CurrencyEntity;
 import com.brainwallet.data.source.RemoteConfigSource;
 import com.platform.APIClient;
 
