@@ -31,8 +31,7 @@ fun FiatSelectorBottomSheet(
         onDismissRequest = onDismissRequest,
     ) {
         LazyColumn {
-            val currencies = CurrencyDataSource.getInstance(context).allCurrencies
-
+            val currencies = CurrencyDataSource.getInstance(context).getAllCurrencies(true)
             items(
                 items = currencies
             ) { currency ->
