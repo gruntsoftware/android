@@ -7,7 +7,7 @@ import android.content.Context;
 
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.sqlite.CurrencyDataSource;
-import com.brainwallet.presenter.entities.CurrencyEntity;
+import com.brainwallet.data.model.CurrencyEntity;
 import com.brainwallet.wallet.BRWalletManager;
 
 import java.math.BigDecimal;

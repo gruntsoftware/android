@@ -19,9 +19,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,10 +27,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.UiEffect
+import com.brainwallet.ui.composable.BrainwalletScaffold
+import com.brainwallet.ui.composable.BrainwalletTopAppBar
 import com.brainwallet.ui.composable.LargeButton
 import com.brainwallet.ui.composable.SeedWordItem
 
@@ -42,17 +43,17 @@ fun YourSeedWordsScreen(
     seedWords: List<String>,
     viewModel: YourSeedWordsViewModel = viewModel()
 ) {
-
     /// Layout values
     val columnPadding = 16
     val horizontalVerticalSpacing = 8
     val spacerHeight = 48
     val maxItemsPerRow = 3
+    val leadingCopyPadding = 16
+    val detailLineHeight = 28
 
-    Scaffold(
+    BrainwalletScaffold(
         topBar = {
-            TopAppBar(
-                title = {},
+            BrainwalletTopAppBar(
                 navigationIcon = {
                     IconButton(
                         onClick = { onNavigate.invoke(UiEffect.Navigate.Back()) },
@@ -80,10 +81,12 @@ fun YourSeedWordsScreen(
             )
 
             //todo: yuana private key text need to open dialog?
-            Text(
+            Text(modifier = Modifier
+                .padding(top = leadingCopyPadding.dp),
                 text = stringResource(R.string.your_seed_words_desc),
-                style = MaterialTheme.typography.bodyMedium.copy(
+                style = MaterialTheme.typography.bodyLarge.copy(
                     textAlign = TextAlign.Center,
+                    lineHeight = detailLineHeight.sp,
                     color = Color.Gray
                 )
             )
@@ -123,7 +126,7 @@ fun YourSeedWordsScreen(
             ) {
                 Text(
                     text = stringResource(R.string.i_saved_it_on_paper),
-                    style = MaterialTheme.typography.bodyLarge.copy(color = Color.White) //for now just hardcoded, need to create button composable later and adjust the theme later at [com.brainwallet.ui.theme.Theme]
+                    style = MaterialTheme.typography.bodyLarge
                 )
             }
         }

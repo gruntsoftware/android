@@ -1,5 +1,6 @@
 package com.brainwallet.tools.util
 
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertSame
 
 import org.junit.Test
@@ -56,6 +57,11 @@ class BRConstantsTest {
         assertSame(BRConstants._20240101_US,"user_signup");
         assertSame(BRConstants._20241006_DRR,"did_request_rating");
         assertSame(BRConstants._20241006_UCR,"user_completed_rating");
+    }
+
+    @Test
+    fun `validate pin length`() {
+        assertEquals(4, BRConstants.BW_PIN_LENGTH)
     }
 }
 

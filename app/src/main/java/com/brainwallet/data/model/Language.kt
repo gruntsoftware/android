@@ -1,5 +1,7 @@
 package com.brainwallet.data.model
 
+import java.util.Locale
+
 enum class Language(
     val code: String,
     val title: String,
@@ -25,6 +27,16 @@ enum class Language(
     ;
 
     companion object {
-        fun find(code: String?): Language = values().find { it.code == code } ?: ENGLISH
+        fun find(code: String?): Language = entries.find { it.code == code } ?: ENGLISH
+    }
+
+    fun toLocale(): Locale {
+        val codes = code.split("-")
+        return if (codes.size == 2) {
+            Locale(codes[0], codes[1])
+        } else {
+            Locale(codes[0])
+        }
     }
 }
+

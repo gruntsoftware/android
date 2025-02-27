@@ -19,7 +19,11 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.brainwallet.BrainwalletApp;
 import com.brainwallet.R;
+import com.brainwallet.data.repository.SettingRepository;
+import com.brainwallet.navigation.LegacyNavigation;
+import com.brainwallet.navigation.Route;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.presenter.entities.BRSettingsItem;
 import com.brainwallet.presenter.language.ChangeLanguageBottomSheet;
@@ -35,9 +39,11 @@ public class SettingsActivity extends BRActivity {
     public static boolean appVisible = false;
     private ImageButton closeButton;
     private static SettingsActivity app;
+
     public static SettingsActivity getApp() {
         return app;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,7 +128,7 @@ public class SettingsActivity extends BRActivity {
 
         /*Show Seed Phrase*/
         items.add(new BRSettingsItem(getString(R.string.settings_show_seed), "", v -> {
-          BRAnimator.showBalanceSeedFragment(this);
+            BRAnimator.showBalanceSeedFragment(this);
         }, false));
 
         /*Wipe Start_Recover Wallet*/
@@ -134,6 +140,14 @@ public class SettingsActivity extends BRActivity {
 
         /*Manage Title*/
         items.add(new BRSettingsItem(getString(R.string.Settings_manage), "", null, true));
+
+        //toggle dark mode
+        SettingRepository settingRepository = BrainwalletApp.module.getSettingRepository();
+        boolean isDarkMode = settingRepository.isDarkMode();
+        items.add(new BRSettingsItem(getString(R.string.toggle_dark_mode), getString(isDarkMode ? androidx.appcompat.R.string.abc_capital_on : androidx.appcompat.R.string.abc_capital_off), v -> {
+            settingRepository.toggleDarkMode(!isDarkMode);
+            LegacyNavigation.openComposeScreen(SettingsActivity.this);
+        }, false));
 
         /*Languages*/
         items.add(new BRSettingsItem(getString(R.string.Settings_languages), null, v -> {

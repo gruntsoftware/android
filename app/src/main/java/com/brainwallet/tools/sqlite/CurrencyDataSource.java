@@ -1,16 +1,21 @@
 package com.brainwallet.tools.sqlite;
 
+import static kotlinx.coroutines.flow.FlowKt.collect;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.brainwallet.data.model.CurrencyEntity;
 import com.brainwallet.tools.util.BRConstants;
-import com.brainwallet.presenter.entities.CurrencyEntity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import timber.log.Timber;
 
@@ -61,9 +66,14 @@ public class CurrencyDataSource implements BRDataSourceInterface {
         }
     }
 
-    public List<CurrencyEntity> getAllCurrencies() {
+    public List<CurrencyEntity> getAllCurrencies(Boolean shouldBeFiltered) {
 
         List<CurrencyEntity> currencies = new ArrayList<>();
+
+        /// Set the most popular fiats
+        List<String> filteredFiatCodes =
+                Arrays.asList("USD","EUR","GBP", "SGD","CAD","AUD","RUB","KRW","MXN","SAR","UAH","NGN","JPY","CNY","IDR","TRY");
+
         Cursor cursor = null;
         try {
             database = openDatabase();
@@ -81,6 +91,14 @@ public class CurrencyDataSource implements BRDataSourceInterface {
             if (cursor != null)
                 cursor.close();
             closeDatabase();
+        }
+
+        if (shouldBeFiltered) {
+            // Filtering Brainwallet fiats
+            List<CurrencyEntity> filteredFiats = currencies.stream()
+                    .filter(currency -> filteredFiatCodes.contains(currency.code))
+                    .collect(Collectors.toList());
+                    currencies = filteredFiats;
         }
 
         return currencies;

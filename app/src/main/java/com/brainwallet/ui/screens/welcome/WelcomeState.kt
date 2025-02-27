@@ -1,11 +1,16 @@
 package com.brainwallet.ui.screens.welcome
 
-enum class UserThemePreference {
-    PRIMARY,
-    SECONDARY_LIGHT,
-    TERTIARY_DARK
-}
+import com.brainwallet.data.model.Language
+import com.brainwallet.data.model.CurrencyEntity
 
 data class WelcomeState(
-    val userThemePreference: UserThemePreference = UserThemePreference.PRIMARY,
+    val darkMode: Boolean = true,
+    val selectedLanguage: Language = Language.ENGLISH,
+    val selectedCurrency: CurrencyEntity = CurrencyEntity(
+        "USD",
+        "USD",
+        -1f
+    ), //-1 = need to fetch
+    val languageSelectorBottomSheetVisible: Boolean = false,
+    val fiatSelectorBottomSheetVisible: Boolean = false,
 )

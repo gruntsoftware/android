@@ -14,9 +14,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -31,11 +29,15 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.UiEffect
+import com.brainwallet.ui.composable.BrainwalletScaffold
+import com.brainwallet.ui.composable.BrainwalletTopAppBar
 import com.brainwallet.ui.composable.PasscodeIndicator
 import com.brainwallet.ui.composable.PasscodeKeypad
 import com.brainwallet.ui.composable.PasscodeKeypadEvent
@@ -64,18 +66,11 @@ fun SetPasscodeScreen(
 
     val horizontalVerticalSpacing = 8
     val spacerHeight = 90
-    val imageMedium = 80
+    val detailLineHeight = 28
 
-    val headlineFontSize = 44
-    val paragraphFontSize = 22
-    val lineHeight = 35
-
-
-    Scaffold(
+    BrainwalletScaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                },
+            BrainwalletTopAppBar(
                 navigationIcon = {
                     IconButton(
                         onClick = { onNavigate.invoke(UiEffect.Navigate.Back()) },
@@ -105,15 +100,18 @@ fun SetPasscodeScreen(
             )
 
             if (state.isConfirm) {
-                Text(
+                Text(modifier = Modifier
+                    .padding(top = leadingCopyPadding.dp),
                     text = stringResource(R.string.confirm_desc),
                     style = MaterialTheme.typography.bodyLarge.copy(
                         textAlign = TextAlign.Center,
+                        lineHeight = detailLineHeight.sp,
                         color = Color.Gray
                     ),
                 )
             } else {
-                Text(
+                Text(modifier = Modifier
+                    .padding(top = leadingCopyPadding.dp),
                     text = buildAnnotatedString {
                         append(stringResource(R.string.setup_app_details_1))
                         append("\n")
@@ -129,6 +127,7 @@ fun SetPasscodeScreen(
                     },
                     style = MaterialTheme.typography.bodyLarge.copy(
                         textAlign = TextAlign.Center,
+                        lineHeight = detailLineHeight.sp,
                         color = Color.Gray
                     ),
                 )

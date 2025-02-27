@@ -367,7 +367,7 @@
     <!-- PIN button description -->
     <string name="SecurityCenter.pinDescription">Protects your Brainwallet from unauthorized users.</string>
     <!-- PIN button title -->
-    <string name="SecurityCenter.pinTitle">6-Digit PIN</string>
+    <string name="SecurityCenter.pinTitle">4-Digit PIN</string>
     <!-- Security Center Title -->
     <string name="SecurityCenter.title">Security Center</string>
     <!-- Touch ID button description -->
@@ -802,4 +802,10 @@
     <string name="dont_guess_desc">Don’t guess.\n\nIt would take you \n5,444,517,950,000,000,000,000,000,000,000,000,000,000,000,000,000 tries</string>
     <string name="confirm">Confirm</string>
     <string name="confirm_desc">You didn’t forget did you? Enter it again. Or, go back to start over.</string>
+    <string name="ready">Ready</string>
+    <string name="restore">Restore</string>
+    <string name="incorrect_passcode">Incorrect Passcode, please try again!</string>
+    <string name="down_left_arrow">down-left-arrow</string>
+    <string name="logo">logo</string>
+    <string name="toggle_dark_mode">toggle-dark-mode</string>
 </resources>

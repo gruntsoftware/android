@@ -463,7 +463,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     public void onConnectionChanged(boolean isConnected) {
 
         Context thisContext = BreadActivity.this;
-        Context app = BrainwalletApp.getBreadContext();
+        Context app = getApplicationContext();
         if (isConnected) {
             if (barFlipper != null) {
                 if (barFlipper.getDisplayedChild() == 1) {

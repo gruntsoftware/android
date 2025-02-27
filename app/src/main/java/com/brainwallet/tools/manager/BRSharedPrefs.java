@@ -3,6 +3,8 @@ package com.brainwallet.tools.manager;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.brainwallet.BrainwalletApp;
+import com.brainwallet.data.repository.SettingRepository;
 import com.brainwallet.tools.util.BRConstants;
 
 import java.util.ArrayList;
@@ -33,8 +35,11 @@ public class BRSharedPrefs {
     }
 
     public static String getIsoSymbol(Context context) {
+        if (BrainwalletApp.module == null) {
+            return "USD";
+        }
 
-        SharedPreferences settingsToGet = context.getSharedPreferences(BRConstants.PREFS_NAME, 0);
+        SharedPreferences settingsToGet = BrainwalletApp.module.getSharedPreferences();
         String defIso;
         String defaultLanguage = Locale.getDefault().getLanguage();
 
@@ -52,13 +57,18 @@ public class BRSharedPrefs {
             Timber.e(e);
              defIso = Currency.getInstance(Locale.US).getCurrencyCode();
         }
-        return settingsToGet.getString(BRConstants.CURRENT_CURRENCY, defIso);
+        return settingsToGet.getString(SettingRepository.KEY_FIAT_CURRENCY_CODE, defIso); //using new shared prefs used by setting repository
     }
 
     public static void putIso(Context context, String code) {
-        SharedPreferences settings = context.getSharedPreferences(BRConstants.PREFS_NAME, 0);
+        //migrate using new shared preferences used by setting repository
+        if (BrainwalletApp.module == null) {
+            return;
+        }
+
+        SharedPreferences settings = BrainwalletApp.module.getSharedPreferences();
         SharedPreferences.Editor editor = settings.edit();
-        editor.putString(BRConstants.CURRENT_CURRENCY, code.equalsIgnoreCase(Locale.getDefault().getISO3Language()) ? null : code);
+        editor.putString(SettingRepository.KEY_FIAT_CURRENCY_CODE, code); //using new shared prefs used by setting repository
         editor.apply();
 
         notifyIsoChanged(code);

@@ -21,12 +21,10 @@ public class SetPinActivity extends BRActivity {
     private View dot2;
     private View dot3;
     private View dot4;
-    private View dot5;
-    private View dot6;
 
     private ImageButton faq;
     private StringBuilder pin = new StringBuilder();
-    private int pinLimit = 6;
+    private int pinLimit = 4;
     private boolean startingNextActivity;
     private TextView title;
     public static boolean appVisible = false;
@@ -52,8 +50,6 @@ public class SetPinActivity extends BRActivity {
         dot2 = findViewById(R.id.dot2);
         dot3 = findViewById(R.id.dot3);
         dot4 = findViewById(R.id.dot4);
-        dot5 = findViewById(R.id.dot5);
-        dot6 = findViewById(R.id.dot6);
 
         keyboard.addOnInsertListener(new BRKeyboard.OnInsertListener() {
             @Override
@@ -123,11 +119,8 @@ public class SetPinActivity extends BRActivity {
         selectedDots--;
         dot4.setBackground(getDrawable(selectedDots <= 0 ? R.drawable.ic_pin_dot_gray : R.drawable.ic_pin_dot_black));
         selectedDots--;
-        dot5.setBackground(getDrawable(selectedDots <= 0 ? R.drawable.ic_pin_dot_gray : R.drawable.ic_pin_dot_black));
-        selectedDots--;
-        dot6.setBackground(getDrawable(selectedDots <= 0 ? R.drawable.ic_pin_dot_gray : R.drawable.ic_pin_dot_black));
 
-        if (pin.length() == 6) {
+        if (pin.length() ==4) {
             if (startingNextActivity) return;
             startingNextActivity = true;
             new Handler().postDelayed(new Runnable() {

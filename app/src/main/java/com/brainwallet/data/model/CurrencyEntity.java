@@ -1,4 +1,4 @@
-package com.brainwallet.presenter.entities;
+package com.brainwallet.data.model;
 
 import java.io.Serializable;
 

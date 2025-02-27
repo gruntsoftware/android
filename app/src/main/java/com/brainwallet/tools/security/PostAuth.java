@@ -23,6 +23,7 @@ import com.brainwallet.presenter.activities.intro.WriteDownActivity;
 import com.brainwallet.presenter.activities.util.ActivityUTILS;
 import com.brainwallet.presenter.entities.PaymentRequestWrapper;
 import com.brainwallet.presenter.entities.TransactionItem;
+import com.brainwallet.ui.BrainwalletActivity;
 import com.brainwallet.wallet.BRWalletManager;
 import com.platform.entities.TxMetaData;
 import com.platform.tools.KVStoreManager;
@@ -149,10 +150,15 @@ public class PostAuth {
                     byte[] pubKey = BRWalletManager.getInstance().getMasterPubKey(bytePhrase);
                     BRKeyStore.putMasterPublicKey(pubKey, app);
                     app.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-                    Intent intent = new Intent(app, SetPinActivity.class);
+
+                    //using setpasscode from
+                    Intent intent = BrainwalletActivity.createIntent(
+                            app, new Route.SetPasscode()
+                    );
                     intent.putExtra("noPin", true);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     app.startActivity(intent);
+
                     if (!app.isDestroyed()) app.finish();
                     phraseForKeyStore = null;
                 }
@@ -205,39 +211,6 @@ public class PostAuth {
         } finally {
             Arrays.fill(seed, (byte) 0);
         }
-    }
-
-    public void onPaymentProtocolRequest(Activity app, boolean authAsked) {
-
-        byte[] rawSeed;
-        try {
-            rawSeed = BRKeyStore.getPhrase(app, BRConstants.PAYMENT_PROTOCOL_REQUEST_CODE);
-        } catch (UserNotAuthenticatedException e) {
-            if (authAsked) {
-                Timber.d("timber: %s: WARNING!!!! LOOP", new Object() {
-                }.getClass().getEnclosingMethod().getName());
-                isStuckWithAuthLoop = true;
-            }
-            return;
-        }
-        if (rawSeed == null || rawSeed.length < 10 || paymentRequest.serializedTx == null) {
-            Timber.d("timber: onPaymentProtocolRequest() returned: rawSeed is malformed: %s", Arrays.toString(rawSeed));
-            return;
-        }
-
-        final byte[] seed = TypesConverter.getNullTerminatedPhrase(rawSeed);
-
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                byte[] txHash = BRWalletManager.getInstance().publishSerializedTransaction(paymentRequest.serializedTx, seed);
-                if (Utils.isNullOrEmpty(txHash)) throw new NullPointerException("txHash is null!");
-                PaymentProtocolPostPaymentTask.sent = true;
-                Arrays.fill(seed, (byte) 0);
-                paymentRequest = null;
-            }
-        });
-
     }
 
     public void setPhraseForKeyStore(String phraseForKeyStore) {

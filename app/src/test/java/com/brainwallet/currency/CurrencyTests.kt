@@ -3,7 +3,7 @@ package com.brainwallet.currency
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import com.brainwallet.presenter.entities.CurrencyEntity
+import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.tools.sqlite.CurrencyDataSource
 import io.mockk.Runs
 import io.mockk.every
@@ -40,7 +40,14 @@ class CurrencyTests {
     fun `invoke CurrencyDataSource instance and getAllCurrencies, should return the correct number of currencies`() {
         //The actual number of currencies is 174. The 0 is a placeholder and needs to be replaced with a db query.
         mockCursorDataFromDatabase()
-        assertEquals(currencyDataSource?.allCurrencies?.count(), 0)
+        assertEquals(currencyDataSource?.getAllCurrencies(false)?.count(), 0)
+    }
+
+    @Test
+    fun `invoke CurrencyDataSource instance and Brainwallet filtered Fiats, should return the correct number of Brainwallet currencies`() {
+        //The actual number of BW currencies is 16. The 0 is a placeholder and needs to be replaced with a db query.
+        mockCursorDataFromDatabase()
+        assertEquals(currencyDataSource?.getAllCurrencies(true)?.count(), 0)
     }
 
     @Test
@@ -52,7 +59,8 @@ class CurrencyTests {
     @Test
     fun `invoke CurrencyDataSource instance database, should return currency by ISO`() {
 
-        val expected = CurrencyEntity("USD", "USD", 110.345f)
+        val expected =
+            CurrencyEntity("USD", "USD", 110.345f)
         mockCursorDataFromDatabase(isEmpty = false, expected = expected)
 
         val actual = currencyDataSource?.getCurrencyByIso("USD")
@@ -65,7 +73,11 @@ class CurrencyTests {
     fun `invoke putCurrencies, then should save the CurrencyEntity into database`() {
         val fetchedCurrencies = listOf(
             CurrencyEntity("USD", "USD", 110.345f),
-            CurrencyEntity("IDR", "IDR", 1752020.9450135066f)
+            CurrencyEntity(
+                "IDR",
+                "IDR",
+                1752020.9450135066f
+            )
         )
 
         every { database.beginTransaction() } just Runs

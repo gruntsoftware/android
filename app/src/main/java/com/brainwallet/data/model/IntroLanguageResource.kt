@@ -3,10 +3,6 @@ package com.brainwallet.data.model
 import com.brainwallet.R
 
 class IntroLanguageResource {
-    private val USD: String = "USD"
-    private val EUR: String = "EUR"
-    private val RMB: String = "RMB"
-    private val JPY: String = "JPY"
     fun loadResources(): Array<IntroLanguage> {
         return arrayOf<IntroLanguage>(
             IntroLanguage(

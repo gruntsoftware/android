@@ -2,7 +2,8 @@ package com.brainwallet.tools.database
 
 class DatabaseTests {
 }
-
+// TODO: Reopen in Kotlin mocckk
+// TODO: BRSQLiteHelper.BRAINWALLET_FIAT_CODES Test
 //package com.brainwallet.analytics;
 //import androidx.test.ext.junit.runners.AndroidJUnit4;
 //import android.util.Log;

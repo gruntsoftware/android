@@ -30,6 +30,10 @@ object EventBus {
         data class LegacyPasscodeVerified(
             val passcode: List<Int>
         ) : Event()
+
+        data class LegacyUnLock(
+            val passcode: List<Int>,
+        ) : Event()
     }
 }
 

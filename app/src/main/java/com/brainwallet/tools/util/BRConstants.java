@@ -40,7 +40,6 @@ public class BRConstants {
     public static final int CANARY_REQUEST_CODE = 113;
     public static final int PUT_PHRASE_NEW_WALLET_REQUEST_CODE = 114;
     public static final int PUT_PHRASE_RECOVERY_WALLET_REQUEST_CODE = 115;
-    public static final int PAYMENT_PROTOCOL_REQUEST_CODE = 116;
     public static final int PROVE_PHRASE_REQUEST = 119;
 
     /**
@@ -88,6 +87,11 @@ public class BRConstants {
     public static final String loopBug = "android-loop-bug";
 
     /**
+     * brainwallet pin/passcode length
+     */
+    public static final int BW_PIN_LENGTH = 4;
+
+    /**
      * App External URLs
      */
 
@@ -101,8 +105,8 @@ public class BRConstants {
     /**
      * API Hosts
      */
-    public static final String LW_API_PROD_HOST = "https://prod.apigsltd.net";
-    public static final String LW_API_DEV_HOST = "https://dev.apigsltd.net";
+    public static final String BW_API_PROD_HOST = "https://prod.apigsltd.net";
+    public static final String BW_API_DEV_HOST = "https://dev.apigsltd.net";
 
     public static final String BLOCK_EXPLORER_BASE_URL = "https://blockchair.com/litecoin/transaction/";
 
@@ -140,6 +144,7 @@ public class BRConstants {
     public static final String _20241006_DRR = "did_request_rating";
     public static final String _20241006_UCR = "user_completed_rating";
     public static final String _HOME_OPEN = "home_open";
+    public static final String _20250222_PAC = "prod_apiserver_called";
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
@@ -175,7 +180,8 @@ public class BRConstants {
             _20240101_US,
             _20241006_DRR,
             _20241006_UCR,
-            _HOME_OPEN
+            _HOME_OPEN,
+            _20250222_PAC
     })
     public @interface Event {
     }

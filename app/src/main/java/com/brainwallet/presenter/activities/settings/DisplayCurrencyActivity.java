@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.brainwallet.R;
 import com.brainwallet.presenter.activities.util.BRActivity;
-import com.brainwallet.presenter.entities.CurrencyEntity;
+import com.brainwallet.data.model.CurrencyEntity;
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.sqlite.CurrencyDataSource;
 import com.brainwallet.tools.util.BRConstants;
@@ -35,9 +35,9 @@ public class DisplayCurrencyActivity extends BRActivity {
     private TextView exchangeText;
     private ListView listView;
     private CurrencyListAdapter adapter;
-    //    private String ISO;
-//    private float rate;
+
     public static boolean appVisible = false;
+    public static boolean shouldBeBrainwalletFilteredFiat = true;
     private static DisplayCurrencyActivity app;
     private Button leftButton;
     private Button rightButton;
@@ -65,7 +65,7 @@ public class DisplayCurrencyActivity extends BRActivity {
         exchangeText = findViewById(R.id.exchange_text);
         listView = findViewById(R.id.currency_list_view);
         adapter = new CurrencyListAdapter(this);
-        adapter.addAll(CurrencyDataSource.getInstance(this).getAllCurrencies());
+        adapter.addAll(CurrencyDataSource.getInstance(this).getAllCurrencies(shouldBeBrainwalletFilteredFiat));
         leftButton = findViewById(R.id.left_button);
         rightButton = findViewById(R.id.right_button);
         leftButton.setOnClickListener(new View.OnClickListener() {

@@ -116,18 +116,6 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:background="@drawable/ic_pin_dot_gray" />
-
-        <View
-            android:id="@+id/dot5"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:background="@drawable/ic_pin_dot_gray" />
-
-        <View
-            android:id="@+id/dot6"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:background="@drawable/ic_pin_dot_gray" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

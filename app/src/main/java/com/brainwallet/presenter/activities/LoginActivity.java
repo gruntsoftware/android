@@ -1,8 +1,5 @@
 package com.brainwallet.presenter.activities;
 
-import static com.brainwallet.tools.util.BRConstants.SCANNER_REQUEST;
-
-import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
@@ -17,16 +14,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.brainwallet.R;
-import com.brainwallet.presenter.activities.camera.ScanQRActivity;
+import com.brainwallet.navigation.Route;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.presenter.customviews.BRKeyboard;
-import com.brainwallet.presenter.entities.CurrencyEntity;
+import com.brainwallet.data.model.CurrencyEntity;
 import com.brainwallet.tools.animation.BRAnimator;
-import com.brainwallet.tools.animation.BRDialog;
 import com.brainwallet.tools.animation.SpringAnimator;
 import com.brainwallet.tools.manager.AnalyticsManager;
 import com.brainwallet.tools.manager.BRSharedPrefs;
@@ -36,12 +30,14 @@ import com.brainwallet.tools.sqlite.CurrencyDataSource;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.util.BRConstants;
 import com.brainwallet.tools.util.BRCurrency;
+import com.brainwallet.ui.BrainwalletActivity;
 import com.brainwallet.wallet.BRWalletManager;
 
 import java.math.BigDecimal;
 
 import timber.log.Timber;
 
+@Deprecated
 public class LoginActivity extends BRActivity {
     private BRKeyboard keyboard;
     private LinearLayout pinLayout;
@@ -77,8 +73,9 @@ public class LoginActivity extends BRActivity {
         setContentView(R.layout.activity_pin); 
         View parentLayout = findViewById(android.R.id.content);
         String pin = BRKeyStore.getPinCode(this);
-        if (pin.isEmpty() || (pin.length() != 6 && pin.length() != 4)) {
-            Intent intent = new Intent(this, SetPinActivity.class);
+        if (pin.isEmpty() || (pin.length() != 4 && pin.length() != 2)) {
+            //using setpasscode compose
+            Intent intent = BrainwalletActivity.createIntent(this, new Route.SetPasscode());
             intent.putExtra("noPin", true);
             startActivity(intent);
             if (!LoginActivity.this.isDestroyed()) finish();
@@ -102,8 +99,6 @@ public class LoginActivity extends BRActivity {
         dot2 = findViewById(R.id.dot2);
         dot3 = findViewById(R.id.dot3);
         dot4 = findViewById(R.id.dot4);
-        dot5 = findViewById(R.id.dot5);
-        dot6 = findViewById(R.id.dot6);
 
         keyboard.addOnInsertListener(key -> handleClick(key));
         keyboard.setBRButtonTextColor(R.color.white);
@@ -113,31 +108,32 @@ public class LoginActivity extends BRActivity {
         keyboard.setDeleteImage(getDrawable(R.drawable.ic_delete_white));
         versionText.setText(BRConstants.APP_VERSION_NAME_CODE);
 
-        findViewById(R.id.scanQRCodeImgBut).setOnClickListener(v -> {
-            if (!BRAnimator.isClickAllowed()) return;
-            try {
-                // Check if the camera permission is granted
-                if (ContextCompat.checkSelfPermission(app,
-                        Manifest.permission.CAMERA)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(app,
-                            Manifest.permission.CAMERA)) {
-                        BRDialog.showCustomDialog(app, getString(R.string.Send_cameraUnavailabeTitle_android),
-                                getString(R.string.Send_cameraUnavailabeMessage_android), getString(R.string.AccessibilityLabels_close), null, brDialogView -> brDialogView.dismiss(), null, null, 0);
-                    } else {
-                        ActivityCompat.requestPermissions(app,
-                                new String[]{Manifest.permission.CAMERA},
-                                BRConstants.CAMERA_REQUEST_ID);
-                    }
-                } else {
-                    Intent intent = new Intent(app, ScanQRActivity.class);
-                    app.startActivityForResult(intent, SCANNER_REQUEST);
-                    app.overridePendingTransition(R.anim.fade_up, 0);
-                }
-            } catch (Exception e) {
-                Timber.e(e);
-            }
-        });
+// DEV:  Keeping for reference when REFACTORING
+//        findViewById(R.id.scanQRCodeImgBut).setOnClickListener(v -> {
+//            if (!BRAnimator.isClickAllowed()) return;
+//            try {
+//                // Check if the camera permission is granted
+//                if (ContextCompat.checkSelfPermission(app,
+//                        Manifest.permission.CAMERA)
+//                        != PackageManager.PERMISSION_GRANTED) {
+//                    if (ActivityCompat.shouldShowRequestPermissionRationale(app,
+//                            Manifest.permission.CAMERA)) {
+//                        BRDialog.showCustomDialog(app, getString(R.string.Send_cameraUnavailabeTitle_android),
+//                                getString(R.string.Send_cameraUnavailabeMessage_android), getString(R.string.AccessibilityLabels_close), null, brDialogView -> brDialogView.dismiss(), null, null, 0);
+//                    } else {
+//                        ActivityCompat.requestPermissions(app,
+//                                new String[]{Manifest.permission.CAMERA},
+//                                BRConstants.CAMERA_REQUEST_ID);
+//                    }
+//                } else {
+//                    Intent intent = new Intent(app, ScanQRActivity.class);
+//                    app.startActivityForResult(intent, SCANNER_REQUEST);
+//                    app.overridePendingTransition(R.anim.fade_up, 0);
+//                }
+//            } catch (Exception e) {
+//                Timber.e(e);
+//            }
+//        });
 
         setCurrentLtcPrice();
     }
@@ -255,7 +251,7 @@ public class LoginActivity extends BRActivity {
     }
 
     private void updateDots() {
-        AuthManager.getInstance().updateDots(this, pinLimit, pin.toString(), dot1, dot2, dot3, dot4, dot5, dot6, R.drawable.ic_pin_dot_white,
+        AuthManager.getInstance().updateDots(this, pinLimit, pin.toString(), dot1, dot2, dot3, dot4, R.drawable.ic_pin_dot_white,
                 () -> {
                     inputAllowed = false;
                     if (AuthManager.getInstance().checkAuth(pin.toString(), LoginActivity.this)) {

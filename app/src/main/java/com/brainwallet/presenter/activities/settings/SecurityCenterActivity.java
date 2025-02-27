@@ -1,5 +1,7 @@
 package com.brainwallet.presenter.activities.settings;
 
+import static com.brainwallet.tools.util.BRConstants.BW_PIN_LENGTH;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -144,7 +146,7 @@ public class SecurityCenterActivity extends BRActivity {
     }
 
     private void updateList() {
-        boolean isPinSet = BRKeyStore.getPinCode(this).length() == 6;
+        boolean isPinSet = BRKeyStore.getPinCode(this).length() == BW_PIN_LENGTH;
         itemList.clear();
         itemList.add(new BRSecurityCenterItem(getString(R.string.SecurityCenter_pinTitle), getString(R.string.SecurityCenter_pinDescription),
                 isPinSet ? R.drawable.ic_check_mark_blue : R.drawable.ic_check_mark_grey, new View.OnClickListener() {

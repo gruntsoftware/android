@@ -1,9 +1,8 @@
 package com.brainwallet.tools.manager;
 
-import static com.brainwallet.tools.manager.PromptManager.PromptItem.PAPER_KEY;
 import static com.brainwallet.tools.manager.PromptManager.PromptItem.RECOMMEND_RESCAN;
-import static com.brainwallet.tools.manager.PromptManager.PromptItem.SHARE_DATA;
 import static com.brainwallet.tools.manager.PromptManager.PromptItem.UPGRADE_PIN;
+import static com.brainwallet.tools.util.BRConstants.BW_PIN_LENGTH;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,8 +13,6 @@ import com.brainwallet.tools.security.BRKeyStore;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.R;
 import com.brainwallet.presenter.activities.UpdatePinActivity;
-import com.brainwallet.presenter.activities.intro.WriteDownActivity;
-import com.brainwallet.presenter.activities.settings.ShareDataActivity;
 import com.brainwallet.wallet.BRPeerManager;
 
 public class PromptManager {
@@ -33,11 +30,9 @@ public class PromptManager {
     public enum PromptItem {
         SYNCING,
         FINGER_PRINT,
-        PAPER_KEY,
         UPGRADE_PIN,
         RECOMMEND_RESCAN,
-        NO_PASSCODE,
-        SHARE_DATA
+        NO_PASSCODE
     }
 
     public class PromptInfo {
@@ -58,15 +53,10 @@ public class PromptManager {
     public boolean shouldPrompt(Context app, PromptItem item) {
         assert (app != null);
         switch (item) {
-            case PAPER_KEY:
-                return !BRSharedPrefs.getPhraseWroteDown(app);
             case UPGRADE_PIN:
-                return BRKeyStore.getPinCode(app).length() != 6;
+                return BRKeyStore.getPinCode(app).length() != BW_PIN_LENGTH;
             case RECOMMEND_RESCAN:
                 return BRSharedPrefs.getScanRecommended(app);
-            case SHARE_DATA:
-                return !BRSharedPrefs.getShareData(app) && !BRSharedPrefs.getShareDataDismissed(app);
-
         }
         return false;
     }
@@ -74,22 +64,11 @@ public class PromptManager {
     public PromptItem nextPrompt(Context app) {
         if (shouldPrompt(app, RECOMMEND_RESCAN)) return RECOMMEND_RESCAN;
         if (shouldPrompt(app, UPGRADE_PIN)) return UPGRADE_PIN;
-        if (shouldPrompt(app, PAPER_KEY)) return PAPER_KEY;
-        if (shouldPrompt(app, SHARE_DATA)) return SHARE_DATA;
         return null;
     }
 
     public PromptInfo promptInfo(final Activity app, PromptItem item) {
         switch (item) {
-            case PAPER_KEY:
-                return new PromptInfo(app.getString(R.string.Prompts_PaperKey_title), app.getString(R.string.Prompts_PaperKey_body), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(app, WriteDownActivity.class);
-                        app.startActivity(intent);
-                        app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.fade_down);
-                    }
-                });
             case UPGRADE_PIN:
                 return new PromptInfo(app.getString(R.string.Prompts_UpgradePin_title), app.getString(R.string.Prompts_UpgradePin_body), new View.OnClickListener() {
                     @Override
@@ -113,20 +92,6 @@ public class PromptManager {
                         });
                     }
                 });
-            case SHARE_DATA:
-                return new PromptInfo(app.getString(R.string.Prompts_ShareData_title), app.getString(R.string.Prompts_ShareData_body), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(app, ShareDataActivity.class);
-                                app.startActivity(intent);
-                                app.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-                            }
-                        });
-                    }
-                });
 
         }
         return null;
@@ -142,16 +107,12 @@ public class PromptManager {
      */
     public String getPromptName(PromptItem prompt) {
         switch (prompt) {
-            case PAPER_KEY:
-                return "paperKeyPrompt";
             case UPGRADE_PIN:
                 return "upgradePinPrompt";
             case RECOMMEND_RESCAN:
                 return "recommendRescanPrompt";
             case NO_PASSCODE:
                 return "noPasscodePrompt";
-            case SHARE_DATA:
-                return "shareDataPrompt";
 
         }
         return null;

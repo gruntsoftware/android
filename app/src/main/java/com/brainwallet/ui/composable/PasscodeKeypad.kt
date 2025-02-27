@@ -23,8 +23,6 @@ import androidx.compose.ui.unit.dp
 fun PasscodeKeypad(
     onEvent: (PasscodeKeypadEvent) -> Unit
 ) {
-    //TODO: will change using CircleButton from another branch later
-    //
     FlowRow(
         horizontalArrangement = Arrangement.spacedBy(24.dp),
         verticalArrangement = Arrangement.spacedBy(24.dp),
@@ -44,7 +42,6 @@ fun PasscodeKeypad(
                 Text(
                     text = number.toString(),
                     style = MaterialTheme.typography.headlineMedium,
-                    color = Color.White
                 )
             }
         }
@@ -63,7 +60,6 @@ fun PasscodeKeypad(
                 Icon(
                     Icons.Default.Face,
                     contentDescription = "Biometric",
-                    tint = Color.White
                 )
             }
         } else {
@@ -88,7 +84,6 @@ fun PasscodeKeypad(
             Text(
                 text = "0",
                 style = MaterialTheme.typography.headlineMedium,
-                color = Color.White
             )
         }
 
@@ -104,7 +99,6 @@ fun PasscodeKeypad(
             Icon(
                 Icons.AutoMirrored.Filled.ArrowBack,
                 contentDescription = "Delete",
-                tint = Color.White
             )
         }
     }
