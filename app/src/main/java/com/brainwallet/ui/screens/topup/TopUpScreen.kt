@@ -73,7 +73,7 @@ fun TopUpScreen(
     var shouldSkipBeVisible by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        delay(2000)
+        delay(3000)
         shouldSkipBeVisible = true
     }
 
