@@ -13,6 +13,4 @@ sealed class YourSeedProveItEvent {
     object OnGameAndSync : YourSeedProveItEvent()
 
     object OnClear : YourSeedProveItEvent()
-
-    object OnTopUpCompleted : YourSeedProveItEvent()
 }

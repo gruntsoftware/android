@@ -133,14 +133,6 @@ class IntroLanguageResource {
             "Sei sicuro di voler cambiare la lingua in italiano?",
             Language.ITALIAN
             ),
-            IntroLanguage(
-                Language.BLANK.code,
-                Language.BLANK.title,
-                " ",
-                R.raw.english,
-                " ",
-                Language.BLANK
-            ),
         )
     }
 

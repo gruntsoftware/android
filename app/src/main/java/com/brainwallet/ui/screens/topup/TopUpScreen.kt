@@ -4,13 +4,9 @@ package com.brainwallet.ui.screens.topup
 
 
 import android.graphics.Bitmap
-import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,39 +32,26 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
-import com.brainwallet.data.model.AppSetting
 import com.brainwallet.navigation.OnNavigate
-import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
+import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.composable.BorderedLargeButton
 import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
-import com.brainwallet.ui.composable.LargeButton
 import com.brainwallet.ui.composable.MediumTextButton
 import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItEvent
 import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItViewModel
-import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItViewModel.Companion.LEGACY_EFFECT_ON_PAPERKEY_PROVED
-import com.brainwallet.ui.theme.BrainwalletAppTheme
-import com.brainwallet.ui.theme.BrainwalletTheme
-import com.brainwallet.util.EventBus
 import kotlinx.coroutines.delay
-
 
 @Composable
 fun TopUpScreen(
@@ -77,10 +60,6 @@ fun TopUpScreen(
 ) {
     val state by viewModel.state.collectAsState()
     val context = LocalContext.current
-
-    // Declare a string that contains a url
-    val mUrl = "https://www.brainwallet.co/mobile-top-up.html"
-    val alphaMUrl = "https://brainwallet-co.webflow.io/mobile-top-up"
 
     /// Layout values
     val leadingCopyPadding = 16
@@ -179,7 +158,7 @@ fun TopUpScreen(
                         }
                     },
                     update = {
-                        it.loadUrl(alphaMUrl)
+                        it.loadUrl(BRConstants.MOBILE_MP_LINK)
                     },
                     modifier = Modifier
                         .height(600.dp)
@@ -195,7 +174,7 @@ fun TopUpScreen(
                     if(shouldSkipBeVisible) {
                         MediumTextButton(
                             onClick = {
-                                viewModel.onEvent(YourSeedProveItEvent.OnTopUpCompleted)
+                                viewModel.onEvent(YourSeedProveItEvent.OnGameAndSync)
                             },
                             modifier = Modifier
                                 .width(skipButtonWidth.dp)
@@ -228,7 +207,7 @@ fun TopUpScreen(
                 }
                 BorderedLargeButton(
                     onClick = {
-                        viewModel.onEvent(YourSeedProveItEvent.OnTopUpCompleted)
+                        viewModel.onEvent(YourSeedProveItEvent.OnGameAndSync)
                     },
                     modifier = Modifier.fillMaxWidth()
 

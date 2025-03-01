@@ -60,7 +60,6 @@ fun WelcomeScreen(
     viewModel: WelcomeViewModel = viewModel()
 ) {
     val state by viewModel.state.collectAsState()
-    // Global layout
 
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp
@@ -68,6 +67,7 @@ fun WelcomeScreen(
     val thirdOfScreenHeight = (screenHeight * mainBoxFactor).toInt()
 
     //todo: the following sizing can be move to BrainwalletTheme
+    // Global layout
     val buttonFontSize = 16
     val thinButtonFontSize = 14
     val iconButtonSize = 32
@@ -76,11 +76,8 @@ fun WelcomeScreen(
     val halfLeadTrailPadding = leadTrailPadding / 2
     val doubleLeadTrailPadding = leadTrailPadding * 2
     val rowPadding = 8
-    val tinyPad = 4
     val activeRowHeight = 60
 
-    var selectedLanguage by remember { mutableStateOf("Français") }
-    var selectedFiat by remember { mutableStateOf("EUR") }
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.welcomeemoji20250212))
     val progress by animateLottieCompositionAsState(
         composition = composition,
@@ -124,9 +121,7 @@ fun WelcomeScreen(
                 progress = { progress }
             )
         }
-        // Spacer(modifier = Modifier.weight(1f))
-
-//        TODO: implement later, for now just comment this
+        // TODO: implement later, for now just comment this
         Row(
             modifier = Modifier
                 .fillMaxWidth()
