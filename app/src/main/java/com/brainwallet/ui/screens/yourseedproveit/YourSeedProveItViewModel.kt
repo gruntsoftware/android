@@ -43,6 +43,10 @@ class YourSeedProveItViewModel : BrainwalletViewModel<YourSeedProveItEvent>() {
             YourSeedProveItEvent.OnGameAndSync -> viewModelScope.launch {
                 EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_PAPERKEY_PROVED))
             }
+
+            YourSeedProveItEvent.OnTopUpCompleted -> viewModelScope.launch {
+                EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_PAPERKEY_PROVED))
+            }
         }
     }
 
