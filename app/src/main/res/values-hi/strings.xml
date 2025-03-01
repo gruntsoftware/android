@@ -397,6 +397,7 @@
   <string name="setup_app_biometrics">बायोमेट्रिक्स का प्रयोग करें</string>
   <string name="you_saved_your_keys">आपने अपनी चाबियाँ सहेज लीं.</string>
   <string name="you_saved_your_keys_desc">अगले स्तर को कुचलें.</string>
+  <string name="top_up_button_3">छोडना</string>
   <string name="restore_your_power">अपनी शक्ति पुनः स्थापित करें</string>
   <string name="restore_your_power_desc">आप वहीं से वापस आ सकते हैं जहां से आपने शुरुआत की थी</string>
   <string name="restore_my_brainwallet">मेरा ब्रेनवॉलेट पुनर्स्थापित करें</string>
@@ -410,4 +411,9 @@
   <string name="down_left_arrow">नीचे-बाएँ-तीर</string>
   <string name="logo">प्रतीक चिन्ह</string>
   <string name="toggle_dark_mode">टॉगल-डार्क-मोड</string>
+    <string name="top_up_title">लबालब भरना?</string>
+  <string name="top_up_detail_2">अभी तो तुम्हारा दिमाग खाली है...</string>
+  <string name="top_up_detail_1">5 मिनट में लाइटकॉइन प्राप्त करें</string>
+  <string name="top_up_button_1">कुछ लाइटकॉइन प्राप्त करें!</string>
+  <string name="top_up_button_2">शायद बाद में.</string>
 </resources>

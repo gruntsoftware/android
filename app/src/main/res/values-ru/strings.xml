@@ -759,6 +759,7 @@
     <string name="setup_app_biometrics">Используйте биометрию</string>
     <string name="you_saved_your_keys">Вы сохранили свои ключи.</string>
     <string name="you_saved_your_keys_desc">Сокрушите следующий уровень.</string>
+    <string name="top_up_button_3">Пропускать</string>
     <string name="restore_your_power">Восстановите свою силу</string>
     <string name="restore_your_power_desc">Вы можете вернуться с того места, с которого начали</string>
     <string name="restore_my_brainwallet">Восстановить мой мозговой кошелек</string>
@@ -772,4 +773,9 @@
     <string name="down_left_arrow">стрелка вниз-влево</string>
     <string name="logo">логотип</string>
     <string name="toggle_dark_mode">переключить темный режим</string>
+    <string name="top_up_title">Пополнить?</string>
+    <string name="top_up_detail_2">Сейчас в твоем мозгу пусто...</string>
+    <string name="top_up_detail_1">Получите Litecoin за 5 минут</string>
+    <string name="top_up_button_1">Получите немного Litecoin!</string>
+    <string name="top_up_button_2">Может быть, позже.</string>
 </resources>

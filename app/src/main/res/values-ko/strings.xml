@@ -759,6 +759,7 @@
     <string name="setup_app_biometrics">생체 인식 사용</string>
     <string name="you_saved_your_keys">열쇠를 저장했습니다.</string>
     <string name="you_saved_your_keys_desc">다음 레벨을 크러시하세요.</string>
+    <string name="top_up_button_3">건너뛰다</string>
     <string name="restore_your_power">힘을 회복하세요</string>
     <string name="restore_your_power_desc">시작한 곳에서 다시 돌아올 수 있습니다.</string>
     <string name="restore_my_brainwallet">내 Brainwallet을 복원하세요</string>
@@ -772,4 +773,9 @@
     <string name="down_left_arrow">아래쪽 왼쪽 화살표</string>
     <string name="logo">심벌 마크</string>
     <string name="toggle_dark_mode">토글 다크 모드</string>
+    <string name="top_up_title">충전하시겠습니까?</string>
+    <string name="top_up_detail_2">지금 당신의 뇌는 비어있습니다...</string>
+    <string name="top_up_detail_1">5분 안에 라이트코인을 받으세요</string>
+    <string name="top_up_button_1">라이트코인을 획득하세요!</string>
+    <string name="top_up_button_2">어쩌면 나중에.</string>
 </resources>

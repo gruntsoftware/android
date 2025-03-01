@@ -758,6 +758,7 @@
     <string name="setup_app_biometrics">Use biometria</string>
     <string name="you_saved_your_keys">Você salvou suas chaves.</string>
     <string name="you_saved_your_keys_desc">Esmague o próximo nível.</string>
+    <string name="top_up_button_3">Pular</string>
     <string name="restore_your_power">Restaure seu poder</string>
     <string name="restore_your_power_desc">Você pode voltar de onde começou</string>
     <string name="restore_my_brainwallet">Restaurar minha Brainwallet</string>
@@ -771,4 +772,9 @@
     <string name="down_left_arrow">seta para baixo à esquerda</string>
     <string name="logo">logotipo</string>
     <string name="toggle_dark_mode">alternar modo escuro</string>
+    <string name="top_up_title">Recarregar?</string>
+    <string name="top_up_detail_2">Neste momento seu cérebro está vazio...</string>
+    <string name="top_up_detail_1">Obtenha Litecoin em 5 minutos</string>
+    <string name="top_up_button_1">Obtenha um pouco de Litecoin!</string>
+    <string name="top_up_button_2">Talvez mais tarde.</string>
 </resources>

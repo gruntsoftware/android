@@ -397,6 +397,7 @@
   <string name="setup_app_biometrics">Använd biometri</string>
   <string name="you_saved_your_keys">Du sparade dina nycklar.</string>
   <string name="you_saved_your_keys_desc">Krossa nästa nivå.</string>
+  <string name="top_up_button_3">Hoppa</string>
   <string name="restore_your_power">Återställ din kraft</string>
   <string name="restore_your_power_desc">Du kan komma tillbaka från där du började</string>
   <string name="restore_my_brainwallet">Återställ min Brainwallet</string>
@@ -410,4 +411,9 @@
   <string name="down_left_arrow">ned-vänster-pil</string>
   <string name="logo">logotyp</string>
   <string name="toggle_dark_mode">växla mellan mörkt läge</string>
+    <string name="top_up_title">Fylla på?</string>
+  <string name="top_up_detail_2">Just nu är din hjärna tom...</string>
+  <string name="top_up_detail_1">Få Litecoin på 5 minuter</string>
+  <string name="top_up_button_1">Skaffa lite Litecoin!</string>
+  <string name="top_up_button_2">Kanske senare.</string>
 </resources>
