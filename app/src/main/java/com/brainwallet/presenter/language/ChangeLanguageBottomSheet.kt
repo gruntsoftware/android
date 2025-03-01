@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import com.brainwallet.BrainwalletApp
 import com.brainwallet.R
 import com.brainwallet.data.model.Language
 import com.brainwallet.data.repository.SettingRepository
@@ -17,17 +16,16 @@ import com.brainwallet.tools.util.getString
 import com.brainwallet.ui.RoundedBottomSheetDialogFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import org.koin.android.ext.android.inject
 import java.util.Locale
 
 class ChangeLanguageBottomSheet : RoundedBottomSheetDialogFragment() {
     lateinit var binding: ChangeLanguageBottomSheetBinding
 
-    lateinit var settingRepository: SettingRepository
+    private val settingRepository by inject<SettingRepository>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        settingRepository = BrainwalletApp.module!!.settingRepository
     }
 
     override fun onCreateView(

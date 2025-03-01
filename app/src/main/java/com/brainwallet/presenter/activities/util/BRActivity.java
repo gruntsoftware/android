@@ -1,7 +1,6 @@
 package com.brainwallet.presenter.activities.util;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,11 +12,11 @@ import androidx.core.os.LocaleListCompat;
 
 import com.brainwallet.BrainwalletApp;
 import com.brainwallet.data.repository.SettingRepository;
-import com.brainwallet.di.Module;
 import com.brainwallet.presenter.activities.DisabledActivity;
 import com.brainwallet.presenter.activities.intro.RecoverActivity;
 import com.brainwallet.presenter.activities.intro.WriteDownActivity;
 import com.brainwallet.tools.animation.BRAnimator;
+import com.brainwallet.tools.manager.BRApiManager;
 import com.brainwallet.tools.manager.InternetManager;
 import com.brainwallet.tools.security.AuthManager;
 import com.brainwallet.tools.security.BRKeyStore;
@@ -25,9 +24,9 @@ import com.brainwallet.tools.security.BitcoinUrlHandler;
 import com.brainwallet.tools.security.PostAuth;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.util.BRConstants;
-import com.brainwallet.tools.util.ExtensionKt;
-import com.brainwallet.ui.BrainwalletActivity;
 import com.brainwallet.wallet.BRWalletManager;
+
+import org.koin.java.KoinJavaComponent;
 
 import java.util.Locale;
 
@@ -39,12 +38,11 @@ public class BRActivity extends AppCompatActivity {
         System.loadLibrary(BRConstants.NATIVE_LIB_NAME);
     }
 
-    SettingRepository settingRepository;
+    private SettingRepository settingRepository = (SettingRepository) KoinJavaComponent.inject(SettingRepository.class).getValue();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
-        settingRepository = BrainwalletApp.module.getSettingRepository();  //just inject here
         String languageCode = settingRepository.getCurrentLanguage().getCode();
         Locale.setDefault(settingRepository.getCurrentLanguage().toLocale());
         AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(languageCode));
@@ -150,7 +148,8 @@ public class BRActivity extends AppCompatActivity {
 
 
         if (!(app instanceof RecoverActivity || app instanceof WriteDownActivity)) {
-            BrainwalletApp.module.getApiManager().startTimer(app);
+            BRApiManager apiManager = KoinJavaComponent.get(BRApiManager.class);
+            apiManager.startTimer(app);
         }
 
         //show wallet locked if it is

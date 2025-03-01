@@ -211,6 +211,8 @@ dependencies {
     implementation(libs.bundles.google.play.review)
     implementation(libs.kotlinx.serialization.json)
     implementation (libs.airbnb.lottie.compose)
+    implementation(platform(libs.koin.bom))
+    implementation(libs.bundles.koin)
 
     implementation(libs.squareup.okhttp)
     implementation(libs.jakewarthon.timber)

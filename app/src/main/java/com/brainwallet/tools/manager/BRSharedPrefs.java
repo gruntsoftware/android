@@ -7,6 +7,9 @@ import com.brainwallet.BrainwalletApp;
 import com.brainwallet.data.repository.SettingRepository;
 import com.brainwallet.tools.util.BRConstants;
 
+import org.koin.java.KoinJavaComponent;
+import org.koin.mp.KoinPlatformTools_jvmKt;
+
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
@@ -35,11 +38,7 @@ public class BRSharedPrefs {
     }
 
     public static String getIsoSymbol(Context context) {
-        if (BrainwalletApp.module == null) {
-            return "USD";
-        }
-
-        SharedPreferences settingsToGet = BrainwalletApp.module.getSharedPreferences();
+        SharedPreferences settingsToGet = KoinJavaComponent.get(SharedPreferences.class);
         String defIso;
         String defaultLanguage = Locale.getDefault().getLanguage();
 
@@ -61,12 +60,7 @@ public class BRSharedPrefs {
     }
 
     public static void putIso(Context context, String code) {
-        //migrate using new shared preferences used by setting repository
-        if (BrainwalletApp.module == null) {
-            return;
-        }
-
-        SharedPreferences settings = BrainwalletApp.module.getSharedPreferences();
+        SharedPreferences settings = KoinJavaComponent.get(SharedPreferences.class);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(SettingRepository.KEY_FIAT_CURRENCY_CODE, code); //using new shared prefs used by setting repository
         editor.apply();

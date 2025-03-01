@@ -3,11 +3,9 @@ package com.brainwallet.ui.screens.welcome
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.viewModelScope
-import com.brainwallet.BrainwalletApp
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.model.Language
 import com.brainwallet.data.repository.SettingRepository
-import com.brainwallet.tools.util.LocaleHelper
 import com.brainwallet.ui.BrainwalletViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -21,13 +19,12 @@ import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.launch
 
 //TODO: revisit this later
-class WelcomeViewModel : BrainwalletViewModel<WelcomeEvent>() {
+class WelcomeViewModel(
+    private val settingRepository: SettingRepository
+) : BrainwalletViewModel<WelcomeEvent>() {
 
     private val _state = MutableStateFlow(WelcomeState())
     val state: StateFlow<WelcomeState> = _state.asStateFlow()
-
-    private var settingRepository: SettingRepository =
-        BrainwalletApp.module!!.settingRepository //for now just inject here
 
     private val appSetting = settingRepository.settings
         .distinctUntilChanged()

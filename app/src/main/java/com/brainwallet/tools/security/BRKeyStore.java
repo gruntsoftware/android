@@ -17,19 +17,18 @@ import android.text.style.ClickableSpan;
 import android.util.Base64;
 import android.view.View;
 
+import com.brainwallet.BrainwalletApp;
+import com.brainwallet.R;
+import com.brainwallet.exceptions.BRKeystoreErrorException;
+import com.brainwallet.presenter.customviews.BRDialogView;
 import com.brainwallet.tools.animation.BRDialog;
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.util.BytesUtil;
 import com.brainwallet.tools.util.TypesConverter;
 import com.brainwallet.tools.util.Utils;
-import com.brainwallet.BrainwalletApp;
-import com.brainwallet.R;
-import com.brainwallet.exceptions.BRKeystoreErrorException;
-import com.brainwallet.presenter.customviews.BRDialogView;
 import com.brainwallet.wallet.BRWalletManager;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
-import com.brainwallet.data.source.RemoteConfigSource;
 import com.platform.entities.WalletInfo;
 import com.platform.tools.KVStoreManager;
 
@@ -147,28 +146,24 @@ public class BRKeyStore {
                                                  int request_code, boolean auth_required) throws UserNotAuthenticatedException {
         validateSet(data, alias, alias_file, alias_iv, auth_required);
 
-        boolean newKeyStoreManagerEnabled = BrainwalletApp.module.getRemoteConfigSource().getBoolean(RemoteConfigSource.KEY_KEYSTORE_MANAGER_ENABLED);
-        Timber.d("timber: _set");
-        if (newKeyStoreManagerEnabled) {
-            try {
-                lock.lock();
-                return BrainwalletApp.keyStoreManager.setDataBlocking(new AliasObject(alias, alias_file, alias_iv), data);
-            } catch (UserNotAuthenticatedException e) {
-                Timber.e(e, "timber:_setData: showAuthenticationScreen: %s", alias);
-                showAuthenticationScreen(context, request_code, alias);
-                throw e;
-            } catch (Exception e) {
-                Timber.e(e, "timber:setData: error retrieving");
-                FirebaseCrashlytics.getInstance().recordException(e);
-                return false;
-            } finally {
-                lock.unlock();
-            }
-        } else {
-            return _setDataLegacy(context, data, alias, alias_iv, request_code, auth_required);
+        try {
+            lock.lock();
+            return BrainwalletApp.keyStoreManager.setDataBlocking(new AliasObject(alias, alias_file, alias_iv), data);
+        } catch (UserNotAuthenticatedException e) {
+            Timber.e(e, "timber:_setData: showAuthenticationScreen: %s", alias);
+            showAuthenticationScreen(context, request_code, alias);
+            throw e;
+        } catch (Exception e) {
+            Timber.e(e, "timber:setData: error retrieving");
+            FirebaseCrashlytics.getInstance().recordException(e);
+            return false;
+        } finally {
+            lock.unlock();
         }
+
     }
 
+    @Deprecated
     private static boolean _setDataLegacy(Context context, byte[] data, String alias, String alias_iv, int request_code, boolean auth_required) throws UserNotAuthenticatedException {
         KeyStore keyStore;
         try {
@@ -256,27 +251,24 @@ public class BRKeyStore {
             throws UserNotAuthenticatedException {
         validateGet(alias, alias_file, alias_iv);//validate entries
 
-        boolean newKeyStoreManagerEnabled = BrainwalletApp.module.getRemoteConfigSource().getBoolean(RemoteConfigSource.KEY_KEYSTORE_MANAGER_ENABLED);
-        if (newKeyStoreManagerEnabled) {
-            try {
-                lock.lock();
-                return BrainwalletApp.keyStoreManager.getDataBlocking(new AliasObject(alias, alias_file, alias_iv));
-            } catch (UserNotAuthenticatedException e) {
-                Timber.e(e, "timber:_getData: showAuthenticationScreen: %s", alias);
-                showAuthenticationScreen(context, request_code, alias);
-                throw e;
-            } catch (Exception e) {
-                Timber.e(e, "timber:getData: error retrieving");
-                FirebaseCrashlytics.getInstance().recordException(e);
-                return null;
-            } finally {
-                lock.unlock();
-            }
-        } else {
-            return _getDataLegacy(context, alias, alias_file, alias_iv, request_code);
+        try {
+            lock.lock();
+            return BrainwalletApp.keyStoreManager.getDataBlocking(new AliasObject(alias, alias_file, alias_iv));
+        } catch (UserNotAuthenticatedException e) {
+            Timber.e(e, "timber:_getData: showAuthenticationScreen: %s", alias);
+            showAuthenticationScreen(context, request_code, alias);
+            throw e;
+        } catch (Exception e) {
+            Timber.e(e, "timber:getData: error retrieving");
+            FirebaseCrashlytics.getInstance().recordException(e);
+            return null;
+        } finally {
+            lock.unlock();
         }
+
     }
 
+    @Deprecated
     private static byte[] _getDataLegacy(Context context, String alias, String alias_file, String alias_iv, int request_code) throws UserNotAuthenticatedException {
         KeyStore keyStore;
 
