@@ -89,7 +89,7 @@ fun InputWordsScreen(
     val doubleLeadTrailPadding = leadTrailPadding * 2
     val buttonMediumFontSize = 20
     val rowPadding = 8
-    val activeRowHeight = 60
+    val activeRowHeight = 70
 
 
     LaunchedEffect(Unit) {

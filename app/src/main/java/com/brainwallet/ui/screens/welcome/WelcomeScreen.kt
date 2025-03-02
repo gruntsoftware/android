@@ -76,7 +76,8 @@ fun WelcomeScreen(
     val halfLeadTrailPadding = leadTrailPadding / 2
     val doubleLeadTrailPadding = leadTrailPadding * 2
     val rowPadding = 8
-    val activeRowHeight = 60
+    val tinyPad = 4
+    val activeRowHeight = 70
 
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.welcomeemoji20250212))
     val progress by animateLottieCompositionAsState(
