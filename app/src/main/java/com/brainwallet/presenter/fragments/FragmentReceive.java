@@ -75,7 +75,6 @@ public class FragmentReceive extends Fragment {
 //        shareTextMessage = (Button) rootView.findViewById(R.id.share_text);
         shareButtonsLayout = (BRLinearLayoutWithCaret) rootView.findViewById(R.id.share_buttons_layout);
         copiedLayout = (BRLinearLayoutWithCaret) rootView.findViewById(R.id.copied_layout);
-        requestButton = (Button) rootView.findViewById(R.id.request_button);
         keyboard = (BRKeyboard) rootView.findViewById(R.id.keyboard);
         keyboard.setBRButtonBackgroundResId(R.drawable.keyboard_white_button);
         keyboard.setBRKeyboardColor(R.color.white);
@@ -105,14 +104,7 @@ public class FragmentReceive extends Fragment {
             String bitcoinUri = Utils.createBitcoinUrl(receiveAddress, 0, null, null, null);
             QRUtils.share("mailto:", getActivity(), bitcoinUri);
         });
-//        shareTextMessage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (!BRAnimator.isClickAllowed()) return;
-//                String bitcoinUri = Utils.createBitcoinUrl(receiveAddress, 0, null, null, null);
-//                QRUtils.share("sms:", getActivity(), bitcoinUri);
-//            }
-//        });
+
         shareButton.setOnClickListener(v -> {
             if (!BRAnimator.isClickAllowed()) return;
             shareButtonsShown = !shareButtonsShown;
@@ -121,10 +113,6 @@ public class FragmentReceive extends Fragment {
         mAddress.setOnClickListener(v -> {
             if (!BRAnimator.isClickAllowed()) return;
             copyText();
-        });
-        requestButton.setOnClickListener(v -> {
-            if (!BRAnimator.isClickAllowed()) return;
-            closeAndOpenShowRequest();
         });
         backgroundLayout.setOnClickListener(v -> {
             if (!BRAnimator.isClickAllowed()) return;
@@ -248,14 +236,5 @@ public class FragmentReceive extends Fragment {
         if (getActivity() != null && !getActivity().isFinishing()) {
             getActivity().onBackPressed();
         }
-    }
-
-    private void closeAndOpenShowRequest() {
-        animateBackgroundDim(backgroundLayout, true);
-        animateSignalSlide(signalLayout, true, () -> {
-            close();
-            BRAnimator.showRequestFragment(getActivity(), receiveAddress);
-        });
-
     }
 }

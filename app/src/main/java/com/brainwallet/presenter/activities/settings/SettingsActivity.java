@@ -131,13 +131,6 @@ public class SettingsActivity extends BRActivity {
             BRAnimator.showBalanceSeedFragment(this);
         }, false));
 
-        /*Wipe Start_Recover Wallet*/
-        items.add(new BRSettingsItem(getString(R.string.Settings_wipe), "", v -> {
-            Intent intent = new Intent(SettingsActivity.this, WipeActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
-        }, false));
-
         /*Manage Title*/
         items.add(new BRSettingsItem(getString(R.string.Settings_manage), "", null, true));
 

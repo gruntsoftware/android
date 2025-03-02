@@ -91,11 +91,6 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presenter.activities.settings.WipeActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".presenter.activities.settings.ImportActivity"
             android:exported="true"
             android:launchMode="singleTask"

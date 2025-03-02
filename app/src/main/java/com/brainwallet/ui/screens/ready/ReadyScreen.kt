@@ -33,6 +33,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.core.widget.TextViewCompat.AutoSizeTextType
 import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.navigation.OnNavigate
@@ -54,6 +55,8 @@ fun ReadyScreen(
 
     val horizontalVerticalSpacing = 8
     val spacerHeight = 90
+
+    val activeRowHeight = 70
 
     BrainwalletScaffold(
         topBar = {
@@ -126,8 +129,9 @@ fun ReadyScreen(
                 onClick = {
                    onNavigate.invoke(UiEffect.Navigate(Route.SetPasscode()))
                 },
-                modifier = Modifier.fillMaxWidth()
-
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(activeRowHeight.dp)
             ) {
                 Text(
                     text = stringResource(R.string.setup_app_passcode),
