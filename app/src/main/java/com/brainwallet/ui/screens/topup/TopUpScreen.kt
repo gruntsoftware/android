@@ -73,8 +73,6 @@ fun TopUpScreen(
     var shouldSkipBeVisible by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        delay(3000)
-        shouldSkipBeVisible = true
     }
 
     BrainwalletScaffold(
@@ -138,6 +136,7 @@ fun TopUpScreen(
                     factory = {
                         WebView(it).apply {
                            setInitialScale(99)
+                           setLayerType(ViewGroup.LAYER_TYPE_SOFTWARE, null)
                             settings.apply {
                                 javaScriptEnabled = true
                                 useWideViewPort = true
@@ -151,6 +150,12 @@ fun TopUpScreen(
                                     backEnabled = view.canGoBack()
                                 }
                             }
+                            webViewClient = object : WebViewClient() {
+                                override fun onPageFinished(view: WebView?, url: String?) {
+                                    shouldSkipBeVisible = true
+                                }
+                            }
+
                             layoutParams = ViewGroup.LayoutParams(
                                 ViewGroup.LayoutParams.MATCH_PARENT,
                                 ViewGroup.LayoutParams.MATCH_PARENT)
@@ -224,4 +229,3 @@ fun TopUpScreen(
         }
     }
 }
-
