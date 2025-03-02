@@ -10,6 +10,7 @@ import androidx.navigation.toRoute
 import com.brainwallet.ui.screens.inputwords.InputWordsScreen
 import com.brainwallet.ui.screens.ready.ReadyScreen
 import com.brainwallet.ui.screens.setpasscode.SetPasscodeScreen
+import com.brainwallet.ui.screens.topup.TopUpScreen
 import com.brainwallet.ui.screens.unlock.UnLockScreen
 import com.brainwallet.ui.screens.welcome.WelcomeScreen
 import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItScreen
@@ -65,6 +66,12 @@ fun NavGraphBuilder.mainNavGraph(
     composable<Route.Ready> {
         ReadyScreen(onNavigate = onNavigate)
     }
+
+    composable<Route.TopUp> { navBackStackEntry ->
+        val route: Route.TopUp = navBackStackEntry.toRoute()
+        TopUpScreen(onNavigate = onNavigate)
+    }
+
     composable<Route.SetPasscode> { navBackStackEntry ->
         val route: Route.SetPasscode = navBackStackEntry.toRoute()
         SetPasscodeScreen(onNavigate = onNavigate, passcode = route.passcode)
@@ -90,6 +97,8 @@ fun NavGraphBuilder.mainNavGraph(
             seedWords = route.seedWords
         )
     }
+
+
     /**
      * for now, still using old activity & fragment [com.brainwallet.presenter.activities.BreadActivity]
      */

@@ -2,7 +2,6 @@
 <resources>
     <!-- App name -->
     <!-- About screen blog label -->
-    <string name="About.blog">İnternet sitesi</string>
     <!-- About screen footer -->
     <!-- About app version -->
     <!-- Privay Policy button label -->
@@ -782,6 +781,7 @@
     <string name="setup_app_biometrics">Biyometri kullan</string>
     <string name="you_saved_your_keys">Anahtarlarınızı kaydettiniz.</string>
     <string name="you_saved_your_keys_desc">Bir sonraki seviyeyi ezin.</string>
+    <string name="top_up_button_3">Atlamak</string>
     <string name="restore_your_power">Gücünüzü geri kazanın</string>
     <string name="restore_your_power_desc">Başladığınız yerden geri dönebilirsiniz</string>
     <string name="restore_my_brainwallet">Brainwallet\'ımı geri yükle</string>
@@ -795,4 +795,10 @@
     <string name="down_left_arrow">sol aşağı ok</string>
     <string name="logo">logo</string>
     <string name="toggle_dark_mode">karanlık moda geçiş</string>
+    <string name="top_up_title">Tamamlansın mı?\n</string>
+    <string name="top_up_detail_2">Tamamlansın mı?\n</string>
+    <string name="About.blog">Tamamlansın mı?</string>
+    <string name="top_up_detail_1">5 dakikada Litecoin\'i edinin</string>
+    <string name="top_up_button_1">Biraz Litecoin alın!</string>
+    <string name="top_up_button_2">Belki daha sonra.</string>
 </resources>

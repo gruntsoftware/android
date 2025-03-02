@@ -759,6 +759,7 @@
     <string name="setup_app_biometrics">生体認証を使用する</string>
     <string name="you_saved_your_keys">キーを保存しました。</string>
     <string name="you_saved_your_keys_desc">次のレベルを粉砕します。</string>
+    <string name="top_up_button_3">スキップ</string>
     <string name="restore_your_power">力を回復してください</string>
     <string name="restore_your_power_desc">スタート地点から戻れる</string>
     <string name="restore_my_brainwallet">ブレインウォレットを復元する</string>
@@ -772,4 +773,9 @@
     <string name="down_left_arrow">左下矢印</string>
     <string name="logo">ロゴ</string>
     <string name="toggle_dark_mode">ダークモードの切り替え</string>
+    <string name="top_up_title">補充しますか?</string>
+    <string name="top_up_detail_2">今、あなたの脳は空っぽです...</string>
+    <string name="top_up_detail_1">5分でライトコインをゲット</string>
+    <string name="top_up_button_1">ライトコインをゲットしよう！</string>
+    <string name="top_up_button_2">たぶん後で。</string>
 </resources>

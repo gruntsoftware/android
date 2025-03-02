@@ -13,6 +13,9 @@ sealed class Route : JavaSerializable {
     object Ready : Route()
 
     @Serializable
+    object TopUp : Route()
+
+    @Serializable
     data class SetPasscode(
         val passcode: List<Int> = emptyList()
     ) : Route()
@@ -37,4 +40,5 @@ sealed class Route : JavaSerializable {
 
     @Serializable
     object UnLock : Route()
+
 }

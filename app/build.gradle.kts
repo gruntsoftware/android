@@ -187,6 +187,7 @@ dependencies {
         }
     }
 
+    implementation("androidx.webkit:webkit:1.9.0")
     implementation(libs.androidx.core)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.legacy.support)

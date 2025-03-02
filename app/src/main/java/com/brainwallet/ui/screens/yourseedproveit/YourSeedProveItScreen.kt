@@ -55,6 +55,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
+import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
@@ -234,7 +235,7 @@ fun YourSeedProveItScreen(
             AnimatedVisibility(visible = state.orderCorrected) {
                 LargeButton(
                     onClick = {
-                        viewModel.onEvent(YourSeedProveItEvent.OnGameAndSync)
+                        onNavigate.invoke(UiEffect.Navigate(Route.TopUp))
                     },
                 ) {
                     Text(

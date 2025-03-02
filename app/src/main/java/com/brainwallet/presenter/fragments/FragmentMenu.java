@@ -74,7 +74,7 @@ public class FragmentMenu extends Fragment {
         itemList.add(new BRMenuItem(getString(R.string.MenuButton_support), R.drawable.faq_question_black, v -> {
             CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
             CustomTabsIntent customTabsIntent = builder.build();
-            customTabsIntent.launchUrl(getContext(), Uri.parse(BRConstants.CUSTOMER_SUPPORT_LINK));
+            customTabsIntent.launchUrl(getContext(), Uri.parse(BRConstants.WEB_LINK));
             AnalyticsManager.logCustomEvent(BRConstants._20201118_DTGS);
         }));
 

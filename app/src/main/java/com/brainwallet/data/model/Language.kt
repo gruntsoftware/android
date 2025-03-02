@@ -23,7 +23,6 @@ enum class Language(
     CHINESE_SIMPLIFIED("zh-CN", "简化字", "选择语言"),
     HINDI("hi", "हिंदी", "भाषा चुने"),
     ITALIAN("it", "Italiano", "Seleziona la lingua"),
-    BLANK(" ", " ", " "),
     ;
 
     companion object {

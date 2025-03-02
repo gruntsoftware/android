@@ -4,10 +4,6 @@ import android.os.Bundle
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.brainwallet.databinding.ActivityPaperKeyProveBinding
 import com.brainwallet.presenter.activities.util.BRActivity
-import com.brainwallet.tools.animation.BRAnimator
-import com.brainwallet.tools.manager.BRSharedPrefs
-import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItEvent
-import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItScreen
 import com.brainwallet.ui.theme.setContentWithTheme
 
 @Deprecated(message = "move to compose")

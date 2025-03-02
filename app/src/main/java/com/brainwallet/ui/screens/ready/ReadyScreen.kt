@@ -124,7 +124,7 @@ fun ReadyScreen(
 
             BorderedLargeButton(
                 onClick = {
-                    onNavigate.invoke(UiEffect.Navigate(Route.SetPasscode()))
+                   onNavigate.invoke(UiEffect.Navigate(Route.SetPasscode()))
                 },
                 modifier = Modifier.fillMaxWidth()
 
@@ -134,7 +134,6 @@ fun ReadyScreen(
                     style = MaterialTheme.typography.bodyLarge
                 )
             }
-
             Spacer(modifier = Modifier.weight(0.05f))
         }
     }
