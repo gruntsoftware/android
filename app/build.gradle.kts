@@ -20,7 +20,7 @@ android {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 34
-        versionCode = 202503021
+        versionCode = 202503031
         versionName = "v4.3.1"
 
         multiDexEnabled = true
