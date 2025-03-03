@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -44,15 +43,12 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.navigation.OnNavigate
@@ -62,14 +58,14 @@ import com.brainwallet.ui.composable.BorderedLargeButton
 import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
 import com.brainwallet.ui.composable.SeedWordItemTextField
-import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.ui.theme.BrainwalletTheme
+import org.koin.compose.koinInject
 
 @Composable
 fun InputWordsScreen(
     onNavigate: OnNavigate,
     source: Route.InputWords.Source? = null,
-    viewModel: InputWordsViewModel = viewModel()
+    viewModel: InputWordsViewModel = koinInject()
 ) {
     val state by viewModel.state.collectAsState()
     val focusRequesters = List(12) { FocusRequester() } //12 seed words
@@ -212,7 +208,8 @@ fun InputWordsScreen(
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .padding(horizontal = horizontalVerticalSpacing.dp),
                 text = stringResource(R.string.dont_guess_desc),
                 style = MaterialTheme.typography.bodyLarge.copy(
@@ -231,11 +228,11 @@ fun InputWordsScreen(
             Spacer(modifier = Modifier.weight(0.5f))
 
             BorderedLargeButton(
-                modifier = Modifier.testTag("buttonRestore")
+                modifier = Modifier
+                    .testTag("buttonRestore")
                     .padding(horizontal = halfLeadTrailPadding.dp)
                     .padding(vertical = rowPadding.dp)
-                    .height(activeRowHeight.dp)
-                ,
+                    .height(activeRowHeight.dp),
                 onClick = {
                     viewModel.onEvent(InputWordsEvent.OnRestoreClick(context = context))
                     focusManager.clearFocus()

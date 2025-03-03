@@ -7,14 +7,18 @@ import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.source.RemoteConfigSource
 import com.brainwallet.tools.manager.BRApiManager
 import com.brainwallet.tools.sqlite.CurrencyDataSource
+import com.brainwallet.ui.screens.inputwords.InputWordsViewModel
+import com.brainwallet.ui.screens.setpasscode.SetPasscodeViewModel
+import com.brainwallet.ui.screens.unlock.UnLockViewModel
 import com.brainwallet.ui.screens.welcome.WelcomeViewModel
+import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItViewModel
+import com.brainwallet.ui.screens.yourseedwords.YourSeedWordsViewModel
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import org.koin.android.ext.koin.androidApplication
+import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
-
-//TODO: revisit later
 
 //todo module using koin as di framework here
 
@@ -32,6 +36,11 @@ val dataModule = module {
 
 val viewModelModule = module {
     viewModelOf(::WelcomeViewModel)
+    viewModel { InputWordsViewModel() }
+    viewModel { SetPasscodeViewModel() }
+    viewModel { UnLockViewModel() }
+    viewModel { YourSeedProveItViewModel() }
+    viewModel { YourSeedWordsViewModel() }
 }
 
 private fun provideSharedPreferences(

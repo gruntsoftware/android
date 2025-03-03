@@ -28,7 +28,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.tools.util.BRConstants
@@ -38,12 +37,13 @@ import com.brainwallet.ui.composable.PasscodeIndicator
 import com.brainwallet.ui.composable.PasscodeKeypad
 import com.brainwallet.ui.composable.PasscodeKeypadEvent
 import com.brainwallet.ui.theme.BrainwalletTheme
+import org.koin.compose.koinInject
 
 //TODO: WIP here
 @Composable
 fun UnLockScreen(
     onNavigate: OnNavigate,
-    viewModel: UnLockViewModel = viewModel()
+    viewModel: UnLockViewModel = koinInject()
 ) {
     val state by viewModel.state.collectAsState()
     val context = LocalContext.current
