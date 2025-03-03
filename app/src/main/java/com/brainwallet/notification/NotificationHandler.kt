@@ -41,7 +41,7 @@ object NotificationHandler {
         val notification = NotificationCompat.Builder(context, channelId)
             .setContentTitle(title)
             .setContentText(body)
-            .setSmallIcon(R.drawable.bw_white_logotype)
+            .setSmallIcon(R.drawable.brainwallet_logotype_white)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
 
