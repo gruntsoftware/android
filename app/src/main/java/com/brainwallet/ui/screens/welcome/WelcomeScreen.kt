@@ -38,7 +38,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
@@ -53,11 +52,12 @@ import com.brainwallet.ui.composable.BrainwalletButton
 import com.brainwallet.ui.composable.bottomsheet.FiatSelectorBottomSheet
 import com.brainwallet.ui.composable.bottomsheet.LanguageSelectorBottomSheet
 import com.brainwallet.ui.theme.BrainwalletTheme
+import org.koin.compose.koinInject
 
 @Composable
 fun WelcomeScreen(
     onNavigate: OnNavigate = {},
-    viewModel: WelcomeViewModel = viewModel()
+    viewModel: WelcomeViewModel = koinInject()
 ) {
     val state by viewModel.state.collectAsState()
 

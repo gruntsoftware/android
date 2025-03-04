@@ -29,10 +29,8 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.UiEffect
@@ -41,12 +39,13 @@ import com.brainwallet.ui.composable.BrainwalletTopAppBar
 import com.brainwallet.ui.composable.PasscodeIndicator
 import com.brainwallet.ui.composable.PasscodeKeypad
 import com.brainwallet.ui.composable.PasscodeKeypadEvent
+import org.koin.compose.koinInject
 
 @Composable
 fun SetPasscodeScreen(
     onNavigate: OnNavigate,
     passcode: List<Int> = emptyList(),
-    viewModel: SetPasscodeViewModel = viewModel()
+    viewModel: SetPasscodeViewModel = koinInject()
 ) {
     val state by viewModel.state.collectAsState()
     val context = LocalContext.current
@@ -100,8 +99,9 @@ fun SetPasscodeScreen(
             )
 
             if (state.isConfirm) {
-                Text(modifier = Modifier
-                    .padding(top = leadingCopyPadding.dp),
+                Text(
+                    modifier = Modifier
+                        .padding(top = leadingCopyPadding.dp),
                     text = stringResource(R.string.confirm_desc),
                     style = MaterialTheme.typography.bodyLarge.copy(
                         textAlign = TextAlign.Center,
@@ -110,8 +110,9 @@ fun SetPasscodeScreen(
                     ),
                 )
             } else {
-                Text(modifier = Modifier
-                    .padding(top = leadingCopyPadding.dp),
+                Text(
+                    modifier = Modifier
+                        .padding(top = leadingCopyPadding.dp),
                     text = buildAnnotatedString {
                         append(stringResource(R.string.setup_app_details_1))
                         append("\n")

@@ -7,34 +7,40 @@ import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.source.RemoteConfigSource
 import com.brainwallet.tools.manager.BRApiManager
 import com.brainwallet.tools.sqlite.CurrencyDataSource
+import com.brainwallet.ui.screens.inputwords.InputWordsViewModel
+import com.brainwallet.ui.screens.setpasscode.SetPasscodeViewModel
+import com.brainwallet.ui.screens.unlock.UnLockViewModel
+import com.brainwallet.ui.screens.welcome.WelcomeViewModel
+import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItViewModel
+import com.brainwallet.ui.screens.yourseedwords.YourSeedWordsViewModel
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
+import org.koin.android.ext.koin.androidApplication
+import org.koin.core.module.dsl.viewModel
+import org.koin.core.module.dsl.viewModelOf
+import org.koin.dsl.module
 
-//TODO: revisit later
-class Module(
-    val context: Context,
-    val remoteConfigSource: RemoteConfigSource = provideRemoteConfigSource(),
-    val apiManager: BRApiManager = provideBRApiManager(remoteConfigSource),
-    val sharedPreferences: SharedPreferences = provideSharedPreferences(context),
-    val settingRepository: SettingRepository = provideSettingRepository(
-        sharedPreferences = sharedPreferences,
-        currencyDataSource = CurrencyDataSource.getInstance(context)
-    )
-)
+//todo module using koin as di framework here
 
-private fun provideBRApiManager(remoteConfigSource: RemoteConfigSource): BRApiManager {
-    return BRApiManager(remoteConfigSource)
+val dataModule = module {
+    single<RemoteConfigSource> {
+        RemoteConfigSource.FirebaseImpl(Firebase.remoteConfig).also {
+            it.initialize()
+        }
+    }
+    single { BRApiManager(get()) }
+    single { CurrencyDataSource.getInstance(get()) }
+    single<SharedPreferences> { provideSharedPreferences(context = androidApplication()) }
+    single<SettingRepository> { SettingRepository.Impl(get(), get()) }
 }
 
-private fun provideRemoteConfigSource(): RemoteConfigSource {
-    return RemoteConfigSource.FirebaseImpl(Firebase.remoteConfig)
-}
-
-private fun provideSettingRepository(
-    sharedPreferences: SharedPreferences,
-    currencyDataSource: CurrencyDataSource
-): SettingRepository {
-    return SettingRepository.Impl(sharedPreferences, currencyDataSource)
+val viewModelModule = module {
+    viewModelOf(::WelcomeViewModel)
+    viewModel { InputWordsViewModel() }
+    viewModel { SetPasscodeViewModel() }
+    viewModel { UnLockViewModel() }
+    viewModel { YourSeedProveItViewModel() }
+    viewModel { YourSeedWordsViewModel() }
 }
 
 private fun provideSharedPreferences(
