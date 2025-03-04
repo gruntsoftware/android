@@ -1,5 +1,7 @@
 package com.brainwallet.tools.animation;
 
+import static androidx.databinding.DataBindingUtil.setContentView;
+
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -20,6 +22,7 @@ import android.view.animation.OvershootInterpolator;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.compose.ui.platform.ComposeView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -41,6 +44,7 @@ import com.brainwallet.presenter.fragments.FragmentSend;
 import com.brainwallet.presenter.fragments.FragmentSignal;
 import com.brainwallet.presenter.fragments.FragmentTransactionDetails;
 import com.brainwallet.presenter.interfaces.BROnSignalCompletion;
+import com.brainwallet.ui.screens.settings.SettingsScreenKt;
 
 import java.util.List;
 
@@ -51,6 +55,8 @@ public class BRAnimator {
     private static boolean clickAllowed = true;
     public static int SLIDE_ANIMATION_DURATION = 300;
     public static boolean supportIsShowing;
+
+    private static boolean shouldShowSettingsComposable = false;
 
     public static void showBreadSignal(FragmentActivity activity, String title, String iconDescription, int drawableId, BROnSignalCompletion completion) {
         fragmentSignal = new FragmentSignal();
@@ -241,6 +247,40 @@ public class BRAnimator {
         transaction.addToBackStack(FragmentMenu.class.getName());
         transaction.commit();
     }
+
+    public static void showSettingsScreen(Activity app) {
+
+            // Create a ComposeView
+            ComposeView composeView = new ComposeView(app);
+
+//            // Set the Composable function
+//            composeView.setContent(() -> {
+//                SettingsScreenKt.SettingsScreen(shouldShowSettingsComposable);
+//                return null;
+//            });
+//
+//            // Set the ComposeView as the content view
+//            setContentView(composeView);
+    }
+
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_main);
+//        ComposeView composeView = findViewById(R.id.compose_view);
+//        composeView.setViewCompositionStrategy(ViewCompositionStrategy.[Your choice here]);
+//        composeView.setContent{
+//            HomeKt.Home(
+//                    // other function arguments
+//            );
+//        });
+//    }
+
+
+
+
+
+
 
     public static boolean isClickAllowed() {
         if (clickAllowed) {

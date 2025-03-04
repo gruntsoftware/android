@@ -10,6 +10,7 @@ import androidx.navigation.toRoute
 import com.brainwallet.ui.screens.inputwords.InputWordsScreen
 import com.brainwallet.ui.screens.ready.ReadyScreen
 import com.brainwallet.ui.screens.setpasscode.SetPasscodeScreen
+import com.brainwallet.ui.screens.settings.SettingsScreen
 import com.brainwallet.ui.screens.topup.TopUpScreen
 import com.brainwallet.ui.screens.unlock.UnLockScreen
 import com.brainwallet.ui.screens.welcome.WelcomeScreen
@@ -98,6 +99,11 @@ fun NavGraphBuilder.mainNavGraph(
         )
     }
 
+    composable<Route.Settings> { navBackStackEntry ->
+        SettingsScreen(
+            shouldShowSettingsScreen = false
+        )
+    }
 
     /**
      * for now, still using old activity & fragment [com.brainwallet.presenter.activities.BreadActivity]

@@ -220,7 +220,8 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         secondaryPrice.setOnClickListener(v -> swap());
         menuBut.setOnClickListener(v -> {
             if (BRAnimator.isClickAllowed()) {
-                BRAnimator.showMenuFragment(BreadActivity.this);
+                /// Calls a Composable
+                BRAnimator.showSettingsScreen(BreadActivity.this);
             }
         });
     }
