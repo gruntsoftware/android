@@ -28,12 +28,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.app.ActivityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.transition.ChangeBounds;
 import androidx.transition.Fade;
 import androidx.transition.TransitionManager;
 import androidx.transition.TransitionSet;
 
-import com.brainwallet.BrainwalletApp;
 import com.brainwallet.R;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.presenter.customviews.BRNotificationBar;
@@ -53,11 +53,13 @@ import com.brainwallet.tools.util.BRCurrency;
 import com.brainwallet.tools.util.BRExchange;
 import com.brainwallet.tools.util.ExtensionKt;
 import com.brainwallet.tools.util.Utils;
+import com.brainwallet.ui.screens.home.composable.HomeSettingDrawerComposeView;
 import com.brainwallet.util.PermissionUtil;
 import com.brainwallet.wallet.BRPeerManager;
 import com.brainwallet.wallet.BRWalletManager;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
@@ -90,6 +92,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     private BottomNavigationView bottomNav;
 
     private Handler mHandler = new Handler();
+    private NavigationView navigationDrawer;
+    private DrawerLayout drawerLayout;
+    private HomeSettingDrawerComposeView homeSettingDrawerComposeView;
 
     public static BreadActivity getApp() {
         return app;
@@ -220,8 +225,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         secondaryPrice.setOnClickListener(v -> swap());
         menuBut.setOnClickListener(v -> {
             if (BRAnimator.isClickAllowed()) {
-                /// Calls a Composable
-                BRAnimator.showSettingsScreen(BreadActivity.this);
+                drawerLayout.open();
             }
         });
     }
@@ -367,6 +371,11 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     private void initializeViews() {
         menuBut = findViewById(R.id.menuBut);
+
+        navigationDrawer = findViewById(R.id.navigationDrawer);
+        drawerLayout = findViewById(R.id.drawerLayout);
+        homeSettingDrawerComposeView = findViewById(R.id.homeDrawerComposeView);
+
         bottomNav = findViewById(R.id.bottomNav);
         bottomNav.getMenu().clear();
         bottomNav.inflateMenu(isInUsa() ? R.menu.bottom_nav_menu_us : R.menu.bottom_nav_menu);

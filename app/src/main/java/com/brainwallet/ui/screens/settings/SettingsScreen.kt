@@ -37,7 +37,7 @@ import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
-import com.brainwallet.ui.composable.settingsrows.LanguageDetail
+import com.brainwallet.ui.screens.home.composable.settingsrows.LanguageDetail
 import com.brainwallet.ui.screens.welcome.WelcomeEvent
 import com.brainwallet.ui.screens.welcome.WelcomeViewModel
 
