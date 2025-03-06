@@ -20,7 +20,7 @@ import androidx.compose.runtime.setValue
 
 //TODO
 @Composable
-fun LitecoinBlockchainDetail(
+fun SecurityDetail(
     modifier: Modifier = Modifier
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -34,7 +34,7 @@ fun LitecoinBlockchainDetail(
                 trailingIconColor = BrainwalletTheme.colors.content,
             ),
             text = {
-                Text("Litecoin: Blockchain")
+                Text("Security")
             },
             onClick = {
                 expanded = expanded.not()

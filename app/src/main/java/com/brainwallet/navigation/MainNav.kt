@@ -10,7 +10,6 @@ import androidx.navigation.toRoute
 import com.brainwallet.ui.screens.inputwords.InputWordsScreen
 import com.brainwallet.ui.screens.ready.ReadyScreen
 import com.brainwallet.ui.screens.setpasscode.SetPasscodeScreen
-import com.brainwallet.ui.screens.settings.SettingsScreen
 import com.brainwallet.ui.screens.topup.TopUpScreen
 import com.brainwallet.ui.screens.unlock.UnLockScreen
 import com.brainwallet.ui.screens.welcome.WelcomeScreen
@@ -96,12 +95,6 @@ fun NavGraphBuilder.mainNavGraph(
         YourSeedProveItScreen(
             onNavigate = onNavigate,
             seedWords = route.seedWords
-        )
-    }
-
-    composable<Route.Settings> { navBackStackEntry ->
-        SettingsScreen(
-            shouldShowSettingsScreen = false
         )
     }
 

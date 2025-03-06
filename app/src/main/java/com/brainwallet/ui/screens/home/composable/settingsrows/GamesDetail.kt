@@ -9,6 +9,11 @@ import androidx.compose.ui.Modifier
 import com.brainwallet.ui.theme.BrainwalletTheme
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.DropdownMenuItem
@@ -17,24 +22,31 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 
-//TODO
 @Composable
-fun LitecoinBlockchainDetail(
+fun GamesDetail(
     modifier: Modifier = Modifier
 ) {
     var expanded by remember { mutableStateOf(false) }
 
+    /// Layout values
+    val closedHeight = 60
+    val expandedHeight = 100
     Column(
-        modifier = modifier
+        modifier = modifier.background(Color.Red)
     ) {
         DropdownMenuItem(
+            modifier = Modifier
+                .height(closedHeight.dp)
+                .background(Color.Green),
             colors = MenuDefaults.itemColors(
                 textColor = BrainwalletTheme.colors.content,
                 trailingIconColor = BrainwalletTheme.colors.content,
-            ),
+                ),
             text = {
-                Text("Litecoin: Blockchain")
+                Text("Games")
             },
             onClick = {
                 expanded = expanded.not()
@@ -44,11 +56,17 @@ fun LitecoinBlockchainDetail(
                     if (expanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
                     contentDescription = null
                 )
-            }
+            },
+
         )
 
         AnimatedVisibility(visible = expanded) {
-            Text("TODO CONTENT HERE")
+            Row(modifier = Modifier
+                .height(expandedHeight.dp)
+            ) {
+                Spacer(modifier = Modifier.weight(1f))
+                Text("TODO CONTENT HERE")
+            }
         }
     }
 

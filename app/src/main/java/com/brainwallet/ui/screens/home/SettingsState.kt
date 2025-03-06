@@ -1,4 +1,4 @@
-package com.brainwallet.ui.screens.settings
+package com.brainwallet.ui.screens.home
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.Language
 
