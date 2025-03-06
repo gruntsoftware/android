@@ -44,7 +44,6 @@ import com.brainwallet.presenter.fragments.FragmentSend;
 import com.brainwallet.presenter.fragments.FragmentSignal;
 import com.brainwallet.presenter.fragments.FragmentTransactionDetails;
 import com.brainwallet.presenter.interfaces.BROnSignalCompletion;
-import com.brainwallet.ui.screens.settings.SettingsScreenKt;
 
 import java.util.List;
 

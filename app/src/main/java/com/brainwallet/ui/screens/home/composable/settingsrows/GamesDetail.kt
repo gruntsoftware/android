@@ -17,12 +17,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuDefaults
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -34,19 +37,26 @@ fun GamesDetail(
     /// Layout values
     val closedHeight = 60
     val expandedHeight = 100
+    val dividerThickness = 1
+    val horizontalPadding = 14
+
     Column(
-        modifier = modifier.background(Color.Red)
+        modifier = modifier
+            .background (if (expanded) BrainwalletTheme.colors.background else BrainwalletTheme.colors.surface)
     ) {
+        HorizontalDivider(thickness = dividerThickness.dp, color = BrainwalletTheme.colors.content)
         DropdownMenuItem(
             modifier = Modifier
-                .height(closedHeight.dp)
-                .background(Color.Green),
+                .height(closedHeight.dp),
             colors = MenuDefaults.itemColors(
                 textColor = BrainwalletTheme.colors.content,
                 trailingIconColor = BrainwalletTheme.colors.content,
                 ),
             text = {
-                Text("Games")
+                Text(text = "Games",
+                    style = MaterialTheme.typography.labelLarge
+                        .copy(textAlign = TextAlign.Left)
+                )
             },
             onClick = {
                 expanded = expanded.not()

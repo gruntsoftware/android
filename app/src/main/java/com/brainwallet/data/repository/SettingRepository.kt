@@ -34,7 +34,11 @@ interface SettingRepository {
      */
     fun isDarkMode(): Boolean
 
+    fun isLocked(): Boolean
+
     fun toggleDarkMode(isDarkMode: Boolean)
+
+    fun toggleLockedMode(isLocked: Boolean)
 
     class Impl(
         private val sharedPreferences: SharedPreferences,
@@ -77,6 +81,17 @@ interface SettingRepository {
             _state.update { it.copy(isDarkMode = isDarkMode) }
         }
 
+        override fun isLocked(): Boolean {
+            return sharedPreferences.getBoolean(KEY_IS_LOCKED, true)
+        }
+
+        override fun toggleLockedMode(isLocked: Boolean) {
+            sharedPreferences.edit {
+                putBoolean(KEY_IS_LOCKED, isLocked)
+            }
+            _state.update { it.copy(isLocked = isLocked) }
+        }
+
         private fun load(): AppSetting {
             return AppSetting(
                 isDarkMode = sharedPreferences.getBoolean(KEY_IS_DARK_MODE, true),
@@ -96,6 +111,7 @@ interface SettingRepository {
     }
 
     companion object {
+        const val KEY_IS_LOCKED = "is_locked"
         const val KEY_IS_DARK_MODE = "is_dark_mode"
         const val KEY_LANGUAGE_CODE = "language_code"
         const val KEY_FIAT_CURRENCY_CODE = "fiat_currency_code"

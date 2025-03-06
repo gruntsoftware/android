@@ -5,6 +5,7 @@ import com.brainwallet.data.model.Language
 
 sealed class SettingsEvent {
     object OnToggleDarkMode : SettingsEvent()
+    object OnToggleLock : SettingsEvent()
     object OnLanguageSelectorButtonClick : SettingsEvent()
     object OnLanguageSelectorDismiss : SettingsEvent()
     data class OnLanguageChange(val language: Language) : SettingsEvent()

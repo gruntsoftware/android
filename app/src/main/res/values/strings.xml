@@ -814,4 +814,5 @@
     <string name="down_left_arrow">down-left-arrow</string>
     <string name="logo">logo</string>
     <string name="toggle_dark_mode">toggle-dark-mode</string>
+    <string name="toggle_lock_mode">toggle-lock-mode</string>
 </resources>

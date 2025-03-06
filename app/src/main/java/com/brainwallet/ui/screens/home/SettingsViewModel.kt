@@ -59,6 +59,20 @@ class SettingsViewModel : BrainwalletViewModel<SettingsEvent>() {
                 }
             }
 
+            SettingsEvent.OnToggleLock -> viewModelScope.launch {
+                _state.update {
+                    val toggled = it.isLocked.not()
+
+                    settingRepository.save(
+                        appSetting.value.copy(
+                            isLocked = toggled
+                        )
+                    )
+
+                    it.copy(isLocked = toggled)
+                }
+            }
+
             SettingsEvent.OnFiatButtonClick -> _state.update {
                 it.copy(fiatSelectorBottomSheetVisible = true)
             }
@@ -108,6 +122,7 @@ class SettingsViewModel : BrainwalletViewModel<SettingsEvent>() {
                     )
                 }
             }
+
         }
     }
 }
