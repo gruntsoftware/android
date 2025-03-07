@@ -78,9 +78,7 @@ fun HomeSettingDrawerSheet(
                             .wrapContentHeight(),
                         selectedLanguage = state.selectedLanguage,
                         onLanguageSelect = { language ->
-
                             viewModel.onEvent(
-
                                 SettingsEvent.OnLanguageChange(
                                     language
                                 )
@@ -93,7 +91,15 @@ fun HomeSettingDrawerSheet(
                     CurrencyDetail(
                         modifier = Modifier
                             .fillMaxSize()
-                            .wrapContentHeight()
+                            .wrapContentHeight(),
+                        selectedCurrency = state.selectedCurrency,
+                        onFiatSelect = { currency ->
+                            viewModel.onEvent(
+                                SettingsEvent.OnFiatChange(
+                                    currency
+                                )
+                            )
+                        }
                     )
                 }
                 item {

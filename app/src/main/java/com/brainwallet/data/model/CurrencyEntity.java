@@ -11,11 +11,13 @@ public class CurrencyEntity implements Serializable {
     public String code;
     public String name;
     public float rate;
+    public String symbol;
 
-    public CurrencyEntity(String code, String name, float rate) {
+    public CurrencyEntity(String code, String name, float rate, String symbol) {
         this.code = code;
         this.name = name;
         this.rate = rate;
+        this.symbol = symbol;
     }
 
     public CurrencyEntity() {

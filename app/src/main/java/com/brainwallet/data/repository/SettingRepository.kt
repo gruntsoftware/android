@@ -101,8 +101,9 @@ interface SettingRepository {
                     currencyDataSource.getCurrencyByIso(it)
                         ?: return@let CurrencyEntity(
                             "USD",
-                            "USD",
-                            -1f
+                            "US Dollar",
+                            -1f,
+                            "$"
                         )
                 }
 

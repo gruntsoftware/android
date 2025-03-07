@@ -101,7 +101,6 @@ class SettingsViewModel : BrainwalletViewModel<SettingsEvent>() {
             }.let {
                 viewModelScope.launch {
                     settingRepository.save(appSetting.value.copy(languageCode = event.language.code))
-
                     AppCompatDelegate.setApplicationLocales(
                         LocaleListCompat.forLanguageTags(
                             event.language.code
@@ -112,7 +111,7 @@ class SettingsViewModel : BrainwalletViewModel<SettingsEvent>() {
             }
 
             is SettingsEvent.OnFiatChange -> _state.updateAndGet {
-                it.copy(selectedCurrency = event.currency, fiatSelectorBottomSheetVisible = false)
+                it.copy(selectedCurrency = event.currency)
             }.let {
                 viewModelScope.launch {
                     settingRepository.save(

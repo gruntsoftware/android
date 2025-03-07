@@ -8,8 +8,9 @@ data class WelcomeState(
     val selectedLanguage: Language = Language.ENGLISH,
     val selectedCurrency: CurrencyEntity = CurrencyEntity(
         "USD",
-        "USD",
-        -1f
+        "US Dollar",
+        -1f,
+        "$"
     ), //-1 = need to fetch
     val languageSelectorBottomSheetVisible: Boolean = false,
     val fiatSelectorBottomSheetVisible: Boolean = false,
