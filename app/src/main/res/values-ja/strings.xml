@@ -778,4 +778,14 @@
     <string name="top_up_detail_1">5分でライトコインをゲット</string>
     <string name="top_up_button_1">ライトコインをゲットしよう！</string>
     <string name="top_up_button_2">たぶん後で。</string>
+    <string name="settings_title_security">安全</string>
+    <string name="settings_title_language">言語</string>
+    <string name="settings_title_currency">通貨</string>
+    <string name="settings_title_games">ゲーム</string>
+    <string name="settings_title_support">サポート</string>
+    <string name="settings_title_social_media">ソーシャルメディア</string>
+    <string name="settings_title_lock">ロック</string>
+    <string name="settings_title_unlock">ロックを解除する</string>
+    <string name="settings_title_theme">テーマ</string>
+    <string name="settings_title_app_version">アプリのバージョン:</string>
 </resources>

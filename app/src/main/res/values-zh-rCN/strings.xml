@@ -778,4 +778,14 @@
     <string name="top_up_detail_1">5 分钟内获得莱特币</string>
     <string name="top_up_button_1">获取一些莱特币！</string>
     <string name="top_up_button_2">也许以后吧。</string>
+    <string name="settings_title_security">安全</string>
+    <string name="settings_title_language">语言</string>
+    <string name="settings_title_currency">货币</string>
+    <string name="settings_title_games">游戏</string>
+    <string name="settings_title_support">支持</string>
+    <string name="settings_title_social_media">社交媒体</string>
+    <string name="settings_title_lock">锁</string>
+    <string name="settings_title_unlock">开锁</string>
+    <string name="settings_title_theme">主题</string>
+    <string name="settings_title_app_version">应用程序版本:</string>
 </resources>

@@ -416,4 +416,15 @@
     <string name="top_up_detail_1">احصل على عملة اللايتكوين في 5 دقائق</string>
     <string name="top_up_button_1">احصل على بعض اللايتكوين!</string>
     <string name="top_up_button_2">ربما في وقت لاحق.</string>
+    <string name="toggle_lock_mode">toggle-lock-mode</string>
+    <string name="settings_title_security">حماية</string>
+    <string name="settings_title_language">لغة</string>
+    <string name="settings_title_currency">عملة</string>
+    <string name="settings_title_games">ألعاب</string>
+    <string name="settings_title_support">يدعم</string>
+    <string name="settings_title_social_media">يدعم</string>
+    <string name="settings_title_lock">قفل</string>
+    <string name="settings_title_unlock">فتح</string>
+    <string name="settings_title_theme">سمة</string>
+    <string name="settings_title_app_version">إصدار التطبيق:</string>
 </resources>

@@ -25,8 +25,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.brainwallet.R
 
 @Composable
 fun GamesDetail(
@@ -53,7 +55,7 @@ fun GamesDetail(
                 trailingIconColor = BrainwalletTheme.colors.content,
                 ),
             text = {
-                Text(text = "Games",
+                Text(text = stringResource(R.string.settings_title_games),
                     style = MaterialTheme.typography.labelLarge
                         .copy(textAlign = TextAlign.Left)
                 )

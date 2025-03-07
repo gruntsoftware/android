@@ -21,10 +21,18 @@ import com.brainwallet.ui.theme.BrainwalletTheme
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -33,18 +41,31 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import com.brainwallet.R
 
 //TODO
 @Composable
 fun LanguageDetail(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    selectedLanguage: Language,
+    onLanguageSelect: (Language) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
+
+    val languages = Language.entries.toTypedArray()
+    val lastLanguageItem = languages[languages.size -1]
+
+
     /// Layout values
     val closedHeight = 60
-    val expandedHeight = 100
+    val expandedHeight = 150
     val dividerThickness = 1
+    val unselectedCircleSize = 20
     Column(
         modifier = Modifier
             .background (if (expanded) BrainwalletTheme.colors.background else BrainwalletTheme.colors.surface)
@@ -58,7 +79,7 @@ fun LanguageDetail(
                 trailingIconColor = BrainwalletTheme.colors.content,
             ),
             text = {
-                Text(text = "Language",
+                Text(text = stringResource(R.string.settings_title_language),
                     style = MaterialTheme.typography.labelLarge
                         .copy(textAlign = TextAlign.Left)
                 )
@@ -79,7 +100,48 @@ fun LanguageDetail(
                 .height(expandedHeight.dp)
             ) {
                 Spacer(modifier = Modifier.weight(1f))
-                Text("TODO CONTENT HERE")
+                LazyColumn {
+                    items(
+                        items = languages
+                    ) { language ->
+                        ListItem(
+                            colors = ListItemDefaults.colors(
+                                containerColor = BrainwalletTheme.colors.background,
+                                headlineColor = BrainwalletTheme.colors.content,
+                            ),
+                            modifier = Modifier.clickable {
+                                if (language.code.isNotBlank()) {
+                                    onLanguageSelect.invoke(language)
+                                }
+                            },
+                            headlineContent = {
+                                Text(modifier = Modifier,
+                                    text = language.title,
+                                    style = MaterialTheme.typography.bodyMedium
+                                        .copy(textAlign = TextAlign.Left)
+                                )
+                            },
+                            trailingContent = {
+                                if (selectedLanguage.code == language.code) {
+                                    Icon(
+                                        Icons.Default.CheckCircle,
+                                        contentDescription = null,
+                                        tint = BrainwalletTheme.colors.affirm
+                                    )
+                                }
+                                else {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(unselectedCircleSize.dp)
+                                            .alpha(0.1f)
+                                            .clip(CircleShape)
+                                            .background(BrainwalletTheme.colors.content)
+                                    )
+                                }
+                            }
+                        )
+                    }
+                }
             }
         }
     }

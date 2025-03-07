@@ -778,4 +778,14 @@
     <string name="top_up_detail_1">Получите Litecoin за 5 минут</string>
     <string name="top_up_button_1">Получите немного Litecoin!</string>
     <string name="top_up_button_2">Может быть, позже.</string>
+    <string name="settings_title_security">Безопасность</string>
+    <string name="settings_title_language">Язык</string>
+    <string name="settings_title_currency">Валюта</string>
+    <string name="settings_title_games">Игры</string>
+    <string name="settings_title_support">Поддерживать</string>
+    <string name="settings_title_social_media">Социальные сети</string>
+    <string name="settings_title_lock">Замок</string>
+    <string name="settings_title_unlock">Разблокировать</string>
+    <string name="settings_title_theme">Тема</string>
+    <string name="settings_title_app_version">Версия приложения:</string>
 </resources>

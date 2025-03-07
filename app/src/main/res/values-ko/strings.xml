@@ -778,4 +778,14 @@
     <string name="top_up_detail_1">5분 안에 라이트코인을 받으세요</string>
     <string name="top_up_button_1">라이트코인을 획득하세요!</string>
     <string name="top_up_button_2">어쩌면 나중에.</string>
+    <string name="settings_title_security">보안</string>
+    <string name="settings_title_language">언어</string>
+    <string name="settings_title_currency">통화</string>
+    <string name="settings_title_games">계략</string>
+    <string name="settings_title_support">지원하다</string>
+    <string name="settings_title_social_media">소셜 미디어</string>
+    <string name="settings_title_lock">잠그다</string>
+    <string name="settings_title_unlock">터놓다</string>
+    <string name="settings_title_theme">주제</string>
+    <string name="settings_title_app_version">앱 버전:</string>
 </resources>

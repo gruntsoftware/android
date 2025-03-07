@@ -21,8 +21,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.brainwallet.R
 import com.brainwallet.ui.theme.BrainwalletTheme
 
 //TODO
@@ -48,7 +50,7 @@ fun CurrencyDetail(
                 trailingIconColor = BrainwalletTheme.colors.content,
             ),
             text = {
-                Text(text = "Currency",
+                Text(text = stringResource(R.string.settings_title_currency),
                     style = MaterialTheme.typography.labelLarge
                         .copy(textAlign = TextAlign.Left)
                 )

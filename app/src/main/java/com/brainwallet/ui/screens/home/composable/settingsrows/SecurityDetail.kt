@@ -23,8 +23,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.brainwallet.R
 
 //TODO
 @Composable
@@ -53,7 +55,7 @@ fun SecurityDetail(
                 trailingIconColor = BrainwalletTheme.colors.content,
             ),
             text = {
-                Text(text = "Security",
+                Text(text = stringResource(R.string.settings_title_security),
                     style = MaterialTheme.typography.labelLarge
                         .copy(textAlign = TextAlign.Left)
                 )

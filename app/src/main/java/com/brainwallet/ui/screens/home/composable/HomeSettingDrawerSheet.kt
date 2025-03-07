@@ -15,24 +15,39 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.AbstractComposeView
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.brainwallet.R
 import com.brainwallet.tools.util.BRConstants
+import com.brainwallet.ui.screens.home.SettingsEvent
+import com.brainwallet.ui.screens.home.SettingsViewModel
 import com.brainwallet.ui.screens.home.composable.settingsrows.CurrencyDetail
 import com.brainwallet.ui.screens.home.composable.settingsrows.GamesDetail
 import com.brainwallet.ui.screens.home.composable.settingsrows.LanguageDetail
 import com.brainwallet.ui.screens.home.composable.settingsrows.LitecoinBlockchainDetail
 import com.brainwallet.ui.screens.home.composable.settingsrows.SecurityDetail
 import com.brainwallet.ui.screens.home.composable.settingsrows.SettingsSimpleRowItem
+import com.brainwallet.ui.screens.welcome.WelcomeEvent
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.ui.theme.BrainwalletTheme
 
 @Composable
 fun HomeSettingDrawerSheet(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: SettingsViewModel = viewModel()
 ) {
+
+    val state by viewModel.state.collectAsState()
+    val settingsDidChange by remember { mutableStateOf(state) }
+
 
     /// Layout values
     val headerPadding = 16
@@ -60,8 +75,19 @@ fun HomeSettingDrawerSheet(
                     LanguageDetail(
                         modifier = Modifier
                             .fillMaxSize()
-                            .wrapContentHeight()
+                            .wrapContentHeight(),
+                        selectedLanguage = state.selectedLanguage,
+                        onLanguageSelect = { language ->
+
+                            viewModel.onEvent(
+
+                                SettingsEvent.OnLanguageChange(
+                                    language
+                                )
+                            )
+                        }
                     )
+
                 }
                 item {
                     CurrencyDetail(
@@ -88,7 +114,8 @@ fun HomeSettingDrawerSheet(
                     SettingsSimpleRowItem(
                         modifier = Modifier,
                         mainLabel = "Support",
-                        detailLabel = "Support URL",
+                        detailLabel = "brainwallet.co",
+                        isDetailAURL = true
                     )
                 }
                 item {
@@ -96,6 +123,7 @@ fun HomeSettingDrawerSheet(
                         modifier = Modifier,
                         mainLabel = "Social Media",
                         detailLabel = "linktr.ee/brainwallet",
+                        isDetailAURL = true
                     )
                 }
                 item {
@@ -111,7 +139,7 @@ fun HomeSettingDrawerSheet(
                     // Theme
                     SettingsSimpleRowItem(
                         modifier = Modifier,
-                        mainLabel = "Theme",
+                        mainLabel = stringResource(R.string.settings_title_theme),
                         detailLabel = "",
                         actionType = RowActionType.THEME_TOGGLE,
                     )
@@ -120,8 +148,9 @@ fun HomeSettingDrawerSheet(
                 item {
                     SettingsSimpleRowItem(
                         modifier = Modifier,
-                        mainLabel = "App version:",
+                        mainLabel = stringResource(R.string.settings_title_app_version),
                         detailLabel = BRConstants.APP_VERSION_NAME_CODE,
+                        isDetailAURL = false
                     )
                 }
             }

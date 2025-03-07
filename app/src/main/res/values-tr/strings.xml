@@ -801,4 +801,14 @@
     <string name="top_up_detail_1">5 dakikada Litecoin\'i edinin</string>
     <string name="top_up_button_1">Biraz Litecoin alın!</string>
     <string name="top_up_button_2">Belki daha sonra.</string>
+    <string name="settings_title_security">Güvenlik</string>
+    <string name="settings_title_language">Dil</string>
+    <string name="settings_title_currency">Para birimi</string>
+    <string name="settings_title_games">Oyunlar</string>
+    <string name="settings_title_support">Destek</string>
+    <string name="settings_title_social_media">Sosyal Medya</string>
+    <string name="settings_title_lock">Kilit</string>
+    <string name="settings_title_unlock">Kilidini aç</string>
+    <string name="settings_title_theme">Tema</string>
+    <string name="settings_title_app_version">Uygulama sürümü:</string>
 </resources>

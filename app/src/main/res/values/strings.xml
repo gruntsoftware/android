@@ -814,5 +814,15 @@
     <string name="down_left_arrow">down-left-arrow</string>
     <string name="logo">logo</string>
     <string name="toggle_dark_mode">toggle-dark-mode</string>
-    <string name="toggle_lock_mode">toggle-lock-mode</string>
+    <string name="toggle_lock_mode" translatable="false">toggle-lock-mode</string>
+    <string name="settings_title_security">Security</string>
+    <string name="settings_title_language">Language</string>
+    <string name="settings_title_currency">Currency</string>
+    <string name="settings_title_games">Games</string>
+    <string name="settings_title_support">Support</string>
+    <string name="settings_title_social_media">Social Media</string>
+    <string name="settings_title_lock">Lock</string>
+    <string name="settings_title_unlock">Unlock</string>
+    <string name="settings_title_theme">Theme</string>
+    <string name="settings_title_app_version">App version:</string>
 </resources>

@@ -777,4 +777,14 @@
     <string name="top_up_detail_1">Obtenha Litecoin em 5 minutos</string>
     <string name="top_up_button_1">Obtenha um pouco de Litecoin!</string>
     <string name="top_up_button_2">Talvez mais tarde.</string>
+    <string name="settings_title_security">Segurança</string>
+    <string name="settings_title_language">Linguagem</string>
+    <string name="settings_title_currency">Moeda</string>
+    <string name="settings_title_games">Jogos</string>
+    <string name="settings_title_support">Apoiar</string>
+    <string name="settings_title_social_media">Mídias Sociais</string>
+    <string name="settings_title_lock">Trancar</string>
+    <string name="settings_title_unlock">Desbloquear</string>
+    <string name="settings_title_theme">Tema</string>
+    <string name="settings_title_app_version">Versão do aplicativo:</string>
 </resources>
