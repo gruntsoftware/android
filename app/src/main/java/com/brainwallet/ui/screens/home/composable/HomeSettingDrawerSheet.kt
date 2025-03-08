@@ -113,13 +113,16 @@ fun HomeSettingDrawerSheet(
                     LitecoinBlockchainDetail(
                         modifier = Modifier
                             .fillMaxSize()
-                            .wrapContentHeight()
+                            .wrapContentHeight(),
+                        onUserDidStartSync = {
+                            viewModel.onEvent(SettingsEvent.OnUserDidStartSync)
+                        }
                     )
                 }
                 item {
                     SettingsSimpleRowItem(
                         modifier = Modifier,
-                        mainLabel = "Support",
+                        mainLabel = stringResource(R.string.settings_title_support),
                         detailLabel = "brainwallet.co",
                         isDetailAURL = true
                     )
@@ -127,7 +130,7 @@ fun HomeSettingDrawerSheet(
                 item {
                     SettingsSimpleRowItem(
                         modifier = Modifier,
-                        mainLabel = "Social Media",
+                        mainLabel = stringResource(R.string.settings_title_social_media),
                         detailLabel = "linktr.ee/brainwallet",
                         isDetailAURL = true
                     )
@@ -136,7 +139,7 @@ fun HomeSettingDrawerSheet(
                     // Lock / Unlock
                     SettingsSimpleRowItem(
                         modifier = Modifier,
-                        mainLabel = "Unlock",
+                        mainLabel = stringResource(R.string.settings_title_unlock),
                         detailLabel = "",
                         actionType = RowActionType.LOCK_TOGGLE,
                     )

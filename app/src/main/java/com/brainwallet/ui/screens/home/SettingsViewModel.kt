@@ -109,7 +109,6 @@ class SettingsViewModel : BrainwalletViewModel<SettingsEvent>() {
 
                 }
             }
-
             is SettingsEvent.OnFiatChange -> _state.updateAndGet {
                 it.copy(selectedCurrency = event.currency)
             }.let {
@@ -119,6 +118,13 @@ class SettingsViewModel : BrainwalletViewModel<SettingsEvent>() {
                             currency = event.currency
                         )
                     )
+                }
+            }
+            is SettingsEvent.OnUserDidStartSync -> viewModelScope.launch {
+                _state.update {
+                    ////DEV : Call the sync function
+                    val toggled = it.userDidStartSync.not()
+                    it.copy(userDidStartSync = toggled)
                 }
             }
 
