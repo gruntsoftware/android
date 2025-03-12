@@ -71,10 +71,11 @@ public class BRApiManager {
                             BRSharedPrefs.putIso(context, tmp.code);
                             BRSharedPrefs.putCurrencyListPosition(context, i - 1);
                         }
+                        set.add(tmp);
                     } catch (JSONException e) {
                         Timber.e(e);
                     }
-                    set.add(tmp);
+
                 }
             } else {
                 Timber.d("timber: getCurrencies: failed to get currencies");

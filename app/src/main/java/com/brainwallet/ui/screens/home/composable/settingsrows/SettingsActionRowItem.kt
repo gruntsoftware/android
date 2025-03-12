@@ -4,9 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -17,15 +14,16 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -37,6 +35,7 @@ import com.brainwallet.ui.screens.home.SettingsEvent
 import com.brainwallet.ui.screens.home.SettingsViewModel
 import com.brainwallet.ui.screens.home.composable.RowActionType
 import com.brainwallet.ui.theme.BrainwalletTheme
+import org.koin.compose.koinInject
 
 
 @Composable
@@ -45,7 +44,7 @@ fun SettingsSimpleRowItem(
     mainLabel: String,
     detailLabel: String,
     actionType: RowActionType,
-    viewModel: SettingsViewModel = viewModel()
+    viewModel: SettingsViewModel = koinInject()
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -64,23 +63,25 @@ fun SettingsSimpleRowItem(
     ) {
         HorizontalDivider(thickness = dividerThickness.dp, color = BrainwalletTheme.colors.content)
 
-        Row (
-                modifier = Modifier
-                    .height(contentHeight.dp)
-                    .padding(horizontal = horizontalPadding.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ){
-                Text(text = mainLabel,
-                    style = MaterialTheme.typography.labelLarge
+        Row(
+            modifier = Modifier
+                .height(contentHeight.dp)
+                .padding(horizontal = horizontalPadding.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = mainLabel,
+                style = MaterialTheme.typography.labelLarge
                     .copy(textAlign = TextAlign.Left)
-                )
-                Spacer(modifier = Modifier.weight(1f))
-                Text(text = detailLabel,
-                        style = MaterialTheme.typography.labelSmall
-                            .copy(textAlign = TextAlign.Right)
-                )
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            Text(
+                text = detailLabel,
+                style = MaterialTheme.typography.labelSmall
+                    .copy(textAlign = TextAlign.Right)
+            )
 
-            if(actionType == RowActionType.THEME_TOGGLE) {
+            if (actionType == RowActionType.THEME_TOGGLE) {
                 DarkModeToggleButton(
                     modifier = Modifier
                         .width(toggleButtonSize.dp)
@@ -117,7 +118,7 @@ fun SettingsSimpleRowItem(
                 }
             }
 
-            if(actionType == RowActionType.LOCK_TOGGLE) {
+            if (actionType == RowActionType.LOCK_TOGGLE) {
                 DarkModeToggleButton(
                     modifier = Modifier
                         .width(toggleButtonSize.dp)

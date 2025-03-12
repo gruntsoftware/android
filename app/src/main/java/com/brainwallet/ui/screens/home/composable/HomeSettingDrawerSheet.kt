@@ -2,18 +2,13 @@ package com.brainwallet.ui.screens.home.composable
 
 import android.content.Context
 import android.util.AttributeSet
-import androidx.compose.foundation.gestures.anchoredDraggable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -24,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.AbstractComposeView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
 import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.screens.home.SettingsEvent
@@ -35,14 +29,14 @@ import com.brainwallet.ui.screens.home.composable.settingsrows.LanguageDetail
 import com.brainwallet.ui.screens.home.composable.settingsrows.LitecoinBlockchainDetail
 import com.brainwallet.ui.screens.home.composable.settingsrows.SecurityDetail
 import com.brainwallet.ui.screens.home.composable.settingsrows.SettingsSimpleRowItem
-import com.brainwallet.ui.screens.welcome.WelcomeEvent
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.ui.theme.BrainwalletTheme
+import org.koin.compose.koinInject
 
 @Composable
 fun HomeSettingDrawerSheet(
     modifier: Modifier = Modifier,
-    viewModel: SettingsViewModel = viewModel()
+    viewModel: SettingsViewModel = koinInject()
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -183,7 +177,7 @@ class HomeSettingDrawerComposeView @JvmOverloads constructor(
 }
 
 
-enum class RowActionType (
+enum class RowActionType(
     val code: String,
 ) {
     SLIDER(code = "SLIDER"),

@@ -1,17 +1,10 @@
 package com.brainwallet.ui.screens.home.composable.settingsrows
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material.icons.Icons
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import com.brainwallet.ui.theme.BrainwalletTheme
-
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -19,37 +12,41 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuDefaults
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
-import com.brainwallet.data.model.Language
 import com.brainwallet.ui.composable.DarkModeToggleButton
 import com.brainwallet.ui.screens.home.SettingsEvent
 import com.brainwallet.ui.screens.home.SettingsViewModel
-import com.brainwallet.ui.screens.home.composable.RowActionType
+import com.brainwallet.ui.theme.BrainwalletTheme
+import org.koin.compose.koinInject
 
 //TODO
 @Composable
 fun LitecoinBlockchainDetail(
     modifier: Modifier = Modifier,
     onUserDidStartSync: (Boolean) -> Unit,
-    viewModel: SettingsViewModel = viewModel()
+    viewModel: SettingsViewModel = koinInject()
 
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -64,7 +61,7 @@ fun LitecoinBlockchainDetail(
 
     Column(
         modifier = modifier
-            .background (if (expanded) BrainwalletTheme.colors.background else BrainwalletTheme.colors.surface)
+            .background(if (expanded) BrainwalletTheme.colors.background else BrainwalletTheme.colors.surface)
     ) {
         HorizontalDivider(thickness = dividerThickness.dp, color = BrainwalletTheme.colors.content)
         DropdownMenuItem(

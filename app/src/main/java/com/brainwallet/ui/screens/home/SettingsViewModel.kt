@@ -19,12 +19,12 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.launch
 
-class SettingsViewModel : BrainwalletViewModel<SettingsEvent>() {
+class SettingsViewModel(
+    private val settingRepository: SettingRepository
+) : BrainwalletViewModel<SettingsEvent>() {
+
     private val _state = MutableStateFlow(SettingsState())
     val state: StateFlow<SettingsState> = _state.asStateFlow()
-
-    private var settingRepository: SettingRepository =
-        BrainwalletApp.module!!.settingRepository
 
     private val appSetting = settingRepository.settings
         .distinctUntilChanged()
