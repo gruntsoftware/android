@@ -2,7 +2,6 @@ package com.brainwallet.ui.screens.home.composable
 
 import android.content.Context
 import android.util.AttributeSet
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,6 +19,8 @@ import androidx.compose.ui.platform.AbstractComposeView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.brainwallet.R
+import com.brainwallet.data.model.AppSetting
+import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.screens.home.SettingsEvent
 import com.brainwallet.ui.screens.home.SettingsViewModel
@@ -32,6 +33,7 @@ import com.brainwallet.ui.screens.home.composable.settingsrows.SettingsSimpleRow
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.ui.theme.BrainwalletTheme
 import org.koin.compose.koinInject
+import org.koin.java.KoinJavaComponent.inject
 
 @Composable
 fun HomeSettingDrawerSheet(
@@ -42,122 +44,118 @@ fun HomeSettingDrawerSheet(
     val state by viewModel.state.collectAsState()
     val settingsDidChange by remember { mutableStateOf(state) }
 
-
     /// Layout values
-    val headerPadding = 16
+    val headerPadding = 56
 
     ModalDrawerSheet(
         modifier = modifier.fillMaxWidth(),
         drawerContainerColor = BrainwalletTheme.colors.surface,
         drawerContentColor = BrainwalletTheme.colors.content
     ) {
-        Column {
-            LazyColumn(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(top = headerPadding.dp)
-                    .wrapContentHeight(align = Alignment.Top)
-            ) {
-                item {
-                    SecurityDetail(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .wrapContentHeight()
-                    )
-                }
-                item {
-                    LanguageDetail(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .wrapContentHeight(),
-                        selectedLanguage = state.selectedLanguage,
-                        onLanguageSelect = { language ->
-                            viewModel.onEvent(
-                                SettingsEvent.OnLanguageChange(
-                                    language
-                                )
+        LazyColumn(
+            modifier = Modifier
+                .weight(1f)
+                .padding(top = headerPadding.dp)
+                .wrapContentHeight(align = Alignment.Top)
+        ) {
+            item {
+                SecurityDetail(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .wrapContentHeight()
+                )
+            }
+            item {
+                LanguageDetail(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .wrapContentHeight(),
+                    selectedLanguage = state.selectedLanguage,
+                    onLanguageSelect = { language ->
+                        viewModel.onEvent(
+                            SettingsEvent.OnLanguageChange(
+                                language
                             )
-                        }
-                    )
+                        )
+                    }
+                )
 
-                }
-                item {
-                    CurrencyDetail(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .wrapContentHeight(),
-                        selectedCurrency = state.selectedCurrency,
-                        onFiatSelect = { currency ->
-                            viewModel.onEvent(
-                                SettingsEvent.OnFiatChange(
-                                    currency
-                                )
+            }
+            item {
+                CurrencyDetail(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .wrapContentHeight(),
+                    selectedCurrency = state.selectedCurrency,
+                    onFiatSelect = { currency ->
+                        viewModel.onEvent(
+                            SettingsEvent.OnFiatChange(
+                                currency
                             )
-                        }
-                    )
-                }
-                item {
-                    GamesDetail(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .wrapContentHeight()
-                    )
-                }
-                item {
-                    LitecoinBlockchainDetail(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .wrapContentHeight(),
-                        onUserDidStartSync = {
-                            viewModel.onEvent(SettingsEvent.OnUserDidStartSync)
-                        }
-                    )
-                }
-                item {
-                    SettingsSimpleRowItem(
-                        modifier = Modifier,
-                        mainLabel = stringResource(R.string.settings_title_support),
-                        detailLabel = "brainwallet.co",
-                        isDetailAURL = true
-                    )
-                }
-                item {
-                    SettingsSimpleRowItem(
-                        modifier = Modifier,
-                        mainLabel = stringResource(R.string.settings_title_social_media),
-                        detailLabel = "linktr.ee/brainwallet",
-                        isDetailAURL = true
-                    )
-                }
-                item {
-                    // Lock / Unlock
-                    SettingsSimpleRowItem(
-                        modifier = Modifier,
-                        mainLabel = stringResource(R.string.settings_title_unlock),
-                        detailLabel = "",
-                        actionType = RowActionType.LOCK_TOGGLE,
-                    )
-                }
-                item {
-                    // Theme
-                    SettingsSimpleRowItem(
-                        modifier = Modifier,
-                        mainLabel = stringResource(R.string.settings_title_theme),
-                        detailLabel = "",
-                        actionType = RowActionType.THEME_TOGGLE,
-                    )
-                }
-
-                item {
-                    SettingsSimpleRowItem(
-                        modifier = Modifier,
-                        mainLabel = stringResource(R.string.settings_title_app_version),
-                        detailLabel = BRConstants.APP_VERSION_NAME_CODE,
-                        isDetailAURL = false
-                    )
-                }
+                        )
+                    }
+                )
+            }
+            item {
+                GamesDetail(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .wrapContentHeight()
+                )
+            }
+            item {
+                LitecoinBlockchainDetail(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .wrapContentHeight(),
+                    onUserDidStartSync = {
+                        viewModel.onEvent(SettingsEvent.OnUserDidStartSync)
+                    }
+                )
+            }
+            item {
+                SettingsSimpleRowItem(
+                    modifier = Modifier,
+                    mainLabel = stringResource(R.string.settings_title_support),
+                    detailLabel = "brainwallet.co",
+                    isDetailAURL = true
+                )
+            }
+            item {
+                SettingsSimpleRowItem(
+                    modifier = Modifier,
+                    mainLabel = stringResource(R.string.settings_title_social_media),
+                    detailLabel = "linktr.ee/brainwallet",
+                    isDetailAURL = true
+                )
+            }
+            item {
+                // Lock / Unlock
+                SettingsSimpleRowItem(
+                    modifier = Modifier,
+                    mainLabel = stringResource(R.string.settings_title_unlock),
+                    detailLabel = "",
+                    actionType = RowActionType.LOCK_TOGGLE,
+                )
+            }
+            item {
+                // Theme
+                SettingsSimpleRowItem(
+                    modifier = Modifier,
+                    mainLabel = stringResource(R.string.settings_title_theme),
+                    detailLabel = "",
+                    actionType = RowActionType.THEME_TOGGLE,
+                )
             }
 
+            item {
+                SettingsSimpleRowItem(
+                    modifier = Modifier,
+                    mainLabel = stringResource(R.string.settings_title_app_version),
+                    detailLabel = BRConstants.APP_VERSION_NAME_CODE,
+                    isDetailAURL = false
+                )
+            }
         }
     }
 }
@@ -170,9 +168,15 @@ fun HomeSettingDrawerSheet(
 class HomeSettingDrawerComposeView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : AbstractComposeView(context, attrs) {
+
+    val settingRepository: SettingRepository by inject(SettingRepository::class.java)
+
     @Composable
     override fun Content() {
-        BrainwalletAppTheme { HomeSettingDrawerSheet() }
+        val appSetting by settingRepository.settings.collectAsState(
+            AppSetting()
+        )
+        BrainwalletAppTheme(appSetting = appSetting) { HomeSettingDrawerSheet() }
     }
 }
 
