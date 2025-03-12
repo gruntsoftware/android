@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
     android:filterTouchesWhenObscured="true"
+    android:gravity="center"
     android:paddingStart="12dp"
     android:paddingEnd="12dp"
     android:scrollY="0dp">
@@ -235,7 +236,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:clickable="true"
-                    android:text="@string/ViewOnBlockchain"/>
+                    android:text="@string/ViewOnBlockchain" />
 
                 <View
                     android:layout_width="match_parent"
