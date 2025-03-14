@@ -140,16 +140,9 @@ public class SettingsActivity extends BRActivity {
 
         //toggle dark mode
         boolean isDarkMode = settingRepository.isDarkMode();
-        boolean isLocked = settingRepository.isLocked();
 
         items.add(new BRSettingsItem(getString(R.string.toggle_dark_mode), getString(isDarkMode ? androidx.appcompat.R.string.abc_capital_on : androidx.appcompat.R.string.abc_capital_off), v -> {
             settingRepository.toggleDarkMode(!isDarkMode);
-            LegacyNavigation.openComposeScreen(SettingsActivity.this);
-        }, false));
-
-        //toggle lock
-        items.add(new BRSettingsItem(getString(R.string.toggle_lock_mode), getString(isLocked ? androidx.appcompat.R.string.abc_capital_on : androidx.appcompat.R.string.abc_capital_off), v -> {
-            settingRepository.toggleLockedMode(!isLocked);
             LegacyNavigation.openComposeScreen(SettingsActivity.this);
         }, false));
 

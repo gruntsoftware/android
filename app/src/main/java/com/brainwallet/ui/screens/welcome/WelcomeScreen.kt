@@ -158,32 +158,7 @@ fun WelcomeScreen(
                 onCheckedChange = {
                     viewModel.onEvent(WelcomeEvent.OnToggleDarkMode)
                 }
-            ) {
-
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .width(iconButtonSize.dp)
-                        .aspectRatio(1f)
-                        .clip(CircleShape)
-                        .border(
-                            1.dp,
-                            if (state.darkMode) BrainwalletTheme.colors.warn else BrainwalletTheme.colors.surface,
-                            CircleShape
-                        )
-                        .background(if (state.darkMode) BrainwalletTheme.colors.surface else BrainwalletTheme.colors.content)
-                ) {
-                    Icon(
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .width(iconButtonSize.dp)
-                            .aspectRatio(1f),
-                        tint = if (state.darkMode) BrainwalletTheme.colors.warn else BrainwalletTheme.colors.surface,
-                        painter = painterResource(if (state.darkMode) R.drawable.ic_light_mode else R.drawable.ic_dark_mode),
-                        contentDescription = stringResource(R.string.toggle_dark_mode),
-                    )
-                }
-            }
+            )
 
             Spacer(modifier = Modifier.weight(0.2f))
 

@@ -1,13 +1,14 @@
 package com.brainwallet.ui.screens.home
 
+import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.viewModelScope
-import com.brainwallet.BrainwalletApp
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.model.Language
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.ui.BrainwalletViewModel
+import com.brainwallet.util.EventBus
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -26,7 +27,7 @@ class SettingsViewModel(
     private val _state = MutableStateFlow(SettingsState())
     val state: StateFlow<SettingsState> = _state.asStateFlow()
 
-    private val appSetting = settingRepository.settings
+    val appSetting = settingRepository.settings
         .distinctUntilChanged()
         .onEach { setting ->
             _state.update {
@@ -60,17 +61,8 @@ class SettingsViewModel(
             }
 
             SettingsEvent.OnToggleLock -> viewModelScope.launch {
-                _state.update {
-                    val toggled = it.isLocked.not()
-
-                    settingRepository.save(
-                        appSetting.value.copy(
-                            isLocked = toggled
-                        )
-                    )
-
-                    it.copy(isLocked = toggled)
-                }
+                Log.d("YUANA", "OnToggleLock")
+                EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_LOCK))
             }
 
             SettingsEvent.OnFiatButtonClick -> _state.update {
@@ -109,6 +101,7 @@ class SettingsViewModel(
 
                 }
             }
+
             is SettingsEvent.OnFiatChange -> _state.updateAndGet {
                 it.copy(selectedCurrency = event.currency)
             }.let {
@@ -120,6 +113,7 @@ class SettingsViewModel(
                     )
                 }
             }
+
             is SettingsEvent.OnUserDidStartSync -> viewModelScope.launch {
                 _state.update {
                     ////DEV : Call the sync function
@@ -129,5 +123,9 @@ class SettingsViewModel(
             }
 
         }
+    }
+
+    companion object {
+        const val LEGACY_EFFECT_ON_LOCK = "onLockInvoked"
     }
 }

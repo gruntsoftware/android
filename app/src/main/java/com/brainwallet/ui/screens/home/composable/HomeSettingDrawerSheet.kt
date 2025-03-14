@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -20,7 +22,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
-import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.screens.home.SettingsEvent
 import com.brainwallet.ui.screens.home.SettingsViewModel
@@ -28,8 +29,10 @@ import com.brainwallet.ui.screens.home.composable.settingsrows.CurrencyDetail
 import com.brainwallet.ui.screens.home.composable.settingsrows.GamesDetail
 import com.brainwallet.ui.screens.home.composable.settingsrows.LanguageDetail
 import com.brainwallet.ui.screens.home.composable.settingsrows.LitecoinBlockchainDetail
+import com.brainwallet.ui.screens.home.composable.settingsrows.LockSettingRowItem
 import com.brainwallet.ui.screens.home.composable.settingsrows.SecurityDetail
-import com.brainwallet.ui.screens.home.composable.settingsrows.SettingsSimpleRowItem
+import com.brainwallet.ui.screens.home.composable.settingsrows.SettingRowItem
+import com.brainwallet.ui.screens.home.composable.settingsrows.ThemeSettingRowItem
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.ui.theme.BrainwalletTheme
 import org.koin.compose.koinInject
@@ -48,7 +51,9 @@ fun HomeSettingDrawerSheet(
     val headerPadding = 56
 
     ModalDrawerSheet(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .verticalScroll(rememberScrollState()),
         drawerContainerColor = BrainwalletTheme.colors.surface,
         drawerContentColor = BrainwalletTheme.colors.content
     ) {
@@ -114,46 +119,36 @@ fun HomeSettingDrawerSheet(
                 )
             }
             item {
-                SettingsSimpleRowItem(
-                    modifier = Modifier,
-                    mainLabel = stringResource(R.string.settings_title_support),
-                    detailLabel = "brainwallet.co",
-                    isDetailAURL = true
+                SettingRowItem(
+                    title = stringResource(R.string.settings_title_support),
+                    description = "brainwallet.co"
                 )
             }
             item {
-                SettingsSimpleRowItem(
-                    modifier = Modifier,
-                    mainLabel = stringResource(R.string.settings_title_social_media),
-                    detailLabel = "linktr.ee/brainwallet",
-                    isDetailAURL = true
+                SettingRowItem(
+                    title = stringResource(R.string.settings_title_social_media),
+                    description = "linktr.ee/brainwallet"
                 )
             }
             item {
                 // Lock / Unlock
-                SettingsSimpleRowItem(
-                    modifier = Modifier,
-                    mainLabel = stringResource(R.string.settings_title_unlock),
-                    detailLabel = "",
-                    actionType = RowActionType.LOCK_TOGGLE,
-                )
+                LockSettingRowItem {
+                    viewModel.onEvent(SettingsEvent.OnToggleLock)
+                }
             }
             item {
                 // Theme
-                SettingsSimpleRowItem(
-                    modifier = Modifier,
-                    mainLabel = stringResource(R.string.settings_title_theme),
-                    detailLabel = "",
-                    actionType = RowActionType.THEME_TOGGLE,
+                ThemeSettingRowItem(
+                    onToggledDarkMode = {
+                        viewModel.onEvent(SettingsEvent.OnToggleDarkMode)
+                    }
                 )
             }
 
             item {
-                SettingsSimpleRowItem(
-                    modifier = Modifier,
-                    mainLabel = stringResource(R.string.settings_title_app_version),
-                    detailLabel = BRConstants.APP_VERSION_NAME_CODE,
-                    isDetailAURL = false
+                SettingRowItem(
+                    title = stringResource(R.string.settings_title_app_version),
+                    description = BRConstants.APP_VERSION_NAME_CODE
                 )
             }
         }
@@ -169,14 +164,16 @@ class HomeSettingDrawerComposeView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : AbstractComposeView(context, attrs) {
 
-    val settingRepository: SettingRepository by inject(SettingRepository::class.java)
+    private val settingsViewModel: SettingsViewModel by inject(SettingsViewModel::class.java)
 
     @Composable
     override fun Content() {
-        val appSetting by settingRepository.settings.collectAsState(
+        val appSetting by settingsViewModel.appSetting.collectAsState(
             AppSetting()
         )
-        BrainwalletAppTheme(appSetting = appSetting) { HomeSettingDrawerSheet() }
+        BrainwalletAppTheme(appSetting = appSetting) {
+            HomeSettingDrawerSheet(viewModel = settingsViewModel)
+        }
     }
 }
 

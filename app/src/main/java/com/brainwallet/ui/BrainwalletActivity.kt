@@ -3,9 +3,9 @@ package com.brainwallet.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.setContent
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.lifecycleScope
@@ -28,6 +28,7 @@ import com.brainwallet.tools.security.SmartValidator
 import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.tools.util.BRConstants.BW_PIN_LENGTH
 import com.brainwallet.tools.util.Utils
+import com.brainwallet.ui.screens.home.SettingsViewModel.Companion.LEGACY_EFFECT_ON_LOCK
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.EFFECT_LEGACY_RECOVER_WALLET_AUTH
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGACY_DIALOG_INVALID
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGACY_DIALOG_WIPE_ALERT
@@ -164,6 +165,10 @@ class BrainwalletActivity : BRActivity() {
                                 null,
                                 0
                             )
+
+                            LEGACY_EFFECT_ON_LOCK -> {
+                                Log.d("YUANA", "LEGACY_EFFECT_ON_LOCK")
+                            }
 
                         }
                     }
