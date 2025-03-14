@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import com.brainwallet.R
 import com.brainwallet.presenter.activities.BreadActivity
-import com.brainwallet.presenter.activities.LoginActivity
 import com.brainwallet.ui.BrainwalletActivity
 import timber.log.Timber
 
@@ -32,6 +31,17 @@ object LegacyNavigation {
         from.overridePendingTransition(R.anim.fade_up, R.anim.fade_down)
         if (!from.isDestroyed) {
             from.finish()
+        }
+    }
+
+    @JvmStatic
+    fun restartBreadActivity(
+        context: Context
+    ) {
+        Intent(context, BreadActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+        }.also {
+            context.startActivity(it)
         }
     }
 

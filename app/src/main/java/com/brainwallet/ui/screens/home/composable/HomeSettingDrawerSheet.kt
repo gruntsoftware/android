@@ -20,8 +20,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.AbstractComposeView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
+import com.brainwallet.navigation.LegacyNavigation
 import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.screens.home.SettingsEvent
 import com.brainwallet.ui.screens.home.SettingsViewModel
@@ -35,6 +38,12 @@ import com.brainwallet.ui.screens.home.composable.settingsrows.SettingRowItem
 import com.brainwallet.ui.screens.home.composable.settingsrows.ThemeSettingRowItem
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.ui.theme.BrainwalletTheme
+import com.brainwallet.util.EventBus
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
+import org.koin.compose.currentKoinScope
 import org.koin.compose.koinInject
 import org.koin.java.KoinJavaComponent.inject
 
@@ -43,7 +52,6 @@ fun HomeSettingDrawerSheet(
     modifier: Modifier = Modifier,
     viewModel: SettingsViewModel = koinInject()
 ) {
-
     val state by viewModel.state.collectAsState()
     val settingsDidChange by remember { mutableStateOf(state) }
 
@@ -139,6 +147,7 @@ fun HomeSettingDrawerSheet(
             item {
                 // Theme
                 ThemeSettingRowItem(
+                    darkMode = state.darkMode,
                     onToggledDarkMode = {
                         viewModel.onEvent(SettingsEvent.OnToggleDarkMode)
                     }
@@ -174,6 +183,16 @@ class HomeSettingDrawerComposeView @JvmOverloads constructor(
         BrainwalletAppTheme(appSetting = appSetting) {
             HomeSettingDrawerSheet(viewModel = settingsViewModel)
         }
+    }
+
+    fun observeBus(
+        onEach: (EventBus.Event.Message) -> Unit
+    ) {
+        EventBus.events
+            .filter { it is EventBus.Event.Message }
+            .map { it as EventBus.Event.Message }
+            .onEach { onEach.invoke(it) }
+            .launchIn(findViewTreeLifecycleOwner()!!.lifecycle.coroutineScope)
     }
 }
 

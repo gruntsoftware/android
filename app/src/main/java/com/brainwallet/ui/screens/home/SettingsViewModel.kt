@@ -1,6 +1,5 @@
 package com.brainwallet.ui.screens.home
 
-import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.viewModelScope
@@ -58,10 +57,10 @@ class SettingsViewModel(
 
                     it.copy(darkMode = toggled)
                 }
+                EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_TOGGLE_DARK_MODE))
             }
 
             SettingsEvent.OnToggleLock -> viewModelScope.launch {
-                Log.d("YUANA", "OnToggleLock")
                 EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_LOCK))
             }
 
@@ -127,5 +126,6 @@ class SettingsViewModel(
 
     companion object {
         const val LEGACY_EFFECT_ON_LOCK = "onLockInvoked"
+        const val LEGACY_EFFECT_ON_TOGGLE_DARK_MODE = "onToggleDarkMode"
     }
 }

@@ -35,6 +35,8 @@ import androidx.transition.TransitionManager;
 import androidx.transition.TransitionSet;
 
 import com.brainwallet.R;
+import com.brainwallet.navigation.LegacyNavigation;
+import com.brainwallet.navigation.Route;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.presenter.customviews.BRNotificationBar;
 import com.brainwallet.presenter.fragments.BuyTabFragment;
@@ -53,7 +55,10 @@ import com.brainwallet.tools.util.BRCurrency;
 import com.brainwallet.tools.util.BRExchange;
 import com.brainwallet.tools.util.ExtensionKt;
 import com.brainwallet.tools.util.Utils;
+import com.brainwallet.ui.BrainwalletActivity;
+import com.brainwallet.ui.screens.home.SettingsViewModel;
 import com.brainwallet.ui.screens.home.composable.HomeSettingDrawerComposeView;
+import com.brainwallet.util.EventBus;
 import com.brainwallet.util.PermissionUtil;
 import com.brainwallet.wallet.BRPeerManager;
 import com.brainwallet.wallet.BRWalletManager;
@@ -66,6 +71,8 @@ import com.google.android.play.core.review.ReviewManagerFactory;
 
 import java.math.BigDecimal;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 import timber.log.Timber;
 
 public class BreadActivity extends BRActivity implements BRWalletManager.OnBalanceChanged, BRSharedPrefs.OnIsoChangedListener,
@@ -375,6 +382,14 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         navigationDrawer = findViewById(R.id.navigationDrawer);
         drawerLayout = findViewById(R.id.drawerLayout);
         homeSettingDrawerComposeView = findViewById(R.id.homeDrawerComposeView);
+        homeSettingDrawerComposeView.observeBus(message -> {
+            if (SettingsViewModel.LEGACY_EFFECT_ON_LOCK.equals(message.getMessage())) {
+                LegacyNavigation.startBreadActivity(this, true);
+            } else if (SettingsViewModel.LEGACY_EFFECT_ON_TOGGLE_DARK_MODE.equals(message.getMessage())) {
+                LegacyNavigation.restartBreadActivity(this);
+            }
+            return null;
+        }); //since we are still using this BreadActivity, need to observe EventBus e.g. lock from [HomeSettingDrawerSheet]
 
         bottomNav = findViewById(R.id.bottomNav);
         bottomNav.getMenu().clear();
