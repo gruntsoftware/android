@@ -794,4 +794,7 @@
     <string name="settings_title_unlock">Розблокувати</string>
     <string name="settings_title_theme">Тема</string>
     <string name="settings_title_app_version">Версія програми:</string>
+    <string name="settings_blockchain_litecoin_button">Синхронізація</string>
+    <string name="settings_blockchain_litecoin_description">Тривалість синхронізації: >20 хвилин</string>
+    <string name="game_title">Гра %1$d:</string>
 </resources>

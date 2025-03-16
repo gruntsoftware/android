@@ -788,4 +788,7 @@
     <string name="settings_title_unlock">Разблокировать</string>
     <string name="settings_title_theme">Тема</string>
     <string name="settings_title_app_version">Версия приложения:</string>
+    <string name="settings_blockchain_litecoin_button">Синхронизация</string>
+    <string name="settings_blockchain_litecoin_description">Длительность синхронизации: >20 минут</string>
+    <string name="game_title">Игра %1$d:</string>
 </resources>

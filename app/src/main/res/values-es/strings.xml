@@ -787,4 +787,7 @@
     <string name="settings_title_unlock">Descubrir</string>
     <string name="settings_title_theme">Tema</string>
     <string name="settings_title_app_version">Versión de la aplicación:</string>
+    <string name="settings_blockchain_litecoin_button">Sincronización</string>
+    <string name="settings_blockchain_litecoin_description">Duración de la sincronización: >20 minutos</string>
+    <string name="game_title">Juego %1$d:</string>
 </resources>

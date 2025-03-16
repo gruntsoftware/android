@@ -782,7 +782,7 @@
     <string name="blockchain_litecoin">Blockchain: Litecoin</string>
     <string name="i_saved_it_on_paper">I saved it on paper or metal</string>
     <string name="you_saved_it_right">You saved it, right?</string>
-    <string name="you_saved_it_right_desc">Prove it!\nDrag the words in the correct order.</string>
+    <string name="you_saved_it_right_desc">Prove it!\nDrag thƒe words in the correct order.</string>
     <string name="game_and_sync">Game &amp; Sync</string>
     <string name="ready_setup">Ready?</string>
     <string name="ready_setup_details_1">Do this for you. Please do it</string>
@@ -825,4 +825,12 @@
     <string name="settings_title_unlock">Unlock</string>
     <string name="settings_title_theme">Theme</string>
     <string name="settings_title_app_version">App version:</string>
+    <string name="settings_blockchain_litecoin_button">Sync</string>
+    <string name="settings_blockchain_litecoin_description">Sync duration: >20 minutes</string>
+    <string name="game_title">Game %1$d:</string>
+    <string name="game_buy_price_1" translatable="false">%s</string>
+    <string name="game_buy_price_2" translatable="false">%s</string>
+    <string name="game_buy_price_3" translatable="false">%s</string>
+    <string name="game_buy_price_4" translatable="false">%s</string>
+
 </resources>

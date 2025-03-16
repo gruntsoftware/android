@@ -788,4 +788,7 @@
     <string name="settings_title_unlock">Entsperren</string>
     <string name="settings_title_theme">Thema</string>
     <string name="settings_title_app_version">App-Version:</string>
+    <string name="settings_blockchain_litecoin_button">Sync</string>
+    <string name="settings_blockchain_litecoin_description">Synchronisationsdauer: >20 Minuten</string>
+    <string name="game_title">Spiel %1$d:</string>
 </resources>

@@ -427,4 +427,7 @@
     <string name="settings_title_unlock">فتح</string>
     <string name="settings_title_theme">سمة</string>
     <string name="settings_title_app_version">إصدار التطبيق:</string>
+    <string name="settings_blockchain_litecoin_button">المزامنة</string>
+    <string name="settings_blockchain_litecoin_description">مدة المزامنة: >20 دقيقة</string>
+    <string name="game_title">اللعبة %1$d:</string>
 </resources>

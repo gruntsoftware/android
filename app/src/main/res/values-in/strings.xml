@@ -790,4 +790,7 @@
     <string name="settings_title_unlock">Membuka kunci</string>
     <string name="settings_title_theme">Tema</string>
     <string name="settings_title_app_version">Versi aplikasi:</string>
+    <string name="settings_blockchain_litecoin_button">Sinkronisasi</string>
+    <string name="settings_blockchain_litecoin_description">Durasi sinkronisasi: >20 menit</string>
+    <string name="game_title">Pertandingan %1$d:</string>
 </resources>

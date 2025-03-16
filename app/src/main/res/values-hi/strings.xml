@@ -426,4 +426,7 @@
   <string name="settings_title_unlock">अनलॉक</string>
   <string name="settings_title_theme">विषय</string>
   <string name="settings_title_app_version">एप्लिकेशन वेरीज़न:</string>
+    <string name="settings_blockchain_litecoin_button">सिंक</string>
+  <string name="settings_blockchain_litecoin_description">सिंक अवधि: >20 मिनट</string>
+  <string name="game_title">खेल %1$d:</string>
 </resources>

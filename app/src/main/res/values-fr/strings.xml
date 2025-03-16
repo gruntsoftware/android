@@ -788,4 +788,7 @@
     <string name="settings_title_unlock">Ouvrir</string>
     <string name="settings_title_theme">Thème</string>
     <string name="settings_title_app_version">Version de l\'application:</string>
+    <string name="settings_blockchain_litecoin_button">Synchronisation</string>
+    <string name="settings_blockchain_litecoin_description">Durée de synchronisation : >20 minutes</string>
+    <string name="game_title">Jeu %1$d :</string>
 </resources>

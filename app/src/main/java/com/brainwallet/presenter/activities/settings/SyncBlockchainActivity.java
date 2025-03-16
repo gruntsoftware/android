@@ -118,6 +118,7 @@ public class SyncBlockchainActivity extends BRActivity {
                                 BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
                                     @Override
                                     public void run() {
+                                        ///Dev: This is the structure to do full sync
                                         BRSharedPrefs.putStartHeight(SyncBlockchainActivity.this, 0);
                                         BRSharedPrefs.putAllowSpend(SyncBlockchainActivity.this, false);
                                         BRPeerManager.getInstance().rescan();

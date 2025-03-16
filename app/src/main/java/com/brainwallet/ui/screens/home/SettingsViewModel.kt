@@ -1,13 +1,20 @@
 package com.brainwallet.ui.screens.home
 
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.ui.platform.LocalContext
 import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.model.Language
 import com.brainwallet.data.repository.SettingRepository
+import com.brainwallet.presenter.activities.settings.SyncBlockchainActivity
+import com.brainwallet.tools.animation.BRAnimator
+import com.brainwallet.tools.manager.AnalyticsManager
+import com.brainwallet.tools.manager.BRSharedPrefs
+import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.BrainwalletViewModel
 import com.brainwallet.util.EventBus
+import com.brainwallet.wallet.BRPeerManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -18,6 +25,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.launch
+
 
 class SettingsViewModel(
     private val settingRepository: SettingRepository
@@ -97,7 +105,6 @@ class SettingsViewModel(
                             event.language.code
                         )
                     )
-
                 }
             }
 
@@ -116,6 +123,13 @@ class SettingsViewModel(
             is SettingsEvent.OnUserDidStartSync -> viewModelScope.launch {
                 _state.update {
                     ////DEV : Call the sync function
+//                    BRSharedPrefs.putStartHeight(event.context, 0);
+//                    BRSharedPrefs.putAllowSpend(event.context, false);
+//                    BRPeerManager.getInstance().rescan();
+//                    BRAnimator.startBreadActivity(event.context, false);
+//                    AnalyticsManager.logCustomEvent(BRConstants._20200112_DSR);
+                    EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_SYNC))
+
                     val toggled = it.userDidStartSync.not()
                     it.copy(userDidStartSync = toggled)
                 }
@@ -127,5 +141,6 @@ class SettingsViewModel(
     companion object {
         const val LEGACY_EFFECT_ON_LOCK = "onLockInvoked"
         const val LEGACY_EFFECT_ON_TOGGLE_DARK_MODE = "onToggleDarkMode"
+        const val LEGACY_EFFECT_ON_SYNC = "onSyncInvoked"
     }
 }

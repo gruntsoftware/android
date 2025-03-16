@@ -788,4 +788,7 @@
     <string name="settings_title_unlock">ロックを解除する</string>
     <string name="settings_title_theme">テーマ</string>
     <string name="settings_title_app_version">アプリのバージョン:</string>
+    <string name="settings_blockchain_litecoin_button">同期</string>
+    <string name="settings_blockchain_litecoin_description">同期時間: >20分</string>
+    <string name="game_title">ゲーム %1$d:</string>
 </resources>

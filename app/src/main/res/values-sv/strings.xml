@@ -426,4 +426,7 @@
     <string name="settings_title_unlock">Låsa upp</string>
     <string name="settings_title_theme">Tema</string>
     <string name="settings_title_app_version">Appversion:</string>
+    <string name="settings_blockchain_litecoin_button">Sync</string>
+  <string name="settings_blockchain_litecoin_description">Synkroniseringstid: >20 minuter</string>
+  <string name="game_title">Spel %1$d:</string>
 </resources>

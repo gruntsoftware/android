@@ -788,4 +788,7 @@
     <string name="settings_title_unlock">开锁</string>
     <string name="settings_title_theme">主题</string>
     <string name="settings_title_app_version">应用程序版本:</string>
+    <string name="settings_blockchain_litecoin_button">同步</string>
+    <string name="settings_blockchain_litecoin_description">同步时长：>20 分钟</string>
+    <string name="game_title">游戏 %1$d：</string>
 </resources>

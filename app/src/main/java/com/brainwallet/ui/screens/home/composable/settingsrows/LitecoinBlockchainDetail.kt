@@ -1,6 +1,10 @@
 package com.brainwallet.ui.screens.home.composable.settingsrows
 
+import android.widget.Space
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -25,11 +29,7 @@ fun LitecoinBlockchainDetail(
     onUserDidStartSync: (Boolean) -> Unit,
 ) {
     /// Layout values
-    val closedHeight = 60
-    val expandedHeight = 100
-    val toggleButtonSize = 40
-    val dividerThickness = 1
-    val iconButtonSize = 22
+    val contentHeight = 60
     val horizontalPadding = 14
 
     SettingRowItemExpandable(
@@ -38,12 +38,23 @@ fun LitecoinBlockchainDetail(
     ) {
         Column(
             modifier = Modifier.padding(horizontal = horizontalPadding.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Text("Todo Content")
-            Button(onClick = {}) {
-                Text(stringResource(R.string.ReScan_alertAction))
+
+            Row(
+                modifier = Modifier
+                .height(contentHeight.dp),
+            verticalAlignment = Alignment.CenterVertically
+            ){
+                Text(stringResource(R.string.settings_blockchain_litecoin_description))
+                Spacer(modifier = Modifier.weight(1f))
+                Button(onClick = {
+                    onUserDidStartSync.invoke(true)
+                }) {
+                    Text(stringResource(R.string.settings_blockchain_litecoin_button))
+                }
             }
+
         }
     }
 }

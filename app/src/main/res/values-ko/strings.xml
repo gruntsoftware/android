@@ -788,4 +788,7 @@
     <string name="settings_title_unlock">터놓다</string>
     <string name="settings_title_theme">주제</string>
     <string name="settings_title_app_version">앱 버전:</string>
+    <string name="settings_blockchain_litecoin_button">동기화</string>
+    <string name="settings_blockchain_litecoin_description">동기화 시간: >20분</string>
+    <string name="game_title">게임 %1$d:</string>
 </resources>
