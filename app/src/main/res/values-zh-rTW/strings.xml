@@ -791,4 +791,9 @@
     <string name="About.blog">博客</string>
     <string name="settings_blockchain_litecoin_description">同步時間：>20 分鐘</string>
     <string name="game_title">遊戲 %1$d：</string>
+    <string name="security_seed_phrase_title">助記詞</string>
+    <string name="security_brainwallet_phrase_title">腦錢包詞語</string>
+    <string name="security_share_data_title">分享分析數據</string>
+    <string name="security_PIN_button">更新 PIN</string>
+    <string name="security_phrase_button">顯示</string>
 </resources>

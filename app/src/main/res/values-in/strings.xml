@@ -793,4 +793,9 @@
     <string name="settings_blockchain_litecoin_button">Sinkronisasi</string>
     <string name="settings_blockchain_litecoin_description">Durasi sinkronisasi: >20 menit</string>
     <string name="game_title">Pertandingan %1$d:</string>
+    <string name="security_seed_phrase_title">Frasa benih</string>
+    <string name="security_brainwallet_phrase_title">Frasa Brainwallet</string>
+    <string name="security_share_data_title">Bagikan data analitik</string>
+    <string name="security_PIN_button">Perbarui PIN</string>
+    <string name="security_phrase_button">Tampilkan</string>
 </resources>

@@ -797,4 +797,9 @@
     <string name="settings_blockchain_litecoin_button">Синхронізація</string>
     <string name="settings_blockchain_litecoin_description">Тривалість синхронізації: >20 хвилин</string>
     <string name="game_title">Гра %1$d:</string>
+    <string name="security_seed_phrase_title">Фраза відновлення</string>
+    <string name="security_brainwallet_phrase_title">Фраза Brainwallet</string>
+    <string name="security_share_data_title">Ділитися аналітичними даними</string>
+    <string name="security_PIN_button">Оновити PIN</string>
+    <string name="security_phrase_button">Показати</string>
 </resources>

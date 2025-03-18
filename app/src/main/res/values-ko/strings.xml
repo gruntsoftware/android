@@ -791,4 +791,9 @@
     <string name="settings_blockchain_litecoin_button">동기화</string>
     <string name="settings_blockchain_litecoin_description">동기화 시간: >20분</string>
     <string name="game_title">게임 %1$d:</string>
+    <string name="security_seed_phrase_title">시드 문구</string>
+    <string name="security_brainwallet_phrase_title">브레인월렛 문구</string>
+    <string name="security_share_data_title">분석 데이터 공유</string>
+    <string name="security_PIN_button">PIN 업데이트</string>
+    <string name="security_phrase_button">표시</string>
 </resources>

@@ -430,4 +430,9 @@
     <string name="settings_blockchain_litecoin_button">المزامنة</string>
     <string name="settings_blockchain_litecoin_description">مدة المزامنة: >20 دقيقة</string>
     <string name="game_title">اللعبة %1$d:</string>
+    <string name="security_seed_phrase_title">عبارة الاسترداد</string>
+    <string name="security_brainwallet_phrase_title">عبارة المحفظة الذهنية</string>
+    <string name="security_share_data_title">مشاركة بيانات التحليلات</string>
+    <string name="security_PIN_button">تحديث الرقم السري</string>
+    <string name="security_phrase_button">عرض</string>
 </resources>

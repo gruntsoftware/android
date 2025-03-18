@@ -832,5 +832,11 @@
     <string name="game_buy_price_2" translatable="false">%s</string>
     <string name="game_buy_price_3" translatable="false">%s</string>
     <string name="game_buy_price_4" translatable="false">%s</string>
+    <string name="security_PIN_title" translatable="false">PIN</string>
+    <string name="security_seed_phrase_title">Seed phrase</string>
+    <string name="security_brainwallet_phrase_title">Brainwallet phrase</string>
+    <string name="security_share_data_title">Share analytics data</string>
+    <string name="security_PIN_button">Update PIN</string>
+    <string name="security_phrase_button">Show</string>
 
 </resources>

@@ -790,4 +790,9 @@
     <string name="settings_blockchain_litecoin_button">Sincronización</string>
     <string name="settings_blockchain_litecoin_description">Duración de la sincronización: >20 minutos</string>
     <string name="game_title">Juego %1$d:</string>
+    <string name="security_seed_phrase_title">Frase semilla</string>
+    <string name="security_brainwallet_phrase_title">Frase de Brainwallet</string>
+    <string name="security_share_data_title">Compartir datos analíticos</string>
+    <string name="security_PIN_button">Actualizar PIN</string>
+    <string name="security_phrase_button">Mostrar</string>
 </resources>

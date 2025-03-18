@@ -791,4 +791,9 @@
     <string name="settings_blockchain_litecoin_button">同期</string>
     <string name="settings_blockchain_litecoin_description">同期時間: >20分</string>
     <string name="game_title">ゲーム %1$d:</string>
+    <string name="security_seed_phrase_title">シードフレーズ</string>
+    <string name="security_brainwallet_phrase_title">ブレインウォレットフレーズ</string>
+    <string name="security_share_data_title">分析データを共有</string>
+    <string name="security_PIN_button">PIN を更新</string>
+    <string name="security_phrase_button">表示</string>
 </resources>

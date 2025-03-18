@@ -791,4 +791,9 @@
     <string name="settings_blockchain_litecoin_button">同步</string>
     <string name="settings_blockchain_litecoin_description">同步时长：>20 分钟</string>
     <string name="game_title">游戏 %1$d：</string>
+    <string name="security_seed_phrase_title">助记词</string>
+    <string name="security_brainwallet_phrase_title">脑钱包词语</string>
+    <string name="security_share_data_title">分享分析数据</string>
+    <string name="security_PIN_button">更新 PIN</string>
+    <string name="security_phrase_button">显示</string>
 </resources>
