@@ -144,7 +144,8 @@ public class FragmentBuy extends Fragment {
         String uuid = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         String prefix = partner == Partner.MOONPAY ? "/moonpay/buy" : "";
         String baseUrl = ((BRApiManager) KoinJavaComponent.get(BRApiManager.class)).getBaseUrlProd();
-        return String.format(baseUrl + prefix + "?address=%s&code=%s&idate=%s&uid=%s", walletAddress, currency, timestamp, uuid);
+        String query = String.format(baseUrl + prefix + "?address=%s&code=%s&idate=%s&uid=%s", walletAddress, currency, timestamp, uuid);
+        return query;
     }
 
     private void closePayment() {

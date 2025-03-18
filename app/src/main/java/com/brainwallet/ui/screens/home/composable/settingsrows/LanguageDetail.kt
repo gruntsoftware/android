@@ -36,9 +36,7 @@ fun LanguageDetail(
     val languages = Language.entries.toTypedArray()
 
     /// Layout values
-    val closedHeight = 60
     val expandedHeight = 150
-    val dividerThickness = 1
     val unselectedCircleSize = 20
 
 
