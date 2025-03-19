@@ -778,4 +778,22 @@
     <string name="top_up_detail_1">5분 안에 라이트코인을 받으세요</string>
     <string name="top_up_button_1">라이트코인을 획득하세요!</string>
     <string name="top_up_button_2">어쩌면 나중에.</string>
+    <string name="settings_title_security">보안</string>
+    <string name="settings_title_language">언어</string>
+    <string name="settings_title_currency">통화</string>
+    <string name="settings_title_games">계략</string>
+    <string name="settings_title_support">지원하다</string>
+    <string name="settings_title_social_media">소셜 미디어</string>
+    <string name="settings_title_lock">잠그다</string>
+    <string name="settings_title_unlock">터놓다</string>
+    <string name="settings_title_theme">주제</string>
+    <string name="settings_title_app_version">앱 버전:</string>
+    <string name="settings_blockchain_litecoin_button">동기화</string>
+    <string name="settings_blockchain_litecoin_description">동기화 시간: >20분</string>
+    <string name="game_title">게임 %1$d:</string>
+    <string name="security_seed_phrase_title">시드 문구</string>
+    <string name="security_brainwallet_phrase_title">브레인월렛 문구</string>
+    <string name="security_share_data_title">분석 데이터 공유</string>
+    <string name="security_PIN_button">PIN 업데이트</string>
+    <string name="security_phrase_button">표시</string>
 </resources>

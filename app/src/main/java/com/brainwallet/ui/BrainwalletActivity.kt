@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.compose.setContent
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.lifecycleScope
@@ -54,7 +53,6 @@ class BrainwalletActivity : BRActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         ///DEV: Test / Dev Composable Shortcut swap to launch
         /// Ergo; Route.TopUp
         val startDestination =
@@ -166,6 +164,8 @@ class BrainwalletActivity : BRActivity() {
                                 null,
                                 0
                             )
+
+                            else -> Unit
 
                         }
                     }

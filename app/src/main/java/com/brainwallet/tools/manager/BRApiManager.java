@@ -64,17 +64,18 @@ public class BRApiManager {
                     CurrencyEntity tmp = new CurrencyEntity();
                     try {
                         JSONObject tmpObj = (JSONObject) arr.get(i);
-                        tmp.name = tmpObj.getString("code");
+                        tmp.name = tmpObj.getString("name");
                         tmp.code = tmpObj.getString("code");
                         tmp.rate = (float) tmpObj.getDouble("n");
                         if (tmp.code.equalsIgnoreCase(selectedISO)) {
                             BRSharedPrefs.putIso(context, tmp.code);
                             BRSharedPrefs.putCurrencyListPosition(context, i - 1);
                         }
+                        set.add(tmp);
                     } catch (JSONException e) {
                         Timber.e(e);
                     }
-                    set.add(tmp);
+
                 }
             } else {
                 Timber.d("timber: getCurrencies: failed to get currencies");

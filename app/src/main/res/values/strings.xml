@@ -782,7 +782,7 @@
     <string name="blockchain_litecoin">Blockchain: Litecoin</string>
     <string name="i_saved_it_on_paper">I saved it on paper or metal</string>
     <string name="you_saved_it_right">You saved it, right?</string>
-    <string name="you_saved_it_right_desc">Prove it!\nDrag the words in the correct order.</string>
+    <string name="you_saved_it_right_desc">Prove it!\nDrag thƒe words in the correct order.</string>
     <string name="game_and_sync">Game &amp; Sync</string>
     <string name="ready_setup">Ready?</string>
     <string name="ready_setup_details_1">Do this for you. Please do it</string>
@@ -814,4 +814,29 @@
     <string name="down_left_arrow">down-left-arrow</string>
     <string name="logo">logo</string>
     <string name="toggle_dark_mode">toggle-dark-mode</string>
+    <string name="toggle_lock_mode" translatable="false">toggle-lock-mode</string>
+    <string name="settings_title_security">Security</string>
+    <string name="settings_title_language">Language</string>
+    <string name="settings_title_currency">Currency</string>
+    <string name="settings_title_games">Games</string>
+    <string name="settings_title_support">Support</string>
+    <string name="settings_title_social_media">Social Media</string>
+    <string name="settings_title_lock">Lock</string>
+    <string name="settings_title_unlock">Unlock</string>
+    <string name="settings_title_theme">Theme</string>
+    <string name="settings_title_app_version">App version:</string>
+    <string name="settings_blockchain_litecoin_button">Sync</string>
+    <string name="settings_blockchain_litecoin_description">Sync duration: >20 minutes</string>
+    <string name="game_title">Game %1$d:</string>
+    <string name="game_buy_price_1" translatable="false">%s</string>
+    <string name="game_buy_price_2" translatable="false">%s</string>
+    <string name="game_buy_price_3" translatable="false">%s</string>
+    <string name="game_buy_price_4" translatable="false">%s</string>
+    <string name="security_PIN_title" translatable="false">PIN</string>
+    <string name="security_seed_phrase_title">Seed phrase</string>
+    <string name="security_brainwallet_phrase_title">Brainwallet phrase</string>
+    <string name="security_share_data_title">Share analytics data</string>
+    <string name="security_PIN_button">Update PIN</string>
+    <string name="security_phrase_button">Show</string>
+
 </resources>

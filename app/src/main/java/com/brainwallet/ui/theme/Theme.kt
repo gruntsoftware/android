@@ -1,9 +1,11 @@
 package com.brainwallet.ui.theme
 
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
@@ -78,6 +80,9 @@ object BrainwalletTheme {
     val colors: BrainwalletColors
         @Composable
         get() = LocalBrainwalletColors.current
+
+    val typography: Typography
+        @Composable @ReadOnlyComposable get() = MaterialTheme.typography
 
     //todo: add typography, shape? for the design system
 }

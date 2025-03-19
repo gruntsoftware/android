@@ -4,6 +4,7 @@ data class SetPasscodeState(
     val isConfirm: Boolean = false,
     val passcode: List<Int> = List(4) { -1 }, //create 4 digit
     val passcodeConfirm: List<Int> = List(4) { -1 }, //create 4 digit
+    val isUpdatePin: Boolean = false,
 )
 
 fun SetPasscodeState.isMatchPasscode(): Boolean =

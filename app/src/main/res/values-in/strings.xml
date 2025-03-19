@@ -780,4 +780,22 @@
     <string name="top_up_detail_1">Dapatkan Litecoin dalam 5 menit</string>
     <string name="top_up_button_1">Dapatkan beberapa Litecoin!</string>
     <string name="top_up_button_2">Mungkin nanti.</string>
+    <string name="settings_title_security">Keamanan</string>
+    <string name="settings_title_language">Bahasa</string>
+    <string name="settings_title_currency">Mata uang</string>
+    <string name="settings_title_games">Pertandingan</string>
+    <string name="settings_title_support">Mendukung</string>
+    <string name="settings_title_social_media">Media Sosial</string>
+    <string name="settings_title_lock">Kunci</string>
+    <string name="settings_title_unlock">Membuka kunci</string>
+    <string name="settings_title_theme">Tema</string>
+    <string name="settings_title_app_version">Versi aplikasi:</string>
+    <string name="settings_blockchain_litecoin_button">Sinkronisasi</string>
+    <string name="settings_blockchain_litecoin_description">Durasi sinkronisasi: >20 menit</string>
+    <string name="game_title">Pertandingan %1$d:</string>
+    <string name="security_seed_phrase_title">Frasa benih</string>
+    <string name="security_brainwallet_phrase_title">Frasa Brainwallet</string>
+    <string name="security_share_data_title">Bagikan data analitik</string>
+    <string name="security_PIN_button">Perbarui PIN</string>
+    <string name="security_phrase_button">Tampilkan</string>
 </resources>

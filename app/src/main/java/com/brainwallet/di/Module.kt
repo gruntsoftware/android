@@ -7,6 +7,7 @@ import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.source.RemoteConfigSource
 import com.brainwallet.tools.manager.BRApiManager
 import com.brainwallet.tools.sqlite.CurrencyDataSource
+import com.brainwallet.ui.screens.home.SettingsViewModel
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel
 import com.brainwallet.ui.screens.setpasscode.SetPasscodeViewModel
 import com.brainwallet.ui.screens.unlock.UnLockViewModel
@@ -36,6 +37,7 @@ val dataModule = module {
 
 val viewModelModule = module {
     viewModelOf(::WelcomeViewModel)
+    viewModelOf(::SettingsViewModel)
     viewModel { InputWordsViewModel() }
     viewModel { SetPasscodeViewModel() }
     viewModel { UnLockViewModel() }

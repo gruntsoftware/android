@@ -416,4 +416,22 @@
   <string name="top_up_detail_1">5 मिनट में लाइटकॉइन प्राप्त करें</string>
   <string name="top_up_button_1">कुछ लाइटकॉइन प्राप्त करें!</string>
   <string name="top_up_button_2">शायद बाद में.</string>
+    <string name="settings_title_security">सुरक्षा</string>
+  <string name="settings_title_language">भाषा</string>
+  <string name="settings_title_currency">मुद्रा</string>
+  <string name="settings_title_games">खेल</string>
+  <string name="settings_title_support">सहायता</string>
+  <string name="settings_title_social_media">सोशल मीडिया</string>
+  <string name="settings_title_lock">ताला</string>
+  <string name="settings_title_unlock">अनलॉक</string>
+  <string name="settings_title_theme">विषय</string>
+  <string name="settings_title_app_version">एप्लिकेशन वेरीज़न:</string>
+    <string name="settings_blockchain_litecoin_button">सिंक</string>
+  <string name="settings_blockchain_litecoin_description">सिंक अवधि: >20 मिनट</string>
+  <string name="game_title">खेल %1$d:</string>
+    <string name="security_seed_phrase_title">सीड वाक्यांश</string>
+  <string name="security_brainwallet_phrase_title">ब्रेनवॉलेट वाक्यांश</string>
+  <string name="security_share_data_title">विश्लेषण डेटा साझा करें</string>
+    <string name="security_PIN_button">पिन अपडेट करें</string>
+  <string name="security_phrase_button">दिखाएं</string>
 </resources>

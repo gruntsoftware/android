@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -71,38 +72,66 @@ public class CurrencyDataSource implements BRDataSourceInterface {
         List<CurrencyEntity> currencies = new ArrayList<>();
 
         /// Set the most popular fiats
+        /// Hack: Database needs a symbol column. This is injected here.
+        HashMap<String, String> codeSymbolsMap = new HashMap<String, String>();
+        codeSymbolsMap.put("USD","$");
+        codeSymbolsMap.put("EUR","€");
+        codeSymbolsMap.put("GBP","£");
+        codeSymbolsMap.put("SGD","$");
+        codeSymbolsMap.put("CAD","$");
+        codeSymbolsMap.put("AUD","$");
+        codeSymbolsMap.put("RUB","₽");
+        codeSymbolsMap.put("KRW","₩");
+        codeSymbolsMap.put("MXN","$");
+        codeSymbolsMap.put("SAR","﷼");
+        codeSymbolsMap.put("UAH","₴");
+        codeSymbolsMap.put("NGN","₦");
+        codeSymbolsMap.put("JPY","¥");
+        codeSymbolsMap.put("CNY","¥");
+        codeSymbolsMap.put("IDR","Rp");
+        codeSymbolsMap.put("TRY","₺");
+
+        /// Set the most popular fiats
         List<String> filteredFiatCodes =
                 Arrays.asList("USD","EUR","GBP", "SGD","CAD","AUD","RUB","KRW","MXN","SAR","UAH","NGN","JPY","CNY","IDR","TRY");
 
-        Cursor cursor = null;
-        try {
-            database = openDatabase();
+            Cursor cursor = null;
+            try {
+                database = openDatabase();
 
-            cursor = database.query(BRSQLiteHelper.CURRENCY_TABLE_NAME,
-                    allColumns, null, null, null, null, "\'" + BRSQLiteHelper.CURRENCY_CODE + "\'");
+                cursor = database.query(BRSQLiteHelper.CURRENCY_TABLE_NAME,
+                        allColumns, null, null, null, null, "\'" + BRSQLiteHelper.CURRENCY_CODE + "\'");
 
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                CurrencyEntity curEntity = cursorToCurrency(cursor);
-                currencies.add(curEntity);
-                cursor.moveToNext();
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    CurrencyEntity curEntity = cursorToCurrency(cursor);
+                    currencies.add(curEntity);
+                    cursor.moveToNext();
+                }
+            } finally {
+                if (cursor != null)
+                    cursor.close();
+                closeDatabase();
             }
-        } finally {
-            if (cursor != null)
-                cursor.close();
-            closeDatabase();
-        }
 
-        if (shouldBeFiltered) {
-            // Filtering Brainwallet fiats
-            List<CurrencyEntity> filteredFiats = currencies.stream()
-                    .filter(currency -> filteredFiatCodes.contains(currency.code))
-                    .collect(Collectors.toList());
-                    currencies = filteredFiats;
-        }
+            if (shouldBeFiltered) {
+                // Filtering Brainwallet fiats
+                List<CurrencyEntity> filteredFiats = currencies.stream()
+                        .filter(currency -> filteredFiatCodes.contains(currency.code))
+                        .collect(Collectors.toList());
+                currencies = filteredFiats;
 
-        return currencies;
-    }
+                // Load the symbols to Brainwallet fiats
+                List<CurrencyEntity> completeCurrencyEntities = new ArrayList<>();
+                for(int i=0;i<currencies.size();i++) {
+                    CurrencyEntity entity = currencies.get(i);
+                    entity.symbol = codeSymbolsMap.get(entity.code);;
+                    completeCurrencyEntities.add(entity);
+                }
+                currencies = completeCurrencyEntities;
+            }
+            return currencies;
+        }
 
     public CurrencyEntity getCurrencyByIso(String iso) {
         Cursor cursor = null;
@@ -126,7 +155,7 @@ public class CurrencyDataSource implements BRDataSourceInterface {
     }
 
     private CurrencyEntity cursorToCurrency(Cursor cursor) {
-        return new CurrencyEntity(cursor.getString(0), cursor.getString(1), cursor.getFloat(2));
+        return new CurrencyEntity(cursor.getString(0), cursor.getString(1), cursor.getFloat(2), "");
     }
 
     @Override

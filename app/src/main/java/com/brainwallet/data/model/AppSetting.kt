@@ -5,7 +5,8 @@ data class AppSetting(
     val languageCode: String = Language.ENGLISH.code,
     val currency: CurrencyEntity = CurrencyEntity(
         "USD",
-        "USD",
-        -1f
+        "US Dollar",
+        -1f,
+        "$"
     )
 )

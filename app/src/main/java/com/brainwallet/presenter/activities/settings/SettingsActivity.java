@@ -140,6 +140,7 @@ public class SettingsActivity extends BRActivity {
 
         //toggle dark mode
         boolean isDarkMode = settingRepository.isDarkMode();
+
         items.add(new BRSettingsItem(getString(R.string.toggle_dark_mode), getString(isDarkMode ? androidx.appcompat.R.string.abc_capital_on : androidx.appcompat.R.string.abc_capital_off), v -> {
             settingRepository.toggleDarkMode(!isDarkMode);
             LegacyNavigation.openComposeScreen(SettingsActivity.this);

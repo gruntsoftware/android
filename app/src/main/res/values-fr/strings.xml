@@ -778,4 +778,22 @@
     <string name="top_up_detail_1">Obtenez du Litecoin en 5 minutes</string>
     <string name="top_up_button_1">Obtenez du Litecoin !</string>
     <string name="top_up_button_2">Peut-être plus tard.</string>
+    <string name="settings_title_security">Sécurité</string>
+    <string name="settings_title_language">Langue</string>
+    <string name="settings_title_currency">La monnaie</string>
+    <string name="settings_title_games">Jeux</string>
+    <string name="settings_title_support">Soutien</string>
+    <string name="settings_title_social_media">Réseaux sociaux</string>
+    <string name="settings_title_lock">Verrouillage</string>
+    <string name="settings_title_unlock">Ouvrir</string>
+    <string name="settings_title_theme">Thème</string>
+    <string name="settings_title_app_version">Version de l\'application:</string>
+    <string name="settings_blockchain_litecoin_button">Synchronisation</string>
+    <string name="settings_blockchain_litecoin_description">Durée de synchronisation : >20 minutes</string>
+    <string name="game_title">Jeu %1$d :</string>
+    <string name="security_seed_phrase_title">Phrase de récupération</string>
+    <string name="security_brainwallet_phrase_title">Phrase Brainwallet</string>
+    <string name="security_share_data_title">Partager les données analytiques</string>
+    <string name="security_PIN_button">Mettre à jour le code PIN</string>
+    <string name="security_phrase_button">Afficher</string>
 </resources>
