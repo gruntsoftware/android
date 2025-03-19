@@ -35,7 +35,7 @@ fun GamesDetail(
                 modifier = Modifier
                     .height(contentHeight.dp),
                 verticalAlignment = Alignment.CenterVertically
-            ){
+            ) {
                 Text(stringResource(R.string.game_title, 1))
                 Spacer(modifier = Modifier.weight(1f))
                 Button(onClick = {
@@ -48,7 +48,7 @@ fun GamesDetail(
                 modifier = Modifier
                     .height(contentHeight.dp),
                 verticalAlignment = Alignment.CenterVertically
-            ){
+            ) {
                 Text(stringResource(R.string.game_title, 2))
                 Spacer(modifier = Modifier.weight(1f))
                 Button(onClick = {
@@ -61,7 +61,7 @@ fun GamesDetail(
                 modifier = Modifier
                     .height(contentHeight.dp),
                 verticalAlignment = Alignment.CenterVertically
-            ){
+            ) {
                 Text(stringResource(R.string.game_title, 3))
                 Spacer(modifier = Modifier.weight(1f))
                 Button(onClick = {
@@ -73,7 +73,7 @@ fun GamesDetail(
                 modifier = Modifier
                     .height(contentHeight.dp),
                 verticalAlignment = Alignment.CenterVertically
-            ){
+            ) {
                 Text(stringResource(R.string.game_title, 4))
                 Spacer(modifier = Modifier.weight(1f))
                 Button(onClick = {

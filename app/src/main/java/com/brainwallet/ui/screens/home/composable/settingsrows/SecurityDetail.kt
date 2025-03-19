@@ -13,10 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.brainwallet.R
-import com.brainwallet.data.model.Language
-import com.brainwallet.navigation.OnNavigate
-import com.brainwallet.navigation.Route
-import com.brainwallet.navigation.UiEffect
 
 //TODO
 @Composable
@@ -90,7 +86,7 @@ fun SecurityDetail(
                     /// save UserPreference
 
                 }) {
-                    Text(stringResource(R.string.Button_yes) )
+                    Text(stringResource(R.string.Button_yes))
                 }
             }
 

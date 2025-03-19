@@ -13,8 +13,6 @@ import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.AbstractComposeView
@@ -24,7 +22,6 @@ import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
-import com.brainwallet.navigation.LegacyNavigation
 import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.screens.home.SettingsEvent
 import com.brainwallet.ui.screens.home.SettingsViewModel
@@ -43,7 +40,6 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
-import org.koin.compose.currentKoinScope
 import org.koin.compose.koinInject
 import org.koin.java.KoinJavaComponent.inject
 
@@ -53,7 +49,6 @@ fun HomeSettingDrawerSheet(
     viewModel: SettingsViewModel = koinInject()
 ) {
     val state by viewModel.state.collectAsState()
-    val settingsDidChange by remember { mutableStateOf(state) }
 
     /// Layout values
     val headerPadding = 56
@@ -194,13 +189,4 @@ class HomeSettingDrawerComposeView @JvmOverloads constructor(
             .onEach { onEach.invoke(it) }
             .launchIn(findViewTreeLifecycleOwner()!!.lifecycle.coroutineScope)
     }
-}
-
-
-enum class RowActionType(
-    val code: String,
-) {
-    SLIDER(code = "SLIDER"),
-    THEME_TOGGLE(code = "THEME_TOGGLE"),
-    LOCK_TOGGLE(code = "LOCK_TOGGLE")
 }
