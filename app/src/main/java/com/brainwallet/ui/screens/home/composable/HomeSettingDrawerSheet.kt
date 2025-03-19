@@ -1,7 +1,9 @@
 package com.brainwallet.ui.screens.home.composable
 
 import android.content.Context
+import android.net.Uri
 import android.util.AttributeSet
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -136,13 +138,23 @@ fun HomeSettingDrawerSheet(
             item {
                 SettingRowItem(
                     title = stringResource(R.string.settings_title_support),
-                    description = "brainwallet.co"
+                    description = "brainwallet.co",
+                    onClick = {
+                        val builder = CustomTabsIntent.Builder()
+                        val customTabsIntent = builder.build()
+                        customTabsIntent.launchUrl(context, Uri.parse(BRConstants.WEB_LINK))
+                    }
                 )
             }
             item {
                 SettingRowItem(
                     title = stringResource(R.string.settings_title_social_media),
-                    description = "linktr.ee/brainwallet"
+                    description = "linktr.ee/brainwallet",
+                    onClick = {
+                        val builder = CustomTabsIntent.Builder()
+                        val customTabsIntent = builder.build()
+                        customTabsIntent.launchUrl(context, Uri.parse(BRConstants.LINKTREE_URL))
+                    }
                 )
             }
             item {
