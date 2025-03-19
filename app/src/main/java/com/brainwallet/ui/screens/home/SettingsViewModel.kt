@@ -34,7 +34,7 @@ class SettingsViewModel(
                 it.copy(
                     darkMode = setting.isDarkMode,
                     selectedLanguage = Language.find(setting.languageCode),
-                    selectedCurrency = setting.currency
+                    selectedCurrency = setting.currency,
                 )
             }
         }
@@ -46,6 +46,10 @@ class SettingsViewModel(
 
     override fun onEvent(event: SettingsEvent) {
         when (event) {
+            is SettingsEvent.OnLoad -> viewModelScope.launch {
+                _state.update { it.copy(shareAnalyticsDataEnabled = event.shareAnalyticsDataEnabled) }
+            }
+
             SettingsEvent.OnToggleDarkMode -> viewModelScope.launch {
                 _state.update {
                     val toggled = it.darkMode.not()
@@ -135,6 +139,12 @@ class SettingsViewModel(
             SettingsEvent.OnSecurityUpdatePinClick -> viewModelScope.launch {
                 EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_SEC_UPDATE_PIN))
             }
+
+            SettingsEvent.OnSecurityShareAnalyticsDataClick -> viewModelScope.launch {
+                _state.update { it.copy(shareAnalyticsDataEnabled = it.shareAnalyticsDataEnabled.not()) }
+
+                EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_SHARE_ANALYTICS_DATA_TOGGLE))
+            }
         }
     }
 
@@ -144,5 +154,6 @@ class SettingsViewModel(
         const val LEGACY_EFFECT_ON_SYNC = "onSyncInvoked"
         const val LEGACY_EFFECT_ON_SEC_UPDATE_PIN = "onSecUpdatePin"
         const val LEGACY_EFFECT_ON_SEED_PHRASE = "onSeedPhrase"
+        const val LEGACY_EFFECT_ON_SHARE_ANALYTICS_DATA_TOGGLE = "onShareAnalyticsDataToggle"
     }
 }

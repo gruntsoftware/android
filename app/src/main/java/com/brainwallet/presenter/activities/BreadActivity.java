@@ -59,7 +59,6 @@ import com.brainwallet.tools.util.Utils;
 import com.brainwallet.ui.BrainwalletActivity;
 import com.brainwallet.ui.screens.home.SettingsViewModel;
 import com.brainwallet.ui.screens.home.composable.HomeSettingDrawerComposeView;
-import com.brainwallet.util.EventBus;
 import com.brainwallet.util.PermissionUtil;
 import com.brainwallet.wallet.BRPeerManager;
 import com.brainwallet.wallet.BRWalletManager;
@@ -72,8 +71,6 @@ import com.google.android.play.core.review.ReviewManagerFactory;
 
 import java.math.BigDecimal;
 
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 import timber.log.Timber;
 
 public class BreadActivity extends BRActivity implements BRWalletManager.OnBalanceChanged, BRSharedPrefs.OnIsoChangedListener,
@@ -384,6 +381,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         drawerLayout = findViewById(R.id.drawerLayout);
         homeSettingDrawerComposeView = findViewById(R.id.homeDrawerComposeView);
         homeSettingDrawerComposeView.observeBus(message -> {
+            drawerLayout.close();
             if (SettingsViewModel.LEGACY_EFFECT_ON_LOCK.equals(message.getMessage())) {
                 LegacyNavigation.startBreadActivity(this, true);
             } else if (SettingsViewModel.LEGACY_EFFECT_ON_TOGGLE_DARK_MODE.equals(message.getMessage())) {
@@ -394,6 +392,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 startActivity(intent);
             } else if (SettingsViewModel.LEGACY_EFFECT_ON_SEED_PHRASE.equals(message.getMessage())) {
                 PostAuth.getInstance().onPhraseCheckAuth(this, true);
+            } else if (SettingsViewModel.LEGACY_EFFECT_ON_SHARE_ANALYTICS_DATA_TOGGLE.equals(message.getMessage())) {
+                boolean currentShareAnalyticsDataEnabled = BRSharedPrefs.getShareData(this);
+                BRSharedPrefs.putShareData(this, !currentShareAnalyticsDataEnabled);
             }
             return null;
         }); //since we are still using this BreadActivity, need to observe EventBus e.g. lock from [HomeSettingDrawerSheet]

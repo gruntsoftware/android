@@ -11,17 +11,20 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.AbstractComposeView
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
+import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.screens.home.SettingsEvent
 import com.brainwallet.ui.screens.home.SettingsViewModel
@@ -49,6 +52,11 @@ fun HomeSettingDrawerSheet(
     viewModel: SettingsViewModel = koinInject()
 ) {
     val state by viewModel.state.collectAsState()
+    val context = LocalContext.current
+
+    LaunchedEffect(Unit) {
+        viewModel.onEvent(SettingsEvent.OnLoad(BRSharedPrefs.getShareData(context))) //currently just load analytics share data here
+    }
 
     /// Layout values
     val headerPadding = 56
@@ -71,6 +79,7 @@ fun HomeSettingDrawerSheet(
                     modifier = Modifier
                         .fillMaxSize()
                         .wrapContentHeight(),
+                    shareAnalyticsDataEnabled = state.shareAnalyticsDataEnabled,
                     onEvent = {
                         viewModel.onEvent(it)
                     }

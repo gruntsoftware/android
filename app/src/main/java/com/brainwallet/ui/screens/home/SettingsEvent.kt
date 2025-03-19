@@ -3,11 +3,12 @@ package com.brainwallet.ui.screens.home
 import android.content.Context
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.Language
-import com.brainwallet.ui.screens.unlock.UnLockEvent
 
 sealed class SettingsEvent {
+    data class OnLoad(val shareAnalyticsDataEnabled: Boolean = false) : SettingsEvent()
     object OnSecurityUpdatePinClick : SettingsEvent()
     object OnSecuritySeedPhraseClick : SettingsEvent()
+    object OnSecurityShareAnalyticsDataClick : SettingsEvent()
     object OnToggleDarkMode : SettingsEvent()
     object OnToggleLock : SettingsEvent()
     object OnLanguageSelectorButtonClick : SettingsEvent()

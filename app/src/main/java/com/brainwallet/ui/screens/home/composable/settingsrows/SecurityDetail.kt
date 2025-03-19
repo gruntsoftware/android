@@ -19,6 +19,7 @@ import com.brainwallet.ui.screens.home.SettingsEvent
 @Composable
 fun SecurityDetail(
     modifier: Modifier = Modifier,
+    shareAnalyticsDataEnabled: Boolean = false,
     onEvent: (SettingsEvent) -> Unit
 ) {
 
@@ -34,7 +35,6 @@ fun SecurityDetail(
             modifier = Modifier.padding(horizontal = horizontalPadding.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-
             Row(
                 modifier = Modifier
                     .height(contentHeight.dp),
@@ -63,18 +63,18 @@ fun SecurityDetail(
                 }
             }
 
-            Row(
-                modifier = Modifier
-                    .height(contentHeight.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(stringResource(R.string.security_brainwallet_phrase_title))
-                Spacer(modifier = Modifier.weight(1f))
-                Button(onClick = {
-                }) {
-                    Text(stringResource(R.string.security_phrase_button))
-                }
-            }
+//            Row(
+//                modifier = Modifier
+//                    .height(contentHeight.dp),
+//                verticalAlignment = Alignment.CenterVertically
+//            ) {
+//                Text(stringResource(R.string.security_brainwallet_phrase_title))
+//                Spacer(modifier = Modifier.weight(1f))
+//                Button(onClick = {
+//                }) {
+//                    Text(stringResource(R.string.security_phrase_button))
+//                }
+//            }
             Row(
                 modifier = Modifier
                     .height(contentHeight.dp),
@@ -83,11 +83,9 @@ fun SecurityDetail(
                 Text(stringResource(R.string.security_share_data_title))
                 Spacer(modifier = Modifier.weight(1f))
                 Button(onClick = {
-                    /// toggle preference to share data
-                    /// save UserPreference
-
+                    onEvent.invoke(SettingsEvent.OnSecurityShareAnalyticsDataClick)
                 }) {
-                    Text(stringResource(R.string.Button_yes))
+                    Text(stringResource(if (shareAnalyticsDataEnabled) R.string.Button_yes else R.string.Button_no))
                 }
             }
 

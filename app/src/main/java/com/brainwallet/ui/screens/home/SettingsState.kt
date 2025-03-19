@@ -14,4 +14,5 @@ data class SettingsState(
     ), //-1 = need to fetch
     val languageSelectorBottomSheetVisible: Boolean = false,
     val fiatSelectorBottomSheetVisible: Boolean = false,
+    val shareAnalyticsDataEnabled: Boolean = false,
 )
