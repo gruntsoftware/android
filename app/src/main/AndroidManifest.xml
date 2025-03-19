@@ -217,7 +217,7 @@
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/bw_white_logotype" />
+            android:resource="@drawable/brainwallet_logotype_white" />
     </application>
 
 </manifest>

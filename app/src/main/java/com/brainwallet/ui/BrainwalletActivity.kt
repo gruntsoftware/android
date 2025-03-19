@@ -55,6 +55,8 @@ class BrainwalletActivity : BRActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        ///DEV: Test / Dev Composable Shortcut swap to launch
+        /// Ergo; Route.TopUp
         val startDestination =
             intent.getSerializableExtra(EXTRA_START_DESTINATION) ?: Route.Welcome
 

@@ -186,7 +186,7 @@ public class SyncManager {
                         app = BreadActivity.getApp();
                     }
 
-                    ///DEV kcw-grunt 26-10-24
+                    ///DEV: kcw-grunt 26-10-24
                     /// DUMB sleep was slowing sync dramatically
                     /// Why is this here?
                     /// Reduced it from 500msec to 100msec until refactor

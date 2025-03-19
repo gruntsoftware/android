@@ -97,7 +97,7 @@ class ProdAPIManagerTests {
         assertEquals("GBP", jsonGBP.optString("code"))
         assertEquals("British Pound Sterling", jsonGBP.optString("name"))
 
-        ///DEV Very flaky test not enough time for the response
+        ///DEV: Very flaky test not enough time for the response
         verifyAll {
             ActivityUTILS.isMainThread()
             APIClient.getInstance(activity).getCurrentLocale(activity)
