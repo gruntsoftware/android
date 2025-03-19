@@ -128,8 +128,8 @@ class SettingsViewModel(
                 }
             }
 
-            SettingsEvent.OnSecuritySeedPhraseClick -> {
-                //todo
+            SettingsEvent.OnSecuritySeedPhraseClick -> viewModelScope.launch {
+                EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_SEED_PHRASE))
             }
 
             SettingsEvent.OnSecurityUpdatePinClick -> viewModelScope.launch {
@@ -143,5 +143,6 @@ class SettingsViewModel(
         const val LEGACY_EFFECT_ON_TOGGLE_DARK_MODE = "onToggleDarkMode"
         const val LEGACY_EFFECT_ON_SYNC = "onSyncInvoked"
         const val LEGACY_EFFECT_ON_SEC_UPDATE_PIN = "onSecUpdatePin"
+        const val LEGACY_EFFECT_ON_SEED_PHRASE = "onSeedPhrase"
     }
 }

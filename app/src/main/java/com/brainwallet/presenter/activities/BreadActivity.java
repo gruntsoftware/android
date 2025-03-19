@@ -48,6 +48,7 @@ import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.manager.InternetManager;
 import com.brainwallet.tools.manager.SyncManager;
 import com.brainwallet.tools.security.BitcoinUrlHandler;
+import com.brainwallet.tools.security.PostAuth;
 import com.brainwallet.tools.sqlite.TransactionDataSource;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.util.BRConstants;
@@ -391,6 +392,8 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 Intent intent = BrainwalletActivity.createIntent(this, new Route.UnLock(true));
                 intent.putExtra("noPin", true);
                 startActivity(intent);
+            } else if (SettingsViewModel.LEGACY_EFFECT_ON_SEED_PHRASE.equals(message.getMessage())) {
+                PostAuth.getInstance().onPhraseCheckAuth(this, true);
             }
             return null;
         }); //since we are still using this BreadActivity, need to observe EventBus e.g. lock from [HomeSettingDrawerSheet]
