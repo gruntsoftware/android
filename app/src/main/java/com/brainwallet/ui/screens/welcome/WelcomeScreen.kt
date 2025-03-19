@@ -97,8 +97,8 @@ fun WelcomeScreen(
         Spacer(modifier = Modifier.weight(0.4f))
 
         Image(
-            painterResource(R.drawable.bw_white_logotype),
-            contentDescription = "bw_white_logotype",
+            painterResource(R.drawable.brainwallet_logotype_white),
+            contentDescription = "brainwallet_logotype_white",
             contentScale = ContentScale.Fit,
             colorFilter = ColorFilter.tint(
                 BrainwalletTheme.colors.content,

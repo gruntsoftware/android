@@ -92,7 +92,7 @@ fun UnLockScreen(
                 modifier = Modifier
                     .fillMaxWidth(0.80f)
                     .padding(horizontalVerticalSpacing.dp),
-                painter = painterResource(R.drawable.bw_white_logotype),
+                painter = painterResource(R.drawable.brainwallet_logotype_white),
                 contentDescription = stringResource(R.string.logo),
                 colorFilter = ColorFilter.tint(
                     BrainwalletTheme.colors.content,

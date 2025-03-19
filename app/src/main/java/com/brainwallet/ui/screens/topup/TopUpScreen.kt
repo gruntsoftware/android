@@ -44,6 +44,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.UiEffect
+import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.composable.BorderedLargeButton
 import com.brainwallet.ui.composable.BrainwalletScaffold
@@ -180,6 +181,7 @@ fun TopUpScreen(
                         MediumTextButton(
                             onClick = {
                                 viewModel.onEvent(YourSeedProveItEvent.OnGameAndSync)
+                                AnalyticsManager.logCustomEvent(BRConstants._20250303_DSTU)
                             },
                             modifier = Modifier
                                 .width(skipButtonWidth.dp)
@@ -213,6 +215,7 @@ fun TopUpScreen(
                 BorderedLargeButton(
                     onClick = {
                         viewModel.onEvent(YourSeedProveItEvent.OnGameAndSync)
+                        AnalyticsManager.logCustomEvent(BRConstants._20250303_DSTU)
                     },
                     modifier = Modifier.fillMaxWidth()
 

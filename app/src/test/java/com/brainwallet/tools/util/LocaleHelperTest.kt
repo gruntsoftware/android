@@ -53,7 +53,7 @@ class LocaleHelperTest {
     }
 
     @Test
-    fun `check all language codes`() {
+    fun `check all language codes given the subjective business logic which prioritizes localization popularity`() {
         Language.entries
             .also { languages ->
                 assertEquals(16, languages.size)
@@ -69,14 +69,14 @@ class LocaleHelperTest {
                         "uk",
                         "ru",
                         "pt",
+                        "hi",
+                        "de",
                         "ko",
                         "fr",
                         "zh-TW",
                         "tr",
                         "ja",
-                        "de",
                         "zh-CN",
-                        "hi",
                         "it",
                     ),
                     langCodes
