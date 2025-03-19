@@ -6,6 +6,8 @@ import com.brainwallet.data.model.Language
 import com.brainwallet.ui.screens.unlock.UnLockEvent
 
 sealed class SettingsEvent {
+    object OnSecurityUpdatePinClick : SettingsEvent()
+    object OnSecuritySeedPhraseClick : SettingsEvent()
     object OnToggleDarkMode : SettingsEvent()
     object OnToggleLock : SettingsEvent()
     object OnLanguageSelectorButtonClick : SettingsEvent()

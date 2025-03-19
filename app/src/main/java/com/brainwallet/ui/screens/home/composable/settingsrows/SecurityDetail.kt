@@ -13,13 +13,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.brainwallet.R
+import com.brainwallet.ui.screens.home.SettingsEvent
 
 //TODO
 @Composable
 fun SecurityDetail(
     modifier: Modifier = Modifier,
-//    onUpdatePin: () -> Unit,
-//    onShowSeedPhrase: (Boolean) -> Unit,
+    onEvent: (SettingsEvent) -> Unit
 ) {
 
     /// Layout values
@@ -43,7 +43,7 @@ fun SecurityDetail(
                 Text(stringResource(R.string.security_PIN_title))
                 Spacer(modifier = Modifier.weight(1f))
                 Button(onClick = {
-
+                    onEvent.invoke(SettingsEvent.OnSecurityUpdatePinClick)
                 }) {
                     Text(stringResource(R.string.security_PIN_button))
                 }
@@ -57,6 +57,7 @@ fun SecurityDetail(
                 Text(stringResource(R.string.security_seed_phrase_title))
                 Spacer(modifier = Modifier.weight(1f))
                 Button(onClick = {
+                    onEvent.invoke(SettingsEvent.OnSecuritySeedPhraseClick)
                 }) {
                     Text(stringResource(R.string.security_phrase_button))
                 }

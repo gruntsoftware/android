@@ -387,6 +387,10 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 LegacyNavigation.startBreadActivity(this, true);
             } else if (SettingsViewModel.LEGACY_EFFECT_ON_TOGGLE_DARK_MODE.equals(message.getMessage())) {
                 LegacyNavigation.restartBreadActivity(this);
+            } else if (SettingsViewModel.LEGACY_EFFECT_ON_SEC_UPDATE_PIN.equals(message.getMessage())) {
+                Intent intent = BrainwalletActivity.createIntent(this, new Route.UnLock(true));
+                intent.putExtra("noPin", true);
+                startActivity(intent);
             }
             return null;
         }); //since we are still using this BreadActivity, need to observe EventBus e.g. lock from [HomeSettingDrawerSheet]

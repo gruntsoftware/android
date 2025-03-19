@@ -20,7 +20,8 @@ sealed class Route : JavaSerializable {
 
     @Serializable
     data class SetPasscode(
-        val passcode: List<Int> = emptyList()
+        val passcode: List<Int> = emptyList(),
+        val isUpdatePin: Boolean = false,
     ) : Route()
 
     @Serializable
@@ -42,6 +43,6 @@ sealed class Route : JavaSerializable {
 //    object Home : Route()
 
     @Serializable
-    object UnLock : Route()
+    data class UnLock(val isUpdatePin: Boolean = false) : Route()
 
 }

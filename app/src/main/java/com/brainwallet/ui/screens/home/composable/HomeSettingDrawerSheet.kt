@@ -70,7 +70,10 @@ fun HomeSettingDrawerSheet(
                 SecurityDetail(
                     modifier = Modifier
                         .fillMaxSize()
-                        .wrapContentHeight()
+                        .wrapContentHeight(),
+                    onEvent = {
+                        viewModel.onEvent(it)
+                    }
                 )
             }
             item {

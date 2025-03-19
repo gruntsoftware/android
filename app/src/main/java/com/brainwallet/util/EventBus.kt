@@ -28,7 +28,7 @@ object EventBus {
 
         //provide this for old flow
         data class LegacyPasscodeVerified(
-            val passcode: List<Int>
+            val passcode: List<Int>,
         ) : Event()
 
         data class LegacyUnLock(
