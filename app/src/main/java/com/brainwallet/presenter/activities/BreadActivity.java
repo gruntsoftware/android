@@ -37,6 +37,8 @@ import androidx.transition.TransitionSet;
 import com.brainwallet.R;
 import com.brainwallet.navigation.LegacyNavigation;
 import com.brainwallet.navigation.Route;
+import com.brainwallet.presenter.activities.settings.SettingsActivity;
+import com.brainwallet.presenter.activities.settings.SyncBlockchainActivity;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.presenter.customviews.BRNotificationBar;
 import com.brainwallet.presenter.fragments.BuyTabFragment;
@@ -395,6 +397,10 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
             } else if (SettingsViewModel.LEGACY_EFFECT_ON_SHARE_ANALYTICS_DATA_TOGGLE.equals(message.getMessage())) {
                 boolean currentShareAnalyticsDataEnabled = BRSharedPrefs.getShareData(this);
                 BRSharedPrefs.putShareData(this, !currentShareAnalyticsDataEnabled);
+            } else if (SettingsViewModel.LEGACY_EFFECT_ON_SYNC.equals(message.getMessage())) {
+                Intent intent = new Intent(this, SyncBlockchainActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
             }
             return null;
         }); //since we are still using this BreadActivity, need to observe EventBus e.g. lock from [HomeSettingDrawerSheet]

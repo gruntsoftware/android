@@ -128,8 +128,8 @@ fun HomeSettingDrawerSheet(
                     modifier = Modifier
                         .fillMaxSize()
                         .wrapContentHeight(),
-                    onUserDidStartSync = {
-                        //viewModel.onEvent(SettingsEvent.OnUserDidStartSync)
+                    onEvent = {
+                        viewModel.onEvent(it)
                     }
                 )
             }

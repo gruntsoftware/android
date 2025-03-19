@@ -117,19 +117,8 @@ class SettingsViewModel(
                 }
             }
 
-            is SettingsEvent.OnUserDidStartSync -> viewModelScope.launch {
-                _state.update {
-                    ////DEV : Call the sync function
-//                    BRSharedPrefs.putStartHeight(event.context, 0);
-//                    BRSharedPrefs.putAllowSpend(event.context, false);
-//                    BRPeerManager.getInstance().rescan();
-//                    BRAnimator.startBreadActivity(event.context, false);
-//                    AnalyticsManager.logCustomEvent(BRConstants._20200112_DSR);
-                    EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_SYNC))
-
-                    val toggled = it.userDidStartSync.not()
-                    it.copy(userDidStartSync = toggled)
-                }
+            is SettingsEvent.OnBlockchainSyncClick -> viewModelScope.launch {
+                EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_SYNC))
             }
 
             SettingsEvent.OnSecuritySeedPhraseClick -> viewModelScope.launch {

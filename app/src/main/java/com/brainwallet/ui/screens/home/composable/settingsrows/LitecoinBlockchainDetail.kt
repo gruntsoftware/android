@@ -13,12 +13,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.brainwallet.R
+import com.brainwallet.ui.screens.home.SettingsEvent
 
 //TODO
 @Composable
 fun LitecoinBlockchainDetail(
     modifier: Modifier = Modifier,
-    onUserDidStartSync: (Boolean) -> Unit,
+    onEvent: (SettingsEvent) -> Unit,
 ) {
     /// Layout values
     val contentHeight = 60
@@ -41,7 +42,7 @@ fun LitecoinBlockchainDetail(
                 Text(stringResource(R.string.settings_blockchain_litecoin_description))
                 Spacer(modifier = Modifier.weight(1f))
                 Button(onClick = {
-                    onUserDidStartSync.invoke(true)
+                    onEvent.invoke(SettingsEvent.OnBlockchainSyncClick)
                 }) {
                     Text(stringResource(R.string.settings_blockchain_litecoin_button))
                 }

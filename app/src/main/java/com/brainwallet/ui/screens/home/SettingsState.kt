@@ -4,7 +4,6 @@ import com.brainwallet.data.model.Language
 
 data class SettingsState(
     val darkMode: Boolean = true,
-    val userDidStartSync: Boolean = false,
     val selectedLanguage: Language = Language.ENGLISH,
     val selectedCurrency: CurrencyEntity = CurrencyEntity(
         "USD",
