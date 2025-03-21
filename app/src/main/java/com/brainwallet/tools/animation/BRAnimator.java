@@ -28,16 +28,15 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.brainwallet.navigation.LegacyNavigation;
+import com.brainwallet.presenter.fragments.FragmentMoonpay;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.util.BRConstants;
-import com.brainwallet.tools.util.Utils;
 import com.brainwallet.R;
 import com.brainwallet.presenter.activities.BreadActivity;
 import com.brainwallet.presenter.activities.camera.ScanQRActivity;
 import com.brainwallet.presenter.customviews.BRDialogView;
 import com.brainwallet.presenter.entities.TxItem;
 import com.brainwallet.presenter.fragments.FragmentBalanceSeedReminder;
-import com.brainwallet.presenter.fragments.FragmentBuy;
 import com.brainwallet.presenter.fragments.FragmentMenu;
 import com.brainwallet.presenter.fragments.FragmentReceive;
 import com.brainwallet.presenter.fragments.FragmentSend;
@@ -222,64 +221,26 @@ public class BRAnimator {
 
     }
 
-    public static void showBuyFragment(FragmentActivity app, String currency, FragmentBuy.Partner partner) {
+    public static void showMoonpayFragment(FragmentActivity app) {
+
         if (app == null) {
-            Timber.i("timber: showBuyFragment: app is null");
+            Timber.i("timber: showSendFragment: app is null");
             return;
         }
-        app.getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(0, 0, 0, R.animator.plain_300)
-                .add(android.R.id.content, FragmentBuy.newInstance(currency, partner), FragmentBuy.class.getName())
-                .addToBackStack(FragmentBuy.class.getName())
-                .commit();
-    }
-
-    public static void showMenuFragment(Activity app) {
-        if (app == null) {
-            Timber.i("timber: showReceiveFragment: app is null");
+        androidx.fragment.app.FragmentManager fragmentManager = app.getSupportFragmentManager();
+        FragmentMoonpay fragmentMoonpay = (FragmentMoonpay) fragmentManager.findFragmentByTag(FragmentMoonpay.class.getName());
+        if (fragmentMoonpay != null && fragmentMoonpay.isAdded()) {
             return;
         }
-        FragmentTransaction transaction = app.getFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(0, 0, 0, R.animator.plain_300);
-        transaction.add(android.R.id.content, new FragmentMenu(), FragmentMenu.class.getName());
-        transaction.addToBackStack(FragmentMenu.class.getName());
-        transaction.commit();
+        try {
+            fragmentMoonpay = new FragmentMoonpay();
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(0, 0, 0, R.animator.plain_300)
+                    .add(android.R.id.content, fragmentMoonpay, FragmentMoonpay.class.getName())
+                    .addToBackStack(FragmentMoonpay.class.getName()).commit();
+        } finally {
+        }
     }
-
-    public static void showSettingsScreen(Activity app) {
-
-            // Create a ComposeView
-            ComposeView composeView = new ComposeView(app);
-
-//            // Set the Composable function
-//            composeView.setContent(() -> {
-//                SettingsScreenKt.SettingsScreen(shouldShowSettingsComposable);
-//                return null;
-//            });
-//
-//            // Set the ComposeView as the content view
-//            setContentView(composeView);
-    }
-
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//        ComposeView composeView = findViewById(R.id.compose_view);
-//        composeView.setViewCompositionStrategy(ViewCompositionStrategy.[Your choice here]);
-//        composeView.setContent{
-//            HomeKt.Home(
-//                    // other function arguments
-//            );
-//        });
-//    }
-
-
-
-
-
-
 
     public static boolean isClickAllowed() {
         if (clickAllowed) {
