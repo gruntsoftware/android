@@ -1,0 +1,79 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/background_layout"
+    android:background="@color/white"
+    android:filterTouchesWhenObscured="true"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="top|center"
+        android:padding="4dp"
+        android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/close_button"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="@color/midnight"
+            android:background="@drawable/ic_close_black_24dp" />
+
+        <TextView
+            android:id="@+id/receive_address"
+            style="@style/BRBoldTextStyle"
+            android:layout_width="260dp"
+            android:layout_height="34dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:paddingTop="20dp"
+            android:text=""
+            android:textSize="10sp" />
+
+        <ImageButton
+            android:id="@+id/copy_button"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="24dp"
+            android:background="@drawable/copy_icon"
+            />
+    </LinearLayout>
+
+
+
+
+        <!--        <ImageButton-->
+<!--            android:id="@+id/close_button"-->
+<!--            android:layout_width="44dp"-->
+<!--            android:layout_height="44dp"-->
+<!--            android:background="@drawable/ic_close_black_24dp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:layout_marginBottom="0dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/receive_address"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/receive_address"-->
+<!--            android:layout_marginTop="0dp" />-->
+
+        <WebView
+            android:id="@+id/web_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minHeight="400dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:scrollbars="vertical" >
+        </WebView>
+            </LinearLayout>
+        </ScrollView>

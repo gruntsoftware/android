@@ -42,6 +42,7 @@ import com.brainwallet.presenter.activities.settings.SyncBlockchainActivity;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.presenter.customviews.BRNotificationBar;
 import com.brainwallet.presenter.fragments.BuyTabFragment;
+import com.brainwallet.presenter.fragments.FragmentMoonpay;
 import com.brainwallet.presenter.history.HistoryFragment;
 import com.brainwallet.tools.animation.BRAnimator;
 import com.brainwallet.tools.animation.TextSizeTransition;
@@ -240,6 +241,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     public boolean handleNavigationItemSelected(int menuItemId) {
         if (mSelectedBottomNavItem == menuItemId) return true;
         mSelectedBottomNavItem = menuItemId;
+
         //TODO: revisit
         // we are using compose, that's why commented, will remove it after fully migrated to compose
         if (menuItemId == R.id.nav_history) {
@@ -254,8 +256,12 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 BRAnimator.showReceiveFragment(BreadActivity.this, true);
             }
             mSelectedBottomNavItem = 0;
-        } else if (menuItemId == R.id.nav_buy) {
-            ExtensionKt.replaceFragment(BreadActivity.this, new BuyTabFragment(), false, R.id.fragment_container);
+        }
+        else if (menuItemId == R.id.nav_buy) {
+            if (BRAnimator.isClickAllowed()) {
+                BRAnimator.showMoonpayFragment(BreadActivity.this);
+            }
+            mSelectedBottomNavItem = 0;
         }
         return true;
     }
