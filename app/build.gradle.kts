@@ -199,6 +199,7 @@ dependencies {
     implementation(libs.androidx.preference)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.bundles.androidx.lifecycle)
+    implementation(libs.androidx.work)
     implementation(libs.androidx.browser)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.androidx.compose)

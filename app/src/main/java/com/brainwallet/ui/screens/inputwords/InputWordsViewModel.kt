@@ -24,9 +24,10 @@ class InputWordsViewModel : BrainwalletViewModel<InputWordsEvent>() {
 
     init {
         //TODO: revisit later, please move to repository, for now just reuse the existing
-        Bip39Reader.bip39List(BrainwalletApp.breadContext, Language.ENGLISH.code).also { bip39Words ->
-            _state.update { it.copy(bip39Words = bip39Words) }
-        }
+        Bip39Reader.bip39List(BrainwalletApp.breadContext, Language.ENGLISH.code)
+            .also { bip39Words ->
+                _state.update { it.copy(bip39Words = bip39Words) }
+            }
     }
 
     override fun onEvent(event: InputWordsEvent) {
@@ -53,8 +54,9 @@ class InputWordsViewModel : BrainwalletViewModel<InputWordsEvent>() {
 
                 val cleanPhrase = SmartValidator.cleanPaperKey(event.context, paperKey)
 
-                if (SmartValidator.isPaperKeyValid(event.context, cleanPhrase)
-                        .not() && SmartValidator.isPaperKeyCorrect(cleanPhrase, event.context).not()
+                //TODO: WIP HERE
+                if (SmartValidator.isPaperKeyValid(event.context, cleanPhrase).not() &&
+                    SmartValidator.isPaperKeyCorrect(cleanPhrase, event.context).not()
                 ) {
                     viewModelScope.launch {
                         EventBus.emit(

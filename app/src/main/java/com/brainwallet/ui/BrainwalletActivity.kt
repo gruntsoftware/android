@@ -15,6 +15,7 @@ import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.navigation.LegacyNavigation
 import com.brainwallet.navigation.MainNavHost
 import com.brainwallet.navigation.Route
+import com.brainwallet.presenter.activities.intro.WriteDownActivity
 import com.brainwallet.presenter.activities.util.BRActivity
 import com.brainwallet.tools.animation.BRAnimator
 import com.brainwallet.tools.animation.BRDialog
@@ -226,7 +227,16 @@ class BrainwalletActivity : BRActivity() {
                 getString(R.string.Alerts_pinSet),
                 getString(R.string.UpdatePin_createInstruction),
                 R.drawable.ic_check_mark_white
-            ) { PostAuth.getInstance().onCreateWalletAuth(this, false) }
+            ) {
+                val walletNotAvailable = BRWalletManager.getInstance().noWallet(this)
+                if (walletNotAvailable) {
+                    PostAuth.getInstance().onCreateWalletAuth(this, false)
+                } else {
+                    Intent(this, WriteDownActivity::class.java).also {
+                        startActivity(it)
+                    }
+                }
+            }
         }
     }
 
