@@ -69,15 +69,13 @@ fun WelcomeScreen(
 
     //todo: the following sizing can be move to BrainwalletTheme
     // Global layout
-    val buttonFontSize = 16
-    val thinButtonFontSize = 14
-    val iconButtonSize = 32
+    val buttonFontSize = 24
+    val thinButtonFontSize = 22
     val toggleButtonSize = 45
-    val leadTrailPadding = 24
+    val leadTrailPadding = 18
     val halfLeadTrailPadding = leadTrailPadding / 2
     val doubleLeadTrailPadding = leadTrailPadding * 2
     val rowPadding = 8
-    val tinyPad = 4
     val activeRowHeight = 70
 
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.welcomeemoji20250212))
