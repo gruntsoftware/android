@@ -95,7 +95,6 @@ public class BRKeyStore {
     private static final String AUTH_KEY_IV = "ivauthkey";
     private static final String TOKEN_IV = "ivtoken";
     private static final String PASS_TIME_IV = "passtimetoken";
-    private static final String PHRASE_TEMP_IV = "ivphrasetemp"; //temp phrase, related with sync mechanism
 
     public static final String PHRASE_ALIAS = "phrase";
     public static final String CANARY_ALIAS = "canary";
@@ -109,7 +108,6 @@ public class BRKeyStore {
     public static final String AUTH_KEY_ALIAS = "authKey";
     public static final String TOKEN_ALIAS = "token";
     public static final String PASS_TIME_ALIAS = "passTime";
-    private static final String PHRASE_TEMP_ALIAS = "phrasetemp"; //temp phrase, related with sync mechanism
 
     private static final String PHRASE_FILENAME = "my_phrase";
     private static final String CANARY_FILENAME = "my_canary";
@@ -123,7 +121,6 @@ public class BRKeyStore {
     private static final String AUTH_KEY_FILENAME = "my_auth_key";
     private static final String TOKEN_FILENAME = "my_token";
     private static final String PASS_TIME_FILENAME = "my_pass_time";
-    private static final String PHRASE_TEMP_FILENAME = "my_phrasetemp"; //temp phrase, related with sync mechanism
 
     private static boolean bugMessageShowing;
 
@@ -144,7 +141,6 @@ public class BRKeyStore {
         aliasObjectMap.put(TOKEN_ALIAS, new AliasObject(TOKEN_ALIAS, TOKEN_FILENAME, TOKEN_IV));
         aliasObjectMap.put(PASS_TIME_ALIAS, new AliasObject(PASS_TIME_ALIAS, PASS_TIME_FILENAME, PASS_TIME_IV));
         aliasObjectMap.put(TOTAL_LIMIT_ALIAS, new AliasObject(TOTAL_LIMIT_ALIAS, TOTAL_LIMIT_FILENAME, TOTAL_LIMIT_IV));
-        aliasObjectMap.put(PHRASE_TEMP_ALIAS, new AliasObject(PHRASE_TEMP_ALIAS, PHRASE_TEMP_FILENAME, PHRASE_TEMP_IV));
 
     }
 
@@ -266,24 +262,6 @@ public class BRKeyStore {
             throw new UserNotAuthenticatedException();
         }
         AliasObject obj = aliasObjectMap.get(PHRASE_ALIAS);
-        return _getData(context, obj.alias, obj.datafileName, obj.ivFileName, requestCode);
-    }
-
-    public synchronized static boolean putPhraseTemp(byte[] strToStore, Context context, int requestCode) throws UserNotAuthenticatedException {
-        if (PostAuth.isStuckWithAuthLoop) {
-            showLoopBugMessage(context);
-            throw new UserNotAuthenticatedException();
-        }
-        AliasObject obj = aliasObjectMap.get(PHRASE_TEMP_ALIAS);
-        return !(strToStore == null || strToStore.length == 0) && _setData(context, strToStore, obj.alias, obj.datafileName, obj.ivFileName, requestCode, false);
-    }
-
-    public synchronized static byte[] getPhraseTemp(final Context context, int requestCode) throws UserNotAuthenticatedException {
-        if (PostAuth.isStuckWithAuthLoop) {
-            showLoopBugMessage(context);
-            throw new UserNotAuthenticatedException();
-        }
-        AliasObject obj = aliasObjectMap.get(PHRASE_TEMP_ALIAS);
         return _getData(context, obj.alias, obj.datafileName, obj.ivFileName, requestCode);
     }
 

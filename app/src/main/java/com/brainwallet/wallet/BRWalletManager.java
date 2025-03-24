@@ -103,62 +103,32 @@ public class BRWalletManager {
         return instance;
     }
 
-    public synchronized boolean generateRandomSeed(final Context context) {
-        return generateRandomSeed(context, false);
-    }
-
-    //TODO: please revisit this later
-    public synchronized boolean generateRandomSeed(final Context ctx, boolean isTemp) {
-
-        byte[] seedPhraseTemp = null;
-        try {
-            seedPhraseTemp = BRKeyStore.getPhraseTemp(ctx, 0);
-        } catch (UserNotAuthenticatedException e) {
-            //no-op
+    public synchronized boolean generateRandomSeed(final Context ctx) {
+        SecureRandom sr = new SecureRandom();
+        final String[] words;
+        List<String> list;
+        String languageCode = "en";
+        list = Bip39Reader.bip39List(ctx, "en");
+        words = list.toArray(new String[list.size()]);
+        final byte[] randomSeed = sr.generateSeed(16);
+        if (words.length != 2048) {
+            IllegalArgumentException ex = new IllegalArgumentException("the list is wrong, size: " + words.length);
+            Timber.e(ex);
+            throw ex;
         }
-
-        byte[] strPhrase = null;
-        if (seedPhraseTemp == null) {
-            //seed phrase temp not exists
-            SecureRandom sr = new SecureRandom();
-            final String[] words;
-            List<String> list;
-            String languageCode = "en";
-            list = Bip39Reader.bip39List(ctx, "en");
-            words = list.toArray(new String[list.size()]);
-            final byte[] randomSeed = sr.generateSeed(16);
-            if (words.length != 2048) {
-                IllegalArgumentException ex = new IllegalArgumentException("the list is wrong, size: " + words.length);
-                Timber.e(ex);
-                throw ex;
-            }
-            if (randomSeed.length != 16)
-                throw new NullPointerException("failed to create the seed, seed length is not 128: " + randomSeed.length);
-            strPhrase = encodeSeed(randomSeed, words);
-            if (strPhrase == null || strPhrase.length == 0) {
-                NullPointerException ex = new NullPointerException("failed to encodeSeed");
-                Timber.e(ex);
-                throw ex;
-            }
-            String[] splitPhrase = new String(strPhrase).split(" ");
-            if (splitPhrase.length != 12) {
-                NullPointerException ex = new NullPointerException("phrase does not have 12 words:" + splitPhrase.length + ", lang: " + languageCode);
-                Timber.e(ex);
-                throw ex;
-            }
-        } else {
-            strPhrase = seedPhraseTemp;
+        if (randomSeed.length != 16)
+            throw new NullPointerException("failed to create the seed, seed length is not 128: " + randomSeed.length);
+        byte[] strPhrase = encodeSeed(randomSeed, words);
+        if (strPhrase == null || strPhrase.length == 0) {
+            NullPointerException ex = new NullPointerException("failed to encodeSeed");
+            Timber.e(ex);
+            throw ex;
         }
-
-        /**
-         * if temp, we just save to [PHRASE_TEMP_ALIAS] & return it
-         */
-        if (isTemp) {
-            try {
-                return BRKeyStore.putPhraseTemp(strPhrase, ctx, 0);
-            } catch (UserNotAuthenticatedException e) {
-                return false;
-            }
+        String[] splitPhrase = new String(strPhrase).split(" ");
+        if (splitPhrase.length != 12) {
+            NullPointerException ex = new NullPointerException("phrase does not have 12 words:" + splitPhrase.length + ", lang: " + languageCode);
+            Timber.e(ex);
+            throw ex;
         }
 
         boolean success;
@@ -195,13 +165,6 @@ public class BRWalletManager {
         byte[] strBytes = TypesConverter.getNullTerminatedPhrase(strPhrase);
         byte[] pubKey = BRWalletManager.getInstance().getMasterPubKey(strBytes);
         BRKeyStore.putMasterPublicKey(pubKey, ctx);
-
-        //after wallet created, then remove seed phrase temp
-        try {
-            BRKeyStore.putPhraseTemp(null, ctx, 0);
-        } catch (UserNotAuthenticatedException e) {
-            //no-op
-        }
 
         return true;
     }
@@ -499,7 +462,7 @@ public class BRWalletManager {
                         }
                     }, 0);
         } else {
-            if (!m.noWallet(app)) {
+            if (!m.noWallet(app) && BRSharedPrefs.getPhraseWroteDown(app)) {
                 BRAnimator.startBreadActivity(app, true);
             }
             //else just sit in the intro screen

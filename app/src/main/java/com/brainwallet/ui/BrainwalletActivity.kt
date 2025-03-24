@@ -15,7 +15,6 @@ import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.navigation.LegacyNavigation
 import com.brainwallet.navigation.MainNavHost
 import com.brainwallet.navigation.Route
-import com.brainwallet.presenter.activities.intro.WriteDownActivity
 import com.brainwallet.presenter.activities.util.BRActivity
 import com.brainwallet.tools.animation.BRAnimator
 import com.brainwallet.tools.animation.BRDialog
@@ -193,6 +192,8 @@ class BrainwalletActivity : BRActivity() {
                     )
                 )
             }
+        } else if (BRSharedPrefs.getPhraseWroteDown(this).not()) {
+            PostAuth.getInstance().onPhraseCheckAuth(this, false)
         }
     }
 
@@ -232,9 +233,7 @@ class BrainwalletActivity : BRActivity() {
                 if (walletNotAvailable) {
                     PostAuth.getInstance().onCreateWalletAuth(this, false)
                 } else {
-                    Intent(this, WriteDownActivity::class.java).also {
-                        startActivity(it)
-                    }
+                    PostAuth.getInstance().onPhraseCheckAuth(this, false)
                 }
             }
         }
