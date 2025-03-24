@@ -151,7 +151,7 @@ public class BRWalletManager {
         }
 
         /**
-         * if temp, we just save to [PHRASE_TEMP_ALIAS] & return true
+         * if temp, we just save to [PHRASE_TEMP_ALIAS] & return it
          */
         if (isTemp) {
             try {
