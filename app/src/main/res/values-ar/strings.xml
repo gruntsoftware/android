@@ -397,6 +397,7 @@
     <string name="setup_app_biometrics">استخدم القياسات الحيوية</string>
     <string name="you_saved_your_keys">لقد قمت بحفظ المفاتيح الخاصة بك.</string>
     <string name="you_saved_your_keys_desc">سحق المستوى التالي.</string>
+    <string name="top_up_button_3">يتخطى</string>
     <string name="restore_your_power">استعادة قوتك</string>
     <string name="restore_your_power_desc">يمكنك العودة من حيث بدأت</string>
     <string name="restore_my_brainwallet">استعادة محفظتي الدماغية</string>
@@ -410,4 +411,9 @@
     <string name="down_left_arrow">سهم لأسفل لليسار</string>
     <string name="logo">شعار</string>
     <string name="toggle_dark_mode">تبديل الوضع المظلم</string>
+    <string name="top_up_title">اشحن رصيدك؟\n</string>
+    <string name="top_up_detail_2">عقلك فارغ الآن..</string>
+    <string name="top_up_detail_1">احصل على عملة اللايتكوين في 5 دقائق</string>
+    <string name="top_up_button_1">احصل على بعض اللايتكوين!</string>
+    <string name="top_up_button_2">ربما في وقت لاحق.</string>
 </resources>

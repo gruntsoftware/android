@@ -19,9 +19,9 @@ class BRConstantsTest {
         assertSame(BRConstants.TWITTER_LINK,"https://twitter.com/Brainwallet_App");
         assertSame(BRConstants.INSTAGRAM_LINK,"https://www.instagram.com/brainwalletapp");
         assertSame(BRConstants.WEB_LINK,"https://brainwallet.co");
-        assertSame(BRConstants.TOS_LINK,"https://brainwallet.co/privacy");
-        assertSame(BRConstants.BITREFILL_AFFILIATE_LINK,"https://www.bitrefill.com/")
-        assertSame(BRConstants.CUSTOMER_SUPPORT_LINK,"https://support.brainwallet.co/hc/en-us/requests/new");
+        assertSame(BRConstants.TOS_LINK,"https://brainwallet.co/privacy-policy.html");
+        assertSame(BRConstants.MOBILE_MP_LINK,"https://brainwallet.co/mobile-top-up.html");
+        assertSame(BRConstants.BITREFILL_AFFILIATE_LINK,"https://www.bitrefill.com/");
     }
 
     @Test

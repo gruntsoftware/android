@@ -795,6 +795,12 @@
     <string name="setup_app_biometrics">Use biometrics</string>
     <string name="you_saved_your_keys">You saved your keys.</string>
     <string name="you_saved_your_keys_desc">Crush the next level.</string>
+    <string name="top_up_title">Top up?</string>
+    <string name="top_up_detail_2">Right now your brain is empty...</string>
+    <string name="top_up_detail_1">Get Litecoin in 5 minutes</string>
+    <string name="top_up_button_1">Get some Litecoin!</string>
+    <string name="top_up_button_2">Maybe later.</string>
+    <string name="top_up_button_3">Skip</string>
     <string name="restore_your_power">Restore your power</string>
     <string name="restore_your_power_desc">You can get back from where you started</string>
     <string name="restore_my_brainwallet">Restore my Brainwallet</string>

@@ -32,9 +32,13 @@ import com.brainwallet.BrainwalletApp;
 import com.brainwallet.BuildConfig;
 import com.brainwallet.R;
 import com.brainwallet.tools.animation.BRAnimator;
+import com.brainwallet.tools.manager.BRApiManager;
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.util.BRConstants;
 import com.brainwallet.tools.util.Utils;
+
+import org.koin.core.component.KoinComponentKt;
+import org.koin.java.KoinJavaComponent;
 
 import java.util.Date;
 
@@ -139,7 +143,7 @@ public class FragmentBuy extends Fragment {
         Long timestamp = new Date().getTime();
         String uuid = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         String prefix = partner == Partner.MOONPAY ? "/moonpay/buy" : "";
-        String baseUrl = BrainwalletApp.module.getApiManager().getBaseUrlProd();
+        String baseUrl = ((BRApiManager) KoinJavaComponent.get(BRApiManager.class)).getBaseUrlProd();
         return String.format(baseUrl + prefix + "?address=%s&code=%s&idate=%s&uid=%s", walletAddress, currency, timestamp, uuid);
     }
 

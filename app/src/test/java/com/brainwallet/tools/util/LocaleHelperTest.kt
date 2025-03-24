@@ -53,10 +53,10 @@ class LocaleHelperTest {
     }
 
     @Test
-    fun `check all language codes`() {
+    fun `check all language codes given the subjective business logic which prioritizes localization popularity`() {
         Language.entries
             .also { languages ->
-                assertEquals(17, languages.size)
+                assertEquals(16, languages.size)
             }
             .map { it.code }
             .also { langCodes ->
@@ -69,16 +69,15 @@ class LocaleHelperTest {
                         "uk",
                         "ru",
                         "pt",
+                        "hi",
+                        "de",
                         "ko",
                         "fr",
                         "zh-TW",
                         "tr",
                         "ja",
-                        "de",
                         "zh-CN",
-                        "hi",
                         "it",
-                        " " ///Hack: implementation and allow the user to pick the last language
                     ),
                     langCodes
                 )

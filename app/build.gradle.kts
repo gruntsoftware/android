@@ -20,8 +20,8 @@ android {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 34
-        versionCode = 202502262
-        versionName = "v4.3.0"
+        versionCode = 202503031
+        versionName = "v4.3.1"
 
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
@@ -187,6 +187,7 @@ dependencies {
         }
     }
 
+    implementation("androidx.webkit:webkit:1.9.0")
     implementation(libs.androidx.core)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.legacy.support)
@@ -210,6 +211,8 @@ dependencies {
     implementation(libs.bundles.google.play.review)
     implementation(libs.kotlinx.serialization.json)
     implementation (libs.airbnb.lottie.compose)
+    implementation(platform(libs.koin.bom))
+    implementation(libs.bundles.koin)
 
     implementation(libs.squareup.okhttp)
     implementation(libs.jakewarthon.timber)

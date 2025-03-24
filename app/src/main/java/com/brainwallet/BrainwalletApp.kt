@@ -6,7 +6,8 @@ import android.app.Application
 import android.content.Context
 import android.content.res.Resources
 import com.appsflyer.AppsFlyerLib
-import com.brainwallet.di.Module
+import com.brainwallet.di.dataModule
+import com.brainwallet.di.viewModelModule
 import com.brainwallet.notification.setupNotificationChannels
 import com.brainwallet.presenter.activities.util.BRActivity
 import com.brainwallet.presenter.entities.ServiceItems
@@ -17,6 +18,10 @@ import com.brainwallet.tools.util.Utils
 import com.brainwallet.util.cryptography.KeyStoreKeyGenerator
 import com.brainwallet.util.cryptography.KeyStoreManager
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.GlobalContext.startKoin
+import org.koin.core.logger.Level
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 import java.util.Timer
@@ -28,11 +33,11 @@ class BrainwalletApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        initializeModule()
+
         /** DEV:  Top placement requirement. */
         val enableCrashlytics = !Utils.isEmulatorOrDebug(this)
         FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(enableCrashlytics)
-
-        initializeModule()
 
         setupNotificationChannels(this)
 
@@ -68,9 +73,13 @@ class BrainwalletApp : Application() {
     }
 
     protected fun initializeModule() {
-        module = Module(this)
-        module!!.remoteConfigSource.initialize()
         keyStoreManager = KeyStoreManager(this, KeyStoreKeyGenerator.Impl())
+
+        startKoin {
+            androidLogger(if (BuildConfig.DEBUG) Level.DEBUG else Level.ERROR)
+            androidContext(this@BrainwalletApp)
+            modules(dataModule, viewModelModule)
+        }
     }
 
 //    override fun attachBaseContext(base: Context) {
@@ -99,11 +108,6 @@ class BrainwalletApp : Application() {
 
         @SuppressLint("StaticFieldLeak")
         private var currentActivity: Activity? = null
-
-        //TODO: revisit this, please migrate using koin for DI Framework
-        @SuppressLint("StaticFieldLeak")
-        @JvmField
-        var module: Module? = null
 
         @SuppressLint("StaticFieldLeak")
         @JvmField

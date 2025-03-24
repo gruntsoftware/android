@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.brainwallet.BrainwalletApp
 import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
+import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.navigation.LegacyNavigation
 import com.brainwallet.navigation.MainNavHost
 import com.brainwallet.navigation.Route
@@ -40,6 +41,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import timber.log.Timber
 
 
@@ -48,9 +50,13 @@ import timber.log.Timber
  */
 class BrainwalletActivity : BRActivity() {
 
+    private val settingRepository by inject<SettingRepository>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        ///DEV: Test / Dev Composable Shortcut swap to launch
+        /// Ergo; Route.TopUp
         val startDestination =
             intent.getSerializableExtra(EXTRA_START_DESTINATION) ?: Route.Welcome
 
@@ -63,7 +69,7 @@ class BrainwalletActivity : BRActivity() {
         }
 
         setContent {
-            val appSetting by BrainwalletApp.module!!.settingRepository.settings.collectAsState(
+            val appSetting by settingRepository.settings.collectAsState(
                 AppSetting()
             )
 

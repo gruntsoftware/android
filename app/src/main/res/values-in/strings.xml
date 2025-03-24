@@ -761,6 +761,7 @@
     <string name="setup_app_biometrics">Gunakan biometrik</string>
     <string name="you_saved_your_keys">Anda menyimpan kunci Anda.</string>
     <string name="you_saved_your_keys_desc">Hancurkan level berikutnya.</string>
+    <string name="top_up_button_3">Melewati</string>
     <string name="restore_your_power">Kembalikan kekuatanmu</string>
     <string name="restore_your_power_desc">Anda dapat kembali dari awal</string>
     <string name="restore_my_brainwallet">Pulihkan Dompet Otak saya</string>
@@ -774,4 +775,9 @@
     <string name="down_left_arrow">panah kiri bawah</string>
     <string name="logo">logo</string>
     <string name="toggle_dark_mode">beralih-mode gelap</string>
+    <string name="top_up_title">Isi ulang?</string>
+    <string name="top_up_detail_2">Saat ini otakmu kosong...</string>
+    <string name="top_up_detail_1">Dapatkan Litecoin dalam 5 menit</string>
+    <string name="top_up_button_1">Dapatkan beberapa Litecoin!</string>
+    <string name="top_up_button_2">Mungkin nanti.</string>
 </resources>

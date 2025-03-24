@@ -38,7 +38,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
@@ -53,14 +52,14 @@ import com.brainwallet.ui.composable.BrainwalletButton
 import com.brainwallet.ui.composable.bottomsheet.FiatSelectorBottomSheet
 import com.brainwallet.ui.composable.bottomsheet.LanguageSelectorBottomSheet
 import com.brainwallet.ui.theme.BrainwalletTheme
+import org.koin.compose.koinInject
 
 @Composable
 fun WelcomeScreen(
     onNavigate: OnNavigate = {},
-    viewModel: WelcomeViewModel = viewModel()
+    viewModel: WelcomeViewModel = koinInject()
 ) {
     val state by viewModel.state.collectAsState()
-    // Global layout
 
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp
@@ -68,6 +67,7 @@ fun WelcomeScreen(
     val thirdOfScreenHeight = (screenHeight * mainBoxFactor).toInt()
 
     //todo: the following sizing can be move to BrainwalletTheme
+    // Global layout
     val buttonFontSize = 16
     val thinButtonFontSize = 14
     val iconButtonSize = 32
@@ -77,10 +77,8 @@ fun WelcomeScreen(
     val doubleLeadTrailPadding = leadTrailPadding * 2
     val rowPadding = 8
     val tinyPad = 4
-    val activeRowHeight = 60
+    val activeRowHeight = 70
 
-    var selectedLanguage by remember { mutableStateOf("Français") }
-    var selectedFiat by remember { mutableStateOf("EUR") }
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.welcomeemoji20250212))
     val progress by animateLottieCompositionAsState(
         composition = composition,
@@ -98,8 +96,8 @@ fun WelcomeScreen(
         Spacer(modifier = Modifier.weight(0.4f))
 
         Image(
-            painterResource(R.drawable.bw_white_logotype),
-            contentDescription = "bw_white_logotype",
+            painterResource(R.drawable.brainwallet_logotype_white),
+            contentDescription = "brainwallet_logotype_white",
             contentScale = ContentScale.Fit,
             colorFilter = ColorFilter.tint(
                 BrainwalletTheme.colors.content,
@@ -124,9 +122,7 @@ fun WelcomeScreen(
                 progress = { progress }
             )
         }
-        // Spacer(modifier = Modifier.weight(1f))
-
-//        TODO: implement later, for now just comment this
+        // TODO: implement later, for now just comment this
         Row(
             modifier = Modifier
                 .fillMaxWidth()

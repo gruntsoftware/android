@@ -36,6 +36,7 @@ import com.brainwallet.tools.util.BRConstants;
 import com.brainwallet.data.source.RemoteConfigSource;
 
 import org.json.JSONObject;
+import org.koin.java.KoinJavaComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +75,7 @@ public class FragmentMenu extends Fragment {
         itemList.add(new BRMenuItem(getString(R.string.MenuButton_support), R.drawable.faq_question_black, v -> {
             CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
             CustomTabsIntent customTabsIntent = builder.build();
-            customTabsIntent.launchUrl(getContext(), Uri.parse(BRConstants.CUSTOMER_SUPPORT_LINK));
+            customTabsIntent.launchUrl(getContext(), Uri.parse(BRConstants.WEB_LINK));
             AnalyticsManager.logCustomEvent(BRConstants._20201118_DTGS);
         }));
 
@@ -95,7 +96,7 @@ public class FragmentMenu extends Fragment {
          * remote config example here
          */
         try {
-            RemoteConfigSource remoteConfigSource = BrainwalletApp.module.getRemoteConfigSource();
+            RemoteConfigSource remoteConfigSource = KoinJavaComponent.get(RemoteConfigSource.class);
             String string = remoteConfigSource.getString(KEY_FEATURE_MENU_HIDDEN_EXAMPLE);
             Timber.d("timber: [RemoteConfig] -> " + string);
             JSONObject configValue = new JSONObject(string);

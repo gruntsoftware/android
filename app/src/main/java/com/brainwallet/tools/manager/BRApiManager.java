@@ -119,16 +119,8 @@ public class BRApiManager {
         timer.schedule(timerTask, 0, 4000);
     }
 
-    public void stopTimerTask() {
-        //stop the timer, if it's not already null
-        if (timer != null) {
-            timer.cancel();
-            timer = null;
-        }
-    }
-
     public JSONArray fetchRates(Activity activity) {
-        String jsonString = createGETRequestURL(activity, getBaseUrlProd() + "/api/v1/rates");
+        String jsonString = createGETRequestURL(activity, BW_API_PROD_HOST + "/api/v1/rates");
         JSONArray jsonArray = null;
         if (jsonString == null) return null;
         try {
@@ -180,17 +172,14 @@ public class BRApiManager {
                 Timber.i("timber: urlGET: %s resp is null", myURL);
                 return null;
             }
-            response = resp.body().string();
-            String strDate = resp.header("date");
-            if (strDate == null) {
-                Timber.i("timber: urlGET: strDate is null!");
-                return response;
-            }
-            SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
-            Date date = formatter.parse(strDate);
-            long timeStamp = date.getTime();
+            ///Set timestamp to prefs
+            long timeStamp = new Date().getTime();
             BRSharedPrefs.putSecureTime(app, timeStamp);
-        } catch (ParseException | IOException e) {
+
+            assert resp.body() != null;
+            response = resp.body().string();
+
+        } catch (IOException e) {
             Timber.e(e);
         } finally {
             if (resp != null) resp.close();

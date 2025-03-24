@@ -759,6 +759,7 @@
     <string name="setup_app_biometrics">使用生物辨識技術</string>
     <string name="you_saved_your_keys">你保存了你的鑰匙。</string>
     <string name="you_saved_your_keys_desc">粉碎下一個等級。</string>
+    <string name="top_up_button_3">跳過</string>
     <string name="restore_your_power">恢復你的力量</string>
     <string name="restore_your_power_desc">你可以從開始的地方返回</string>
     <string name="restore_my_brainwallet">恢復我的腦錢包</string>
@@ -772,4 +773,9 @@
     <string name="down_left_arrow">左下箭頭</string>
     <string name="logo">標識</string>
     <string name="toggle_dark_mode">切換暗模式</string>
+    <string name="top_up_title">儲值?</string>
+    <string name="top_up_detail_2">現在你的大腦一片空白…</string>
+    <string name="top_up_detail_1">5 分鐘內獲得萊特幣</string>
+    <string name="top_up_button_1">取得一些萊特幣！</string>
+    <string name="top_up_button_2">也許以後吧。</string>
 </resources>

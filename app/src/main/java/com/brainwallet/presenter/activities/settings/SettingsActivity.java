@@ -30,6 +30,8 @@ import com.brainwallet.presenter.language.ChangeLanguageBottomSheet;
 import com.brainwallet.tools.animation.BRAnimator;
 import com.brainwallet.tools.manager.BRSharedPrefs;
 
+import org.koin.java.KoinJavaComponent;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +45,8 @@ public class SettingsActivity extends BRActivity {
     public static SettingsActivity getApp() {
         return app;
     }
+
+    private SettingRepository settingRepository = (SettingRepository) KoinJavaComponent.inject(SettingRepository.class).getValue();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,18 +135,10 @@ public class SettingsActivity extends BRActivity {
             BRAnimator.showBalanceSeedFragment(this);
         }, false));
 
-        /*Wipe Start_Recover Wallet*/
-        items.add(new BRSettingsItem(getString(R.string.Settings_wipe), "", v -> {
-            Intent intent = new Intent(SettingsActivity.this, WipeActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
-        }, false));
-
         /*Manage Title*/
         items.add(new BRSettingsItem(getString(R.string.Settings_manage), "", null, true));
 
         //toggle dark mode
-        SettingRepository settingRepository = BrainwalletApp.module.getSettingRepository();
         boolean isDarkMode = settingRepository.isDarkMode();
         items.add(new BRSettingsItem(getString(R.string.toggle_dark_mode), getString(isDarkMode ? androidx.appcompat.R.string.abc_capital_on : androidx.appcompat.R.string.abc_capital_off), v -> {
             settingRepository.toggleDarkMode(!isDarkMode);

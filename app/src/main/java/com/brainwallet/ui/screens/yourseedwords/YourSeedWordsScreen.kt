@@ -28,7 +28,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.UiEffect
@@ -36,12 +35,13 @@ import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
 import com.brainwallet.ui.composable.LargeButton
 import com.brainwallet.ui.composable.SeedWordItem
+import org.koin.compose.koinInject
 
 @Composable
 fun YourSeedWordsScreen(
     onNavigate: OnNavigate,
     seedWords: List<String>,
-    viewModel: YourSeedWordsViewModel = viewModel()
+    viewModel: YourSeedWordsViewModel = koinInject()
 ) {
     /// Layout values
     val columnPadding = 16
@@ -81,8 +81,9 @@ fun YourSeedWordsScreen(
             )
 
             //todo: yuana private key text need to open dialog?
-            Text(modifier = Modifier
-                .padding(top = leadingCopyPadding.dp),
+            Text(
+                modifier = Modifier
+                    .padding(top = leadingCopyPadding.dp),
                 text = stringResource(R.string.your_seed_words_desc),
                 style = MaterialTheme.typography.bodyLarge.copy(
                     textAlign = TextAlign.Center,
