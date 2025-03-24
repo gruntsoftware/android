@@ -17,7 +17,6 @@ import android.text.style.ClickableSpan;
 import android.util.Base64;
 import android.view.View;
 
-import com.brainwallet.BrainwalletApp;
 import com.brainwallet.R;
 import com.brainwallet.exceptions.BRKeystoreErrorException;
 import com.brainwallet.presenter.customviews.BRDialogView;
@@ -27,10 +26,13 @@ import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.util.BytesUtil;
 import com.brainwallet.tools.util.TypesConverter;
 import com.brainwallet.tools.util.Utils;
+import com.brainwallet.util.cryptography.KeyStoreManager;
 import com.brainwallet.wallet.BRWalletManager;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.platform.entities.WalletInfo;
 import com.platform.tools.KVStoreManager;
+
+import org.koin.java.KoinJavaComponent;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -148,7 +150,8 @@ public class BRKeyStore {
 
         try {
             lock.lock();
-            return BrainwalletApp.keyStoreManager.setDataBlocking(new AliasObject(alias, alias_file, alias_iv), data);
+            KeyStoreManager keyStoreManager = KoinJavaComponent.get(KeyStoreManager.class);
+            return keyStoreManager.setDataBlocking(new AliasObject(alias, alias_file, alias_iv), data);
         } catch (UserNotAuthenticatedException e) {
             Timber.e(e, "timber:_setData: showAuthenticationScreen: %s", alias);
             showAuthenticationScreen(context, request_code, alias);
@@ -253,7 +256,8 @@ public class BRKeyStore {
 
         try {
             lock.lock();
-            return BrainwalletApp.keyStoreManager.getDataBlocking(new AliasObject(alias, alias_file, alias_iv));
+            KeyStoreManager keyStoreManager = KoinJavaComponent.get(KeyStoreManager.class);
+            return keyStoreManager.getDataBlocking(new AliasObject(alias, alias_file, alias_iv));
         } catch (UserNotAuthenticatedException e) {
             Timber.e(e, "timber:_getData: showAuthenticationScreen: %s", alias);
             showAuthenticationScreen(context, request_code, alias);

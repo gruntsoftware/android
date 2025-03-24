@@ -14,6 +14,8 @@ import com.brainwallet.ui.screens.unlock.UnLockViewModel
 import com.brainwallet.ui.screens.welcome.WelcomeViewModel
 import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItViewModel
 import com.brainwallet.ui.screens.yourseedwords.YourSeedWordsViewModel
+import com.brainwallet.util.cryptography.KeyStoreKeyGenerator
+import com.brainwallet.util.cryptography.KeyStoreManager
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import org.koin.android.ext.koin.androidApplication
@@ -43,6 +45,10 @@ val viewModelModule = module {
     viewModel { UnLockViewModel() }
     viewModel { YourSeedProveItViewModel() }
     viewModel { YourSeedWordsViewModel() }
+}
+
+val appModule = module {
+    single<KeyStoreManager> { KeyStoreManager(get(), KeyStoreKeyGenerator.Impl()) }
 }
 
 private fun provideSharedPreferences(
