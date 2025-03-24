@@ -6,6 +6,7 @@ import android.app.Application
 import android.content.Context
 import android.content.res.Resources
 import com.appsflyer.AppsFlyerLib
+import com.brainwallet.di.appModule
 import com.brainwallet.di.dataModule
 import com.brainwallet.di.viewModelModule
 import com.brainwallet.notification.setupNotificationChannels
@@ -15,8 +16,6 @@ import com.brainwallet.tools.listeners.SyncReceiver
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.tools.util.Utils
-import com.brainwallet.util.cryptography.KeyStoreKeyGenerator
-import com.brainwallet.util.cryptography.KeyStoreManager
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -73,12 +72,10 @@ class BrainwalletApp : Application() {
     }
 
     protected fun initializeModule() {
-        keyStoreManager = KeyStoreManager(this, KeyStoreKeyGenerator.Impl())
-
         startKoin {
             androidLogger(if (BuildConfig.DEBUG) Level.DEBUG else Level.ERROR)
             androidContext(this@BrainwalletApp)
-            modules(dataModule, viewModelModule)
+            modules(dataModule, viewModelModule, appModule)
         }
     }
 
@@ -108,10 +105,6 @@ class BrainwalletApp : Application() {
 
         @SuppressLint("StaticFieldLeak")
         private var currentActivity: Activity? = null
-
-        @SuppressLint("StaticFieldLeak")
-        @JvmField
-        var keyStoreManager: KeyStoreManager? = null
 
         @JvmStatic
         val breadContext: Context

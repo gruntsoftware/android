@@ -192,6 +192,8 @@ class BrainwalletActivity : BRActivity() {
                     )
                 )
             }
+        } else if (BRSharedPrefs.getPhraseWroteDown(this).not()) {
+            PostAuth.getInstance().onPhraseCheckAuth(this, false)
         }
     }
 
@@ -226,7 +228,14 @@ class BrainwalletActivity : BRActivity() {
                 getString(R.string.Alerts_pinSet),
                 getString(R.string.UpdatePin_createInstruction),
                 R.drawable.ic_check_mark_white
-            ) { PostAuth.getInstance().onCreateWalletAuth(this, false) }
+            ) {
+                val walletNotAvailable = BRWalletManager.getInstance().noWallet(this)
+                if (walletNotAvailable) {
+                    PostAuth.getInstance().onCreateWalletAuth(this, false)
+                } else {
+                    PostAuth.getInstance().onPhraseCheckAuth(this, false)
+                }
+            }
         }
     }
 

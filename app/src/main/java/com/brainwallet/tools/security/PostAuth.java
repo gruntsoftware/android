@@ -8,28 +8,23 @@ import android.security.keystore.UserNotAuthenticatedException;
 
 import androidx.fragment.app.FragmentActivity;
 
+import com.brainwallet.R;
 import com.brainwallet.navigation.LegacyNavigation;
 import com.brainwallet.navigation.Route;
-import com.brainwallet.tools.manager.BRSharedPrefs;
-import com.brainwallet.tools.threads.BRExecutor;
-import com.brainwallet.tools.threads.PaymentProtocolPostPaymentTask;
-import com.brainwallet.tools.util.BRConstants;
-import com.brainwallet.tools.util.TypesConverter;
-import com.brainwallet.tools.util.Utils;
-import com.brainwallet.R;
-import com.brainwallet.presenter.activities.PaperKeyActivity;
-import com.brainwallet.presenter.activities.SetPinActivity;
 import com.brainwallet.presenter.activities.intro.WriteDownActivity;
 import com.brainwallet.presenter.activities.util.ActivityUTILS;
 import com.brainwallet.presenter.entities.PaymentRequestWrapper;
 import com.brainwallet.presenter.entities.TransactionItem;
+import com.brainwallet.tools.manager.BRSharedPrefs;
+import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.tools.util.TypesConverter;
+import com.brainwallet.tools.util.Utils;
 import com.brainwallet.ui.BrainwalletActivity;
 import com.brainwallet.wallet.BRWalletManager;
 import com.platform.entities.TxMetaData;
 import com.platform.tools.KVStoreManager;
 
 import java.util.Arrays;
-import java.util.List;
 
 import timber.log.Timber;
 
@@ -88,8 +83,8 @@ public class PostAuth {
 
         String[] seedWords = cleanPhrase.split(" ");
         LegacyNavigation.openComposeScreen(
-            app,
-            new Route.YourSeedWords(Arrays.asList(seedWords))
+                app,
+                new Route.YourSeedWords(Arrays.asList(seedWords))
         );
         app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
     }
@@ -195,7 +190,7 @@ public class PostAuth {
                     Timber.d("timber: onPublishTxAuth: txhash:" + Arrays.toString(txHash));
                     if (Utils.isNullOrEmpty(txHash)) {
                         Timber.d("timber: onPublishTxAuth: publishSerializedTransaction returned FALSE");
-                      } else {
+                    } else {
                         TxMetaData txMetaData = new TxMetaData();
                         txMetaData.comment = transactionItem.comment;
                         KVStoreManager.getInstance().putTxMetaData(app, txMetaData, txHash);
