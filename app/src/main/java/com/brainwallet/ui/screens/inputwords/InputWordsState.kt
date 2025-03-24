@@ -18,3 +18,5 @@ fun SeedWords.asPaperKey(): String {
 fun InputWordsState.isFrom(from: Route.InputWords.Source): Boolean {
     return source == from
 }
+
+fun InputWordsState.isFromWelcome(): Boolean = source == null

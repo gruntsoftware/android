@@ -54,8 +54,20 @@ class InputWordsViewModel : BrainwalletViewModel<InputWordsEvent>() {
 
                 val cleanPhrase = SmartValidator.cleanPaperKey(event.context, paperKey)
 
-                //TODO: WIP HERE
-                if (SmartValidator.isPaperKeyValid(event.context, cleanPhrase).not() &&
+                if (currentState.isFromWelcome() &&
+                    SmartValidator.isPaperKeyValid(event.context, cleanPhrase).not()
+                ) {
+                    viewModelScope.launch {
+                        EventBus.emit(
+                            EventBus.Event.Message(
+                                LEGACY_DIALOG_INVALID
+                            )
+                        )
+                    }
+                    return
+                }
+
+                if (currentState.isFromWelcome().not() &&
                     SmartValidator.isPaperKeyCorrect(cleanPhrase, event.context).not()
                 ) {
                     viewModelScope.launch {

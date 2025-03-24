@@ -3,13 +3,11 @@ package com.brainwallet.ui.screens.welcome
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.viewModelScope
-import androidx.work.WorkManager
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.model.Language
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.ui.BrainwalletViewModel
 import com.brainwallet.wallet.BRWalletManager
-import com.brainwallet.worker.SyncBlockWorker
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -113,14 +111,10 @@ class WelcomeViewModel(
             }
 
             is WelcomeEvent.OnLoad -> {
-                val walletNotAvailable = BRWalletManager.getInstance().noWallet(event.context)
                 /**
-                 * if wallet not available then generate new random seed and enqueue [SyncBlockWorker]
+                 * generate temp random seed phrase
                  */
-                if (walletNotAvailable) {
-                    BRWalletManager.getInstance().generateRandomSeed(event.context)
-                    WorkManager.getInstance(event.context).enqueue(SyncBlockWorker.request)
-                }
+                BRWalletManager.getInstance().generateRandomSeed(event.context, true)
             }
         }
     }

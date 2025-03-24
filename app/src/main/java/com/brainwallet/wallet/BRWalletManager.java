@@ -59,7 +59,6 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 import timber.log.Timber;
 
@@ -104,33 +103,64 @@ public class BRWalletManager {
         return instance;
     }
 
-    public synchronized boolean generateRandomSeed(final Context ctx) {
-        SecureRandom sr = new SecureRandom();
-        final String[] words;
-        List<String> list;
-        String languageCode = "en";
-        list = Bip39Reader.bip39List(ctx, "en");
-        words = list.toArray(new String[list.size()]);
-        final byte[] randomSeed = sr.generateSeed(16);
-        if (words.length != 2048) {
-            IllegalArgumentException ex = new IllegalArgumentException("the list is wrong, size: " + words.length);
-            Timber.e(ex);
-            throw ex;
+    public synchronized boolean generateRandomSeed(final Context context) {
+        return generateRandomSeed(context, false);
+    }
+
+    //TODO: please revisit this later
+    public synchronized boolean generateRandomSeed(final Context ctx, boolean isTemp) {
+
+        byte[] seedPhraseTemp = null;
+        try {
+            seedPhraseTemp = BRKeyStore.getPhraseTemp(ctx, 0);
+        } catch (UserNotAuthenticatedException e) {
+            //no-op
         }
-        if (randomSeed.length != 16)
-            throw new NullPointerException("failed to create the seed, seed length is not 128: " + randomSeed.length);
-        byte[] strPhrase = encodeSeed(randomSeed, words);
-        if (strPhrase == null || strPhrase.length == 0) {
-            NullPointerException ex = new NullPointerException("failed to encodeSeed");
-            Timber.e(ex);
-            throw ex;
+
+        byte[] strPhrase = null;
+        if (seedPhraseTemp == null) {
+            //seed phrase temp not exists
+            SecureRandom sr = new SecureRandom();
+            final String[] words;
+            List<String> list;
+            String languageCode = "en";
+            list = Bip39Reader.bip39List(ctx, "en");
+            words = list.toArray(new String[list.size()]);
+            final byte[] randomSeed = sr.generateSeed(16);
+            if (words.length != 2048) {
+                IllegalArgumentException ex = new IllegalArgumentException("the list is wrong, size: " + words.length);
+                Timber.e(ex);
+                throw ex;
+            }
+            if (randomSeed.length != 16)
+                throw new NullPointerException("failed to create the seed, seed length is not 128: " + randomSeed.length);
+            strPhrase = encodeSeed(randomSeed, words);
+            if (strPhrase == null || strPhrase.length == 0) {
+                NullPointerException ex = new NullPointerException("failed to encodeSeed");
+                Timber.e(ex);
+                throw ex;
+            }
+            String[] splitPhrase = new String(strPhrase).split(" ");
+            if (splitPhrase.length != 12) {
+                NullPointerException ex = new NullPointerException("phrase does not have 12 words:" + splitPhrase.length + ", lang: " + languageCode);
+                Timber.e(ex);
+                throw ex;
+            }
+        } else {
+            strPhrase = seedPhraseTemp;
         }
-        String[] splitPhrase = new String(strPhrase).split(" ");
-        if (splitPhrase.length != 12) {
-            NullPointerException ex = new NullPointerException("phrase does not have 12 words:" + splitPhrase.length + ", lang: " + languageCode);
-            Timber.e(ex);
-            throw ex;
+
+        /**
+         * if temp, we just save to [PHRASE_TEMP_ALIAS] & return true
+         */
+        if (isTemp) {
+            try {
+                return BRKeyStore.putPhraseTemp(strPhrase, ctx, 0);
+            } catch (UserNotAuthenticatedException e) {
+                return false;
+            }
         }
+
         boolean success;
         try {
             success = BRKeyStore.putPhrase(strPhrase, ctx, BRConstants.PUT_PHRASE_NEW_WALLET_REQUEST_CODE);
@@ -166,8 +196,14 @@ public class BRWalletManager {
         byte[] pubKey = BRWalletManager.getInstance().getMasterPubKey(strBytes);
         BRKeyStore.putMasterPublicKey(pubKey, ctx);
 
-        return true;
+        //after wallet created, then remove seed phrase temp
+        try {
+            BRKeyStore.putPhraseTemp(null, ctx, 0);
+        } catch (UserNotAuthenticatedException e) {
+            //no-op
+        }
 
+        return true;
     }
 
     public boolean wipeKeyStore(Context context) {
@@ -368,8 +404,8 @@ public class BRWalletManager {
 
     public static void onTxAdded(byte[] tx, int blockHeight, long timestamp, final long amount, String hash) {
 
-       // DEV Uncomment to see values
-       // Timber.d("timber: onTxAdded: tx.length: %d, blockHeight: %d, timestamp: %d, amount: %d, hash: %s", tx.length, blockHeight, timestamp, amount, hash));
+        // DEV Uncomment to see values
+        // Timber.d("timber: onTxAdded: tx.length: %d, blockHeight: %d, timestamp: %d, amount: %d, hash: %s", tx.length, blockHeight, timestamp, amount, hash));
 
         final Context ctx = BrainwalletApp.getBreadContext();
         if (amount > 0) {
@@ -493,70 +529,70 @@ public class BRWalletManager {
 
             Timber.d("timber: Showing seed fragment");
 
-                if (!m.isCreated()) {
-                    List<BRTransactionEntity> transactions = TransactionDataSource.getInstance(ctx).getAllTransactions();
-                    Timber.d("timber: All transactions : %d",transactions.size());
+            if (!m.isCreated()) {
+                List<BRTransactionEntity> transactions = TransactionDataSource.getInstance(ctx).getAllTransactions();
+                Timber.d("timber: All transactions : %d", transactions.size());
 
-                    int transactionsCount = transactions.size();
-                    if (transactionsCount > 0) {
-                        m.createTxArrayWithCount(transactionsCount);
-                        for (BRTransactionEntity entity : transactions) {
-                            m.putTransaction(entity.getBuff(), entity.getBlockheight(), entity.getTimestamp());
-                        }
-                    }
-
-                    byte[] pubkeyEncoded = BRKeyStore.getMasterPublicKey(ctx);
-                    if (Utils.isNullOrEmpty(pubkeyEncoded)) {
-                        Timber.i("timber: initWallet: pubkey is missing");
-                        return;
-                    }
-                    //Save the first address for future check
-                    m.createWallet(transactionsCount, pubkeyEncoded);
-                    String firstAddress = BRWalletManager.getFirstAddress(pubkeyEncoded);
-                    BRSharedPrefs.putFirstAddress(ctx, firstAddress);
-                    FeeManager feeManager = FeeManager.getInstance();
-                    if (feeManager.isRegularFee()) {
-                        feeManager.updateFeePerKb(ctx);
-                        BRWalletManager.getInstance().setFeePerKb(feeManager.currentFees.regular);
+                int transactionsCount = transactions.size();
+                if (transactionsCount > 0) {
+                    m.createTxArrayWithCount(transactionsCount);
+                    for (BRTransactionEntity entity : transactions) {
+                        m.putTransaction(entity.getBuff(), entity.getBlockheight(), entity.getTimestamp());
                     }
                 }
 
-                if (!pm.isCreated()) {
-                    List<BRMerkleBlockEntity> blocks = MerkleBlockDataSource.getInstance(ctx).getAllMerkleBlocks();
-                    List<BRPeerEntity> peers = PeerDataSource.getInstance(ctx).getAllPeers();
-                    final int blocksCount = blocks.size();
-                    final int peersCount = peers.size();
-                    if (blocksCount > 0) {
-                        pm.createBlockArrayWithCount(blocksCount);
-                        for (BRMerkleBlockEntity entity : blocks) {
-                            pm.putBlock(entity.getBuff(), entity.getBlockHeight());
-                        }
-                    }
-                    if (peersCount > 0) {
-                        pm.createPeerArrayWithCount(peersCount);
-                        for (BRPeerEntity entity : peers) {
-                            pm.putPeer(entity.getAddress(), entity.getPort(), entity.getTimeStamp());
-                        }
-                    }
-                    Timber.d("timber: blocksCount before connecting: %s", blocksCount);
-                    Timber.d("timber: peersCount before connecting: %s", peersCount);
-
-                    int walletTime = BRKeyStore.getWalletCreationTime(ctx);
-
-                    Timber.d("timber: initWallet: walletTime: %s user preferred fpRate: %f", walletTime, fpRate);
-                    pm.create(walletTime, blocksCount, peersCount, fpRate);
-                    BRPeerManager.getInstance().updateFixedPeer(ctx);
+                byte[] pubkeyEncoded = BRKeyStore.getMasterPublicKey(ctx);
+                if (Utils.isNullOrEmpty(pubkeyEncoded)) {
+                    Timber.i("timber: initWallet: pubkey is missing");
+                    return;
                 }
-
-                pm.connect();
-                if (BRSharedPrefs.getStartHeight(ctx) == 0) {
-                    BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            BRSharedPrefs.putStartHeight(ctx, BRPeerManager.getCurrentBlockHeight());
-                        }
-                    });
+                //Save the first address for future check
+                m.createWallet(transactionsCount, pubkeyEncoded);
+                String firstAddress = BRWalletManager.getFirstAddress(pubkeyEncoded);
+                BRSharedPrefs.putFirstAddress(ctx, firstAddress);
+                FeeManager feeManager = FeeManager.getInstance();
+                if (feeManager.isRegularFee()) {
+                    feeManager.updateFeePerKb(ctx);
+                    BRWalletManager.getInstance().setFeePerKb(feeManager.currentFees.regular);
                 }
+            }
+
+            if (!pm.isCreated()) {
+                List<BRMerkleBlockEntity> blocks = MerkleBlockDataSource.getInstance(ctx).getAllMerkleBlocks();
+                List<BRPeerEntity> peers = PeerDataSource.getInstance(ctx).getAllPeers();
+                final int blocksCount = blocks.size();
+                final int peersCount = peers.size();
+                if (blocksCount > 0) {
+                    pm.createBlockArrayWithCount(blocksCount);
+                    for (BRMerkleBlockEntity entity : blocks) {
+                        pm.putBlock(entity.getBuff(), entity.getBlockHeight());
+                    }
+                }
+                if (peersCount > 0) {
+                    pm.createPeerArrayWithCount(peersCount);
+                    for (BRPeerEntity entity : peers) {
+                        pm.putPeer(entity.getAddress(), entity.getPort(), entity.getTimeStamp());
+                    }
+                }
+                Timber.d("timber: blocksCount before connecting: %s", blocksCount);
+                Timber.d("timber: peersCount before connecting: %s", peersCount);
+
+                int walletTime = BRKeyStore.getWalletCreationTime(ctx);
+
+                Timber.d("timber: initWallet: walletTime: %s user preferred fpRate: %f", walletTime, fpRate);
+                pm.create(walletTime, blocksCount, peersCount, fpRate);
+                BRPeerManager.getInstance().updateFixedPeer(ctx);
+            }
+
+            pm.connect();
+            if (BRSharedPrefs.getStartHeight(ctx) == 0) {
+                BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        BRSharedPrefs.putStartHeight(ctx, BRPeerManager.getCurrentBlockHeight());
+                    }
+                });
+            }
 
 
         } finally {
@@ -664,7 +700,7 @@ public class BRWalletManager {
     public native String reverseTxHash(String txHash);
 
     public native String txHashToHex(byte[] txHash);
-    
+
     public native long nativeBalance();
 
     public native long defaultFee();

@@ -33,22 +33,26 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import androidx.core.widget.TextViewCompat.AutoSizeTextType
 import com.brainwallet.R
-import com.brainwallet.data.model.AppSetting
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.composable.BorderedLargeButton
 import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
+import org.koin.compose.koinInject
 
 
 @Composable
 fun ReadyScreen(
-    onNavigate: OnNavigate
+    onNavigate: OnNavigate,
+    viewModel: ReadyViewModel = koinInject()
 ) {
     val context = LocalContext.current
+
+    LaunchedEffect(Unit) {
+        viewModel.onEvent(ReadyEvent.OnLoad(context))
+    }
 
     /// Layout values
     val leadingCopyPadding = 16
@@ -127,7 +131,7 @@ fun ReadyScreen(
 
             BorderedLargeButton(
                 onClick = {
-                   onNavigate.invoke(UiEffect.Navigate(Route.SetPasscode()))
+                    onNavigate.invoke(UiEffect.Navigate(Route.SetPasscode()))
                 },
                 modifier = Modifier
                     .fillMaxWidth()
