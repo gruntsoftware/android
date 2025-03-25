@@ -68,9 +68,9 @@ public class FragmentSignal extends Fragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
-                getParentFragmentManager().popBackStack();
-
+                if(isAdded()) {
+                    getParentFragmentManager().popBackStack();
+                }
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
