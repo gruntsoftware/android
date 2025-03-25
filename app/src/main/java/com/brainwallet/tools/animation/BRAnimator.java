@@ -1,5 +1,7 @@
 package com.brainwallet.tools.animation;
 
+import static androidx.databinding.DataBindingUtil.setContentView;
+
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -20,21 +22,21 @@ import android.view.animation.OvershootInterpolator;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.compose.ui.platform.ComposeView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.brainwallet.navigation.LegacyNavigation;
+import com.brainwallet.presenter.fragments.FragmentMoonpay;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.util.BRConstants;
-import com.brainwallet.tools.util.Utils;
 import com.brainwallet.R;
 import com.brainwallet.presenter.activities.BreadActivity;
 import com.brainwallet.presenter.activities.camera.ScanQRActivity;
 import com.brainwallet.presenter.customviews.BRDialogView;
 import com.brainwallet.presenter.entities.TxItem;
 import com.brainwallet.presenter.fragments.FragmentBalanceSeedReminder;
-import com.brainwallet.presenter.fragments.FragmentBuy;
 import com.brainwallet.presenter.fragments.FragmentMenu;
 import com.brainwallet.presenter.fragments.FragmentReceive;
 import com.brainwallet.presenter.fragments.FragmentSend;
@@ -51,6 +53,8 @@ public class BRAnimator {
     private static boolean clickAllowed = true;
     public static int SLIDE_ANIMATION_DURATION = 300;
     public static boolean supportIsShowing;
+
+    private static boolean shouldShowSettingsComposable = false;
 
     public static void showBreadSignal(FragmentActivity activity, String title, String iconDescription, int drawableId, BROnSignalCompletion completion) {
         fragmentSignal = new FragmentSignal();
@@ -217,29 +221,25 @@ public class BRAnimator {
 
     }
 
-    public static void showBuyFragment(FragmentActivity app, String currency, FragmentBuy.Partner partner) {
-        if (app == null) {
-            Timber.i("timber: showBuyFragment: app is null");
-            return;
-        }
-        app.getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(0, 0, 0, R.animator.plain_300)
-                .add(android.R.id.content, FragmentBuy.newInstance(currency, partner), FragmentBuy.class.getName())
-                .addToBackStack(FragmentBuy.class.getName())
-                .commit();
-    }
+    public static void showMoonpayFragment(FragmentActivity app) {
 
-    public static void showMenuFragment(Activity app) {
         if (app == null) {
-            Timber.i("timber: showReceiveFragment: app is null");
+            Timber.i("timber: showSendFragment: app is null");
             return;
         }
-        FragmentTransaction transaction = app.getFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(0, 0, 0, R.animator.plain_300);
-        transaction.add(android.R.id.content, new FragmentMenu(), FragmentMenu.class.getName());
-        transaction.addToBackStack(FragmentMenu.class.getName());
-        transaction.commit();
+        androidx.fragment.app.FragmentManager fragmentManager = app.getSupportFragmentManager();
+        FragmentMoonpay fragmentMoonpay = (FragmentMoonpay) fragmentManager.findFragmentByTag(FragmentMoonpay.class.getName());
+        if (fragmentMoonpay != null && fragmentMoonpay.isAdded()) {
+            return;
+        }
+        try {
+            fragmentMoonpay = new FragmentMoonpay();
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(0, 0, 0, R.animator.plain_300)
+                    .add(android.R.id.content, fragmentMoonpay, FragmentMoonpay.class.getName())
+                    .addToBackStack(FragmentMoonpay.class.getName()).commit();
+        } finally {
+        }
     }
 
     public static boolean isClickAllowed() {

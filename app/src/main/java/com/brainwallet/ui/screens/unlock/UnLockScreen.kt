@@ -3,6 +3,7 @@
 package com.brainwallet.ui.screens.unlock
 
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -30,6 +31,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
+import com.brainwallet.navigation.UiEffect
+import com.brainwallet.tools.manager.AnalyticsManager
+import com.brainwallet.tools.security.AuthManager
 import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
@@ -39,17 +43,23 @@ import com.brainwallet.ui.composable.PasscodeKeypadEvent
 import com.brainwallet.ui.theme.BrainwalletTheme
 import org.koin.compose.koinInject
 
-//TODO: WIP here
 @Composable
 fun UnLockScreen(
     onNavigate: OnNavigate,
+    isUpdatePin: Boolean = false,
     viewModel: UnLockViewModel = koinInject()
 ) {
     val state by viewModel.state.collectAsState()
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {
-        viewModel.onEvent(UnLockEvent.OnLoad(context))
+        viewModel.onEvent(UnLockEvent.OnLoad(context, isUpdatePin))
+        viewModel.uiEffect.collect { effect ->
+            when (effect) {
+                is UiEffect.Navigate -> onNavigate.invoke(effect)
+                else -> Unit
+            }
+        }
     }
 
     LaunchedEffect(state.passcode.all { it > -1 }) {
@@ -90,8 +100,12 @@ fun UnLockScreen(
             )
             Spacer(modifier = Modifier.weight(1f))
 
-            Text(stringResource(R.string.Login_ltcPrice, state.formattedCurrency))
-            Text(stringResource(R.string.Login_currentLtcPrice, state.iso))
+            if (state.isUpdatePin) {
+                Text(stringResource(R.string.UpdatePin_enterCurrent))
+            } else {
+                Text(stringResource(R.string.Login_ltcPrice, state.formattedCurrency))
+                Text(stringResource(R.string.Login_currentLtcPrice, state.iso))
+            }
 
             // TODO
             // https://developer.android.com/develop/ui/compose/animation/customize
@@ -116,7 +130,28 @@ fun UnLockScreen(
                     PasscodeKeypadEvent.OnDelete -> viewModel.onEvent(UnLockEvent.OnDeletePinDigit)
                     is PasscodeKeypadEvent.OnPressed -> viewModel.onEvent(
                         UnLockEvent.OnPinDigitChange(
-                            digit = passcodeKeypadEvent.digit
+                            digit = passcodeKeypadEvent.digit,
+                            isValidPin = { pin ->
+
+                                //provide old logic here, its like on the BrainwalletActivity.onUnlock
+                                return@OnPinDigitChange AuthManager.getInstance()
+                                    .checkAuth(pin, context).also { isValid ->
+                                        if (isValid) {
+                                            AuthManager.getInstance().authSuccess(context)
+                                            AnalyticsManager.logCustomEvent(BRConstants._20200217_DUWB)
+                                            AnalyticsManager.logCustomEvent(BRConstants._20200217_DUWB)
+
+                                        } else {
+                                            AuthManager.getInstance().authFail(context)
+                                            //for now just toast
+                                            Toast.makeText(
+                                                context,
+                                                R.string.incorrect_passcode,
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                    }
+                            }
                         )
                     )
                 }

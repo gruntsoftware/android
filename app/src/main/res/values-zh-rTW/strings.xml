@@ -2,7 +2,6 @@
 <resources>
     <!-- App name -->
     <!-- About screen blog label -->
-    <string name="About.blog">部落格</string>
     <!-- About screen footer -->
     <!-- Privay Policy button label -->
     <string name="About.privacy">隱私政策</string>
@@ -778,4 +777,23 @@
     <string name="top_up_detail_1">5 分鐘內獲得萊特幣</string>
     <string name="top_up_button_1">取得一些萊特幣！</string>
     <string name="top_up_button_2">也許以後吧。</string>
+    <string name="settings_title_security">安全</string>
+    <string name="settings_title_language">语言</string>
+    <string name="settings_title_currency">货币</string>
+    <string name="settings_title_games">游戏</string>
+    <string name="settings_title_support">支持</string>
+    <string name="settings_title_social_media">社交媒体</string>
+    <string name="settings_title_lock">锁</string>
+    <string name="settings_title_unlock">开锁</string>
+    <string name="settings_title_theme">主题</string>
+    <string name="settings_title_app_version">应用程序版本:</string>
+    <string name="settings_blockchain_litecoin_button">同步</string>
+    <string name="About.blog">博客</string>
+    <string name="settings_blockchain_litecoin_description">同步時間：>20 分鐘</string>
+    <string name="game_title">遊戲 %1$d：</string>
+    <string name="security_seed_phrase_title">助記詞</string>
+    <string name="security_brainwallet_phrase_title">腦錢包詞語</string>
+    <string name="security_share_data_title">分享分析數據</string>
+    <string name="security_PIN_button">更新 PIN</string>
+    <string name="security_phrase_button">顯示</string>
 </resources>

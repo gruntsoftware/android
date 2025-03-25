@@ -28,16 +28,21 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.app.ActivityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.transition.ChangeBounds;
 import androidx.transition.Fade;
 import androidx.transition.TransitionManager;
 import androidx.transition.TransitionSet;
 
-import com.brainwallet.BrainwalletApp;
 import com.brainwallet.R;
+import com.brainwallet.navigation.LegacyNavigation;
+import com.brainwallet.navigation.Route;
+import com.brainwallet.presenter.activities.settings.SettingsActivity;
+import com.brainwallet.presenter.activities.settings.SyncBlockchainActivity;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.presenter.customviews.BRNotificationBar;
 import com.brainwallet.presenter.fragments.BuyTabFragment;
+import com.brainwallet.presenter.fragments.FragmentMoonpay;
 import com.brainwallet.presenter.history.HistoryFragment;
 import com.brainwallet.tools.animation.BRAnimator;
 import com.brainwallet.tools.animation.TextSizeTransition;
@@ -46,6 +51,7 @@ import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.manager.InternetManager;
 import com.brainwallet.tools.manager.SyncManager;
 import com.brainwallet.tools.security.BitcoinUrlHandler;
+import com.brainwallet.tools.security.PostAuth;
 import com.brainwallet.tools.sqlite.TransactionDataSource;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.util.BRConstants;
@@ -53,11 +59,15 @@ import com.brainwallet.tools.util.BRCurrency;
 import com.brainwallet.tools.util.BRExchange;
 import com.brainwallet.tools.util.ExtensionKt;
 import com.brainwallet.tools.util.Utils;
+import com.brainwallet.ui.BrainwalletActivity;
+import com.brainwallet.ui.screens.home.SettingsViewModel;
+import com.brainwallet.ui.screens.home.composable.HomeSettingDrawerComposeView;
 import com.brainwallet.util.PermissionUtil;
 import com.brainwallet.wallet.BRPeerManager;
 import com.brainwallet.wallet.BRWalletManager;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
@@ -90,6 +100,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     private BottomNavigationView bottomNav;
 
     private Handler mHandler = new Handler();
+    private NavigationView navigationDrawer;
+    private DrawerLayout drawerLayout;
+    private HomeSettingDrawerComposeView homeSettingDrawerComposeView;
 
     public static BreadActivity getApp() {
         return app;
@@ -220,7 +233,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         secondaryPrice.setOnClickListener(v -> swap());
         menuBut.setOnClickListener(v -> {
             if (BRAnimator.isClickAllowed()) {
-                BRAnimator.showMenuFragment(BreadActivity.this);
+                drawerLayout.open();
             }
         });
     }
@@ -228,6 +241,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     public boolean handleNavigationItemSelected(int menuItemId) {
         if (mSelectedBottomNavItem == menuItemId) return true;
         mSelectedBottomNavItem = menuItemId;
+
         //TODO: revisit
         // we are using compose, that's why commented, will remove it after fully migrated to compose
         if (menuItemId == R.id.nav_history) {
@@ -242,8 +256,12 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 BRAnimator.showReceiveFragment(BreadActivity.this, true);
             }
             mSelectedBottomNavItem = 0;
-        } else if (menuItemId == R.id.nav_buy) {
-            ExtensionKt.replaceFragment(BreadActivity.this, new BuyTabFragment(), false, R.id.fragment_container);
+        }
+        else if (menuItemId == R.id.nav_buy) {
+            if (BRAnimator.isClickAllowed()) {
+                BRAnimator.showMoonpayFragment(BreadActivity.this);
+            }
+            mSelectedBottomNavItem = 0;
         }
         return true;
     }
@@ -366,6 +384,33 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     private void initializeViews() {
         menuBut = findViewById(R.id.menuBut);
+
+        navigationDrawer = findViewById(R.id.navigationDrawer);
+        drawerLayout = findViewById(R.id.drawerLayout);
+        homeSettingDrawerComposeView = findViewById(R.id.homeDrawerComposeView);
+        homeSettingDrawerComposeView.observeBus(message -> {
+            drawerLayout.close();
+            if (SettingsViewModel.LEGACY_EFFECT_ON_LOCK.equals(message.getMessage())) {
+                LegacyNavigation.startBreadActivity(this, true);
+            } else if (SettingsViewModel.LEGACY_EFFECT_ON_TOGGLE_DARK_MODE.equals(message.getMessage())) {
+                LegacyNavigation.restartBreadActivity(this);
+            } else if (SettingsViewModel.LEGACY_EFFECT_ON_SEC_UPDATE_PIN.equals(message.getMessage())) {
+                Intent intent = BrainwalletActivity.createIntent(this, new Route.UnLock(true));
+                intent.putExtra("noPin", true);
+                startActivity(intent);
+            } else if (SettingsViewModel.LEGACY_EFFECT_ON_SEED_PHRASE.equals(message.getMessage())) {
+                PostAuth.getInstance().onPhraseCheckAuth(this, true);
+            } else if (SettingsViewModel.LEGACY_EFFECT_ON_SHARE_ANALYTICS_DATA_TOGGLE.equals(message.getMessage())) {
+                boolean currentShareAnalyticsDataEnabled = BRSharedPrefs.getShareData(this);
+                BRSharedPrefs.putShareData(this, !currentShareAnalyticsDataEnabled);
+            } else if (SettingsViewModel.LEGACY_EFFECT_ON_SYNC.equals(message.getMessage())) {
+                Intent intent = new Intent(this, SyncBlockchainActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+            }
+            return null;
+        }); //since we are still using this BreadActivity, need to observe EventBus e.g. lock from [HomeSettingDrawerSheet]
+
         bottomNav = findViewById(R.id.bottomNav);
         bottomNav.getMenu().clear();
         bottomNav.inflateMenu(isInUsa() ? R.menu.bottom_nav_menu_us : R.menu.bottom_nav_menu);

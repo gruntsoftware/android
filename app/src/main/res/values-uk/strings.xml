@@ -784,4 +784,22 @@
     <string name="top_up_detail_1">Отримайте Litecoin за 5 хвилин</string>
     <string name="top_up_button_1">Отримайте Litecoin!</string>
     <string name="top_up_button_2">Можливо пізніше.</string>
+    <string name="settings_title_security">Безпека</string>
+    <string name="settings_title_language">Мова</string>
+    <string name="settings_title_currency">Валюта</string>
+    <string name="settings_title_games">Ігри</string>
+    <string name="settings_title_support">Підтримка</string>
+    <string name="settings_title_social_media">Соціальні медіа</string>
+    <string name="settings_title_lock">Замок</string>
+    <string name="settings_title_unlock">Розблокувати</string>
+    <string name="settings_title_theme">Тема</string>
+    <string name="settings_title_app_version">Версія програми:</string>
+    <string name="settings_blockchain_litecoin_button">Синхронізація</string>
+    <string name="settings_blockchain_litecoin_description">Тривалість синхронізації: >20 хвилин</string>
+    <string name="game_title">Гра %1$d:</string>
+    <string name="security_seed_phrase_title">Фраза відновлення</string>
+    <string name="security_brainwallet_phrase_title">Фраза Brainwallet</string>
+    <string name="security_share_data_title">Ділитися аналітичними даними</string>
+    <string name="security_PIN_button">Оновити PIN</string>
+    <string name="security_phrase_button">Показати</string>
 </resources>

@@ -101,6 +101,7 @@ public class BRConstants {
     public static final String TOS_LINK = "https://brainwallet.co/privacy-policy.html";
     public static final String MOBILE_MP_LINK = "https://brainwallet.co/mobile-top-up.html";
     public static String BITREFILL_AFFILIATE_LINK = "https://www.bitrefill.com/";
+    public static String LINKTREE_URL = "https://linktr.ee/brainwallet";
 
     /**
      * API Hosts

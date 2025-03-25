@@ -1,10 +1,9 @@
 package com.brainwallet.ui.screens.unlock
 
 import androidx.lifecycle.viewModelScope
-import com.brainwallet.navigation.LegacyNavigation
-import com.brainwallet.tools.manager.AnalyticsManager
+import com.brainwallet.navigation.Route
+import com.brainwallet.navigation.UiEffect
 import com.brainwallet.tools.manager.BRSharedPrefs
-import com.brainwallet.tools.security.AuthManager
 import com.brainwallet.tools.sqlite.CurrencyDataSource
 import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.tools.util.BRCurrency
@@ -41,10 +40,23 @@ class UnLockViewModel : BrainwalletViewModel<UnLockEvent>() {
                 it.copy(passcode = pinDigits)
             }.also {
 
+                if (it.isPasscodeFilled() && it.isUpdatePin) {
+                    //if update pin from drawer
+                    if (event.isValidPin.invoke(it.passcode.joinToString(""))) {
+                        sendUiEffect(
+                            UiEffect.Navigate(
+                                destinationRoute = Route.SetPasscode()
+                            )
+                        )
+                    }
+                    return
+                }
+
                 if (it.isPasscodeFilled()) {
                     viewModelScope.launch {
                         EventBus.emit(EventBus.Event.LegacyUnLock(it.passcode))
                     }
+                    return
                 }
             }
 
@@ -80,7 +92,12 @@ class UnLockViewModel : BrainwalletViewModel<UnLockEvent>() {
 
                 if (formattedCurrency != null) {
                     _state.update {
-                        it.copy(iso = iso, formattedCurrency = formattedCurrency)
+                        it.copy(
+                            iso = iso,
+                            formattedCurrency = formattedCurrency,
+                            isUpdatePin = event.isUpdatePin
+                        )
+
                     }
                 }
             }

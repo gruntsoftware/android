@@ -74,7 +74,10 @@ fun NavGraphBuilder.mainNavGraph(
 
     composable<Route.SetPasscode> { navBackStackEntry ->
         val route: Route.SetPasscode = navBackStackEntry.toRoute()
-        SetPasscodeScreen(onNavigate = onNavigate, passcode = route.passcode)
+        SetPasscodeScreen(
+            onNavigate = onNavigate,
+            passcode = route.passcode,
+        )
     }
     composable<Route.InputWords> { navBackStackEntry ->
         val route: Route.InputWords = navBackStackEntry.toRoute()
@@ -98,7 +101,6 @@ fun NavGraphBuilder.mainNavGraph(
         )
     }
 
-
     /**
      * for now, still using old activity & fragment [com.brainwallet.presenter.activities.BreadActivity]
      */
@@ -106,8 +108,9 @@ fun NavGraphBuilder.mainNavGraph(
 //        HomeScreen(onNavigate = onNavigate)
 //    }
 
-    composable<Route.UnLock> {
-        UnLockScreen(onNavigate = onNavigate)
+    composable<Route.UnLock> { navBackStackEntry ->
+        val route: Route.UnLock = navBackStackEntry.toRoute()
+        UnLockScreen(onNavigate = onNavigate, isUpdatePin = route.isUpdatePin)
     }
 
     //todo add more composable screens

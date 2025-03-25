@@ -1,9 +1,8 @@
-package com.brainwallet.ui.screens.welcome
-
-import com.brainwallet.data.model.Language
+package com.brainwallet.ui.screens.home
 import com.brainwallet.data.model.CurrencyEntity
+import com.brainwallet.data.model.Language
 
-data class WelcomeState(
+data class SettingsState(
     val darkMode: Boolean = true,
     val selectedLanguage: Language = Language.ENGLISH,
     val selectedCurrency: CurrencyEntity = CurrencyEntity(
@@ -14,4 +13,5 @@ data class WelcomeState(
     ), //-1 = need to fetch
     val languageSelectorBottomSheetVisible: Boolean = false,
     val fiatSelectorBottomSheetVisible: Boolean = false,
+    val shareAnalyticsDataEnabled: Boolean = false,
 )

@@ -49,6 +49,7 @@ import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.composable.BorderedLargeButton
 import com.brainwallet.ui.composable.BrainwalletButton
+import com.brainwallet.ui.composable.DarkModeToggleButton
 import com.brainwallet.ui.composable.bottomsheet.FiatSelectorBottomSheet
 import com.brainwallet.ui.composable.bottomsheet.LanguageSelectorBottomSheet
 import com.brainwallet.ui.theme.BrainwalletTheme
@@ -157,32 +158,7 @@ fun WelcomeScreen(
                 onCheckedChange = {
                     viewModel.onEvent(WelcomeEvent.OnToggleDarkMode)
                 }
-            ) {
-
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .width(iconButtonSize.dp)
-                        .aspectRatio(1f)
-                        .clip(CircleShape)
-                        .border(
-                            1.dp,
-                            if (state.darkMode) BrainwalletTheme.colors.warn else BrainwalletTheme.colors.surface,
-                            CircleShape
-                        )
-                        .background(if (state.darkMode) BrainwalletTheme.colors.surface else BrainwalletTheme.colors.content)
-                ) {
-                    Icon(
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .width(iconButtonSize.dp)
-                            .aspectRatio(1f),
-                        tint = if (state.darkMode) BrainwalletTheme.colors.warn else BrainwalletTheme.colors.surface,
-                        painter = painterResource(if (state.darkMode) R.drawable.ic_light_mode else R.drawable.ic_dark_mode),
-                        contentDescription = stringResource(R.string.toggle_dark_mode),
-                    )
-                }
-            }
+            )
 
             Spacer(modifier = Modifier.weight(0.2f))
 
@@ -272,20 +248,6 @@ fun WelcomeScreen(
     }
 }
 
-@Composable
-fun DarkModeToggleButton(
-    checked: Boolean,
-    onCheckedChange: (Boolean) -> Unit,
-    modifier: Modifier = Modifier,
-    content: @Composable () -> Unit
-) {
-    IconToggleButton(
-        checked = checked,
-        onCheckedChange = onCheckedChange,
-        modifier = modifier,
-        content = content
-    )
-}
 
 @Preview
 @Composable
