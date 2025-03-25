@@ -61,21 +61,21 @@ public class BRApiManager {
                 String selectedISO = BRSharedPrefs.getIsoSymbol(context);
                 int length = arr.length();
                 for (int i = 0; i < length; i++) {
-                    CurrencyEntity tmp = new CurrencyEntity();
+                    CurrencyEntity tempCurrencyEntity = new CurrencyEntity();
                     try {
-                        JSONObject tmpObj = (JSONObject) arr.get(i);
-                        tmp.name = tmpObj.getString("name");
-                        tmp.code = tmpObj.getString("code");
-                        tmp.rate = (float) tmpObj.getDouble("n");
-                        if (tmp.code.equalsIgnoreCase(selectedISO)) {
-                            BRSharedPrefs.putIso(context, tmp.code);
+                        JSONObject tmpJSONObj = (JSONObject) arr.get(i);
+                        tempCurrencyEntity.name = tmpJSONObj.getString("name");
+                        tempCurrencyEntity.code = tmpJSONObj.getString("code");
+                        tempCurrencyEntity.rate = (float) tmpJSONObj.getDouble("n");
+                        tempCurrencyEntity.symbol = new String("");
+                        if (tempCurrencyEntity.code.equalsIgnoreCase(selectedISO)) {
+                            BRSharedPrefs.putIso(context, tempCurrencyEntity.code);
                             BRSharedPrefs.putCurrencyListPosition(context, i - 1);
                         }
-                        set.add(tmp);
+                        set.add(tempCurrencyEntity);
                     } catch (JSONException e) {
                         Timber.e(e);
                     }
-
                 }
             } else {
                 Timber.d("timber: getCurrencies: failed to get currencies");
