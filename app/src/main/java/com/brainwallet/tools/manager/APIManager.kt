@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.source.RemoteConfigSource
+import com.brainwallet.presenter.entities.ServiceItems
 import com.brainwallet.tools.sqlite.CurrencyDataSource
 import com.brainwallet.tools.util.BRConstants.BW_API_DEV_HOST
 import com.brainwallet.tools.util.BRConstants.BW_API_PROD_HOST
@@ -27,7 +28,7 @@ class APIManager (private val remoteConfigSource: RemoteConfigSource) {
     fun getDEVBaseURL(): String = BW_API_DEV_HOST
 
     private var timer: Timer? = null
-    private var pollPeriod : Long = 4000
+    private var pollPeriod : Long = 5000
 
     private val client = OkHttpClient()
     private val moshi: Moshi = Moshi.Builder().build()
@@ -76,12 +77,12 @@ class APIManager (private val remoteConfigSource: RemoteConfigSource) {
     }
 
     fun fetchRates(activity: Activity): List<CurrencyEntity>? {
-        val jsonString = createGETRequestURL(activity, BW_API_PROD_HOST + "/api/v1/rates")
+        val jsonString = createGETRequestURL(activity, "$BW_API_PROD_HOST/api/v1/rates")
         return parseJsonArray(jsonString) ?: backupFetchRates(activity)
     }
 
     private fun backupFetchRates(activity: Activity): List<CurrencyEntity>? {
-        val jsonString = createGETRequestURL(activity, BW_API_DEV_HOST + "/api/v1/rates")
+        val jsonString = createGETRequestURL(activity, "$BW_API_DEV_HOST/api/v1/rates")
         return parseJsonArray(jsonString)
     }
 
@@ -100,6 +101,7 @@ class APIManager (private val remoteConfigSource: RemoteConfigSource) {
             .header("Content-Type", "application/json")
             .header("Accept", "application/json")
             .header("User-agent", Utils.getAgentString(app, "android/HttpURLConnection"))
+            .header("bw-client-code", Utils.fetchServiceItem(app, ServiceItems.CLIENTCODE))
             .get()
             .build()
 
