@@ -188,6 +188,7 @@ dependencies {
     }
 
     implementation("androidx.webkit:webkit:1.9.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.15.2")
     implementation(libs.androidx.core)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.legacy.support)
