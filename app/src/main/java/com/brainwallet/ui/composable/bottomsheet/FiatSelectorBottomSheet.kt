@@ -61,14 +61,14 @@ fun FiatSelectorBottomSheet(
                         Text(
                             modifier = Modifier.padding(tinyPad.dp),
                             text = currency.name,
-                            style = MaterialTheme.typography.labelLarge
+                            style = BrainwalletTheme.typography.labelLarge
                                 .copy(textAlign = TextAlign.Left)
                         )
                         Spacer(modifier = Modifier.weight(1f))
                         Text(
                             modifier = Modifier.padding(tinyPad.dp),
                             text = "${currency.code} (${currency.symbol})",
-                            style = MaterialTheme.typography.labelLarge
+                            style = BrainwalletTheme.typography.labelLarge
                                 .copy(textAlign = TextAlign.Left)
                         )
                     }
