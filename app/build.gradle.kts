@@ -207,6 +207,7 @@ dependencies {
     implementation(libs.google.material)
     implementation(libs.google.zxing)
     implementation(platform(libs.firebase.bom))
+    implementation(platform(libs.firebase.analytics))
     implementation(libs.bundles.firebase)
     implementation(libs.bundles.google.play.asset.delivery)
     implementation(libs.bundles.google.play.feature.delivery)
