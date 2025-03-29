@@ -16,7 +16,11 @@ import com.brainwallet.tools.listeners.SyncReceiver
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.tools.util.Utils
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.setConsent
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.ktx.Firebase
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext.startKoin
@@ -34,10 +38,8 @@ class BrainwalletApp : Application() {
 
         initializeModule()
 
-        /** DEV:  Top placement requirement. */
+        /** DEV:  Top placement requirement. **/
         val enableCrashlytics = !Utils.isEmulatorOrDebug(this)
-        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(enableCrashlytics)
-
         setupNotificationChannels(this)
 
         AnalyticsManager.init(this)

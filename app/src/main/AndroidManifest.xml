@@ -15,6 +15,12 @@
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" /> <!-- Allows changing locales -->
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
 
+
+    <meta-data android:name="google_analytics_default_allow_analytics_storage" android:value="true" />
+    <meta-data android:name="google_analytics_default_allow_ad_storage" android:value="false" />
+    <meta-data android:name="google_analytics_default_allow_ad_user_data" android:value="false" />
+    <meta-data android:name="google_analytics_default_allow_ad_personalization_signals" android:value="false" />
+
     <uses-feature
         android:name="android.hardware.location.gps"
         android:required="false" />
