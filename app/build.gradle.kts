@@ -20,8 +20,8 @@ android {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 34
-        versionCode = 202503221
-        versionName = "v4.4.0"
+        versionCode = 202503281
+        versionName = "v4.4.1"
 
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
@@ -207,6 +207,7 @@ dependencies {
     implementation(libs.google.material)
     implementation(libs.google.zxing)
     implementation(platform(libs.firebase.bom))
+    implementation(platform(libs.firebase.analytics))
     implementation(libs.bundles.firebase)
     implementation(libs.bundles.google.play.asset.delivery)
     implementation(libs.bundles.google.play.feature.delivery)
