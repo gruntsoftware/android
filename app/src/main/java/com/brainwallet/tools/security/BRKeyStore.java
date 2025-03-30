@@ -17,7 +17,6 @@ import android.text.style.ClickableSpan;
 import android.util.Base64;
 import android.view.View;
 
-import com.brainwallet.BrainwalletApp;
 import com.brainwallet.R;
 import com.brainwallet.exceptions.BRKeystoreErrorException;
 import com.brainwallet.presenter.customviews.BRDialogView;
@@ -27,10 +26,13 @@ import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.util.BytesUtil;
 import com.brainwallet.tools.util.TypesConverter;
 import com.brainwallet.tools.util.Utils;
+import com.brainwallet.util.cryptography.KeyStoreManager;
 import com.brainwallet.wallet.BRWalletManager;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.platform.entities.WalletInfo;
 import com.platform.tools.KVStoreManager;
+
+import org.koin.java.KoinJavaComponent;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -119,6 +121,7 @@ public class BRKeyStore {
     private static final String AUTH_KEY_FILENAME = "my_auth_key";
     private static final String TOKEN_FILENAME = "my_token";
     private static final String PASS_TIME_FILENAME = "my_pass_time";
+
     private static boolean bugMessageShowing;
 
     public static final int AUTH_DURATION_SEC = 300;
@@ -148,7 +151,8 @@ public class BRKeyStore {
 
         try {
             lock.lock();
-            return BrainwalletApp.keyStoreManager.setDataBlocking(new AliasObject(alias, alias_file, alias_iv), data);
+            KeyStoreManager keyStoreManager = KoinJavaComponent.get(KeyStoreManager.class);
+            return keyStoreManager.setDataBlocking(new AliasObject(alias, alias_file, alias_iv), data);
         } catch (UserNotAuthenticatedException e) {
             Timber.e(e, "timber:_setData: showAuthenticationScreen: %s", alias);
             showAuthenticationScreen(context, request_code, alias);
@@ -161,74 +165,6 @@ public class BRKeyStore {
             lock.unlock();
         }
 
-    }
-
-    @Deprecated
-    private static boolean _setDataLegacy(Context context, byte[] data, String alias, String alias_iv, int request_code, boolean auth_required) throws UserNotAuthenticatedException {
-        KeyStore keyStore;
-        try {
-            lock.lock();
-            keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
-            keyStore.load(null);
-            SecretKey secretKey = (SecretKey) keyStore.getKey(alias, null);
-            Cipher inCipher = Cipher.getInstance(NEW_CIPHER_ALGORITHM);
-
-            if (secretKey == null) {
-                //create key if not present
-                secretKey = createKeys(alias, auth_required);
-                inCipher.init(Cipher.ENCRYPT_MODE, secretKey);
-            } else {
-
-                Timber.d("timber: KeyStore: is initialized");
-
-                //see if the key is old format, create a new one if it is
-                try {
-                    inCipher.init(Cipher.ENCRYPT_MODE, secretKey);
-                } catch (InvalidKeyException ignored) {
-                    Timber.e(ignored);
-                    if (ignored instanceof UserNotAuthenticatedException) {
-                        throw ignored;
-                    }
-                    Timber.d("timber: _setData: OLD KEY PRESENT: %s", alias);
-                    //create new key and reinitialize the cipher
-                    secretKey = createKeys(alias, auth_required);
-                    inCipher.init(Cipher.ENCRYPT_MODE, secretKey);
-                }
-            }
-
-            //the key cannot still be null
-            if (secretKey == null) {
-                Timber.e(new BRKeystoreErrorException("secret is null on _setData: " + alias));
-                return false;
-            }
-
-
-            byte[] iv = inCipher.getIV();
-            if (iv == null) throw new NullPointerException("iv is null!");
-
-            //store the iv
-            storeEncryptedData(context, iv, alias_iv);
-            byte[] encryptedData = inCipher.doFinal(data);
-            //store the encrypted data
-            storeEncryptedData(context, encryptedData, alias);
-            return true;
-        } catch (UserNotAuthenticatedException e) {
-            Timber.e(e, "timber:_setData: showAuthenticationScreen: %s", alias);
-            showAuthenticationScreen(context, request_code, alias);
-            throw e;
-        } catch (InvalidKeyException ex) {
-            if (ex instanceof KeyPermanentlyInvalidatedException) {
-                showKeyInvalidated(context);
-                throw new UserNotAuthenticatedException(); //just to make the flow stop
-            }
-            Timber.e(ex);
-            return false;
-        } catch (Exception e) {
-            Timber.e(e);
-            return false;
-        } finally {
-            lock.unlock();
-        }
     }
 
     private static SecretKey createKeys(String alias, boolean auth_required) throws InvalidAlgorithmParameterException, KeyStoreException, NoSuchProviderException, NoSuchAlgorithmException {
@@ -253,7 +189,8 @@ public class BRKeyStore {
 
         try {
             lock.lock();
-            return BrainwalletApp.keyStoreManager.getDataBlocking(new AliasObject(alias, alias_file, alias_iv));
+            KeyStoreManager keyStoreManager = KoinJavaComponent.get(KeyStoreManager.class);
+            return keyStoreManager.getDataBlocking(new AliasObject(alias, alias_file, alias_iv));
         } catch (UserNotAuthenticatedException e) {
             Timber.e(e, "timber:_getData: showAuthenticationScreen: %s", alias);
             showAuthenticationScreen(context, request_code, alias);
@@ -266,113 +203,6 @@ public class BRKeyStore {
             lock.unlock();
         }
 
-    }
-
-    @Deprecated
-    private static byte[] _getDataLegacy(Context context, String alias, String alias_file, String alias_iv, int request_code) throws UserNotAuthenticatedException {
-        KeyStore keyStore;
-
-        try {
-            lock.lock();
-            keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
-            keyStore.load(null);
-            Timber.d("timber: BRKeyStore size: %d", keyStore.size());
-            SecretKey secretKey = (SecretKey) keyStore.getKey(alias, null);
-
-            byte[] encryptedData = retrieveEncryptedData(context, alias);
-            if (encryptedData != null) {
-                //new format data is present, good
-                byte[] iv = retrieveEncryptedData(context, alias_iv);
-                if (iv == null) {
-                    NullPointerException exception = new NullPointerException("iv is missing when data isn't: " + alias);
-                    FirebaseCrashlytics.getInstance().recordException(exception);
-                    return null;
-                }
-                Cipher outCipher;
-
-                outCipher = Cipher.getInstance(NEW_CIPHER_ALGORITHM);
-                outCipher.init(Cipher.DECRYPT_MODE, secretKey, new GCMParameterSpec(128, iv));
-                try {
-                    byte[] decryptedData = outCipher.doFinal(encryptedData);
-                    if (decryptedData != null) {
-                        return decryptedData;
-                    }
-                } catch (IllegalBlockSizeException | BadPaddingException e) {
-                    Timber.e(e, "failed to decrypt data: " + alias);
-                    FirebaseCrashlytics.getInstance().recordException(e);
-                    return null;
-                }
-            }
-            //no new format data, get the old one and migrate it to the new format
-            String encryptedDataFilePath = getFilePath(alias_file, context);
-
-            if (secretKey == null) {
-                /* no such key, the key is just simply not there */
-                boolean fileExists = new File(encryptedDataFilePath).exists();
-                if (!fileExists) {
-                    return null;
-                }
-                BRKeystoreErrorException exception = new BRKeystoreErrorException("file is present but the key is gone: " + alias);
-                Timber.e(exception);
-                FirebaseCrashlytics.getInstance().recordException(exception);
-                return null;
-            }
-
-            boolean ivExists = new File(getFilePath(alias_iv, context)).exists();
-            boolean aliasExists = new File(getFilePath(alias_file, context)).exists();
-            //cannot happen, they all should be present
-            if (!ivExists || !aliasExists) {
-                removeAliasAndFiles(keyStore, alias, context);
-                //report it if one exists and not the other.
-                if (ivExists != aliasExists) {
-                    BRKeystoreErrorException exception = new BRKeystoreErrorException("alias or iv isn't on the disk: " + alias + ", aliasExists:" + aliasExists);
-                    Timber.e(exception);
-                    FirebaseCrashlytics.getInstance().recordException(exception);
-                } else {
-                    BRKeystoreErrorException exception = new BRKeystoreErrorException("!ivExists && !aliasExists: " + alias);
-                    Timber.e(exception);
-                    FirebaseCrashlytics.getInstance().recordException(exception);
-                }
-                return null;
-            }
-
-            byte[] iv = readBytesFromFile(getFilePath(alias_iv, context));
-            if (Utils.isNullOrEmpty(iv))
-                throw new RuntimeException("iv is missing for " + alias);
-            Cipher outCipher = Cipher.getInstance(CIPHER_ALGORITHM);
-            outCipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(iv));
-            CipherInputStream cipherInputStream = new CipherInputStream(new FileInputStream(encryptedDataFilePath), outCipher);
-            byte[] result = BytesUtil.readBytesFromStream(cipherInputStream);
-            if (result == null)
-                throw new RuntimeException("Failed to read bytes from CipherInputStream for alias " + alias);
-
-            //create the new format key
-            SecretKey newKey = createKeys(alias, (alias.equals(PHRASE_ALIAS) || alias.equals(CANARY_ALIAS)));
-            if (newKey == null)
-                throw new RuntimeException("Failed to create new key for alias " + alias);
-            Cipher inCipher = Cipher.getInstance(NEW_CIPHER_ALGORITHM);
-            //init the cipher
-            inCipher.init(Cipher.ENCRYPT_MODE, newKey);
-            iv = inCipher.getIV();
-            //store the new iv
-            storeEncryptedData(context, iv, alias_iv);
-            //encrypt the data
-            encryptedData = inCipher.doFinal(result);
-            //store the new data
-            storeEncryptedData(context, encryptedData, alias);
-            return result;
-
-        } catch (UserNotAuthenticatedException e) {
-            Timber.e(e, "timber:_getData: showAuthenticationScreen: %s", alias);
-            showAuthenticationScreen(context, request_code, alias);
-            throw e;
-        } catch (GeneralSecurityException | IOException e) {
-            Timber.e(e, "timber:getData: error retrieving");
-            FirebaseCrashlytics.getInstance().recordException(e);
-            return null;
-        } finally {
-            lock.unlock();
-        }
     }
 
     private static void validateGet(String alias, String alias_file, String alias_iv) throws IllegalArgumentException {

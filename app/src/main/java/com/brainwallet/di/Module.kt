@@ -5,15 +5,18 @@ import android.content.SharedPreferences
 import com.brainwallet.BuildConfig
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.source.RemoteConfigSource
-import com.brainwallet.tools.manager.BRApiManager
+import com.brainwallet.tools.manager.APIManager
 import com.brainwallet.tools.sqlite.CurrencyDataSource
 import com.brainwallet.ui.screens.home.SettingsViewModel
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel
+import com.brainwallet.ui.screens.ready.ReadyViewModel
 import com.brainwallet.ui.screens.setpasscode.SetPasscodeViewModel
 import com.brainwallet.ui.screens.unlock.UnLockViewModel
 import com.brainwallet.ui.screens.welcome.WelcomeViewModel
 import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItViewModel
 import com.brainwallet.ui.screens.yourseedwords.YourSeedWordsViewModel
+import com.brainwallet.util.cryptography.KeyStoreKeyGenerator
+import com.brainwallet.util.cryptography.KeyStoreManager
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import org.koin.android.ext.koin.androidApplication
@@ -29,7 +32,7 @@ val dataModule = module {
             it.initialize()
         }
     }
-    single { BRApiManager(get()) }
+    single { APIManager(get()) }
     single { CurrencyDataSource.getInstance(get()) }
     single<SharedPreferences> { provideSharedPreferences(context = androidApplication()) }
     single<SettingRepository> { SettingRepository.Impl(get(), get()) }
@@ -38,11 +41,16 @@ val dataModule = module {
 val viewModelModule = module {
     viewModelOf(::WelcomeViewModel)
     viewModelOf(::SettingsViewModel)
+    viewModel { ReadyViewModel() }
     viewModel { InputWordsViewModel() }
     viewModel { SetPasscodeViewModel() }
     viewModel { UnLockViewModel() }
     viewModel { YourSeedProveItViewModel() }
     viewModel { YourSeedWordsViewModel() }
+}
+
+val appModule = module {
+    single<KeyStoreManager> { KeyStoreManager(get(), KeyStoreKeyGenerator.Impl()) }
 }
 
 private fun provideSharedPreferences(

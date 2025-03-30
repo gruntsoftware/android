@@ -16,7 +16,7 @@ import com.brainwallet.presenter.activities.DisabledActivity;
 import com.brainwallet.presenter.activities.intro.RecoverActivity;
 import com.brainwallet.presenter.activities.intro.WriteDownActivity;
 import com.brainwallet.tools.animation.BRAnimator;
-import com.brainwallet.tools.manager.BRApiManager;
+import com.brainwallet.tools.manager.APIManager;
 import com.brainwallet.tools.manager.InternetManager;
 import com.brainwallet.tools.security.AuthManager;
 import com.brainwallet.tools.security.BRKeyStore;
@@ -148,7 +148,7 @@ public class BRActivity extends AppCompatActivity {
 
 
         if (!(app instanceof RecoverActivity || app instanceof WriteDownActivity)) {
-            BRApiManager apiManager = KoinJavaComponent.get(BRApiManager.class);
+            APIManager apiManager = KoinJavaComponent.get(APIManager.class);
             apiManager.startTimer(app);
         }
 

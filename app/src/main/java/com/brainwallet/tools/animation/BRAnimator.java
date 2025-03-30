@@ -26,9 +26,11 @@ import androidx.compose.ui.platform.ComposeView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.brainwallet.navigation.LegacyNavigation;
 import com.brainwallet.presenter.fragments.FragmentMoonpay;
+import com.brainwallet.tools.manager.AnalyticsManager;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.util.BRConstants;
 import com.brainwallet.R;
@@ -49,31 +51,46 @@ import java.util.List;
 import timber.log.Timber;
 
 public class BRAnimator {
-    private static FragmentSignal fragmentSignal;
     private static boolean clickAllowed = true;
     public static int SLIDE_ANIMATION_DURATION = 300;
-    public static boolean supportIsShowing;
+    public static void showBreadSignal(@NonNull FragmentActivity activity,
+                                       @NonNull String title,
+                                       @NonNull String iconDescription,
+                                       int drawableId,
+                                       @Nullable BROnSignalCompletion completion) {
+        if (activity.isFinishing() || activity.isDestroyed()) {
+            return; // Avoid crashes if the activity is not in a valid state
+        }
 
-    private static boolean shouldShowSettingsComposable = false;
-
-    public static void showBreadSignal(FragmentActivity activity, String title, String iconDescription, int drawableId, BROnSignalCompletion completion) {
-        fragmentSignal = new FragmentSignal();
+        FragmentSignal fragmentSignal = new FragmentSignal();
         Bundle bundle = new Bundle();
         bundle.putString(FragmentSignal.TITLE, title);
         bundle.putString(FragmentSignal.ICON_DESCRIPTION, iconDescription);
-        fragmentSignal.setCompletion(completion);
         bundle.putInt(FragmentSignal.RES_ID, drawableId);
+        fragmentSignal.setCompletion(completion);
         fragmentSignal.setArguments(bundle);
-        androidx.fragment.app.FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.animator.from_bottom, R.animator.to_bottom, R.animator.from_bottom, R.animator.to_bottom);
-        transaction.add(android.R.id.content, fragmentSignal, fragmentSignal.getClass().getName());
+
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+
+        if (fragmentManager.isStateSaved()) {
+            return;
+        }
+
+        androidx.fragment.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.animator.from_bottom, R.animator.to_bottom,
+                R.animator.from_bottom, R.animator.to_bottom);
+        transaction.add(android.R.id.content, fragmentSignal, FragmentSignal.class.getName());
         transaction.addToBackStack(null);
-        if (!activity.isDestroyed())
+
+        try {
             transaction.commit();
+        } catch (IllegalStateException e) {
+            transaction.commitAllowingStateLoss();
+            AnalyticsManager.logCustomEvent(BRConstants._20200112_ERR);
+        }
     }
 
-
-   public static void showBalanceSeedFragment(@NonNull FragmentActivity app) {
+    public static void showBalanceSeedFragment(@NonNull FragmentActivity app) {
        Timber.d("timber: fetched info");
 
          androidx.fragment.app.FragmentManager fragmentManager = app.getSupportFragmentManager();

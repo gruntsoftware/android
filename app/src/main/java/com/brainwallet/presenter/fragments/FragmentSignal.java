@@ -3,6 +3,7 @@ package com.brainwallet.presenter.fragments;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,24 +18,33 @@ import androidx.fragment.app.Fragment;
 import com.brainwallet.R;
 import com.brainwallet.presenter.interfaces.BROnSignalCompletion;
 
+import timber.log.Timber;
+
 public class FragmentSignal extends Fragment {
     public static final String TITLE = "title";
     public static final String ICON_DESCRIPTION = "iconDescription";
     public static final String RES_ID = "resId";
     public TextView mTitle;
-    //    public TextView mDescription;
     public ImageView mIcon;
     private BROnSignalCompletion completion;
     private LinearLayout signalLayout;
 
+    private final Handler handler = new Handler(Looper.getMainLooper());
+    private final Runnable popBackStackRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (isAdded()) {
+                getParentFragmentManager().popBackStack();
+                handler.postDelayed(completionRunnable, 300);
+            }
+        }
+    };
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
-        // The last two arguments ensure LayoutParams are inflated
-        // properly.
 
         View rootView = inflater.inflate(R.layout.fragment_signal, container, false);
         mTitle = (TextView) rootView.findViewById(R.id.title);
-//        mDescription = (TextView) rootView.findViewById(R.id.description);
         mIcon = (ImageView) rootView.findViewById(R.id.qr_image);
         signalLayout = (LinearLayout) rootView.findViewById(R.id.signal_layout);
         signalLayout.setOnClickListener(new View.OnClickListener() {
@@ -49,7 +59,6 @@ public class FragmentSignal extends Fragment {
         if (bundle != null) {
             String title = bundle.getString(TITLE, "");
             int resId = bundle.getInt(RES_ID, 0);
-
             mTitle.setText(title);
             mIcon.setImageResource(resId);
         }
@@ -64,24 +73,25 @@ public class FragmentSignal extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        handler.postDelayed(popBackStackRunnable, 1000);
+    }
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                getParentFragmentManager().popBackStack();
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (completion != null) {
-                            completion.onComplete();
-                            completion = null;
-                        }
-                    }
-                }, 300);
+    private final Runnable completionRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (completion != null) {
+                completion.onComplete();
+                completion = null;
             }
-        }, 1500);
+        }
+    };
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // Remove callbacks to prevent execution after the fragment is destroyed
+        handler.removeCallbacks(popBackStackRunnable);
+        handler.removeCallbacks(completionRunnable);
     }
 
     @Override

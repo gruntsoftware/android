@@ -37,7 +37,6 @@ import androidx.transition.TransitionSet;
 import com.brainwallet.R;
 import com.brainwallet.navigation.LegacyNavigation;
 import com.brainwallet.navigation.Route;
-import com.brainwallet.presenter.activities.settings.SettingsActivity;
 import com.brainwallet.presenter.activities.settings.SyncBlockchainActivity;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.presenter.customviews.BRNotificationBar;

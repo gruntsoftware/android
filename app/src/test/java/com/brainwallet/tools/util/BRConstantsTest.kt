@@ -37,7 +37,7 @@ class BRConstantsTest {
         assertSame(BRConstants._20200111_WNI,"wallet_not_initialized");
         assertSame(BRConstants._20200111_PNI,"phrase_not_initialized");
         assertSame(BRConstants._20200111_UTST,"unable_to_sign_transaction");
-        assertSame(BRConstants._20200112_ERR,"lwa_error");
+        assertSame(BRConstants._20200112_ERR,"brainwallet_android_error");
         assertSame(BRConstants._20200112_DSR,"did_start_resync");
         assertSame(BRConstants._20200125_DSRR,"did_show_review_request");
         assertSame(BRConstants._20201118_DTGS,"did_tap_get_support");

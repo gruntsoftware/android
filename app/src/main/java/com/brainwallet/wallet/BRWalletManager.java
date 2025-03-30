@@ -59,7 +59,6 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 import timber.log.Timber;
 
@@ -131,6 +130,7 @@ public class BRWalletManager {
             Timber.e(ex);
             throw ex;
         }
+
         boolean success;
         try {
             success = BRKeyStore.putPhrase(strPhrase, ctx, BRConstants.PUT_PHRASE_NEW_WALLET_REQUEST_CODE);
@@ -167,7 +167,6 @@ public class BRWalletManager {
         BRKeyStore.putMasterPublicKey(pubKey, ctx);
 
         return true;
-
     }
 
     public boolean wipeKeyStore(Context context) {
@@ -368,8 +367,8 @@ public class BRWalletManager {
 
     public static void onTxAdded(byte[] tx, int blockHeight, long timestamp, final long amount, String hash) {
 
-       // DEV Uncomment to see values
-       // Timber.d("timber: onTxAdded: tx.length: %d, blockHeight: %d, timestamp: %d, amount: %d, hash: %s", tx.length, blockHeight, timestamp, amount, hash));
+        // DEV Uncomment to see values
+        // Timber.d("timber: onTxAdded: tx.length: %d, blockHeight: %d, timestamp: %d, amount: %d, hash: %s", tx.length, blockHeight, timestamp, amount, hash));
 
         final Context ctx = BrainwalletApp.getBreadContext();
         if (amount > 0) {
@@ -463,7 +462,7 @@ public class BRWalletManager {
                         }
                     }, 0);
         } else {
-            if (!m.noWallet(app)) {
+            if (!m.noWallet(app) && BRSharedPrefs.getPhraseWroteDown(app)) {
                 BRAnimator.startBreadActivity(app, true);
             }
             //else just sit in the intro screen
@@ -493,70 +492,70 @@ public class BRWalletManager {
 
             Timber.d("timber: Showing seed fragment");
 
-                if (!m.isCreated()) {
-                    List<BRTransactionEntity> transactions = TransactionDataSource.getInstance(ctx).getAllTransactions();
-                    Timber.d("timber: All transactions : %d",transactions.size());
+            if (!m.isCreated()) {
+                List<BRTransactionEntity> transactions = TransactionDataSource.getInstance(ctx).getAllTransactions();
+                Timber.d("timber: All transactions : %d", transactions.size());
 
-                    int transactionsCount = transactions.size();
-                    if (transactionsCount > 0) {
-                        m.createTxArrayWithCount(transactionsCount);
-                        for (BRTransactionEntity entity : transactions) {
-                            m.putTransaction(entity.getBuff(), entity.getBlockheight(), entity.getTimestamp());
-                        }
-                    }
-
-                    byte[] pubkeyEncoded = BRKeyStore.getMasterPublicKey(ctx);
-                    if (Utils.isNullOrEmpty(pubkeyEncoded)) {
-                        Timber.i("timber: initWallet: pubkey is missing");
-                        return;
-                    }
-                    //Save the first address for future check
-                    m.createWallet(transactionsCount, pubkeyEncoded);
-                    String firstAddress = BRWalletManager.getFirstAddress(pubkeyEncoded);
-                    BRSharedPrefs.putFirstAddress(ctx, firstAddress);
-                    FeeManager feeManager = FeeManager.getInstance();
-                    if (feeManager.isRegularFee()) {
-                        feeManager.updateFeePerKb(ctx);
-                        BRWalletManager.getInstance().setFeePerKb(feeManager.currentFees.regular);
+                int transactionsCount = transactions.size();
+                if (transactionsCount > 0) {
+                    m.createTxArrayWithCount(transactionsCount);
+                    for (BRTransactionEntity entity : transactions) {
+                        m.putTransaction(entity.getBuff(), entity.getBlockheight(), entity.getTimestamp());
                     }
                 }
 
-                if (!pm.isCreated()) {
-                    List<BRMerkleBlockEntity> blocks = MerkleBlockDataSource.getInstance(ctx).getAllMerkleBlocks();
-                    List<BRPeerEntity> peers = PeerDataSource.getInstance(ctx).getAllPeers();
-                    final int blocksCount = blocks.size();
-                    final int peersCount = peers.size();
-                    if (blocksCount > 0) {
-                        pm.createBlockArrayWithCount(blocksCount);
-                        for (BRMerkleBlockEntity entity : blocks) {
-                            pm.putBlock(entity.getBuff(), entity.getBlockHeight());
-                        }
-                    }
-                    if (peersCount > 0) {
-                        pm.createPeerArrayWithCount(peersCount);
-                        for (BRPeerEntity entity : peers) {
-                            pm.putPeer(entity.getAddress(), entity.getPort(), entity.getTimeStamp());
-                        }
-                    }
-                    Timber.d("timber: blocksCount before connecting: %s", blocksCount);
-                    Timber.d("timber: peersCount before connecting: %s", peersCount);
-
-                    int walletTime = BRKeyStore.getWalletCreationTime(ctx);
-
-                    Timber.d("timber: initWallet: walletTime: %s user preferred fpRate: %f", walletTime, fpRate);
-                    pm.create(walletTime, blocksCount, peersCount, fpRate);
-                    BRPeerManager.getInstance().updateFixedPeer(ctx);
+                byte[] pubkeyEncoded = BRKeyStore.getMasterPublicKey(ctx);
+                if (Utils.isNullOrEmpty(pubkeyEncoded)) {
+                    Timber.i("timber: initWallet: pubkey is missing");
+                    return;
                 }
-
-                pm.connect();
-                if (BRSharedPrefs.getStartHeight(ctx) == 0) {
-                    BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            BRSharedPrefs.putStartHeight(ctx, BRPeerManager.getCurrentBlockHeight());
-                        }
-                    });
+                //Save the first address for future check
+                m.createWallet(transactionsCount, pubkeyEncoded);
+                String firstAddress = BRWalletManager.getFirstAddress(pubkeyEncoded);
+                BRSharedPrefs.putFirstAddress(ctx, firstAddress);
+                FeeManager feeManager = FeeManager.getInstance();
+                if (feeManager.isRegularFee()) {
+                    feeManager.updateFeePerKb(ctx);
+                    BRWalletManager.getInstance().setFeePerKb(feeManager.currentFees.regular);
                 }
+            }
+
+            if (!pm.isCreated()) {
+                List<BRMerkleBlockEntity> blocks = MerkleBlockDataSource.getInstance(ctx).getAllMerkleBlocks();
+                List<BRPeerEntity> peers = PeerDataSource.getInstance(ctx).getAllPeers();
+                final int blocksCount = blocks.size();
+                final int peersCount = peers.size();
+                if (blocksCount > 0) {
+                    pm.createBlockArrayWithCount(blocksCount);
+                    for (BRMerkleBlockEntity entity : blocks) {
+                        pm.putBlock(entity.getBuff(), entity.getBlockHeight());
+                    }
+                }
+                if (peersCount > 0) {
+                    pm.createPeerArrayWithCount(peersCount);
+                    for (BRPeerEntity entity : peers) {
+                        pm.putPeer(entity.getAddress(), entity.getPort(), entity.getTimeStamp());
+                    }
+                }
+                Timber.d("timber: blocksCount before connecting: %s", blocksCount);
+                Timber.d("timber: peersCount before connecting: %s", peersCount);
+
+                int walletTime = BRKeyStore.getWalletCreationTime(ctx);
+
+                Timber.d("timber: initWallet: walletTime: %s user preferred fpRate: %f", walletTime, fpRate);
+                pm.create(walletTime, blocksCount, peersCount, fpRate);
+                BRPeerManager.getInstance().updateFixedPeer(ctx);
+            }
+
+            pm.connect();
+            if (BRSharedPrefs.getStartHeight(ctx) == 0) {
+                BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        BRSharedPrefs.putStartHeight(ctx, BRPeerManager.getCurrentBlockHeight());
+                    }
+                });
+            }
 
 
         } finally {
@@ -664,7 +663,7 @@ public class BRWalletManager {
     public native String reverseTxHash(String txHash);
 
     public native String txHashToHex(byte[] txHash);
-    
+
     public native long nativeBalance();
 
     public native long defaultFee();
