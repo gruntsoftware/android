@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Context
 import com.brainwallet.data.source.RemoteConfigSource
 import com.brainwallet.presenter.activities.util.ActivityUTILS
-import com.brainwallet.tools.manager.APIManager
+import com.brainwallet.tools.manager.BRApiManager
 import com.platform.APIClient
 import io.mockk.every
 import io.mockk.mockk
@@ -22,11 +22,11 @@ import org.junit.Test
 
 class ProdAPIManagerTests {
     private val remoteConfigSource: RemoteConfigSource = mockk()
-    private lateinit var apiManager: APIManager
+    private lateinit var apiManager: BRApiManager
 
     @Before
     fun setUp() {
-        apiManager = spyk(APIManager(remoteConfigSource), recordPrivateCalls = true)
+        apiManager = spyk(BRApiManager(remoteConfigSource), recordPrivateCalls = true)
     }
 
     @Test
@@ -85,17 +85,17 @@ class ProdAPIManagerTests {
             .body(responseString.toResponseBody())
             .build()
 
-        val currencyEntityList = apiManager.fetchRates(activity)
-        val jsonUSD = currencyEntityList?.get(154)
-        val jsonEUR = currencyEntityList?.get(49)
-        val jsonGBP = currencyEntityList?.get(52)
+        val result = apiManager.fetchRates(activity)
+        val jsonUSD = result.getJSONObject(154)
+        val jsonEUR = result.getJSONObject(49)
+        val jsonGBP = result.getJSONObject(52)
 
-        assertEquals("USD", jsonUSD?.code)
-        assertEquals("US Dollar", jsonUSD?.name)
-        assertEquals("EUR", jsonEUR?.code)
-        assertEquals("Euro", jsonEUR?.name)
-        assertEquals("GBP", jsonGBP?.code)
-        assertEquals("British Pound Sterling", jsonGBP?.name)
+        assertEquals("USD", jsonUSD.optString("code"))
+        assertEquals("US Dollar", jsonUSD.optString("name"))
+        assertEquals("EUR", jsonEUR.optString("code"))
+        assertEquals("Euro", jsonEUR.optString("name"))
+        assertEquals("GBP", jsonGBP.optString("code"))
+        assertEquals("British Pound Sterling", jsonGBP.optString("name"))
 
         ///DEV: Very flaky test not enough time for the response
         verifyAll {
