@@ -41,6 +41,7 @@ import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
+import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.composable.BorderedLargeButton
 import com.brainwallet.ui.composable.BrainwalletButton
 import com.brainwallet.ui.composable.DarkModeToggleButton
@@ -75,7 +76,8 @@ fun WelcomeScreen(
     val halfLeadTrailPadding = leadTrailPadding / 2
     val doubleLeadTrailPadding = leadTrailPadding * 2
     val rowPadding = 8
-    val activeRowHeight = 70
+    val versionPadding = 12
+    val activeRowHeight = 58
 
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.welcomeemoji20250212))
     val progress by animateLottieCompositionAsState(
@@ -91,7 +93,7 @@ fun WelcomeScreen(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
 
-        Spacer(modifier = Modifier.weight(0.4f))
+        Spacer(modifier = Modifier.weight(0.2f))
 
         Image(
             painterResource(R.drawable.brainwallet_logotype_white),
@@ -125,15 +127,16 @@ fun WelcomeScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(activeRowHeight.dp)
-                .padding(horizontal = halfLeadTrailPadding.dp)
+                .padding(horizontal = leadTrailPadding.dp)
                 .padding(vertical = rowPadding.dp),
             horizontalArrangement = Arrangement.SpaceEvenly
 
         ) {
-            Spacer(modifier = Modifier.weight(0.1f))
 
             BrainwalletButton(
-                modifier = Modifier.weight(0.9f),
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth(),
                 onClick = {
                     viewModel.onEvent(WelcomeEvent.OnLanguageSelectorButtonClick)
                 }
@@ -145,7 +148,7 @@ fun WelcomeScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.weight(0.2f))
+            Spacer(modifier = Modifier.weight(0.1f))
 
             DarkModeToggleButton(
                 modifier = Modifier
@@ -157,10 +160,12 @@ fun WelcomeScreen(
                 }
             )
 
-            Spacer(modifier = Modifier.weight(0.2f))
+            Spacer(modifier = Modifier.weight(0.1f))
 
             BrainwalletButton(
-                modifier = Modifier.weight(0.9f),
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth(),
                 onClick = { viewModel.onEvent(WelcomeEvent.OnFiatButtonClick) }
             ) {
                 Text(
@@ -170,8 +175,6 @@ fun WelcomeScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.weight(0.1f))
-
         }
         // Ready Button
         BorderedLargeButton(
@@ -180,7 +183,7 @@ fun WelcomeScreen(
             },
             shape = RoundedCornerShape(50),
             modifier = Modifier
-                .padding(horizontal = halfLeadTrailPadding.dp)
+                .padding(horizontal = leadTrailPadding.dp)
                 .padding(vertical = rowPadding.dp)
                 .height(activeRowHeight.dp)
 
@@ -199,7 +202,7 @@ fun WelcomeScreen(
             },
             shape = RoundedCornerShape(50),
             modifier = Modifier
-                .padding(horizontal = halfLeadTrailPadding.dp)
+                .padding(horizontal = leadTrailPadding.dp)
                 .padding(vertical = rowPadding.dp)
                 .height(activeRowHeight.dp)
                 .clip(RoundedCornerShape(50))
@@ -211,7 +214,12 @@ fun WelcomeScreen(
             )
         }
 
-        Spacer(modifier = Modifier.weight(0.5f))
+        Text( modifier = Modifier
+            .padding(vertical = versionPadding.dp),
+            text = BRConstants.APP_VERSION_NAME_CODE,
+            fontSize = 13.sp,
+            color = BrainwalletTheme.colors.content
+        )
     }
 
     //language selector
