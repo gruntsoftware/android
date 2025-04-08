@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import com.brainwallet.BuildConfig
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.source.RemoteConfigSource
-import com.brainwallet.tools.manager.APIManager
+import com.brainwallet.tools.manager.BRApiManager
 import com.brainwallet.tools.sqlite.CurrencyDataSource
 import com.brainwallet.ui.screens.home.SettingsViewModel
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel
@@ -32,7 +32,7 @@ val dataModule = module {
             it.initialize()
         }
     }
-    single { APIManager(get()) }
+    single { BRApiManager(get()) }
     single { CurrencyDataSource.getInstance(get()) }
     single<SharedPreferences> { provideSharedPreferences(context = androidApplication()) }
     single<SettingRepository> { SettingRepository.Impl(get(), get()) }

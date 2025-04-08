@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Context
 import com.brainwallet.data.source.RemoteConfigSource
 import com.brainwallet.presenter.activities.util.ActivityUTILS
-import com.brainwallet.tools.manager.APIManager
+import com.brainwallet.tools.manager.BRApiManager
 import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.tools.util.Utils
 import com.platform.APIClient
@@ -22,11 +22,11 @@ import org.junit.Test
 
 class BackupRateFetchTests {
     private val remoteConfigSource: RemoteConfigSource = mockk()
-    private lateinit var apiManager: APIManager
+    private lateinit var apiManager: BRApiManager
 
     @Before
     fun setUp() {
-        apiManager = spyk(APIManager(remoteConfigSource), recordPrivateCalls = true)
+        apiManager = spyk(BRApiManager(remoteConfigSource), recordPrivateCalls = true)
     }
 
     @Test

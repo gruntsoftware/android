@@ -94,12 +94,12 @@ class InputWordsViewModel : BrainwalletViewModel<InputWordsEvent>() {
                     return
                 }
 
-                BRWalletManager.getInstance().run {
-                    wipeWalletButKeystore(event.context)
-                    wipeKeyStore(event.context)
-                    PostAuth.getInstance().setPhraseForKeyStore(cleanPhrase)
-                    BRSharedPrefs.putAllowSpend(event.context, false)
-                }
+                BRWalletManager.getInstance().wipeAll(event.context)
+
+                BRSharedPrefs.putAllowSpend(event.context, false)
+                BRSharedPrefs.putStartHeight(event.context, 0)
+
+                PostAuth.getInstance().setPhraseForKeyStore(cleanPhrase)
 
                 viewModelScope.launch {
                     EventBus.emit(EventBus.Event.Message(EFFECT_LEGACY_RECOVER_WALLET_AUTH))
