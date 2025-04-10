@@ -76,7 +76,7 @@ fun WelcomeScreen(
     val halfLeadTrailPadding = leadTrailPadding / 2
     val doubleLeadTrailPadding = leadTrailPadding * 2
     val rowPadding = 8
-    val versionPadding = 12
+    val versionPadding = 6
     val activeRowHeight = 58
 
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.welcomeemoji20250212))
@@ -92,8 +92,6 @@ fun WelcomeScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-
-        Spacer(modifier = Modifier.weight(0.2f))
 
         Image(
             painterResource(R.drawable.brainwallet_logotype_white),
@@ -213,13 +211,14 @@ fun WelcomeScreen(
                 fontWeight = FontWeight.Thin,
             )
         }
-
+        Spacer(modifier = Modifier.weight(0.02f))
         Text( modifier = Modifier
             .padding(vertical = versionPadding.dp),
             text = BRConstants.APP_VERSION_NAME_CODE,
             fontSize = 13.sp,
             color = BrainwalletTheme.colors.content
         )
+        Spacer(modifier = Modifier.weight(0.02f))
     }
 
     //language selector
