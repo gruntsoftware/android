@@ -216,7 +216,9 @@ dependencies {
     implementation(platform(libs.koin.bom))
     implementation(libs.bundles.koin)
 
-    implementation(libs.squareup.okhttp)
+    implementation(platform(libs.squareup.okhttp.bom))
+    implementation(libs.bundles.squareup.okhttp)
+    implementation(libs.bundles.squareup.retrofit)
     implementation(libs.jakewarthon.timber)
     implementation(libs.commons.io)
     implementation(libs.bundles.eclipse.jetty)

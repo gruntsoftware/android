@@ -1,25 +1,42 @@
-package com.brainwallet.data.model;
+package com.brainwallet.data.model
 
-import java.io.Serializable;
+import kotlinx.serialization.SerialName
+import java.io.Serializable
 
-public class CurrencyEntity implements Serializable {
-
-    //Change this after modifying the class
-    private static final long serialVersionUID = 7526472295622776147L;
-
-    public static final String TAG = CurrencyEntity.class.getName();
-    public String code;
-    public String name;
-    public float rate;
-    public String symbol;
-
-    public CurrencyEntity(String code, String name, float rate, String symbol) {
-        this.code = code;
-        this.name = name;
-        this.rate = rate;
-        this.symbol = symbol;
-    }
-
-    public CurrencyEntity() {
-    }
+@kotlinx.serialization.Serializable
+data class CurrencyEntity(
+    @JvmField
+    var code: String ="",
+    @JvmField
+    var name: String = "",
+    @JvmField
+    @SerialName("n")
+    var rate: Float = 0F,
+    @JvmField
+    var symbol: String = ""
+) : Serializable {
+//    @JvmField
+//    var code: String? = null
+//    @JvmField
+//    var name: String? = null
+//    @JvmField
+//    var rate: Float = 0f
+//    @JvmField
+//    var symbol: String? = null
+//
+//    constructor(code: String?, name: String?, rate: Float, symbol: String?) {
+//        this.code = code
+//        this.name = name
+//        this.rate = rate
+//        this.symbol = symbol
+//    }
+//
+//    constructor()
+//
+//    companion object {
+//        //Change this after modifying the class
+//        private const val serialVersionUID = 7526472295622776147L
+//
+//        val TAG: String = CurrencyEntity::class.java.name
+//    }
 }
