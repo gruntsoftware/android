@@ -35,6 +35,7 @@ import com.brainwallet.tools.util.BRConstants;
 
 import static com.brainwallet.tools.util.BRCompressor.gZipExtract;
 
+@Deprecated
 public class APIClient {
 
     // proto is the transport protocol to use for talking to the API (either http or https)
