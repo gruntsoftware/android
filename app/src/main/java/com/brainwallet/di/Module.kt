@@ -7,6 +7,7 @@ import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.source.RemoteApiSource
 import com.brainwallet.data.source.RemoteConfigSource
+import com.brainwallet.data.repository.SelectedPeersRepository
 import com.brainwallet.tools.sqlite.CurrencyDataSource
 import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.screens.home.SettingsViewModel
@@ -52,6 +53,7 @@ val dataModule = module {
             it.initialize()
         }
     }
+    single<SelectedPeersRepository> { SelectedPeersRepository.Impl(get(), get()) }
     single { CurrencyDataSource.getInstance(get()) }
     single<SharedPreferences> { provideSharedPreferences(context = androidApplication()) }
     single<SettingRepository> { SettingRepository.Impl(get(), get()) }

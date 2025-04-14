@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <defaults>
   <entry>
-    <key>key_api_baseurl_prod_new_enabled</key>
-    <value>false</value>
-  </entry>
-  <entry>
-    <key>key_api_baseurl_dev_new_enabled</key>
-    <value>false</value>
-  </entry>
-  <entry>
-    <key>key_keystore_manager_enabled</key>
+    <key>feature_selected_peers_enabled</key>
     <value>true</value>
   </entry>
   <entry>
