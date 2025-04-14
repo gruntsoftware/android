@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import kotlin.coroutines.EmptyCoroutineContext;
 import kotlinx.coroutines.CoroutineScopeKt;
@@ -191,12 +192,16 @@ public class BRPeerManager {
 
     //wrap logic enable/disable connect with new flow
     public void wrapConnectV2() {
-        RemoteConfigSource remoteConfigSource = KoinJavaComponent.get(RemoteConfigSource.class);
-        if (remoteConfigSource.getBoolean(KEY_FEATURE_SELECTED_PEERS_ENABLED)) {
+        if (featureSelectedPeersEnabled()) {
             fetchSelectedPeers().whenComplete((strings, throwable) -> connect());
         } else {
             connect();
         }
+    }
+
+    public static boolean featureSelectedPeersEnabled() {
+        RemoteConfigSource remoteConfigSource = KoinJavaComponent.get(RemoteConfigSource.class);
+        return remoteConfigSource.getBoolean(KEY_FEATURE_SELECTED_PEERS_ENABLED);
     }
 
     public void addStatusUpdateListener(OnTxStatusUpdate listener) {
@@ -217,6 +222,14 @@ public class BRPeerManager {
                 CoroutineStart.DEFAULT,
                 (coroutineScope, continuation) -> selectedPeersRepository.fetchSelectedPeers(continuation)
         );
+    }
+
+    public static Set<? extends String> fetchSelectedPeersBlocking() {
+        try {
+            return BRPeerManager.getInstance().fetchSelectedPeers().get();
+        } catch (ExecutionException | InterruptedException e) {
+            return java.util.Collections.emptySet();
+        }
     }
 
     public static void setOnSyncFinished(OnSyncSucceeded listener) {
