@@ -1,24 +1,17 @@
 package com.platform;
 
-import android.annotation.TargetApi;
+import static com.brainwallet.tools.util.BRCompressor.gZipExtract;
+
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
 import android.net.Uri;
-import android.os.Build;
 import android.os.NetworkOnMainThreadException;
 
 import com.brainwallet.BrainwalletApp;
-import com.brainwallet.BrainwalletApp;
-import com.brainwallet.BuildConfig;
 import com.brainwallet.presenter.activities.util.ActivityUTILS;
-import com.brainwallet.tools.util.BRConstants;
 import com.brainwallet.tools.util.Utils;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -30,11 +23,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import timber.log.Timber;
-import com.brainwallet.tools.manager.AnalyticsManager;
-import com.brainwallet.tools.util.BRConstants;
 
-import static com.brainwallet.tools.util.BRCompressor.gZipExtract;
-
+//some part still used e.g. [sendRequest]
 @Deprecated
 public class APIClient {
 
@@ -55,12 +45,12 @@ public class APIClient {
 
     private static final boolean PRINT_FILES = false;
 
-    private SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
+    private final SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
 
-    private boolean platformUpdating = false;
+    private final boolean platformUpdating = false;
     private AtomicInteger itemsLeftToUpdate = new AtomicInteger(0);
 
-    private Context ctx;
+    private final Context ctx;
 
     public static synchronized APIClient getInstance(Context context) {
         if (ourInstance == null) ourInstance = new APIClient(context);
@@ -72,42 +62,14 @@ public class APIClient {
         itemsLeftToUpdate = new AtomicInteger(0);
     }
 
-    //returns the fee per kb or 0 if something went wrong
-    public long feePerKb() {
-        if (ActivityUTILS.isMainThread()) {
-            throw new NetworkOnMainThreadException();
-        }
-        Response response = null;
-        try {
-            String strUtl = BASE_URL + FEE_PER_KB_URL;
-            Request request = new Request.Builder().url(strUtl).get().build();
-            String body = null;
-            try {
-                response = sendRequest(request, false, 0);
-                body = response.body().string();
-                Timber.d("timber: fee per kb %s",body);
-            } catch (IOException e) {
-                Timber.e(e);
-                AnalyticsManager.logCustomEvent(BRConstants._20200111_RNI);
-            }
-            JSONObject object = null;
-            object = new JSONObject(body);
-            return (long) object.getInt("fee_per_kb");
-        } catch (JSONException e) {
-            Timber.e(e);
-        } finally {
-            if (response != null) response.close();
-        }
-        return 0;
-    }
-
+    // sendRequest still using, e.g. inside RemoteKVStore
     public Response sendRequest(Request locRequest, boolean needsAuth, int retryCount) {
         if (retryCount > 1)
             throw new RuntimeException("sendRequest: Warning retryCount is: " + retryCount);
         if (ActivityUTILS.isMainThread()) {
             throw new NetworkOnMainThreadException();
         }
-        String lang = getCurrentLocale(ctx);
+        String lang = ctx.getResources().getConfiguration().locale.getLanguage();
         Request request = locRequest.newBuilder()
                 .header("X-Litecoin-Testnet", "false")
                 .header("Accept-Language", lang)
@@ -154,51 +116,20 @@ public class APIClient {
             Timber.d("timber: sendRequest: the content is gzip, unzipping");
             byte[] decompressed = gZipExtract(data);
             postReqBody = ResponseBody.create(null, decompressed);
-            try {
-                if (response.code() != 200) {
-                    Timber.d("timber: sendRequest: (%s)%s, code (%d), mess (%s), body (%s)", request.method(),
-                            request.url(), response.code(), response.message(), new String(decompressed, "utf-8"));
-                }
-            } catch (UnsupportedEncodingException e) {
-                Timber.e(e);
+            if (response.code() != 200) {
+                Timber.d("timber: sendRequest: (%s)%s, code (%d), mess (%s), body (%s)", request.method(),
+                        request.url(), response.code(), response.message(), new String(decompressed, StandardCharsets.UTF_8));
             }
             return response.newBuilder().body(postReqBody).build();
         } else {
-            try {
-                if (response.code() != 200) {
-                    Timber.d("timber: sendRequest: (%s)%s, code (%d), mess (%s), body (%s)", request.method(),
-                            request.url(), response.code(), response.message(), new String(data, "utf-8"));
-                }
-            } catch (UnsupportedEncodingException e) {
-                Timber.e(e);
+            if (response.code() != 200) {
+                Timber.d("timber: sendRequest: (%s)%s, code (%d), mess (%s), body (%s)", request.method(),
+                        request.url(), response.code(), response.message(), new String(data, StandardCharsets.UTF_8));
             }
         }
 
         postReqBody = ResponseBody.create(null, data);
 
         return response.newBuilder().body(postReqBody).build();
-    }
-
-    public String buildUrl(String path) {
-        return BASE_URL + path;
-    }
-
-    private void itemFinished() {
-        int items = itemsLeftToUpdate.incrementAndGet();
-        if (items >= 4) {
-            Timber.d("timber: PLATFORM ALL UPDATED: %s", items);
-            platformUpdating = false;
-            itemsLeftToUpdate.set(0);
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.N)
-    public String getCurrentLocale(Context ctx) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return ctx.getResources().getConfiguration().getLocales().get(0).getLanguage();
-        } else {
-            //noinspection deprecation
-            return ctx.getResources().getConfiguration().locale.getLanguage();
-        }
     }
 }
