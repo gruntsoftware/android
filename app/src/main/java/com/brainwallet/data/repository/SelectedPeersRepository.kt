@@ -9,6 +9,7 @@ import okhttp3.Callback
 import okhttp3.OkHttpClient
 import okhttp3.Response
 import okio.IOException
+import timber.log.Timber
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -54,12 +55,19 @@ interface SelectedPeersRepository {
                             val dataObject = jsonElement.jsonObject["data"]?.jsonObject
                             val nodesObject = dataObject?.get("nodes")?.jsonObject
 
-                            //TODO: need filter criteria here?
-                            nodesObject?.keys
-                                ?.filter { it.endsWith(":9333") }
-                                ?.map { it.replace(":9333", "") }
-                                ?.toSet()
+                            //filter criteria
+                            val requiredServices = 0x01 or 0x04 // NODE_NETWORK | NODE_BLOOM
+
+                            nodesObject?.entries
+                                ?.filter { entry ->
+                                    val flags =
+                                        entry.value.jsonObject["flags"]?.toString()?.toIntOrNull()
+                                    flags != null && (flags and requiredServices) == requiredServices
+                                }
+                                ?.map { it.key.replace(":9333", "") }
+                                ?.toSet().also { Timber.d("Total Selected Peers ${it?.size}") }
                                 ?: emptySet()
+
                         } ?: emptySet()
 
                         sharedPreferences.edit {
