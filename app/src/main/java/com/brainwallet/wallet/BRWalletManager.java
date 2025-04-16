@@ -232,12 +232,12 @@ public class BRWalletManager {
             @Override
             public void run() {
                 Timber.d("timber: Running peerManagerFreeEverything");
+                BRSharedPrefs.clearAllPrefs(ctx);
                 BRPeerManager.getInstance().peerManagerFreeEverything();
                 walletFreeEverything();
                 TransactionDataSource.getInstance(ctx).deleteAllTransactions();
                 MerkleBlockDataSource.getInstance(ctx).deleteAllBlocks();
                 PeerDataSource.getInstance(ctx).deleteAllPeers();
-                BRSharedPrefs.clearAllPrefs(ctx);
             }
         });
     }
