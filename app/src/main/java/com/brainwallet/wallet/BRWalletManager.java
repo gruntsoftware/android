@@ -547,7 +547,7 @@ public class BRWalletManager {
                 BRPeerManager.getInstance().updateFixedPeer(ctx);
             }
 
-            pm.connect();
+            pm.wrapConnectV2();
             if (BRSharedPrefs.getStartHeight(ctx) == 0) {
                 BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
                     @Override
