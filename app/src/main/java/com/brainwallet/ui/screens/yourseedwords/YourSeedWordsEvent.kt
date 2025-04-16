@@ -1,5 +1,5 @@
 package com.brainwallet.ui.screens.yourseedwords
 
 sealed class YourSeedWordsEvent {
-    object OnSavedItClick : YourSeedWordsEvent()
+    data class OnSavedItClick(val seedWords: List<String>) : YourSeedWordsEvent()
 }
