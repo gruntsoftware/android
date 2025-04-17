@@ -98,6 +98,10 @@ public class SyncManager {
 
         public SyncProgressTask() {
             progressStatus = 0;
+
+            ///Set EndSync and StartSync
+            BRSharedPrefs.putEndSyncTimestamp(app, System.currentTimeMillis());
+            BRSharedPrefs.putStartSyncTimestamp(app, System.currentTimeMillis());
         }
 
         @Override
@@ -130,6 +134,11 @@ public class SyncManager {
                         progressStatus = BRPeerManager.syncProgress(startHeight);
                         if (progressStatus == 1) {
                             running = false;
+                            /// Record sync time
+                            long startTimeStamp = BRSharedPrefs.getStartSyncTimestamp(app);
+                            long endSyncTimeStamp = System.currentTimeMillis();
+                            BRSharedPrefs.putEndSyncTimestamp(app, endSyncTimeStamp);
+                            BRSharedPrefs.putSyncMetadata(app, startTimeStamp, endSyncTimeStamp);
                             continue;
                         }
                         final long lastBlockTimeStamp = BRPeerManager.getInstance().getLastBlockTimestamp() * 1000;

@@ -176,7 +176,7 @@ fun HomeSettingDrawerSheet(
             item {
                 SettingRowItem(
                     title = stringResource(R.string.settings_title_sync_metadata),
-                    description = "METADATA PLACEHOLDER" //BRSharedPrefs.getSyncMetadata(context)
+                    description = BRSharedPrefs.getSyncMetadata(context)
                 )
             }
 
