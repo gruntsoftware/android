@@ -96,7 +96,7 @@ public class BRSharedPrefs {
             Log.e("BRSharedPrefs", "Context is null in getStartSyncTimestamp!");
         }
         SharedPreferences startSyncTime = context.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
-        return startSyncTime.getLong("startSyncTime", 0);
+        return startSyncTime.getLong("startSyncTime", System.currentTimeMillis());
     }
 
     public static void putEndSyncTimestamp(Context context, long time) {
@@ -121,15 +121,15 @@ public class BRSharedPrefs {
         SharedPreferences prefs = activity.getSharedPreferences(BRConstants.PREFS_NAME, 0);
         SharedPreferences.Editor editor = prefs.edit();
 
-        double syncDuration = 0.00;//(double) (endSyncTime - startSyncTime) / 1_000;
-        String formattedMetadata = String.format("ver: %s sync duration: %6.3f secs\n Sync started (System time): %l\n Sync Ended: %l\n", APP_VERSION_NAME_CODE, syncDuration, startSyncTime,endSyncTime);
+        double syncDuration = (double) (endSyncTime - startSyncTime) / 1_000 / 60;
+        String formattedMetadata = String.format("ver: %s sync duration: %5.3f mins\n Sync started (System time): %d\n Sync Ended: %d\n", APP_VERSION_NAME_CODE, syncDuration, startSyncTime,endSyncTime);
         editor.putString("syncMetadata", formattedMetadata);
         editor.apply();
     }
 
     public static long getEndSyncTimestamp(Context context) {
         SharedPreferences endSyncTime = context.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
-        return endSyncTime.getLong("endSyncTime", 0);
+        return endSyncTime.getLong("endSyncTime", System.currentTimeMillis());
     }
 
     public static boolean getPhraseWroteDown(Context context) {
