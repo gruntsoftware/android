@@ -382,10 +382,12 @@ Java_com_brainwallet_wallet_BRPeerManager_create(JNIEnv *env, jobject thiz,
         _peerManager = BRPeerManagerNew(&BR_CHAIN_PARAMS, _wallet, (uint32_t) earliestKeyTime, _blocks,
                                         (size_t) blocksCount,
                                         _peers, (size_t) peersCount, (double) fpRate);
+// Remanant of peer fix
+//        BRPeerManagerSetCallbacks(_peerManager, NULL, syncStarted, syncStopped,
+//                                  txStatusUpdate,
+//                                  saveBlocks, savePeers, networkIsReachable, threadCleanup, featureSelectedPeersEnabled, fetchSelectedPeers);
 
-        BRPeerManagerSetCallbacks(_peerManager, NULL, syncStarted, syncStopped,
-                                  txStatusUpdate,
-                                  saveBlocks, savePeers, networkIsReachable, threadCleanup, featureSelectedPeersEnabled, fetchSelectedPeers);
+    BRPeerManagerSetCallbacks(_peerManager, NULL, syncStarted, syncStopped, txStatusUpdate, saveBlocks, savePeers, networkIsReachable, threadCleanup);
     }
 
     if (_peerManager == NULL) {
