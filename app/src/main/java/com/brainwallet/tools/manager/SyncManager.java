@@ -112,6 +112,9 @@ public class SyncManager {
                 progressStatus = 0;
                 running = true;
                 Timber.d("timber: run: starting: %s", progressStatus);
+                ///Set EndSync and StartSync
+                BRSharedPrefs.putEndSyncTimestamp(app, System.currentTimeMillis());
+                BRSharedPrefs.putStartSyncTimestamp(app, System.currentTimeMillis());
 
                 if (app != null) {
                     final long lastBlockTimeStamp = BRPeerManager.getInstance().getLastBlockTimestamp() * 1000;
@@ -138,7 +141,12 @@ public class SyncManager {
                             long startTimeStamp = BRSharedPrefs.getStartSyncTimestamp(app);
                             long endSyncTimeStamp = System.currentTimeMillis();
                             BRSharedPrefs.putEndSyncTimestamp(app, endSyncTimeStamp);
-                            BRSharedPrefs.putSyncMetadata(app, startTimeStamp, endSyncTimeStamp);
+
+                            double syncDuration = (double) (endSyncTimeStamp - startTimeStamp) / 1_000.0 / 60.0;
+                            /// only update if the sync duration is longer than 2 mins
+                           if (syncDuration > 2.0) {
+                                BRSharedPrefs.putSyncMetadata(app, startTimeStamp, endSyncTimeStamp);
+                           }
                             continue;
                         }
                         final long lastBlockTimeStamp = BRPeerManager.getInstance().getLastBlockTimestamp() * 1000;

@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
@@ -55,6 +56,7 @@ fun HomeSettingDrawerSheet(
 ) {
     val state by viewModel.state.collectAsState()
     val context = LocalContext.current
+    val lastSyncMetadata = BRSharedPrefs.getSyncMetadata(context)
 
     LaunchedEffect(Unit) {
         viewModel.onEvent(SettingsEvent.OnLoad(BRSharedPrefs.getShareData(context))) //currently just load analytics share data here
@@ -175,8 +177,9 @@ fun HomeSettingDrawerSheet(
 
             item {
                 SettingRowItem(
+                    modifier = Modifier.height(120.dp),
                     title = stringResource(R.string.settings_title_sync_metadata),
-                    description = BRSharedPrefs.getSyncMetadata(context)
+                    description = lastSyncMetadata
                 )
             }
 

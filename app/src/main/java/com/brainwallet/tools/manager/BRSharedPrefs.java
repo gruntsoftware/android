@@ -14,8 +14,10 @@ import com.brainwallet.tools.util.BRConstants;
 import org.koin.java.KoinJavaComponent;
 import org.koin.mp.KoinPlatformTools_jvmKt;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Currency;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -121,8 +123,13 @@ public class BRSharedPrefs {
         SharedPreferences prefs = activity.getSharedPreferences(BRConstants.PREFS_NAME, 0);
         SharedPreferences.Editor editor = prefs.edit();
 
-        double syncDuration = (double) (endSyncTime - startSyncTime) / 1_000 / 60;
-        String formattedMetadata = String.format("ver: %s sync duration: %5.3f mins\n Sync started (System time): %d\n Sync Ended: %d\n", APP_VERSION_NAME_CODE, syncDuration, startSyncTime,endSyncTime);
+        double syncDuration = (double) (endSyncTime - startSyncTime) / 1_000.0 / 60.0;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd HH:mm");
+        Date startDate = new Date(startSyncTime);
+        Date endDate = new Date(endSyncTime);
+
+        String formattedMetadata = String.format("Duration: %3.2f mins\nStarted: %d (%s)\nEnded: %d (%s)",syncDuration,startSyncTime,sdf.format(startDate),endSyncTime,sdf.format(endDate));
         editor.putString("syncMetadata", formattedMetadata);
         editor.apply();
     }
