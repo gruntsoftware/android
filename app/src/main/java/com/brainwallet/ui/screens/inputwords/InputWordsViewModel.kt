@@ -24,9 +24,10 @@ class InputWordsViewModel : BrainwalletViewModel<InputWordsEvent>() {
 
     init {
         //TODO: revisit later, please move to repository, for now just reuse the existing
-        Bip39Reader.bip39List(BrainwalletApp.breadContext, Language.ENGLISH.code).also { bip39Words ->
-            _state.update { it.copy(bip39Words = bip39Words) }
-        }
+        Bip39Reader.bip39List(BrainwalletApp.breadContext, Language.ENGLISH.code)
+            .also { bip39Words ->
+                _state.update { it.copy(bip39Words = bip39Words) }
+            }
     }
 
     override fun onEvent(event: InputWordsEvent) {
@@ -53,8 +54,21 @@ class InputWordsViewModel : BrainwalletViewModel<InputWordsEvent>() {
 
                 val cleanPhrase = SmartValidator.cleanPaperKey(event.context, paperKey)
 
-                if (SmartValidator.isPaperKeyValid(event.context, cleanPhrase)
-                        .not() && SmartValidator.isPaperKeyCorrect(cleanPhrase, event.context).not()
+                if (currentState.isFromWelcome() &&
+                    SmartValidator.isPaperKeyValid(event.context, cleanPhrase).not()
+                ) {
+                    viewModelScope.launch {
+                        EventBus.emit(
+                            EventBus.Event.Message(
+                                LEGACY_DIALOG_INVALID
+                            )
+                        )
+                    }
+                    return
+                }
+
+                if (currentState.isFromWelcome().not() &&
+                    SmartValidator.isPaperKeyCorrect(cleanPhrase, event.context).not()
                 ) {
                     viewModelScope.launch {
                         EventBus.emit(
@@ -80,12 +94,12 @@ class InputWordsViewModel : BrainwalletViewModel<InputWordsEvent>() {
                     return
                 }
 
-                BRWalletManager.getInstance().run {
-                    wipeWalletButKeystore(event.context)
-                    wipeKeyStore(event.context)
-                    PostAuth.getInstance().setPhraseForKeyStore(cleanPhrase)
-                    BRSharedPrefs.putAllowSpend(event.context, false)
-                }
+                BRWalletManager.getInstance().wipeAll(event.context)
+
+                BRSharedPrefs.putAllowSpend(event.context, false)
+                BRSharedPrefs.putStartHeight(event.context, 0)
+
+                PostAuth.getInstance().setPhraseForKeyStore(cleanPhrase)
 
                 viewModelScope.launch {
                     EventBus.emit(EventBus.Event.Message(EFFECT_LEGACY_RECOVER_WALLET_AUTH))

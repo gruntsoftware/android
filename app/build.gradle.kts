@@ -22,7 +22,6 @@ android {
         targetSdk = 34
         versionCode = 202504181
         versionName = "v4.4.6"
-
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
 
@@ -199,12 +198,14 @@ dependencies {
     implementation(libs.androidx.preference)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.bundles.androidx.lifecycle)
+    implementation(libs.androidx.work)
     implementation(libs.androidx.browser)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.androidx.compose)
     implementation(libs.google.material)
     implementation(libs.google.zxing)
     implementation(platform(libs.firebase.bom))
+    implementation(platform(libs.firebase.analytics))
     implementation(libs.bundles.firebase)
     implementation(libs.bundles.google.play.asset.delivery)
     implementation(libs.bundles.google.play.feature.delivery)
@@ -214,7 +215,9 @@ dependencies {
     implementation(platform(libs.koin.bom))
     implementation(libs.bundles.koin)
 
-    implementation(libs.squareup.okhttp)
+    implementation(platform(libs.squareup.okhttp.bom))
+    implementation(libs.bundles.squareup.okhttp)
+    implementation(libs.bundles.squareup.retrofit)
     implementation(libs.jakewarthon.timber)
     implementation(libs.commons.io)
     implementation(libs.bundles.eclipse.jetty)

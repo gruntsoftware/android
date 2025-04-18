@@ -32,7 +32,6 @@ import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGAC
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGACY_DIALOG_WIPE_ALERT
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGACY_EFFECT_RESET_PIN
 import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItViewModel.Companion.LEGACY_EFFECT_ON_PAPERKEY_PROVED
-import com.brainwallet.ui.screens.yourseedwords.YourSeedWordsViewModel.Companion.LEGACY_EFFECT_ON_SAVED_PAPERKEY
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.util.EventBus
 import com.brainwallet.wallet.BRWalletManager
@@ -114,10 +113,6 @@ class BrainwalletActivity : BRActivity() {
                                 }
                             }
 
-                            LEGACY_EFFECT_ON_SAVED_PAPERKEY -> {
-                                PostAuth.getInstance().onPhraseProveAuth(this, false)
-                            }
-
                             LEGACY_EFFECT_ON_PAPERKEY_PROVED -> {
                                 BRSharedPrefs.putPhraseWroteDown(this@BrainwalletActivity, true)
                                 LegacyNavigation.startBreadActivity(
@@ -192,6 +187,8 @@ class BrainwalletActivity : BRActivity() {
                     )
                 )
             }
+        } else if (BRSharedPrefs.getPhraseWroteDown(this).not()) {
+            PostAuth.getInstance().onPhraseCheckAuth(this, false)
         }
     }
 
@@ -226,7 +223,14 @@ class BrainwalletActivity : BRActivity() {
                 getString(R.string.Alerts_pinSet),
                 getString(R.string.UpdatePin_createInstruction),
                 R.drawable.ic_check_mark_white
-            ) { PostAuth.getInstance().onCreateWalletAuth(this, false) }
+            ) {
+                val walletNotAvailable = BRWalletManager.getInstance().noWallet(this)
+                if (walletNotAvailable) {
+                    PostAuth.getInstance().onCreateWalletAuth(this, false)
+                } else {
+                    PostAuth.getInstance().onPhraseCheckAuth(this, false)
+                }
+            }
         }
     }
 

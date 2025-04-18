@@ -60,7 +60,7 @@ class CurrencyTests {
     fun `invoke CurrencyDataSource instance database, should return currency by ISO`() {
 
         val expected =
-            CurrencyEntity("USD", "USD", 110.345f)
+            CurrencyEntity("USD", "USD", 110.345f, "$")
         mockCursorDataFromDatabase(isEmpty = false, expected = expected)
 
         val actual = currencyDataSource?.getCurrencyByIso("USD")
@@ -72,11 +72,12 @@ class CurrencyTests {
     @Test
     fun `invoke putCurrencies, then should save the CurrencyEntity into database`() {
         val fetchedCurrencies = listOf(
-            CurrencyEntity("USD", "USD", 110.345f),
+            CurrencyEntity("USD", "USD", 110.345f, "$"),
             CurrencyEntity(
                 "IDR",
                 "IDR",
-                1752020.9450135066f
+                1752020.9450135066f,
+                "$"
             )
         )
 

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import androidx.annotation.StringDef;
 
+import com.brainwallet.presenter.entities.ServiceItems;
 import com.brainwallet.tools.util.Utils;
 import com.brainwallet.presenter.entities.Fee;
 import com.platform.APIClient;
@@ -94,12 +95,14 @@ public final class FeeManager {
 
     // createGETRequestURL
     // Creates the params and headers to make a GET Request
+    @Deprecated
     private static String createGETRequestURL(Context app, String myURL) {
         Request request = new Request.Builder()
                 .url(myURL)
                 .header("Content-Type", "application/json")
                 .header("Accept", "application/json")
                 .header("User-agent", Utils.getAgentString(app, "android/HttpURLConnection"))
+                .header("BW-client-code", Utils.fetchServiceItem(app, ServiceItems.CLIENTCODE))
                 .get().build();
         String response = null;
         Response resp = APIClient.getInstance(app).sendRequest(request, false, 0);

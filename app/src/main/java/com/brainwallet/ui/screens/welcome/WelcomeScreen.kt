@@ -2,9 +2,7 @@ package com.brainwallet.ui.screens.welcome
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,24 +12,20 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -47,6 +41,7 @@ import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
+import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.composable.BorderedLargeButton
 import com.brainwallet.ui.composable.BrainwalletButton
 import com.brainwallet.ui.composable.DarkModeToggleButton
@@ -61,24 +56,28 @@ fun WelcomeScreen(
     viewModel: WelcomeViewModel = koinInject()
 ) {
     val state by viewModel.state.collectAsState()
+    val context = LocalContext.current
 
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp
     var mainBoxFactor = 0.5
     val thirdOfScreenHeight = (screenHeight * mainBoxFactor).toInt()
 
+    LaunchedEffect(Unit) {
+        viewModel.onEvent(WelcomeEvent.OnLoad(context))
+    }
+
     //todo: the following sizing can be move to BrainwalletTheme
     // Global layout
-    val buttonFontSize = 16
-    val thinButtonFontSize = 14
-    val iconButtonSize = 32
+    val buttonFontSize = 24
+    val thinButtonFontSize = 22
     val toggleButtonSize = 45
-    val leadTrailPadding = 24
+    val leadTrailPadding = 18
     val halfLeadTrailPadding = leadTrailPadding / 2
     val doubleLeadTrailPadding = leadTrailPadding * 2
     val rowPadding = 8
-    val tinyPad = 4
-    val activeRowHeight = 70
+    val versionPadding = 12
+    val activeRowHeight = 58
 
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.welcomeemoji20250212))
     val progress by animateLottieCompositionAsState(
@@ -94,7 +93,7 @@ fun WelcomeScreen(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
 
-        Spacer(modifier = Modifier.weight(0.4f))
+        Spacer(modifier = Modifier.weight(0.2f))
 
         Image(
             painterResource(R.drawable.brainwallet_logotype_white),
@@ -128,15 +127,16 @@ fun WelcomeScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(activeRowHeight.dp)
-                .padding(horizontal = halfLeadTrailPadding.dp)
+                .padding(horizontal = leadTrailPadding.dp)
                 .padding(vertical = rowPadding.dp),
             horizontalArrangement = Arrangement.SpaceEvenly
 
         ) {
-            Spacer(modifier = Modifier.weight(0.1f))
 
             BrainwalletButton(
-                modifier = Modifier.weight(0.9f),
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth(),
                 onClick = {
                     viewModel.onEvent(WelcomeEvent.OnLanguageSelectorButtonClick)
                 }
@@ -148,7 +148,7 @@ fun WelcomeScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.weight(0.2f))
+            Spacer(modifier = Modifier.weight(0.1f))
 
             DarkModeToggleButton(
                 modifier = Modifier
@@ -160,10 +160,12 @@ fun WelcomeScreen(
                 }
             )
 
-            Spacer(modifier = Modifier.weight(0.2f))
+            Spacer(modifier = Modifier.weight(0.1f))
 
             BrainwalletButton(
-                modifier = Modifier.weight(0.9f),
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth(),
                 onClick = { viewModel.onEvent(WelcomeEvent.OnFiatButtonClick) }
             ) {
                 Text(
@@ -173,8 +175,6 @@ fun WelcomeScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.weight(0.1f))
-
         }
         // Ready Button
         BorderedLargeButton(
@@ -183,7 +183,7 @@ fun WelcomeScreen(
             },
             shape = RoundedCornerShape(50),
             modifier = Modifier
-                .padding(horizontal = halfLeadTrailPadding.dp)
+                .padding(horizontal = leadTrailPadding.dp)
                 .padding(vertical = rowPadding.dp)
                 .height(activeRowHeight.dp)
 
@@ -202,7 +202,7 @@ fun WelcomeScreen(
             },
             shape = RoundedCornerShape(50),
             modifier = Modifier
-                .padding(horizontal = halfLeadTrailPadding.dp)
+                .padding(horizontal = leadTrailPadding.dp)
                 .padding(vertical = rowPadding.dp)
                 .height(activeRowHeight.dp)
                 .clip(RoundedCornerShape(50))
@@ -214,7 +214,12 @@ fun WelcomeScreen(
             )
         }
 
-        Spacer(modifier = Modifier.weight(0.5f))
+        Text( modifier = Modifier
+            .padding(vertical = versionPadding.dp),
+            text = BRConstants.APP_VERSION_NAME_CODE,
+            fontSize = 13.sp,
+            color = BrainwalletTheme.colors.content
+        )
     }
 
     //language selector

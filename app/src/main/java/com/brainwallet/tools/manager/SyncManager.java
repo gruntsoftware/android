@@ -24,7 +24,7 @@ public class SyncManager {
     private static SyncManager instance;
     private static final long SYNC_PERIOD = TimeUnit.HOURS.toMillis(24);
     private static SyncProgressTask syncTask;
-    public boolean running;
+    public volatile boolean running;
 
     public static SyncManager getInstance() {
         if (instance == null) instance = new SyncManager();

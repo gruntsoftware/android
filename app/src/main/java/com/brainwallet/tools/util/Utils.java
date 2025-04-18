@@ -242,14 +242,9 @@ public class Utils {
                 else if (name == ServiceItems.AFDEVID) {
                     return keyObject.optString(name.getKey());
                 }
-//                else if (name == ServiceItems.PUSHER) {
-//                    JSONObject jsonObj = new JSONObject(keyObject.get(name.getKey()).toString());
-//                    return jsonObj.toString();
-//                }
-//                else if (name == ServiceItems.PUSHERSTAGING) {
-//                    JSONObject jsonObj = new JSONObject(keyObject.get(name.getKey()).toString());
-//                    return jsonObj.toString();
-//                }
+                else if (name == ServiceItems.CLIENTCODE) {
+                    return keyObject.optString(name.getKey());
+                }
                 Timber.d("timber: fetchServiceItem name key found %s",name.getKey());
 
                 return keyObject.get(name.getKey()).toString();

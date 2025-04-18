@@ -16,13 +16,15 @@ androidx-lifecycle = "2.7.0"
 androidx-compose-bom = "2025.01.00"
 androidx-activity-compose = "1.9.3"
 androidx-fragment-compose = "1.8.5"
+androidx-work = "2.9.1"
 google-material = "1.11.0"
 google-zxing = "3.5.2"
 #google-dagger = "2.50"
 google-play-asset-delivery = "2.2.2"
 google-play-feature-delivery = "2.1.0"
 google-play-review = "2.0.1"
-squareup-okhttp = "4.12.0"
+squareup-okhttp-bom = "4.12.0"
+squareup-retrofit = "2.11.0"
 firebase-bom = "32.7.1"
 jakewarthon-timber = "4.7.1"
 eclipse-jetty = "9.2.19.v20160908"
@@ -65,9 +67,8 @@ androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-work = { module = "androidx.work:work-runtime-ktx", version.ref = "androidx-work" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.7.1" }
-#google-dagger = { module = "com.google.dagger:dagger", version.ref = "google-dagger" }
-#google-dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "google-dagger" }
 google-zxing = { module = "com.google.zxing:core", version.ref = "google-zxing" }
 google-material = { module = "com.google.android.material:material", version.ref = "google-material" }
 google-play-asset-delivery = { module = "com.google.android.play:asset-delivery", version.ref = "google-play-asset-delivery" }
@@ -76,7 +77,11 @@ google-play-feature-delivery = { module = "com.google.android.play:feature-deliv
 google-play-feature-delivery-ktx = { module = "com.google.android.play:feature-delivery-ktx", version.ref = "google-play-feature-delivery" }
 google-play-review = { module = "com.google.android.play:review", version.ref = "google-play-review" }
 google-play-review-ktx = { module = "com.google.android.play:review-ktx", version.ref = "google-play-review" }
-squareup-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "squareup-okhttp" }
+squareup-okhttp-bom = { module = "com.squareup.okhttp3:okhttp-bom", version.ref = "squareup-okhttp-bom" }
+squareup-okhttp = { module = "com.squareup.okhttp3:okhttp" }
+squareup-okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor" }
+squareup-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "squareup-retrofit" }
+squareup-retrofit-kotlinx-serialization-json = { module = "com.squareup.retrofit2:converter-kotlinx-serialization", version.ref = "squareup-retrofit" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
@@ -121,6 +126,8 @@ eclipse-jetty = ["eclipse-jetty-webapp", "eclipse-jetty-websocket", "eclipse-jet
 android-test = ["androidx-test-core", "androidx-test-core-ktx", "androidx-test-rules","androidx-test-espresso-core", "androidx-test-junit-ext","androidx-test-juniext-ext-ktx", "androidx-test-runner", "androidx-test-uiautomator"]
 androidx-compose-ui-test = ["androidx-compose-ui-test-junit4", "androidx-compose-ui-test-manifest"]
 koin = ["koin-android", "koin-android-compat", "koin-compose", "koin-compose-viewmodel"]
+squareup-retrofit = ["squareup-retrofit", "squareup-retrofit-kotlinx-serialization-json"]
+squareup-okhttp = ["squareup-okhttp", "squareup-okhttp-logging-interceptor"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
