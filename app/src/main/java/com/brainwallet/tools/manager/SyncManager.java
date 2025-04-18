@@ -1,5 +1,7 @@
 package com.brainwallet.tools.manager;
 
+import static com.brainwallet.tools.manager.BRSharedPrefs.putSyncMetadata;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -98,10 +100,6 @@ public class SyncManager {
 
         public SyncProgressTask() {
             progressStatus = 0;
-
-            ///Set EndSync and StartSync
-            BRSharedPrefs.putEndSyncTimestamp(app, System.currentTimeMillis());
-            BRSharedPrefs.putStartSyncTimestamp(app, System.currentTimeMillis());
         }
 
         @Override
@@ -111,10 +109,10 @@ public class SyncManager {
                 app = BreadActivity.getApp();
                 progressStatus = 0;
                 running = true;
-                Timber.d("timber: run: starting: %s", progressStatus);
-                ///Set EndSync and StartSync
-                BRSharedPrefs.putEndSyncTimestamp(app, System.currentTimeMillis());
-                BRSharedPrefs.putStartSyncTimestamp(app, System.currentTimeMillis());
+                long runTimeStamp = System.currentTimeMillis();
+                Timber.d("timber: run: starting: %s date: %d", progressStatus, runTimeStamp);
+                ///Set StartSync
+                BRSharedPrefs.putStartSyncTimestamp(app, runTimeStamp);
 
                 if (app != null) {
                     final long lastBlockTimeStamp = BRPeerManager.getInstance().getLastBlockTimestamp() * 1000;
@@ -145,7 +143,7 @@ public class SyncManager {
                             double syncDuration = (double) (endSyncTimeStamp - startTimeStamp) / 1_000.0 / 60.0;
                             /// only update if the sync duration is longer than 2 mins
                            if (syncDuration > 2.0) {
-                                BRSharedPrefs.putSyncMetadata(app, startTimeStamp, endSyncTimeStamp);
+                                putSyncMetadata(app, startTimeStamp, endSyncTimeStamp);
                            }
                             continue;
                         }

@@ -177,7 +177,7 @@ fun HomeSettingDrawerSheet(
 
             item {
                 SettingRowItem(
-                    modifier = Modifier.height(120.dp),
+                    modifier = Modifier.height(100.dp),
                     title = stringResource(R.string.settings_title_sync_metadata),
                     description = lastSyncMetadata
                 )
