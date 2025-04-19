@@ -21,6 +21,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -50,6 +51,15 @@ fun YourSeedWordsScreen(
     val maxItemsPerRow = 3
     val leadingCopyPadding = 16
     val detailLineHeight = 28
+
+    LaunchedEffect(Unit) {
+        viewModel.uiEffect.collect { effect ->
+            when (effect) {
+                is UiEffect.Navigate -> onNavigate.invoke(effect)
+                else -> Unit
+            }
+        }
+    }
 
     BrainwalletScaffold(
         topBar = {
@@ -122,7 +132,7 @@ fun YourSeedWordsScreen(
 
             LargeButton(
                 onClick = {
-                    viewModel.onEvent(YourSeedWordsEvent.OnSavedItClick)
+                    viewModel.onEvent(YourSeedWordsEvent.OnSavedItClick(seedWords))
                 },
             ) {
                 Text(

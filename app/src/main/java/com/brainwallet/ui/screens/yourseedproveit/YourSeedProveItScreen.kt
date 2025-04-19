@@ -147,7 +147,7 @@ fun YourSeedProveItScreen(
                 verticalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
                 maxItemsInEachRow = maxItemsPerRow
             ) {
-                state.correctSeedWords.entries.forEachIndexed { index, (expectedWord, actualWord) ->
+                state.correctSeedWords.values.forEachIndexed { index, (expectedWord, actualWord) ->
 
                     val label = if (expectedWord != actualWord && actualWord.isEmpty()) {
                         "${index + 1}"
@@ -173,6 +173,7 @@ fun YourSeedProveItScreen(
 
                                             viewModel.onEvent(
                                                 YourSeedProveItEvent.OnDropSeedWordItem(
+                                                    index = index,
                                                     expectedWord = expectedWord,
                                                     actualWord = text.toString()
                                                 )

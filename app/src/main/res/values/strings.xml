@@ -825,6 +825,7 @@
     <string name="settings_title_unlock">Unlock</string>
     <string name="settings_title_theme">Theme</string>
     <string name="settings_title_app_version">App version:</string>
+    <string name="settings_title_sync_metadata">Sync metadata:</string>
     <string name="settings_blockchain_litecoin_button">Sync</string>
     <string name="settings_blockchain_litecoin_description">Sync duration: >20 minutes</string>
     <string name="game_title">Game %1$d:</string>

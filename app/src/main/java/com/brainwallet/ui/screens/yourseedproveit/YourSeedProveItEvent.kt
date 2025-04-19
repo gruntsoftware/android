@@ -6,6 +6,7 @@ sealed class YourSeedProveItEvent {
     ) : YourSeedProveItEvent()
 
     data class OnDropSeedWordItem(
+        val index: Int,
         val expectedWord: String,
         val actualWord: String
     ) : YourSeedProveItEvent()

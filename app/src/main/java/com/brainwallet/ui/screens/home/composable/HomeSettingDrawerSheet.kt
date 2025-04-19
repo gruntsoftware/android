@@ -6,21 +6,28 @@ import android.util.AttributeSet
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.AbstractComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.findViewTreeLifecycleOwner
@@ -56,8 +63,11 @@ fun HomeSettingDrawerSheet(
     val state by viewModel.state.collectAsState()
     val context = LocalContext.current
 
+    var lastSyncMetadata by remember { mutableStateOf<String?>(null) }
+
     LaunchedEffect(Unit) {
         viewModel.onEvent(SettingsEvent.OnLoad(BRSharedPrefs.getShareData(context))) //currently just load analytics share data here
+        lastSyncMetadata = BRSharedPrefs.getSyncMetadata(context)
     }
 
     /// Layout values
@@ -170,6 +180,14 @@ fun HomeSettingDrawerSheet(
                     onToggledDarkMode = {
                         viewModel.onEvent(SettingsEvent.OnToggleDarkMode)
                     }
+                )
+            }
+
+            item {
+                SettingRowItem(
+                    modifier = Modifier.height(120.dp),
+                    title = stringResource(R.string.settings_title_sync_metadata),
+                    description = lastSyncMetadata ?: "No sync metadata"
                 )
             }
 
