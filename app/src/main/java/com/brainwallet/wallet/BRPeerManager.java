@@ -48,6 +48,20 @@ public class BRPeerManager {
      * int (*networkIsReachable)(void *info))
      */
 
+    public static void txStatusUpdate() {
+        Timber.d("timber: txStatusUpdate");
+
+        for (OnTxStatusUpdate listener : statusUpdateListeners) {
+            if (listener != null) listener.onStatusUpdate();
+        }
+        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
+            @Override
+            public void run() {
+                updateLastBlockHeight(getCurrentBlockHeight());
+            }
+        });
+    }
+
     public static void syncStarted() {
         Context ctx = BrainwalletApp.getBreadContext();
         int startHeight = BRSharedPrefs.getStartHeight(ctx);
@@ -59,7 +73,6 @@ public class BRPeerManager {
     public static void syncSucceeded() {
         Context ctx = BrainwalletApp.getBreadContext();
         if (ctx == null) return;
-        BRSharedPrefs.putLastSyncTimestamp(ctx, System.currentTimeMillis());
         SyncManager.getInstance().updateAlarms(ctx);
         BRSharedPrefs.putAllowSpend(ctx, true);
         SyncManager.getInstance().stopSyncingProgressThread(ctx);
@@ -81,20 +94,6 @@ public class BRPeerManager {
 
         SyncManager.getInstance().stopSyncingProgressThread(ctx);
         if (onSyncFinished != null) onSyncFinished.onFinished();
-    }
-
-    public static void txStatusUpdate() {
-        Timber.d("timber: txStatusUpdate");
-
-        for (OnTxStatusUpdate listener : statusUpdateListeners) {
-            if (listener != null) listener.onStatusUpdate();
-        }
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                updateLastBlockHeight(getCurrentBlockHeight());
-            }
-        });
     }
 
     public static void saveBlocks(final BlockEntity[] blockEntities, final boolean replace) {
