@@ -72,7 +72,6 @@ public class BRPeerManager {
     public static void syncSucceeded() {
         Context ctx = BrainwalletApp.getBreadContext();
         if (ctx == null) return;
-        BRSharedPrefs.putLastSyncTimestamp(ctx, System.currentTimeMillis());
         SyncManager.getInstance().updateAlarms(ctx);
         BRSharedPrefs.putAllowSpend(ctx, true);
         SyncManager.getInstance().stopSyncingProgressThread(ctx);
