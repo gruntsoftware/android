@@ -192,11 +192,14 @@ public class BRPeerManager {
 
     //wrap logic enable/disable connect with new flow
     public void wrapConnectV2() {
-        if (featureSelectedPeersEnabled()) {
-            fetchSelectedPeers().whenComplete((strings, throwable) -> connect());
-        } else {
-            connect();
-        }
+//        if (featureSelectedPeersEnabled()) {
+//            fetchSelectedPeers().whenComplete((strings, throwable) -> connect());
+//        } else {
+//            connect();
+//        }
+        //currently we are just using connect(), since the core using hardcoded peers
+        //https://github.com/gruntsoftware/core/commit/0b7f85feac840c7667338c340c808dfccde4251a
+        connect();
     }
 
     public static boolean featureSelectedPeersEnabled() {
