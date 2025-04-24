@@ -98,9 +98,12 @@ public class BRPeerManager {
     public static void txStatusUpdate() {
         Timber.d("timber: txStatusUpdate");
 
-        for (OnTxStatusUpdate listener : statusUpdateListeners) {
-            if (listener != null) listener.onStatusUpdate();
+        synchronized (statusUpdateListeners) {
+            for (OnTxStatusUpdate listener : statusUpdateListeners) {
+                if (listener != null) listener.onStatusUpdate();
+            }
         }
+
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
             @Override
             public void run() {
