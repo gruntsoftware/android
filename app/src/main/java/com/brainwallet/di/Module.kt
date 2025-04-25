@@ -4,10 +4,10 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.brainwallet.BuildConfig
 import com.brainwallet.data.repository.LtcRepository
+import com.brainwallet.data.repository.SelectedPeersRepository
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.source.RemoteApiSource
 import com.brainwallet.data.source.RemoteConfigSource
-import com.brainwallet.data.repository.SelectedPeersRepository
 import com.brainwallet.tools.sqlite.CurrencyDataSource
 import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.screens.home.SettingsViewModel
@@ -31,6 +31,7 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
+import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 
@@ -46,7 +47,7 @@ val dataModule = module {
     factory { provideOkHttpClient() }
     single { provideRetrofit(get(), BRConstants.BW_API_PROD_HOST) }
 
-    single { provideApi(get()) }
+    single { provideApi<RemoteApiSource>(get()) }
 
     single<RemoteConfigSource> {
         RemoteConfigSource.FirebaseImpl(Firebase.remoteConfig).also {
@@ -91,17 +92,25 @@ private fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
             .addHeader("Content-Type", "application/json")
             .addHeader("X-Litecoin-Testnet", "false")
             .addHeader("Accept-Language", "en")
-//                .addHeader("User-agent",)
         chain.proceed(requestBuilder.build())
     }
     .addInterceptor { chain ->
         val request = chain.request()
         runCatching {
-            chain.proceed(request)
+            val result = chain.proceed(request)
+            if (result.isSuccessful.not()) {
+                throw HttpException(
+                    retrofit2.Response.error<Any>(
+                        result.code,
+                        result.body ?: result.peekBody(Long.MAX_VALUE)
+                    )
+                )
+            }
+            result
         }.getOrElse {
             //retry using dev host
             val newRequest = request.newBuilder()
-                .url(BRConstants.BW_API_DEV_HOST + request.url.encodedPath)
+                .url("${BRConstants.LEGACY_BW_API_DEV_HOST}/api${request.url.encodedPath}") //legacy dev api need prefix path /api
                 .build()
             chain.proceed(newRequest)
         }
@@ -129,5 +138,5 @@ internal fun provideRetrofit(
     )
     .build()
 
-internal fun provideApi(retrofit: Retrofit): RemoteApiSource =
-    retrofit.create(RemoteApiSource::class.java)
+internal inline fun <reified T> provideApi(retrofit: Retrofit): T =
+    retrofit.create(T::class.java)

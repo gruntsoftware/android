@@ -2,6 +2,7 @@ package com.brainwallet.data.repository
 
 import android.content.Context
 import com.brainwallet.data.model.CurrencyEntity
+import com.brainwallet.data.model.Fee
 import com.brainwallet.data.source.RemoteApiSource
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.manager.FeeManager
@@ -9,7 +10,8 @@ import com.brainwallet.tools.sqlite.CurrencyDataSource
 
 interface LtcRepository {
     suspend fun fetchRates(): List<CurrencyEntity>
-    //todo
+
+    suspend fun fetchFeePerKb(): Fee
 
     class Impl(
         private val context: Context,
@@ -38,6 +40,20 @@ interface LtcRepository {
             }.getOrElse { currencyDataSource.getAllCurrencies(true) }
 
         }
+
+        override suspend fun fetchFeePerKb(): Fee {
+            return runCatching {
+                val fee = remoteApiSource.getFeePerKb()
+
+                //todo: cache
+
+                return fee
+            }.getOrElse { Fee.Default }
+        }
+
+    }
+
+    companion object {
 
     }
 }

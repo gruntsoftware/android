@@ -1,5 +1,6 @@
 package com.brainwallet.tools.threads;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.RejectedExecutionHandler;
@@ -7,6 +8,12 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import kotlin.coroutines.Continuation;
+import kotlin.coroutines.EmptyCoroutineContext;
+import kotlinx.coroutines.CoroutineScope;
+import kotlinx.coroutines.CoroutineScopeKt;
+import kotlinx.coroutines.CoroutineStart;
+import kotlinx.coroutines.future.FutureKt;
 import timber.log.Timber;
 
 /*
@@ -129,5 +136,14 @@ public class BRExecutor implements RejectedExecutionHandler {
     @Override
     public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
         Timber.d("timber: rejectedExecution: ");
+    }
+
+    public <T> CompletableFuture<T> executeSuspend(kotlin.jvm.functions.Function2<? super CoroutineScope, ? super Continuation<? super T>, ? extends Object> paramToExec) {
+        return FutureKt.future(
+                CoroutineScopeKt.CoroutineScope(EmptyCoroutineContext.INSTANCE),
+                EmptyCoroutineContext.INSTANCE,
+                CoroutineStart.DEFAULT,
+                paramToExec
+        );
     }
 }
