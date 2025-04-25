@@ -3,15 +3,17 @@ package com.brainwallet.tools.manager;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.brainwallet.BrainwalletApp;
+import android.util.Log;
+
 import com.brainwallet.data.repository.SettingRepository;
 import com.brainwallet.tools.util.BRConstants;
 
 import org.koin.java.KoinJavaComponent;
-import org.koin.mp.KoinPlatformTools_jvmKt;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Currency;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -45,16 +47,14 @@ public class BRSharedPrefs {
         try {
             if (defaultLanguage == "ru") {
                 defIso = Currency.getInstance(new Locale("ru", "RU")).getCurrencyCode();
-            }
-            else if (defaultLanguage == "en") {
+            } else if (defaultLanguage == "en") {
                 defIso = Currency.getInstance(Locale.US).getCurrencyCode();
-            }
-            else {
+            } else {
                 defIso = Currency.getInstance(Locale.getDefault()).getCurrencyCode();
             }
         } catch (IllegalArgumentException e) {
             Timber.e(e);
-             defIso = Currency.getInstance(Locale.US).getCurrencyCode();
+            defIso = Currency.getInstance(Locale.US).getCurrencyCode();
         }
         return settingsToGet.getString(SettingRepository.KEY_FIAT_CURRENCY_CODE, defIso); //using new shared prefs used by setting repository
     }
@@ -74,38 +74,64 @@ public class BRSharedPrefs {
         }
     }
 
-    //////////////////////////////////////////////////////////////////////////////
-    //////////////////// Active Shared Preferences ///////////////////////////////
-    public static void putLastSyncTimestamp(Context activity, long time) {
-        SharedPreferences prefs = activity.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putLong("lastSyncTime", time);
-        editor.apply();
-    }
-    public static long getLastSyncTimestamp(Context activity) {
-        SharedPreferences prefs = activity.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
-        return prefs.getLong("lastSyncTime", 0L);
-    }
-    public static void putStartSyncTimestamp(Context activity, long time) {
-        SharedPreferences prefs = activity.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
+    /// ///////////////////////////////////////////////////////////////////////////
+    /// ///////////////// Active Shared Preferences ///////////////////////////////
+
+    public static void putStartSyncTimestamp(Context context, long time) {
+        if (context == null) {
+            Log.e("BRSharedPrefs", "Context is null in putStartSyncTimestamp!");
+            return;
+        }
+        SharedPreferences prefs = context.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putLong("startSyncTime", time);
         editor.apply();
     }
-    public static long getStartSyncTimestamp(Context activity) {
-        SharedPreferences prefs = activity.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
-        return prefs.getLong("startSyncTime", 0L);
+
+    public static long getStartSyncTimestamp(Context context) {
+        if (context == null) {
+            Log.e("BRSharedPrefs", "Context is null in getStartSyncTimestamp!");
+        }
+        SharedPreferences startSyncTime = context.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
+        return startSyncTime.getLong("startSyncTime", System.currentTimeMillis());
     }
 
-    public static void putSyncTimeElapsed(Context activity, long time) {
-        SharedPreferences prefs = activity.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
+    public static void putEndSyncTimestamp(Context context, long time) {
+
+        if (context == null) {
+            Log.e("BRSharedPrefs", "Context is null in putEndSyncTimestamp!");
+            return;
+        }
+
+        SharedPreferences prefs = context.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putLong("syncTimeElapsed", time);
+        editor.putLong("endSyncTime", time);
         editor.apply();
     }
-    public static long getSyncTimeElapsed(Context activity) {
-        SharedPreferences prefs = activity.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
-        return prefs.getLong("syncTimeElapsed", 0L);
+
+    public static String getSyncMetadata(Context context) {
+        SharedPreferences syncMetadata = context.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
+        return syncMetadata.getString("syncMetadata", " No Sync Duration metadata");
+    }
+
+    public static void putSyncMetadata(Context activity, long startSyncTime, long endSyncTime) {
+        SharedPreferences prefs = activity.getSharedPreferences(BRConstants.PREFS_NAME, 0);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        double syncDuration = (double) (endSyncTime - startSyncTime) / 1_000.0 / 60.0;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd HH:mm");
+        Date startDate = new Date(startSyncTime);
+        Date endDate = new Date(endSyncTime);
+
+        String formattedMetadata = String.format("Duration: %3.2f mins\nStarted: %d (%s)\nEnded: %d (%s)", syncDuration, startSyncTime, sdf.format(startDate), endSyncTime, sdf.format(endDate));
+        editor.putString("syncMetadata", formattedMetadata);
+        editor.apply();
+    }
+
+    public static long getEndSyncTimestamp(Context context) {
+        SharedPreferences endSyncTime = context.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
+        return endSyncTime.getLong("endSyncTime", System.currentTimeMillis());
     }
 
     public static boolean getPhraseWroteDown(Context context) {
@@ -232,9 +258,10 @@ public class BRSharedPrefs {
         editor.putBoolean("useFingerprint", use);
         editor.apply();
     }
+
     public static int getStartHeight(Context context) {
         SharedPreferences settingsToGet = context.getSharedPreferences(BRConstants.PREFS_NAME, 0);
-        return  settingsToGet.getInt(BRConstants.START_HEIGHT, 0);
+        return settingsToGet.getInt(BRConstants.START_HEIGHT, 0);
     }
 
     public static void putStartHeight(Context context, int startHeight) {

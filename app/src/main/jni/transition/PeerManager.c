@@ -385,7 +385,7 @@ Java_com_brainwallet_wallet_BRPeerManager_create(JNIEnv *env, jobject thiz,
 
         BRPeerManagerSetCallbacks(_peerManager, NULL, syncStarted, syncStopped,
                                   txStatusUpdate,
-                                  saveBlocks, savePeers, networkIsReachable, threadCleanup, featureSelectedPeersEnabled, fetchSelectedPeers);
+                                  saveBlocks, savePeers, networkIsReachable, threadCleanup);
     }
 
     if (_peerManager == NULL) {

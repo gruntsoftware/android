@@ -50,6 +50,11 @@ interface SelectedPeersRepository {
                     override fun onResponse(call: Call, response: Response) {
                         val jsonString = response.body?.string()
 
+                        if (response.isSuccessful.not()) {
+                            continuation.resume(cachedPeers ?: emptySet())
+                            return
+                        }
+
                         val parsedResult = jsonString?.let {
                             val jsonElement = json.parseToJsonElement(it)
                             val dataObject = jsonElement.jsonObject["data"]?.jsonObject

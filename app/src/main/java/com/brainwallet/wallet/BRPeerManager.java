@@ -72,7 +72,6 @@ public class BRPeerManager {
     public static void syncSucceeded() {
         Context ctx = BrainwalletApp.getBreadContext();
         if (ctx == null) return;
-        BRSharedPrefs.putLastSyncTimestamp(ctx, System.currentTimeMillis());
         SyncManager.getInstance().updateAlarms(ctx);
         BRSharedPrefs.putAllowSpend(ctx, true);
         SyncManager.getInstance().stopSyncingProgressThread(ctx);
@@ -99,9 +98,12 @@ public class BRPeerManager {
     public static void txStatusUpdate() {
         Timber.d("timber: txStatusUpdate");
 
-        for (OnTxStatusUpdate listener : statusUpdateListeners) {
-            if (listener != null) listener.onStatusUpdate();
+        synchronized (statusUpdateListeners) {
+            for (OnTxStatusUpdate listener : statusUpdateListeners) {
+                if (listener != null) listener.onStatusUpdate();
+            }
         }
+
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
             @Override
             public void run() {
@@ -192,11 +194,14 @@ public class BRPeerManager {
 
     //wrap logic enable/disable connect with new flow
     public void wrapConnectV2() {
-        if (featureSelectedPeersEnabled()) {
-            fetchSelectedPeers().whenComplete((strings, throwable) -> connect());
-        } else {
-            connect();
-        }
+//        if (featureSelectedPeersEnabled()) {
+//            fetchSelectedPeers().whenComplete((strings, throwable) -> connect());
+//        } else {
+//            connect();
+//        }
+        //currently we are just using connect(), since the core using hardcoded peers
+        //https://github.com/gruntsoftware/core/commit/0b7f85feac840c7667338c340c808dfccde4251a
+        connect();
     }
 
     public static boolean featureSelectedPeersEnabled() {

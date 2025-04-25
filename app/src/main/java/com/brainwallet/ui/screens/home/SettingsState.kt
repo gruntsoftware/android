@@ -14,4 +14,5 @@ data class SettingsState(
     val languageSelectorBottomSheetVisible: Boolean = false,
     val fiatSelectorBottomSheetVisible: Boolean = false,
     val shareAnalyticsDataEnabled: Boolean = false,
+    val lastSyncMetadata: String? = null,
 )

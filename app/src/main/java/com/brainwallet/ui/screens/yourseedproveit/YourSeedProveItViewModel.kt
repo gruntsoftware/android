@@ -18,25 +18,31 @@ class YourSeedProveItViewModel : BrainwalletViewModel<YourSeedProveItEvent>() {
         when (event) {
             is YourSeedProveItEvent.OnLoad -> _state.update {
                 it.copy(
-                    correctSeedWords = event.seedWords.associateWith { "" },
+                    correctSeedWords = event.seedWords.mapIndexed { index, word -> 
+                        index to SeedWordItem(expected = word) 
+                    }.toMap(),
                     shuffledSeedWords = event.seedWords.shuffled()
                 )
             }
 
             is YourSeedProveItEvent.OnDropSeedWordItem -> _state.update {
-                val correctSeedWords = it.correctSeedWords.toMutableMap().apply {
-                    this[event.expectedWord] = event.actualWord
-                }
+                val correctSeedWords = it.correctSeedWords.map { (index, seedWordItem) ->
+                    if (index == event.index && seedWordItem.expected == event.expectedWord) {
+                        index to seedWordItem.copy(actual = event.actualWord)
+                    } else {
+                        index to seedWordItem
+                    }
+                }.toMap()
 
                 it.copy(
                     correctSeedWords = correctSeedWords,
-                    orderCorrected = correctSeedWords.all { (expectedWord, actualWord) -> expectedWord == actualWord }
+                    orderCorrected = correctSeedWords.all { (_, seedWordItem) -> seedWordItem.expected == seedWordItem.actual }
                 )
             }
 
             YourSeedProveItEvent.OnClear -> _state.update {
                 it.copy(
-                    correctSeedWords = it.correctSeedWords.mapValues { "" }
+                    correctSeedWords = it.correctSeedWords.mapValues { SeedWordItem(expected = it.value.expected) }
                 )
             }
 
