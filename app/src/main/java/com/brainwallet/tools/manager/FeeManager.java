@@ -4,13 +4,14 @@ import android.content.Context;
 
 import androidx.annotation.StringDef;
 
+import com.brainwallet.data.repository.LtcRepository;
 import com.brainwallet.presenter.entities.ServiceItems;
+import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.util.Utils;
-import com.brainwallet.presenter.entities.Fee;
+import com.brainwallet.data.model.Fee;
 import com.platform.APIClient;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.koin.java.KoinJavaComponent;
 
 import java.io.IOException;
 import java.lang.annotation.Retention;
@@ -24,16 +25,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 import timber.log.Timber;
 
-
+//we are still using this, maybe in the future will deprecate?
 public final class FeeManager {
 
-    // this is the default that matches the mobile-api if the server is unavailable
-    private static final long defaultEconomyFeePerKB = 2_500L; // From legacy minimum. default min is 1000 as Litecoin Core version v0.17.1
-    private static final long defaultRegularFeePerKB = 2_5000L;
-    private static final long defaultLuxuryFeePerKB = 66_746L;
-    private static final long defaultTimestamp = 1583015199122L;
-
-    private Fee defaultValues = new Fee(defaultLuxuryFeePerKB, defaultRegularFeePerKB, defaultEconomyFeePerKB, defaultTimestamp);
 
     private static final FeeManager instance;
 
@@ -50,7 +44,7 @@ public final class FeeManager {
     }
 
     private void initWithDefaultValues() {
-        currentFees = defaultValues;
+        currentFees = Fee.getDefault();
         feeType = REGULAR;
     }
 
@@ -75,26 +69,38 @@ public final class FeeManager {
 
     public void setFees(long luxuryFee, long regularFee, long economyFee) {
         // TODO: to be implemented when feePerKB API will be ready
+        currentFees = new Fee(luxuryFee, regularFee, economyFee, System.currentTimeMillis());
     }
 
     public static void updateFeePerKb(Context app) {
 
-        String jsonString = "{'fee_per_kb': 10000, 'fee_per_kb_economy': 2500, 'fee_per_kb_luxury': 66746}";
-        try {
-            JSONObject obj = new JSONObject(jsonString);
-            // TODO: Refactor when mobile-api v0.4.0 is in prod
-            long regularFee = obj.optLong("fee_per_kb");
-            long economyFee = obj.optLong("fee_per_kb_economy");
-            long luxuryFee = obj.optLong("fee_per_kb_luxury");
-            FeeManager.getInstance().setFees(luxuryFee, regularFee, economyFee);
+//        String jsonString = "{'fee_per_kb': 10000, 'fee_per_kb_economy': 2500, 'fee_per_kb_luxury': 66746}";
+//        try {
+//            JSONObject obj = new JSONObject(jsonString);
+//            // TODO: Refactor when mobile-api v0.4.0 is in prod
+//            long regularFee = obj.optLong("fee_per_kb");
+//            long economyFee = obj.optLong("fee_per_kb_economy");
+//            long luxuryFee = obj.optLong("fee_per_kb_luxury");
+//            FeeManager.getInstance().setFees(luxuryFee, regularFee, economyFee);
+//            BRSharedPrefs.putFeeTime(app, System.currentTimeMillis()); //store the time of the last successful fee fetch
+//        } catch (JSONException e) {
+//            Timber.e(new IllegalArgumentException("updateFeePerKb: FAILED: " + jsonString, e));
+//        }
+
+        LtcRepository ltcRepository = KoinJavaComponent.get(LtcRepository.class);
+        BRExecutor.getInstance().<Fee>executeSuspend(
+                (coroutineScope, continuation) -> ltcRepository.fetchFeePerKb(continuation)
+        ).whenComplete((fee, throwable) -> {
+
+            //legacy logic
+            FeeManager.getInstance().setFees(fee.luxury, fee.regular, fee.economy);
             BRSharedPrefs.putFeeTime(app, System.currentTimeMillis()); //store the time of the last successful fee fetch
-        } catch (JSONException e) {
-            Timber.e(new IllegalArgumentException("updateFeePerKb: FAILED: " + jsonString, e));
-        }
+        });
     }
 
     // createGETRequestURL
     // Creates the params and headers to make a GET Request
+    @Deprecated
     private static String createGETRequestURL(Context app, String myURL) {
         Request request = new Request.Builder()
                 .url(myURL)

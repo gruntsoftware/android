@@ -4,7 +4,10 @@ import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.Language
 
 sealed class SettingsEvent {
-    data class OnLoad(val shareAnalyticsDataEnabled: Boolean = false) : SettingsEvent()
+    data class OnLoad(
+        val shareAnalyticsDataEnabled: Boolean = false,
+        val lastSyncMetadata: String? = null,
+    ) : SettingsEvent()
     object OnSecurityUpdatePinClick : SettingsEvent()
     object OnSecuritySeedPhraseClick : SettingsEvent()
     object OnSecurityShareAnalyticsDataClick : SettingsEvent()

@@ -13,14 +13,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.DialogFragment;
 
 import com.brainwallet.R;
 import com.brainwallet.presenter.interfaces.BROnSignalCompletion;
 
-import timber.log.Timber;
-
-public class FragmentSignal extends Fragment {
+public class FragmentSignal extends DialogFragment {
     public static final String TITLE = "title";
     public static final String ICON_DESCRIPTION = "iconDescription";
     public static final String RES_ID = "resId";
@@ -33,10 +31,8 @@ public class FragmentSignal extends Fragment {
     private final Runnable popBackStackRunnable = new Runnable() {
         @Override
         public void run() {
-            if (isAdded()) {
-                getParentFragmentManager().popBackStack();
-                handler.postDelayed(completionRunnable, 300);
-            }
+            dismiss();
+            handler.postDelayed(completionRunnable, 300);
         }
     };
 
@@ -87,8 +83,8 @@ public class FragmentSignal extends Fragment {
     };
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onDestroy() {
+        super.onDestroy();
         // Remove callbacks to prevent execution after the fragment is destroyed
         handler.removeCallbacks(popBackStackRunnable);
         handler.removeCallbacks(completionRunnable);

@@ -1,5 +1,7 @@
 package com.brainwallet.tools.manager;
 
+import static com.brainwallet.tools.manager.BRSharedPrefs.putSyncMetadata;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -22,7 +24,7 @@ public class SyncManager {
     private static SyncManager instance;
     private static final long SYNC_PERIOD = TimeUnit.HOURS.toMillis(24);
     private static SyncProgressTask syncTask;
-    public boolean running;
+    public volatile boolean running;
 
     public static SyncManager getInstance() {
         if (instance == null) instance = new SyncManager();
@@ -44,8 +46,6 @@ public class SyncManager {
             }
             syncTask = new SyncProgressTask();
             syncTask.start();
-            BRSharedPrefs.putStartSyncTimestamp(app, System.currentTimeMillis());
-            BRSharedPrefs.putSyncTimeElapsed(app, 0L);
             updateStartSyncData(app);
         } catch (IllegalThreadStateException ex) {
             Timber.e(ex);
@@ -54,41 +54,11 @@ public class SyncManager {
 
     private synchronized void updateStartSyncData(Context app) {
         final double progress = BRPeerManager.syncProgress(BRSharedPrefs.getStartHeight(app));
-        long startSync = BRSharedPrefs.getStartSyncTimestamp(app);
-        long lastSync = BRSharedPrefs.getLastSyncTimestamp(app);
-        long elapsed = BRSharedPrefs.getSyncTimeElapsed(app);
-
-        if (elapsed > 0L) {
-            elapsed = (System.currentTimeMillis() - lastSync) + elapsed;
-        }
-        else {
-            elapsed = 1L;
-        }
-        BRSharedPrefs.putLastSyncTimestamp(app, System.currentTimeMillis());
-        BRSharedPrefs.putSyncTimeElapsed(app, elapsed);
-        double minutesValue = ((double) elapsed / 1_000.0  / 60.0);
-        String minutesString = String.format( "%3.2f mins", minutesValue);
-        String millisecString = String.format( "%5d msec", elapsed);
-        Timber.d("timber: ||\nprogress: %s\nThread: %s\nrunning lastSyncingTime: %s\nelapsed: %s | %s", String.format( "%.2f", progress * 100.00),Thread.currentThread().getName(),String.valueOf(BRSharedPrefs.getLastSyncTimestamp(app)), millisecString, minutesString);
-
     }
 
     private synchronized void markFinishedSyncData(Context app) {
-        Timber.d("timber: || markFinish threadname:%s", Thread.currentThread().getName());
+        Timber.d("timber: || SYNC ELAPSE markFinish threadname:%s", Thread.currentThread().getName());
         final double progress = BRPeerManager.syncProgress(BRSharedPrefs.getStartHeight(app));
-        long startSync = BRSharedPrefs.getStartSyncTimestamp(app);
-        long lastSync = BRSharedPrefs.getLastSyncTimestamp(app);
-        long elapsed = BRSharedPrefs.getSyncTimeElapsed(app);
-        double minutesValue = ((double) elapsed / 1_000.0  / 60.0);
-        String minutesString = String.format( "%3.2f mins", minutesValue);
-        String millisecString = String.format( "%5d msec", elapsed);
-        Timber.d("timber: ||\ncompletedprogress: %s\nstartSyncTime: %s\nlastSyncingTime: %s\ntotalTimeelapsed: %s | %s", String.format( "%.2f", progress * 100.00),String.valueOf(startSync),String.valueOf(lastSync), millisecString, minutesString);
-
-        Bundle params = new Bundle();
-        params.putDouble("sync_time_elapsed", minutesValue);
-        params.putLong("sync_start_timestamp", startSync);
-        params.putLong("sync_last_timestamp", lastSync);
-        AnalyticsManager.logCustomEventWithParams(BRConstants._20230407_DCS, params);
     }
 
     public synchronized void stopSyncingProgressThread(Context app) {
@@ -139,7 +109,10 @@ public class SyncManager {
                 app = BreadActivity.getApp();
                 progressStatus = 0;
                 running = true;
-                Timber.d("timber: run: starting: %s", progressStatus);
+                long runTimeStamp = System.currentTimeMillis();
+                Timber.d("timber: run: starting: %s date: %d", progressStatus, runTimeStamp);
+                ///Set StartSync
+                BRSharedPrefs.putStartSyncTimestamp(app, runTimeStamp);
 
                 if (app != null) {
                     final long lastBlockTimeStamp = BRPeerManager.getInstance().getLastBlockTimestamp() * 1000;
@@ -162,6 +135,16 @@ public class SyncManager {
                         progressStatus = BRPeerManager.syncProgress(startHeight);
                         if (progressStatus == 1) {
                             running = false;
+                            /// Record sync time
+                            long startTimeStamp = BRSharedPrefs.getStartSyncTimestamp(app);
+                            long endSyncTimeStamp = System.currentTimeMillis();
+                            BRSharedPrefs.putEndSyncTimestamp(app, endSyncTimeStamp);
+
+                            double syncDuration = (double) (endSyncTimeStamp - startTimeStamp) / 1_000.0 / 60.0;
+                            /// only update if the sync duration is longer than 2 mins
+                           if (syncDuration > 2.0) {
+                                putSyncMetadata(app, startTimeStamp, endSyncTimeStamp);
+                           }
                             continue;
                         }
                         final long lastBlockTimeStamp = BRPeerManager.getInstance().getLastBlockTimestamp() * 1000;

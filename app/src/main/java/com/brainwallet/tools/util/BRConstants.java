@@ -106,8 +106,8 @@ public class BRConstants {
     /**
      * API Hosts
      */
-    public static final String BW_API_PROD_HOST = "https://prod.apigsltd.net";
-    public static final String BW_API_DEV_HOST = "https://dev.apigsltd.net";
+    public static final String BW_API_PROD_HOST = "https://api.grunt.ltd";
+    public static final String LEGACY_BW_API_DEV_HOST = "https://dev.apigsltd.net";
 
     public static final String BLOCK_EXPLORER_BASE_URL = "https://blockchair.com/litecoin/transaction/";
 

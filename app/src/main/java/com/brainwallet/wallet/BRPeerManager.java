@@ -1,8 +1,12 @@
 package com.brainwallet.wallet;
 
+import static com.brainwallet.data.source.RemoteConfigSource.KEY_FEATURE_SELECTED_PEERS_ENABLED;
+
 import android.content.Context;
 
 import com.brainwallet.BrainwalletApp;
+import com.brainwallet.data.repository.SelectedPeersRepository;
+import com.brainwallet.data.source.RemoteConfigSource;
 import com.brainwallet.presenter.entities.BlockEntity;
 import com.brainwallet.presenter.entities.PeerEntity;
 import com.brainwallet.tools.manager.BRSharedPrefs;
@@ -12,10 +16,19 @@ import com.brainwallet.tools.sqlite.PeerDataSource;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.util.TrustedNode;
 
+import org.koin.java.KoinJavaComponent;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
+import kotlin.coroutines.EmptyCoroutineContext;
+import kotlinx.coroutines.CoroutineScopeKt;
+import kotlinx.coroutines.CoroutineStart;
+import kotlinx.coroutines.future.FutureKt;
 import timber.log.Timber;
 
 public class BRPeerManager {
@@ -59,7 +72,6 @@ public class BRPeerManager {
     public static void syncSucceeded() {
         Context ctx = BrainwalletApp.getBreadContext();
         if (ctx == null) return;
-        BRSharedPrefs.putLastSyncTimestamp(ctx, System.currentTimeMillis());
         SyncManager.getInstance().updateAlarms(ctx);
         BRSharedPrefs.putAllowSpend(ctx, true);
         SyncManager.getInstance().stopSyncingProgressThread(ctx);
@@ -86,9 +98,12 @@ public class BRPeerManager {
     public static void txStatusUpdate() {
         Timber.d("timber: txStatusUpdate");
 
-        for (OnTxStatusUpdate listener : statusUpdateListeners) {
-            if (listener != null) listener.onStatusUpdate();
+        synchronized (statusUpdateListeners) {
+            for (OnTxStatusUpdate listener : statusUpdateListeners) {
+                if (listener != null) listener.onStatusUpdate();
+            }
         }
+
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
             @Override
             public void run() {
@@ -164,7 +179,7 @@ public class BRPeerManager {
         } else {
             Timber.d("timber: updateFixedPeer: succeeded");
         }
-        connect();
+        wrapConnectV2();
     }
 
     public void networkChanged(boolean isOnline) {
@@ -172,9 +187,26 @@ public class BRPeerManager {
             BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
                 @Override
                 public void run() {
-                    BRPeerManager.getInstance().connect();
+                    wrapConnectV2();
                 }
             });
+    }
+
+    //wrap logic enable/disable connect with new flow
+    public void wrapConnectV2() {
+//        if (featureSelectedPeersEnabled()) {
+//            fetchSelectedPeers().whenComplete((strings, throwable) -> connect());
+//        } else {
+//            connect();
+//        }
+        //currently we are just using connect(), since the core using hardcoded peers
+        //https://github.com/gruntsoftware/core/commit/0b7f85feac840c7667338c340c808dfccde4251a
+        connect();
+    }
+
+    public static boolean featureSelectedPeersEnabled() {
+        RemoteConfigSource remoteConfigSource = KoinJavaComponent.get(RemoteConfigSource.class);
+        return remoteConfigSource.getBoolean(KEY_FEATURE_SELECTED_PEERS_ENABLED);
     }
 
     public void addStatusUpdateListener(OnTxStatusUpdate listener) {
@@ -184,6 +216,25 @@ public class BRPeerManager {
 
     public void removeListener(OnTxStatusUpdate listener) {
         statusUpdateListeners.remove(listener);
+    }
+
+    public CompletableFuture<Set<? extends String>> fetchSelectedPeers() {
+        SelectedPeersRepository selectedPeersRepository = KoinJavaComponent.get(SelectedPeersRepository.class);
+
+        return FutureKt.future(
+                CoroutineScopeKt.CoroutineScope(EmptyCoroutineContext.INSTANCE),
+                EmptyCoroutineContext.INSTANCE,
+                CoroutineStart.DEFAULT,
+                (coroutineScope, continuation) -> selectedPeersRepository.fetchSelectedPeers(continuation)
+        );
+    }
+
+    public static Set<? extends String> fetchSelectedPeersBlocking() {
+        try {
+            return BRPeerManager.getInstance().fetchSelectedPeers().get();
+        } catch (ExecutionException | InterruptedException e) {
+            return java.util.Collections.emptySet();
+        }
     }
 
     public static void setOnSyncFinished(OnSyncSucceeded listener) {

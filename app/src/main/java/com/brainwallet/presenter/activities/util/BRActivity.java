@@ -16,7 +16,6 @@ import com.brainwallet.presenter.activities.DisabledActivity;
 import com.brainwallet.presenter.activities.intro.RecoverActivity;
 import com.brainwallet.presenter.activities.intro.WriteDownActivity;
 import com.brainwallet.tools.animation.BRAnimator;
-import com.brainwallet.tools.manager.APIManager;
 import com.brainwallet.tools.manager.InternetManager;
 import com.brainwallet.tools.security.AuthManager;
 import com.brainwallet.tools.security.BRKeyStore;
@@ -25,6 +24,7 @@ import com.brainwallet.tools.security.PostAuth;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.util.BRConstants;
 import com.brainwallet.wallet.BRWalletManager;
+import com.brainwallet.worker.CurrencyUpdateWorker;
 
 import org.koin.java.KoinJavaComponent;
 
@@ -50,11 +50,6 @@ public class BRActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
     }
-
-//    @Override
-//    protected void attachBaseContext(Context newBase) {
-//        super.attachBaseContext(LocaleHelper.Companion.getInstance().setLocale(newBase));
-//    }
 
     @Override
     protected void onStop() {
@@ -148,8 +143,8 @@ public class BRActivity extends AppCompatActivity {
 
 
         if (!(app instanceof RecoverActivity || app instanceof WriteDownActivity)) {
-            APIManager apiManager = KoinJavaComponent.get(APIManager.class);
-            apiManager.startTimer(app);
+            CurrencyUpdateWorker currencyUpdateWorker = KoinJavaComponent.get(CurrencyUpdateWorker.class);
+            currencyUpdateWorker.start();
         }
 
         //show wallet locked if it is

@@ -47,7 +47,12 @@ class SettingsViewModel(
     override fun onEvent(event: SettingsEvent) {
         when (event) {
             is SettingsEvent.OnLoad -> viewModelScope.launch {
-                _state.update { it.copy(shareAnalyticsDataEnabled = event.shareAnalyticsDataEnabled) }
+                _state.update {
+                    it.copy(
+                        shareAnalyticsDataEnabled = event.shareAnalyticsDataEnabled,
+                        lastSyncMetadata = event.lastSyncMetadata
+                    )
+                }
             }
 
             SettingsEvent.OnToggleDarkMode -> viewModelScope.launch {

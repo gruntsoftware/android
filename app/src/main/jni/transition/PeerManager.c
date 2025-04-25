@@ -226,6 +226,109 @@ static int networkIsReachable(void *info) {
     return (isNetworkOn == JNI_TRUE) ? 1 : 0;
 }
 
+/**
+ * communicate with java to check if featureSelectedPeersEnabled is on
+ */
+static int featureSelectedPeersEnabled(void *info) {
+    __android_log_print(ANDROID_LOG_DEBUG, "Message from C: ", "featureSelectedPeersEnabled");
+
+    JNIEnv *env = getEnv();
+    jmethodID mid;
+    jboolean isFeatureSelectedPeersOn;
+
+    if (!env) return 0;
+
+    //call java methods
+    mid = (*env)->GetStaticMethodID(env, _peerManagerClass, "featureSelectedPeersEnabled", "()Z");
+    isFeatureSelectedPeersOn = (*env)->CallStaticBooleanMethod(env, _peerManagerClass, mid);
+    return (isFeatureSelectedPeersOn == JNI_TRUE) ? 1 : 0;
+}
+
+/**
+ * obtain selected peers from BRPeerManager.fetchSelectedPeersBlocking
+ */
+static char **fetchSelectedPeers(void *info) {
+    __android_log_print(ANDROID_LOG_DEBUG, "Message from C: ", "fetchSelectedPeers");
+
+        JNIEnv *env = getEnv();
+        if (!env) return NULL;
+
+        jclass peerManagerClass = (*env)->FindClass(env, "com/brainwallet/wallet/BRPeerManager");
+        if (!peerManagerClass) return NULL;
+
+        jmethodID fetchSelectedPeersBlockingMethod = (*env)->GetStaticMethodID(
+            env, peerManagerClass, "fetchSelectedPeersBlocking", "()Ljava/util/Set;");
+        if (!fetchSelectedPeersBlockingMethod) {
+            (*env)->DeleteLocalRef(env, peerManagerClass);
+            return NULL;
+        }
+
+        jobject set = (*env)->CallStaticObjectMethod(env, peerManagerClass, fetchSelectedPeersBlockingMethod);
+        (*env)->DeleteLocalRef(env, peerManagerClass);
+        if (!set) return NULL;
+
+        jclass setClass = (*env)->GetObjectClass(env, set);
+        jmethodID sizeMethod = (*env)->GetMethodID(env, setClass, "size", "()I");
+        jmethodID iteratorMethod = (*env)->GetMethodID(env, setClass, "iterator", "()Ljava/util/Iterator;");
+        if (!sizeMethod || !iteratorMethod) {
+            (*env)->DeleteLocalRef(env, setClass);
+            (*env)->DeleteLocalRef(env, set);
+            return NULL;
+        }
+
+        jint size = (*env)->CallIntMethod(env, set, sizeMethod);
+        jobject iterator = (*env)->CallObjectMethod(env, set, iteratorMethod);
+        (*env)->DeleteLocalRef(env, setClass);
+
+        if (!iterator) {
+            (*env)->DeleteLocalRef(env, set);
+            return NULL;
+        }
+
+        jclass iteratorClass = (*env)->GetObjectClass(env, iterator);
+        jmethodID hasNextMethod = (*env)->GetMethodID(env, iteratorClass, "hasNext", "()Z");
+        jmethodID nextMethod = (*env)->GetMethodID(env, iteratorClass, "next", "()Ljava/lang/Object;");
+        if (!hasNextMethod || !nextMethod) {
+            (*env)->DeleteLocalRef(env, iteratorClass);
+            (*env)->DeleteLocalRef(env, iterator);
+            (*env)->DeleteLocalRef(env, set);
+            return NULL;
+        }
+
+        char **ipAddresses = NULL;
+        if (size > 0) {
+            ipAddresses = (char **)calloc(size + 1, sizeof(char *)); // +1 for NULL-termination
+            if (!ipAddresses) {
+                (*env)->DeleteLocalRef(env, iteratorClass);
+                (*env)->DeleteLocalRef(env, iterator);
+                (*env)->DeleteLocalRef(env, set);
+                return NULL;
+            }
+        }
+
+        size_t index = 0;
+        while ((*env)->CallBooleanMethod(env, iterator, hasNextMethod)) {
+            jstring element = (jstring)(*env)->CallObjectMethod(env, iterator, nextMethod);
+            if (!element) break;
+            const char *peerStr = (*env)->GetStringUTFChars(env, element, NULL);
+            if (peerStr) {
+                ipAddresses[index] = strdup(peerStr);
+                (*env)->ReleaseStringUTFChars(env, element, peerStr);
+                index++;
+            }
+            (*env)->DeleteLocalRef(env, element);
+        }
+
+        if (ipAddresses)
+            ipAddresses[index] = NULL; // NULL-terminate
+
+        (*env)->DeleteLocalRef(env, iteratorClass);
+        (*env)->DeleteLocalRef(env, iterator);
+        (*env)->DeleteLocalRef(env, set);
+
+        return ipAddresses;
+}
+
 static void threadCleanup(void *info) {
     if (_jvmPM)
         (*_jvmPM)->DetachCurrentThread(_jvmPM);
@@ -279,6 +382,7 @@ Java_com_brainwallet_wallet_BRPeerManager_create(JNIEnv *env, jobject thiz,
         _peerManager = BRPeerManagerNew(&BR_CHAIN_PARAMS, _wallet, (uint32_t) earliestKeyTime, _blocks,
                                         (size_t) blocksCount,
                                         _peers, (size_t) peersCount, (double) fpRate);
+
         BRPeerManagerSetCallbacks(_peerManager, NULL, syncStarted, syncStopped,
                                   txStatusUpdate,
                                   saveBlocks, savePeers, networkIsReachable, threadCleanup);

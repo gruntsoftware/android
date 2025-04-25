@@ -20,8 +20,8 @@ android {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 34
-        versionCode = 202503281
-        versionName = "v4.4.1"
+        versionCode = 202504251
+        versionName = "v4.4.7"
 
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
@@ -188,7 +188,6 @@ dependencies {
     }
 
     implementation("androidx.webkit:webkit:1.9.0")
-    implementation("com.squareup.moshi:moshi-kotlin:1.15.2")
     implementation(libs.androidx.core)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.legacy.support)
@@ -217,7 +216,9 @@ dependencies {
     implementation(platform(libs.koin.bom))
     implementation(libs.bundles.koin)
 
-    implementation(libs.squareup.okhttp)
+    implementation(platform(libs.squareup.okhttp.bom))
+    implementation(libs.bundles.squareup.okhttp)
+    implementation(libs.bundles.squareup.retrofit)
     implementation(libs.jakewarthon.timber)
     implementation(libs.commons.io)
     implementation(libs.bundles.eclipse.jetty)

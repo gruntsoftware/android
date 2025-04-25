@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
@@ -57,7 +58,10 @@ fun HomeSettingDrawerSheet(
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {
-        viewModel.onEvent(SettingsEvent.OnLoad(BRSharedPrefs.getShareData(context))) //currently just load analytics share data here
+        viewModel.onEvent(SettingsEvent.OnLoad(
+            shareAnalyticsDataEnabled = BRSharedPrefs.getShareData(context), //currently just load analytics share data here
+            lastSyncMetadata = BRSharedPrefs.getSyncMetadata(context) //currently just load sync metadata here
+        ))
     }
 
     /// Layout values
@@ -170,6 +174,14 @@ fun HomeSettingDrawerSheet(
                     onToggledDarkMode = {
                         viewModel.onEvent(SettingsEvent.OnToggleDarkMode)
                     }
+                )
+            }
+
+            item {
+                SettingRowItem(
+                    modifier = Modifier.height(100.dp),
+                    title = stringResource(R.string.settings_title_sync_metadata),
+                    description = state.lastSyncMetadata ?: "No sync metadata"
                 )
             }
 
