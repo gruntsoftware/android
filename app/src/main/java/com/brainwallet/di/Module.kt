@@ -11,6 +11,7 @@ import com.brainwallet.data.source.RemoteConfigSource
 import com.brainwallet.tools.sqlite.CurrencyDataSource
 import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.screens.home.SettingsViewModel
+import com.brainwallet.ui.screens.home.receive.ReceiveDialogViewModel
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel
 import com.brainwallet.ui.screens.ready.ReadyViewModel
 import com.brainwallet.ui.screens.setpasscode.SetPasscodeViewModel
@@ -70,6 +71,7 @@ val viewModelModule = module {
     viewModel { UnLockViewModel() }
     viewModel { YourSeedProveItViewModel() }
     viewModel { YourSeedWordsViewModel() }
+    viewModel { ReceiveDialogViewModel() }
 }
 
 val appModule = module {

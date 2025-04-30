@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
@@ -75,15 +76,16 @@ fun BrainwalletBottomSheet(
 fun BrainwalletButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    colors: ButtonColors = ButtonDefaults.buttonColors(
+        containerColor = BrainwalletTheme.colors.surface,
+        contentColor = BrainwalletTheme.colors.content
+    ),
     content: @Composable RowScope.() -> Unit
 ) {
     Button(
         onClick = onClick,
         shape = CircleShape,
-        colors = ButtonDefaults.buttonColors(
-            containerColor = BrainwalletTheme.colors.surface,
-            contentColor = BrainwalletTheme.colors.content
-        ),
+        colors = colors,
         modifier = modifier
             .border(1.dp, BrainwalletTheme.colors.border, CircleShape)
             .height(50.dp),
