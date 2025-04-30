@@ -61,6 +61,8 @@ import com.brainwallet.tools.util.Utils;
 import com.brainwallet.ui.BrainwalletActivity;
 import com.brainwallet.ui.screens.home.SettingsViewModel;
 import com.brainwallet.ui.screens.home.composable.HomeSettingDrawerComposeView;
+import com.brainwallet.ui.screens.home.receive.ReceiveDialogFragment;
+import com.brainwallet.ui.screens.home.receive.ReceiveDialogKt;
 import com.brainwallet.util.PermissionUtil;
 import com.brainwallet.wallet.BRPeerManager;
 import com.brainwallet.wallet.BRWalletManager;
@@ -252,7 +254,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
             mSelectedBottomNavItem = 0;
         } else if (menuItemId == R.id.nav_receive) {
             if (BRAnimator.isClickAllowed()) {
-                BRAnimator.showReceiveFragment(BreadActivity.this, true);
+//                BRAnimator.showReceiveFragment(BreadActivity.this, true);
+                //todo
+                ReceiveDialogFragment.show(getSupportFragmentManager());
             }
             mSelectedBottomNavItem = 0;
         }
