@@ -25,6 +25,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.app.ActivityCompat;
@@ -262,8 +263,14 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         }
         else if (menuItemId == R.id.nav_buy) {
             if (BRAnimator.isClickAllowed()) {
-                BRAnimator.showMoonpayFragment(BreadActivity.this);
+//                BRAnimator.showMoonpayFragment(BreadActivity.this);
+                //todo
+                LegacyNavigation.showMoonPayWidget(this);
             }
+
+
+
+
             mSelectedBottomNavItem = 0;
         }
         return true;

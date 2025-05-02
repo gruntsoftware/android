@@ -37,6 +37,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
+import com.brainwallet.navigation.LegacyNavigation
 import com.brainwallet.ui.composable.BrainwalletButton
 import com.brainwallet.ui.screens.home.SettingsViewModel
 import com.brainwallet.ui.theme.BrainwalletAppTheme
@@ -171,7 +172,7 @@ fun ReceiveDialog(
             )
             BrainwalletButton(
                 modifier = Modifier.weight(1f),
-                onClick = {}
+                onClick = { LegacyNavigation.showMoonPayWidget(context) }
             ) {
                 Text(
                     text = "BUY LTC",
