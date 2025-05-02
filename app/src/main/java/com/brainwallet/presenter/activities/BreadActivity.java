@@ -261,18 +261,16 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
             }
             mSelectedBottomNavItem = 0;
         }
-        else if (menuItemId == R.id.nav_buy) {
-            if (BRAnimator.isClickAllowed()) {
-//                BRAnimator.showMoonpayFragment(BreadActivity.this);
-                //todo
-                LegacyNavigation.showMoonPayWidget(this);
-            }
-
-
-
-
-            mSelectedBottomNavItem = 0;
-        }
+//        else if (menuItemId == R.id.nav_buy) {
+//            if (BRAnimator.isClickAllowed()) {
+////                BRAnimator.showMoonpayFragment(BreadActivity.this);
+//            }
+//
+//
+//
+//
+//            mSelectedBottomNavItem = 0;
+//        }
         return true;
     }
 
