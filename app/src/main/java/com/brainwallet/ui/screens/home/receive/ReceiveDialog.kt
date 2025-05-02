@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.brainwallet.ui.screens.home.receive
 
 import android.os.Bundle
@@ -5,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -17,13 +20,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,14 +42,22 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.brainwallet.R
-import com.brainwallet.data.model.AppSetting
 import com.brainwallet.navigation.LegacyNavigation
 import com.brainwallet.ui.composable.BrainwalletButton
-import com.brainwallet.ui.screens.home.SettingsViewModel
+import com.brainwallet.ui.composable.LoadingDialog
+import com.brainwallet.ui.composable.MoonpayBuyButton
+import com.brainwallet.ui.composable.VerticalWheelPicker
+import com.brainwallet.ui.composable.rememberWheelPickerState
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.ui.theme.BrainwalletTheme
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterNot
 import org.koin.android.ext.android.inject
 import org.koin.compose.koinInject
+import timber.log.Timber
 
 //TODO: WIP here
 @Composable
@@ -52,10 +66,43 @@ fun ReceiveDialog(
     viewModel: ReceiveDialogViewModel = koinInject()
 ) {
     val state by viewModel.state.collectAsState()
+    val loadingState by viewModel.loadingState.collectAsState()
     val context = LocalContext.current
+    val wheelPickerFiatCurrencyState = rememberWheelPickerState(0)
+    val wheelPickerAmountState = rememberWheelPickerState(0)
 
     LaunchedEffect(Unit) {
         viewModel.onEvent(ReceiveDialogEvent.OnLoad(context))
+
+        delay(500)
+        wheelPickerFiatCurrencyState.animateScrollToIndex(state.getSelectedFiatCurrencyIndex())
+    }
+
+    LaunchedEffect(wheelPickerAmountState) {
+        snapshotFlow { wheelPickerAmountState.currentIndex }
+            .distinctUntilChanged()
+            .filter { it > -1 }
+            .collect {
+                Timber.i("wheelPickerAmountState: currentIndex $it")
+
+                viewModel.onEvent(ReceiveDialogEvent.OnAmountChange(state.getAmountList()[it]))
+            }
+    }
+
+    LaunchedEffect(wheelPickerFiatCurrencyState) {
+        snapshotFlow { wheelPickerFiatCurrencyState.currentIndex }
+            .debounce(500)
+            .distinctUntilChanged()
+            .filter { it > -1 }
+            .collect {
+                Timber.i("wheelPickerFiatCurrencyState: currentIndex $it")
+
+                viewModel.onEvent(ReceiveDialogEvent.OnFiatChange(state.fiatCurrencies[it]))
+            }
+    }
+
+    AnimatedVisibility(loadingState.visible) {
+        LoadingDialog()
     }
 
     Column(
@@ -144,14 +191,14 @@ fun ReceiveDialog(
             horizontalAlignment = Alignment.End
         ) {
             Text(
-                text = "1.29Ł",
+                text = "${state.getLtcAmountFormatted()}Ł",
                 style = BrainwalletTheme.typography.titleLarge.copy(
                     fontWeight = FontWeight.Bold,
                     color = BrainwalletTheme.colors.surface
                 )
             )
             Text(
-                text = "9 APR 2025 02:00:00",
+                text = state.getRatesUpdatedAtFormatted(),
                 style = BrainwalletTheme.typography.bodySmall.copy(
                     color = BrainwalletTheme.colors.surface
                 )
@@ -163,22 +210,30 @@ fun ReceiveDialog(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            Text(
-                modifier = Modifier.weight(1f),
-                text = "84€   |   EUR",
-                style = BrainwalletTheme.typography.titleMedium.copy(
-                    color = BrainwalletTheme.colors.surface,
-                )
-            )
-            BrainwalletButton(
-                modifier = Modifier.weight(1f),
-                onClick = { LegacyNavigation.showMoonPayWidget(context) }
-            ) {
-                Text(
-                    text = "BUY LTC",
-                    fontWeight = FontWeight.Bold
-                )
+            VerticalWheelPicker(
+                modifier = Modifier.weight(.5f),
+                unfocusedCount = 1,
+                count = state.getAmountList().size,
+                state = wheelPickerAmountState
+            ) { index ->
+                Text(state.getAmountList()[index].toString(), fontWeight = FontWeight.Bold)
             }
+
+            VerticalDivider(modifier = Modifier.height(40.dp))
+
+            VerticalWheelPicker(
+                modifier = Modifier.weight(.5f),
+                unfocusedCount = 1,
+                count = state.fiatCurrencies.size,
+                state = wheelPickerFiatCurrencyState,
+            ) { index ->
+                Text(state.fiatCurrencies[index].code, fontWeight = FontWeight.Bold)
+            }
+
+            MoonpayBuyButton(
+                onClick = { LegacyNavigation.showMoonPayWidget(context) },
+                modifier = Modifier.weight(1f)
+            )
         }
     }
 }
@@ -189,7 +244,7 @@ fun ReceiveDialog(
  */
 class ReceiveDialogFragment : DialogFragment() {
 
-    private val settingsViewModel: SettingsViewModel by inject()
+    private val viewModel: ReceiveDialogViewModel by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -198,9 +253,7 @@ class ReceiveDialogFragment : DialogFragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
-                val appSetting by settingsViewModel.appSetting.collectAsState(
-                    AppSetting()
-                )
+                val appSetting by viewModel.appSetting.collectAsState()
                 /**
                  * we need this theme inside this fragment,
                  * because we are still using fragment to display ReceiveDialog composable

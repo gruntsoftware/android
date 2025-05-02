@@ -71,7 +71,7 @@ val viewModelModule = module {
     viewModel { UnLockViewModel() }
     viewModel { YourSeedProveItViewModel() }
     viewModel { YourSeedWordsViewModel() }
-    viewModel { ReceiveDialogViewModel() }
+    viewModel { ReceiveDialogViewModel(get(), get()) }
 }
 
 val appModule = module {

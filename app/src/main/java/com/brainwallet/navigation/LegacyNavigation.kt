@@ -3,14 +3,13 @@ package com.brainwallet.navigation
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.net.toUri
 import com.brainwallet.R
 import com.brainwallet.presenter.activities.BreadActivity
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.ui.BrainwalletActivity
 import timber.log.Timber
-import androidx.core.net.toUri
 
 
 //provide old navigation using intent activity
@@ -83,6 +82,7 @@ object LegacyNavigation {
             .build()
 
         val intent = CustomTabsIntent.Builder()
+            .setColorScheme(CustomTabsIntent.COLOR_SCHEME_DARK)
             .build()
         intent.launchUrl(context, baseUri)
     }

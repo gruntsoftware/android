@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.Fee
+import com.brainwallet.data.model.MoonpayCurrencyLimit
 import com.brainwallet.data.source.RemoteApiSource
 import com.brainwallet.di.json
 import com.brainwallet.tools.manager.BRSharedPrefs
@@ -16,6 +17,8 @@ interface LtcRepository {
     suspend fun fetchRates(): List<CurrencyEntity>
 
     suspend fun fetchFeePerKb(): Fee
+
+    suspend fun fetchLimits(baseCurrencyCode: String): MoonpayCurrencyLimit
 
     class Impl(
         private val context: Context,
@@ -69,6 +72,10 @@ interface LtcRepository {
                 cachedFee ?: Fee.Default
             }
         }
+
+        override suspend fun fetchLimits(baseCurrencyCode: String): MoonpayCurrencyLimit =
+            remoteApiSource.getMoonpayCurrencyLimit(baseCurrencyCode)
+
 
     }
 
