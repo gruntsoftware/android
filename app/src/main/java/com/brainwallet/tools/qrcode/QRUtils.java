@@ -83,8 +83,8 @@ public class QRUtils {
         return true;
     }
 
-    public static Bitmap generateQR(Context ctx, String bitcoinURL) {
-        if (bitcoinURL == null || bitcoinURL.isEmpty()) return null;
+    public static Bitmap generateQR(Context ctx, String litecoinUrl) {
+        if (litecoinUrl == null || litecoinUrl.isEmpty()) return null;
         WindowManager manager = (WindowManager) ctx.getSystemService(Activity.WINDOW_SERVICE);
         Display display = manager.getDefaultDisplay();
         Point point = new Point();
@@ -94,7 +94,7 @@ public class QRUtils {
         int smallerDimension = Math.min(width, height);
         smallerDimension = (int) (smallerDimension * 0.45f);
         Bitmap bitmap = null;
-        bitmap = QRUtils.encodeAsBitmap(bitcoinURL, smallerDimension);
+        bitmap = QRUtils.encodeAsBitmap(litecoinUrl, smallerDimension);
         return bitmap;
     }
 
