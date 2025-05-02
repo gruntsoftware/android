@@ -54,11 +54,8 @@ class BrainwalletActivity : BRActivity() {
         super.onCreate(savedInstanceState)
         ///DEV: Test / Dev Composable Shortcut swap to launch
         /// Ergo; Route.TopUp
-//        val startDestination =
-//            intent.getSerializableExtra(EXTRA_START_DESTINATION) ?: Route.Welcome
-
         val startDestination =
-            intent.getSerializableExtra(EXTRA_START_DESTINATION) ?: Route.TopUp
+            intent.getSerializableExtra(EXTRA_START_DESTINATION) ?: Route.Welcome
 
         if (startDestination is Route.UnLock) {
             onCheckPin()
