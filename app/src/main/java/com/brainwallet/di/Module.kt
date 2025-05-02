@@ -97,16 +97,17 @@ private fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
     .addInterceptor { chain ->
         val request = chain.request()
         runCatching {
-            val result = chain.proceed(request)
-            if (result.isSuccessful.not()) {
-                throw HttpException(
-                    retrofit2.Response.error<Any>(
-                        result.code,
-                        result.body ?: result.peekBody(Long.MAX_VALUE)
+            chain.proceed(request).use { response ->
+                if (response.isSuccessful.not()) {
+                    throw HttpException(
+                        retrofit2.Response.error<Any>(
+                            response.code,
+                            response.body ?: response.peekBody(Long.MAX_VALUE)
+                        )
                     )
-                )
+                }
+                response
             }
-            result
         }.getOrElse {
             //retry using dev host
             val newRequest = request.newBuilder()
