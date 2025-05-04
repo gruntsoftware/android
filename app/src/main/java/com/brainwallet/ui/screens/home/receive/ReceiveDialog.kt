@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class, FlowPreview::class)
 
 package com.brainwallet.ui.screens.home.receive
 
@@ -24,7 +24,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -50,11 +49,10 @@ import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.composable.BrainwalletButton
 import com.brainwallet.ui.composable.LoadingDialog
 import com.brainwallet.ui.composable.MoonpayBuyButton
-import com.brainwallet.ui.composable.VerticalWheelPicker
 import com.brainwallet.ui.composable.rememberWheelPickerState
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.ui.theme.BrainwalletTheme
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
@@ -92,8 +90,12 @@ fun ReceiveDialog(
                 else -> Unit
             }
         }
+    }
 
-        wheelPickerFiatCurrencyState.animateScrollToIndex(state.getSelectedFiatCurrencyIndex())
+    LaunchedEffect(loadingState) {
+        if (loadingState.visible.not()) {
+            wheelPickerFiatCurrencyState.animateScrollToIndex(state.getSelectedFiatCurrencyIndex())
+        }
     }
 
     LaunchedEffect(wheelPickerAmountState) {
@@ -192,10 +194,13 @@ fun ReceiveDialog(
                 )
             }
         }
-        BrainwalletButton(onClick = {
-            viewModel.onEvent(ReceiveDialogEvent.OnCopyClick(context))
-            Toast.makeText(context, R.string.Receive_copied, Toast.LENGTH_SHORT).show()
-        }) {
+        BrainwalletButton(
+            shape = BrainwalletTheme.shapes.large,
+            onClick = {
+                viewModel.onEvent(ReceiveDialogEvent.OnCopyClick(context))
+                Toast.makeText(context, R.string.Receive_copied, Toast.LENGTH_SHORT).show()
+            }
+        ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
                     stringResource(R.string.URLHandling_copy).uppercase(),
@@ -204,65 +209,78 @@ fun ReceiveDialog(
                 Text(state.address)
             }
         }
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.End
-        ) {
-            Text(
-                text = state.getLtcAmountFormatted(loadingState.visible),
-                style = BrainwalletTheme.typography.titleLarge.copy(
-                    fontWeight = FontWeight.Bold,
-                    color = BrainwalletTheme.colors.surface
+
+        MoonpayBuyButton(
+            onClick = {
+                LegacyNavigation.showMoonPayWidget(
+                    context = context,
+                    params = mapOf("baseCurrencyCode" to state.selectedFiatCurrency.code)
                 )
-            )
-            Text(
-                text = state.getRatesUpdatedAtFormatted(),
-                style = BrainwalletTheme.typography.bodySmall.copy(
-                    color = BrainwalletTheme.colors.surface
-                )
-            )
-        }
-
-        Row(
+                onDismissRequest.invoke()
+            },
             modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            VerticalWheelPicker(
-                modifier = Modifier.weight(.5f),
-                unfocusedCount = 1,
-                count = amountList.size,
-                state = wheelPickerAmountState
-            ) { index ->
-                Text(amountList[index].toString(), fontWeight = FontWeight.Bold)
-            }
+            enabled = loadingState.visible.not()
+        )
 
-            VerticalDivider(modifier = Modifier.height(40.dp))
+//        Column(
+//            modifier = Modifier.fillMaxWidth(),
+//            horizontalAlignment = Alignment.End
+//        ) {
+//            Text(
+//                text = state.getLtcAmountFormatted(loadingState.visible),
+//                style = BrainwalletTheme.typography.titleLarge.copy(
+//                    fontWeight = FontWeight.Bold,
+//                    color = BrainwalletTheme.colors.surface
+//                )
+//            )
+//            Text(
+//                text = state.getRatesUpdatedAtFormatted(),
+//                style = BrainwalletTheme.typography.bodySmall.copy(
+//                    color = BrainwalletTheme.colors.surface
+//                )
+//            )
+//        }
 
-            VerticalWheelPicker(
-                modifier = Modifier.weight(.5f),
-                unfocusedCount = 1,
-                count = state.fiatCurrencies.size,
-                state = wheelPickerFiatCurrencyState,
-            ) { index ->
-                Text(state.fiatCurrencies[index].code, fontWeight = FontWeight.Bold)
-            }
-
-            MoonpayBuyButton(
-                onClick = {
-                    LegacyNavigation.showMoonPayWidget(
-                        context = context,
-                        params = mapOf(
-                            "baseCurrencyCode" to state.selectedFiatCurrency.code,
-                            "baseCurrencyAmount" to state.fiatAmount.toString(),
-                        )
-                    )
-                    onDismissRequest.invoke()
-                },
-                modifier = Modifier.weight(1f),
-                enabled = loadingState.visible.not()
-            )
-        }
+//        Row(
+//            modifier = Modifier.fillMaxWidth(),
+//            verticalAlignment = Alignment.CenterVertically,
+//            horizontalArrangement = Arrangement.Center
+//        ) {
+//            VerticalWheelPicker(
+//                modifier = Modifier.weight(.5f),
+//                unfocusedCount = 1,
+//                count = amountList.size,
+//                state = wheelPickerAmountState
+//            ) { index ->
+//                Text(amountList[index].toString(), fontWeight = FontWeight.Bold)
+//            }
+//
+//            VerticalDivider(modifier = Modifier.height(40.dp))
+//
+//            VerticalWheelPicker(
+//                modifier = Modifier.weight(.5f),
+//                unfocusedCount = 1,
+//                count = state.fiatCurrencies.size,
+//                state = wheelPickerFiatCurrencyState,
+//            ) { index ->
+//                Text(state.fiatCurrencies[index].code, fontWeight = FontWeight.Bold)
+//            }
+//
+//            MoonpayBuyButton(
+//                onClick = {
+//                    LegacyNavigation.showMoonPayWidget(
+//                        context = context,
+//                        params = mapOf(
+//                            "baseCurrencyCode" to state.selectedFiatCurrency.code,
+//                            "baseCurrencyAmount" to state.fiatAmount.toString(),
+//                        )
+//                    )
+//                    onDismissRequest.invoke()
+//                },
+//                modifier = Modifier.weight(1f),
+//                enabled = loadingState.visible.not()
+//            )
+//        }
     }
 }
 

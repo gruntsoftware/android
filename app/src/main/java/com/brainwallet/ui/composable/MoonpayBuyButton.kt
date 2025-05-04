@@ -41,16 +41,16 @@ fun MoonpayBuyButton(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(
-                painter = painterResource(R.drawable.ic_import),
-                contentDescription = null
-            )
+//            Image(
+//                painter = painterResource(R.drawable.ic_import),
+//                contentDescription = null
+//            )
             Text(
                 text = stringResource(R.string.buy_ltc).uppercase(),
                 style = BrainwalletTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
             )
             Row(
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
@@ -58,7 +58,7 @@ fun MoonpayBuyButton(
                     style = BrainwalletTheme.typography.labelSmall.copy(fontSize = 8.sp)
                 )
                 Image(
-                    modifier = Modifier.size(18.dp),
+                    modifier = Modifier.size(16.dp),
                     painter = painterResource(R.drawable.ic_moonpay_logo),
                     contentDescription = "moonpay"
                 )
