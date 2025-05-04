@@ -3,6 +3,8 @@ package com.brainwallet.data.source
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.Fee
 import com.brainwallet.data.model.MoonpayCurrencyLimit
+import com.brainwallet.data.source.response.GetMoonpaySignUrlResponse
+import kotlinx.serialization.json.JsonObject
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -19,6 +21,9 @@ interface RemoteApiSource {
     suspend fun getMoonpayCurrencyLimit(
         @Query("baseCurrencyCode") baseCurrencyCode: String
     ): MoonpayCurrencyLimit
+
+    @GET("v1/moonpay/sign-url")
+    suspend fun getMoonpaySignedUrl(): GetMoonpaySignUrlResponse
 
 //    https://prod.apigsltd.net/moonpay/buy?address=ltc1qjnsg3p9rt4r4vy7ncgvrywdykl0zwhkhcp8ue0&code=USD&idate=1742331930290&uid=ec51fa950b271ff3
 //    suspend fun getMoonPayBuy()

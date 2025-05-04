@@ -6,6 +6,6 @@ import com.brainwallet.data.model.CurrencyEntity
 sealed class ReceiveDialogEvent {
     data class OnLoad(val context: Context) : ReceiveDialogEvent()
     data class OnCopyClick(val context: Context) : ReceiveDialogEvent()
-    data class OnAmountChange(val amount: Float) : ReceiveDialogEvent()
-    data class OnFiatChange(val fiatCurrency: CurrencyEntity) : ReceiveDialogEvent()
+    data class OnFiatAmountChange(val amount: Float) : ReceiveDialogEvent()
+    data class OnFiatCurrencyChange(val fiatCurrency: CurrencyEntity) : ReceiveDialogEvent()
 }

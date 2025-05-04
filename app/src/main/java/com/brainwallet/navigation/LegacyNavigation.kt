@@ -1,14 +1,21 @@
 package com.brainwallet.navigation
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.net.toUri
 import com.brainwallet.R
+import com.brainwallet.data.source.RemoteApiSource
+import com.brainwallet.di.getKoinInstance
 import com.brainwallet.presenter.activities.BreadActivity
-import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.ui.BrainwalletActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 
@@ -59,32 +66,49 @@ object LegacyNavigation {
     }
 
     @JvmStatic
-    fun showMoonPayWidget(context: Context) {
-        //todo: wip here
-        val apiKey = ""
-        val address = BRSharedPrefs.getReceiveAddress(context)
+    fun showMoonPayWidget(
+        context: Context,
+        params: Map<String, String> = mapOf(),
+        isDarkMode: Boolean = true,
+    ) {
+        val remoteApiSource: RemoteApiSource = getKoinInstance()
 
-        val baseUri = "https://buy.moonpay.com/v2/buy".toUri()
-            .buildUpon()
-            .appendQueryParameter("apiKey", apiKey)
-            .appendQueryParameter("defaultCurrencyCode", "ltc")
-            .appendQueryParameter("baseCurrencyCode", "usd")
-//            .appendQueryParameter("baseCurrencyAmount", "84")
-//            .appendQueryParameter("walletAddress", address)
-//            .appendQueryParameter("colorCode", "")
-            .appendQueryParameter("theme", "dark")
-            .appendQueryParameter("themeId", "main-v1.0.0")
-            .appendQueryParameter("language", "en")
-            .appendQueryParameter("quoteCurrencyAmount", "84")
-//            .appendQueryParameter("externalTransactionId", "")
-//            .appendQueryParameter("redirectURL", "")
-//            .appendQueryParameter("skipUnsupportedRegionScreen", "")
-            .build()
+        val progressDialog = ProgressDialog(context).apply {
+            setMessage(context.getString(R.string.loading))
+            setCancelable(false)
+            show()
+        }
 
-        val intent = CustomTabsIntent.Builder()
-            .setColorScheme(CustomTabsIntent.COLOR_SCHEME_DARK)
-            .build()
-        intent.launchUrl(context, baseUri)
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val result = withContext(Dispatchers.IO) {
+                    remoteApiSource.getMoonpaySignedUrl()
+                }
+
+                //todo: revisit this later, current hack
+                val widgetUri = result.signedUrl.toUri().buildUpon()
+                    .apply {
+                        appendQueryParameter("defaultCurrencyCode", "ltc")
+                        appendQueryParameter("themeId", "main-v1.0.0")
+                        appendQueryParameter("theme", if (isDarkMode) "dark" else "light")
+                        appendQueryParameter("language", "en")
+
+                        params.forEach { (key, value) ->
+                            appendQueryParameter(key, value)
+                        }
+                    }
+                    .build()
+
+                val intent = CustomTabsIntent.Builder()
+                    .setColorScheme(if (isDarkMode) CustomTabsIntent.COLOR_SCHEME_DARK else CustomTabsIntent.COLOR_SCHEME_LIGHT)
+                    .build()
+                intent.launchUrl(context, widgetUri)
+            } catch (e: Exception) {
+                Toast.makeText(context, "Failed to load: ${e.message}, please try again later", Toast.LENGTH_LONG).show()
+            } finally {
+                progressDialog.dismiss()
+            }
+        }
     }
 
 }

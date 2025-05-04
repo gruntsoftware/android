@@ -24,6 +24,7 @@ import com.brainwallet.ui.theme.nearBlack
 @Composable
 fun MoonpayBuyButton(
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
     Button(
@@ -33,6 +34,7 @@ fun MoonpayBuyButton(
             containerColor = lavender,
             contentColor = nearBlack
         ),
+        enabled = enabled,
         onClick = onClick,
     ) {
         Column(

@@ -13,15 +13,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.drop
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 //todo: wip
 class ReceiveDialogViewModel(
@@ -33,12 +29,11 @@ class ReceiveDialogViewModel(
     val state: StateFlow<ReceiveDialogState> = _state.asStateFlow()
 
     val appSetting = settingRepository.settings
-        .drop(1)
         .distinctUntilChanged()
         .onEach { setting ->
             _state.update { it.copy(selectedFiatCurrency = setting.currency) }
 
-            onEvent(ReceiveDialogEvent.OnFiatChange(setting.currency))
+            onEvent(ReceiveDialogEvent.OnFiatCurrencyChange(setting.currency))
         }
         .stateIn(
             viewModelScope,
@@ -59,12 +54,10 @@ class ReceiveDialogViewModel(
                             qrBitmap = QRUtils.generateQR(event.context, "litecoin:${address}"),
                             fiatCurrencies = CurrencyDataSource.getInstance(event.context)
                                 .getAllCurrencies(true),
-
-                            )
+                        )
                     }
                 } catch (e: Exception) {
-                    Timber.d("EXCEPTION HERE: ${e.message}")
-                    e.printStackTrace()
+                    handleError(e)
                 } finally {
                     onLoading(false)
                 }
@@ -76,29 +69,29 @@ class ReceiveDialogViewModel(
                 state.value.address
             )
 
-            is ReceiveDialogEvent.OnAmountChange -> _state.update {
+            is ReceiveDialogEvent.OnFiatAmountChange -> _state.update {
                 it.copy(
-                    ltcAmount = event.amount / it.selectedFiatCurrency.rate
+                    fiatAmount = event.amount,
+                    ltcAmount = event.amount / it.selectedFiatCurrency.rate,
                 )
             }
 
-            is ReceiveDialogEvent.OnFiatChange -> viewModelScope.launch {
+            is ReceiveDialogEvent.OnFiatCurrencyChange -> viewModelScope.launch {
                 try {
                     onLoading(true)
-
                     val currencyLimit = ltcRepository.fetchLimits(event.fiatCurrency.code)
+
                     _state.update {
                         it.copy(
                             selectedFiatCurrency = event.fiatCurrency,
                             moonpayCurrencyLimit = currencyLimit,
-                            selectedAmount = currencyLimit.data.baseCurrency.min,
-                            ltcAmount = currencyLimit.data.baseCurrency.min / it.selectedFiatCurrency.rate
+                            fiatAmount = currencyLimit.data.baseCurrency.min,
+                            ltcAmount = currencyLimit.data.baseCurrency.min / event.fiatCurrency.rate,
                         )
                     }
 
                 } catch (e: Exception) {
-                    Timber.d("ERROR HERE: ${e.message}")
-                    e.printStackTrace()
+                    handleError(e)
                 } finally {
                     onLoading(false)
                 }

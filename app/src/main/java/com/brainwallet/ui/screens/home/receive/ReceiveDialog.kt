@@ -29,6 +29,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,6 +46,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.brainwallet.R
 import com.brainwallet.navigation.LegacyNavigation
+import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.composable.BrainwalletButton
 import com.brainwallet.ui.composable.LoadingDialog
 import com.brainwallet.ui.composable.MoonpayBuyButton
@@ -54,7 +58,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.filterNot
 import org.koin.android.ext.android.inject
 import org.koin.compose.koinInject
 import timber.log.Timber
@@ -70,11 +73,26 @@ fun ReceiveDialog(
     val context = LocalContext.current
     val wheelPickerFiatCurrencyState = rememberWheelPickerState(0)
     val wheelPickerAmountState = rememberWheelPickerState(0)
+    var amountList by remember { mutableStateOf(state.getAmountSequence().toList()) }
+
+    LaunchedEffect(state.getAmountSequence()) {
+        amountList = state.getAmountSequence().toList()
+    }
 
     LaunchedEffect(Unit) {
         viewModel.onEvent(ReceiveDialogEvent.OnLoad(context))
+        viewModel.uiEffect.collect { effect ->
+            when (effect) {
+                is UiEffect.ShowMessage -> Toast.makeText(
+                    context,
+                    effect.message,
+                    Toast.LENGTH_SHORT
+                ).show()
 
-        delay(500)
+                else -> Unit
+            }
+        }
+
         wheelPickerFiatCurrencyState.animateScrollToIndex(state.getSelectedFiatCurrencyIndex())
     }
 
@@ -85,19 +103,19 @@ fun ReceiveDialog(
             .collect {
                 Timber.i("wheelPickerAmountState: currentIndex $it")
 
-                viewModel.onEvent(ReceiveDialogEvent.OnAmountChange(state.getAmountList()[it]))
+                viewModel.onEvent(ReceiveDialogEvent.OnFiatAmountChange(amountList[it]))
             }
     }
 
     LaunchedEffect(wheelPickerFiatCurrencyState) {
         snapshotFlow { wheelPickerFiatCurrencyState.currentIndex }
-            .debounce(500)
+            .debounce(700)
             .distinctUntilChanged()
             .filter { it > -1 }
             .collect {
                 Timber.i("wheelPickerFiatCurrencyState: currentIndex $it")
 
-                viewModel.onEvent(ReceiveDialogEvent.OnFiatChange(state.fiatCurrencies[it]))
+                viewModel.onEvent(ReceiveDialogEvent.OnFiatCurrencyChange(state.fiatCurrencies[it]))
             }
     }
 
@@ -191,7 +209,7 @@ fun ReceiveDialog(
             horizontalAlignment = Alignment.End
         ) {
             Text(
-                text = "${state.getLtcAmountFormatted()}Ł",
+                text = state.getLtcAmountFormatted(loadingState.visible),
                 style = BrainwalletTheme.typography.titleLarge.copy(
                     fontWeight = FontWeight.Bold,
                     color = BrainwalletTheme.colors.surface
@@ -213,10 +231,10 @@ fun ReceiveDialog(
             VerticalWheelPicker(
                 modifier = Modifier.weight(.5f),
                 unfocusedCount = 1,
-                count = state.getAmountList().size,
+                count = amountList.size,
                 state = wheelPickerAmountState
             ) { index ->
-                Text(state.getAmountList()[index].toString(), fontWeight = FontWeight.Bold)
+                Text(amountList[index].toString(), fontWeight = FontWeight.Bold)
             }
 
             VerticalDivider(modifier = Modifier.height(40.dp))
@@ -231,8 +249,18 @@ fun ReceiveDialog(
             }
 
             MoonpayBuyButton(
-                onClick = { LegacyNavigation.showMoonPayWidget(context) },
-                modifier = Modifier.weight(1f)
+                onClick = {
+                    LegacyNavigation.showMoonPayWidget(
+                        context = context,
+                        params = mapOf(
+                            "baseCurrencyCode" to state.selectedFiatCurrency.code,
+                            "baseCurrencyAmount" to state.fiatAmount.toString(),
+                        )
+                    )
+                    onDismissRequest.invoke()
+                },
+                modifier = Modifier.weight(1f),
+                enabled = loadingState.visible.not()
             )
         }
     }
