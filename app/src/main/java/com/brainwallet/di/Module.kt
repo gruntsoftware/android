@@ -58,7 +58,7 @@ val dataModule = module {
     single { CurrencyDataSource.getInstance(get()) }
     single<SharedPreferences> { provideSharedPreferences(context = androidApplication()) }
     single<SettingRepository> { SettingRepository.Impl(get(), get()) }
-    single<LtcRepository> { LtcRepository.Impl(get(), get(), get()) }
+    single<LtcRepository> { LtcRepository.Impl(get(), get(), get(), get()) }
 }
 
 val viewModelModule = module {

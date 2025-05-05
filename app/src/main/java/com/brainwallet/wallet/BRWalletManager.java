@@ -514,9 +514,9 @@ public class BRWalletManager {
                 String firstAddress = BRWalletManager.getFirstAddress(pubkeyEncoded);
                 BRSharedPrefs.putFirstAddress(ctx, firstAddress);
                 FeeManager feeManager = FeeManager.getInstance();
-                if (feeManager.isRegularFee()) {
-                    feeManager.updateFeePerKb(ctx);
-                    BRWalletManager.getInstance().setFeePerKb(feeManager.currentFees.regular);
+                if (feeManager.isLuxuryFee()) {
+                    FeeManager.updateFeePerKb(ctx);
+                    BRWalletManager.getInstance().setFeePerKb(feeManager.currentFeeOptions.luxury);
                 }
             }
 
