@@ -434,4 +434,8 @@
   <string name="security_share_data_title">विश्लेषण डेटा साझा करें</string>
     <string name="security_PIN_button">पिन अपडेट करें</string>
   <string name="security_phrase_button">दिखाएं</string>
+  <string name="network_fee_options_desc">नेटवर्क शुल्क (प्रति केबी): उच्च मूल्य का मतलब है कि लेनदेन जल्दी पूरा हो जाएगा</string>
+  <string name="network_fee_options_top">शीर्ष</string>
+  <string name="network_fee_options_medium">मध्यम</string>
+  <string name="network_fee_options_low">कम</string>
 </resources>

@@ -796,4 +796,8 @@
     <string name="security_share_data_title">分析データを共有</string>
     <string name="security_PIN_button">PIN を更新</string>
     <string name="security_phrase_button">表示</string>
+    <string name="network_fee_options_desc">ネットワーク料金 (kb あたり): 値が高いほど、トランザクションが早く完了することを意味します</string>
+    <string name="network_fee_options_top">トップ</string>
+    <string name="network_fee_options_medium">中くらい</string>
+    <string name="network_fee_options_low">低い</string>
 </resources>

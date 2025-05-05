@@ -434,4 +434,8 @@
   <string name="security_share_data_title">Dela analysdata</string>
     <string name="security_PIN_button">Uppdatera PIN</string>
   <string name="security_phrase_button">Visa</string>
+  <string name="network_fee_options_desc">Nätverksavgift (per kb): Högre värde innebär att transaktionen slutförs tidigare</string>
+  <string name="network_fee_options_top">Bästa</string>
+  <string name="network_fee_options_medium">Medium</string>
+  <string name="network_fee_options_low">Låg</string>
 </resources>

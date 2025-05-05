@@ -805,7 +805,7 @@
     <string name="restore_your_power_desc">You can get back from where you started</string>
     <string name="restore_my_brainwallet">Restore my Brainwallet</string>
     <string name="clear">Clear</string>
-    <string name="dont_guess_desc">Don’t guess.\n\nIt would take you \n5,444,517,950,000,000,000,000,000,000,000,000,000,000,000,000,000 tries</string>
+    <string name="dont_guess_desc">Don’t guess.\n\nIt would take you \n5,444,517,950,000,000,000,000,000,000,000,000,000,000,000,000,000,000 tries</string>
     <string name="confirm">Confirm</string>
     <string name="confirm_desc">You didn’t forget did you? Enter it again. Or, go back to start over.</string>
     <string name="ready">Ready</string>
@@ -839,5 +839,8 @@
     <string name="security_share_data_title">Share analytics data</string>
     <string name="security_PIN_button">Update PIN</string>
     <string name="security_phrase_button">Show</string>
-
+    <string name="network_fee_options_desc">Network Fee (per kb): Higher value mean the transaction completes sooner</string>
+    <string name="network_fee_options_top">Top</string>
+    <string name="network_fee_options_medium">Medium</string>
+    <string name="network_fee_options_low">Low</string>
 </resources>
