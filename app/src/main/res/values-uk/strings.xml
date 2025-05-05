@@ -802,4 +802,8 @@
     <string name="security_share_data_title">Ділитися аналітичними даними</string>
     <string name="security_PIN_button">Оновити PIN</string>
     <string name="security_phrase_button">Показати</string>
+    <string name="network_fee_options_desc">Плата за мережу (за кб): вищий показник означає, що транзакція завершується швидше</string>
+    <string name="network_fee_options_top">Топ</string>
+    <string name="network_fee_options_medium">Середній</string>
+    <string name="network_fee_options_low">Низький</string>
 </resources>

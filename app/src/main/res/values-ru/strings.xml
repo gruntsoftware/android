@@ -796,4 +796,8 @@
     <string name="security_share_data_title">Делиться аналитическими данными</string>
     <string name="security_PIN_button">Обновить PIN</string>
     <string name="security_phrase_button">Показать</string>
+    <string name="network_fee_options_desc">Сетевая плата (за КБ): более высокое значение означает, что транзакция завершится раньше.</string>
+    <string name="network_fee_options_top">Вершина</string>
+    <string name="network_fee_options_medium">Середина</string>
+    <string name="network_fee_options_low">Низкий</string>
 </resources>

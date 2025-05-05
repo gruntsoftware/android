@@ -435,4 +435,8 @@
     <string name="security_share_data_title">مشاركة بيانات التحليلات</string>
     <string name="security_PIN_button">تحديث الرقم السري</string>
     <string name="security_phrase_button">عرض</string>
+    <string name="network_fee_options_desc">رسوم الشبكة (لكل كيلو بايت): القيمة الأعلى تعني اكتمال المعاملة في وقت أقرب</string>
+    <string name="network_fee_options_top">قمة</string>
+    <string name="network_fee_options_medium">واسطة</string>
+    <string name="network_fee_options_low">قليل</string>
 </resources>

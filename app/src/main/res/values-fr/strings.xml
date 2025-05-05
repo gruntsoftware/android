@@ -796,4 +796,8 @@
     <string name="security_share_data_title">Partager les données analytiques</string>
     <string name="security_PIN_button">Mettre à jour le code PIN</string>
     <string name="security_phrase_button">Afficher</string>
+    <string name="network_fee_options_desc">Frais de réseau (par Ko): une valeur plus élevée signifie que la transaction se termine plus tôt</string>
+    <string name="network_fee_options_top">Haut</string>
+    <string name="network_fee_options_medium">Moyen</string>
+    <string name="network_fee_options_low">Faible</string>
 </resources>
