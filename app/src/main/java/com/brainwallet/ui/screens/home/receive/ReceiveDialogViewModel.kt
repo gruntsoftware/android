@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -69,11 +70,33 @@ class ReceiveDialogViewModel(
                 state.value.address
             )
 
-            is ReceiveDialogEvent.OnFiatAmountChange -> _state.update {
-                it.copy(
-                    fiatAmount = event.amount,
-                    ltcAmount = event.amount / it.selectedFiatCurrency.rate,
-                )
+            is ReceiveDialogEvent.OnFiatAmountChange -> viewModelScope.launch {
+                try {
+                    onLoading(true)
+
+                    _state.getAndUpdate {
+                        val result = ltcRepository.fetchBuyQuote(
+                            mapOf(
+                                "currencyCode" to "ltc",
+                                "baseCurrencyCode" to it.selectedFiatCurrency.code,
+                                "baseCurrencyAmount" to event.amount.toString(),
+                                "quoteCurrencyAmount" to "%.3f".format(event.amount / it.selectedFiatCurrency.rate)
+                            )
+                        )
+
+                        it.copy(
+                            fiatAmount = event.amount,
+                            ltcAmount = result.data.quoteCurrencyAmount,
+                        )
+                    }
+
+                } catch (e: Exception) {
+                    handleError(e)
+                } finally {
+                    onLoading(false)
+                }
+
+
             }
 
             is ReceiveDialogEvent.OnFiatCurrencyChange -> viewModelScope.launch {
@@ -86,7 +109,6 @@ class ReceiveDialogViewModel(
                             selectedFiatCurrency = event.fiatCurrency,
                             moonpayCurrencyLimit = currencyLimit,
                             fiatAmount = currencyLimit.data.baseCurrency.min,
-                            ltcAmount = currencyLimit.data.baseCurrency.min / event.fiatCurrency.rate,
                         )
                     }
 

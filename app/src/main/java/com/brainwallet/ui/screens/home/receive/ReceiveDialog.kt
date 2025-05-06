@@ -24,6 +24,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -49,6 +50,7 @@ import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.composable.BrainwalletButton
 import com.brainwallet.ui.composable.LoadingDialog
 import com.brainwallet.ui.composable.MoonpayBuyButton
+import com.brainwallet.ui.composable.VerticalWheelPicker
 import com.brainwallet.ui.composable.rememberWheelPickerState
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.ui.theme.BrainwalletTheme
@@ -68,6 +70,7 @@ fun ReceiveDialog(
 ) {
     val state by viewModel.state.collectAsState()
     val loadingState by viewModel.loadingState.collectAsState()
+    val appSetting by viewModel.appSetting.collectAsState()
     val context = LocalContext.current
     val wheelPickerFiatCurrencyState = rememberWheelPickerState(0)
     val wheelPickerAmountState = rememberWheelPickerState(0)
@@ -100,6 +103,7 @@ fun ReceiveDialog(
 
     LaunchedEffect(wheelPickerAmountState) {
         snapshotFlow { wheelPickerAmountState.currentIndex }
+            .debounce(700)
             .distinctUntilChanged()
             .filter { it > -1 }
             .collect {
@@ -210,77 +214,78 @@ fun ReceiveDialog(
             }
         }
 
-        MoonpayBuyButton(
-            onClick = {
-                LegacyNavigation.showMoonPayWidget(
-                    context = context,
-                    params = mapOf("baseCurrencyCode" to state.selectedFiatCurrency.code)
-                )
-                onDismissRequest.invoke()
-            },
+//        MoonpayBuyButton(
+//            onClick = {
+//                LegacyNavigation.showMoonPayWidget(
+//                    context = context,
+//                    params = mapOf("baseCurrencyCode" to state.selectedFiatCurrency.code)
+//                )
+//                onDismissRequest.invoke()
+//            },
+//            modifier = Modifier.fillMaxWidth(),
+//            enabled = loadingState.visible.not()
+//        )
+
+        Column(
             modifier = Modifier.fillMaxWidth(),
-            enabled = loadingState.visible.not()
-        )
+            horizontalAlignment = Alignment.End
+        ) {
+            Text(
+                text = state.getLtcAmountFormatted(loadingState.visible),
+                style = BrainwalletTheme.typography.titleLarge.copy(
+                    fontWeight = FontWeight.Bold,
+                    color = BrainwalletTheme.colors.surface
+                )
+            )
+            Text(
+                text = state.getRatesUpdatedAtFormatted(),
+                style = BrainwalletTheme.typography.bodySmall.copy(
+                    color = BrainwalletTheme.colors.surface
+                )
+            )
+        }
 
-//        Column(
-//            modifier = Modifier.fillMaxWidth(),
-//            horizontalAlignment = Alignment.End
-//        ) {
-//            Text(
-//                text = state.getLtcAmountFormatted(loadingState.visible),
-//                style = BrainwalletTheme.typography.titleLarge.copy(
-//                    fontWeight = FontWeight.Bold,
-//                    color = BrainwalletTheme.colors.surface
-//                )
-//            )
-//            Text(
-//                text = state.getRatesUpdatedAtFormatted(),
-//                style = BrainwalletTheme.typography.bodySmall.copy(
-//                    color = BrainwalletTheme.colors.surface
-//                )
-//            )
-//        }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            VerticalWheelPicker(
+                modifier = Modifier.weight(.5f),
+                unfocusedCount = 1,
+                count = amountList.size,
+                state = wheelPickerAmountState
+            ) { index ->
+                Text(amountList[index].toString(), fontWeight = FontWeight.Bold)
+            }
 
-//        Row(
-//            modifier = Modifier.fillMaxWidth(),
-//            verticalAlignment = Alignment.CenterVertically,
-//            horizontalArrangement = Arrangement.Center
-//        ) {
-//            VerticalWheelPicker(
-//                modifier = Modifier.weight(.5f),
-//                unfocusedCount = 1,
-//                count = amountList.size,
-//                state = wheelPickerAmountState
-//            ) { index ->
-//                Text(amountList[index].toString(), fontWeight = FontWeight.Bold)
-//            }
-//
-//            VerticalDivider(modifier = Modifier.height(40.dp))
-//
-//            VerticalWheelPicker(
-//                modifier = Modifier.weight(.5f),
-//                unfocusedCount = 1,
-//                count = state.fiatCurrencies.size,
-//                state = wheelPickerFiatCurrencyState,
-//            ) { index ->
-//                Text(state.fiatCurrencies[index].code, fontWeight = FontWeight.Bold)
-//            }
-//
-//            MoonpayBuyButton(
-//                onClick = {
-//                    LegacyNavigation.showMoonPayWidget(
-//                        context = context,
-//                        params = mapOf(
-//                            "baseCurrencyCode" to state.selectedFiatCurrency.code,
-//                            "baseCurrencyAmount" to state.fiatAmount.toString(),
-//                        )
-//                    )
-//                    onDismissRequest.invoke()
-//                },
-//                modifier = Modifier.weight(1f),
-//                enabled = loadingState.visible.not()
-//            )
-//        }
+            VerticalDivider(modifier = Modifier.height(40.dp))
+
+            VerticalWheelPicker(
+                modifier = Modifier.weight(.5f),
+                unfocusedCount = 1,
+                count = state.fiatCurrencies.size,
+                state = wheelPickerFiatCurrencyState,
+            ) { index ->
+                Text(state.fiatCurrencies[index].code, fontWeight = FontWeight.Bold)
+            }
+
+            MoonpayBuyButton(
+                onClick = {
+                    LegacyNavigation.showMoonPayWidget(
+                        context = context,
+                        params = mapOf(
+                            "baseCurrencyCode" to state.selectedFiatCurrency.code,
+                            "baseCurrencyAmount" to state.fiatAmount.toString(),
+                            "language" to appSetting.languageCode
+                        )
+                    )
+                    onDismissRequest.invoke()
+                },
+                modifier = Modifier.weight(1f),
+                enabled = loadingState.visible.not()
+            )
+        }
     }
 }
 
