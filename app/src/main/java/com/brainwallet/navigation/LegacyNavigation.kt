@@ -82,20 +82,14 @@ object LegacyNavigation {
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 val result = withContext(Dispatchers.IO) {
-                    remoteApiSource.getMoonpaySignedUrl()
+                    remoteApiSource.getMoonpaySignedUrl(params)
                 }
 
-                //todo: revisit this later, current hack
                 val widgetUri = result.signedUrl.toUri().buildUpon()
                     .apply {
                         appendQueryParameter("defaultCurrencyCode", "ltc")
                         appendQueryParameter("themeId", "main-v1.0.0")
                         appendQueryParameter("theme", if (isDarkMode) "dark" else "light")
-                        appendQueryParameter("language", "en")
-
-                        params.forEach { (key, value) ->
-                            appendQueryParameter(key, value)
-                        }
                     }
                     .build()
 
