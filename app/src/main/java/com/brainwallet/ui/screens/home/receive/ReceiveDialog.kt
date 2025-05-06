@@ -29,9 +29,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -62,7 +59,6 @@ import org.koin.android.ext.android.inject
 import org.koin.compose.koinInject
 import timber.log.Timber
 
-//TODO: WIP here
 @Composable
 fun ReceiveDialog(
     onDismissRequest: () -> Unit,
@@ -74,11 +70,6 @@ fun ReceiveDialog(
     val context = LocalContext.current
     val wheelPickerFiatCurrencyState = rememberWheelPickerState(0)
     val wheelPickerAmountState = rememberWheelPickerState(0)
-    var amountList by remember { mutableStateOf(state.getAmountSequence().toList()) }
-
-    LaunchedEffect(state.getAmountSequence()) {
-        amountList = state.getAmountSequence().toList()
-    }
 
     LaunchedEffect(Unit) {
         viewModel.onEvent(ReceiveDialogEvent.OnLoad(context))
@@ -109,7 +100,13 @@ fun ReceiveDialog(
             .collect {
                 Timber.i("wheelPickerAmountState: currentIndex $it")
 
-                viewModel.onEvent(ReceiveDialogEvent.OnFiatAmountChange(amountList[it]))
+                viewModel.onEvent(
+                    ReceiveDialogEvent.OnFiatAmountChange(
+                        state.getWheelPickerAmountFor(
+                            it
+                        )
+                    )
+                )
             }
     }
 
@@ -214,18 +211,6 @@ fun ReceiveDialog(
             }
         }
 
-//        MoonpayBuyButton(
-//            onClick = {
-//                LegacyNavigation.showMoonPayWidget(
-//                    context = context,
-//                    params = mapOf("baseCurrencyCode" to state.selectedFiatCurrency.code)
-//                )
-//                onDismissRequest.invoke()
-//            },
-//            modifier = Modifier.fillMaxWidth(),
-//            enabled = loadingState.visible.not()
-//        )
-
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.End
@@ -253,10 +238,10 @@ fun ReceiveDialog(
             VerticalWheelPicker(
                 modifier = Modifier.weight(.5f),
                 unfocusedCount = 1,
-                count = amountList.size,
+                count = state.getWheelPickerAmountSize(),
                 state = wheelPickerAmountState
             ) { index ->
-                Text(amountList[index].toString(), fontWeight = FontWeight.Bold)
+                Text(state.getWheelPickerAmountFor(index).toString(), fontWeight = FontWeight.Bold)
             }
 
             VerticalDivider(modifier = Modifier.height(40.dp))

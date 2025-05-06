@@ -28,14 +28,11 @@ data class ReceiveDialogState(
 fun ReceiveDialogState.getSelectedFiatCurrencyIndex(): Int = fiatCurrencies
     .indexOfFirst { it.code.lowercase() == selectedFiatCurrency.code.lowercase() }
 
-//todo: improve this since in IDR will have big data
-fun ReceiveDialogState.getAmountSequence(): Sequence<Float> {
-    val (code, min, max) = moonpayCurrencyLimit.data.baseCurrency
-    return generateSequence(min) { previous ->
-        val next = previous + 1
-        if (next > max) null else next
-    }
-}
+fun ReceiveDialogState.getWheelPickerAmountSize(): Int =
+    moonpayCurrencyLimit.data.baseCurrency.max.toInt() - moonpayCurrencyLimit.data.baseCurrency.min.toInt() + 1
+
+fun ReceiveDialogState.getWheelPickerAmountFor(index: Int = 0): Float =
+    moonpayCurrencyLimit.data.baseCurrency.min + index
 
 fun ReceiveDialogState.getRatesUpdatedAtFormatted(): String {
     val date = Date(ratesUpdatedAt)
