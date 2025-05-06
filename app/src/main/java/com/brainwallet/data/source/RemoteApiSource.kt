@@ -7,6 +7,7 @@ import com.brainwallet.data.source.response.GetMoonpaySignUrlResponse
 import kotlinx.serialization.json.JsonObject
 import retrofit2.http.GET
 import retrofit2.http.Query
+import retrofit2.http.QueryMap
 
 //TODO
 interface RemoteApiSource {
@@ -23,35 +24,13 @@ interface RemoteApiSource {
     ): MoonpayCurrencyLimit
 
     @GET("v1/moonpay/sign-url")
-    suspend fun getMoonpaySignedUrl(): GetMoonpaySignUrlResponse
+    suspend fun getMoonpaySignedUrl(
+        @QueryMap params: Map<String, String>
+    ): GetMoonpaySignUrlResponse
 
-//    https://prod.apigsltd.net/moonpay/buy?address=ltc1qjnsg3p9rt4r4vy7ncgvrywdykl0zwhkhcp8ue0&code=USD&idate=1742331930290&uid=ec51fa950b271ff3
-//    suspend fun getMoonPayBuy()
+    @GET("v1/moonpay/buy-quote")
+    suspend fun getBuyQuote(
+        @QueryMap params: Map<String, String>
+    ): JsonObject
 
-//    v1/moonpay/network-fees?fiatCurrencies=usd
-//    {
-//        "data": {
-//        "LTC": {
-//        "USD": 0.29
-//    }
-//    }
-//    }
-
-//    v1/moonpay/ltc-to-fiat-limits?baseCurrencyCode=usd
-//    {
-//        "data": {
-//        "paymentMethod": "moonpay_balance",
-//        "quoteCurrency": {
-//        "code": "ltc",
-//        "minBuyAmount": 0.218,
-//        "maxBuyAmount": 327.427
-//    },
-//        "baseCurrency": {
-//        "code": "usd",
-//        "minBuyAmount": 21,
-//        "maxBuyAmount": 29849
-//    },
-//        "areFeesIncluded": false
-//    }
-//    }
 }

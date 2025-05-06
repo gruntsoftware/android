@@ -98,28 +98,6 @@ private fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
             .addHeader("Accept-Language", "en")
         chain.proceed(requestBuilder.build())
     }
-    .addInterceptor { chain ->
-        val request = chain.request()
-        runCatching {
-            chain.proceed(request).use { response ->
-                if (response.isSuccessful.not()) {
-                    throw HttpException(
-                        retrofit2.Response.error<Any>(
-                            response.code,
-                            response.body ?: response.peekBody(Long.MAX_VALUE)
-                        )
-                    )
-                }
-                response
-            }
-        }.getOrElse {
-            //retry using dev host
-            val newRequest = request.newBuilder()
-                .url("${BRConstants.LEGACY_BW_API_DEV_HOST}/api${request.url.encodedPath}") //legacy dev api need prefix path /api
-                .build()
-            chain.proceed(newRequest)
-        }
-    }
     .addInterceptor(HttpLoggingInterceptor().apply {
         setLevel(
             when {
