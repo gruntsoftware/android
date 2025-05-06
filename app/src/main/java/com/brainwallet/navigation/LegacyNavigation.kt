@@ -82,23 +82,27 @@ object LegacyNavigation {
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 val result = withContext(Dispatchers.IO) {
-                    remoteApiSource.getMoonpaySignedUrl(params)
+                    remoteApiSource.getMoonpaySignedUrl(
+                        params = params.toMutableMap().apply {
+                            put("defaultCurrencyCode", "ltc")
+                            put("currencyCode", "ltc")
+                            put("themeId", "main-v1.0.0")
+                            put("theme", if (isDarkMode) "dark" else "light")
+                        }
+                    )
                 }
 
-                val widgetUri = result.signedUrl.toUri().buildUpon()
-                    .apply {
-                        appendQueryParameter("defaultCurrencyCode", "ltc")
-                        appendQueryParameter("themeId", "main-v1.0.0")
-                        appendQueryParameter("theme", if (isDarkMode) "dark" else "light")
-                    }
-                    .build()
-
+                val widgetUri = result.signedUrl.toUri()
                 val intent = CustomTabsIntent.Builder()
                     .setColorScheme(if (isDarkMode) CustomTabsIntent.COLOR_SCHEME_DARK else CustomTabsIntent.COLOR_SCHEME_LIGHT)
                     .build()
                 intent.launchUrl(context, widgetUri)
             } catch (e: Exception) {
-                Toast.makeText(context, "Failed to load: ${e.message}, please try again later", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    context,
+                    "Failed to load: ${e.message}, please try again later",
+                    Toast.LENGTH_LONG
+                ).show()
             } finally {
                 progressDialog.dismiss()
             }

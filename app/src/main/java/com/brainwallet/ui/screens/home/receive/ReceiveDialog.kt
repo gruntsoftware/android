@@ -58,6 +58,7 @@ import kotlinx.coroutines.flow.filter
 import org.koin.android.ext.android.inject
 import org.koin.compose.koinInject
 import timber.log.Timber
+import java.net.URL
 
 @Composable
 fun ReceiveDialog(
@@ -262,7 +263,8 @@ fun ReceiveDialog(
                         params = mapOf(
                             "baseCurrencyCode" to state.selectedFiatCurrency.code,
                             "baseCurrencyAmount" to state.fiatAmount.toString(),
-                            "language" to appSetting.languageCode
+                            "language" to appSetting.languageCode,
+                            "walletAddress" to state.address
                         )
                     )
                     onDismissRequest.invoke()
