@@ -3,8 +3,8 @@ package com.brainwallet.data.source
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.Fee
 import com.brainwallet.data.model.MoonpayCurrencyLimit
+import com.brainwallet.data.source.response.GetMoonpayBuyQuoteResponse
 import com.brainwallet.data.source.response.GetMoonpaySignUrlResponse
-import kotlinx.serialization.json.JsonObject
 import retrofit2.http.GET
 import retrofit2.http.Query
 import retrofit2.http.QueryMap
@@ -31,6 +31,6 @@ interface RemoteApiSource {
     @GET("v1/moonpay/buy-quote")
     suspend fun getBuyQuote(
         @QueryMap params: Map<String, String>
-    ): JsonObject
+    ): GetMoonpayBuyQuoteResponse
 
 }

@@ -7,6 +7,7 @@ import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.Fee
 import com.brainwallet.data.model.MoonpayCurrencyLimit
 import com.brainwallet.data.source.RemoteApiSource
+import com.brainwallet.data.source.response.GetMoonpayBuyQuoteResponse
 import com.brainwallet.di.json
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.manager.FeeManager
@@ -19,6 +20,8 @@ interface LtcRepository {
     suspend fun fetchFeePerKb(): Fee
 
     suspend fun fetchLimits(baseCurrencyCode: String): MoonpayCurrencyLimit
+
+    suspend fun fetchBuyQuote(params: Map<String, String>): GetMoonpayBuyQuoteResponse
 
     class Impl(
         private val context: Context,
@@ -76,6 +79,8 @@ interface LtcRepository {
         override suspend fun fetchLimits(baseCurrencyCode: String): MoonpayCurrencyLimit =
             remoteApiSource.getMoonpayCurrencyLimit(baseCurrencyCode)
 
+        override suspend fun fetchBuyQuote(params: Map<String, String>): GetMoonpayBuyQuoteResponse =
+            remoteApiSource.getBuyQuote(params)
 
     }
 
