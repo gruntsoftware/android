@@ -7,6 +7,7 @@ import android.content.Intent
 import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.net.toUri
+import com.brainwallet.BuildConfig
 import com.brainwallet.R
 import com.brainwallet.data.source.RemoteApiSource
 import com.brainwallet.di.getKoinInstance
@@ -92,7 +93,13 @@ object LegacyNavigation {
                     )
                 }
 
-                val widgetUri = result.signedUrl.toUri()
+                val widgetUri = result.signedUrl.toUri().buildUpon()
+                    .apply {
+                        if (BuildConfig.DEBUG) {
+                            authority("buy-sandbox.moonpay.com")//replace base url from buy.moonpay.com
+                        }
+                    }
+                    .build()
                 val intent = CustomTabsIntent.Builder()
                     .setColorScheme(if (isDarkMode) CustomTabsIntent.COLOR_SCHEME_DARK else CustomTabsIntent.COLOR_SCHEME_LIGHT)
                     .build()

@@ -80,7 +80,6 @@ class ReceiveDialogViewModel(
                                 "currencyCode" to "ltc",
                                 "baseCurrencyCode" to it.selectedFiatCurrency.code,
                                 "baseCurrencyAmount" to event.amount.toString(),
-                                "quoteCurrencyAmount" to "%.3f".format(event.amount / it.selectedFiatCurrency.rate)
                             )
                         )
 
