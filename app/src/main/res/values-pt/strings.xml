@@ -795,4 +795,8 @@
     <string name="security_share_data_title">Compartilhar dados analíticos</string>
     <string name="security_PIN_button">Atualizar PIN</string>
     <string name="security_phrase_button">Mostrar</string>
+    <string name="network_fee_options_desc">Taxa de rede (por kb): valor mais alto significa que a transação é concluída mais cedo</string>
+    <string name="network_fee_options_top">Principal</string>
+    <string name="network_fee_options_medium">Médio</string>
+    <string name="network_fee_options_low">Baixo</string>
 </resources>

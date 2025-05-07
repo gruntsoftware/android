@@ -796,4 +796,8 @@
     <string name="security_share_data_title">Condividere i dati analitici</string>
     <string name="security_PIN_button">Aggiorna PIN</string>
     <string name="security_phrase_button">Mostra</string>
+    <string name="network_fee_options_desc">Tariffa di rete (per kb): un valore più elevato significa che la transazione viene completata prima</string>
+    <string name="network_fee_options_top">Superiore</string>
+    <string name="network_fee_options_medium">Medio</string>
+    <string name="network_fee_options_low">Basso</string>
 </resources>

@@ -839,5 +839,8 @@
     <string name="security_share_data_title">Share analytics data</string>
     <string name="security_PIN_button">Update PIN</string>
     <string name="security_phrase_button">Show</string>
-
+    <string name="network_fee_options_desc">Network Fee (per kb): Higher value mean the transaction completes sooner</string>
+    <string name="network_fee_options_top">Top</string>
+    <string name="network_fee_options_medium">Medium</string>
+    <string name="network_fee_options_low">Low</string>
 </resources>

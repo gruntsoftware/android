@@ -1,12 +1,16 @@
 package com.brainwallet.data.repository
 
 import android.content.Context
+import android.content.SharedPreferences
+import androidx.core.content.edit
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.Fee
 import com.brainwallet.data.source.RemoteApiSource
+import com.brainwallet.di.json
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.manager.FeeManager
 import com.brainwallet.tools.sqlite.CurrencyDataSource
+import kotlinx.serialization.encodeToString
 
 interface LtcRepository {
     suspend fun fetchRates(): List<CurrencyEntity>
@@ -16,7 +20,8 @@ interface LtcRepository {
     class Impl(
         private val context: Context,
         private val remoteApiSource: RemoteApiSource,
-        private val currencyDataSource: CurrencyDataSource
+        private val currencyDataSource: CurrencyDataSource,
+        private val sharedPreferences: SharedPreferences,
     ) : LtcRepository {
 
         //todo: make it offline first here later, currently just using CurrencyDataSource.getAllCurrencies
@@ -42,18 +47,33 @@ interface LtcRepository {
         }
 
         override suspend fun fetchFeePerKb(): Fee {
-            return runCatching {
-                val fee = remoteApiSource.getFeePerKb()
+            val lastUpdateTime = sharedPreferences.getLong(PREF_KEY_NETWORK_FEE_PER_KB_CACHED_AT, 0)
+            val currentTime = System.currentTimeMillis()
+            val cachedFee = sharedPreferences.getString(PREF_KEY_NETWORK_FEE_PER_KB, null)
+                ?.let { json.decodeFromString<Fee>(it) }
 
-                //todo: cache
+            return runCatching {
+                // Check if cache exists and is less than 6 hours old
+                if (cachedFee != null && (currentTime - lastUpdateTime) < 6 * 60 * 60 * 1000) {
+                    return cachedFee
+                }
+
+                val fee = remoteApiSource.getFeePerKb()
+                sharedPreferences.edit {
+                    putString(PREF_KEY_NETWORK_FEE_PER_KB, json.encodeToString(fee))
+                    putLong(PREF_KEY_NETWORK_FEE_PER_KB_CACHED_AT, currentTime)
+                }
 
                 return fee
-            }.getOrElse { Fee.Default }
+            }.getOrElse {
+                cachedFee ?: Fee.Default
+            }
         }
 
     }
 
     companion object {
-
+        const val PREF_KEY_NETWORK_FEE_PER_KB = "network_fee_per_kb"
+        const val PREF_KEY_NETWORK_FEE_PER_KB_CACHED_AT = "${PREF_KEY_NETWORK_FEE_PER_KB}_cached_at"
     }
 }

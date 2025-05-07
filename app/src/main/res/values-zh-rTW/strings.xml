@@ -796,4 +796,8 @@
     <string name="security_share_data_title">分享分析數據</string>
     <string name="security_PIN_button">更新 PIN</string>
     <string name="security_phrase_button">顯示</string>
+    <string name="network_fee_options_desc">網路費用（每 kb）：數值越高代表交易完成越快</string>
+    <string name="network_fee_options_top">頂部</string>
+    <string name="network_fee_options_medium">中等的</string>
+    <string name="network_fee_options_low">低的</string>
 </resources>

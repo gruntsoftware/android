@@ -11,9 +11,12 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.animation.OvershootInterpolator
 import android.view.inputmethod.EditorInfo
-import android.widget.*
-import androidx.annotation.ColorRes
-import androidx.annotation.StringRes
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.ScrollView
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
@@ -22,38 +25,53 @@ import androidx.transition.Transition
 import androidx.transition.TransitionManager
 import com.brainwallet.R
 import com.brainwallet.presenter.customviews.BRKeyboard
-import com.brainwallet.presenter.customviews.BRLinearLayoutWithCaret
 import com.brainwallet.presenter.entities.ServiceItems
 import com.brainwallet.presenter.entities.TransactionItem
 import com.brainwallet.tools.animation.BRAnimator
 import com.brainwallet.tools.animation.BRDialog
 import com.brainwallet.tools.animation.SlideDetector
 import com.brainwallet.tools.animation.SpringAnimator
-import com.brainwallet.tools.manager.*
+import com.brainwallet.tools.manager.AnalyticsManager
+import com.brainwallet.tools.manager.BRClipboardManager
+import com.brainwallet.tools.manager.BRSharedPrefs
+import com.brainwallet.tools.manager.FeeManager
 import com.brainwallet.tools.security.BRSender
 import com.brainwallet.tools.security.BitcoinUrlHandler
 import com.brainwallet.tools.threads.BRExecutor
-import com.brainwallet.tools.util.*
+import com.brainwallet.tools.util.BRConstants
+import com.brainwallet.tools.util.BRCurrency
+import com.brainwallet.tools.util.BRExchange
+import com.brainwallet.tools.util.Utils
 import com.brainwallet.wallet.BRWalletManager
-import com.google.common.math.Quantiles.scale
 import timber.log.Timber
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.regex.Pattern
 
+//TODO: make sure remove unused after refactor network fee move to HomeSettingDrawerSheet
 class FragmentSend : Fragment() {
-    private lateinit var signalLayout: LinearLayout; private lateinit var keyboardLayout: LinearLayout
-    private lateinit var scanButton: Button; private lateinit var pasteButton: Button; private lateinit var sendButton: Button; private lateinit var isoCurrencySymbolButton: Button
-    private lateinit var commentEdit: EditText; private lateinit var addressEdit: EditText;private lateinit var amountEdit: EditText
-    private lateinit var isoCurrencySymbolText: TextView; private lateinit var balanceText: TextView; private lateinit var feeText: TextView; private lateinit var feeDescription: TextView; private lateinit var warningText: TextView
-    private var amountLabelOn = true; private var ignoreCleanup = false; private var feeButtonsShown = false
-    private lateinit var edit: ImageView
+    private lateinit var signalLayout: LinearLayout;
+    private lateinit var keyboardLayout: LinearLayout
+    private lateinit var scanButton: Button;
+    private lateinit var pasteButton: Button;
+    private lateinit var sendButton: Button;
+    private lateinit var isoCurrencySymbolButton: Button
+    private lateinit var commentEdit: EditText;
+    private lateinit var addressEdit: EditText;
+    private lateinit var amountEdit: EditText
+    private lateinit var isoCurrencySymbolText: TextView;
+    private lateinit var balanceText: TextView;
+    private lateinit var feeText: TextView;
+    private lateinit var feeDescription: TextView;
+    private lateinit var warningText: TextView
+    private var amountLabelOn = true;
+    private var ignoreCleanup = false;
+    private var feeButtonsShown = false
     private var currentBalance: Long = 0
     private var keyboardIndex = 0
     private lateinit var keyboard: BRKeyboard
     private lateinit var closeButton: ImageButton
     private lateinit var amountLayout: ConstraintLayout
-    private lateinit var feeLayout: BRLinearLayoutWithCaret
     private var selectedIsoCurrencySymbol: String? = null
     private lateinit var backgroundLayout: ScrollView
     private lateinit var amountBuilder: StringBuilder
@@ -78,16 +96,17 @@ class FragmentSend : Fragment() {
         amountEdit = rootView.findViewById<View>(R.id.amount_edit) as EditText
         balanceText = rootView.findViewById<View>(R.id.balance_text) as TextView
         feeText = rootView.findViewById<View>(R.id.fee_text) as TextView
-        edit = rootView.findViewById<View>(R.id.edit) as ImageView
         isoCurrencySymbolButton = rootView.findViewById<View>(R.id.iso_button) as Button
         keyboardLayout = rootView.findViewById<View>(R.id.keyboard_layout) as LinearLayout
         amountLayout = rootView.findViewById<View>(R.id.amount_layout) as ConstraintLayout
-        feeLayout = rootView.findViewById<View>(R.id.fee_buttons_layout) as BRLinearLayoutWithCaret
-        feeDescription = rootView.findViewById<View>(R.id.fee_description) as TextView
-        warningText = rootView.findViewById<View>(R.id.warning_text) as TextView
+//        feeLayout = rootView.findViewById<View>(R.id.fee_buttons_layout) as BRLinearLayoutWithCaret
+//        feeDescription = rootView.findViewById<View>(R.id.fee_description) as TextView
+//        warningText = rootView.findViewById<View>(R.id.warning_text) as TextView
         closeButton = rootView.findViewById<View>(R.id.close_button) as ImageButton
         selectedIsoCurrencySymbol =
-            if (BRSharedPrefs.getPreferredLTC(context)) "LTC" else BRSharedPrefs.getIsoSymbol(context)
+            if (BRSharedPrefs.getPreferredLTC(context)) "LTC" else BRSharedPrefs.getIsoSymbol(
+                context
+            )
         amountBuilder = StringBuilder(0)
         setListeners()
 
@@ -102,18 +121,20 @@ class FragmentSend : Fragment() {
 
         signalLayout.setOnTouchListener(SlideDetector(signalLayout) { animateClose() })
         AnalyticsManager.logCustomEvent(BRConstants._20191105_VSC)
-        setupFeesSelector(rootView)
-        showFeeSelectionButtons(feeButtonsShown)
-        edit.setOnClickListener {
-            feeButtonsShown = !feeButtonsShown
-            showFeeSelectionButtons(feeButtonsShown)
-        }
+//        setupFeesSelector(rootView)
+//        showFeeSelectionButtons(feeButtonsShown)
+//        edit.setOnClickListener {
+//            feeButtonsShown = !feeButtonsShown
+//            showFeeSelectionButtons(feeButtonsShown)
+//        }
         keyboardIndex = signalLayout.indexOfChild(keyboardLayout)
         // TODO: all views are using the layout of this button. Views should be refactored without it
         // Hiding until layouts are built.
         showKeyboard(false)
         signalLayout.layoutTransition = BRAnimator.getDefaultTransition()
-        
+
+        updateText()
+
         return rootView
     }
 
@@ -121,62 +142,62 @@ class FragmentSend : Fragment() {
         super.onActivityCreated(savedInstanceState)
     }
 
-    private fun setupFeesSelector(rootView: View) {
-        val feesSegment = rootView.findViewById<RadioGroup>(R.id.fees_segment)
-        feesSegment.setOnCheckedChangeListener { _, checkedTypeId -> onFeeTypeSelected(checkedTypeId) }
-        onFeeTypeSelected(R.id.regular_fee_but)
-    }
+//    private fun setupFeesSelector(rootView: View) {
+//        val feesSegment = rootView.findViewById<RadioGroup>(R.id.fees_segment)
+//        feesSegment.setOnCheckedChangeListener { _, checkedTypeId -> onFeeTypeSelected(checkedTypeId) }
+//        onFeeTypeSelected(R.id.regular_fee_but)
+//    }
 
-    private fun onFeeTypeSelected(checkedTypeId: Int) {
-        val feeManager = FeeManager.getInstance()
-        when (checkedTypeId) {
-            R.id.regular_fee_but -> {
-                feeManager.setFeeType(FeeManager.REGULAR)
-                BRWalletManager.getInstance().setFeePerKb(feeManager.currentFees.regular)
-                setFeeInformation(R.string.FeeSelector_regularTime, 0, 0, View.GONE)
-            }
-            R.id.economy_fee_but -> {
-                feeManager.setFeeType(FeeManager.ECONOMY)
-                BRWalletManager.getInstance().setFeePerKb(feeManager.currentFees.economy)
-                setFeeInformation(
-                    R.string.FeeSelector_economyTime,
-                    R.string.FeeSelector_economyWarning,
-                    R.color.chili,
-                    View.VISIBLE,
-                )
-            }
-            R.id.luxury_fee_but -> {
-                feeManager.setFeeType(FeeManager.LUXURY)
-                BRWalletManager.getInstance().setFeePerKb(feeManager.currentFees.luxury)
-                setFeeInformation(
-                    R.string.FeeSelector_luxuryTime,
-                    R.string.FeeSelector_luxuryMessage,
-                    R.color.cheddar,
-                    View.VISIBLE,
-                )
-            }
-            else -> {
-            }
-        }
-        updateText()
-    }
+//    private fun onFeeTypeSelected(checkedTypeId: Int) {
+//        val feeManager = FeeManager.getInstance()
+//        when (checkedTypeId) {
+//            R.id.regular_fee_but -> {
+//                feeManager.setFeeType(FeeManager.REGULAR)
+//                BRWalletManager.getInstance().setFeePerKb(feeManager.currentFeeOptions.regular)
+//                setFeeInformation(R.string.FeeSelector_regularTime, 0, 0, View.GONE)
+//            }
+//            R.id.economy_fee_but -> {
+//                feeManager.setFeeType(FeeManager.ECONOMY)
+//                BRWalletManager.getInstance().setFeePerKb(feeManager.currentFeeOptions.economy)
+//                setFeeInformation(
+//                    R.string.FeeSelector_economyTime,
+//                    R.string.FeeSelector_economyWarning,
+//                    R.color.chili,
+//                    View.VISIBLE,
+//                )
+//            }
+//            R.id.luxury_fee_but -> {
+//                feeManager.setFeeType(FeeManager.LUXURY)
+//                BRWalletManager.getInstance().setFeePerKb(feeManager.currentFeeOptions.luxury)
+//                setFeeInformation(
+//                    R.string.FeeSelector_luxuryTime,
+//                    R.string.FeeSelector_luxuryMessage,
+//                    R.color.cheddar,
+//                    View.VISIBLE,
+//                )
+//            }
+//            else -> {
+//            }
+//        }
+//        updateText()
+//    }
 
-    private fun setFeeInformation(
-        @StringRes deliveryTime: Int,
-        @StringRes warningStringId: Int,
-        @ColorRes warningColorId: Int,
-        visibility: Int,
-    ) {
-        feeDescription.text =
-            getString(R.string.FeeSelector_estimatedDeliver, getString(deliveryTime))
-        if (warningStringId != 0) {
-            warningText.setText(warningStringId)
-        }
-        if (warningColorId != 0) {
-            warningText.setTextColor(resources.getColor(warningColorId, null))
-        }
-        warningText.visibility = visibility
-    }
+//    private fun setFeeInformation(
+//        @StringRes deliveryTime: Int,
+//        @StringRes warningStringId: Int,
+//        @ColorRes warningColorId: Int,
+//        visibility: Int,
+//    ) {
+//        feeDescription.text =
+//            getString(R.string.FeeSelector_estimatedDeliver, getString(deliveryTime))
+//        if (warningStringId != 0) {
+//            warningText.setText(warningStringId)
+//        }
+//        if (warningColorId != 0) {
+//            warningText.setTextColor(resources.getColor(warningColorId, null))
+//        }
+//        warningText.visibility = visibility
+//    }
 
     private fun setListeners() {
         amountEdit.setOnClickListener {
@@ -187,8 +208,9 @@ class FragmentSend : Fragment() {
                 amountEdit.textSize = 24f
                 balanceText.visibility = View.VISIBLE
                 feeText.visibility = View.VISIBLE
-                edit.visibility = View.VISIBLE
-                isoCurrencySymbolText.text = BRCurrency.getSymbolByIso(activity, selectedIsoCurrencySymbol)
+//                edit.visibility = View.VISIBLE
+                isoCurrencySymbolText.text =
+                    BRCurrency.getSymbolByIso(activity, selectedIsoCurrencySymbol)
                 isoCurrencySymbolText.textSize = 28f
                 val scaleX = amountEdit.scaleX
                 amountEdit.scaleX = 0f
@@ -242,7 +264,13 @@ class FragmentSend : Fragment() {
                     ConstraintSet.TOP,
                     px4,
                 )
-                set.connect(isoCurrencySymbolText.id, ConstraintSet.BOTTOM, -1, ConstraintSet.TOP, -1)
+                set.connect(
+                    isoCurrencySymbolText.id,
+                    ConstraintSet.BOTTOM,
+                    -1,
+                    ConstraintSet.TOP,
+                    -1
+                )
                 set.applyTo(amountLayout)
             }
         }
@@ -328,7 +356,11 @@ class FragmentSend : Fragment() {
         )
         isoCurrencySymbolButton.setOnClickListener {
             selectedIsoCurrencySymbol =
-                if (selectedIsoCurrencySymbol.equals(BRSharedPrefs.getIsoSymbol(context), ignoreCase = true)) {
+                if (selectedIsoCurrencySymbol.equals(
+                        BRSharedPrefs.getIsoSymbol(context),
+                        ignoreCase = true
+                    )
+                ) {
                     "LTC"
                 } else {
                     BRSharedPrefs.getIsoSymbol(context)
@@ -372,7 +404,8 @@ class FragmentSend : Fragment() {
                 if (allFilled) {
                     BRSender.getInstance().sendTransaction(
                         context,
-                        TransactionItem(sendAddress,
+                        TransactionItem(
+                            sendAddress,
                             Utils.fetchServiceItem(context, ServiceItems.WALLETOPS),
                             null,
                             litoshiAmount.toLong(),
@@ -490,9 +523,11 @@ class FragmentSend : Fragment() {
             key.isEmpty() -> {
                 handleDeleteClick()
             }
+
             Character.isDigit(key[0]) -> {
                 handleDigitClick(key.substring(0, 1).toInt())
             }
+
             key[0] == '.' -> {
                 handleSeparatorClick()
             }
@@ -537,7 +572,7 @@ class FragmentSend : Fragment() {
     private fun updateText() {
         if (activity == null) return
         var tempDoubleAmountValue = 0.0
-        if (amountBuilder.toString() != "" && amountBuilder.toString() != "." ) {
+        if (amountBuilder.toString() != "" && amountBuilder.toString() != ".") {
             tempDoubleAmountValue = amountBuilder.toString().toDouble()
         }
         val scaleValue = 4
@@ -547,42 +582,68 @@ class FragmentSend : Fragment() {
         val selectedISOSymbol = selectedIsoCurrencySymbol
         val currencySymbol = BRCurrency.getSymbolByIso(activity, selectedIsoCurrencySymbol)
         if (!amountLabelOn) isoCurrencySymbolText.text = currencySymbol
-        isoCurrencySymbolButton.text = String.format("%s(%s)",
-                                        BRCurrency.getCurrencyName(activity, selectedIsoCurrencySymbol),
-                                        currencySymbol)
+        isoCurrencySymbolButton.text = String.format(
+            "%s(%s)",
+            BRCurrency.getCurrencyName(activity, selectedIsoCurrencySymbol),
+            currencySymbol
+        )
 
         // Balance depending on ISOSymbol
         currentBalance = BRWalletManager.getInstance().getBalance(activity)
-        val balanceForISOSymbol = BRExchange.getAmountFromLitoshis(activity, selectedISOSymbol, BigDecimal(currentBalance))
-        val formattedBalance = BRCurrency.getFormattedCurrencyString(activity, selectedISOSymbol, balanceForISOSymbol)
+        val balanceForISOSymbol = BRExchange.getAmountFromLitoshis(
+            activity,
+            selectedISOSymbol,
+            BigDecimal(currentBalance)
+        )
+        val formattedBalance =
+            BRCurrency.getFormattedCurrencyString(activity, selectedISOSymbol, balanceForISOSymbol)
 
         // Current amount depending on ISOSymbol
         val currentAmountInLitoshis =
             if (selectedIsoCurrencySymbol.equals("LTC", ignoreCase = true)) {
                 BRExchange.convertltcsToLitoshis(tempDoubleAmountValue).toLong()
             } else {
-                BRExchange.getLitoshisFromAmount(activity,selectedIsoCurrencySymbol,BigDecimal(tempDoubleAmountValue)).toLong()
+                BRExchange.getLitoshisFromAmount(
+                    activity,
+                    selectedIsoCurrencySymbol,
+                    BigDecimal(tempDoubleAmountValue)
+                ).toLong()
             }
-        Timber.d("timber: updateText: currentAmountInLitoshis %d",currentAmountInLitoshis)
+        Timber.d("timber: updateText: currentAmountInLitoshis %d", currentAmountInLitoshis)
 
         // Network Fee depending on ISOSymbol
-        var networkFee = if(currentAmountInLitoshis > 0) { BRWalletManager.getInstance().feeForTransactionAmount(currentAmountInLitoshis) }
-        else { 0 } //Amount is zero so network fee is also zero
+        var networkFee = if (currentAmountInLitoshis > 0) {
+            BRWalletManager.getInstance().feeForTransactionAmount(currentAmountInLitoshis)
+        } else {
+            0
+        } //Amount is zero so network fee is also zero
         val networkFeeForISOSymbol =
-          BRExchange.getAmountFromLitoshis(activity,selectedISOSymbol, BigDecimal(networkFee)).setScale(scaleValue, RoundingMode.HALF_UP)
-        val formattedNetworkFee = BRCurrency.getFormattedCurrencyString(activity, selectedISOSymbol, networkFeeForISOSymbol)
+            BRExchange.getAmountFromLitoshis(activity, selectedISOSymbol, BigDecimal(networkFee))
+                .setScale(scaleValue, RoundingMode.HALF_UP)
+        val formattedNetworkFee = BRCurrency.getFormattedCurrencyString(
+            activity,
+            selectedISOSymbol,
+            networkFeeForISOSymbol
+        )
 
         // Service Fee depending on ISOSymbol
         var serviceFee = Utils.tieredOpsFee(activity, currentAmountInLitoshis)
         val serviceFeeForISOSymbol =
-          BRExchange.getAmountFromLitoshis(activity,selectedISOSymbol,BigDecimal(serviceFee)).setScale(scaleValue, RoundingMode.HALF_UP)
-        val formattedServiceFee = BRCurrency.getFormattedCurrencyString(activity, selectedISOSymbol, serviceFeeForISOSymbol)
+            BRExchange.getAmountFromLitoshis(activity, selectedISOSymbol, BigDecimal(serviceFee))
+                .setScale(scaleValue, RoundingMode.HALF_UP)
+        val formattedServiceFee = BRCurrency.getFormattedCurrencyString(
+            activity,
+            selectedISOSymbol,
+            serviceFeeForISOSymbol
+        )
 
         // Total Fees depending on ISOSymbol
         val totalFees = networkFee + serviceFee
         val totalFeeForISOSymbol =
-            BRExchange.getAmountFromLitoshis( activity,selectedISOSymbol,BigDecimal(totalFees)).setScale(scaleValue, RoundingMode.HALF_UP)
-        val formattedTotalFees = BRCurrency.getFormattedCurrencyString(activity, selectedISOSymbol, totalFeeForISOSymbol)
+            BRExchange.getAmountFromLitoshis(activity, selectedISOSymbol, BigDecimal(totalFees))
+                .setScale(scaleValue, RoundingMode.HALF_UP)
+        val formattedTotalFees =
+            BRCurrency.getFormattedCurrencyString(activity, selectedISOSymbol, totalFeeForISOSymbol)
 
         // Update UI with alert red when over balance
         if (BigDecimal(currentAmountInLitoshis).toDouble() > currentBalance.toDouble()) {
@@ -590,8 +651,7 @@ class FragmentSend : Fragment() {
             feeText.setTextColor(requireContext().getColor(R.color.chili))
             amountEdit.setTextColor(requireContext().getColor(R.color.chili))
             if (!amountLabelOn) isoCurrencySymbolText.setTextColor(requireContext().getColor(R.color.chili))
-        }
-        else {
+        } else {
             balanceText.setTextColor(requireContext().getColor(R.color.cheddar))
             feeText.setTextColor(requireContext().getColor(R.color.cheddar))
             amountEdit.setTextColor(requireContext().getColor(R.color.cheddar))
@@ -599,12 +659,14 @@ class FragmentSend : Fragment() {
         }
 
         balanceText.text = getString(R.string.Send_balance, formattedBalance)
-        feeText.text = String.format("(%s + %s): %s + %s = %s",
+        feeText.text = String.format(
+            "(%s + %s): %s + %s = %s",
             getString(R.string.Network_feeLabel),
             getString(R.string.Fees_Service),
             formattedNetworkFee,
             formattedServiceFee,
-            formattedTotalFees)
+            formattedTotalFees
+        )
         amountLayout.requestLayout()
     }
 
@@ -627,13 +689,13 @@ class FragmentSend : Fragment() {
         }
     }
 
-    private fun showFeeSelectionButtons(b: Boolean) {
-        if (!b) {
-            signalLayout.removeView(feeLayout)
-        } else {
-            signalLayout.addView(feeLayout, signalLayout.indexOfChild(amountLayout) + 1)
-        }
-    }
+//    private fun showFeeSelectionButtons(b: Boolean) {
+//        if (!b) {
+//            signalLayout.removeView(feeLayout)
+//        } else {
+//            signalLayout.addView(feeLayout, signalLayout.indexOfChild(amountLayout) + 1)
+//        }
+//    }
 
     private fun setAmount() {
         val tmpAmount = amountBuilder.toString()
@@ -648,7 +710,7 @@ class FragmentSend : Fragment() {
                 newAmount.append(",")
             }
         }
-        
+
         amountEdit.setText(newAmount.toString())
     }
 
@@ -680,7 +742,8 @@ class FragmentSend : Fragment() {
     private fun loadMetaData() {
         ignoreCleanup = false
         if (!Utils.isNullOrEmpty(savedMemo)) commentEdit.setText(savedMemo)
-        if (!Utils.isNullOrEmpty(savedIsoCurrencySymbol)) selectedIsoCurrencySymbol = savedIsoCurrencySymbol
+        if (!Utils.isNullOrEmpty(savedIsoCurrencySymbol)) selectedIsoCurrencySymbol =
+            savedIsoCurrencySymbol
         if (!Utils.isNullOrEmpty(savedAmount)) {
             amountBuilder = StringBuilder(savedAmount!!)
             Handler().postDelayed({
@@ -707,7 +770,6 @@ class FragmentSend : Fragment() {
         private var savedAmount: String? = null
     }
 }
-
 
 
 ///DEV WIP
