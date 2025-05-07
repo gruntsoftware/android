@@ -764,7 +764,7 @@
     <string name="restore_your_power_desc">你可以从开始的地方返回</string>
     <string name="restore_my_brainwallet">恢复我的脑钱包</string>
     <string name="clear">清除</string>
-    <string name="dont_guess_desc">不要猜测。\n\n这将需要你 \n5,444,517,950,000,000,000,000,000,000,000,000,000,000,000,000,000,000 次尝试</string>
+    <string name="dont_guess_desc">不要猜测。\n\n这将需要你 \n5,444,517,950,000,000,000,000,000,000,000,000,000,000,000,000,000 次尝试</string>
     <string name="confirm">确认</string>
     <string name="confirm_desc">你没有忘记吧？再次输入。或者，返回重新开始。</string>
     <string name="ready">准备好</string>
