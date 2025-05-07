@@ -846,4 +846,9 @@
     <string name="network_fee_options_top">Top</string>
     <string name="network_fee_options_medium">Medium</string>
     <string name="network_fee_options_low">Low</string>
+    <string name="buy_litecoin_fiat_amount_validation_min">Amount is below minimum limit (%f)</string>
+    <string name="buy_litecoin_fiat_amount_validation_max">Amount exceeds maximum limit (%f)</string>
+    <string name="buy_litecoin_title">Buy Litecoin</string>
+    <string name="buy_litecoin_desc">Do be deposited to your LTC Address:</string>
+    <string name="buy_litecoin_button_moonpay">Buy with Moonpay</string>
 </resources>

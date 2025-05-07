@@ -18,8 +18,8 @@ class YourSeedProveItViewModel : BrainwalletViewModel<YourSeedProveItEvent>() {
         when (event) {
             is YourSeedProveItEvent.OnLoad -> _state.update {
                 it.copy(
-                    correctSeedWords = event.seedWords.mapIndexed { index, word -> 
-                        index to SeedWordItem(expected = word) 
+                    correctSeedWords = event.seedWords.mapIndexed { index, word ->
+                        index to SeedWordItem(expected = word)
                     }.toMap(),
                     shuffledSeedWords = event.seedWords.shuffled()
                 )
