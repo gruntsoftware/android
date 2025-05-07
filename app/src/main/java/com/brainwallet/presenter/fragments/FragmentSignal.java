@@ -31,7 +31,7 @@ public class FragmentSignal extends DialogFragment {
     private final Runnable popBackStackRunnable = new Runnable() {
         @Override
         public void run() {
-            dismiss();
+            dismissAllowingStateLoss();
             handler.postDelayed(completionRunnable, 300);
         }
     };
