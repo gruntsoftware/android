@@ -28,11 +28,30 @@ data class ReceiveDialogState(
 fun ReceiveDialogState.getSelectedFiatCurrencyIndex(): Int = fiatCurrencies
     .indexOfFirst { it.code.lowercase() == selectedFiatCurrency.code.lowercase() }
 
-fun ReceiveDialogState.getWheelPickerAmountSize(): Int =
-    moonpayCurrencyLimit.data.baseCurrency.max.toInt() - moonpayCurrencyLimit.data.baseCurrency.min.toInt() + 1
+fun ReceiveDialogState.getWheelPickerAmountSize(): Int {
+    val (_, min, max) = moonpayCurrencyLimit.data.baseCurrency
+    return ((max.toInt() - min.toInt()) / 10) + 1
+}
 
-fun ReceiveDialogState.getWheelPickerAmountFor(index: Int = 0): Float =
-    moonpayCurrencyLimit.data.baseCurrency.min + index
+fun ReceiveDialogState.getWheelPickerAmountFor(index: Int = 0): Int = minOf(
+    moonpayCurrencyLimit.data.baseCurrency.min.toInt() + (index * 10),
+    moonpayCurrencyLimit.data.baseCurrency.max.toInt()
+)
+
+fun ReceiveDialogState.getWheelPickerFiatAmountIndex(): Int {
+    val (_, min, max) = moonpayCurrencyLimit.data.baseCurrency
+
+    if (fiatAmount < min) return 0
+    if (fiatAmount > max) return getWheelPickerAmountSize() - 1
+    
+    return ((fiatAmount.toInt() - min.toInt()) / 10).coerceIn(0, getWheelPickerAmountSize() - 1)
+}
+
+fun ReceiveDialogState.getDefaultFiatAmount(): Float {
+    val (_, min, max) = moonpayCurrencyLimit.data.baseCurrency
+    val range = max - min
+    return min + (range * 0.1f)
+}
 
 fun ReceiveDialogState.getRatesUpdatedAtFormatted(): String {
     val date = Date(ratesUpdatedAt)

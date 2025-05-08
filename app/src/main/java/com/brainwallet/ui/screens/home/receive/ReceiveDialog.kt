@@ -38,6 +38,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
@@ -58,7 +59,6 @@ import kotlinx.coroutines.flow.filter
 import org.koin.android.ext.android.inject
 import org.koin.compose.koinInject
 import timber.log.Timber
-import java.net.URL
 
 @Composable
 fun ReceiveDialog(
@@ -90,12 +90,13 @@ fun ReceiveDialog(
     LaunchedEffect(loadingState) {
         if (loadingState.visible.not()) {
             wheelPickerFiatCurrencyState.animateScrollToIndex(state.getSelectedFiatCurrencyIndex())
+            wheelPickerAmountState.animateScrollToIndex(state.getWheelPickerFiatAmountIndex())
         }
     }
 
     LaunchedEffect(wheelPickerAmountState) {
         snapshotFlow { wheelPickerAmountState.currentIndex }
-            .debounce(700)
+            .debounce(2000)
             .distinctUntilChanged()
             .filter { it > -1 }
             .collect {
@@ -103,9 +104,7 @@ fun ReceiveDialog(
 
                 viewModel.onEvent(
                     ReceiveDialogEvent.OnFiatAmountChange(
-                        state.getWheelPickerAmountFor(
-                            it
-                        )
+                        state.getWheelPickerAmountFor(it).toFloat()
                     )
                 )
             }
@@ -242,7 +241,11 @@ fun ReceiveDialog(
                 count = state.getWheelPickerAmountSize(),
                 state = wheelPickerAmountState
             ) { index ->
-                Text(state.getWheelPickerAmountFor(index).toString(), fontWeight = FontWeight.Bold)
+                Text(
+                    text = state.getWheelPickerAmountFor(index).toString(),
+                    fontWeight = FontWeight.Bold,
+                    overflow = TextOverflow.Ellipsis
+                )
             }
 
             VerticalDivider(modifier = Modifier.height(40.dp))

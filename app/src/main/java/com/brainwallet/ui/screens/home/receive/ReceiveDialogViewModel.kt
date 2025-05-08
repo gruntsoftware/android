@@ -107,7 +107,7 @@ class ReceiveDialogViewModel(
                         it.copy(
                             selectedFiatCurrency = event.fiatCurrency,
                             moonpayCurrencyLimit = currencyLimit,
-                            fiatAmount = currencyLimit.data.baseCurrency.min,
+                            fiatAmount = it.getDefaultFiatAmount(),
                         )
                     }
 
