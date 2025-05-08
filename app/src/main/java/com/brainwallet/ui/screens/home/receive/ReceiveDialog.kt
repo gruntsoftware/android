@@ -188,7 +188,7 @@ fun ReceiveDialog(
                     )
                 )
                 Text(
-                    text = "NEW RECEIVE ADDRESS",
+                    text = stringResource(R.string.new_address).uppercase(),
                     style = BrainwalletTheme.typography.bodySmall.copy(
                         color = BrainwalletTheme.colors.surface,
                     )
