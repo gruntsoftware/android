@@ -802,4 +802,15 @@
     <string name="network_fee_options_top">Atas</string>
     <string name="network_fee_options_medium">Sedang</string>
     <string name="network_fee_options_low">Rendah</string>
+    <string name="settings_title_sync_metadata">Sinkronkan metadata:</string>
+    <string name="buy_ltc">Beli LTC</string>
+    <string name="powered_by_moonpay">Didukung oleh Moonpay</string>
+    <string name="loading">Memuat...</string>
+    <string name="buy_litecoin_fiat_amount_validation_min">Jumlahnya di bawah batas minimum (%1$f)</string>
+    <string name="buy_litecoin_fiat_amount_validation_max">Jumlah melebihi batas maksimum (%1$f)</string>
+    <string name="buy_litecoin_title">Beli Litecoin</string>
+    <string name="buy_litecoin_desc">Disetorkan ke Alamat LTC Anda:</string>
+    <string name="buy_litecoin_button_moonpay">Beli dengan Moonpay</string>
+    <string name="new_address">Alamat Baru</string>
+    <string name="bottom_nav_item_buy_receive_title">Beli / Terima</string>
 </resources>

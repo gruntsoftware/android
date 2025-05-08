@@ -853,5 +853,5 @@
     <string name="buy_litecoin_button_moonpay">Buy with Moonpay</string>
     <string name="new_address">New Address</string>
 
-    <string name="BottomNavItem.BuyReceive.title">Buy / Receive</string>
+    <string name="bottom_nav_item_buy_receive_title">Buy / Receive</string>
 </resources>
