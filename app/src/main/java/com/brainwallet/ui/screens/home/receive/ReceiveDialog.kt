@@ -21,7 +21,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
@@ -35,6 +37,7 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -56,9 +59,9 @@ import androidx.fragment.app.FragmentManager
 import com.brainwallet.R
 import com.brainwallet.data.model.getFormattedText
 import com.brainwallet.data.model.isCustom
-import com.brainwallet.navigation.LegacyNavigation
 import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.composable.MoonpayBuyButton
+import com.brainwallet.ui.composable.MoonpayBuyWidget
 import com.brainwallet.ui.composable.VerticalWheelPicker
 import com.brainwallet.ui.composable.WheelPickerFocusVertical
 import com.brainwallet.ui.composable.rememberWheelPickerState
@@ -80,7 +83,6 @@ fun ReceiveDialog(
 ) {
     val state by viewModel.state.collectAsState()
     val loadingState by viewModel.loadingState.collectAsState()
-    val appSetting by viewModel.appSetting.collectAsState()
     val context = LocalContext.current
     val wheelPickerFiatCurrencyState = rememberWheelPickerState(0)
 
@@ -117,6 +119,7 @@ fun ReceiveDialog(
     }
 
     Column(
+        modifier = Modifier.verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -144,201 +147,234 @@ fun ReceiveDialog(
             }
         }
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            state.qrBitmap?.asImageBitmap()?.let { imageBitmap ->
-                Image(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(8.dp),
-                    bitmap = imageBitmap,
-                    contentDescription = "address"
-                )
-            } ?: Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .height(160.dp)
-                    .background(Color.Gray)
-                    .padding(8.dp)
-            )
-
-            Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                Text(
-                    text = state.address,
-                    style = BrainwalletTheme.typography.bodyLarge.copy(
-                        fontWeight = FontWeight.Bold,
-                        color = BrainwalletTheme.colors.surface
-                    ),
-                    maxLines = 4,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
-                    Text(
-                        text = stringResource(R.string.new_address).uppercase(),
-                        style = BrainwalletTheme.typography.bodySmall.copy(
-                            color = BrainwalletTheme.colors.surface,
-                        ),
-                        modifier = Modifier.weight(1f)
+        AnimatedVisibility(visible = state.moonpayWidgetVisible()) {
+            state.moonpayBuySignedUrl?.let {
+                Column {
+                    MoonpayBuyWidget(
+                        modifier = Modifier.height(400.dp),
+                        signedUrl = it
                     )
-                    OutlinedIconButton(
-                        modifier = Modifier.size(32.dp),
+                    TextButton(
+                        modifier = Modifier.fillMaxWidth(),
                         onClick = {
-                            viewModel.onEvent(ReceiveDialogEvent.OnCopyClick(context))
-                            Toast.makeText(context, R.string.Receive_copied, Toast.LENGTH_SHORT)
-                                .show()
-                        },
-                        colors = IconButtonDefaults.outlinedIconButtonColors(
-                            containerColor = BrainwalletTheme.colors.content.copy(alpha = 0.5f)
-                        ),
+                            viewModel.onEvent(ReceiveDialogEvent.OnSignedUrlClear)
+                        }
                     ) {
-                        Icon(
-                            painter = androidx.compose.ui.res.painterResource(id = R.drawable.ic_copy),
-                            contentDescription = stringResource(R.string.URLHandling_copy),
-                            tint = BrainwalletTheme.colors.surface
-                        )
+                        Text(stringResource(R.string.back))
                     }
                 }
             }
         }
 
-        HorizontalDivider()
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            VerticalWheelPicker(
-                modifier = Modifier.weight(1f),
-                focus = {
-                    WheelPickerFocusVertical(
-                        dividerColor = BrainwalletTheme.colors.surface.copy(
-                            alpha = 0.5f
+        AnimatedVisibility(visible = state.moonpayWidgetVisible().not()) {
+            Column {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    state.qrBitmap?.asImageBitmap()?.let { imageBitmap ->
+                        Image(
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(8.dp),
+                            bitmap = imageBitmap,
+                            contentDescription = "address"
                         )
+                    } ?: Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(160.dp)
+                            .background(Color.Gray)
+                            .padding(8.dp)
                     )
-                },
-                unfocusedCount = 1,
-                count = state.fiatCurrencies.size,
-                state = wheelPickerFiatCurrencyState,
-            ) { index ->
-                Text(
-                    text = state.fiatCurrencies[index].code,
-                    fontWeight = FontWeight.Bold,
-                    color = BrainwalletTheme.colors.surface
-                )
-            }
 
-            Column(
-                modifier = Modifier.weight(1f),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = state.getLtcAmountFormatted(loadingState.visible),
-                    style = BrainwalletTheme.typography.titleLarge.copy(
-                        fontWeight = FontWeight.Bold,
-                        color = BrainwalletTheme.colors.surface
-                    )
-                )
-                Text(
-                    text = state.getRatesUpdatedAtFormatted(),
-                    style = BrainwalletTheme.typography.bodySmall.copy(
-                        color = BrainwalletTheme.colors.surface
-                    )
-                )
-            }
-        }
-
-        LazyRow(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            itemsIndexed(items = state.getQuickFiatAmountOptions()) { index, quickFiatAmountOption ->
-                AssistChip(
-                    enabled = loadingState.visible.not(),
-                    onClick = {
-                        viewModel.onEvent(
-                            ReceiveDialogEvent.OnFiatAmountOptionIndexChange(
-                                index,
-                                quickFiatAmountOption
-                            )
-                        )
-                    },
-                    label = {
+                    Column(
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
                         Text(
-                            text = if (quickFiatAmountOption.isCustom())
-                                stringResource(R.string.custom)
-                            else quickFiatAmountOption.getFormattedText()
+                            text = state.address,
+                            style = BrainwalletTheme.typography.bodyLarge.copy(
+                                fontWeight = FontWeight.Bold,
+                                color = BrainwalletTheme.colors.surface
+                            ),
+                            maxLines = 4,
+                            overflow = TextOverflow.Ellipsis
                         )
-                    },
-                    leadingIcon = {
-                        if (index == state.selectedQuickFiatAmountOptionIndex) {
-                            Icon(Icons.Default.Check, contentDescription = null)
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {
+                            Text(
+                                text = stringResource(R.string.new_address).uppercase(),
+                                style = BrainwalletTheme.typography.bodySmall.copy(
+                                    color = BrainwalletTheme.colors.surface,
+                                ),
+                                modifier = Modifier.weight(1f)
+                            )
+                            OutlinedIconButton(
+                                modifier = Modifier.size(32.dp),
+                                onClick = {
+                                    viewModel.onEvent(ReceiveDialogEvent.OnCopyClick(context))
+                                    Toast.makeText(
+                                        context,
+                                        R.string.Receive_copied,
+                                        Toast.LENGTH_SHORT
+                                    )
+                                        .show()
+                                },
+                                colors = IconButtonDefaults.outlinedIconButtonColors(
+                                    containerColor = BrainwalletTheme.colors.content.copy(alpha = 0.5f)
+                                ),
+                            ) {
+                                Icon(
+                                    painter = androidx.compose.ui.res.painterResource(id = R.drawable.ic_copy),
+                                    contentDescription = stringResource(R.string.URLHandling_copy),
+                                    tint = BrainwalletTheme.colors.surface
+                                )
+                            }
                         }
                     }
+                }
+
+                HorizontalDivider()
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    VerticalWheelPicker(
+                        modifier = Modifier.weight(1f),
+                        focus = {
+                            WheelPickerFocusVertical(
+                                dividerColor = BrainwalletTheme.colors.surface.copy(
+                                    alpha = 0.5f
+                                )
+                            )
+                        },
+                        unfocusedCount = 1,
+                        count = state.fiatCurrencies.size,
+                        state = wheelPickerFiatCurrencyState,
+                    ) { index ->
+                        Text(
+                            text = state.fiatCurrencies[index].code,
+                            fontWeight = FontWeight.Bold,
+                            color = BrainwalletTheme.colors.surface
+                        )
+                    }
+
+                    Column(
+                        modifier = Modifier.weight(1f),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = state.getLtcAmountFormatted(loadingState.visible),
+                            style = BrainwalletTheme.typography.titleLarge.copy(
+                                fontWeight = FontWeight.Bold,
+                                color = BrainwalletTheme.colors.surface
+                            )
+                        )
+                        Text(
+                            text = state.getRatesUpdatedAtFormatted(),
+                            style = BrainwalletTheme.typography.bodySmall.copy(
+                                color = BrainwalletTheme.colors.surface
+                            )
+                        )
+                    }
+                }
+
+                LazyRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    itemsIndexed(items = state.getQuickFiatAmountOptions()) { index, quickFiatAmountOption ->
+                        AssistChip(
+                            enabled = loadingState.visible.not(),
+                            onClick = {
+                                viewModel.onEvent(
+                                    ReceiveDialogEvent.OnFiatAmountOptionIndexChange(
+                                        index,
+                                        quickFiatAmountOption
+                                    )
+                                )
+                            },
+                            label = {
+                                Text(
+                                    text = if (quickFiatAmountOption.isCustom())
+                                        stringResource(R.string.custom)
+                                    else quickFiatAmountOption.getFormattedText()
+                                )
+                            },
+                            leadingIcon = {
+                                if (index == state.selectedQuickFiatAmountOptionIndex) {
+                                    Icon(Icons.Default.Check, contentDescription = null)
+                                }
+                            }
+                        )
+                    }
+                }
+
+
+                AnimatedVisibility(visible = state.isQuickFiatAmountOptionCustom()) {
+                    OutlinedTextField(
+                        prefix = {
+                            Text(
+                                text = state.selectedFiatCurrency.symbol,
+                                style = BrainwalletTheme.typography.bodyMedium.copy(color = BrainwalletTheme.colors.surface)
+                            )
+                        },
+                        trailingIcon = {
+                            IconButton(onClick = {
+                                viewModel.onEvent(ReceiveDialogEvent.OnFiatAmountChange(state.fiatAmount))
+                            }) {
+                                Icon(Icons.Default.Done, contentDescription = null)
+                            }
+                        },
+                        textStyle = BrainwalletTheme.typography.bodyMedium.copy(color = BrainwalletTheme.colors.surface),
+                        value = "${if (state.fiatAmount < 1) "" else state.fiatAmount}",
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        onValueChange = { input ->
+                            val amount = input.toFloatOrNull() ?: 0f
+                            viewModel.onEvent(ReceiveDialogEvent.OnFiatAmountChange(amount, false))
+                        },
+                        shape = BrainwalletTheme.shapes.large,
+                        isError = state.errorFiatAmountStringId != null,
+                        supportingText = {
+                            state.errorFiatAmountStringId?.let {
+                                Text(stringResource(it, state.fiatAmount))
+                            }
+                        }
+                    )
+                }
+
+                MoonpayBuyButton(
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = loadingState.visible.not(),
+                    onClick = {
+
+                        viewModel.onEvent(ReceiveDialogEvent.OnMoonpayButtonClick)
+
+//                LegacyNavigation.showMoonPayWidget(
+//                    context = context,
+//                    params = mapOf(
+//                        "baseCurrencyCode" to state.selectedFiatCurrency.code,
+//                        "baseCurrencyAmount" to state.fiatAmount.toString(),
+//                        "language" to appSetting.languageCode,
+//                        "walletAddress" to state.address
+//                    )
+//                )
+//                onDismissRequest.invoke()
+                    },
                 )
+
             }
         }
 
 
-        AnimatedVisibility(visible = state.isQuickFiatAmountOptionCustom()) {
-            OutlinedTextField(
-                prefix = {
-                    Text(
-                        text = state.selectedFiatCurrency.symbol,
-                        style = BrainwalletTheme.typography.bodyMedium.copy(color = BrainwalletTheme.colors.surface)
-                    )
-                },
-                trailingIcon = {
-                    IconButton(onClick = {
-                        viewModel.onEvent(ReceiveDialogEvent.OnFiatAmountChange(state.fiatAmount))
-                    }) {
-                        Icon(Icons.Default.Done, contentDescription = null)
-                    }
-                },
-                textStyle = BrainwalletTheme.typography.bodyMedium.copy(color = BrainwalletTheme.colors.surface),
-                value = "${if (state.fiatAmount < 1) "" else state.fiatAmount}",
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                onValueChange = { input ->
-                    val amount = input.toFloatOrNull() ?: 0f
-                    viewModel.onEvent(ReceiveDialogEvent.OnFiatAmountChange(amount, false))
-                },
-                shape = BrainwalletTheme.shapes.large,
-                isError = state.errorFiatAmountStringId != null,
-                supportingText = {
-                    state.errorFiatAmountStringId?.let {
-                        Text(stringResource(it, state.fiatAmount))
-                    }
-                }
-            )
-        }
-
-        MoonpayBuyButton(
-            modifier = Modifier.fillMaxWidth(),
-            enabled = loadingState.visible.not(),
-            onClick = {
-                LegacyNavigation.showMoonPayWidget(
-                    context = context,
-                    params = mapOf(
-                        "baseCurrencyCode" to state.selectedFiatCurrency.code,
-                        "baseCurrencyAmount" to state.fiatAmount.toString(),
-                        "language" to appSetting.languageCode,
-                        "walletAddress" to state.address
-                    )
-                )
-                onDismissRequest.invoke()
-            },
-        )
     }
 }
 

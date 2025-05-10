@@ -25,7 +25,8 @@ data class ReceiveDialogState(
     val ltcAmount: Float = 0f,
     val ratesUpdatedAt: Long = System.currentTimeMillis(),
     val selectedQuickFiatAmountOptionIndex: Int = 1, //default is 10X, other [min, 10x, max, custom]
-    val errorFiatAmountStringId: Int? = null
+    val errorFiatAmountStringId: Int? = null,
+    val moonpayBuySignedUrl: String? = null,
 )
 
 fun ReceiveDialogState.getSelectedFiatCurrencyIndex(): Int = fiatCurrencies
@@ -56,3 +57,5 @@ fun ReceiveDialogState.getQuickFiatAmountOptions(): List<QuickFiatAmountOption> 
 
 fun ReceiveDialogState.isQuickFiatAmountOptionCustom(): Boolean =
     selectedQuickFiatAmountOptionIndex == 3 //3 will be custom
+
+fun ReceiveDialogState.moonpayWidgetVisible(): Boolean = moonpayBuySignedUrl != null

@@ -2,6 +2,8 @@ package com.brainwallet.data.repository
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.core.net.toUri
+import com.brainwallet.BuildConfig
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.Fee
 import com.brainwallet.data.model.MoonpayCurrencyLimit
@@ -20,6 +22,8 @@ interface LtcRepository {
     suspend fun fetchLimits(baseCurrencyCode: String): MoonpayCurrencyLimit
 
     suspend fun fetchBuyQuote(params: Map<String, String>): GetMoonpayBuyQuoteResponse
+
+    suspend fun fetchMoonpaySignedUrl(params: Map<String, String>): String
 
     class Impl(
         private val context: Context,
@@ -75,6 +79,19 @@ interface LtcRepository {
 
         override suspend fun fetchBuyQuote(params: Map<String, String>): GetMoonpayBuyQuoteResponse =
             remoteApiSource.getBuyQuote(params)
+
+        override suspend fun fetchMoonpaySignedUrl(params: Map<String, String>): String {
+            return remoteApiSource.getMoonpaySignedUrl(params)
+                .signedUrl.toUri()
+                .buildUpon()
+                .apply {
+                    if (BuildConfig.DEBUG) {
+                        authority("buy-sandbox.moonpay.com")//replace base url from buy.moonpay.com
+                    }
+                }
+                .build()
+                .toString()
+        }
 
     }
 

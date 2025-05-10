@@ -143,7 +143,37 @@ class ReceiveDialogViewModel(
                 }
             }
 
-            else -> Unit
+            ReceiveDialogEvent.OnMoonpayButtonClick -> viewModelScope.launch {
+                try {
+                    onLoading(true)
+
+                    val currentState = state.value
+                    val signedUrl = ltcRepository.fetchMoonpaySignedUrl(
+                        mapOf(
+                            "baseCurrencyCode" to currentState.selectedFiatCurrency.code,
+                            "baseCurrencyAmount" to currentState.fiatAmount.toString(),
+                            "language" to appSetting.value.languageCode,
+                            "walletAddress" to currentState.address,
+                            "defaultCurrencyCode" to "ltc",
+                            "currencyCode" to "ltc",
+                            "themeId" to "main-v1.0.0",
+                            "theme" to if (appSetting.value.isDarkMode) "dark" else "light"
+                        )
+                    )
+
+                    _state.update { it.copy(moonpayBuySignedUrl = signedUrl) }
+
+                } catch (e: Exception) {
+                    handleError(e)
+                } finally {
+
+                    onLoading(false)
+
+                }
+
+            }
+
+            ReceiveDialogEvent.OnSignedUrlClear -> _state.update { it.copy(moonpayBuySignedUrl = null) }
         }
     }
 }
