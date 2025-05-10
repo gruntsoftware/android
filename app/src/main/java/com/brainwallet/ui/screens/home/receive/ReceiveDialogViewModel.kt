@@ -44,25 +44,14 @@ class ReceiveDialogViewModel(
 
     override fun onEvent(event: ReceiveDialogEvent) {
         when (event) {
-            is ReceiveDialogEvent.OnLoad -> viewModelScope.launch {
-                try {
-                    onLoading(true)
-
-                    _state.update {
-                        val address = BRSharedPrefs.getReceiveAddress(event.context)
-                        it.copy(
-                            address = address,
-                            qrBitmap = QRUtils.generateQR(event.context, "litecoin:${address}"),
-                            fiatCurrencies = CurrencyDataSource.getInstance(event.context)
-                                .getAllCurrencies(true),
-                        )
-                    }
-                } catch (e: Exception) {
-                    handleError(e)
-                } finally {
-                    onLoading(false)
-                }
-
+            is ReceiveDialogEvent.OnLoad -> _state.update {
+                val address = BRSharedPrefs.getReceiveAddress(event.context)
+                it.copy(
+                    address = address,
+                    qrBitmap = QRUtils.generateQR(event.context, "litecoin:${address}"),
+                    fiatCurrencies = CurrencyDataSource.getInstance(event.context)
+                        .getAllCurrencies(true),
+                )
             }
 
             is ReceiveDialogEvent.OnCopyClick -> BRClipboardManager.putClipboard(
