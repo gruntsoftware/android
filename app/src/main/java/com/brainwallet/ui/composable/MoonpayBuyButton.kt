@@ -38,13 +38,9 @@ fun MoonpayBuyButton(
         onClick = onClick,
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-//            Image(
-//                painter = painterResource(R.drawable.ic_import),
-//                contentDescription = null
-//            )
             Text(
                 text = stringResource(R.string.buy_ltc).uppercase(),
                 style = BrainwalletTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)

@@ -96,8 +96,7 @@ class BuyLitecoinViewModel(
             }
 
             is BuyLitecoinEvent.OnFiatAmountChange -> _state.getAndUpdate {
-                val min = it.moonpayCurrencyLimit.data.baseCurrency.min
-                val max = it.moonpayCurrencyLimit.data.baseCurrency.max
+                val (_, min, max) = it.moonpayCurrencyLimit.data.baseCurrency
                 val errorStringId = when {
                     event.fiatAmount < min -> R.string.buy_litecoin_fiat_amount_validation_min
                     event.fiatAmount > max -> R.string.buy_litecoin_fiat_amount_validation_max

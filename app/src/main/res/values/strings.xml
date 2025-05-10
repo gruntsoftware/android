@@ -854,4 +854,5 @@
     <string name="new_address">New Address</string>
 
     <string name="bottom_nav_item_buy_receive_title">Buy / Receive</string>
+    <string name="custom">Custom</string>
 </resources>

@@ -66,7 +66,7 @@ interface LtcRepository {
             return sharedPreferences.fetchWithCache(
                 key = "${PREF_KEY_BUY_LIMITS_PREFIX}${baseCurrencyCode.lowercase()}",
                 cachedAtKey = "${PREF_KEY_BUY_LIMITS_PREFIX_CACHED_AT}${baseCurrencyCode.lowercase()}",
-                cacheTimeMs = 2 * 60 * 1000, //2 minutes
+                cacheTimeMs = 5 * 60 * 1000, //5 minutes
                 fetchData = {
                     remoteApiSource.getMoonpayCurrencyLimit(baseCurrencyCode)
                 }
