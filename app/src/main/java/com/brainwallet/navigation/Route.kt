@@ -45,4 +45,7 @@ sealed class Route : JavaSerializable {
     @Serializable
     data class UnLock(val isUpdatePin: Boolean = false) : Route()
 
+    @Serializable
+    object BuyLitecoin : Route()
+
 }

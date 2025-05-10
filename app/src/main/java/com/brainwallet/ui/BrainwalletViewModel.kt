@@ -2,6 +2,7 @@ package com.brainwallet.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.brainwallet.di.json
 import com.brainwallet.navigation.UiEffect
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -10,6 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.JsonObject
 
 /**
  * describe [BrainwalletViewModel] here
@@ -33,6 +35,23 @@ abstract class BrainwalletViewModel<Event> : ViewModel() {
     protected fun handleError(t: Throwable) {
         val errorMessage = t.message ?: "Oops, something went wrong"
         //todo more error handler
+
+        if (t is retrofit2.HttpException) {
+            val message = t.response()?.errorBody()?.string()?.let {
+                runCatching {
+                    json.decodeFromString<JsonObject>(it)["message"]?.toString()
+                }.getOrNull()
+            } ?: "Oops, something went wrong"
+
+            sendUiEffect(
+                UiEffect.ShowMessage(
+                    type = UiEffect.ShowMessage.Type.Error,
+                    message = message
+                )
+            )
+            return
+        }
+
         sendUiEffect(
             UiEffect.ShowMessage(
                 type = UiEffect.ShowMessage.Type.Error,

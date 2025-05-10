@@ -10,7 +10,9 @@ import com.brainwallet.data.source.RemoteApiSource
 import com.brainwallet.data.source.RemoteConfigSource
 import com.brainwallet.tools.sqlite.CurrencyDataSource
 import com.brainwallet.tools.util.BRConstants
+import com.brainwallet.ui.screens.buylitecoin.BuyLitecoinViewModel
 import com.brainwallet.ui.screens.home.SettingsViewModel
+import com.brainwallet.ui.screens.home.receive.ReceiveDialogViewModel
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel
 import com.brainwallet.ui.screens.ready.ReadyViewModel
 import com.brainwallet.ui.screens.setpasscode.SetPasscodeViewModel
@@ -28,6 +30,8 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
@@ -70,6 +74,8 @@ val viewModelModule = module {
     viewModel { UnLockViewModel() }
     viewModel { YourSeedProveItViewModel() }
     viewModel { YourSeedWordsViewModel() }
+    viewModel { ReceiveDialogViewModel(get(), get()) }
+    viewModel { BuyLitecoinViewModel(get(), get()) }
 }
 
 val appModule = module {
@@ -93,28 +99,6 @@ private fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
             .addHeader("X-Litecoin-Testnet", "false")
             .addHeader("Accept-Language", "en")
         chain.proceed(requestBuilder.build())
-    }
-    .addInterceptor { chain ->
-        val request = chain.request()
-        runCatching {
-            chain.proceed(request).use { response ->
-                if (response.isSuccessful.not()) {
-                    throw HttpException(
-                        retrofit2.Response.error<Any>(
-                            response.code,
-                            response.body ?: response.peekBody(Long.MAX_VALUE)
-                        )
-                    )
-                }
-                response
-            }
-        }.getOrElse {
-            //retry using dev host
-            val newRequest = request.newBuilder()
-                .url("${BRConstants.LEGACY_BW_API_DEV_HOST}/api${request.url.encodedPath}") //legacy dev api need prefix path /api
-                .build()
-            chain.proceed(newRequest)
-        }
     }
     .addInterceptor(HttpLoggingInterceptor().apply {
         setLevel(
@@ -141,3 +125,9 @@ internal fun provideRetrofit(
 
 internal inline fun <reified T> provideApi(retrofit: Retrofit): T =
     retrofit.create(T::class.java)
+
+inline fun <reified T> getKoinInstance(): T {
+    return object : KoinComponent {
+        val value: T by inject()
+    }.value
+}

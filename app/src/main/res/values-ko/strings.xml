@@ -800,4 +800,15 @@
     <string name="network_fee_options_top">맨 위</string>
     <string name="network_fee_options_medium">중간</string>
     <string name="network_fee_options_low">낮은</string>
+    <string name="settings_title_sync_metadata">메타데이터 동기화:</string>
+    <string name="buy_ltc">라이트코인 구매</string>
+    <string name="powered_by_moonpay">문페이 제공</string>
+    <string name="loading">로드 중...</string>
+    <string name="buy_litecoin_fiat_amount_validation_min">금액이 최소 한도(%1$f)보다 낮습니다.</string>
+    <string name="buy_litecoin_fiat_amount_validation_max">금액이 최대 한도(%1$f)를 초과했습니다.</string>
+    <string name="buy_litecoin_title">라이트코인 구매</string>
+    <string name="buy_litecoin_desc">LTC 주소로 입금하세요:</string>
+    <string name="buy_litecoin_button_moonpay">문페이로 구매하세요</string>
+    <string name="new_address">새 주소</string>
+    <string name="bottom_nav_item_buy_receive_title">구매 / 받기</string>
 </resources>

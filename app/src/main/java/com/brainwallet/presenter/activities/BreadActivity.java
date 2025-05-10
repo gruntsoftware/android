@@ -25,6 +25,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.app.ActivityCompat;
@@ -61,6 +62,8 @@ import com.brainwallet.tools.util.Utils;
 import com.brainwallet.ui.BrainwalletActivity;
 import com.brainwallet.ui.screens.home.SettingsViewModel;
 import com.brainwallet.ui.screens.home.composable.HomeSettingDrawerComposeView;
+import com.brainwallet.ui.screens.home.receive.ReceiveDialogFragment;
+import com.brainwallet.ui.screens.home.receive.ReceiveDialogKt;
 import com.brainwallet.util.PermissionUtil;
 import com.brainwallet.wallet.BRPeerManager;
 import com.brainwallet.wallet.BRWalletManager;
@@ -252,16 +255,22 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
             mSelectedBottomNavItem = 0;
         } else if (menuItemId == R.id.nav_receive) {
             if (BRAnimator.isClickAllowed()) {
-                BRAnimator.showReceiveFragment(BreadActivity.this, true);
+//                BRAnimator.showReceiveFragment(BreadActivity.this, true);
+                //todo
+                ReceiveDialogFragment.show(getSupportFragmentManager());
             }
             mSelectedBottomNavItem = 0;
         }
-        else if (menuItemId == R.id.nav_buy) {
-            if (BRAnimator.isClickAllowed()) {
-                BRAnimator.showMoonpayFragment(BreadActivity.this);
-            }
-            mSelectedBottomNavItem = 0;
-        }
+//        else if (menuItemId == R.id.nav_buy) {
+//            if (BRAnimator.isClickAllowed()) {
+////                BRAnimator.showMoonpayFragment(BreadActivity.this);
+//            }
+//
+//
+//
+//
+//            mSelectedBottomNavItem = 0;
+//        }
         return true;
     }
 

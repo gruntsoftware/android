@@ -10,16 +10,14 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.unit.dp
-import com.brainwallet.ui.theme.BrainwalletColors
 import com.brainwallet.ui.theme.BrainwalletTheme
 
 @Composable
 fun LargeButton(
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     onClick: () -> Unit,
     colors: ButtonColors = ButtonDefaults.buttonColors(
         containerColor = BrainwalletTheme.colors.background,
@@ -32,6 +30,7 @@ fun LargeButton(
         modifier = modifier
             .fillMaxWidth()
             .height(56.dp),
+        enabled = enabled,
         onClick = onClick,
         colors = colors,
         shape = shape,
