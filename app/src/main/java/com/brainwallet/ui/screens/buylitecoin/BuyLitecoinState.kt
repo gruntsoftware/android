@@ -8,10 +8,10 @@ data class BuyLitecoinState(
     val fiatAmount: Float = moonpayCurrencyLimit.data.baseCurrency.min,
     val ltcAmount: Float = 0f,
     val address: String = "",
-    val errorStringId: Int? = null
+    val errorFiatAmountStringId: Int? = null
 )
 
-fun BuyLitecoinState.isValid(): Boolean = errorStringId == null
+fun BuyLitecoinState.isValid(): Boolean = errorFiatAmountStringId == null
 
 fun BuyLitecoinState.getLtcAmountFormatted(isLoading: Boolean): String =
     (if (isLoading || ltcAmount < 0f) "x.xxxŁ" else "%.3fŁ".format(ltcAmount)).also {

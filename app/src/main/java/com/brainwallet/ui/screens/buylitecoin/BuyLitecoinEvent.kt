@@ -4,5 +4,8 @@ import android.content.Context
 
 sealed class BuyLitecoinEvent {
     data class OnLoad(val context: Context) : BuyLitecoinEvent()
-    data class OnFiatAmountChange(val fiatAmount: Float) : BuyLitecoinEvent()
+    data class OnFiatAmountChange(
+        val fiatAmount: Float,
+        val needFetch: Boolean = true
+    ) : BuyLitecoinEvent()
 }

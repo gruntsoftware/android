@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -25,10 +26,12 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.AssistChip
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -37,7 +40,7 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -119,53 +122,57 @@ fun ReceiveDialog(
     }
 
     Column(
-        modifier = Modifier.verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box(
-            modifier = Modifier.fillMaxWidth(),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = stringResource(R.string.bottom_nav_item_buy_receive_title).uppercase(),
-                style = BrainwalletTheme.typography.titleMedium.copy(
-                    fontWeight = FontWeight.Bold,
-                    color = BrainwalletTheme.colors.surface
-                ),
-            )
-            OutlinedIconButton(
-                modifier = Modifier.align(Alignment.TopEnd),
-                border = null,
-                onClick = onDismissRequest
-            ) {
-                Icon(
-                    Icons.Default.Close,
-                    contentDescription = stringResource(R.string.AccessibilityLabels_close),
-                    tint = BrainwalletTheme.colors.surface
+        CenterAlignedTopAppBar(
+            colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                containerColor = BrainwalletTheme.colors.content //invert surface
+            ),
+            expandedHeight = 56.dp,
+            title = {
+                Text(
+                    text = stringResource(R.string.bottom_nav_item_buy_receive_title).uppercase(),
+                    style = BrainwalletTheme.typography.titleSmall
+                )
+            },
+            navigationIcon = {
+                if (state.moonpayWidgetVisible()) {
+                    IconButton(onClick = {
+                        viewModel.onEvent(ReceiveDialogEvent.OnSignedUrlClear)
+                    }) {
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.back)
+                        )
+                    }
+                }
+            },
+            actions = {
+                IconButton(onClick = onDismissRequest) {
+                    Icon(
+                        Icons.Default.Close,
+                        contentDescription = stringResource(R.string.AccessibilityLabels_close),
+                        tint = BrainwalletTheme.colors.surface
+                    )
+                }
+            }
+        )
+
+        //moonpay widget
+        AnimatedVisibility(visible = state.moonpayWidgetVisible()) {
+            state.moonpayBuySignedUrl?.let { signedUrl ->
+                MoonpayBuyWidget(
+                    modifier = Modifier.height(500.dp),
+                    signedUrl = signedUrl
                 )
             }
         }
 
-        AnimatedVisibility(visible = state.moonpayWidgetVisible()) {
-            state.moonpayBuySignedUrl?.let {
-                Column {
-                    MoonpayBuyWidget(
-                        modifier = Modifier.height(400.dp),
-                        signedUrl = it
-                    )
-                    TextButton(
-                        modifier = Modifier.fillMaxWidth(),
-                        onClick = {
-                            viewModel.onEvent(ReceiveDialogEvent.OnSignedUrlClear)
-                        }
-                    ) {
-                        Text(stringResource(R.string.back))
-                    }
-                }
-            }
-        }
 
+        //buy / receive
         AnimatedVisibility(visible = state.moonpayWidgetVisible().not()) {
             Column {
                 Row(
@@ -175,23 +182,20 @@ fun ReceiveDialog(
                     state.qrBitmap?.asImageBitmap()?.let { imageBitmap ->
                         Image(
                             modifier = Modifier
-                                .weight(1f)
-                                .padding(8.dp),
+                                .weight(1f),
                             bitmap = imageBitmap,
                             contentDescription = "address"
                         )
                     } ?: Box(
                         modifier = Modifier
                             .weight(1f)
-                            .height(160.dp)
+                            .height(180.dp)
                             .background(Color.Gray)
-                            .padding(8.dp)
                     )
 
                     Column(
                         modifier = Modifier
-                            .weight(1f)
-                            .padding(8.dp),
+                            .weight(1f),
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         Text(
@@ -320,6 +324,7 @@ fun ReceiveDialog(
 
                 AnimatedVisibility(visible = state.isQuickFiatAmountOptionCustom()) {
                     OutlinedTextField(
+                        modifier = Modifier.fillMaxWidth(),
                         prefix = {
                             Text(
                                 text = state.selectedFiatCurrency.symbol,
@@ -355,19 +360,7 @@ fun ReceiveDialog(
                     modifier = Modifier.fillMaxWidth(),
                     enabled = loadingState.visible.not(),
                     onClick = {
-
                         viewModel.onEvent(ReceiveDialogEvent.OnMoonpayButtonClick)
-
-//                LegacyNavigation.showMoonPayWidget(
-//                    context = context,
-//                    params = mapOf(
-//                        "baseCurrencyCode" to state.selectedFiatCurrency.code,
-//                        "baseCurrencyAmount" to state.fiatAmount.toString(),
-//                        "language" to appSetting.languageCode,
-//                        "walletAddress" to state.address
-//                    )
-//                )
-//                onDismissRequest.invoke()
                     },
                 )
 
@@ -402,18 +395,17 @@ class ReceiveDialogFragment : DialogFragment() {
                 BrainwalletAppTheme(appSetting = appSetting) {
                     Box(
                         modifier = Modifier
-                            .padding(24.dp)
+                            .padding(12.dp)
                             .background(
                                 BrainwalletTheme.colors.content,
-                                shape = BrainwalletTheme.shapes.extraLarge
+                                shape = BrainwalletTheme.shapes.large
                             )
                             .border(
                                 width = 1.dp,
                                 color = BrainwalletTheme.colors.surface,
-                                shape = BrainwalletTheme.shapes.extraLarge
+                                shape = BrainwalletTheme.shapes.large
                             )
-                            .padding(16.dp),
-                        contentAlignment = Alignment.Center
+                            .padding(12.dp),
                     ) {
                         ReceiveDialog(
                             viewModel = viewModel,

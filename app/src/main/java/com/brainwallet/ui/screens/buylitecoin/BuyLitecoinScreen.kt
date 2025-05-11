@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -32,6 +33,7 @@ import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
 import com.brainwallet.ui.composable.LargeButton
 import com.brainwallet.ui.composable.LoadingDialog
+import com.brainwallet.ui.screens.home.receive.ReceiveDialogEvent
 import com.brainwallet.ui.theme.BrainwalletTheme
 import org.koin.compose.koinInject
 
@@ -93,6 +95,7 @@ fun BuyLitecoinScreen(
                 )
 
                 OutlinedTextField(
+                    enabled = loadingState.visible.not(),
                     prefix = {
                         Text(
                             text = appSetting.currency.symbol,
@@ -100,17 +103,17 @@ fun BuyLitecoinScreen(
                         )
                     },
                     textStyle = BrainwalletTheme.typography.titleLarge.copy(color = BrainwalletTheme.colors.content),
-                    value = "${if (state.fiatAmount < 1) "" else state.fiatAmount}",
+                    value = "${if (state.fiatAmount < 1) "" else state.fiatAmount.toInt()}",
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     onValueChange = { input ->
                         val amount = input.toFloatOrNull() ?: 0f
-                        viewModel.onEvent(BuyLitecoinEvent.OnFiatAmountChange(amount))
+                        viewModel.onEvent(BuyLitecoinEvent.OnFiatAmountChange(amount, false))
                     },
                     shape = BrainwalletTheme.shapes.extraLarge,
                     isError = state.isValid().not(),
                     supportingText = {
-                        state.errorStringId?.let {
+                        state.errorFiatAmountStringId?.let {
                             Text(stringResource(it, state.fiatAmount))
                         }
                     }
@@ -144,7 +147,7 @@ fun BuyLitecoinScreen(
 
             LargeButton(
                 modifier = Modifier.align(Alignment.BottomCenter),
-                enabled = state.isValid(),
+                enabled = loadingState.visible.not(),
                 onClick = {
                     LegacyNavigation.showMoonPayWidget(
                         context = context,
@@ -160,11 +163,5 @@ fun BuyLitecoinScreen(
                 Text(stringResource(R.string.buy_litecoin_button_moonpay))
             }
         }
-
-
-    }
-
-    if (loadingState.visible) {
-        LoadingDialog()
     }
 }
