@@ -438,4 +438,15 @@
   <string name="network_fee_options_top">Bästa</string>
   <string name="network_fee_options_medium">Medium</string>
   <string name="network_fee_options_low">Låg</string>
+  <string name="settings_title_sync_metadata">Synkronisera metadata:</string>
+  <string name="buy_ltc">Köp LTC</string>
+  <string name="powered_by_moonpay">Drivs av Moonpay</string>
+  <string name="loading">Belastning...</string>
+  <string name="buy_litecoin_fiat_amount_validation_min">Beloppet är under minimigränsen (%1$f)</string>
+  <string name="buy_litecoin_fiat_amount_validation_max">Beloppet överskrider maxgränsen (%1$f)</string>
+  <string name="buy_litecoin_title">Köp Litecoin</string>
+  <string name="buy_litecoin_desc">Sätt in till din LTC-adress:</string>
+  <string name="buy_litecoin_button_moonpay">Köp med Moonpay</string>
+  <string name="new_address">Ny adress</string>
+  <string name="bottom_nav_item_buy_receive_title">Köp/ta emot</string>
 </resources>
