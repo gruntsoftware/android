@@ -799,4 +799,15 @@
     <string name="network_fee_options_top">Principal</string>
     <string name="network_fee_options_medium">Médio</string>
     <string name="network_fee_options_low">Baixo</string>
+    <string name="settings_title_sync_metadata">Sincronizar metadados:</string>
+    <string name="buy_ltc">Comprar LTC</string>
+    <string name="powered_by_moonpay">Desenvolvido por Moonpay</string>
+    <string name="loading">Carregando...</string>
+    <string name="buy_litecoin_fiat_amount_validation_min">O valor está abaixo do limite mínimo (%1$f)</string>
+    <string name="buy_litecoin_fiat_amount_validation_max">O valor excede o limite máximo (%1$f)</string>
+    <string name="buy_litecoin_title">Comprar Litecoin</string>
+    <string name="buy_litecoin_desc">Seja depositado em seu endereço LTC:</string>
+    <string name="buy_litecoin_button_moonpay">Compre com Moonpay</string>
+    <string name="new_address">Novo endereço</string>
+    <string name="bottom_nav_item_buy_receive_title">Comprar / Receber</string>
 </resources>

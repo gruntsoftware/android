@@ -83,6 +83,21 @@ public class QRUtils {
         return true;
     }
 
+    public static Bitmap generateQR(Context ctx, String litecoinUrl) {
+        if (litecoinUrl == null || litecoinUrl.isEmpty()) return null;
+        WindowManager manager = (WindowManager) ctx.getSystemService(Activity.WINDOW_SERVICE);
+        Display display = manager.getDefaultDisplay();
+        Point point = new Point();
+        display.getSize(point);
+        int width = point.x;
+        int height = point.y;
+        int smallerDimension = Math.min(width, height);
+        smallerDimension = (int) (smallerDimension * 0.45f);
+        Bitmap bitmap = null;
+        bitmap = QRUtils.encodeAsBitmap(litecoinUrl, smallerDimension);
+        return bitmap;
+    }
+
     private static String guessAppropriateEncoding(CharSequence contents) {
         // Very crude at the moment
         for (int i = 0; i < contents.length(); i++) {
