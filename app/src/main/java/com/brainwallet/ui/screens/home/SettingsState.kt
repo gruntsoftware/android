@@ -1,6 +1,10 @@
 package com.brainwallet.ui.screens.home
+
 import com.brainwallet.data.model.CurrencyEntity
+import com.brainwallet.data.model.Fee
+import com.brainwallet.data.model.FeeOption
 import com.brainwallet.data.model.Language
+import com.brainwallet.data.model.toFeeOptions
 
 data class SettingsState(
     val darkMode: Boolean = true,
@@ -15,4 +19,5 @@ data class SettingsState(
     val fiatSelectorBottomSheetVisible: Boolean = false,
     val shareAnalyticsDataEnabled: Boolean = false,
     val lastSyncMetadata: String? = null,
+    val currentFeeOptions: List<FeeOption> = Fee.Default.toFeeOptions(),
 )

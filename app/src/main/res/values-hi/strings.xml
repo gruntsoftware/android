@@ -434,4 +434,19 @@
   <string name="security_share_data_title">विश्लेषण डेटा साझा करें</string>
     <string name="security_PIN_button">पिन अपडेट करें</string>
   <string name="security_phrase_button">दिखाएं</string>
+  <string name="network_fee_options_desc">नेटवर्क शुल्क (प्रति केबी): उच्च मूल्य का मतलब है कि लेनदेन जल्दी पूरा हो जाएगा</string>
+  <string name="network_fee_options_top">शीर्ष</string>
+  <string name="network_fee_options_medium">मध्यम</string>
+  <string name="network_fee_options_low">कम</string>
+  <string name="settings_title_sync_metadata">मेटाडेटा सिंक करें:</string>
+  <string name="buy_ltc">एलटीसी खरीदें</string>
+  <string name="powered_by_moonpay">मूनपे द्वारा संचालित</string>
+  <string name="loading">लोड हो रहा है...</string>
+  <string name="buy_litecoin_fiat_amount_validation_min">राशि न्यूनतम सीमा से कम है (%1$f)</string>
+  <string name="buy_litecoin_fiat_amount_validation_max">राशि अधिकतम सीमा से अधिक है (%1$f)</string>
+  <string name="buy_litecoin_title">लाइटकॉइन खरीदें</string>
+  <string name="buy_litecoin_desc">अपने एलटीसी पते पर जमा करें:</string>
+  <string name="buy_litecoin_button_moonpay">मूनपे से खरीदें</string>
+  <string name="new_address">नया पता</string>
+  <string name="bottom_nav_item_buy_receive_title">खरीदें/प्राप्त करें</string>
 </resources>

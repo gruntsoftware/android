@@ -796,4 +796,19 @@
     <string name="security_share_data_title">分析データを共有</string>
     <string name="security_PIN_button">PIN を更新</string>
     <string name="security_phrase_button">表示</string>
+    <string name="network_fee_options_desc">ネットワーク料金 (kb あたり): 値が高いほど、トランザクションが早く完了することを意味します</string>
+    <string name="network_fee_options_top">トップ</string>
+    <string name="network_fee_options_medium">中くらい</string>
+    <string name="network_fee_options_low">低い</string>
+    <string name="settings_title_sync_metadata">メタデータを同期する:</string>
+    <string name="buy_ltc">LTCを購入する</string>
+    <string name="powered_by_moonpay">ムーンペイ提供</string>
+    <string name="loading">読み込み中...</string>
+    <string name="buy_litecoin_fiat_amount_validation_min">金額が下限値 (%1$f) を下回っています</string>
+    <string name="buy_litecoin_fiat_amount_validation_max">量が上限を超えています (%1$f)</string>
+    <string name="buy_litecoin_title">ライトコインを購入する</string>
+    <string name="buy_litecoin_desc">LTCアドレスに入金してください:</string>
+    <string name="buy_litecoin_button_moonpay">Moonpay で購入する</string>
+    <string name="new_address">新しい住所</string>
+    <string name="bottom_nav_item_buy_receive_title">買う/受け取る</string>
 </resources>

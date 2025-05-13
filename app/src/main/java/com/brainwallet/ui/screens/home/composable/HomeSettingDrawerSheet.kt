@@ -60,7 +60,7 @@ fun HomeSettingDrawerSheet(
     LaunchedEffect(Unit) {
         viewModel.onEvent(SettingsEvent.OnLoad(
             shareAnalyticsDataEnabled = BRSharedPrefs.getShareData(context), //currently just load analytics share data here
-            lastSyncMetadata = BRSharedPrefs.getSyncMetadata(context) //currently just load sync metadata here
+            lastSyncMetadata = BRSharedPrefs.getSyncMetadata(context), //currently just load sync metadata here
         ))
     }
 
@@ -134,6 +134,8 @@ fun HomeSettingDrawerSheet(
                     modifier = Modifier
                         .fillMaxSize()
                         .wrapContentHeight(),
+                    selectedCurrency = state.selectedCurrency,
+                    feeOptions = state.currentFeeOptions,
                     onEvent = {
                         viewModel.onEvent(it)
                     }

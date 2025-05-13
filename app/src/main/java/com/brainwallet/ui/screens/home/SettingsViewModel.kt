@@ -5,6 +5,8 @@ import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.model.Language
+import com.brainwallet.data.model.toFeeOptions
+import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.ui.BrainwalletViewModel
 import com.brainwallet.util.EventBus
@@ -21,7 +23,8 @@ import kotlinx.coroutines.launch
 
 
 class SettingsViewModel(
-    private val settingRepository: SettingRepository
+    private val settingRepository: SettingRepository,
+    private val ltcRepository: LtcRepository
 ) : BrainwalletViewModel<SettingsEvent>() {
 
     private val _state = MutableStateFlow(SettingsState())
@@ -50,7 +53,8 @@ class SettingsViewModel(
                 _state.update {
                     it.copy(
                         shareAnalyticsDataEnabled = event.shareAnalyticsDataEnabled,
-                        lastSyncMetadata = event.lastSyncMetadata
+                        lastSyncMetadata = event.lastSyncMetadata,
+                        currentFeeOptions = ltcRepository.fetchFeePerKb().toFeeOptions()
                     )
                 }
             }

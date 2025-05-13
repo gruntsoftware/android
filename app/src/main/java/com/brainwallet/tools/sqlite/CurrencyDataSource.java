@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import timber.log.Timber;
@@ -30,6 +31,27 @@ public class CurrencyDataSource implements BRDataSourceInterface {
             BRSQLiteHelper.CURRENCY_NAME,
             BRSQLiteHelper.CURRENCY_RATE
     };
+
+    /// Set the most popular fiats
+    /// Hack: Database needs a symbol column. This is injected here.
+    private final HashMap<String, String> codeSymbolsMap = new HashMap<String, String>() {{
+        put("USD","$");
+        put("EUR","€");
+        put("GBP","£");
+        put("SGD","$");
+        put("CAD","$");
+        put("AUD","$");
+        put("RUB","₽");
+        put("KRW","₩");
+        put("MXN","$");
+        put("SAR","﷼");
+        put("UAH","₴");
+        put("NGN","₦");
+        put("JPY","¥");
+        put("CNY","¥");
+        put("IDR","Rp");
+        put("TRY","₺");
+    }};
 
     private static CurrencyDataSource instance;
 
@@ -72,26 +94,6 @@ public class CurrencyDataSource implements BRDataSourceInterface {
         List<CurrencyEntity> currencies = new ArrayList<>();
 
         /// Set the most popular fiats
-        /// Hack: Database needs a symbol column. This is injected here.
-        HashMap<String, String> codeSymbolsMap = new HashMap<String, String>();
-        codeSymbolsMap.put("USD","$");
-        codeSymbolsMap.put("EUR","€");
-        codeSymbolsMap.put("GBP","£");
-        codeSymbolsMap.put("SGD","$");
-        codeSymbolsMap.put("CAD","$");
-        codeSymbolsMap.put("AUD","$");
-        codeSymbolsMap.put("RUB","₽");
-        codeSymbolsMap.put("KRW","₩");
-        codeSymbolsMap.put("MXN","$");
-        codeSymbolsMap.put("SAR","﷼");
-        codeSymbolsMap.put("UAH","₴");
-        codeSymbolsMap.put("NGN","₦");
-        codeSymbolsMap.put("JPY","¥");
-        codeSymbolsMap.put("CNY","¥");
-        codeSymbolsMap.put("IDR","Rp");
-        codeSymbolsMap.put("TRY","₺");
-
-        /// Set the most popular fiats
         List<String> filteredFiatCodes =
                 Arrays.asList("USD","EUR","GBP", "SGD","CAD","AUD","RUB","KRW","MXN","SAR","UAH","NGN","JPY","CNY","IDR","TRY");
 
@@ -125,7 +127,7 @@ public class CurrencyDataSource implements BRDataSourceInterface {
                 List<CurrencyEntity> completeCurrencyEntities = new ArrayList<>();
                 for(int i=0;i<currencies.size();i++) {
                     CurrencyEntity entity = currencies.get(i);
-                    entity.symbol = codeSymbolsMap.get(entity.code);;
+                    entity.symbol = Objects.requireNonNullElse(codeSymbolsMap.get(entity.code), "");
                     completeCurrencyEntities.add(entity);
                 }
                 currencies = completeCurrencyEntities;
@@ -155,7 +157,12 @@ public class CurrencyDataSource implements BRDataSourceInterface {
     }
 
     private CurrencyEntity cursorToCurrency(Cursor cursor) {
-        return new CurrencyEntity(cursor.getString(0), cursor.getString(1), cursor.getFloat(2), "");
+        return new CurrencyEntity(
+                cursor.getString(0),
+                cursor.getString(1),
+                cursor.getFloat(2),
+                Objects.requireNonNullElse(codeSymbolsMap.get(cursor.getString(0)), "")
+        );
     }
 
     @Override

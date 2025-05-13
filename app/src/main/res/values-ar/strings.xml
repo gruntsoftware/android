@@ -435,4 +435,19 @@
     <string name="security_share_data_title">مشاركة بيانات التحليلات</string>
     <string name="security_PIN_button">تحديث الرقم السري</string>
     <string name="security_phrase_button">عرض</string>
+    <string name="network_fee_options_desc">رسوم الشبكة (لكل كيلو بايت): القيمة الأعلى تعني اكتمال المعاملة في وقت أقرب</string>
+    <string name="network_fee_options_top">قمة</string>
+    <string name="network_fee_options_medium">واسطة</string>
+    <string name="network_fee_options_low">قليل</string>
+    <string name="settings_title_sync_metadata">مزامنة البيانات التعريفية:</string>
+    <string name="buy_ltc">شراء لايتكوين</string>
+    <string name="powered_by_moonpay">مدعوم من مونباي</string>
+    <string name="loading">تحميل...</string>
+    <string name="buy_litecoin_fiat_amount_validation_min">المبلغ أقل من الحد الأدنى (%1$f)</string>
+    <string name="buy_litecoin_fiat_amount_validation_max">يتجاوز المبلغ الحد الأقصى (%1$f)</string>
+    <string name="buy_litecoin_title">شراء لايتكوين</string>
+    <string name="buy_litecoin_desc">يتم إيداعها في عنوان LTC الخاص بك:</string>
+    <string name="buy_litecoin_button_moonpay">الشراء باستخدام Moonpay</string>
+    <string name="new_address">العنوان الجديد</string>
+    <string name="bottom_nav_item_buy_receive_title">شراء / تلقي</string>
 </resources>

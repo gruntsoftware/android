@@ -819,4 +819,20 @@
     <string name="security_share_data_title">Analitik verileri paylaş</string>
     <string name="security_PIN_button">PIN güncelle</string>
     <string name="security_phrase_button">Göster</string>
+    <string name="network_fee_options_desc">Ağ Ücreti (kb başına): Daha yüksek değer, işlemin daha erken tamamlanacağı anlamına gelir</string>
+    <string name="network_fee_options_top">Tepe</string>
+    <string name="network_fee_options_medium">Orta</string>
+    <string name="network_fee_options_low">Düşük</string>
+
+    <string name="settings_title_sync_metadata">Meta verileri senkronize et:</string>
+    <string name="buy_ltc">LTC satın al</string>
+    <string name="powered_by_moonpay">Moonpay tarafından desteklenmektedir</string>
+    <string name="loading">Yükleniyor...</string>
+    <string name="buy_litecoin_fiat_amount_validation_min">Tutar minimum sınırın altında (%1$f)</string>
+    <string name="buy_litecoin_fiat_amount_validation_max">Tutar maksimum sınırı aşıyor (%1$f)</string>
+    <string name="buy_litecoin_title">Litecoin satın al</string>
+    <string name="buy_litecoin_desc">LTC Adresinize yatırın:</string>
+    <string name="buy_litecoin_button_moonpay">Moonpay ile satın alın</string>
+    <string name="new_address">Yeni Adres</string>
+    <string name="bottom_nav_item_buy_receive_title">Satın Al / Al</string>
 </resources>

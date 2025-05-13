@@ -74,7 +74,7 @@
     <!-- receive button -->
     <string name="Button.receive">receive</string>
     <!-- send button -->
-    <string name="Button.send">send</string>
+    <string name="Button.send">Send</string>
     <!-- Settings button label -->
     <string name="Button.settings">Settings</string>
     <!-- Settings button label -->
@@ -839,5 +839,20 @@
     <string name="security_share_data_title">Share analytics data</string>
     <string name="security_PIN_button">Update PIN</string>
     <string name="security_phrase_button">Show</string>
+    <string name="buy_ltc">Buy LTC</string>
+    <string name="powered_by_moonpay">Powered by Moonpay</string>
+    <string name="loading">Loading...</string>
+    <string name="network_fee_options_desc">Network Fee (per kb): Higher value mean the transaction completes sooner</string>
+    <string name="network_fee_options_top">Top</string>
+    <string name="network_fee_options_medium">Medium</string>
+    <string name="network_fee_options_low">Low</string>
+    <string name="buy_litecoin_fiat_amount_validation_min">Amount is below minimum limit (%f)</string>
+    <string name="buy_litecoin_fiat_amount_validation_max">Amount exceeds maximum limit (%f)</string>
+    <string name="buy_litecoin_title">Buy Litecoin</string>
+    <string name="buy_litecoin_desc">Do be deposited to your LTC Address:</string>
+    <string name="buy_litecoin_button_moonpay">Buy with Moonpay</string>
+    <string name="new_address">New Address</string>
 
+    <string name="bottom_nav_item_buy_receive_title">Buy / Receive</string>
+    <string name="custom">Custom</string>
 </resources>

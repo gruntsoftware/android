@@ -796,4 +796,19 @@
     <string name="security_share_data_title">Делиться аналитическими данными</string>
     <string name="security_PIN_button">Обновить PIN</string>
     <string name="security_phrase_button">Показать</string>
+    <string name="network_fee_options_desc">Сетевая плата (за КБ): более высокое значение означает, что транзакция завершится раньше.</string>
+    <string name="network_fee_options_top">Вершина</string>
+    <string name="network_fee_options_medium">Середина</string>
+    <string name="network_fee_options_low">Низкий</string>
+    <string name="settings_title_sync_metadata">Синхронизировать метаданные:</string>
+    <string name="buy_ltc">Купить LTC</string>
+    <string name="powered_by_moonpay">При поддержке Moonpay</string>
+    <string name="loading">Загрузка...</string>
+    <string name="buy_litecoin_fiat_amount_validation_min">Сумма ниже минимального лимита (%1$f)</string>
+    <string name="buy_litecoin_fiat_amount_validation_max">Сумма превышает максимальный лимит (%1$f)</string>
+    <string name="buy_litecoin_title">Купить Лайткоин</string>
+    <string name="buy_litecoin_desc">Депонируйте на свой адрес LTC:</string>
+    <string name="buy_litecoin_button_moonpay">Купить с помощью Moonpay</string>
+    <string name="new_address">Новый адрес</string>
+    <string name="bottom_nav_item_buy_receive_title">Купить/получить</string>
 </resources>

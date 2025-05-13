@@ -169,9 +169,9 @@
     <!-- Ignore jailbreak warning button -->
     <string name="JailbreakWarnings.ignore">Ignorar</string>
     <!-- Jailbreak warning message -->
-    <string name="JailbreakWarnings.messageWithBalance">SEGURIDAD DEL DISPOSITIVO COMPROMETIDA\nCualquier aplicación \"jailbreak\" puede acceder a los datos del llavero de Loaf y robar tus Litecoins. Borra esta cartera de inmediato y restáurala en un dispositivo seguro.</string>
+    <string name="JailbreakWarnings.messageWithBalance">SEGURIDAD DEL DISPOSITIVO COMPROMETIDA\nCualquier aplicación "jailbreak" puede acceder a los datos del llavero de Loaf y robar tus Litecoins. Borra esta cartera de inmediato y restáurala en un dispositivo seguro.</string>
     <!-- Jailbreak warning message -->
-    <string name="JailbreakWarnings.messageWithoutBalance">SEGURIDAD DEL DISPOSITIVO COMPROMETIDA\nCualquier aplicación \"jailbreak\" puede acceder a los datos del llavero de Loaf y robar tus Litecoins. Usa Loaf únicamente en un dispositivo sin jailbreak.</string>
+    <string name="JailbreakWarnings.messageWithoutBalance">SEGURIDAD DEL DISPOSITIVO COMPROMETIDA\nCualquier aplicación "jailbreak" puede acceder a los datos del llavero de Loaf y robar tus Litecoins. Usa Loaf únicamente en un dispositivo sin jailbreak.</string>
     <!-- Jailbreak warning title -->
     <string name="JailbreakWarnings.title">AVISO</string>
     <!-- Wipe wallet button -->
@@ -795,4 +795,19 @@
     <string name="security_share_data_title">Compartir datos analíticos</string>
     <string name="security_PIN_button">Actualizar PIN</string>
     <string name="security_phrase_button">Mostrar</string>
+    <string name="network_fee_options_desc">Tarifa de red (por kb): un valor más alto significa que la transacción se completa antes</string>
+    <string name="network_fee_options_top">Arriba</string>
+    <string name="network_fee_options_medium">Medio</string>
+    <string name="network_fee_options_low">Bajo</string>
+    <string name="settings_title_sync_metadata">Sincronizar metadatos:</string>
+    <string name="buy_ltc">Comprar LTC</string>
+    <string name="powered_by_moonpay">Desarrollado por Moonpay</string>
+    <string name="loading">Cargando...</string>
+    <string name="buy_litecoin_fiat_amount_validation_min">El monto está por debajo del límite mínimo (%1$f)</string>
+    <string name="buy_litecoin_fiat_amount_validation_max">El importe supera el límite máximo (%1$f)</string>
+    <string name="buy_litecoin_title">Comprar Litecoin</string>
+    <string name="buy_litecoin_desc">Se depositará en su dirección LTC:</string>
+    <string name="buy_litecoin_button_moonpay">Compra con Moonpay</string>
+    <string name="new_address">Nueva dirección</string>
+    <string name="bottom_nav_item_buy_receive_title">Comprar / Recibir</string>
 </resources>
