@@ -8,8 +8,10 @@ import com.brainwallet.data.model.Language
 import com.brainwallet.data.model.toFeeOptions
 import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.data.repository.SettingRepository
+import com.brainwallet.tools.manager.FeeManager
 import com.brainwallet.ui.BrainwalletViewModel
 import com.brainwallet.util.EventBus
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -47,6 +49,25 @@ class SettingsViewModel(
             AppSetting()
         )
 
+    init {
+        viewModelScope.launch {
+            while (true) {
+                /**
+                 * need update fee options every 4s, since we are fetching every 4s
+                 * pls check at
+                 * - [CurrencyUpdateWorker]
+                 * - [LtcRepository.fetchRates]
+                 * - [LtcRepository.fetchFeePerKb]
+                 */
+
+                _state.update {
+                    it.copy(currentFeeOptions = FeeManager.getInstance().currentFeeOptions.toFeeOptions())
+                }
+                delay(4000)
+            }
+        }
+    }
+
     override fun onEvent(event: SettingsEvent) {
         when (event) {
             is SettingsEvent.OnLoad -> viewModelScope.launch {
@@ -54,7 +75,7 @@ class SettingsViewModel(
                     it.copy(
                         shareAnalyticsDataEnabled = event.shareAnalyticsDataEnabled,
                         lastSyncMetadata = event.lastSyncMetadata,
-                        currentFeeOptions = ltcRepository.fetchFeePerKb().toFeeOptions()
+                        selectedFeeType = settingRepository.getSelectedFeeType()
                     )
                 }
             }
@@ -142,6 +163,11 @@ class SettingsViewModel(
                 _state.update { it.copy(shareAnalyticsDataEnabled = it.shareAnalyticsDataEnabled.not()) }
 
                 EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_SHARE_ANALYTICS_DATA_TOGGLE))
+            }
+
+            is SettingsEvent.OnFeeTypeChange -> _state.update {
+                settingRepository.putSelectedFeeType(event.feeType)
+                it.copy(selectedFeeType = event.feeType)
             }
         }
     }

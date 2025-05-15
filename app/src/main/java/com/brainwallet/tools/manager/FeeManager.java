@@ -4,9 +4,10 @@ import android.content.Context;
 
 import androidx.annotation.StringDef;
 
-import com.brainwallet.data.repository.LtcRepository;
-import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.data.model.Fee;
+import com.brainwallet.data.repository.LtcRepository;
+import com.brainwallet.data.repository.SettingRepository;
+import com.brainwallet.tools.threads.BRExecutor;
 
 import org.koin.java.KoinJavaComponent;
 
@@ -58,6 +59,22 @@ public final class FeeManager {
 
     public void setFees(long luxuryFee, long regularFee, long economyFee) {
         currentFeeOptions = new Fee(luxuryFee, regularFee, economyFee);
+    }
+
+    public long getCurrentFeeValue() {
+        SettingRepository settingRepository = KoinJavaComponent.get(SettingRepository.class);
+        String feeType = settingRepository.getSelectedFeeType();
+
+        switch (feeType) {
+            case LUXURY:
+                return currentFeeOptions.luxury;
+            case REGULAR:
+                return currentFeeOptions.regular;
+            case ECONOMY:
+                return currentFeeOptions.economy;
+            default:
+                return currentFeeOptions.luxury; // Default to luxury fee
+        }
     }
 
     public static void updateFeePerKb(Context app) {

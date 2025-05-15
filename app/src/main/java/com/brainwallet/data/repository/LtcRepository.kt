@@ -54,9 +54,9 @@ interface LtcRepository {
 
         }
 
-        override suspend fun fetchFeePerKb(): Fee {
+        override suspend fun fetchFeePerKb(): Fee = runCatching {
             return remoteApiSource.getFeePerKb()
-        }
+        }.getOrElse { Fee.Default }
 
         override suspend fun fetchLimits(baseCurrencyCode: String): MoonpayCurrencyLimit {
             return sharedPreferences.fetchWithCache(

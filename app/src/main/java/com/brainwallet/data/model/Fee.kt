@@ -8,8 +8,6 @@ import com.brainwallet.tools.manager.FeeManager.LUXURY
 import com.brainwallet.tools.manager.FeeManager.REGULAR
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlin.math.ceil
-import kotlin.math.round
 
 @Serializable
 data class Fee(
@@ -80,4 +78,8 @@ fun FeeOption.getFiatFormatted(currencyEntity: CurrencyEntity): String {
     val fiatValue = getFiat(currencyEntity)
     val formatted = String.format("%.3f", fiatValue)
     return "${currencyEntity.symbol}$formatted"
+}
+
+fun List<FeeOption>.getSelectedIndex(selectedFeeType: String): Int {
+    return indexOfFirst { it.type == selectedFeeType }.takeIf { it >= 0 } ?: 2  //2 -> index of top, since we have [low,medium,top]
 }

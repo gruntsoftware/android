@@ -135,6 +135,9 @@ class FragmentSend : Fragment() {
 
         updateText()
 
+        //update fee
+        BRWalletManager.getInstance().setFeePerKb(FeeManager.getInstance().currentFeeValue)
+
         return rootView
     }
 
