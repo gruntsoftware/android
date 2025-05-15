@@ -55,15 +55,7 @@ interface LtcRepository {
         }
 
         override suspend fun fetchFeePerKb(): Fee {
-            return sharedPreferences.fetchWithCache(
-                key = PREF_KEY_NETWORK_FEE_PER_KB,
-                cachedAtKey = PREF_KEY_NETWORK_FEE_PER_KB_CACHED_AT,
-                cacheTimeMs = 6 * 60 * 60 * 1000,
-                fetchData = {
-                    remoteApiSource.getFeePerKb()
-                },
-                defaultValue = Fee.Default
-            )
+            return remoteApiSource.getFeePerKb()
         }
 
         override suspend fun fetchLimits(baseCurrencyCode: String): MoonpayCurrencyLimit {
