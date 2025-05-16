@@ -499,7 +499,6 @@ class FragmentSend : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        FeeManager.getInstance().resetFeeType()
     }
 
     override fun onResume() {

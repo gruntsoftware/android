@@ -513,11 +513,8 @@ public class BRWalletManager {
                 m.createWallet(transactionsCount, pubkeyEncoded);
                 String firstAddress = BRWalletManager.getFirstAddress(pubkeyEncoded);
                 BRSharedPrefs.putFirstAddress(ctx, firstAddress);
-                FeeManager feeManager = FeeManager.getInstance();
-                if (feeManager.isLuxuryFee()) {
-                    FeeManager.updateFeePerKb(ctx);
-                    BRWalletManager.getInstance().setFeePerKb(feeManager.currentFeeOptions.luxury);
-                }
+                //set fee here
+                BRWalletManager.getInstance().setFeePerKb(FeeManager.getInstance().getCurrentFeeValue());
             }
 
             if (!pm.isCreated()) {

@@ -8,6 +8,7 @@ import com.brainwallet.tools.manager.FeeManager.LUXURY
 import com.brainwallet.tools.manager.FeeManager.REGULAR
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
 @Serializable
 data class Fee(
@@ -20,6 +21,8 @@ data class Fee(
     @JvmField
     @SerialName("fee_per_kb_economy")
     var economy: Long,
+    @Transient
+    var timestamp: Long = System.currentTimeMillis()
 ) {
     companion object {
         //from legacy
@@ -37,6 +40,7 @@ data class Fee(
             defaultLuxuryFeePerKB,
             defaultRegularFeePerKB,
             defaultEconomyFeePerKB,
+            defaultTimestamp
         )
     }
 }

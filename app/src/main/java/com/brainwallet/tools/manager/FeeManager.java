@@ -15,7 +15,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 //we are still using this, maybe in the future will deprecate?
-@Deprecated
 public final class FeeManager {
 
 
@@ -58,7 +57,7 @@ public final class FeeManager {
     public static final String ECONOMY = "economy";//low
 
     public void setFees(long luxuryFee, long regularFee, long economyFee) {
-        currentFeeOptions = new Fee(luxuryFee, regularFee, economyFee);
+        currentFeeOptions = new Fee(luxuryFee, regularFee, economyFee, System.currentTimeMillis());
     }
 
     public long getCurrentFeeValue() {
