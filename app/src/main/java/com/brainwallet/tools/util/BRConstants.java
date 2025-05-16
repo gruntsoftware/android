@@ -136,6 +136,7 @@ public class BRConstants {
     public static final String _20230407_DCS = "did_complete_sync";
 
     public static final String _20250303_DSTU = "did_skip_top_up";
+    public static final String _20250517_WCINFO = "wallet_callback_info";
 
     ///Dev: These events not yet used
     public static final String _20200207_DTHB = "did_tap_header_balance";
@@ -185,7 +186,8 @@ public class BRConstants {
             _20241006_UCR,
             _HOME_OPEN,
             _20250222_PAC,
-            _20250303_DSTU
+            _20250303_DSTU,
+            _20250517_WCINFO
     })
     public @interface Event {
     }
