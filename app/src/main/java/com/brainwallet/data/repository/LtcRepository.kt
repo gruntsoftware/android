@@ -54,9 +54,11 @@ interface LtcRepository {
 
         }
 
-        override suspend fun fetchFeePerKb(): Fee = runCatching {
-            return remoteApiSource.getFeePerKb()
-        }.getOrElse { Fee.Default }
+        /**
+         * for now we just using [Fee.Default]
+         * will move to [RemoteApiSource.getFeePerKb] after fix the calculation when we do send
+         */
+        override suspend fun fetchFeePerKb(): Fee = Fee.Default
 
         override suspend fun fetchLimits(baseCurrencyCode: String): MoonpayCurrencyLimit {
             return sharedPreferences.fetchWithCache(
