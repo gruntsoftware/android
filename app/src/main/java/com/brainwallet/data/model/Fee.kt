@@ -25,22 +25,15 @@ data class Fee(
     var timestamp: Long = System.currentTimeMillis()
 ) {
     companion object {
-        //from legacy
-        // this is the default that matches the mobile-api if the server is unavailable
-        private const val defaultEconomyFeePerKB: Long =
-            2500L // From legacy minimum. default min is 1000 as Litecoin Core version v0.17.1
-        private const val defaultRegularFeePerKB: Long = 25000L
-        private const val defaultLuxuryFeePerKB: Long = 66746L
-        private const val defaultTimestamp: Long = 1583015199122L
-
-//        {"fee_per_kb":5289,"fee_per_kb_economy":2645,"fee_per_kb_luxury":10578}
+        private const val defaultEconomyFeePerKB: Long = 10000L
+        private const val defaultRegularFeePerKB: Long = 50000L
+        private const val defaultLuxuryFeePerKB: Long = 75000L
 
         @JvmStatic
         val Default = Fee(
             defaultLuxuryFeePerKB,
             defaultRegularFeePerKB,
             defaultEconomyFeePerKB,
-            defaultTimestamp
         )
     }
 }
@@ -85,5 +78,6 @@ fun FeeOption.getFiatFormatted(currencyEntity: CurrencyEntity): String {
 }
 
 fun List<FeeOption>.getSelectedIndex(selectedFeeType: String): Int {
-    return indexOfFirst { it.type == selectedFeeType }.takeIf { it >= 0 } ?: 2  //2 -> index of top, since we have [low,medium,top]
+    return indexOfFirst { it.type == selectedFeeType }.takeIf { it >= 0 }
+        ?: 2  //2 -> index of top, since we have [low,medium,top]
 }
