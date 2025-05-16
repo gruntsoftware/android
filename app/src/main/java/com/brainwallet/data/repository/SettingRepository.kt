@@ -89,8 +89,8 @@ interface SettingRepository {
         }
 
         override fun getSelectedFeeType(): String =
-            sharedPreferences.getString(KEY_SELECTED_FEE_TYPE, FeeManager.LUXURY)
-                ?: FeeManager.LUXURY
+            sharedPreferences.getString(KEY_SELECTED_FEE_TYPE, FeeManager.REGULAR)
+                ?: FeeManager.REGULAR
 
 
         private fun load(): AppSetting {

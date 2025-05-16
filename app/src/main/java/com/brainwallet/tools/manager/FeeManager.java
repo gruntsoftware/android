@@ -72,7 +72,7 @@ public final class FeeManager {
             case ECONOMY:
                 return currentFeeOptions.economy;
             default:
-                return currentFeeOptions.luxury; // Default to luxury fee
+                return currentFeeOptions.regular; // Default to regular fee
         }
     }
 
