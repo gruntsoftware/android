@@ -56,8 +56,8 @@ public final class FeeManager {
     public static final String REGULAR = "regular";//medium
     public static final String ECONOMY = "economy";//low
 
-    public void setFees(long luxuryFee, long regularFee, long economyFee) {
-        currentFeeOptions = new Fee(luxuryFee, regularFee, economyFee, System.currentTimeMillis());
+    public void setFees(Fee fee) {
+        currentFeeOptions = fee;
     }
 
     public long getCurrentFeeValue() {
@@ -82,8 +82,7 @@ public final class FeeManager {
                 (coroutineScope, continuation) -> ltcRepository.fetchFeePerKb(continuation)
         ).whenComplete((fee, throwable) -> {
 
-            //legacy logic
-            FeeManager.getInstance().setFees(fee.luxury, fee.regular, fee.economy);
+            FeeManager.getInstance().setFees(fee);
             BRSharedPrefs.putFeeTime(app, System.currentTimeMillis()); //store the time of the last successful fee fetch
         });
     }
