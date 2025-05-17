@@ -5,6 +5,7 @@ import androidx.core.content.edit
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.Language
+import com.brainwallet.tools.manager.FeeManager
 import com.brainwallet.tools.sqlite.CurrencyDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,6 +36,10 @@ interface SettingRepository {
     fun isDarkMode(): Boolean
 
     fun toggleDarkMode(isDarkMode: Boolean)
+
+    fun putSelectedFeeType(feeType: String)
+
+    fun getSelectedFeeType(): String
 
     class Impl(
         private val sharedPreferences: SharedPreferences,
@@ -77,6 +82,17 @@ interface SettingRepository {
             _state.update { it.copy(isDarkMode = isDarkMode) }
         }
 
+        override fun putSelectedFeeType(feeType: String) {
+            sharedPreferences.edit {
+                putString(KEY_SELECTED_FEE_TYPE, feeType)
+            }
+        }
+
+        override fun getSelectedFeeType(): String =
+            sharedPreferences.getString(KEY_SELECTED_FEE_TYPE, FeeManager.REGULAR)
+                ?: FeeManager.REGULAR
+
+
         private fun load(): AppSetting {
             return AppSetting(
                 isDarkMode = sharedPreferences.getBoolean(KEY_IS_DARK_MODE, true),
@@ -100,5 +116,6 @@ interface SettingRepository {
         const val KEY_IS_DARK_MODE = "is_dark_mode"
         const val KEY_LANGUAGE_CODE = "language_code"
         const val KEY_FIAT_CURRENCY_CODE = "fiat_currency_code"
+        const val KEY_SELECTED_FEE_TYPE = "selected_fee_type"
     }
 }

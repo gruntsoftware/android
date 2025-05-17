@@ -4,9 +4,10 @@ import android.content.Context;
 
 import androidx.annotation.StringDef;
 
-import com.brainwallet.data.repository.LtcRepository;
-import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.data.model.Fee;
+import com.brainwallet.data.repository.LtcRepository;
+import com.brainwallet.data.repository.SettingRepository;
+import com.brainwallet.tools.threads.BRExecutor;
 
 import org.koin.java.KoinJavaComponent;
 
@@ -14,7 +15,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 //we are still using this, maybe in the future will deprecate?
-@Deprecated
 public final class FeeManager {
 
 
@@ -56,8 +56,24 @@ public final class FeeManager {
     public static final String REGULAR = "regular";//medium
     public static final String ECONOMY = "economy";//low
 
-    public void setFees(long luxuryFee, long regularFee, long economyFee) {
-        currentFeeOptions = new Fee(luxuryFee, regularFee, economyFee);
+    public void setFees(Fee fee) {
+        currentFeeOptions = fee;
+    }
+
+    public long getCurrentFeeValue() {
+        SettingRepository settingRepository = KoinJavaComponent.get(SettingRepository.class);
+        String feeType = settingRepository.getSelectedFeeType();
+
+        switch (feeType) {
+            case LUXURY:
+                return currentFeeOptions.luxury;
+            case REGULAR:
+                return currentFeeOptions.regular;
+            case ECONOMY:
+                return currentFeeOptions.economy;
+            default:
+                return currentFeeOptions.regular; // Default to regular fee
+        }
     }
 
     public static void updateFeePerKb(Context app) {
@@ -66,8 +82,7 @@ public final class FeeManager {
                 (coroutineScope, continuation) -> ltcRepository.fetchFeePerKb(continuation)
         ).whenComplete((fee, throwable) -> {
 
-            //legacy logic
-            FeeManager.getInstance().setFees(fee.luxury, fee.regular, fee.economy);
+            FeeManager.getInstance().setFees(fee);
             BRSharedPrefs.putFeeTime(app, System.currentTimeMillis()); //store the time of the last successful fee fetch
         });
     }

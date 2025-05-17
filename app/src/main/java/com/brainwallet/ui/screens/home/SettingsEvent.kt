@@ -8,6 +8,7 @@ sealed class SettingsEvent {
         val shareAnalyticsDataEnabled: Boolean = false,
         val lastSyncMetadata: String? = null,
     ) : SettingsEvent()
+
     object OnSecurityUpdatePinClick : SettingsEvent()
     object OnSecuritySeedPhraseClick : SettingsEvent()
     object OnSecurityShareAnalyticsDataClick : SettingsEvent()
@@ -20,4 +21,5 @@ sealed class SettingsEvent {
     object OnFiatSelectorDismiss : SettingsEvent()
     data class OnFiatChange(val currency: CurrencyEntity) : SettingsEvent()
     object OnBlockchainSyncClick : SettingsEvent()
+    data class OnFeeTypeChange(val feeType: String) : SettingsEvent()
 }

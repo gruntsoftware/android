@@ -102,11 +102,17 @@ public class BRExchange {
         if (iso.equalsIgnoreCase("LTC")) {
             result = BRExchange.getLitoshisForLitecoin(app, amount);
         } else {
-            //multiply by 100 because core function localAmount accepts the smallest amount e.g. cents
             CurrencyEntity ent = CurrencyDataSource.getInstance(app).getCurrencyByIso(iso);
             if (ent == null) return new BigDecimal(0);
-            BigDecimal rate = new BigDecimal(ent.rate).multiply(new BigDecimal(100));
-            result = new BigDecimal(BRWalletManager.getInstance().bitcoinAmount(amount.multiply(new BigDecimal(100)).longValue(), rate.doubleValue()));
+
+            // Get the exchange rate
+            BigDecimal rate = new BigDecimal(ent.rate);
+
+            result = amount.divide(rate, 8, BRConstants.ROUNDING_MODE)
+                .multiply(new BigDecimal("100000000"));
+
+            // Round to a whole number of litoshis
+            result = result.setScale(0, BRConstants.ROUNDING_MODE);
         }
         return result;
     }
