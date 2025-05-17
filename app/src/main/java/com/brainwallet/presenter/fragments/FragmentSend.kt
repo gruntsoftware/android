@@ -613,9 +613,22 @@ class FragmentSend : Fragment() {
             }
         Timber.d("timber: updateText: currentAmountInLitoshis %d", currentAmountInLitoshis)
 
+        // Service Fee depending on ISOSymbol
+        var serviceFee = Utils.tieredOpsFee(activity, currentAmountInLitoshis)
+        val serviceFeeForISOSymbol =
+            BRExchange.getAmountFromLitoshis(activity, selectedISOSymbol, BigDecimal(serviceFee))
+                .setScale(scaleValue, RoundingMode.HALF_UP)
+        val formattedServiceFee = BRCurrency.getFormattedCurrencyString(
+            activity,
+            selectedISOSymbol,
+            serviceFeeForISOSymbol
+        )
+
+        val totalAmountToCalculateFees = currentAmountInLitoshis + serviceFee
+
         // Network Fee depending on ISOSymbol
-        var networkFee = if (currentAmountInLitoshis > 0) {
-            BRWalletManager.getInstance().feeForTransactionAmount(currentAmountInLitoshis)
+        var networkFee = if (totalAmountToCalculateFees > 0) {
+            BRWalletManager.getInstance().feeForTransactionAmount(totalAmountToCalculateFees)
         } else {
             0
         } //Amount is zero so network fee is also zero
@@ -626,17 +639,6 @@ class FragmentSend : Fragment() {
             activity,
             selectedISOSymbol,
             networkFeeForISOSymbol
-        )
-
-        // Service Fee depending on ISOSymbol
-        var serviceFee = Utils.tieredOpsFee(activity, currentAmountInLitoshis)
-        val serviceFeeForISOSymbol =
-            BRExchange.getAmountFromLitoshis(activity, selectedISOSymbol, BigDecimal(serviceFee))
-                .setScale(scaleValue, RoundingMode.HALF_UP)
-        val formattedServiceFee = BRCurrency.getFormattedCurrencyString(
-            activity,
-            selectedISOSymbol,
-            serviceFeeForISOSymbol
         )
 
         // Total Fees depending on ISOSymbol
