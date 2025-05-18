@@ -128,7 +128,6 @@ public class BRConstants {
     public static final String _20201118_DTGS = "did_tap_get_support";
     public static final String _20200217_DUWP = "did_unlock_with_pin";
     public static final String _20200217_DUWB = "did_unlock_with_biometrics";
-    public static final String _20200301_DUDFPK = "did_use_default_fee_per_kb";
     public static final String _20201121_SIL = "started_IFPS_lookup";
     public static final String _20201121_DRIA = "did_resolve_IPFS_address";
     public static final String _20201121_FRIA = "failed_resolve_IPFS_address";
@@ -170,7 +169,6 @@ public class BRConstants {
             _20201118_DTGS,
             _20200217_DUWP,
             _20200217_DUWB,
-            _20200301_DUDFPK,
             _20201121_SIL,
             _20201121_DRIA,
             _20201121_FRIA,

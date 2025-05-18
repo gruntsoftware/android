@@ -43,7 +43,6 @@ class BRConstantsTest {
         assertSame(BRConstants._20201118_DTGS,"did_tap_get_support");
         assertSame(BRConstants._20200217_DUWP,"did_unlock_with_pin");
         assertSame(BRConstants._20200217_DUWB,"did_unlock_with_biometrics");
-        assertSame(BRConstants._20200301_DUDFPK,"did_use_default_fee_per_kb");
         assertSame(BRConstants._20201121_SIL,"started_IFPS_lookup");
         assertSame(BRConstants._20201121_DRIA,"did_resolve_IPFS_address");
         assertSame(BRConstants._20201121_FRIA,"failed_resolve_IPFS_address");
@@ -128,7 +127,6 @@ class BRConstantsTest {
 //        Assert.assertSame(BRConstants._20201118_DTGS,"did_tap_get_support");
 //        Assert.assertSame(BRConstants._20200217_DUWP,"did_unlock_with_pin");
 //        Assert.assertSame(BRConstants._20200217_DUWB,"did_unlock_with_biometrics");
-//        Assert.assertSame(BRConstants._20200301_DUDFPK,"did_use_default_fee_per_kb");
 //        Assert.assertSame(BRConstants._20201121_SIL,"started_IFPS_lookup");
 //        Assert.assertSame(BRConstants._20201121_DRIA,"did_resolve_IPFS_address");
 //        Assert.assertSame(BRConstants._20201121_FRIA,"failed_resolve_IPFS_address");
