@@ -440,6 +440,7 @@ public class BRWalletManager {
         final Context ctx = BrainwalletApp.getBreadContext();
         if (ctx != null) {
             BRSharedPrefs.putScanRecommended(ctx, true);
+            TransactionDataSource.getInstance(ctx).deleteTxByHash(hash);
         } else {
             Timber.i("timber: onTxDeleted: Failed! ctx is null");
         }
