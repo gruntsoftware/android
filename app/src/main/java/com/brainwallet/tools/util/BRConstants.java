@@ -98,6 +98,7 @@ public class BRConstants {
     public static final String TWITTER_LINK = "https://twitter.com/Brainwallet_App";
     public static final String INSTAGRAM_LINK = "https://www.instagram.com/brainwalletapp";
     public static final String WEB_LINK = "https://brainwallet.co";
+    public static final String SUPPORT_WEB_LINK = "https://brainwallet.co/support.html";
     public static final String TOS_LINK = "https://brainwallet.co/privacy-policy.html";
     public static final String MOBILE_MP_LINK = "https://brainwallet.co/mobile-top-up.html";
     public static String BITREFILL_AFFILIATE_LINK = "https://www.bitrefill.com/";
