@@ -8,8 +8,6 @@ import com.brainwallet.tools.manager.FeeManager.LUXURY
 import com.brainwallet.tools.manager.FeeManager.REGULAR
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlin.math.ceil
-import kotlin.math.round
 
 @Serializable
 data class Fee(
@@ -22,23 +20,31 @@ data class Fee(
     @JvmField
     @SerialName("fee_per_kb_economy")
     var economy: Long,
+    var timestamp: Long
 ) {
     companion object {
-        //from legacy
-        // this is the default that matches the mobile-api if the server is unavailable
-        private const val defaultEconomyFeePerKB: Long =
-            2500L // From legacy minimum. default min is 1000 as Litecoin Core version v0.17.1
+        /**
+         * Default value for economy fee rate per kilobyte.
+         * Used as a fallback when fee rate cannot be determined dynamically.
+         * 
+         * Previous value: 2500L (2.5 satoshis per byte). From legacy minimum. default min is 1000 as Litecoin Core version v0.17.1
+         * Updated to 8000L (8 satoshis per byte) on 2023-11-16
+         */
+        private const val defaultEconomyFeePerKB: Long = 8000L  
         private const val defaultRegularFeePerKB: Long = 25000L
         private const val defaultLuxuryFeePerKB: Long = 66746L
         private const val defaultTimestamp: Long = 1583015199122L
 
-//        {"fee_per_kb":5289,"fee_per_kb_economy":2645,"fee_per_kb_luxury":10578}
-
+        /**
+         * currently we are using this static [Default] for our fee
+         * maybe we need to update core if we need dynamic fee?
+         */
         @JvmStatic
         val Default = Fee(
             defaultLuxuryFeePerKB,
             defaultRegularFeePerKB,
             defaultEconomyFeePerKB,
+            defaultTimestamp
         )
     }
 }
@@ -80,4 +86,9 @@ fun FeeOption.getFiatFormatted(currencyEntity: CurrencyEntity): String {
     val fiatValue = getFiat(currencyEntity)
     val formatted = String.format("%.3f", fiatValue)
     return "${currencyEntity.symbol}$formatted"
+}
+
+fun List<FeeOption>.getSelectedIndex(selectedFeeType: String): Int {
+    return indexOfFirst { it.type == selectedFeeType }.takeIf { it >= 0 }
+        ?: 2  //2 -> index of top, since we have [low,medium,top]
 }

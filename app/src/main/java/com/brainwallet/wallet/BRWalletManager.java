@@ -9,6 +9,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.NetworkOnMainThreadException;
 import android.os.SystemClock;
@@ -334,6 +335,14 @@ public class BRWalletManager {
      */
     public static void publishCallback(final String message, final int error, byte[] txHash) {
         Timber.d("timber: publishCallback: " + message + ", err:" + error + ", txHash: " + Arrays.toString(txHash));
+
+        Bundle params = new Bundle();
+        params.putString("function", "BRWalletManager.publishCallback");
+        params.putString("message", message);
+        params.putInt("error", error);
+        params.putString("txHash", Arrays.toString(txHash));
+        AnalyticsManager.logCustomEventWithParams(BRConstants._20250517_WCINFO, params);
+
         final Context app = BrainwalletApp.getBreadContext();
         BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable() {
             @Override
@@ -440,6 +449,7 @@ public class BRWalletManager {
         final Context ctx = BrainwalletApp.getBreadContext();
         if (ctx != null) {
             BRSharedPrefs.putScanRecommended(ctx, true);
+            TransactionDataSource.getInstance(ctx).deleteTxByHash(hash);
         } else {
             Timber.i("timber: onTxDeleted: Failed! ctx is null");
         }
@@ -513,11 +523,8 @@ public class BRWalletManager {
                 m.createWallet(transactionsCount, pubkeyEncoded);
                 String firstAddress = BRWalletManager.getFirstAddress(pubkeyEncoded);
                 BRSharedPrefs.putFirstAddress(ctx, firstAddress);
-                FeeManager feeManager = FeeManager.getInstance();
-                if (feeManager.isLuxuryFee()) {
-                    FeeManager.updateFeePerKb(ctx);
-                    BRWalletManager.getInstance().setFeePerKb(feeManager.currentFeeOptions.luxury);
-                }
+                //set fee here
+                BRWalletManager.getInstance().setFeePerKb(FeeManager.getInstance().getCurrentFeeValue());
             }
 
             if (!pm.isCreated()) {

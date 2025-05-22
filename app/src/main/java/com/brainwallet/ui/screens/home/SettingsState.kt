@@ -5,6 +5,7 @@ import com.brainwallet.data.model.Fee
 import com.brainwallet.data.model.FeeOption
 import com.brainwallet.data.model.Language
 import com.brainwallet.data.model.toFeeOptions
+import com.brainwallet.tools.manager.FeeManager
 
 data class SettingsState(
     val darkMode: Boolean = true,
@@ -20,4 +21,5 @@ data class SettingsState(
     val shareAnalyticsDataEnabled: Boolean = false,
     val lastSyncMetadata: String? = null,
     val currentFeeOptions: List<FeeOption> = Fee.Default.toFeeOptions(),
+    val selectedFeeType: String = FeeManager.LUXURY
 )

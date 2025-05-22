@@ -135,6 +135,7 @@ fun HomeSettingDrawerSheet(
                         .fillMaxSize()
                         .wrapContentHeight(),
                     selectedCurrency = state.selectedCurrency,
+                    selectedFeeType = state.selectedFeeType,
                     feeOptions = state.currentFeeOptions,
                     onEvent = {
                         viewModel.onEvent(it)
