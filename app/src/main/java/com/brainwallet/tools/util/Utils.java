@@ -267,38 +267,29 @@ public class Utils {
     }
     /// Description: 1715876807
     public static long tieredOpsFee(Context app, long sendAmount) {
-
-        double doubleRate = 83.000;
-        double sendAmountDouble = new Double(String.valueOf(sendAmount));
-        String usIso = Currency.getInstance(new Locale("en", "US")).getCurrencyCode();
-        CurrencyEntity currency = CurrencyDataSource.getInstance(app).getCurrencyByIso(usIso);
-        if (currency != null) {
-            doubleRate = currency.rate;
+        if (sendAmount < 1_398_000) {
+            return 69900;
         }
-        double usdInLTC = sendAmountDouble * doubleRate / 100_000_000.0;
-        usdInLTC = Math.floor(usdInLTC * 100) / 100;
-
-        if (isBetween(usdInLTC, 0.00, 20.00))  {
-            double lowRate = usdInLTC * 0.01;
-            return (long) ((lowRate / doubleRate) * 100_000_000.0);
+        else if (sendAmount < 6_991_000) {
+            return 111_910;
         }
-        else if (isBetween(usdInLTC, 20.00, 50.00)) {
-            return (long) ((0.30 / doubleRate) * 100_000_000.0);
+        else if (sendAmount < 27_965_000) {
+            return 279_700;
         }
-        else if (isBetween(usdInLTC, 50.00, 100.00)) {
-             return (long) ((1.00 / doubleRate) * 100_000_000.0);
-         }
-        else if (isBetween(usdInLTC, 100.00, 500.00)) {
-             return (long) ((2.00 / doubleRate) * 100_000_000.0);
+        else if (sendAmount < 139_820_000) {
+            return 699_540;
         }
-        else if (isBetween(usdInLTC, 500.00, 1000.00)) {
-             return (long) ((2.50 / doubleRate) * 100_000_000.0);
+        else if (sendAmount < 279_653_600) {
+            return 1_049_300;
         }
-        else if ( usdInLTC > 1000.00) {
-             return (long) ((3.00 / doubleRate) * 100_000_000.0);
+        else if (sendAmount < 699_220_000) {
+            return 1_398_800;
+        }
+        else if (sendAmount < 1_398_440_000) {
+            return 2_797_600;
         }
         else {
-             return (long) ((3.00 / doubleRate) * 100_000_000.0);
+            return 2_797_600;
         }
     }
     private static boolean isBetween(double x, double lower, double upper) {

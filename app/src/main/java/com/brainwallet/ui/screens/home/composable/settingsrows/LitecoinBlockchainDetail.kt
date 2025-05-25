@@ -14,10 +14,6 @@ import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -26,24 +22,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brainwallet.R
 import com.brainwallet.data.model.CurrencyEntity
-import com.brainwallet.data.model.Fee
 import com.brainwallet.data.model.FeeOption
 import com.brainwallet.data.model.getFiatFormatted
-import com.brainwallet.data.model.toFeeOptions
-import com.brainwallet.tools.manager.FeeManager
+import com.brainwallet.data.model.getSelectedIndex
 import com.brainwallet.ui.screens.home.SettingsEvent
 import com.brainwallet.ui.theme.BrainwalletTheme
-import com.brainwallet.wallet.BRWalletManager
 
 //TODO
 @Composable
 fun LitecoinBlockchainDetail(
     modifier: Modifier = Modifier,
     selectedCurrency: CurrencyEntity,
+    selectedFeeType: String,
     feeOptions: List<FeeOption>,
     onEvent: (SettingsEvent) -> Unit,
 ) {
-    var feeOptionsState by remember { mutableIntStateOf(2) } //2 -> index of top, since we have [low,medium,top]
 
     /// Layout values
     val contentHeight = 60
@@ -81,12 +74,9 @@ fun LitecoinBlockchainDetail(
             NetworkFeeSelector(
                 selectedCurrency = selectedCurrency,
                 feeOptions = feeOptions,
-                selectedIndex = feeOptionsState
+                selectedIndex = feeOptions.getSelectedIndex(selectedFeeType)
             ) { newSelectedIndex ->
-                feeOptionsState = newSelectedIndex
-
-                //just update inside BRWalletManager.setFeePerKb
-                BRWalletManager.getInstance().setFeePerKb(feeOptions[newSelectedIndex].feePerKb)
+                onEvent.invoke(SettingsEvent.OnFeeTypeChange(feeOptions[newSelectedIndex].type))
             }
 
         }
