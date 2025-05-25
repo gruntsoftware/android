@@ -54,17 +54,13 @@ interface LtcRepository {
 
         }
 
-        override suspend fun fetchFeePerKb(): Fee {
-            return sharedPreferences.fetchWithCache(
-                key = PREF_KEY_NETWORK_FEE_PER_KB,
-                cachedAtKey = PREF_KEY_NETWORK_FEE_PER_KB_CACHED_AT,
-                cacheTimeMs = 6 * 60 * 60 * 1000,
-                fetchData = {
-                    remoteApiSource.getFeePerKb()
-                },
-                defaultValue = Fee.Default
-            )
-        }
+        /**
+         * for now we just using [Fee.Default]
+         * will move to [RemoteApiSource.getFeePerKb] after fix the calculation when we do send
+         *
+         * maybe need updaete core if we need to use dynamic fee?
+         */
+        override suspend fun fetchFeePerKb(): Fee = Fee.Default //using static fee
 
         override suspend fun fetchLimits(baseCurrencyCode: String): MoonpayCurrencyLimit {
             return sharedPreferences.fetchWithCache(

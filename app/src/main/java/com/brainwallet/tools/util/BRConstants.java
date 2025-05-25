@@ -129,7 +129,6 @@ public class BRConstants {
     public static final String _20201118_DTGS = "did_tap_get_support";
     public static final String _20200217_DUWP = "did_unlock_with_pin";
     public static final String _20200217_DUWB = "did_unlock_with_biometrics";
-    public static final String _20200301_DUDFPK = "did_use_default_fee_per_kb";
     public static final String _20201121_SIL = "started_IFPS_lookup";
     public static final String _20201121_DRIA = "did_resolve_IPFS_address";
     public static final String _20201121_FRIA = "failed_resolve_IPFS_address";
@@ -137,6 +136,7 @@ public class BRConstants {
     public static final String _20230407_DCS = "did_complete_sync";
 
     public static final String _20250303_DSTU = "did_skip_top_up";
+    public static final String _20250517_WCINFO = "wallet_callback_info";
 
     ///Dev: These events not yet used
     public static final String _20200207_DTHB = "did_tap_header_balance";
@@ -170,7 +170,6 @@ public class BRConstants {
             _20201118_DTGS,
             _20200217_DUWP,
             _20200217_DUWB,
-            _20200301_DUDFPK,
             _20201121_SIL,
             _20201121_DRIA,
             _20201121_FRIA,
@@ -187,7 +186,8 @@ public class BRConstants {
             _20241006_UCR,
             _HOME_OPEN,
             _20250222_PAC,
-            _20250303_DSTU
+            _20250303_DSTU,
+            _20250517_WCINFO
     })
     public @interface Event {
     }
