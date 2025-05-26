@@ -19,17 +19,40 @@ jobs:
           name: "brainwallet-android unit test setup..."
           command: "echo Building tests for brainwallet-android! && ls"
       - run:
-          name: "Default for gradle.properties"
-          command: "echo \"RELEASE_STORE_FILE=/\nRELEASE_STORE_PASSWORD=\nRELEASE_KEY_ALIAS=\nRELEASE_KEY_PASSWORD=\nandroid.useAndroidX=true\nandroid.enableJetifier=true\" >> gradle.properties && ls && cat gradle.properties"
+          name: "Create google-services.json from env"
+          command: |
+            mkdir -p app
+            echo "$GOOGLE_SERVICES_JSON" | base64 --decode > app/google-services.json
+            ls -la app/google-services.json
+      - run:
+          name: "Create keystore files from env"
+          command: |
+            echo "$DEBUG_STORE_FILE" | base64 --decode > debug.keystore
+            echo "$RELEASE_STORE_FILE" | base64 --decode > release.keystore
+            ls -la *.keystore
+      - run:
+          name: "Create local.properties file"
+          command: |
+            cat > local.properties << EOL
+            #adjust with your location
+            DEBUG_STORE_FILE=${CIRCLE_WORKING_DIRECTORY}/debug.keystore
+            DEBUG_STORE_PASSWORD=${DEBUG_STORE_PASSWORD}
+            DEBUG_KEY_ALIAS=${DEBUG_KEY_ALIAS}
+            DEBUG_KEY_PASSWORD=${DEBUG_KEY_PASSWORD}
+
+            #adjust with your location
+            RELEASE_STORE_FILE=${CIRCLE_WORKING_DIRECTORY}/release.keystore
+            RELEASE_STORE_PASSWORD=${RELEASE_STORE_PASSWORD}
+            RELEASE_KEY_ALIAS=${RELEASE_KEY_ALIAS}
+            RELEASE_KEY_PASSWORD=${RELEASE_KEY_PASSWORD}
+
+            # screengrab paperkey
+            SCREENGRAB_PAPERKEY=${SCREENGRAB_PAPERKEY}
+            EOL
+            ls && cat local.properties
       - run:
           name: "Initialize submodule"
           command: "git submodule init && git submodule update --init --recursive"
-      - run:
-          name: "Export google-services.json to env"
-          command: echo 'export $GOOGLE_SERVICES_JSON="$GOOGLE_SERVICES_JSON"' >> $BASH_ENV
-      - run:
-          name: "decode $GOOGLE_SERVICES_JSON to google-services.json"
-          command: echo "$GOOGLE_SERVICES_JSON" | base64 --decode > app/google-services.json
       - android/restore_gradle_cache
       - run:
           name: "Execute Unit Test"
@@ -52,4 +75,4 @@ jobs:
 workflows:
   test-and-build:
     jobs:
-      - unit-test
+      - unit-test      
