@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.AbstractComposeView
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.coroutineScope
@@ -76,6 +77,7 @@ fun HomeSettingDrawerSheet(
     ) {
         LazyColumn(
             modifier = Modifier
+                .testTag("lazyColumnSetting")
                 .weight(1f)
                 .padding(top = headerPadding.dp)
                 .wrapContentHeight(align = Alignment.Top)
@@ -83,6 +85,7 @@ fun HomeSettingDrawerSheet(
             item {
                 SecurityDetail(
                     modifier = Modifier
+                        .testTag("settingSecurity")
                         .fillMaxSize()
                         .wrapContentHeight(),
                     shareAnalyticsDataEnabled = state.shareAnalyticsDataEnabled,
@@ -94,6 +97,7 @@ fun HomeSettingDrawerSheet(
             item {
                 LanguageDetail(
                     modifier = Modifier
+                        .testTag("settingLanguage")
                         .fillMaxSize()
                         .wrapContentHeight(),
                     selectedLanguage = state.selectedLanguage,
@@ -110,6 +114,7 @@ fun HomeSettingDrawerSheet(
             item {
                 CurrencyDetail(
                     modifier = Modifier
+                        .testTag("settingCurrency")
                         .fillMaxSize()
                         .wrapContentHeight(),
                     selectedCurrency = state.selectedCurrency,
@@ -125,6 +130,7 @@ fun HomeSettingDrawerSheet(
             item {
                 GamesDetail(
                     modifier = Modifier
+                        .testTag("settingGames")
                         .fillMaxSize()
                         .wrapContentHeight()
                 )
@@ -132,6 +138,7 @@ fun HomeSettingDrawerSheet(
             item {
                 LitecoinBlockchainDetail(
                     modifier = Modifier
+                        .testTag("settingBlockchain")
                         .fillMaxSize()
                         .wrapContentHeight(),
                     selectedCurrency = state.selectedCurrency,
@@ -144,6 +151,7 @@ fun HomeSettingDrawerSheet(
             }
             item {
                 SettingRowItem(
+                    modifier = Modifier.testTag("settingSupport"),
                     title = stringResource(R.string.settings_title_support),
                     description = "brainwallet.co/support.html",
                     onClick = {
@@ -155,6 +163,7 @@ fun HomeSettingDrawerSheet(
             }
             item {
                 SettingRowItem(
+                    modifier = Modifier.testTag("settingSocialMedia"),
                     title = stringResource(R.string.settings_title_social_media),
                     description = "linktr.ee/brainwallet",
                     onClick = {
@@ -166,7 +175,9 @@ fun HomeSettingDrawerSheet(
             }
             item {
                 // Lock / Unlock
-                LockSettingRowItem {
+                LockSettingRowItem(
+                    modifier = Modifier.testTag("settingLock"),
+                ) {
                     viewModel.onEvent(SettingsEvent.OnToggleLock)
                 }
             }
