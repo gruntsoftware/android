@@ -1,33 +1,46 @@
 package flow
 
 import android.Manifest
+import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onChild
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.performTextInput
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.GrantPermissionRule
 import androidx.test.uiautomator.UiDevice
-import com.brainwallet.BuildConfig
 import com.brainwallet.R
+import com.brainwallet.test.BuildConfig
 import com.brainwallet.ui.BrainwalletActivity
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import timber.log.Timber
 import tools.fastlane.screengrab.FalconScreenshotStrategy
 import tools.fastlane.screengrab.Screengrab
+import tools.fastlane.screengrab.cleanstatusbar.BluetoothState
+import tools.fastlane.screengrab.cleanstatusbar.CleanStatusBar
+import tools.fastlane.screengrab.cleanstatusbar.IconVisibility
+import tools.fastlane.screengrab.cleanstatusbar.MobileDataType
 import tools.fastlane.screengrab.locale.LocaleTestRule
 
 /**
  * TODO: revisit this, since breaking with new navigation
+ *
+ * this will require pixel 7 pro
  */
 @RunWith(JUnit4::class)
 @LargeTest
@@ -47,23 +60,47 @@ class RecoverWalletScreenGrabsTest {
     @get:Rule
     val composeTestRule = createAndroidComposeRule<BrainwalletActivity>()
 
+    private val uiDevice
+        get() = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+
+    @Before
+    fun setUp() {
+        CleanStatusBar()
+            .setBluetoothState(BluetoothState.DISCONNECTED)
+            .setMobileNetworkDataType(MobileDataType.LTE)
+            .setWifiVisibility(IconVisibility.HIDE)
+            .setShowNotifications(false)
+            .setClock("0900")
+            .setBatteryLevel(100)
+            .enable()
+    }
+
+    @After
+    fun tearDown() {
+        CleanStatusBar.disable()
+    }
+
+
+    @OptIn(ExperimentalTestApi::class)
     @Test
     fun onRecoverFlowSuccess() {
+
         composeTestRule.activityRule.scenario.onActivity {
             Screengrab.setDefaultScreenshotStrategy(FalconScreenshotStrategy(it))
         }
 
-        val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+        waitUntilReady()
 
-        Screengrab.screenshot("1_intro_screen")
+        uiDevice.waitForIdle(60_000)
+        composeTestRule.waitForIdle()
 
-        onView(withId(R.id.button_recover_wallet)).perform(click())
+        Screengrab.screenshot("1_welcome_screen")
 
-        Screengrab.screenshot("2_recover_screen")
+        composeTestRule.onNode(hasTestTag("buttonRestore")).performClick()
 
-        onView(withId(R.id.send_button)).perform(click()) //actually next button
+        uiDevice.waitForIdle()
 
-        Screengrab.screenshot("3_input_paperkey_screen")
+        Screengrab.screenshot("2_input_words_screen")
 
         //seed words input
         val editTextTags = (0..11).map { index -> "textFieldSeedWord$index" }
@@ -71,123 +108,159 @@ class RecoverWalletScreenGrabsTest {
         val paperKey = BuildConfig.SCREENGRAB_PAPERKEY
 
         editTextTags.zip(paperKey).forEachIndexed { index, (textFieldTag, value) ->
-            device.waitForIdle(100)
+            uiDevice.waitForIdle()
             val textForTyping = value.dropLast(1)
             composeTestRule.onNodeWithTag(textFieldTag).onChild().performTextInput(textForTyping)
             composeTestRule.onNodeWithText(value).performClick()
-
         }
 
+        Screengrab.screenshot("3_input_words_screen_2")
+
+        composeTestRule.onNodeWithTag("buttonRestore").performScrollTo()
+        composeTestRule.onNodeWithTag("buttonRestore").assertExists()
         composeTestRule.onNodeWithTag("buttonRestore").performClick()
 
-        device.waitForIdle(300)
+        uiDevice.waitForIdle()
 
-        Screengrab.screenshot("4_input_paperkey_screen_2")
+        composeTestRule.waitUntilAtLeastOneExists(hasTestTag("keypad1"))
 
-        Screengrab.screenshot("5_setpin_screen")
-
-        repeat(6) {
-            onView(withId(R.id.num1)).perform(click())
+        repeat(4) {
+            uiDevice.waitForIdle()
+            composeTestRule.onNodeWithTag("keypad1").assertExists()
+            composeTestRule.onNodeWithTag("keypad1").performClick()
         }
 
-        Screengrab.screenshot("6_setpin_confirm_screen")
+        Screengrab.screenshot("4_set_passcode_screen")
 
-        repeat(6) {
-            onView(withId(R.id.num1)).perform(click())
+        composeTestRule.waitUntilAtLeastOneExists(hasTestTag("keypad1"))
+
+        repeat(4) {
+            uiDevice.waitForIdle()
+            composeTestRule.onNodeWithTag("keypad1").assertExists()
+            composeTestRule.onNodeWithTag("keypad1").performClick()
         }
 
-        device.waitForIdle(3000)
+        Screengrab.screenshot("5_set_passcode_confirm_screen")
 
-        Screengrab.screenshot("7_main_screen")
+        uiDevice.waitForIdle()
 
+        Thread.sleep(1000)
+
+        Screengrab.screenshot("6_main_screen")
+
+        //setting drawer
         onView(withId(R.id.menuBut)).perform(click())
 
-        Screengrab.screenshot("8_menu_bottom_sheet")
+        Screengrab.screenshot("7_setting_drawer_open")
 
-        onView(withText(R.string.MenuButton_security)).perform(click())
+        composeTestRule.onNodeWithTag("settingSecurity").assertExists()
+        composeTestRule.onNodeWithTag("settingSecurity").performClick()
 
-        Screengrab.screenshot("9_security_center_screen")
+        composeTestRule.waitForIdle()
 
-        onView(withId(R.id.close_button)).perform(click())
+        Screengrab.screenshot("8_setting_drawer_open_security")
 
-        onView(withId(R.id.menuBut)).perform(click())
+        composeTestRule.waitForIdle()
 
-        onView(withText(R.string.MenuButton_settings)).perform(click())
+        composeTestRule.onNodeWithTag("settingLanguage").assertExists()
+        composeTestRule.onNodeWithTag("settingLanguage").performClick()
 
-        Screengrab.screenshot("10_settings_screen")
+        composeTestRule.waitForIdle()
 
-        onView(withText(R.string.settings_show_seed)).perform(click())
+        Screengrab.screenshot("9_setting_drawer_open_language")
 
-        onView(withId(R.id.show_seed_button)).perform(click())
+        composeTestRule.waitForIdle()
 
-        Screengrab.screenshot("11_settings_seed_phrase")
+        composeTestRule.onNodeWithTag("settingCurrency").assertExists()
+        composeTestRule.onNodeWithTag("settingCurrency").performClick()
 
-        device.pressBack()
+        composeTestRule.waitForIdle()
 
-        onView(withText(R.string.Settings_wipe)).perform(click())
+        Screengrab.screenshot("10_setting_drawer_open_currency")
 
-        Screengrab.screenshot("12_settings_recover_another_wallet")
+        composeTestRule.waitForIdle()
 
-        onView(withId(R.id.close_button)).perform(click())
+        composeTestRule.onNodeWithTag("settingGames").assertExists()
+        composeTestRule.onNodeWithTag("settingGames").performClick()
 
-        onView(withText(R.string.Settings_languages)).perform(click())
+        composeTestRule.waitForIdle()
 
-        Screengrab.screenshot("13_settings_language")
+        Screengrab.screenshot("11_setting_drawer_open_games")
 
-        device.pressBack()
+        composeTestRule.waitForIdle()
 
-        onView(withText(R.string.Settings_currency)).perform(click())
+        composeTestRule.onNodeWithTag("lazyColumnSetting").performScrollToNode(hasTestTag("settingBlockchain"))
+        composeTestRule.onNodeWithTag("settingBlockchain").assertExists()
+        composeTestRule.onNodeWithTag("settingBlockchain").performClick()
 
-        Screengrab.screenshot("14_settings_currency")
+        composeTestRule.waitForIdle()
 
-        device.pressBack()
+        Screengrab.screenshot("12_setting_drawer_open_blockchain")
 
-        onView(withText(R.string.Settings_sync)).perform(click())
+        composeTestRule.waitForIdle()
 
-        Screengrab.screenshot("15_settings_sync")
+        composeTestRule.onNodeWithTag("lazyColumnSetting").performScrollToNode(hasTestTag("settingLock"))
+        composeTestRule.onNodeWithTag("settingLock").assertExists()
+        composeTestRule.onNodeWithTag("settingLock").performClick()
 
-        device.pressBack()
+        composeTestRule.waitForIdle()
 
-        onView(withText(R.string.Settings_shareData)).perform(click())
+        Screengrab.screenshot("13_setting_drawer_lock")
 
-        Screengrab.screenshot("16_settings_share_anonymous_data")
+        repeat(4) {
+            uiDevice.waitForIdle()
+            composeTestRule.onNodeWithTag("keypad1").assertExists()
+            composeTestRule.onNodeWithTag("keypad1").performClick()
+        }
 
-        device.pressBack()
+        uiDevice.waitForIdle()
+        Thread.sleep(1000)
 
-        onView(withText(R.string.Settings_about)).perform(click())
 
-        Screengrab.screenshot("17_settings_about")
-
-        device.pressBack()
-
-        device.pressBack()
-
+        //tx send ui
         onView(withId(R.id.nav_send)).perform(click())
 
         onView(withId(R.id.amount_edit)).perform(click())
 
-        Screengrab.screenshot("18_transaction_send")
+        Screengrab.screenshot("14_transaction_send")
 
         onView(withId(R.id.close_button)).perform(click())
 
+
+        //tx buy/receive ui
         onView(withId(R.id.nav_receive)).perform(click())
 
-        Screengrab.screenshot("19_transaction_receive")
+        Screengrab.screenshot("15_transaction_buy_receive")
 
-        onView(withId(R.id.close_button)).perform(click())
+        composeTestRule.onNodeWithTag("buttonClose").performClick()
 
-        onView(withId(R.id.nav_buy)).perform(click())
+        uiDevice.waitForIdle()
 
-        Screengrab.screenshot("20_transaction_buy")
+    }
 
-        onView(withId(R.id.nav_history)).perform(click())
+    private fun waitUntilReady() {
+        var attempts = 0
+        val maxAttempts = 5
 
-        onView(withId(R.id.menuBut)).perform(click())
-
-        onView(withText(R.string.MenuButton_lock)).perform(click())
-
-        Screengrab.screenshot("21_lock_screen")
-
+        while (attempts < maxAttempts) {
+            try {
+                composeTestRule.waitUntil(timeoutMillis = 60_000) {
+                    try {
+                        composeTestRule.onRoot().fetchSemanticsNode()
+                        true
+                    } catch (e: Exception) {
+                        Timber.e("[waitForComposeHierarchy] Error1 : ${e.message}", e)
+                        false
+                    }
+                }
+                return
+            } catch (e: Exception) {
+                Timber.e("[waitForComposeHierarchy] Error2 : ${e.message}", e)
+                attempts++
+                if (attempts >= maxAttempts) throw e
+                Thread.sleep(1000)
+            }
+        }
     }
 
 }

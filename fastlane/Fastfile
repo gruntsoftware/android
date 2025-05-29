@@ -16,6 +16,10 @@
 default_platform(:android)
 
 platform :android do
+  before_all do
+    setup_circle_ci
+  end
+
   desc "Runs all the unit tests"
   lane :test do
     gradle(task: "test")
@@ -25,7 +29,7 @@ platform :android do
   lane :build_and_screengrab do
     adb(command: "shell pm clear ltd.grunt.brainwallet.screengrab") rescue nil
     gradle(
-        tasks: ['clean', 'assembleScreengrabDebug', 'assembleScreengrabAndroidTest']
+        tasks: ['assembleScreengrabDebug', 'assembleScreengrabAndroidTest']
     )
     build_dir = "#{ENV['PWD']}/app/build/"
     UI.message "Build directory: #{build_dir}"
