@@ -5,13 +5,10 @@ package com.brainwallet.ui.screens.yourseedwords
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -38,6 +35,7 @@ import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
 import com.brainwallet.ui.composable.LargeButton
 import com.brainwallet.ui.composable.SeedWordItem
+import com.brainwallet.ui.composable.SeedWordsLayout
 import org.koin.compose.koinInject
 
 @Composable
@@ -105,13 +103,7 @@ fun YourSeedWordsScreen(
 
             Spacer(modifier = Modifier.weight(0.1f))
 
-            LazyVerticalGrid(
-                modifier = Modifier.weight(1f),
-                columns = GridCells.Fixed(3),
-                contentPadding = PaddingValues(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
+            SeedWordsLayout(modifier = Modifier.weight(1f)) {
                 itemsIndexed(items = seedWords) { index, word ->
                     SeedWordItem(
                         modifier = Modifier
