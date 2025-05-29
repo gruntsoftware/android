@@ -855,4 +855,5 @@
 
     <string name="bottom_nav_item_buy_receive_title">Buy / Receive</string>
     <string name="custom">Custom</string>
+    <string name="reset_start_over">Reset / Start Over</string>
 </resources>

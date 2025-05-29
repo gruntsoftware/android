@@ -9,27 +9,24 @@ import android.content.ClipData
 import android.content.ClipDescription
 import android.media.MediaPlayer
 import android.view.View
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.draganddrop.dragAndDropSource
 import androidx.compose.foundation.draganddrop.dragAndDropTarget
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -60,6 +57,7 @@ import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
 import com.brainwallet.ui.composable.LargeButton
 import com.brainwallet.ui.composable.SeedWordItem
+import com.brainwallet.ui.composable.SeedWordsLayout
 import org.koin.compose.koinInject
 
 @Composable
@@ -72,7 +70,7 @@ fun YourSeedProveItScreen(
     val context = LocalContext.current
 
     /// Layout values
-    val columnPadding = 18
+    val columnPadding = 12
     val horizontalVerticalSpacing = 8
     val spacerHeight = 48
     val maxItemsPerRow = 3
@@ -104,23 +102,12 @@ fun YourSeedProveItScreen(
                     }
                 })
         },
-        floatingActionButton = {
-            if (state.orderCorrected.not()) {
-                FloatingActionButton(
-                    onClick = {
-                        viewModel.onEvent(YourSeedProveItEvent.OnClear)
-                    }
-                ) {
-                    Icon(Icons.Default.Clear, contentDescription = null)
-                }
-            }
-        }
     ) { paddingValues ->
         Column(
             modifier = Modifier
+                .fillMaxSize()
                 .padding(paddingValues)
                 .padding(columnPadding.dp)
-                .fillMaxSize()
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
@@ -138,17 +125,10 @@ fun YourSeedProveItScreen(
                 )
             )
 
-            Spacer(modifier = Modifier.height(spacerHeight.dp))
+            Spacer(modifier = Modifier.weight(0.1f))
 
-            FlowRow(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
-                verticalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
-                maxItemsInEachRow = maxItemsPerRow
-            ) {
-                state.correctSeedWords.values.forEachIndexed { index, (expectedWord, actualWord) ->
-
+            SeedWordsLayout {
+                itemsIndexed(items = state.correctSeedWords.values.toList()) { index: Int, (expectedWord, actualWord): SeedWordItem ->
                     val label = if (expectedWord != actualWord && actualWord.isEmpty()) {
                         "${index + 1}"
                     } else {
@@ -158,7 +138,6 @@ fun YourSeedProveItScreen(
                     SeedWordItem(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .weight(1f)
                             .dragAndDropTarget(
                                 shouldStartDragAndDrop = { event ->
                                     event
@@ -195,17 +174,20 @@ fun YourSeedProveItScreen(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            AnimatedVisibility(visible = state.orderCorrected.not()) {
-                FlowRow(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
-                    verticalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
-                    maxItemsInEachRow = maxItemsPerRow
-                ) {
-                    state.shuffledSeedWords.forEachIndexed { index, word ->
+            SeedWordsLayout {
+                itemsIndexed(items = state.shuffledSeedWords) { index, word ->
+
+                    val isWordUsedCorrectly =
+                        state.correctSeedWords.values.any { (expectedWord, actualWord) ->
+                            expectedWord == word && actualWord == word
+                        }
+
+                    if (isWordUsedCorrectly) {
+                        Box(modifier = Modifier.fillMaxWidth())
+                    } else {
                         SeedWordItem(
                             modifier = Modifier
+                                .fillMaxWidth()
                                 .dragAndDropSource {
                                     detectTapGestures(
                                         onLongPress = {
@@ -230,20 +212,25 @@ fun YourSeedProveItScreen(
                             }
                         )
                     }
+
+
                 }
             }
 
-            AnimatedVisibility(visible = state.orderCorrected) {
-                LargeButton(
-                    onClick = {
+
+            LargeButton(
+                onClick = {
+                    if (state.orderCorrected) {
                         onNavigate.invoke(UiEffect.Navigate(Route.TopUp))
-                    },
-                ) {
-                    Text(
-                        text = stringResource(R.string.game_and_sync),
-                        style = MaterialTheme.typography.labelLarge
-                    )
-                }
+                    } else {
+                        viewModel.onEvent(YourSeedProveItEvent.OnClear)
+                    }
+                },
+            ) {
+                Text(
+                    text = stringResource(if (state.orderCorrected) R.string.game_and_sync else R.string.reset_start_over).uppercase(),
+                    style = MaterialTheme.typography.labelLarge
+                )
             }
 
         }
