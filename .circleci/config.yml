@@ -141,9 +141,9 @@ workflows:
   test-and-build:
     jobs:
       - unit-test
-      - screengrab:
-          requires:
-            - unit-test
+#      - screengrab:
+#          requires:
+#            - unit-test
 
   # Daily scheduled screengrab workflow
   # daily-screengrab:
