@@ -3,6 +3,7 @@ package com.brainwallet.ui.screens.welcome
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,10 +11,12 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -26,6 +29,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -61,7 +65,8 @@ fun WelcomeScreen(
 
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp
-    var mainBoxFactor = 0.5
+    val density = LocalDensity.current.density
+    val mainBoxFactor = if (density > 2) 0.5 else 0.4
     val thirdOfScreenHeight = (screenHeight * mainBoxFactor).toInt()
 
     LaunchedEffect(Unit) {
@@ -73,11 +78,11 @@ fun WelcomeScreen(
     val buttonFontSize = 24
     val thinButtonFontSize = 22
     val toggleButtonSize = 45
-    val leadTrailPadding = 18
+    val leadTrailPadding = 8
     val halfLeadTrailPadding = leadTrailPadding / 2
     val doubleLeadTrailPadding = leadTrailPadding * 2
     val rowPadding = 8
-    val versionPadding = 12
+    val versionPadding = 8
     val activeRowHeight = 58
 
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.welcomeemoji20250212))
@@ -86,16 +91,12 @@ fun WelcomeScreen(
         iterations = LottieConstants.IterateForever
     )
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(BrainwalletTheme.colors.surface),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceBetween
+            .background(BrainwalletTheme.colors.surface)
+            .verticalScroll(rememberScrollState()),
     ) {
-
-        Spacer(modifier = Modifier.weight(0.2f))
-
         Image(
             painterResource(R.drawable.brainwallet_logotype_white),
             contentDescription = "brainwallet_logotype_white",
@@ -104,124 +105,131 @@ fun WelcomeScreen(
                 BrainwalletTheme.colors.content,
             ),
             modifier = Modifier
+                .align(Alignment.TopCenter)
                 .fillMaxWidth()
                 .padding(doubleLeadTrailPadding.dp)
         )
 
         // Animation Placeholder
-        Card(
+        LottieAnimation(
             modifier = Modifier
+                .offset(y = 120.dp)
                 .fillMaxWidth()
-                .height(thirdOfScreenHeight.dp)
                 .padding(leadTrailPadding.dp)
-        ) {
-
-            LottieAnimation(
-                modifier = Modifier.background(BrainwalletTheme.colors.surface),
-                composition = composition,
-                contentScale = ContentScale.Fit,
-                progress = { progress }
-            )
-        }
-        // TODO: implement later, for now just comment this
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(activeRowHeight.dp)
-                .padding(horizontal = leadTrailPadding.dp)
-                .padding(vertical = rowPadding.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly
-
-        ) {
-
-            BrainwalletButton(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth(),
-                onClick = {
-                    viewModel.onEvent(WelcomeEvent.OnLanguageSelectorButtonClick)
-                }
-            ) {
-                Text(
-                    text = state.selectedLanguage.title,
-                    fontSize = 14.sp,
-                    color = BrainwalletTheme.colors.content
+                .background(
+                    BrainwalletTheme.colors.surface,
+                    BrainwalletTheme.shapes.large
                 )
-            }
-
-            Spacer(modifier = Modifier.weight(0.1f))
-
-            DarkModeToggleButton(
-                modifier = Modifier
-                    .width(toggleButtonSize.dp)
-                    .aspectRatio(1f),
-                checked = state.darkMode,
-                onCheckedChange = {
-                    viewModel.onEvent(WelcomeEvent.OnToggleDarkMode)
-                }
-            )
-
-            Spacer(modifier = Modifier.weight(0.1f))
-
-            BrainwalletButton(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth(),
-                onClick = { viewModel.onEvent(WelcomeEvent.OnFiatButtonClick) }
-            ) {
-                Text(
-                    text = state.selectedCurrency.name,
-                    fontSize = 14.sp,
-                    color = BrainwalletTheme.colors.content
-                )
-            }
-
-        }
-        // Ready Button
-        BorderedLargeButton(
-            onClick = {
-                onNavigate.invoke(UiEffect.Navigate(Route.Ready))
-            },
-            shape = RoundedCornerShape(50),
-            modifier = Modifier
-                .padding(horizontal = leadTrailPadding.dp)
-                .padding(vertical = rowPadding.dp)
-                .height(activeRowHeight.dp)
-
-        ) {
-            Text(
-                text = stringResource(R.string.ready),
-                fontSize = buttonFontSize.sp,
-                fontWeight = FontWeight.SemiBold,
-            )
-        }
-
-        // Restore Button
-        BorderedLargeButton(
-            onClick = {
-                onNavigate.invoke(UiEffect.Navigate(Route.InputWords()))
-            },
-            shape = RoundedCornerShape(50),
-            modifier = Modifier
-                .testTag("buttonRestore")
-                .padding(horizontal = leadTrailPadding.dp)
-                .padding(vertical = rowPadding.dp)
-                .height(activeRowHeight.dp)
-                .clip(RoundedCornerShape(50))
-        ) {
-            Text(
-                text = stringResource(R.string.restore),
-                fontSize = thinButtonFontSize.sp,
-                fontWeight = FontWeight.Thin,
-            )
-        }
-
-        Text( modifier = Modifier
-            .padding(vertical = versionPadding.dp),
-            text = BRConstants.APP_VERSION_NAME_CODE,
-            fontSize = 13.sp,
-            color = BrainwalletTheme.colors.content
+                .height(thirdOfScreenHeight.dp)
+                .clip(BrainwalletTheme.shapes.large),
+            composition = composition,
+            contentScale = ContentScale.FillWidth,
+            alignment = Alignment.Center,
+            progress = { progress }
         )
+
+        Column(
+            modifier = Modifier.align(Alignment.BottomCenter),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(activeRowHeight.dp)
+                    .padding(horizontal = leadTrailPadding.dp)
+                    .padding(vertical = rowPadding.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly
+
+            ) {
+
+                BrainwalletButton(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth(),
+                    onClick = {
+                        viewModel.onEvent(WelcomeEvent.OnLanguageSelectorButtonClick)
+                    }
+                ) {
+                    Text(
+                        text = state.selectedLanguage.title,
+                        fontSize = 14.sp,
+                        color = BrainwalletTheme.colors.content
+                    )
+                }
+
+                Spacer(modifier = Modifier.weight(0.1f))
+
+                DarkModeToggleButton(
+                    modifier = Modifier
+                        .width(toggleButtonSize.dp)
+                        .aspectRatio(1f),
+                    checked = state.darkMode,
+                    onCheckedChange = {
+                        viewModel.onEvent(WelcomeEvent.OnToggleDarkMode)
+                    }
+                )
+
+                Spacer(modifier = Modifier.weight(0.1f))
+
+                BrainwalletButton(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth(),
+                    onClick = { viewModel.onEvent(WelcomeEvent.OnFiatButtonClick) }
+                ) {
+                    Text(
+                        text = state.selectedCurrency.name,
+                        fontSize = 14.sp,
+                        color = BrainwalletTheme.colors.content
+                    )
+                }
+
+            }
+            // Ready Button
+            BorderedLargeButton(
+                onClick = {
+                    onNavigate.invoke(UiEffect.Navigate(Route.Ready))
+                },
+                shape = RoundedCornerShape(50),
+                modifier = Modifier
+                    .padding(horizontal = leadTrailPadding.dp)
+                    .height(activeRowHeight.dp)
+
+            ) {
+                Text(
+                    text = stringResource(R.string.ready),
+                    fontSize = buttonFontSize.sp,
+                    fontWeight = FontWeight.SemiBold,
+                )
+            }
+
+            // Restore Button
+            BorderedLargeButton(
+                onClick = {
+                    onNavigate.invoke(UiEffect.Navigate(Route.InputWords()))
+                },
+                shape = RoundedCornerShape(50),
+                modifier = Modifier
+                    .testTag("buttonRestore")
+                    .padding(horizontal = leadTrailPadding.dp)
+                    .height(activeRowHeight.dp)
+                    .clip(RoundedCornerShape(50))
+            ) {
+                Text(
+                    text = stringResource(R.string.restore),
+                    fontSize = thinButtonFontSize.sp,
+                    fontWeight = FontWeight.Thin,
+                )
+            }
+
+            Text(
+                modifier = Modifier.padding(vertical = versionPadding.dp),
+                text = BRConstants.APP_VERSION_NAME_CODE,
+                fontSize = 13.sp,
+                color = BrainwalletTheme.colors.content
+            )
+        }
     }
 
     //language selector
