@@ -79,8 +79,6 @@ fun WelcomeScreen(
     val thinButtonFontSize = 22
     val toggleButtonSize = 45
     val leadTrailPadding = 8
-    val halfLeadTrailPadding = leadTrailPadding / 2
-    val doubleLeadTrailPadding = leadTrailPadding * 2
     val rowPadding = 8
     val versionPadding = 8
     val activeRowHeight = 58
@@ -107,7 +105,8 @@ fun WelcomeScreen(
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .fillMaxWidth()
-                .padding(doubleLeadTrailPadding.dp)
+                .padding(horizontal = 55.dp)
+                .padding(vertical = 30.dp)
         )
 
         // Animation Placeholder
