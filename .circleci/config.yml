@@ -3,27 +3,30 @@
 version: 2.1
 
 orbs:
-  android: circleci/android@3.0.2
+  android: circleci/android@3.1.0
+  ruby: circleci/ruby@2.5.3
 
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
-jobs:
-  unit-test:
-    executor:
-      name: android/android_docker
-      resource_class: large
-      tag: 2024.07.1-ndk
+# Define reusable commands
+commands:
+  setup_environment:
+    description: "Sets up the basic environment for all jobs (checkout, credentials, submodules)"
     steps:
       - checkout
       - run:
-          name: "brainwallet-android unit test setup..."
-          command: "echo Building tests for brainwallet-android! && ls"
+          name: "Setup environment..."
+          command: "echo Setting up environment for brainwallet-android!"
       - run:
           name: "Create google-services.json from env"
           command: |
             mkdir -p app
             echo "$GOOGLE_SERVICES_JSON" | base64 --decode > app/google-services.json
             ls -la app/google-services.json
+      - run:
+          name: "create service-data.json from env"
+          command: |
+            mkdir -p app/src/main/assets
+            echo "$SERVICE_DATA_JSON" | base64 --decode > app/src/main/assets/service-data.json
+            ls -la app/src/main/assets/service-data.json
       - run:
           name: "Create keystore files from env"
           command: |
@@ -33,7 +36,7 @@ jobs:
       - run:
           name: "Create local.properties file"
           command: |
-            cat > local.properties << EOL
+            cat > local.properties \<< EOL
             #adjust with your location
             DEBUG_STORE_FILE=${CIRCLE_WORKING_DIRECTORY}/debug.keystore
             DEBUG_STORE_PASSWORD=${DEBUG_STORE_PASSWORD}
@@ -54,6 +57,17 @@ jobs:
           name: "Initialize submodule"
           command: "git submodule init && git submodule update --init --recursive"
       - android/restore_gradle_cache
+
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+jobs:
+  unit-test:
+    executor:
+      name: android/android_docker
+      resource_class: large
+      tag: 2024.07.1-ndk
+    steps:
+      - setup_environment
       - run:
           name: "Execute Unit Test"
           command: ./gradlew testBrainwalletDebugUnitTest
@@ -69,10 +83,76 @@ jobs:
       - store_artifacts:
           path: ~/test-results/junit
 
+  screengrab:
+    executor:
+      name: android/android_machine
+      resource_class: large
+      tag: default
+    steps:
+      - setup_environment
+      - ruby/install:
+          version: '3.2.0'
+      - ruby/install-deps
+      - run:
+          name: "Install fastlane"
+          command: |
+            gem install bundler
+            bundle install
+      - android/create_avd:
+          avd_name: bw_avd
+          install: true
+          system_image: system-images;android-34;google_apis;x86_64
+          additional_args: '-d "pixel_7_pro"'
+      - android/start_emulator:
+          avd_name: bw_avd
+          no_window: true
+          memory: 4096
+          delay_adb: true
+          run_logcat: true
+          # additional_args: "-skin 1080x1920 -memory 2048"
+          post_emulator_launch_assemble_command: |
+            # bundle exec fastlane android build_and_screengrab
+            echo "skipping assemble command, as we only need the emulator running for screengrab"
+      - run:
+          name: "Wait for emulator to boot and set PIN"
+          command: |
+            echo "Waiting for emulator to boot..."
+            timeout 300 sh -c 'until adb shell getprop sys.boot_completed | grep -m 1 "1"; do sleep 5; done'
+            echo "Emulator is ready!"
+            adb shell svc power stayon true
+            adb shell locksettings set-pin 123456
+            adb shell input keyevent 82
+            sleep 5
+      - run:
+          name: "Run Screengrab"
+          command: |
+            bundle exec fastlane android build_and_screengrab
+      - run:
+          name: "List fastlane android contents"
+          command: ls -R fastlane/android/
+      - android/save_gradle_cache
+      - store_artifacts:
+          path: fastlane/metadata/android/
+          destination: android-screenshots
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   test-and-build:
     jobs:
-      - unit-test      
+      - unit-test
+      - screengrab:
+          requires:
+            - unit-test
+
+  # Daily scheduled screengrab workflow
+  # daily-screengrab:
+  #   triggers:
+  #     - schedule:
+  #         cron: "0 0 * * *" # Run at midnight UTC every day
+  #         filters:
+  #           branches:
+  #             only:
+  #               - develop # Adjust to your main branch name
+  #   jobs:
+  #     - screengrab
