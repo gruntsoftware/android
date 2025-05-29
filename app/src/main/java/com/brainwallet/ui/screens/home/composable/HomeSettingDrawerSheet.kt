@@ -135,6 +135,7 @@ fun HomeSettingDrawerSheet(
                         .fillMaxSize()
                         .wrapContentHeight(),
                     selectedCurrency = state.selectedCurrency,
+                    selectedFeeType = state.selectedFeeType,
                     feeOptions = state.currentFeeOptions,
                     onEvent = {
                         viewModel.onEvent(it)
@@ -144,11 +145,11 @@ fun HomeSettingDrawerSheet(
             item {
                 SettingRowItem(
                     title = stringResource(R.string.settings_title_support),
-                    description = "brainwallet.co",
+                    description = "brainwallet.co/support.html",
                     onClick = {
                         val builder = CustomTabsIntent.Builder()
                         val customTabsIntent = builder.build()
-                        customTabsIntent.launchUrl(context, Uri.parse(BRConstants.WEB_LINK))
+                        customTabsIntent.launchUrl(context, Uri.parse(BRConstants.SUPPORT_WEB_LINK))
                     }
                 )
             }

@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
+import com.brainwallet.presenter.activities.settings.SyncBlockchainActivity;
 import com.brainwallet.tools.security.BRKeyStore;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.R;
@@ -88,6 +89,7 @@ public class PromptManager {
                                 BRSharedPrefs.putStartHeight(app, 0);
                                 BRPeerManager.getInstance().rescan();
                                 BRSharedPrefs.putScanRecommended(app, false);
+                                BRSharedPrefs.putAllowSpend(app, false);
                             }
                         });
                     }

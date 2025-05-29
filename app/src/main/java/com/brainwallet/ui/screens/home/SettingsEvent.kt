@@ -20,4 +20,5 @@ sealed class SettingsEvent {
     object OnFiatSelectorDismiss : SettingsEvent()
     data class OnFiatChange(val currency: CurrencyEntity) : SettingsEvent()
     object OnBlockchainSyncClick : SettingsEvent()
+    data class OnFeeTypeChange(val feeType: String) : SettingsEvent()
 }

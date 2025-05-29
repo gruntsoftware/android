@@ -149,6 +149,8 @@ fun BuyLitecoinScreen(
                 modifier = Modifier.align(Alignment.BottomCenter),
                 enabled = loadingState.visible.not(),
                 onClick = {
+                    //open bread activity first then open moonpay widget
+                    LegacyNavigation.restartBreadActivity(context)
                     LegacyNavigation.showMoonPayWidget(
                         context = context,
                         params = mapOf(
