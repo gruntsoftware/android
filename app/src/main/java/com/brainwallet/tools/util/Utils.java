@@ -171,6 +171,9 @@ public class Utils {
 
     public static String getAgentString(Context app, String cfnetwork) {
         int versionNumber = 0;
+        String deviceCode = Build.MANUFACTURER + "-|-" + Build.MODEL;
+
+
         if (app != null) {
             try {
                 PackageInfo pInfo = app.getPackageManager().getPackageInfo(app.getPackageName(), 0);
@@ -179,7 +182,7 @@ public class Utils {
                 Timber.e(e);
             }
         }
-        return String.format(Locale.ENGLISH, "%s/%d %s Android/%s", "Brainwallet", versionNumber, cfnetwork, Build.VERSION.RELEASE);
+        return String.format(Locale.ENGLISH, "%s/%d %s Android/%s Device/%s", "Brainwallet", versionNumber, cfnetwork, Build.VERSION.RELEASE, deviceCode);
     }
 
     public static String reverseHex(String hex) {
