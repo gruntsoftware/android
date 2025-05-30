@@ -12,6 +12,7 @@ import com.brainwallet.R
 import com.brainwallet.data.source.RemoteApiSource
 import com.brainwallet.di.getKoinInstance
 import com.brainwallet.presenter.activities.BreadActivity
+import com.brainwallet.tools.util.Utils
 import com.brainwallet.ui.BrainwalletActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -66,6 +67,7 @@ object LegacyNavigation {
         context.startActivity(it)
     }
 
+    @JvmOverloads
     @JvmStatic
     fun showMoonPayWidget(
         context: Context,
@@ -73,7 +75,7 @@ object LegacyNavigation {
         isDarkMode: Boolean = true,
     ) {
         val remoteApiSource: RemoteApiSource = getKoinInstance()
-
+        val agentString = Utils.getAgentString(context, "android/HttpURLConnection")
         val progressDialog = ProgressDialog(context).apply {
             setMessage(context.getString(R.string.loading))
             setCancelable(false)
@@ -86,6 +88,7 @@ object LegacyNavigation {
                     remoteApiSource.getMoonpaySignedUrl(
                         params = params.toMutableMap().apply {
                             put("defaultCurrencyCode", "ltc")
+                            put("externalTransactionId", agentString)
                             put("currencyCode", "ltc")
                             put("themeId", "main-v1.0.0")
                             put("theme", if (isDarkMode) "dark" else "light")
