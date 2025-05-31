@@ -421,7 +421,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
         bottomNav = findViewById(R.id.bottomNav);
         bottomNav.getMenu().clear();
-        bottomNav.inflateMenu(isInUsa() ? R.menu.bottom_nav_menu_us : R.menu.bottom_nav_menu);
+        bottomNav.inflateMenu(R.menu.bottom_nav_menu);
         balanceTxtV = findViewById(R.id.balanceTxtV);
 
         primaryPrice = findViewById(R.id.primary_price);
@@ -445,11 +445,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         });
 
         balanceTxtV.append(":");
-    }
-
-    private boolean isInUsa() {
-        TelephonyManager telManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
-        return "us".equals(telManager.getSimCountryIso());
     }
 
     @Override
