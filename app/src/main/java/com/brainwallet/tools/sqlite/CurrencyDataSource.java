@@ -89,6 +89,26 @@ public class CurrencyDataSource implements BRDataSourceInterface {
         }
     }
 
+    public List<CurrencyEntity> getCurrenciesForBuy() {
+        List<String> supportedFiatCodes = Arrays.asList(
+                "AUD",
+                "BRL",
+                "CAD",
+                "CHF",
+                "EUR",
+                "GBP",
+                "IDR",
+                "MXN",
+                "NGN",
+                "TRY",
+                "USD",
+                "ZAR"
+        );
+        return getAllCurrencies(true).stream()
+                .filter(currencyEntity -> supportedFiatCodes.contains(currencyEntity.code))
+                .collect(Collectors.toList());
+    }
+
     public List<CurrencyEntity> getAllCurrencies(Boolean shouldBeFiltered) {
 
         List<CurrencyEntity> currencies = new ArrayList<>();
