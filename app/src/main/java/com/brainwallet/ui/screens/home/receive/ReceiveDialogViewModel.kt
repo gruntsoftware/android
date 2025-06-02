@@ -10,6 +10,7 @@ import com.brainwallet.tools.manager.BRClipboardManager
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.qrcode.QRUtils
 import com.brainwallet.tools.sqlite.CurrencyDataSource
+import com.brainwallet.tools.util.Utils
 import com.brainwallet.ui.BrainwalletViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -147,6 +148,7 @@ class ReceiveDialogViewModel(
                     onLoading(true)
 
                     val currentState = state.value
+                    val agentString = Utils.getAgentString(event.context, "android/HttpURLConnection")
                     val signedUrl = ltcRepository.fetchMoonpaySignedUrl(
                         mapOf(
                             "baseCurrencyCode" to currentState.selectedFiatCurrency.code,
@@ -154,6 +156,7 @@ class ReceiveDialogViewModel(
                             "language" to appSetting.value.languageCode,
                             "walletAddress" to currentState.address,
                             "defaultCurrencyCode" to "ltc",
+                            "externalTransactionId" to currentState.externalTransactionId,
                             "currencyCode" to "ltc",
                             "themeId" to "main-v1.0.0",
                             "theme" to if (appSetting.value.isDarkMode) "dark" else "light"
