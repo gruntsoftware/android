@@ -13,6 +13,7 @@ import com.brainwallet.data.source.response.GetMoonpayBuyQuoteResponse
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.manager.FeeManager
 import com.brainwallet.tools.sqlite.CurrencyDataSource
+import com.brainwallet.tools.util.Utils
 
 interface LtcRepository {
     suspend fun fetchRates(): List<CurrencyEntity>
@@ -77,7 +78,14 @@ interface LtcRepository {
             remoteApiSource.getBuyQuote(params)
 
         override suspend fun fetchMoonpaySignedUrl(params: Map<String, String>): String {
-            return remoteApiSource.getMoonpaySignedUrl(params)
+            val agentString = Utils.getAgentString(context, "android/HttpURLConnection")
+            val finalParams = params + mapOf(
+                "defaultCurrencyCode" to "ltc",
+                "externalTransactionId" to agentString,
+                "currencyCode" to "ltc",
+                "themeId" to "main-v1.0.0",
+            )
+            return remoteApiSource.getMoonpaySignedUrl(finalParams)
                 .signedUrl.toUri()
                 .buildUpon()
                 .apply {
