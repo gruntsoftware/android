@@ -49,8 +49,7 @@ class ReceiveDialogViewModel(
                 it.copy(
                     address = address,
                     qrBitmap = QRUtils.generateQR(event.context, "litecoin:${address}"),
-                    fiatCurrencies = CurrencyDataSource.getInstance(event.context)
-                        .getAllCurrencies(true),
+                    fiatCurrencies = CurrencyDataSource.getInstance(event.context).getCurrenciesForBuy(),
                 )
             }
 
