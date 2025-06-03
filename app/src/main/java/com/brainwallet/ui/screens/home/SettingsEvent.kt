@@ -8,7 +8,6 @@ sealed class SettingsEvent {
         val shareAnalyticsDataEnabled: Boolean = false,
         val lastSyncMetadata: String? = null,
     ) : SettingsEvent()
-
     object OnSecurityUpdatePinClick : SettingsEvent()
     object OnSecuritySeedPhraseClick : SettingsEvent()
     object OnSecurityShareAnalyticsDataClick : SettingsEvent()
