@@ -5,12 +5,11 @@ package com.brainwallet.ui.screens.yourseedwords
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -36,6 +35,7 @@ import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
 import com.brainwallet.ui.composable.LargeButton
 import com.brainwallet.ui.composable.SeedWordItem
+import com.brainwallet.ui.composable.SeedWordsLayout
 import org.koin.compose.koinInject
 
 @Composable
@@ -45,12 +45,20 @@ fun YourSeedWordsScreen(
     viewModel: YourSeedWordsViewModel = koinInject()
 ) {
     /// Layout values
-    val columnPadding = 16
+    val columnPadding = 12
     val horizontalVerticalSpacing = 8
-    val spacerHeight = 48
-    val maxItemsPerRow = 3
-    val leadingCopyPadding = 16
-    val detailLineHeight = 28
+    val spacerHeight = 36
+    val leadingCopyPadding = 8
+    val detailLineHeight = 24
+
+    LaunchedEffect(Unit) {
+        viewModel.uiEffect.collect { effect ->
+            when (effect) {
+                is UiEffect.Navigate -> onNavigate.invoke(effect)
+                else -> Unit
+            }
+        }
+    }
 
     LaunchedEffect(Unit) {
         viewModel.uiEffect.collect { effect ->
@@ -78,9 +86,9 @@ fun YourSeedWordsScreen(
     ) { paddingValues ->
         Column(
             modifier = Modifier
+                .fillMaxSize()
                 .padding(paddingValues)
                 .padding(columnPadding.dp)
-                .fillMaxSize()
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
@@ -102,16 +110,10 @@ fun YourSeedWordsScreen(
                 )
             )
 
-            Spacer(modifier = Modifier.height(spacerHeight.dp))
+            Spacer(modifier = Modifier.weight(0.1f))
 
-            FlowRow(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
-                verticalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
-                maxItemsInEachRow = maxItemsPerRow
-            ) {
-                seedWords.forEachIndexed { index, word ->
+            SeedWordsLayout(modifier = Modifier.weight(1f)) {
+                itemsIndexed(items = seedWords) { index, word ->
                     SeedWordItem(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -121,14 +123,14 @@ fun YourSeedWordsScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.weight(0.1f))
 
             Text(
                 text = stringResource(R.string.blockchain_litecoin),
                 style = MaterialTheme.typography.bodyMedium.copy(textAlign = TextAlign.Center)
             )
 
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.weight(0.2f))
 
             LargeButton(
                 onClick = {

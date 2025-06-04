@@ -146,7 +146,7 @@
                 android:layout_height="64dp"
                 android:layout_alignParentBottom="true"
                 app:labelVisibilityMode="labeled"
-                tools:menu="@menu/bottom_nav_menu_us" />
+                tools:menu="@menu/bottom_nav_menu" />
 
         </RelativeLayout>
 

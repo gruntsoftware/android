@@ -9,6 +9,7 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.net.toUri
 import com.brainwallet.BuildConfig
 import com.brainwallet.R
+import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.data.source.RemoteApiSource
 import com.brainwallet.di.getKoinInstance
 import com.brainwallet.presenter.activities.BreadActivity
@@ -66,14 +67,14 @@ object LegacyNavigation {
         context.startActivity(it)
     }
 
+    @JvmOverloads
     @JvmStatic
     fun showMoonPayWidget(
         context: Context,
         params: Map<String, String> = mapOf(),
         isDarkMode: Boolean = true,
     ) {
-        val remoteApiSource: RemoteApiSource = getKoinInstance()
-
+        val ltcRepository: LtcRepository = getKoinInstance()
         val progressDialog = ProgressDialog(context).apply {
             setMessage(context.getString(R.string.loading))
             setCancelable(false)
@@ -83,17 +84,14 @@ object LegacyNavigation {
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 val result = withContext(Dispatchers.IO) {
-                    remoteApiSource.getMoonpaySignedUrl(
+                    ltcRepository.fetchMoonpaySignedUrl(
                         params = params.toMutableMap().apply {
-                            put("defaultCurrencyCode", "ltc")
-                            put("currencyCode", "ltc")
-                            put("themeId", "main-v1.0.0")
                             put("theme", if (isDarkMode) "dark" else "light")
                         }
                     )
                 }
 
-                val widgetUri = result.signedUrl.toUri().buildUpon()
+                val widgetUri = result.toUri().buildUpon()
                     .apply {
                         if (BuildConfig.DEBUG) {
                             authority("buy-sandbox.moonpay.com")//replace base url from buy.moonpay.com

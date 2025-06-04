@@ -31,7 +31,7 @@ import java.util.Timer
 import java.util.TimerTask
 import java.util.concurrent.atomic.AtomicInteger
 
-class BrainwalletApp : Application() {
+open class BrainwalletApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -73,7 +73,7 @@ class BrainwalletApp : Application() {
         appsFlyerLib.start(this)
     }
 
-    protected fun initializeModule() {
+    protected open fun initializeModule() {
         startKoin {
             androidLogger(if (BuildConfig.DEBUG) Level.DEBUG else Level.ERROR)
             androidContext(this@BrainwalletApp)

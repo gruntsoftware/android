@@ -50,7 +50,7 @@ class ReceiveDialogViewModel(
                     address = address,
                     qrBitmap = QRUtils.generateQR(event.context, "litecoin:${address}"),
                     fiatCurrencies = CurrencyDataSource.getInstance(event.context)
-                        .getAllCurrencies(true),
+                        .getCurrenciesForBuy(),
                 )
             }
 
@@ -154,9 +154,6 @@ class ReceiveDialogViewModel(
                             "baseCurrencyAmount" to currentState.fiatAmount.toString(),
                             "language" to appSetting.value.languageCode,
                             "walletAddress" to currentState.address,
-                            "defaultCurrencyCode" to "ltc",
-                            "currencyCode" to "ltc",
-                            "themeId" to "main-v1.0.0",
                             "theme" to if (appSetting.value.isDarkMode) "dark" else "light"
                         )
                     )
