@@ -19,7 +19,9 @@ import timber.log.Timber
 import java.math.BigDecimal
 
 
-class UnLockViewModel : BrainwalletViewModel<UnLockEvent>() {
+class UnLockViewModel(
+    private val currencyDataSource: CurrencyDataSource
+) : BrainwalletViewModel<UnLockEvent>() {
 
     private val _state = MutableStateFlow(UnLockState())
     val state: StateFlow<UnLockState> = _state.asStateFlow()
@@ -75,7 +77,7 @@ class UnLockViewModel : BrainwalletViewModel<UnLockEvent>() {
                 val iso = BRSharedPrefs.getIsoSymbol(event.context)
 
                 var formattedCurrency: String? = null
-                val currency = CurrencyDataSource.getInstance(event.context).getCurrencyByIso(iso)
+                val currency = currencyDataSource.getCurrencyByIso(iso)
                 if (currency != null) {
                     val roundedPriceAmount: BigDecimal =
                         BigDecimal(currency.rate.toDouble()).multiply(BigDecimal(100))
