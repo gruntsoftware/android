@@ -71,7 +71,7 @@ val viewModelModule = module {
     viewModel { ReadyViewModel() }
     viewModel { InputWordsViewModel() }
     viewModel { SetPasscodeViewModel() }
-    viewModel { UnLockViewModel() }
+    viewModel { UnLockViewModel(get()) }
     viewModel { YourSeedProveItViewModel() }
     viewModel { YourSeedWordsViewModel() }
     viewModel { ReceiveDialogViewModel(get(), get()) }
