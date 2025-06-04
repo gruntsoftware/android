@@ -11,7 +11,6 @@ import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -26,7 +25,6 @@ class SettingRepositoryTest {
     private lateinit var repository: SettingRepository
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var currencyDataSource: CurrencyDataSource
-    private val testDispatcher = UnconfinedTestDispatcher()
 
     // Mock SharedPreferences storage
     private val preferenceStore = mutableMapOf<String, Any?>()
