@@ -78,10 +78,10 @@ interface LtcRepository {
             remoteApiSource.getBuyQuote(params)
 
         override suspend fun fetchMoonpaySignedUrl(params: Map<String, String>): String {
-            val agentString = Utils.getAgentString(context, "android/HttpURLConnection")
+            val externalTransactionID = Utils.getEncryptedAgentString(context)
             val finalParams = params + mapOf(
                 "defaultCurrencyCode" to "ltc",
-                "externalTransactionId" to agentString,
+                "externalTransactionId" to externalTransactionID,
                 "currencyCode" to "ltc",
                 "themeId" to "main-v1.0.0",
             )
