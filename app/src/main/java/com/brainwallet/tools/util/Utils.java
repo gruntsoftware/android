@@ -3,8 +3,6 @@ package com.brainwallet.tools.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Build;
@@ -15,9 +13,20 @@ import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 
 import com.brainwallet.tools.manager.AnalyticsManager;
-import com.brainwallet.tools.sqlite.CurrencyDataSource;
-import com.brainwallet.data.model.CurrencyEntity;
 import com.brainwallet.presenter.entities.ServiceItems;
+
+import java.security.InvalidKeyException;
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +42,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Currency;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -168,21 +176,98 @@ public class Utils {
         }
 
     }
-
     public static String getAgentString(Context app, String cfnetwork) {
-        int versionNumber = 0;
+
         String deviceCode = Build.MANUFACTURER + "-|-" + Build.MODEL;
+        String appVersion = BRConstants.APP_VERSION_NAME_CODE;
+        return String.format(Locale.ENGLISH, "%s/%d %s Android/%s Device/%s", "Brainwallet",
+                appVersion, cfnetwork, Build.VERSION.RELEASE, deviceCode);
+    }
+    public static String getEncryptedAgentString(Context app) {
+        String deviceCode = Build.MANUFACTURER;
+        String deviceType = Build.DEVICE;
+        String deviceModel = Build.MODEL;
+        String appVersion = BRConstants.APP_VERSION_NAME_CODE;
+        String formattedAgentString = String.format(Locale.ENGLISH, "brainwallet-android,%s,%s-%s-%s",
+                appVersion, deviceCode,deviceType,deviceModel);
 
+        try {
 
-        if (app != null) {
+            // Convert base64 public key string to PublicKey object
+            byte[] keyBytes;
             try {
-                PackageInfo pInfo = app.getPackageManager().getPackageInfo(app.getPackageName(), 0);
-                versionNumber = pInfo.versionCode;
-            } catch (PackageManager.NameNotFoundException e) {
-                Timber.e(e);
+                String pubkey = Utils.fetchServiceItem(app, ServiceItems.AGENTPUBKEY).toString();
+                keyBytes = Base64.getDecoder().decode(pubkey);
+
+                // Decode the base64 to get the PEM string
+                byte[] pemBytes = Base64.getDecoder().decode(pubkey);
+                String pemString = new String(pemBytes, "UTF-8");
+
+                // Extract just the key data (remove PEM headers and whitespace)
+                String keyData = pemString
+                        .replace("-----BEGIN PUBLIC KEY-----", "")
+                        .replace("-----END PUBLIC KEY-----", "")
+                        .replaceAll("\\s+", "");
+
+                // Decode the clean base64 key data
+                keyBytes = Base64.getDecoder().decode(keyData);
+            } catch (IllegalArgumentException e) {
+                Timber.d("Invalid base64 public key format: %s", e.toString());
+                return "ERROR-CANNOT-KEYBYTES-DO-CONVERSION";
             }
+
+            KeyFactory keyFactory;
+            try {
+                keyFactory = KeyFactory.getInstance("RSA");
+            } catch (NoSuchAlgorithmException e) {
+                Timber.d("RSA algorithm not available: %s", e.toString());
+                return "ERROR-CANNOT-NOSUCHALGO";
+            }
+
+            // Generate PublicKey object
+            PublicKey publicKey;
+            try {
+                publicKey = keyFactory.generatePublic(new X509EncodedKeySpec(keyBytes));
+            } catch (InvalidKeySpecException e) {
+                Timber.d("Invalid public key specification: %s", e.toString());
+                return "ERROR-CANNOT-INVALID-PUBLIC-KEY-SPEC";
+            }
+
+            // Initialize cipher for encryption
+            Cipher cipher;
+            try {
+                cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+            } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
+                Timber.d("RSA cipher algorithm/padding not available: %s", e.toString());
+                return "ERROR-RSA-CIPHER-NA";
+            }
+
+            try {
+                cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+            } catch (InvalidKeyException e) {
+                Timber.d("Invalid public key for encryption: %s", e.toString());
+                return "ERROR-CANNOT-INVALID-PUBLIC-KEY-ENCRYPTION";
+            }
+
+            // Encrypt the agent string
+            byte[] encryptedBytes;
+            try {
+                encryptedBytes = cipher.doFinal(formattedAgentString.getBytes());
+            } catch (IllegalBlockSizeException e) {
+                Timber.d("Agent string too large for RSA encryption. Consider using hybrid encryption.: %s", e.toString());
+                return "ERROR-ILLEGAL-BLOCK-SIZE";
+            } catch (BadPaddingException e) {
+                Timber.d("Padding error during encryption: %s", e.toString());
+                return "ERROR-BAD-PADDING-EXCEPTION";
+            }
+
+        return Base64.getEncoder().encodeToString(encryptedBytes);
+
+        } catch (Exception e) {
+            // Catch any unexpected exceptions
+            Timber.d("Unexpected error during encryption: %s", e.toString());
+            return "ERROR-UNEXPECTED-DURING-ENCRYPTION";
         }
-        return String.format(Locale.ENGLISH, "%s/%d %s Android/%s Device/%s", "Brainwallet", versionNumber, cfnetwork, Build.VERSION.RELEASE, deviceCode);
     }
 
     public static String reverseHex(String hex) {
@@ -243,6 +328,9 @@ public class Utils {
                     return opsString.replaceAll("\\s+","");
                 }
                 else if (name == ServiceItems.AFDEVID) {
+                    return keyObject.optString(name.getKey());
+                }
+                else if (name == ServiceItems.AGENTPUBKEY) {
                     return keyObject.optString(name.getKey());
                 }
                 else if (name == ServiceItems.CLIENTCODE) {
