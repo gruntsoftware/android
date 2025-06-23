@@ -6,4 +6,5 @@ enum class ServiceItems(val key: String) {
     WALLETSTART("start-date"),
     AFDEVID("af-dev-id"),
     CLIENTCODE("client-code"),
+    AGENTPUBKEY("agent-base64-pubkey")
 }

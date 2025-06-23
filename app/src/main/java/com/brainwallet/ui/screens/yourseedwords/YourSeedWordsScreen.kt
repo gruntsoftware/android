@@ -60,15 +60,6 @@ fun YourSeedWordsScreen(
         }
     }
 
-    LaunchedEffect(Unit) {
-        viewModel.uiEffect.collect { effect ->
-            when (effect) {
-                is UiEffect.Navigate -> onNavigate.invoke(effect)
-                else -> Unit
-            }
-        }
-    }
-
     BrainwalletScaffold(
         topBar = {
             BrainwalletTopAppBar(
