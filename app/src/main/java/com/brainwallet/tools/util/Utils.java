@@ -46,8 +46,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
+import kotlin.uuid.Uuid;
 import timber.log.Timber;
 public class Utils {
 
@@ -187,9 +189,10 @@ public class Utils {
         String deviceCode = Build.MANUFACTURER;
         String deviceType = Build.DEVICE;
         String deviceModel = Build.MODEL;
+        String udidString = String.valueOf(UUID.randomUUID());
         String appVersion = BRConstants.APP_VERSION_NAME_CODE;
-        String formattedAgentString = String.format(Locale.ENGLISH, "brainwallet-android,%s,%s-%s-%s",
-                appVersion, deviceCode,deviceType,deviceModel);
+        String formattedAgentString = String.format(Locale.ENGLISH, "brainwallet-android,%s,%s-%s-%s,%s",
+                appVersion, deviceCode,deviceType,deviceModel,udidString);
 
         try {
 
