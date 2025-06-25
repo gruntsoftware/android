@@ -190,7 +190,7 @@ fun YourSeedProveItScreen(
                                 .fillMaxWidth()
                                 .dragAndDropSource {
                                     detectTapGestures(
-                                        onLongPress = {
+                                        onPress = {
                                             startTransfer(
                                                 DragAndDropTransferData(
                                                     clipData = ClipData.newPlainText(
