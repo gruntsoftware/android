@@ -173,12 +173,12 @@ fun YourSeedProveItScreen(
             }
 
             Spacer(modifier = Modifier.weight(1f))
-
             Text(
-                text = stringResource(R.string.tap_drag_a_word),
-                style = MaterialTheme.typography.bodyMedium,
+                text = stringResource(if (state.orderCorrected) R.string.empty_string else R.string.tap_drag_a_word),
+                style = MaterialTheme.typography.bodyMedium.copy(
                     textAlign = TextAlign.Center,
                     color = Color.Gray
+                )
             )
             Spacer(modifier = Modifier.weight(0.1f))
 
