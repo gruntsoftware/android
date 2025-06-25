@@ -76,6 +76,7 @@ fun YourSeedProveItScreen(
     val maxItemsPerRow = 3
 
     val clickAudioPlayer = remember { MediaPlayer.create(context, R.raw.clickseedword) }
+    val errorAudioPlayer = remember { MediaPlayer.create(context, R.raw.errorsound) }
     val coinAudioPlayer = remember { MediaPlayer.create(context, R.raw.coinflip) }
 
     LaunchedEffect(Unit) {
@@ -156,10 +157,13 @@ fun YourSeedProveItScreen(
                                                     expectedWord = expectedWord,
                                                     actualWord = text.toString()
                                                 )
-                                            )
 
-                                            if (expectedWord == actualWord) {
-                                                clickAudioPlayer.start()
+                                            )
+                                            if (text.toString() == expectedWord) {
+                                                clickAudioPlayer.start() // Success sound
+                                            }
+                                            else {
+                                                errorAudioPlayer.start() // Success sound
                                             }
                                             return true
                                         }
