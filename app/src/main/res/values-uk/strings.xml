@@ -779,6 +779,7 @@
     <string name="down_left_arrow">стрілка вниз-ліворуч</string>
     <string name="logo">логотип</string>
     <string name="toggle_dark_mode">перемикати темний режим</string>
+    <string name="tap_drag_a_word">Торкніться слова і перетягніть його на місце</string>
     <string name="top_up_title">Поповнити?</string>
     <string name="top_up_detail_2">Зараз ваш мозок порожній...</string>
     <string name="top_up_detail_1">Отримайте Litecoin за 5 хвилин</string>

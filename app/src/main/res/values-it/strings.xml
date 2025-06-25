@@ -773,6 +773,7 @@
     <string name="down_left_arrow">freccia giù a sinistra</string>
     <string name="logo">logo</string>
     <string name="toggle_dark_mode">attiva/disattiva la modalità oscura</string>
+    <string name="tap_drag_a_word">Tocca una parola e trascinala al posto giusto</string>
     <string name="top_up_title">Ricaricare?</string>
     <string name="top_up_detail_2">In questo momento il tuo cervello è vuoto...</string>
     <string name="top_up_detail_1">Ottieni Litecoin in 5 minuti</string>

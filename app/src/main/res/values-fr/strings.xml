@@ -773,6 +773,7 @@
     <string name="down_left_arrow">flèche bas-gauche</string>
     <string name="logo">logo</string>
     <string name="toggle_dark_mode">basculer en mode sombre</string>
+    <string name="tap_drag_a_word">Appuyez sur un mot et faites-le glisser en place</string>
     <string name="top_up_title">Recharger ?</string>
     <string name="top_up_detail_2">En ce moment, votre cerveau est vide...</string>
     <string name="top_up_detail_1">Obtenez du Litecoin en 5 minutes</string>

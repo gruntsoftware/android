@@ -795,6 +795,7 @@
     <string name="setup_app_biometrics">Use biometrics</string>
     <string name="you_saved_your_keys">You saved your keys.</string>
     <string name="you_saved_your_keys_desc">Crush the next level.</string>
+    <string name="tap_drag_a_word">Tap a word and drag it in place</string>
     <string name="top_up_title">Top up?</string>
     <string name="top_up_detail_2">Right now your brain is empty...</string>
     <string name="top_up_detail_1">Get Litecoin in 5 minutes</string>

@@ -174,6 +174,14 @@ fun YourSeedProveItScreen(
 
             Spacer(modifier = Modifier.weight(1f))
 
+            Text(
+                text = stringResource(R.string.tap_drag_a_word),
+                style = MaterialTheme.typography.bodyMedium,
+                    textAlign = TextAlign.Center,
+                    color = Color.Gray
+            )
+            Spacer(modifier = Modifier.weight(0.1f))
+
             SeedWordsLayout {
                 itemsIndexed(items = state.shuffledSeedWords) { index, word ->
 

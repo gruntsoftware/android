@@ -773,6 +773,7 @@
     <string name="down_left_arrow">Pfeil nach unten links</string>
     <string name="logo">Logo</string>
     <string name="toggle_dark_mode">Dunkelmodus umschalten</string>
+    <string name="tap_drag_a_word">Tippen Sie auf ein Wort und ziehen Sie es an die richtige Stelle</string>
     <string name="top_up_title">Nachfüllen?</string>
     <string name="top_up_detail_2">Im Moment ist dein Gehirn leer...</string>
     <string name="top_up_detail_1">Holen Sie sich Litecoin in 5 Minuten</string>

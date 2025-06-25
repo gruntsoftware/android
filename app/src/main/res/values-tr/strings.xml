@@ -795,6 +795,7 @@
     <string name="down_left_arrow">sol aşağı ok</string>
     <string name="logo">logo</string>
     <string name="toggle_dark_mode">karanlık moda geçiş</string>
+    <string name="tap_drag_a_word">Bir kelimeye dokunun ve yerine sürükleyin</string>
     <string name="top_up_title">Tamamlansın mı?\n</string>
     <string name="top_up_detail_2">Tamamlansın mı?\n</string>
     <string name="About.blog">Tamamlansın mı?</string>

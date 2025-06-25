@@ -411,6 +411,7 @@
   <string name="down_left_arrow">नीचे-बाएँ-तीर</string>
   <string name="logo">प्रतीक चिन्ह</string>
   <string name="toggle_dark_mode">टॉगल-डार्क-मोड</string>
+    <string name="tap_drag_a_word">एक शब्द पर टैप करें और इसे सही जगह खींचें</string>
     <string name="top_up_title">लबालब भरना?</string>
   <string name="top_up_detail_2">अभी तो तुम्हारा दिमाग खाली है...</string>
   <string name="top_up_detail_1">5 मिनट में लाइटकॉइन प्राप्त करें</string>

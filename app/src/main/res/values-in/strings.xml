@@ -775,6 +775,7 @@
     <string name="down_left_arrow">panah kiri bawah</string>
     <string name="logo">logo</string>
     <string name="toggle_dark_mode">beralih-mode gelap</string>
+    <string name="tap_drag_a_word">Ketuk kata dan seret ke tempatnya</string>
     <string name="top_up_title">Isi ulang?</string>
     <string name="top_up_detail_2">Saat ini otakmu kosong...</string>
     <string name="top_up_detail_1">Dapatkan Litecoin dalam 5 menit</string>
