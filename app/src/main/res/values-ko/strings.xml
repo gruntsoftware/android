@@ -773,6 +773,7 @@
     <string name="down_left_arrow">아래쪽 왼쪽 화살표</string>
     <string name="logo">심벌 마크</string>
     <string name="toggle_dark_mode">토글 다크 모드</string>
+    <string name="tap_drag_a_word">단어를 탭하고 제자리로 드래그하세요</string>
     <string name="top_up_title">충전하시겠습니까?</string>
     <string name="top_up_detail_2">지금 당신의 뇌는 비어있습니다...</string>
     <string name="top_up_detail_1">5분 안에 라이트코인을 받으세요</string>

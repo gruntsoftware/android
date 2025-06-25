@@ -411,6 +411,7 @@
     <string name="down_left_arrow">سهم لأسفل لليسار</string>
     <string name="logo">شعار</string>
     <string name="toggle_dark_mode">تبديل الوضع المظلم</string>
+    <string name="tap_drag_a_word">اضغط على كلمة واسحبها إلى مكانها</string>
     <string name="top_up_title">اشحن رصيدك؟\n</string>
     <string name="top_up_detail_2">عقلك فارغ الآن..</string>
     <string name="top_up_detail_1">احصل على عملة اللايتكوين في 5 دقائق</string>

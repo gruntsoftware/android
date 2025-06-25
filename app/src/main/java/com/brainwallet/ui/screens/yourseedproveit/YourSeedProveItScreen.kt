@@ -76,6 +76,7 @@ fun YourSeedProveItScreen(
     val maxItemsPerRow = 3
 
     val clickAudioPlayer = remember { MediaPlayer.create(context, R.raw.clickseedword) }
+    val errorAudioPlayer = remember { MediaPlayer.create(context, R.raw.errorsound) }
     val coinAudioPlayer = remember { MediaPlayer.create(context, R.raw.coinflip) }
 
     LaunchedEffect(Unit) {
@@ -156,10 +157,13 @@ fun YourSeedProveItScreen(
                                                     expectedWord = expectedWord,
                                                     actualWord = text.toString()
                                                 )
-                                            )
 
-                                            if (expectedWord == actualWord) {
-                                                clickAudioPlayer.start()
+                                            )
+                                            if (text.toString() == expectedWord) {
+                                                clickAudioPlayer.start() // Success sound
+                                            }
+                                            else {
+                                                errorAudioPlayer.start() // Success sound
                                             }
                                             return true
                                         }
@@ -173,6 +177,14 @@ fun YourSeedProveItScreen(
             }
 
             Spacer(modifier = Modifier.weight(1f))
+            Text(
+                text = stringResource(if (state.orderCorrected) R.string.empty_string else R.string.tap_drag_a_word),
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    textAlign = TextAlign.Center,
+                    color = Color.Gray
+                )
+            )
+            Spacer(modifier = Modifier.weight(0.1f))
 
             SeedWordsLayout {
                 itemsIndexed(items = state.shuffledSeedWords) { index, word ->
@@ -190,7 +202,7 @@ fun YourSeedProveItScreen(
                                 .fillMaxWidth()
                                 .dragAndDropSource {
                                     detectTapGestures(
-                                        onLongPress = {
+                                        onPress = {
                                             startTransfer(
                                                 DragAndDropTransferData(
                                                     clipData = ClipData.newPlainText(

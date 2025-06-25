@@ -776,13 +776,14 @@
 
 
     <!-- New Strings -->
+    <string name="empty_string" translatable="false"> </string>
     <string name="back">Back</string>
     <string name="your_seed_words">Your seed words</string>
     <string name="your_seed_words_desc">"Just for you. \n It is the <b>private key</b> that lets you send."</string>
     <string name="blockchain_litecoin">Blockchain: Litecoin</string>
     <string name="i_saved_it_on_paper">I saved it on paper or metal</string>
     <string name="you_saved_it_right">You saved it, right?</string>
-    <string name="you_saved_it_right_desc">Prove it!\nDrag thƒe words in the correct order.</string>
+    <string name="you_saved_it_right_desc">Prove it!\nDrag the words in the correct order.</string>
     <string name="game_and_sync">Game &amp; Sync</string>
     <string name="ready_setup">Ready?</string>
     <string name="ready_setup_details_1">Do this for you. Please do it</string>
@@ -795,6 +796,7 @@
     <string name="setup_app_biometrics">Use biometrics</string>
     <string name="you_saved_your_keys">You saved your keys.</string>
     <string name="you_saved_your_keys_desc">Crush the next level.</string>
+    <string name="tap_drag_a_word">Tap a word and drag it in place</string>
     <string name="top_up_title">Top up?</string>
     <string name="top_up_detail_2">Right now your brain is empty...</string>
     <string name="top_up_detail_1">Get Litecoin in 5 minutes</string>

@@ -773,6 +773,7 @@
     <string name="down_left_arrow">左下矢印</string>
     <string name="logo">ロゴ</string>
     <string name="toggle_dark_mode">ダークモードの切り替え</string>
+    <string name="tap_drag_a_word">単語をタップしてドラッグして配置してください</string>
     <string name="top_up_title">補充しますか?</string>
     <string name="top_up_detail_2">今、あなたの脳は空っぽです...</string>
     <string name="top_up_detail_1">5分でライトコインをゲット</string>

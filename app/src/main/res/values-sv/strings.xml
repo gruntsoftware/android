@@ -411,6 +411,7 @@
   <string name="down_left_arrow">ned-vänster-pil</string>
   <string name="logo">logotyp</string>
   <string name="toggle_dark_mode">växla mellan mörkt läge</string>
+    <string name="tap_drag_a_word">Tryck på ett ord och dra det på plats</string>
     <string name="top_up_title">Fylla på?</string>
   <string name="top_up_detail_2">Just nu är din hjärna tom...</string>
   <string name="top_up_detail_1">Få Litecoin på 5 minuter</string>
