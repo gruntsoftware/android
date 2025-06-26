@@ -174,10 +174,10 @@
   <string name="JailbreakWarnings.ignore">نادیده بگیرید</string>
   <!-- Jailbreak warning message -->
   <string name="JailbreakWarnings.messageWithBalance">امنیت دستگاه به خطر افتاده است
-هر برنامه 'جیلبرک' می‌تواند به داده‌های کیف کلید دسترسی پیدا کند و لایت‌کوین شما را سرقت کند! این کیف پول را فوراً پاک کنید و در یک دستگاه امن بازیابی کنید.</string>
+هر برنامه \'جیلبرک\' می‌تواند به داده‌های کیف کلید دسترسی پیدا کند و لایت‌کوین شما را سرقت کند! این کیف پول را فوراً پاک کنید و در یک دستگاه امن بازیابی کنید.</string>
   <!-- Jailbreak warning message -->
   <string name="JailbreakWarnings.messageWithoutBalance">امنیت دستگاه به خطر افتاده است
-هر برنامه 'جیلبرک' می‌تواند به داده‌های کیچین دسترسی پیدا کند و لایت‌کوین شما را سرقت کند. لطفاً از Brainwallet فقط در دستگاهی که جیلبریک نشده است استفاده کنید.</string>
+هر برنامه \'جیلبرک\' می‌تواند به داده‌های کیچین دسترسی پیدا کند و لایت‌کوین شما را سرقت کند. لطفاً از Brainwallet فقط در دستگاهی که جیلبریک نشده است استفاده کنید.</string>
   <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">هشدار</string>
   <!-- Location services disabled error -->

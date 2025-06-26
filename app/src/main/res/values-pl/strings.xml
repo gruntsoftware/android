@@ -667,7 +667,7 @@
   <!-- Authorize transaction with touch id message -->
   <string name="VerifyPin.touchIdMessage">Autoryzuj tę transakcję</string>
   <!-- 'No wallet' warning for watch app -->
-  <string name="Watch.noWalletWarning">Otwórz aplikację Brainwallet na iPhone'a, aby skonfigurować portfel.</string>
+  <string name="Watch.noWalletWarning">Otwórz aplikację Brainwallet na iPhone\'a, aby skonfigurować portfel.</string>
   <!-- Dismiss button label -->
   <string name="Webview.dismiss">Odrzucić</string>
   <!-- Webview loading error message -->

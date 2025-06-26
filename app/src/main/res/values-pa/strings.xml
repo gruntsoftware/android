@@ -175,7 +175,7 @@
   <!-- Jailbreak warning message -->
   <string name="JailbreakWarnings.messageWithBalance">ڈیوائس سیکیورٹی متاثر\n کوئی بھی \'جیل بریک\' ایپ کی چین ڈیٹا تک رسائی حاصل کر سکتی ہے اور آپ کے لائٹ کوائن چرا سکتی ہے! اس والٹ کو فوراً صاف کریں اور کسی محفوظ ڈیوائس پر بحال کریں۔</string>
   <!-- Jailbreak warning message -->
-  <string name="JailbreakWarnings.messageWithoutBalance">ڈیوائس سیکیورٹی متاثر\n کوئی بھی 'جیلبریک' ایپ کی چین ڈیٹا تک رسائی حاصل کر سکتی ہے اور آپ کے لائٹ کوائن چرا سکتی ہے۔ براہ کرم صرف برین والٹ کو غیر جیل بریک شدہ ڈیوائس پر استعمال کریں۔</string>
+  <string name="JailbreakWarnings.messageWithoutBalance">ڈیوائس سیکیورٹی متاثر\n کوئی بھی \'جیلبریک\' ایپ کی چین ڈیٹا تک رسائی حاصل کر سکتی ہے اور آپ کے لائٹ کوائن چرا سکتی ہے۔ براہ کرم صرف برین والٹ کو غیر جیل بریک شدہ ڈیوائس پر استعمال کریں۔</string>
   <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">خبردار</string>
   <!-- Location services disabled error -->
@@ -335,7 +335,7 @@
   <!-- extimated time -->
   <string name="ReScan.body1">۲۰-۴۵ منٹ</string>
   <!-- Syncing explanation -->
-  <string name="ReScan.body2">اگر لائٹ کوائن نیٹ ورک 'تے کوئی لین دین مکمل ہو کے وکھائی دیوے پر تُہاڈے برین والٹ 'چ نہ ہووے۔</string>
+  <string name="ReScan.body2">اگر لائٹ کوائن نیٹ ورک\'تے کوئی لین دین مکمل ہو کے وکھائی دیوے پر تُہاڈے برین والٹ \'چ نہ ہووے۔</string>
   <!-- Syncing explanation -->
   <string name="ReScan.body3">تُسیں بار بار اِک غلطی دا سامنا کر رہے ہو کہ تُہاڈی ٹرانزیکشن رد کر دِتی گئی اے۔</string>
   <!-- Start Sync button label -->
