@@ -33,6 +33,7 @@ enum class Language (
     JAPANESE("ja", "日本語", "言語を選択する"),
     CHINESE_SIMPLIFIED("zh-CN", "简化字", "选择语言"),
     ITALIAN("it", "Italiano", "Seleziona la lingua"),
+    SWEDISH("sv", "Svenska", "Välj språk")
     ;
 
     companion object {

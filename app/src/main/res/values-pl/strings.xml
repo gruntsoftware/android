@@ -1,17 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!-- App name -->
-  <string name="app_name" translatable="false">Brainwallet</string>
   <!-- About screen blog label -->
   <string name="About.blog">Strona internetowa</string>
   <!-- About screen footer -->
   <!-- About app version -->
-  <string name="About.appVersion" translatable="false">%1$s</string>
   <!-- Privay Policy button label -->
   <string name="About.privacy">Polityka prywatności</string>
   <!-- About screen Instagram label -->
-  <string name="About.instagram" translatable="false">Instagram</string>
-  <!-- Terms of Use button label -->
+    <!-- Terms of Use button label -->
   <string name="About.terms">Warunki użytkowania</string>
   <!-- About screen title -->
   <string name="About.title">O</string>
