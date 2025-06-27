@@ -40,7 +40,7 @@ android {
         }
     }
 
-    assetPacks.addAll(setOf(":install_time_asset_pack", ":fast_follow_asset_pack_01"))
+    assetPacks.addAll(setOf(":install_time_asset_pack"))
 
     signingConfigs {
         getByName("debug") {
