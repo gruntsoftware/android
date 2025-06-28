@@ -53,6 +53,8 @@ import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
+import com.brainwallet.tools.manager.AnalyticsManager
+import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
 import com.brainwallet.ui.composable.LargeButton
@@ -86,6 +88,8 @@ fun YourSeedProveItScreen(
     LaunchedEffect(state.orderCorrected) {
         if (state.orderCorrected) {
             coinAudioPlayer.start()
+            viewModel.onEvent(YourSeedProveItEvent.OnCompletedPaperKey)
+            AnalyticsManager.logCustomEvent(BRConstants._20250303_DSTU)
         }
     }
 
@@ -160,10 +164,10 @@ fun YourSeedProveItScreen(
 
                                             )
                                             if (text.toString() == expectedWord) {
-                                                clickAudioPlayer.start() // Success sound
+                                                clickAudioPlayer.start() // success sound
                                             }
                                             else {
-                                                errorAudioPlayer.start() // Success sound
+                                                errorAudioPlayer.start() // error sound
                                             }
                                             return true
                                         }
