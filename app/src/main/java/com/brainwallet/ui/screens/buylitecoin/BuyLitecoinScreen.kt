@@ -1,5 +1,7 @@
 package com.brainwallet.ui.screens.buylitecoin
 
+import android.os.Handler
+import android.os.Looper
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -150,16 +152,20 @@ fun BuyLitecoinScreen(
                 enabled = loadingState.visible.not(),
                 onClick = {
                     //open bread activity first then open moonpay widget
+                    //tbd: quick fix to avoid activity open causing crash
                     LegacyNavigation.restartBreadActivity(context)
-                    LegacyNavigation.showMoonPayWidget(
-                        context = context,
-                        params = mapOf(
-                            "baseCurrencyCode" to appSetting.currency.code,
-                            "baseCurrencyAmount" to state.fiatAmount.toString(),
-                            "language" to appSetting.languageCode,
-                            "walletAddress" to state.address
+
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        LegacyNavigation.showMoonPayWidget(
+                            context = context,
+                            params = mapOf(
+                                "baseCurrencyCode" to appSetting.currency.code,
+                                "baseCurrencyAmount" to state.fiatAmount.toString(),
+                                "language" to appSetting.languageCode,
+                                "walletAddress" to state.address
+                            )
                         )
-                    )
+                    }, 500) // 500ms delay
                 }
             ) {
                 Text(stringResource(R.string.buy_litecoin_button_moonpay))
