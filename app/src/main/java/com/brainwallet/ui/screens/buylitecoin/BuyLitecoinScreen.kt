@@ -1,7 +1,9 @@
 package com.brainwallet.ui.screens.buylitecoin
 
+import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.provider.Settings.Global.putString
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -37,6 +39,7 @@ import com.brainwallet.ui.composable.LargeButton
 import com.brainwallet.ui.composable.LoadingDialog
 import com.brainwallet.ui.screens.home.receive.ReceiveDialogEvent
 import com.brainwallet.ui.theme.BrainwalletTheme
+import com.google.firebase.analytics.FirebaseAnalytics
 import org.koin.compose.koinInject
 
 //TODO: wip
@@ -49,7 +52,10 @@ fun BuyLitecoinScreen(
     val loadingState by viewModel.loadingState.collectAsState()
     val appSetting by viewModel.appSetting.collectAsState()
     val context = LocalContext.current
-
+    val  firebaseAnalytics = FirebaseAnalytics.getInstance(LocalContext.current)
+    val bundle = Bundle().apply {
+        putString("buy_tapped_location", "buy_litecoin_screen")
+    }
     LaunchedEffect(Unit) {
         viewModel.onEvent(BuyLitecoinEvent.OnLoad(context))
         viewModel.uiEffect.collect { effect ->
@@ -165,6 +171,7 @@ fun BuyLitecoinScreen(
                                 "walletAddress" to state.address
                             )
                         )
+                        firebaseAnalytics.logEvent("will_show_mp_widget", bundle)
                     }, 500) // 500ms delay
                 }
             ) {
