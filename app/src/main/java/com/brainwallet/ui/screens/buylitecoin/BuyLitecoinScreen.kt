@@ -159,7 +159,7 @@ fun BuyLitecoinScreen(
                 onClick = {
                     //open bread activity first then open moonpay widget
                     //tbd: quick fix to avoid activity open causing crash
-                    LegacyNavigation.restartBreadActivity(context)
+                    ///LegacyNavigation.restartBreadActivity(context)
 
                     Handler(Looper.getMainLooper()).postDelayed({
                         LegacyNavigation.showMoonPayWidget(

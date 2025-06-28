@@ -237,7 +237,9 @@ fun YourSeedProveItScreen(
             LargeButton(
                 onClick = {
                     if (state.orderCorrected) {
-                        onNavigate.invoke(UiEffect.Navigate(Route.TopUp))
+                        //onNavigate.invoke(UiEffect.Navigate(Route.))
+                        viewModel.onEvent(YourSeedProveItEvent.OnGameAndSync)
+                        AnalyticsManager.logCustomEvent(BRConstants._20250303_DSTU)
                     } else {
                         viewModel.onEvent(YourSeedProveItEvent.OnClear)
                     }
