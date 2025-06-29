@@ -158,21 +158,19 @@ fun BuyLitecoinScreen(
                 enabled = loadingState.visible.not(),
                 onClick = {
                     //open bread activity first then open moonpay widget
-                    //tbd: quick fix to avoid activity open causing crash
-                    ///LegacyNavigation.restartBreadActivity(context)
+                    // Needs Refactor: This causes crashes ruining the UX
+                    // LegacyNavigation.restartBreadActivity(context)
 
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        LegacyNavigation.showMoonPayWidget(
-                            context = context,
-                            params = mapOf(
-                                "baseCurrencyCode" to appSetting.currency.code,
-                                "baseCurrencyAmount" to state.fiatAmount.toString(),
-                                "language" to appSetting.languageCode,
-                                "walletAddress" to state.address
-                            )
+                    LegacyNavigation.showMoonPayWidget(
+                        context = context,
+                        params = mapOf(
+                            "baseCurrencyCode" to appSetting.currency.code,
+                            "baseCurrencyAmount" to state.fiatAmount.toString(),
+                            "language" to appSetting.languageCode,
+                            "walletAddress" to state.address
                         )
-                        firebaseAnalytics.logEvent("will_show_mp_widget", bundle)
-                    }, 500) // 500ms delay
+                    )
+                    firebaseAnalytics.logEvent("will_show_mp_widget", bundle)
                 }
             ) {
                 Text(stringResource(R.string.buy_litecoin_button_moonpay))
