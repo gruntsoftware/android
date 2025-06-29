@@ -187,14 +187,8 @@ fun YourSeedProveItScreen(
             Spacer(modifier = Modifier.weight(0.1f))
 
             SeedWordsLayout {
-                itemsIndexed(items = state.shuffledSeedWords) { index, word ->
-
-                    val isWordUsedCorrectly =
-                        state.correctSeedWords.values.any { (expectedWord, actualWord) ->
-                            expectedWord == word && actualWord == word
-                        }
-
-                    if (isWordUsedCorrectly) {
+                itemsIndexed(items = state.shuffledSeedWords) { index, (correctIndex, word) ->
+                    if (state.isWordUsedCorrectly(correctIndex, word)) {
                         Box(modifier = Modifier.fillMaxWidth())
                     } else {
                         SeedWordItem(
