@@ -17,11 +17,13 @@ class YourSeedProveItViewModel : BrainwalletViewModel<YourSeedProveItEvent>() {
     override fun onEvent(event: YourSeedProveItEvent) {
         when (event) {
             is YourSeedProveItEvent.OnLoad -> _state.update {
+                val correctSeedWords = event.seedWords.mapIndexed { index, word ->
+                    index to SeedWordItem(expected = word)
+                }.toMap()
+
                 it.copy(
-                    correctSeedWords = event.seedWords.mapIndexed { index, word ->
-                        index to SeedWordItem(expected = word)
-                    }.toMap(),
-                    shuffledSeedWords = event.seedWords.shuffled()
+                    correctSeedWords = correctSeedWords,
+                    shuffledSeedWords = correctSeedWords.map { it.key to it.value.expected }.shuffled(),
                 )
             }
 
