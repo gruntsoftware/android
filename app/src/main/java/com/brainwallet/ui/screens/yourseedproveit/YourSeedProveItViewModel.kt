@@ -17,11 +17,13 @@ class YourSeedProveItViewModel : BrainwalletViewModel<YourSeedProveItEvent>() {
     override fun onEvent(event: YourSeedProveItEvent) {
         when (event) {
             is YourSeedProveItEvent.OnLoad -> _state.update {
+                val correctSeedWords = event.seedWords.mapIndexed { index, word ->
+                    index to SeedWordItem(expected = word)
+                }.toMap()
+
                 it.copy(
-                    correctSeedWords = event.seedWords.mapIndexed { index, word ->
-                        index to SeedWordItem(expected = word)
-                    }.toMap(),
-                    shuffledSeedWords = event.seedWords.shuffled()
+                    correctSeedWords = correctSeedWords,
+                    shuffledSeedWords = correctSeedWords.map { it.key to it.value.expected }.shuffled(),
                 )
             }
 
@@ -47,6 +49,10 @@ class YourSeedProveItViewModel : BrainwalletViewModel<YourSeedProveItEvent>() {
             }
 
             YourSeedProveItEvent.OnGameAndSync -> viewModelScope.launch {
+                EventBus.emit(EventBus.Event.Message(LEGACY_NAVIGATE_TO_TOP_UP))
+            }
+
+            YourSeedProveItEvent.OnCompletedPaperKey -> viewModelScope.launch {
                 EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_PAPERKEY_PROVED))
             }
         }
@@ -54,5 +60,6 @@ class YourSeedProveItViewModel : BrainwalletViewModel<YourSeedProveItEvent>() {
 
     companion object {
         const val LEGACY_EFFECT_ON_PAPERKEY_PROVED = "onPaperKeyProved"
+        const val LEGACY_NAVIGATE_TO_TOP_UP = "onNavigateToTopUp"
     }
 }

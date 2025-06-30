@@ -1,0 +1,852 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+  <!-- App name -->
+  <!-- About screen blog label -->
+  <string name="About.blog">وب‌سایت</string>
+  <!-- About screen footer -->
+  <!-- About app version -->
+  <!-- Privay Policy button label -->
+  <string name="About.privacy">سیاست حفظ حریم خصوصی</string>
+  <!-- About screen Instagram label -->
+  <!-- Terms of Use button label -->
+  <string name="About.terms">شرایط استفاده</string>
+  <!-- About screen title -->
+  <string name="About.title">درباره</string>
+  <!-- About screen twitter label -->
+  <string name="About.twitter">توییتر</string>
+  <!-- Close modal button accessibility label -->
+  <string name="AccessibilityLabels.close">بستن</string>
+  <!-- Support center accessibiliy label -->
+  <string name="AccessibilityLabels.faq">مرکز پشتیبانی</string>
+  <!-- Loading Wallet Message -->
+  <!-- Default wallet name -->
+  <!-- Third party keyboard warning -->
+  <string name="Alert.customKeyboard.android">به نظر می‌رسد شما از یک صفحه کلید شخص ثالث استفاده می‌کنید که می‌تواند آنچه را تایپ می‌کنید ثبت کرده و کلید کاغذی شما را سرقت کند. لطفاً برای محافظت بیشتر به صفحه کلید پیش‌فرض اندروید تغییر دهید.</string>
+  <!-- Error alert title -->
+  <string name="Alert.error">خطا</string>
+  <!-- Keystore error -->
+  <string name="Alert.keystore.generic.android">مشکلی با کلید ذخیره سیستم عامل اندروید شما وجود دارد، لطفاً با support.brainwallet.co تماس بگیرید.</string>
+  <!-- KeyStore error, keys are invalidated -->
+  <string name="Alert.keystore.invalidated.android">داده‌های رمزگذاری شده کیف پول ذهنی (Brainwallet) شما اخیراً به دلیل غیرفعال شدن صفحه قفل اندروید شما نامعتبر شده است.</string>
+  <!-- Keystore error title -->
+  <string name="Alert.keystore.title.android">خطای کلید ذخیره اندروید</string>
+  <!-- No internet alert message -->
+  <string name="Alert.noInternet">اتصال اینترنت یافت نشد. اتصال خود را بررسی کنید و دوباره تلاش کنید.</string>
+  <!-- Warning alert title -->
+  <string name="Alert.warning">هشدار</string>
+  <!-- 'the addresses were copied'' Alert title -->
+  <string name="Alerts.copiedAddressesHeader">آدرس‌ها کپی شدند</string>
+  <!-- Addresses Copied Alert sub header -->
+  <string name="Alerts.copiedAddressesSubheader">تمام آدرس‌های کیف پول با موفقیت کپی شدند.</string>
+  <!-- Alert Header Label (the paper key was set) -->
+  <string name="Alerts.paperKeySet">مجموعه کلید کاغذی</string>
+  <!-- Alert Subheader label (playfully positive) -->
+  <string name="Alerts.paperKeySetSubheader">عالی!</string>
+  <!-- Alert Header label (the PIN was set) -->
+  <string name="Alerts.pinSet">رمز تنظیم شده</string>
+  <!-- Send failure alert header label (the send failed to happen) -->
+  <string name="Alerts.sendFailure">ارسال ناموفق</string>
+  <!-- Send success alert header label (confirmation that the send happened) -->
+  <string name="Alerts.sendSuccess">تأیید ارسال</string>
+  <!-- Send success alert subheader label (e.g. the money was sent) -->
+  <string name="Alerts.sendSuccessSubheader">پول ارسال شد!</string>
+  <!-- Fingerprint was recognized by the scanner -->
+  <string name="Alerts.touchIdSucceeded.android">اثر انگشت شناسایی شد</string>
+  <!-- JSON Serialization error message -->
+  <string name="ApiClient.jsonError">خطای سریال‌سازی JSON</string>
+  <!-- Wallet not ready error message -->
+  <string name="ApiClient.notReady">کیف پول آماده نیست</string>
+  <!-- API Token error message -->
+  <string name="ApiClient.tokenError">قادر به بازیابی توکن API نیست</string>
+  <!-- Cancel button label -->
+  <string name="Button.cancel">لغو</string>
+  <!-- Ignore button label -->
+  <string name="Button.ignore">نادیده بگیرید</string>
+  <!-- menu button -->
+  <string name="Button.menu">منو</string>
+  <!-- No button -->
+  <string name="Button.no">نه</string>
+  <!-- OK button label -->
+  <string name="Button.ok">خوب</string>
+  <!-- receive button -->
+  <string name="Button.receive">دریافت کردن</string>
+  <!-- send button -->
+  <string name="Button.send">ارسال کنید</string>
+  <!-- Settings button label -->
+  <string name="Button.settings">تنظیمات</string>
+  <!-- Settings button label -->
+  <string name="Button.submit">ارسال کنید</string>
+  <!-- Yes button -->
+  <string name="Button.yes">بله</string>
+  <!-- Amount to Send: ($1.00) -->
+  <string name="Confirmation.amountLabel">مبلغ ارسالی:</string>
+  <!-- Network Fee: ($1.00) -->
+  <string name="Confirmation.feeLabel">هزینه شبکه:</string>
+  <!-- Network-->
+  <string name="Network.feeLabel">شبکه</string>
+  <!-- eg. Processing time: This transaction is predicted to complete in [10-60 minutes]. -->
+  <string name="Confirmation.processingTime">زمان پردازش: پیش‌بینی می‌شود این تراکنش در %1$s تکمیل شود.</string>
+  <!-- Label for "send" button on final confirmation screen -->
+  <string name="Confirmation.send">ارسال کنید</string>
+  <!-- Confirmation Screen title -->
+  <string name="Confirmation.title">تأیید</string>
+  <!-- To: (address) -->
+  <string name="Confirmation.to">به</string>
+  <!-- Total Cost: ($5.00) -->
+  <string name="Confirmation.totalLabel">هزینه کل:</string>
+  <!-- Confirm paper phrase view label. -->
+  <string name="ConfirmPaperPhrase.label">برای اطمینان از اینکه همه چیز به درستی نوشته شده است، لطفاً کلمات زیر را از کلید کاغذی خود وارد کنید.</string>
+  <!-- Word label eg. Word #1, Word #2 -->
+  <string name="ConfirmPaperPhrase.word">کلمه #%1$s</string>
+  <!-- Litecoin denomination picker label -->
+  <string name="DefaultCurrency.litecoinLabel">واحد نمایش لایت کوین</string>
+  <!-- Exchange rate label -->
+  <string name="DefaultCurrency.rateLabel">نرخ ارز</string>
+  <!-- Email unavailable alert title -->
+  <!-- Email unavailable alert title -->
+  <!-- Message that gets shown when we've detected the user has encountered the looping lock-screen bug. (preserve [ ] characters) -->
+  <string name="ErrorMessages.loopingLockScreen.android">کیف پول مغزی به دلیل یک اشکال در نسخه اندروید شما قابل تأیید نیست. [لطفاً برای اطلاعات بیشتر اینجا ضربه بزنید.]</string>
+  <!-- Messaging unavailable alert title -->
+  <string name="ErrorMessages.messagingUnavailableMessage">این دستگاه برای ارسال پیام‌ها پیکربندی نشده است.</string>
+  <!-- Messaging unavailable alert title -->
+  <string name="ErrorMessages.messagingUnavailableTitle">پیام‌رسانی در دسترس نیست</string>
+  <!-- Fingerprint was not recognized by the scanner, please try scanning again -->
+  <string name="ErrorMessages.touchIdFailed.android">اثر انگشت شناسایی نشد. لطفاً دوباره تلاش کنید.</string>
+  <!-- Economy fee -->
+  <string name="FeeSelector.economy">اقتصاد</string>
+  <!-- E.g. [This transaction is predicted to complete in] 1-24 hours -->
+  <string name="FeeSelector.economyTime">۱۰+ دقیقه</string>
+  <!-- Warning message for economy fee -->
+  <string name="FeeSelector.economyWarning">این گزینه برای تراکنش‌های حساس به زمان توصیه نمی‌شود.</string>
+  <!-- E.g. Estimated delivery: 10-60 minutes -->
+  <string name="FeeSelector.estimatedDeliver">زمان تحویل تخمینی: %1$s</string>
+  <!-- Regular fee -->
+  <string name="FeeSelector.regular">عادی</string>
+  <!-- E.g. [This transaction is predicted to complete in] 10-60 minutes -->
+  <string name="FeeSelector.regularTime">۲.۵ - ۵+ دقیقه</string>
+  <!-- Fee Selector title -->
+  <string name="FeeSelector.title">سرعت پردازش</string>
+  <!-- Checking private key balance progress view text -->
+  <string name="Import.checking">بررسی موجودی کلید خصوصی...</string>
+  <!-- Sweep private key confirmation message -->
+  <string name="Import.confirm">ارسال %1$s از این کلید خصوصی به کیف پول شما؟ شبکه لایت کوین هزینه‌ای به میزان %2$s دریافت خواهد کرد.</string>
+  <!-- Duplicate key error message -->
+  <string name="Import.Error.duplicate">این کلید خصوصی در حال حاضر در کیف پول شما موجود است.</string>
+  <!-- empty private key error message -->
+  <string name="Import.Error.empty">این کلید خصوصی خالی است.</string>
+  <!-- High fees error message -->
+  <string name="Import.Error.highFees">هزینه‌های تراکنش بیشتر از وجوه موجود در این کلید خصوصی خواهد بود.</string>
+  <!-- Not a valid private key error message -->
+  <string name="Import.Error.notValid">کلید خصوصی معتبر نیست</string>
+  <!-- Import signing error message -->
+  <string name="Import.Error.signing">خطا در امضای تراکنش</string>
+  <!-- Import button label -->
+  <string name="Import.importButton">واردات</string>
+  <!-- Importing wallet progress view label -->
+  <string name="Import.importing">وارد کردن کیف پول</string>
+  <!-- Caption for graphics -->
+  <string name="Import.leftCaption">کیف پول برای وارد کردن</string>
+  <!-- Import wallet intro screen message -->
+  <string name="Import.message">وارد کردن یک کیف پول، تمام پول از کیف پول دیگر شما را با استفاده از یک تراکنش واحد به کیف پول مغزی شما منتقل می‌کند.</string>
+  <!-- Enter password alert view title -->
+  <string name="Import.password">این کلید خصوصی با رمز عبور محافظت شده است.</string>
+  <!-- password textfield placeholder -->
+  <string name="Import.passwordPlaceholder">رمز عبور</string>
+  <!-- Caption for graphics -->
+  <!-- Scan Private key button label -->
+  <string name="Import.scan">اسکن کلید خصوصی</string>
+  <!-- Import wallet success alert title -->
+  <string name="Import.success">موفقیت</string>
+  <!-- Successfully imported wallet message body -->
+  <string name="Import.SuccessBody">کیف پول با موفقیت وارد شد.</string>
+  <!-- Import Wallet screen title -->
+  <string name="Import.title">وارد کردن کیف پول</string>
+  <!-- Unlocking Private key activity view message. -->
+  <string name="Import.unlockingActivity">باز کردن کلید</string>
+  <!-- Import wallet intro warning message -->
+  <string name="Import.warning">وارد کردن کیف پول شامل تاریخچه تراکنش‌ها یا سایر جزئیات نمی‌شود.</string>
+  <!-- Wrong password alert message -->
+  <string name="Import.wrongPassword">رمز عبور اشتباه است، لطفاً دوباره تلاش کنید.</string>
+  <!-- Ignore jailbreak warning button -->
+  <string name="JailbreakWarnings.ignore">نادیده بگیرید</string>
+  <!-- Jailbreak warning message -->
+  <string name="JailbreakWarnings.messageWithBalance">امنیت دستگاه به خطر افتاده است
+هر برنامه \'جیلبرک\' می‌تواند به داده‌های کیف کلید دسترسی پیدا کند و لایت‌کوین شما را سرقت کند! این کیف پول را فوراً پاک کنید و در یک دستگاه امن بازیابی کنید.</string>
+  <!-- Jailbreak warning message -->
+  <string name="JailbreakWarnings.messageWithoutBalance">امنیت دستگاه به خطر افتاده است
+هر برنامه \'جیلبرک\' می‌تواند به داده‌های کیچین دسترسی پیدا کند و لایت‌کوین شما را سرقت کند. لطفاً از Brainwallet فقط در دستگاهی که جیلبریک نشده است استفاده کنید.</string>
+  <!-- Jailbreak warning title -->
+  <string name="JailbreakWarnings.title">هشدار</string>
+  <!-- Location services disabled error -->
+  <string name="LocationPlugin.disabled">خدمات مکان‌یابی غیرفعال است.</string>
+  <!-- No permissions for location services -->
+  <string name="LocationPlugin.notAuthorized">برین‌والت اجازه دسترسی به خدمات موقعیت‌یابی را ندارد.</string>
+  <!-- Wallet creation date prefix -->
+  <string name="ManageWallet.creationDatePrefix">شما کیف پول خود را در %1$s ایجاد کردید</string>
+  <!-- Manage wallet description text -->
+  <string name="ManageWallet.description">نام کیف پول شما فقط در تاریخچه تراکنش‌های حساب شما نمایش داده می‌شود و توسط هیچ شخص دیگری قابل مشاهده نیست.</string>
+  <!-- Change Wallet name textfield label -->
+  <string name="ManageWallet.textFieldLabel">نام کیف پول</string>
+  <!-- Manage wallet modal title -->
+  <string name="ManageWallet.title">مدیریت کیف پول</string>
+  <!-- Buy litecoin title -->
+  <string name="MenuButton.buy">خرید</string>
+  <!-- Menu button title -->
+  <string name="MenuButton.lock">قفل کیف پول</string>
+  <!-- Menu button title -->
+  <string name="MenuButton.security">مرکز امنیت</string>
+  <!-- Menu button title -->
+  <string name="MenuButton.settings">تنظیمات</string>
+  <!-- Menu button title -->
+  <string name="MenuButton.support">پشتیبانی مشتری</string>
+  <!-- button label -->
+  <string name="MenuViewController.createButton">ایجاد کیف پول جدید</string>
+  <!-- Menu modal title -->
+  <string name="MenuViewController.modalTitle">منو</string>
+  <!-- button label -->
+  <string name="MenuViewController.recoverButton">بازیابی کیف پول</string>
+  <!-- Switch to automatic mode button label -->
+  <string name="NodeSelector.automaticButton">به حالت خودکار تغییر دهید</string>
+  <!-- Node is connected label -->
+  <string name="NodeSelector.connected">متصل</string>
+  <!-- Enter node ip address view body -->
+  <string name="NodeSelector.enterBody">آدرس IP گره و پورت (اختیاری) را وارد کنید</string>
+  <!-- Enter Node ip address view title -->
+  <string name="NodeSelector.enterTitle">وارد گره شوید</string>
+  <!-- Switch to manual mode button label -->
+  <string name="NodeSelector.manualButton">به حالت دستی تغییر دهید</string>
+  <!-- Node address label -->
+  <string name="NodeSelector.nodeLabel">گره اصلی فعلی</string>
+  <!-- Node is not connected label -->
+  <string name="NodeSelector.notConnected">متصل نیست</string>
+  <!-- Node status label -->
+  <string name="NodeSelector.statusLabel">وضعیت اتصال گره</string>
+  <!-- Node Selector view title -->
+  <string name="NodeSelector.title">نودهای لایت کوین</string>
+  <!-- Bad Payment request alert title -->
+  <string name="PaymentProtocol.Errors.badPaymentRequest">درخواست پرداخت نامعتبر</string>
+  <!-- Error opening payment protocol file message -->
+  <string name="PaymentProtocol.Errors.corruptedDocument">سند پشتیبانی نشده یا خراب شده</string>
+  <!-- Missing certificate payment protocol error message -->
+  <string name="PaymentProtocol.Errors.missingCertificate">گواهی مفقود شده</string>
+  <!-- Request expired payment protocol error message -->
+  <string name="PaymentProtocol.Errors.requestExpired">درخواست منقضی شده است</string>
+  <!-- Payment too small alert title -->
+  <string name="PaymentProtocol.Errors.smallOutputError">نتوانستم پرداخت را انجام دهم</string>
+  <!-- Amount too small error message -->
+  <string name="PaymentProtocol.Errors.smallPayment">پرداخت‌های لایت‌کوین نمی‌توانند کمتر از %1$s باشند.</string>
+  <!-- Output too small error message. -->
+  <string name="PaymentProtocol.Errors.smallTransaction">خروجی‌های تراکنش لایت‌کوین نمی‌توانند کمتر از %1$s باشند.</string>
+  <!-- Unsupported signature type payment protocol error message -->
+  <string name="PaymentProtocol.Errors.unsupportedSignatureType">نوع امضای پشتیبانی نشده</string>
+  <!-- Untrusted certificate payment protocol error message -->
+  <string name="PaymentProtocol.Errors.untrustedCertificate">گواهی نامه غیر قابل اعتماد</string>
+  <!-- No passcode set warning body -->
+  <string name="Prompts.NoPasscode.body">برای محافظت از کیف پول شما، رمز عبور دستگاه مورد نیاز است. به تنظیمات بروید و رمز عبور را فعال کنید.</string>
+  <!-- No Passcode set warning title -->
+  <string name="Prompts.NoPasscode.title">رمز عبور دستگاه را فعال کنید</string>
+  <!-- Instruction how to enable device encryption -->
+  <string name="Prompts.NoScreenLock.body.android">برای محافظت از کیف پول شما، قفل صفحه نمایش دستگاه مورد نیاز است. به «تنظیمات» &gt; «امنیت» &gt; «قفل صفحه نمایش» بروید و برای ادامه فعال کنید.</string>
+  <!-- Device encryption prompt title -->
+  <string name="Prompts.NoScreenLock.title.android">قفل صفحه نمایش غیرفعال شد</string>
+  <!-- Warning about paper key. -->
+  <string name="Prompts.PaperKey.body">کلید کاغذی شما باید ذخیره شود تا در صورت گم شدن یا تغییر تلفن همراه خود، بتوانید از آن استفاده کنید. اینجا را برای ادامه لمس کنید.</string>
+  <!-- An action is required (You must do this action). -->
+  <string name="Prompts.PaperKey.title">اقدام لازم است</string>
+  <!-- Transaction rejected prompt body -->
+  <string name="Prompts.RecommendRescan.body">کیف پول شما ممکن است ناهمگام باشد. این اغلب می‌تواند با اسکن مجدد بلاک‌چین برطرف شود.</string>
+  <!-- Transaction rejected prompt title -->
+  <string name="Prompts.RecommendRescan.title">تراکنش رد شد</string>
+  <!-- Share data prompt body -->
+  <string name="Prompts.ShareData.body">کمک کنید تا Brainwallet را با به اشتراک گذاشتن داده‌های ناشناس خود با ما بهبود دهیم</string>
+  <!-- Share data prompt title -->
+  <string name="Prompts.ShareData.title">اشتراک‌گذاری داده‌های ناشناس</string>
+  <!-- Enable touch ID prompt body -->
+  <string name="Prompts.TouchId.body">اینجا را لمس کنید تا Touch ID فعال شود</string>
+  <!-- Enable Fingerprint prompt body -->
+  <string name="Prompts.TouchId.body.android">برای فعال‌سازی احراز هویت اثر انگشت اینجا ضربه بزنید</string>
+  <!-- Enable touch ID prompt title -->
+  <string name="Prompts.TouchId.title">فعال‌سازی تاچ آی‌دی</string>
+  <!-- Enable Fingerprint prompt title -->
+  <string name="Prompts.TouchId.title.android">فعال‌سازی احراز هویت اثر انگشت</string>
+  <!-- Button on fingerprint prompt so the user can enter their PIN instead -->
+  <string name="Prompts.TouchId.usePin.android">پین</string>
+  <!-- Upgrade PIN prompt body. -->
+  <string name="Prompts.UpgradePin.body">کیف پول مغزی به استفاده از یک پین ۶ رقمی ارتقا یافته است. اینجا را برای ارتقا لمس کنید.</string>
+  <!-- Upgrade PIN prompt title. -->
+  <string name="Prompts.UpgradePin.title">ارتقاء پین</string>
+  <!-- Notifications will be added later but users can set their preferences now, which is why we specify "in the future". -->
+  <string name="PushNotifications.body">فعال کردن اعلان‌ها برای دریافت پیام‌های ویژه از Brainwallet در آینده.</string>
+  <!-- Push notifications toggle switch label -->
+  <string name="PushNotifications.label">اعلان‌های پوش</string>
+  <!-- Push notifications are off label -->
+  <string name="PushNotifications.off">خاموش</string>
+  <!-- Push notifications are on label -->
+  <string name="PushNotifications.on">روی</string>
+  <!-- Push notifications settings view title label -->
+  <string name="PushNotifications.title">اعلان‌ها</string>
+  <!-- Address copied message. -->
+  <string name="Receive.copied">کپی شده به کلیپ‌بورد.</string>
+  <!-- Share via email button label -->
+  <string name="Receive.emailButton">ایمیل</string>
+  <!-- Request button label -->
+  <string name="Receive.request">درخواست مبلغ</string>
+  <!-- Share button label -->
+  <string name="Receive.share">اشتراک گذاری</string>
+  <!-- Share via text message (SMS) -->
+  <string name="Receive.textButton">پیام متنی</string>
+  <!-- Receive modal title -->
+  <string name="Receive.title">دریافت کردن</string>
+  <!-- Done button text -->
+  <string name="RecoverWallet.done">انجام شد</string>
+  <!-- Recover wallet header -->
+  <string name="RecoverWallet.header">بازیابی کیف پول</string>
+  <!-- Reset PIN with paper key: header -->
+  <string name="RecoverWallet.header_reset_pin">بازنشانی پین</string>
+  <!-- Enter paper key instruction -->
+  <string name="RecoverWallet.instruction">وارد کردن کلید کاغذی</string>
+  <!-- Recover wallet intro -->
+  <string name="RecoverWallet.intro">بازیابی کیف پول مغزی خود را با کلید کاغذی خود انجام دهید.</string>
+  <!-- Invalid paper key message -->
+  <string name="RecoverWallet.invalid">کلید کاغذی که وارد کردید نامعتبر است. لطفاً هر کلمه را دوباره بررسی کنید و مجدداً تلاش کنید.</string>
+  <!-- Previous button accessibility label -->
+  <string name="RecoverWallet.leftArrow">فلش چپ</string>
+  <!-- Next button label -->
+  <string name="RecoverWallet.next">بعدی</string>
+  <!-- Reset PIN with paper key: more information button. -->
+  <string name="RecoverWallet.reset_pin_more_info">برای اطلاعات بیشتر اینجا ضربه بزنید.</string>
+  <!-- Next button accessibility label -->
+  <string name="RecoverWallet.rightArrow">فلش به سمت راست</string>
+  <!-- Recover wallet sub-header -->
+  <string name="RecoverWallet.subheader">کلید کاغذی را برای کیف پولی که می‌خواهید بازیابی کنید، وارد نمایید.</string>
+  <!-- Reset PIN with paper key: sub-header -->
+  <string name="RecoverWallet.subheader_reset_pin">برای بازنشانی رمز عبور خود، کلمات کلید کاغذی خود را در کادرهای زیر وارد کنید.</string>
+  <!-- No amount entered error message. -->
+  <string name="RequestAnAmount.noAmount">لطفاً ابتدا یک مبلغ را وارد کنید.</string>
+  <!-- Request a specific amount of litecoin -->
+  <string name="RequestAnAmount.title">درخواست مبلغ</string>
+  <!-- Alert action button label -->
+  <string name="ReScan.alertAction">همگام‌سازی</string>
+  <!-- Alert message body -->
+  <string name="ReScan.alertMessage">شما در حین همگام‌سازی قادر به ارسال پول نخواهید بود.</string>
+  <!-- Alert message title -->
+  <string name="ReScan.alertTitle">همگام‌سازی با بلاکچین؟</string>
+  <!-- extimated time -->
+  <string name="ReScan.body1">۲۰-۴۵ دقیقه</string>
+  <!-- Syncing explanation -->
+  <string name="ReScan.body2">اگر یک تراکنش در شبکه لایت‌کوین به عنوان تکمیل‌شده نشان داده می‌شود اما در کیف پول مغزی شما نمایش داده نمی‌شود.</string>
+  <!-- Syncing explanation -->
+  <string name="ReScan.body3">شما مکرراً خطایی دریافت می‌کنید که می‌گوید تراکنش شما رد شده است.</string>
+  <!-- Start Sync button label -->
+  <string name="ReScan.buttonTitle">شروع همگام‌سازی</string>
+  <!-- Sync blockchain view footer -->
+  <string name="ReScan.footer">شما در حین همگام‌سازی با بلاک‌چین قادر به ارسال پول نخواهید بود.</string>
+  <!-- Sync Blockchain view header -->
+  <string name="ReScan.header">سینک بلاکچین</string>
+  <!-- Subheader label -->
+  <string name="ReScan.subheader1">زمان تخمینی</string>
+  <!-- Subheader label -->
+  <string name="ReScan.subheader2">چه زمانی همگام‌سازی کنیم؟</string>
+  <!-- Scan litecoin address camera flash toggle -->
+  <string name="Scanner.flashButtonLabel">فلاش دوربین</string>
+  <!-- Complete filter label -->
+  <string name="Search.complete">کامل</string>
+  <!-- Pending filter label -->
+  <string name="Search.pending">در انتظار</string>
+  <!-- Received filter label -->
+  <string name="Search.received">دریافت شد</string>
+  <!-- Sent filter label -->
+  <string name="Search.sent">ارسال شد</string>
+  <!-- Security Center Info -->
+  <string name="SecurityCenter.info">تمام ویژگی‌های امنیتی را برای حداکثر محافظت فعال کنید.</string>
+  <!-- Paper Key button description -->
+  <string name="SecurityCenter.paperKeyDescription">تنها راه دسترسی به لایت‌کوین شما در صورت گم کردن یا ارتقاء تلفن همراه‌تان.</string>
+  <!-- Paper Key button title -->
+  <string name="SecurityCenter.paperKeyTitle">کلید کاغذی</string>
+  <!-- PIN button description -->
+  <string name="SecurityCenter.pinDescription">محافظت از کیف پول مغزی شما در برابر کاربران غیرمجاز.</string>
+  <!-- PIN button title -->
+  <string name="SecurityCenter.pinTitle">رمز 4 رقمی</string>
+  <!-- Security Center Title -->
+  <string name="SecurityCenter.title">مرکز امنیت</string>
+  <!-- Touch ID button description -->
+  <string name="SecurityCenter.touchIdDescription">به راحتی کیف پول مغزی خود را باز کنید و تا سقف مشخصی پول ارسال کنید.</string>
+  <!-- Touch ID button title -->
+  <string name="SecurityCenter.touchIdTitle">تاچ آی‌دی</string>
+  <!-- Security center fingerprint authentication button -->
+  <string name="SecurityCenter.touchIdTitle.android">تأیید هویت اثر انگشت</string>
+  <!-- Send money amount label -->
+  <string name="Send.amountLabel">مبلغ</string>
+  <!-- Balance: $4.00 -->
+  <string name="Send.balance">موجودی: %1$s</string>
+  <!-- Instructions how to allow the camera access for the app -->
+  <string name="Send.cameraUnavailabeMessage.android">دسترسی دوربین را در "تنظیمات" &gt; "برنامه‌ها" &gt; "Brainwallet" &gt; "مجوزها" فعال کنید</string>
+  <!-- Permission required to access camera -->
+  <string name="Send.cameraUnavailabeTitle.android">دیوار مغزی اجازه دسترسی به دوربین را ندارد</string>
+  <!-- Camera not allowed message -->
+  <string name="Send.cameraunavailableMessage">برای اجازه دسترسی به دوربین به تنظیمات بروید.</string>
+  <!-- Camera not allowed alert title -->
+  <string name="Send.cameraUnavailableTitle">دیوار مغزی اجازه دسترسی به دوربین را ندارد</string>
+  <!-- Warning when sending to self. -->
+  <string name="Send.containsAddress">مقصد آدرس خود شماست. شما نمی‌توانید به خودتان ارسال کنید.</string>
+  <!-- Could not create transaction alert title -->
+  <string name="Send.creatTransactionError">نمی‌توان تراکنش را ایجاد کرد.</string>
+  <!-- Description for sending money label -->
+  <string name="Send.descriptionLabel">یادداشت</string>
+  <!-- Emtpy pasteboard error message -->
+  <string name="Send.emptyPasteboard">متن منبع برای ترجمه ارائه نشده است.</string>
+  <!-- Network Fee: $0.01 -->
+  <string name="Send.fee">هزینه شبکه: %1$s</string>
+  <!-- Payee identity not certified alert title. -->
+  <string name="Send.identityNotCertified">هویت گیرنده وجه تأیید نشده است.</string>
+  <!-- Invalid address alert message -->
+  <string name="Send.invalidAddressMessage">آدرس مقصد یک آدرس لایت‌کوین معتبر نیست.</string>
+  <!-- Invalid address on pasteboard message -->
+  <string name="Send.invalidAddressOnPasteboard">تخته یادداشت حاوی آدرس لایت‌کوین معتبر نیست.</string>
+  <!-- Invalid address alert title -->
+  <string name="Send.invalidAddressTitle">آدرس نامعتبر</string>
+  <!-- Is rescanning error message -->
+  <string name="Send.isRescanning">ارسال در طول اسکن مجدد کامل غیرفعال است.</string>
+  <!-- We are loading the request (now) -->
+  <string name="Send.loadingRequest">درحال بارگذاری درخواست</string>
+  <!-- Empty address alert message -->
+  <string name="Send.noAddress">لطفاً آدرس گیرنده را وارد کنید.</string>
+  <!-- Emtpy amount alert message -->
+  <string name="Send.noAmount">لطفاً مبلغی را برای ارسال وارد کنید.</string>
+  <!-- Paste button label -->
+  <string name="Send.pasteLabel">چسباندن</string>
+  <!-- Could not publish transaction alert title -->
+  <string name="Send.publishTransactionError">نمی‌توان تراکنش را منتشر کرد.</string>
+  <!-- Could not load remote request error message -->
+  <string name="Send.remoteRequestError">نتوانست درخواست پرداخت را بارگذاری کند</string>
+  <!-- Scan button label -->
+  <string name="Send.scanLabel">اسکن</string>
+  <!-- Send button label (the action, "press here to send") -->
+  <string name="Send.sendLabel">ارسال کنید</string>
+  <!-- Send screen title (as in "this is the screen for sending money") -->
+  <string name="Send.title">ارسال کنید</string>
+  <!-- Send money to label -->
+  <string name="Send.toLabel">یک آدرس لایت کوین وارد کنید</string>
+  <!-- Enter to match domain name to LTC Address -->
+  <string name="Send.UnstoppableDomains.placeholder">یک دامنه‌ی .crypto، .wallet، .zil، .nft، .blockchain،
+.bitcoin، .coin، .888، .dao، یا .x وارد کنید.</string>
+  <!-- Or -->
+  <string name="Send.or">یا</string>
+  <!-- Lookup -->
+  <string name="Send.UnstoppableDomains.lookup">جستجو</string>
+  <!-- Your address was resolved! -->
+  <string name="Send.UnstoppableDomains.domainResolved">آدرس شما حل شد!</string>
+  <!-- Address already used alert message - first part -->
+  <string name="Send.UsedAddress.firstLine">آدرس‌های لایت‌کوین فقط برای یک بار استفاده در نظر گرفته شده‌اند.</string>
+  <!-- Address already used alert message - second part -->
+  <string name="Send.UsedAddress.secondLIne">استفاده مجدد، حریم خصوصی را هم برای شما و هم برای گیرنده کاهش می‌دهد و می‌تواند منجر به از دست دادن [دارایی] شود اگر گیرنده به طور مستقیم کنترل آدرس را در اختیار نداشته باشد.</string>
+  <!-- Address already used alert title -->
+  <string name="Send.UsedAddress.title">آدرس قبلاً استفاده شده است</string>
+  <!-- About label -->
+  <string name="Settings.about">درباره</string>
+  <!-- Advanced Settings title -->
+  <string name="Settings.advancedTitle">تنظیمات پیشرفته</string>
+  <!-- i.e. the currency which will be displayed -->
+  <string name="Settings.currency">نمایش ارز</string>
+  <!-- Join Early access label -->
+  <string name="Settings.earlyAccess">پیوستن به دسترسی زودهنگام</string>
+  <!-- Are you enjoying loaf alert message body -->
+  <string name="Settings.enjoying">آیا از Brainwallet لذت می‌برید؟</string>
+  <!-- Import wallet label -->
+  <string name="Settings.importTitle">وارد کردن کیف پول</string>
+  <!-- Manage settings section header -->
+  <string name="Settings.manage">مدیریت کردن</string>
+  <!-- Notifications label -->
+  <string name="Settings.notifications">اعلان‌ها</string>
+  <!-- Leave review button label -->
+  <string name="Settings.review">نظر خود را برای ما بنویسید</string>
+  <!-- Share anonymous data label -->
+  <string name="Settings.shareData">اشتراک‌گذاری داده‌های ناشناس</string>
+  <!-- Sync blockchain label -->
+  <string name="Settings.sync">سینک بلاکچین</string>
+  <!-- Settings title -->
+  <string name="Settings.title">تنظیمات</string>
+  <!-- Touch ID spending limit label -->
+  <string name="Settings.touchIdLimit">حد مجاز خرج کردن با تاچ آی‌دی</string>
+  <!-- The fingerprint spending limit -->
+  <string name="Settings.touchIdLimit.android">حد مجاز هزینه برای احراز هویت اثر انگشت</string>
+  <!-- Wallet Settings section header -->
+  <string name="Settings.wallet">کیف پول</string>
+  <!-- Start or recover another wallet menu label. -->
+  <string name="Settings.wipe">شروع/بازیابی کیف پول دیگر</string>
+  <!-- Share data view body -->
+  <string name="ShareData.body">کمک کنید تا Brainwallet را با به اشتراک گذاری داده‌های ناشناس خود با ما بهبود دهیم. این شامل هیچ اطلاعات مالی نمی‌شود. ما به حریم خصوصی مالی شما احترام می‌گذاریم.</string>
+  <!-- Share data header -->
+  <string name="ShareData.header">اشتراک گذاری داده‌ها؟</string>
+  <!-- Share data switch label. -->
+  <string name="ShareData.toggleLabel">اشتراک‌گذاری داده‌های ناشناس؟</string>
+  <!-- button label -->
+  <string name="StartPaperPhrase.againButtonTitle">کلید کاغذی را دوباره یادداشت کنید</string>
+  <!-- Paper key explanation text. -->
+  <string name="StartPaperPhrase.body">کلید کاغذی شما تنها راه برای بازیابی کیف پول مغزی شما است اگر تلفن شما گم، دزدیده، خراب یا ارتقا داده شود.
+
+ما فهرستی از کلمات را به شما نشان خواهیم داد تا روی یک تکه کاغذ بنویسید و در جای امنی نگه دارید.</string>
+  <!-- button label -->
+  <string name="StartPaperPhrase.buttonTitle">کلید کاغذی را یادداشت کنید</string>
+  <!-- Argument is date -->
+  <string name="StartPaperPhrase.date">شما آخرین بار کلید کاغذی خود را در %1$s یادداشت کردید</string>
+  <!-- Start view message -->
+  <string name="StartViewController.message">امن‌ترین و ایمن‌ترین راه برای استفاده از لایت‌کوین.</string>
+  <!-- Syncing view connectiong state header text -->
+  <string name="SyncingView.connecting">اتصال</string>
+  <!-- Syncing view header text -->
+  <string name="SyncingView.header">همگام‌سازی</string>
+  <!-- Retry button label -->
+  <string name="SyncingView.retry">تلاش مجدد</string>
+  <!-- Syncing view syncing state header text -->
+  <string name="SyncingView.syncing">همگام‌سازی</string>
+  <!-- 6 d (6 days) -->
+  <string name="TimeSince.days">%1$s d</string>
+  <!-- 6 h (6 hours) -->
+  <string name="TimeSince.hours">%1$s h</string>
+  <!-- 6 m (6 minutes) -->
+  <string name="TimeSince.minutes">%1$s م</string>
+  <!-- 6 s (6 seconds) -->
+  <string name="TimeSince.seconds">%1$s s</string>
+  <!-- You can customize your Touch ID Spending Limit from the [TouchIdSettings.linkText gets added here as a button] -->
+  <string name="TouchIdSettings.customizeText">شما می‌توانید محدودیت خرج کردن Touch ID خود را از %1$s سفارشی کنید.</string>
+  <!-- Fingerprint enabling description body -->
+  <string name="TouchIdSettings.customizeText.android">شما می‌توانید محدودیت مخارج تأیید اثر انگشت خود را از صفحه محدودیت مخارج تأیید اثر انگشت سفارشی کنید</string>
+  <!-- Instruction for the fingerprint setup -->
+  <string name="TouchIdSettings.disabledWarning.body.android">شما احراز هویت اثر انگشت را در این دستگاه فعال نکرده‌اید. به تنظیمات -&gt; امنیت بروید تا احراز هویت اثر انگشت را راه‌اندازی کنید.</string>
+  <!-- Fingerprint Is Not Setup -->
+  <string name="TouchIdSettings.disabledWarning.title.android">احراز هویت اثر انگشت فعال نیست</string>
+  <!-- Touch Id screen label -->
+  <string name="TouchIdSettings.label">از اثر انگشت خود برای باز کردن قفل کیف پول مغزی خود استفاده کنید و تا سقف تعیین شده پول ارسال کنید.</string>
+  <!-- Link Text (see TouchIdSettings.customizeText) -->
+  <string name="TouchIdSettings.linkText">صفحه محدودیت هزینه تاچ آیدی</string>
+  <!-- Spending Limit: b100,000 ($100) -->
+  <string name="TouchIdSettings.spendingLimit">محدودیت هزینه: %1$s (%2$s)</string>
+  <!-- Touch id switch label. -->
+  <string name="TouchIdSettings.switchLabel">فعال‌سازی تاچ آیدی برای کیف پول مغزی</string>
+  <!-- Enable fingerprint for this wallet called Brainwallet -->
+  <string name="TouchIdSettings.switchLabel.android">فعال‌سازی احراز هویت اثر انگشت</string>
+  <!-- Touch ID settings view title -->
+  <string name="TouchIdSettings.title">تاچ آی‌دی</string>
+  <!-- Fingerprint authentication label -->
+  <string name="TouchIdSettings.title.android">تأیید هویت اثر انگشت</string>
+  <!-- Touch ID unavailable alert message -->
+  <string name="TouchIdSettings.unavailableAlertMessage">شما Touch ID را روی این دستگاه راه‌اندازی نکرده‌اید. به تنظیمات -&gt; شناسه لمسی و رمز عبور بروید تا آن را اکنون راه‌اندازی کنید.</string>
+  <!-- Touch ID unavailable alert title -->
+  <string name="TouchIdSettings.unavailableAlertTitle">تاچ آی‌دی تنظیم نشده است</string>
+  <!-- Always require passcode option -->
+  <string name="TouchIdSpendingLimit">همیشه رمز عبور را الزامی کنید</string>
+  <!-- Touch ID spending limit screen body -->
+  <string name="TouchIdSpendingLimit.body">شما برای ارسال هر تراکنش بیش از حد مجاز خرج کردن خود، و هر ۴۸ ساعت از آخرین باری که رمز ۶ رقمی خود را وارد کرده‌اید، باید رمز ۶ رقمی خود را وارد کنید.</string>
+  <!-- Touch Id spending limit screen title -->
+  <string name="TouchIdSpendingLimit.title">حد مجاز خرج کردن با تاچ آی‌دی</string>
+  <!-- name of spending limit when using fingerprint authorization -->
+  <string name="TouchIdSpendingLimit.title.android">محدودیت هزینه تأیید اثر انگشت</string>
+  <!-- Availability status text -->
+  <string name="Transaction.available">موجودی قابل خرج</string>
+  <!-- Transaction complete label -->
+  <string name="Transaction.complete">کامل</string>
+  <!-- eg. Ending balance: $50.00 -->
+  <string name="Transaction.ending">موجودی پایانی: %1$s</string>
+  <!-- Exchange rate on date header -->
+  <string name="Transaction.exchangeOnDayReceived">نرخ ارز هنگام دریافت:</string>
+  <!-- Exchange rate on date header -->
+  <string name="Transaction.exchangeOnDaySent">نرخ ارز هنگام ارسال:</string>
+  <!-- (b600 fee) -->
+  <string name="Transaction.fee">(%1$s هزینه)</string>
+  <!-- Invalid transaction -->
+  <string name="Transaction.invalid">نامعتبر</string>
+  <!-- Timestamp label for event that just happened -->
+  <string name="Transaction.justNow">همین الان</string>
+  <!-- Receive status text: 'In progress: 20%' -->
+  <string name="Transaction.receivedStatus">در حال پیشرفت: %1$s</string>
+  <!-- Send status text: 'In progress: 20%' -->
+  <string name="Transaction.sendingStatus">در حال پیشرفت: %1$s</string>
+  <!-- eg. Starting balance: $50.00 -->
+  <string name="Transaction.starting">موجودی اولیه: %1$s</string>
+  <!-- Waiting to be confirmed string -->
+  <string name="Transaction.waiting">منتظر تایید هستم. برخی از فروشندگان برای تکمیل تراکنش نیاز به تأیید دارند. زمان تخمینی: ۱-۲ ساعت.</string>
+  <!-- e.g. I received money from an account. -->
+  <string name="TransactionDetails.account">حساب</string>
+  <!-- Amount section header -->
+  <string name="TransactionDetails.amountHeader">مبلغ</string>
+  <!-- Block height label -->
+  <string name="TransactionDetails.blockHeightLabel">تایید شده در بلاک</string>
+  <!-- Memo section header -->
+  <string name="TransactionDetails.commentsHeader">یادداشت</string>
+  <!-- Empty transaction list message. -->
+  <string name="TransactionDetails.emptyMessage">تراکنش‌های شما اینجا نمایش داده خواهند شد.</string>
+  <!-- "Received [$5] at [which of my addresses]" => This is the "at [which of my addresses]" part. -->
+  <string name="TransactionDetails.from">در %1$s</string>
+  <!-- More button title -->
+  <string name="TransactionDetails.more">بیشتر...</string>
+  <!-- Moved $5.00 (as in "I moved $5 to another location") -->
+  <string name="TransactionDetails.moved">انتقال یافت %1$s</string>
+  <!-- Moved $5.00 -->
+  <string name="TransactionDetails.movedAmountDescription">منتقل شد <b>%1$s</b></string>
+  <!-- eg. Confirmed in Block: Not Confirmed -->
+  <string name="TransactionDetails.notConfirmedBlockHeightLabel">تایید نشده</string>
+  <!-- "Received [$5] at [which of my addresses]" => This is the "Received [$5]" part. -->
+  <string name="TransactionDetails.received">دریافت شد %1$s</string>
+  <!-- Received $5.00 -->
+  <string name="TransactionDetails.receivedAmountDescription">دریافت شد <b>%1$s</b></string>
+  <!-- "Sent [$5] to [address]" => This is the "Sent [$5]" part. -->
+  <string name="TransactionDetails.sent">ارسال %1$sشد </string>
+  <!-- Sent $5.00 -->
+  <string name="TransactionDetails.sentAmountDescription">ارسال شد <b>%1$s</b></string>
+  <!-- Status section header -->
+  <string name="TransactionDetails.statusHeader">وضعیت</string>
+  <!-- Transaction Details Title -->
+  <string name="TransactionDetails.title">جزئیات تراکنش</string>
+  <!-- "Sent [$5] to [address]" => This is the "to [address]" part. -->
+  <string name="TransactionDetails.to">به %1$s</string>
+  <!-- Transaction ID header -->
+  <string name="TransactionDetails.txHashHeader">شناسه تراکنش لایت کوین</string>
+  <!-- (this transaction was) Received at this address: -->
+  <string name="TransactionDirection.address">دریافت شده در این آدرس</string>
+  <!-- (this transaction was) Sent to this address: -->
+  <string name="TransactionDirection.to">ارسال شده به این آدرس</string>
+  <!-- Disabled until date -->
+  <string name="UnlockScreen.disabled">معلول تا: %1$s</string>
+  <!-- My Address button title -->
+  <string name="UnlockScreen.myAddress">آدرس من</string>
+  <!-- Reset PIN with Paper Key button label. -->
+  <string name="UnlockScreen.resetPin">بازنشانی پین</string>
+  <!-- Scan button title -->
+  <string name="UnlockScreen.scan">اسکن</string>
+  <!-- Unlock Screen sub-header -->
+  <string name="UnlockScreen.subheader">وارد کردن پین</string>
+  <!-- Instruction to touch the sensor for fingerprint authentication -->
+  <string name="UnlockScreen.touchIdInstructions.android">سنسور لمسی</string>
+  <!-- TouchID prompt text -->
+  <string name="UnlockScreen.touchIdPrompt">باز کردن قفل کیف پول مغزی شما.</string>
+  <!-- Device authentication body -->
+  <string name="UnlockScreen.touchIdPrompt.android">لطفاً دستگاه اندروید خود را برای ادامه باز کنید.</string>
+  <!-- Unlock with TouchID accessibility label -->
+  <string name="UnlockScreen.touchIdText">باز کردن با تاچ آی‌دی</string>
+  <!-- View a transaction on the blockchain explorer -->
+  <string name="ViewOnBlockchain">مشاهده در بلاک‌چین</string>
+  <!-- Device authentication title -->
+  <string name="UnlockScreen.touchIdTitle.android">احراز هویت لازم است</string>
+  <!-- Wallet unlocked message -->
+  <string name="UnlockScreen.unlocked">کیف پول باز شد</string>
+  <!-- Forget Seed Phrase or PIN -->
+  <string name="UnlockScreen.forgetSeedPhraseOrPIN">فراموش کردن عبارت بازیابی یا پین؟</string>
+  <!-- Update PIN caption text -->
+  <string name="UpdatePin.caption">این پین را به خاطر بسپارید. اگر آن را فراموش کنید، نمی‌توانید به لایت‌کوین خود دسترسی داشته باشید.</string>
+  <!-- PIN creation info. -->
+  <string name="UpdatePin.createInstruction">رمز شما برای باز کردن قفل کیف پول مغزی شما و ارسال پول استفاده خواهد شد.</string>
+  <!-- Update PIN title -->
+  <string name="UpdatePin.createTitle">تنظیم پین</string>
+  <!-- Update PIN title -->
+  <string name="UpdatePin.createTitleConfirm">وارد کردن مجدد پین</string>
+  <!-- Enter current PIN instruction -->
+  <string name="UpdatePin.enterCurrent">پین فعلی خود را وارد کنید.</string>
+  <!-- Enter new PIN instruction -->
+  <string name="UpdatePin.enterNew">پین جدید خود را وارد کنید.</string>
+  <!-- Re-Enter new PIN instruction -->
+  <string name="UpdatePin.reEnterNew">پین جدید خود را دوباره وارد کنید.</string>
+  <!-- Update PIN failure error message. -->
+  <string name="UpdatePin.setPinError">متأسفانه، نمی‌توان پین را به‌روزرسانی کرد.</string>
+  <!-- Update PIN failure alert view title -->
+  <string name="UpdatePin.setPinErrorTitle">خطای به‌روزرسانی پین</string>
+  <!-- Update PIN title -->
+  <string name="UpdatePin.updateTitle">بروزرسانی پین</string>
+  <!-- Authorize to copy wallet addresses alert message -->
+  <string name="URLHandling.addressaddressListAlertMessage">آدرس‌های کیف پول به کلیپ‌بورد کپی شوند؟</string>
+  <!-- Authorize to copy wallet address PIN view prompt. -->
+  <string name="URLHandling.addressList">اجازه کپی آدرس کیف پول در کلیپ‌بورد</string>
+  <!-- Authorize to copy wallet address alert title -->
+  <string name="URLHandling.addressListAlertTitle">کپی آدرس‌های کیف پول</string>
+  <!-- Copy wallet addresses alert button label -->
+  <string name="URLHandling.copy">کپی</string>
+  <!-- Verify PIN for transaction view body -->
+  <string name="VerifyPin.authorize">لطفاً برای تأیید این تراکنش، رمز عبور خود را وارد کنید.</string>
+  <!-- Verify PIN view body -->
+  <string name="VerifyPin.continueBody">لطفاً برای ادامه، پین خود را وارد کنید.</string>
+  <!-- Verify PIN view title -->
+  <string name="VerifyPin.title">رمز مورد نیاز است</string>
+  <!-- Authorize transaction with touch id message -->
+  <string name="VerifyPin.touchIdMessage">تأیید این تراکنش</string>
+  <!-- 'No wallet' warning for watch app -->
+  <string name="Watch.noWalletWarning">برنامه Brainwallet آیفون را باز کنید تا کیف پول خود را راه‌اندازی کنید.</string>
+  <!-- Dismiss button label -->
+  <string name="Webview.dismiss">رد کردن</string>
+  <!-- Webview loading error message -->
+  <string name="Webview.errorMessage">خطایی در بارگذاری محتوا رخ داد. لطفاً دوباره تلاش کنید.</string>
+  <!-- Updating webview message -->
+  <string name="Webview.updating">در حال به‌روزرسانی...</string>
+  <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
+  <string name="Welcome.body">برین‌والت به‌تازگی به‌روزرسانی شده است! \nاگر به کمک نیاز دارید، دنبال علامت (؟) در گوشه بالا سمت راست اکثر صفحات بگردید.</string>
+  <!-- Top title of welcome screen -->
+  <string name="Welcome.title">به کیف پول مغزی خوش آمدید!</string>
+  <!-- Wipe wallet alert message -->
+  <string name="WipeWallet.alertMessage">آیا مطمئن هستید که می‌خواهید این کیف پول را حذف کنید؟</string>
+  <!-- Wipe wallet alert title -->
+  <string name="WipeWallet.alertTitle">پاک کردن کیف پول؟</string>
+  <!-- Failed wipe wallet alert message -->
+  <string name="WipeWallet.failedMessage">عدم موفقیت در پاک کردن کیف پول.</string>
+  <!-- Failed wipe wallet alert title -->
+  <string name="WipeWallet.failedTitle">شکست خورده</string>
+  <!-- Enter phrase to wipe wallet instruction. -->
+  <string name="WipeWallet.instruction">برای شروع یک کیف پول جدید یا بازیابی یک کیف پول موجود، ابتدا باید کیف پولی که در حال حاضر نصب شده است را پاک کنید. برای ادامه، کلید کاغذی کیف پول فعلی را وارد کنید.</string>
+  <!-- Start wipe wallet view message -->
+  <string name="WipeWallet.startMessage">شروع یا بازیابی کیف پول دیگر به شما امکان می‌دهد تا به یک Brainwallet متفاوت در این دستگاه دسترسی داشته باشید و آن را مدیریت کنید.</string>
+  <!-- Start wipe wallet view warning -->
+  <string name="WipeWallet.startWarning">کیف پول فعلی شما از این دستگاه حذف خواهد شد. اگر می‌خواهید در آینده آن را بازیابی کنید، باید کلید کاغذی خود را وارد کنید.</string>
+  <!-- Wipe wallet navigation item title. -->
+  <string name="WipeWallet.title">شروع یا بازیابی کیف پول دیگر</string>
+  <!-- Wipe wallet button title -->
+  <string name="WipeWallet.wipe">پاک کردن</string>
+  <!-- Wiping activity message -->
+  <string name="WipeWallet.wiping">پاک کردن...</string>
+  <!-- Paper key instructions. -->
+  <string name="WritePaperPhrase.instruction">هر کلمه را به ترتیب بنویسید و آن را در مکانی امن نگهداری کنید.</string>
+  <!-- button label -->
+  <string name="WritePaperPhrase.next">بعدی</string>
+  <!-- button label -->
+  <string name="WritePaperPhrase.previous">قبلی</string>
+  <!-- 1 of 3 -->
+  <string name="WritePaperPhrase.step"> %1$dاز%2$d </string>
+  <string name="Confirmation.processingAndDonationTime">زمان پردازش: این تراکنش‌ها %1$s دقیقه برای پردازش زمان خواهند برد.</string>
+  <string name="Confirmation.staticAddressLabel">آدرس:</string>
+  <string name="FeeSelector.luxury">لوکس</string>
+  <string name="FeeSelector.luxuryTime">۲.۵ - ۵+ دقیقه</string>
+  <string name="FeeSelector.luxuryMessage">این گزینه تقریباً تضمین می‌کند که تراکنش شما پذیرفته می‌شود، اگرچه شما هزینه بیشتری پرداخت می‌کنید.</string>
+  <!--Buy center - partners-->
+  <string name="BuyCenter.moonpay.Title" translatable="false" tools:ignore="MissingTranslation">مون‌پی</string>
+  <string name="BuyCenter.moonpay.FinancialDetails">«• خرید LTC با جفت‌های متعدد ارز فیات
+• پرداخت با روش‌های متنوع
+• ارائه‌دهنده پرداخت جهانی»</string>
+  <string name="BuyCenter.bitrefill.Title" tools:ignore="MissingTranslation" translatable="false">بیت‌ریفیل</string>
+  <string name="BuyCenter.bitrefill.FinancialDetails">«• خرید کارت‌های هدیه
+• شارژ تلفن‌های پیش‌پرداخت
+• استیم، آمازون، Hotels.com
+• در ۱۷۰ کشور قابل استفاده است»</string>
+  <string name="aud_currency_code" translatable="false">دلار استرالیا</string>
+  <string name="gbp_currency_code" translatable="false">پوند استرلینگ</string>
+  <string name="hkd_currency_code" translatable="false">هنگ کنگ دلار</string>
+  <string name="idr_currency_code" translatable="false">ریال ایران</string>
+  <string name="rub_currency_code" translatable="false">روبل</string>
+  <string name="sgd_currency_code" translatable="false">اس‌جی‌دی</string>
+  <string name="cad_currency_code" translatable="false">کد</string>
+  <string name="eur_currency_code" translatable="false">یورو</string>
+  <string name="jpy_currency_code" translatable="false">ین ژاپن</string>
+  <string name="usd_currency_code" translatable="false">دلار آمریکا</string>
+  <string name="BottomNavItem.History.title">تاریخ</string>
+  <!-- Balance -->
+  <string name="ManageWallet.balance">تعادل</string>
+  <string name="Login.ltcPrice" translatable="false">1 LTC = %1$s</string>
+  <string name="Login.currentLtcPrice">ارزش فعلی LTC در %1$s</string>
+  <string name="Settings.languages">زبان‌ها</string>
+  <string name="Settings.ChangeLanguage.alertMessage">آیا مطمئن هستید که می‌خواهید زبان را به انگلیسی تغییر دهید؟</string>
+  <string name="JailbreakWarnings.close">بستن</string>
+  <!-- donation dialog -->
+  <string name="About.Instagram" translatable="false">اینستاگرام</string>
+  <string name="seed_phrase.label" translatable="false">۱: %s ۲: %s ۳: %s ۴: %s \\n۵: %s ۶: %s ۷: %s ۸: %s%s \\n۹: %s ۱۰: %s ۱۱: %s ۱۲: %s %s </string>
+  <string name="show_seed_label">نمایش</string>
+  <string name="settings_show_seed">نمایش عبارت بازیابی من</string>
+  <string name="sync_preferences">ترجیح همگام‌سازی: %1$s مثبت‌های کاذب</string>
+  <string name="radio_low_privacy">حریم خصوصی کم (حدود ۴۵ دقیقه)</string>
+  <string name="radio_semi_private">نیمه خصوصی (~۶۰ دقیقه)</string>
+  <string name="radio_anonymous">ناشناس (~77 دقیقه)</string>
+  <string name="release_notes">مهم: برنامه برای اجازه دادن به آدرس‌های 1ltc همگام‌سازی خواهد شد. منتظر بمانید ~1 ساعت برای همگام‌سازی!</string>
+  <!-- Announce Updates View -->
+  <string name="Announce.title">چیزی را از دست ندهید!</string>
+  <string name="Announce.close">بستن</string>
+  <string name="Announce.description">برای دریافت اطلاعات درباره به‌روزرسانی‌ها و مسابقات از تیم Brainwallet ثبت‌نام کنید! پذیرش اعلان‌ها برای دریافت اخبار زنده، قیمت و اطلاعات بازار!</string>
+  <string name="Announce.no_thanks">نه، ممنون!</string>
+  <string name="Fees.Service">خدمات</string>
+  <string name="ConfirmationAllFees.Label">هزینه‌ها:</string>
+  <string name="notification_channel_name_general" translatable="false">عمومی</string>
+  <string name="notification_channel_name_litecoin_news" translatable="false">اخبار لایت کوین</string>
+  <string name="notification_channel_name_brainwallet_update" translatable="false">بروزرسانی کیف پول مغزی</string>
+  <string name="cancel">لغو</string>
+  <string name="ok">باشه</string>
+  <string name="please_grant_notification_permission">لطفاً اجازه اعلان را صادر کنید</string>
+  <string name="permission_info">اطلاعات مجوز</string>
+  <string name="permission_notification_granted">مجوز اعلان اعطا شد</string>
+  <!-- New Strings -->
+  <string name="empty_string" translatable="false"></string>
+  <string name="back">بازگشت</string>
+  <string name="your_seed_words">کلمات بذر شما</string>
+  <string name="your_seed_words_desc">"فقط برای تو. \n این است" <b>کلید خصوصی</b> "که به شما اجازه می‌دهد ارسال کنید."</string>
+  <string name="blockchain_litecoin">بلاک‌چین: لایت‌کوین</string>
+  <string name="i_saved_it_on_paper">من آن را روی کاغذ یا فلز ذخیره کردم</string>
+  <string name="you_saved_it_right">شما ذخیره‌اش کردی، درسته؟</string>
+  <string name="you_saved_it_right_desc">اثباتش کن!
+کلمات را به ترتیب صحیح بکشید.</string>
+  <string name="game_and_sync">بازی و همگام‌سازی</string>
+  <string name="ready_setup">آماده‌اید؟</string>
+  <string name="ready_setup_details_1">برای شما انجام می‌دهم. لطفاً انجامش بده</string>
+  <string name="ready_setup_details_2">تنها</string>
+  <string name="ready_setup_details_3">یک قلم، کاغذ و ۵ دقیقه بردارید</string>
+  <string name="setup_app_passcode">تنظیم رمز عبور برنامه</string>
+  <string name="setup_app_details_1">یک رمز عبور را برای باز کردن قفل کیف پول مغزی خود انتخاب کنید</string>
+  <string name="setup_app_details_2">قفل تلفن نیست!</string>
+  <string name="setup_app_details_3">متفاوتش کن. خنک کنید.</string>
+  <string name="setup_app_biometrics">استفاده از بیومتریک</string>
+  <string name="you_saved_your_keys">کلیدهای خود را ذخیره کردید.</string>
+  <string name="you_saved_your_keys_desc">سطح بعدی را در هم بکوب.</string>
+  <string name="tap_drag_a_word">روی یک کلمه ضربه بزنید و آن را به محل مورد نظر بکشید</string>
+  <string name="top_up_title">شارژ کنم؟</string>
+  <string name="top_up_detail_2">الان ذهن شما خالی است...</string>
+  <string name="top_up_detail_1">دریافت لایت کوین در ۵ دقیقه</string>
+  <string name="top_up_button_1">لایت کوین بگیرید!</string>
+  <string name="top_up_button_2">شاید بعداً.</string>
+  <string name="top_up_button_3">رد کردن</string>
+  <string name="restore_your_power">بازیابی قدرت خود</string>
+  <string name="restore_your_power_desc">می‌توانی به جایی که از آن شروع کردی برگردی</string>
+  <string name="restore_my_brainwallet">بازیابی کیف پول مغزی من</string>
+  <string name="clear">صاف</string>
+  <string name="dont_guess_desc">حدس نزن.\n\nبرای این کار به \n۵,۴۴۴,۵۱۷,۹۵۰,۰۰۰,۰۰۰,۰۰۰,۰۰۰,۰۰۰,۰۰۰,۰۰۰,۰۰۰,۰۰۰,۰۰۰,۰۰۰,۰۰۰,۰۰۰,۰۰۰,۰۰۰,۰۰۰,۰۰۰,۰۰۰,۰۰۰,۰۰۰,۰۰۰,۰۰۰,۰۰۰,۰۰۰, تلاش نیاز دارید.</string>
+  <string name="confirm">تایید</string>
+  <string name="confirm_desc">فراموش نکردی، مگه نه؟ وارد کنید دوباره. یا، به عقب برگردید تا از ابتدا شروع کنید.</string>
+  <string name="ready">آماده</string>
+  <string name="restore">بازیابی</string>
+  <string name="incorrect_passcode">رمز عبور نادرست، لطفاً دوباره تلاش کنید!</string>
+  <string name="down_left_arrow">فلش به سمت پایین و چپ</string>
+  <string name="logo">لوگو</string>
+  <string name="toggle_dark_mode">تغییر حالت تاریک</string>
+  <string name="toggle_lock_mode" translatable="false">قفل-حالت-تغییر</string>
+  <string name="settings_title_security">امنیت</string>
+  <string name="settings_title_language">زبان</string>
+  <string name="settings_title_currency">ارز</string>
+  <string name="settings_title_games">بازی‌ها</string>
+  <string name="settings_title_support">پشتیبانی</string>
+  <string name="settings_title_social_media">رسانه‌های اجتماعی</string>
+  <string name="settings_title_lock">قفل</string>
+  <string name="settings_title_unlock">باز کردن</string>
+  <string name="settings_title_theme">موضوع</string>
+  <string name="settings_title_app_version">نسخه برنامه:</string>
+  <string name="settings_title_sync_metadata">همگام‌سازی فراداده‌ها:</string>
+  <string name="settings_blockchain_litecoin_button">همگام‌سازی</string>
+  <string name="settings_blockchain_litecoin_description">مدت همگام‌سازی: &gt;۲۰ دقیقه</string>
+  <string name="game_title">بازی %1$d:</string>
+  <string name="game_buy_price_1" translatable="false">%s</string>
+  <string name="game_buy_price_2" translatable="false">%s</string>
+  <string name="game_buy_price_3" translatable="false">%s</string>
+  <string name="game_buy_price_4" translatable="false">%s</string>
+  <string name="security_PIN_title" translatable="false">پین</string>
+  <string name="security_seed_phrase_title">عبارت بازیابی</string>
+  <string name="security_brainwallet_phrase_title">عبارت کیف پول مغزی</string>
+  <string name="security_share_data_title">اشتراک‌گذاری داده‌های تحلیلی</string>
+  <string name="security_PIN_button">بروزرسانی پین</string>
+  <string name="security_phrase_button">نمایش</string>
+  <string name="buy_ltc">خرید LTC</string>
+  <string name="powered_by_moonpay">با پشتیبانی مون‌پی</string>
+  <string name="loading">در حال بارگذاری...</string>
+  <string name="network_fee_options_desc">کارمزد شبکه (به ازای هر کیلوبایت): مقدار بالاتر به معنای تکمیل سریع‌تر تراکنش است</string>
+  <string name="network_fee_options_top">بالا</string>
+  <string name="network_fee_options_medium">متوسط</string>
+  <string name="network_fee_options_low">کم</string>
+  <string name="buy_litecoin_fiat_amount_validation_min">مبلغ کمتر از حد مجاز (%f) است</string>
+  <string name="buy_litecoin_fiat_amount_validation_max">مقدار از حد مجاز (%f) بیشتر است</string>
+  <string name="buy_litecoin_title">خرید لایت کوین</string>
+  <string name="buy_litecoin_desc">به آدرس LTC شما واریز شود:</string>
+  <string name="buy_litecoin_button_moonpay">خرید با مون‌پی</string>
+  <string name="new_address">آدرس جدید</string>
+  <string name="bottom_nav_item_buy_receive_title">خرید / دریافت</string>
+  <string name="custom">سفارشی</string>
+  <string name="reset_start_over">بازنشانی / شروع مجدد</string>
+</resources>

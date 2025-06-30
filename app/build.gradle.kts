@@ -20,8 +20,8 @@ android {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 34
-        versionCode = 202506241
-        versionName = "v4.6.1"
+        versionCode = 202506291
+        versionName = "4.6.2"
 
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
@@ -40,7 +40,7 @@ android {
         }
     }
 
-    assetPacks.addAll(setOf(":install_time_asset_pack", ":fast_follow_asset_pack_01"))
+    assetPacks.addAll(setOf(":install_time_asset_pack"))
 
     signingConfigs {
         getByName("debug") {

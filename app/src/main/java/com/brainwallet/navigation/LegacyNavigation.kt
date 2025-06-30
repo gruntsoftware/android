@@ -10,7 +10,6 @@ import androidx.core.net.toUri
 import com.brainwallet.BuildConfig
 import com.brainwallet.R
 import com.brainwallet.data.repository.LtcRepository
-import com.brainwallet.data.source.RemoteApiSource
 import com.brainwallet.di.getKoinInstance
 import com.brainwallet.presenter.activities.BreadActivity
 import com.brainwallet.ui.BrainwalletActivity
@@ -19,6 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
+import com.google.firebase.analytics.FirebaseAnalytics
 
 
 //provide old navigation using intent activity
@@ -36,6 +36,7 @@ object LegacyNavigation {
         auth: Boolean
     ) {
         Timber.i("timber: startBreadActivity: %s", from.javaClass.name)
+
         val intent = if (auth) BrainwalletActivity.createIntent(from, Route.UnLock())
         else Intent(from, BreadActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)

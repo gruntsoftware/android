@@ -71,6 +71,7 @@ import com.brainwallet.ui.composable.WheelPickerFocusVertical
 import com.brainwallet.ui.composable.rememberWheelPickerState
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.ui.theme.BrainwalletTheme
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.debounce
@@ -90,7 +91,10 @@ fun ReceiveDialog(
     val appSetting by viewModel.appSetting.collectAsState()
     val context = LocalContext.current
     val wheelPickerFiatCurrencyState = rememberWheelPickerState(0)
-
+    val  firebaseAnalytics = FirebaseAnalytics.getInstance(LocalContext.current)
+    val bundle = Bundle().apply {
+        putString("buy_tapped_location", "buy_receive_dialog")
+    }
     LaunchedEffect(Unit) {
         viewModel.onEvent(ReceiveDialogEvent.OnLoad(context))
         viewModel.uiEffect.collect { effect ->
@@ -380,6 +384,7 @@ fun ReceiveDialog(
                         ),
                         isDarkMode = appSetting.isDarkMode
                     )
+                    firebaseAnalytics.logEvent("will_show_mp_widget", bundle)
                     onDismissRequest.invoke()
                 },
             )

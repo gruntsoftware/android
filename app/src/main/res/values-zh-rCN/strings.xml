@@ -773,6 +773,7 @@
     <string name="down_left_arrow">左下箭头</string>
     <string name="logo">标识</string>
     <string name="toggle_dark_mode">切换暗模式</string>
+    <string name="tap_drag_a_word">点击单词并拖拽到位</string>
     <string name="top_up_title">充值？</string>
     <string name="top_up_detail_2">现在你的大脑一片空白……</string>
     <string name="top_up_detail_1">5 分钟内获得莱特币</string>

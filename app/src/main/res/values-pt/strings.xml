@@ -772,6 +772,7 @@
     <string name="down_left_arrow">seta para baixo à esquerda</string>
     <string name="logo">logotipo</string>
     <string name="toggle_dark_mode">alternar modo escuro</string>
+    <string name="tap_drag_a_word">Toque em uma palavra e arraste-a para o lugar</string>
     <string name="top_up_title">Recarregar?</string>
     <string name="top_up_detail_2">Neste momento seu cérebro está vazio...</string>
     <string name="top_up_detail_1">Obtenha Litecoin em 5 minutos</string>

@@ -772,6 +772,7 @@
     <string name="down_left_arrow">左下箭頭</string>
     <string name="logo">標識</string>
     <string name="toggle_dark_mode">切換暗模式</string>
+    <string name="tap_drag_a_word">點擊單詞並拖拽到位</string>
     <string name="top_up_title">儲值?</string>
     <string name="top_up_detail_2">現在你的大腦一片空白…</string>
     <string name="top_up_detail_1">5 分鐘內獲得萊特幣</string>

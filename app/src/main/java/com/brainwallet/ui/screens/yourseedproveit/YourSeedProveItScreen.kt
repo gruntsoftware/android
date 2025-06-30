@@ -53,6 +53,8 @@ import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
+import com.brainwallet.tools.manager.AnalyticsManager
+import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
 import com.brainwallet.ui.composable.LargeButton
@@ -76,6 +78,7 @@ fun YourSeedProveItScreen(
     val maxItemsPerRow = 3
 
     val clickAudioPlayer = remember { MediaPlayer.create(context, R.raw.clickseedword) }
+    val errorAudioPlayer = remember { MediaPlayer.create(context, R.raw.errorsound) }
     val coinAudioPlayer = remember { MediaPlayer.create(context, R.raw.coinflip) }
 
     LaunchedEffect(Unit) {
@@ -85,6 +88,8 @@ fun YourSeedProveItScreen(
     LaunchedEffect(state.orderCorrected) {
         if (state.orderCorrected) {
             coinAudioPlayer.start()
+            viewModel.onEvent(YourSeedProveItEvent.OnCompletedPaperKey)
+            AnalyticsManager.logCustomEvent(BRConstants._20250303_DSTU)
         }
     }
 
@@ -156,10 +161,13 @@ fun YourSeedProveItScreen(
                                                     expectedWord = expectedWord,
                                                     actualWord = text.toString()
                                                 )
-                                            )
 
-                                            if (expectedWord == actualWord) {
-                                                clickAudioPlayer.start()
+                                            )
+                                            if (text.toString() == expectedWord) {
+                                                clickAudioPlayer.start() // success sound
+                                            }
+                                            else {
+                                                errorAudioPlayer.start() // error sound
                                             }
                                             return true
                                         }
@@ -173,16 +181,18 @@ fun YourSeedProveItScreen(
             }
 
             Spacer(modifier = Modifier.weight(1f))
+            Text(
+                text = stringResource(if (state.orderCorrected) R.string.empty_string else R.string.tap_drag_a_word),
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    textAlign = TextAlign.Center,
+                    color = Color.Gray
+                )
+            )
+            Spacer(modifier = Modifier.weight(0.1f))
 
             SeedWordsLayout {
-                itemsIndexed(items = state.shuffledSeedWords) { index, word ->
-
-                    val isWordUsedCorrectly =
-                        state.correctSeedWords.values.any { (expectedWord, actualWord) ->
-                            expectedWord == word && actualWord == word
-                        }
-
-                    if (isWordUsedCorrectly) {
+                itemsIndexed(items = state.shuffledSeedWords) { index, (correctIndex, word) ->
+                    if (state.isWordUsedCorrectly(correctIndex, word)) {
                         Box(modifier = Modifier.fillMaxWidth())
                     } else {
                         SeedWordItem(
@@ -190,7 +200,7 @@ fun YourSeedProveItScreen(
                                 .fillMaxWidth()
                                 .dragAndDropSource {
                                     detectTapGestures(
-                                        onLongPress = {
+                                        onPress = {
                                             startTransfer(
                                                 DragAndDropTransferData(
                                                     clipData = ClipData.newPlainText(
@@ -221,7 +231,9 @@ fun YourSeedProveItScreen(
             LargeButton(
                 onClick = {
                     if (state.orderCorrected) {
-                        onNavigate.invoke(UiEffect.Navigate(Route.TopUp))
+                        //onNavigate.invoke(UiEffect.Navigate(Route.))
+                        viewModel.onEvent(YourSeedProveItEvent.OnGameAndSync)
+                        AnalyticsManager.logCustomEvent(BRConstants._20250303_DSTU)
                     } else {
                         viewModel.onEvent(YourSeedProveItEvent.OnClear)
                     }

@@ -772,6 +772,7 @@
     <string name="down_left_arrow">flecha abajo-izquierda</string>
     <string name="logo">logo</string>
     <string name="toggle_dark_mode">alternar-modo-oscuro</string>
+    <string name="tap_drag_a_word">Toca una palabra y arrástrala a su lugar</string>
     <string name="top_up_title">¿Completar?</string>
     <string name="top_up_detail_2">Ahora mismo tu cerebro está vacío...</string>
     <string name="top_up_detail_1">Obtén Litecoin en 5 minutos</string>
