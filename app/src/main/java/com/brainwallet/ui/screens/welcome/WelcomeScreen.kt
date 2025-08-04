@@ -7,12 +7,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -93,39 +95,44 @@ fun WelcomeScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(BrainwalletTheme.colors.surface)
-            .verticalScroll(rememberScrollState()),
+            .verticalScroll(rememberScrollState())
+            .padding(WindowInsets.systemBars.asPaddingValues()),
     ) {
-        Image(
-            painterResource(R.drawable.brainwallet_logotype_white),
-            contentDescription = "brainwallet_logotype_white",
-            contentScale = ContentScale.Fit,
-            colorFilter = ColorFilter.tint(
-                BrainwalletTheme.colors.content,
-            ),
+        Column(
             modifier = Modifier
                 .align(Alignment.TopCenter)
-                .fillMaxWidth()
-                .padding(horizontal = 55.dp)
-                .padding(vertical = 30.dp)
-        )
+                .padding(vertical = 20.dp)
+        ) {
+            Image(
+                painterResource(R.drawable.brainwallet_logotype_white),
+                contentDescription = "brainwallet_logotype_white",
+                contentScale = ContentScale.Fit,
+                colorFilter = ColorFilter.tint(
+                    BrainwalletTheme.colors.content,
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 55.dp)
+            )
 
-        // Animation Placeholder
-        LottieAnimation(
-            modifier = Modifier
-                .offset(y = 120.dp)
-                .fillMaxWidth()
-                .padding(leadTrailPadding.dp)
-                .background(
-                    BrainwalletTheme.colors.surface,
-                    BrainwalletTheme.shapes.large
-                )
-                .height(thirdOfScreenHeight.dp)
-                .clip(BrainwalletTheme.shapes.large),
-            composition = composition,
-            contentScale = ContentScale.FillWidth,
-            alignment = Alignment.Center,
-            progress = { progress }
-        )
+            // Animation Placeholder
+            LottieAnimation(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(leadTrailPadding.dp)
+                    .background(
+                        BrainwalletTheme.colors.surface,
+                        BrainwalletTheme.shapes.large
+                    )
+                    .height(thirdOfScreenHeight.dp)
+                    .clip(BrainwalletTheme.shapes.large),
+                composition = composition,
+                contentScale = ContentScale.FillWidth,
+                alignment = Alignment.Center,
+                progress = { progress }
+            )
+        }
+
 
         Column(
             modifier = Modifier.align(Alignment.BottomCenter),
