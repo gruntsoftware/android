@@ -14,12 +14,12 @@ val localProperties = gradleLocalProperties(rootDir, providers)
 
 android {
     namespace = "com.brainwallet"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
-        targetSdk = 34
+        targetSdk = 36
         versionCode = 202506271
         versionName = "v4.6.2"
 
