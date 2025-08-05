@@ -84,6 +84,9 @@ include_directories(src/main/secp/secp256k1/src/)
 include_directories(src/main/secp/secp256k1/)
 include_directories(src/main/secp/)
 
+# support compiling 16 KB-aligned: https://developer.android.com/guide/practices/page-sizes#cmake
+target_link_options(core-lib PRIVATE "-Wl,-z,max-page-size=16384")
+
 # add lib dependencies
 target_link_libraries(
     core-lib
