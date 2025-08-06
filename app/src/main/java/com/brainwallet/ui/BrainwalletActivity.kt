@@ -115,6 +115,9 @@ class BrainwalletActivity : BRActivity() {
 
                             LEGACY_EFFECT_ON_PAPERKEY_PROVED -> {
                                 BRSharedPrefs.putPhraseWroteDown(this@BrainwalletActivity, true)
+                            }
+
+                            LEGACY_NAVIGATE_TO_TOP_UP -> {
                                 LegacyNavigation.startBreadActivity(
                                     this@BrainwalletActivity,
                                     false

@@ -47,7 +47,6 @@ fun BuyLitecoinScreen(
     val loadingState by viewModel.loadingState.collectAsState()
     val appSetting by viewModel.appSetting.collectAsState()
     val context = LocalContext.current
-
     LaunchedEffect(Unit) {
         viewModel.onEvent(BuyLitecoinEvent.OnLoad(context))
         viewModel.uiEffect.collect { effect ->
