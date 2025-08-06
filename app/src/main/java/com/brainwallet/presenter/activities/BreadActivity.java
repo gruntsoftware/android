@@ -64,7 +64,9 @@ import com.brainwallet.ui.screens.home.SettingsViewModel;
 import com.brainwallet.ui.screens.home.composable.HomeSettingDrawerComposeView;
 import com.brainwallet.ui.screens.home.receive.ReceiveDialogFragment;
 import com.brainwallet.ui.screens.home.receive.ReceiveDialogKt;
+import com.brainwallet.ui.composable.GameContainerComposeView;
 import com.brainwallet.util.PermissionUtil;
+import com.brainwallet.presenter.activities.GameTestActivity;
 import com.brainwallet.wallet.BRPeerManager;
 import com.brainwallet.wallet.BRWalletManager;
 import com.google.android.gms.tasks.Task;
@@ -105,6 +107,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     private NavigationView navigationDrawer;
     private DrawerLayout drawerLayout;
     private HomeSettingDrawerComposeView homeSettingDrawerComposeView;
+    private GameContainerComposeView gameContainerComposeView;
 
     public static BreadActivity getApp() {
         return app;
@@ -237,6 +240,15 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
             if (BRAnimator.isClickAllowed()) {
                 drawerLayout.open();
             }
+        });
+        
+        menuBut.setOnLongClickListener(v -> {
+            if (BRAnimator.isClickAllowed()) {
+                Intent gameTestIntent = GameTestActivity.createIntent(this);
+                startActivity(gameTestIntent);
+                return true;
+            }
+            return false;
         });
     }
 
@@ -396,6 +408,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         navigationDrawer = findViewById(R.id.navigationDrawer);
         drawerLayout = findViewById(R.id.drawerLayout);
         homeSettingDrawerComposeView = findViewById(R.id.homeDrawerComposeView);
+        gameContainerComposeView = findViewById(R.id.gameContainerComposeView);
         homeSettingDrawerComposeView.observeBus(message -> {
             drawerLayout.close();
             if (SettingsViewModel.LEGACY_EFFECT_ON_LOCK.equals(message.getMessage())) {
@@ -445,6 +458,49 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         });
 
         balanceTxtV.append(":");
+        
+        setupGameContainer();
+    }
+    
+    private void setupGameContainer() {
+        if (gameContainerComposeView != null) {
+            gameContainerComposeView.setGameTitle("Brainwallet Unity Game");
+        }
+    }
+    
+    public void showGameContainer() {
+        if (gameContainerComposeView != null) {
+            gameContainerComposeView.setVisibility(android.view.View.VISIBLE);
+        }
+    }
+    
+    public void hideGameContainer() {
+        if (gameContainerComposeView != null) {
+            gameContainerComposeView.setVisibility(android.view.View.GONE);
+        }
+    }
+    
+    public void loadGame() {
+        if (gameContainerComposeView != null) {
+            showGameContainer();
+            gameContainerComposeView.loadUnityGame();
+        }
+    }
+    
+    public void pauseGame() {
+        if (gameContainerComposeView != null) {
+            gameContainerComposeView.pauseGame();
+        }
+    }
+    
+    public void resumeGame() {
+        if (gameContainerComposeView != null) {
+            gameContainerComposeView.resumeGame();
+        }
+    }
+    
+    public boolean isGameLoaded() {
+        return gameContainerComposeView != null && gameContainerComposeView.isGameLoaded();
     }
 
     @Override
