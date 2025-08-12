@@ -32,6 +32,7 @@ import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGAC
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGACY_DIALOG_WIPE_ALERT
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGACY_EFFECT_RESET_PIN
 import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItViewModel.Companion.LEGACY_EFFECT_ON_PAPERKEY_PROVED
+import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItViewModel.Companion.LEGACY_NAVIGATE_TO_TOP_UP
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.util.EventBus
 import com.brainwallet.wallet.BRWalletManager
