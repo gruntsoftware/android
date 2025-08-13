@@ -6,27 +6,32 @@ import android.app.Application
 import android.content.Context
 import android.content.res.Resources
 import com.appsflyer.AppsFlyerLib
-import com.brainwallet.di.appModule
-import com.brainwallet.di.dataModule
-import com.brainwallet.di.viewModelModule
-import com.brainwallet.notification.setupNotificationChannels
+import com.brainwallet.data.source.RemoteConfigSource
+import com.brainwallet.di.AppModule
+import com.brainwallet.notification.NotificationHandler
 import com.brainwallet.presenter.activities.util.BRActivity
 import com.brainwallet.presenter.entities.ServiceItems
 import com.brainwallet.tools.listeners.SyncReceiver
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.tools.util.Utils
+import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext.startKoin
 import org.koin.core.logger.Level
+import org.koin.ksp.generated.module
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 import java.util.Timer
 import java.util.TimerTask
 import java.util.concurrent.atomic.AtomicInteger
+import kotlin.concurrent.thread
 
 open class BrainwalletApp : Application() {
+
+    private val remoteConfigSource: RemoteConfigSource by inject()
+    private val notificationHandler: NotificationHandler by inject()
 
     override fun onCreate() {
         super.onCreate()
@@ -35,7 +40,7 @@ open class BrainwalletApp : Application() {
 
         /** DEV:  Top placement requirement. **/
         val enableCrashlytics = !Utils.isEmulatorOrDebug(this)
-        setupNotificationChannels(this)
+        notificationHandler.setupNotificationChannels(this)
 
         AnalyticsManager.init(this)
         AnalyticsManager.logCustomEvent(BRConstants._20191105_AL)
@@ -72,8 +77,9 @@ open class BrainwalletApp : Application() {
         startKoin {
             androidLogger(if (BuildConfig.DEBUG) Level.DEBUG else Level.ERROR)
             androidContext(this@BrainwalletApp)
-            modules(dataModule, viewModelModule, appModule)
+            modules(AppModule.dataModule, AppModule.module)
         }
+        thread { remoteConfigSource.initialize() }
     }
 
 //    override fun attachBaseContext(base: Context) {

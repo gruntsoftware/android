@@ -8,6 +8,8 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext.startKoin
 import org.koin.core.logger.Level
+import com.brainwallet.di.AppModule
+import org.koin.ksp.generated.module
 import timber.log.Timber
 
 class BrainwalletScreengrabApp : BrainwalletApp() {
@@ -23,7 +25,7 @@ class BrainwalletScreengrabApp : BrainwalletApp() {
         startKoin {
             androidLogger(if (BuildConfig.DEBUG) Level.DEBUG else Level.ERROR)
             androidContext(this@BrainwalletScreengrabApp)
-            modules(dataModule, viewModelModule, appModule)
+            modules(AppModule.dataModule, AppModule.module)
         }
     }
 }

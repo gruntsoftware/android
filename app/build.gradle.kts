@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.ksp)
 }
 
 val localProperties = gradleLocalProperties(rootDir, providers)
@@ -215,6 +216,9 @@ dependencies {
     implementation (libs.airbnb.lottie.compose)
     implementation(platform(libs.koin.bom))
     implementation(libs.bundles.koin)
+    implementation(platform(libs.koin.annotation.bom))
+    implementation(libs.koin.annotation)
+    ksp(libs.koin.annotation.compiler)
 
     implementation(platform(libs.squareup.okhttp.bom))
     implementation(libs.bundles.squareup.okhttp)
