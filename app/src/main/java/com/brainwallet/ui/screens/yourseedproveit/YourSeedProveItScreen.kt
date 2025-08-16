@@ -164,10 +164,10 @@ fun YourSeedProveItScreen(
 
                                             )
                                             if (text.toString() == expectedWord) {
-                                                clickAudioPlayer.start() // success sound
+                                                clickAudioPlayer.start() // Success sound
                                             }
                                             else {
-                                                errorAudioPlayer.start() // error sound
+                                                errorAudioPlayer.start() // Success sound
                                             }
                                             return true
                                         }
@@ -231,9 +231,7 @@ fun YourSeedProveItScreen(
             LargeButton(
                 onClick = {
                     if (state.orderCorrected) {
-                        //onNavigate.invoke(UiEffect.Navigate(Route.))
-                        viewModel.onEvent(YourSeedProveItEvent.OnGameAndSync)
-                        AnalyticsManager.logCustomEvent(BRConstants._20250303_DSTU)
+                        onNavigate.invoke(UiEffect.Navigate(Route.TopUp))
                     } else {
                         viewModel.onEvent(YourSeedProveItEvent.OnClear)
                     }

@@ -23,8 +23,8 @@ import com.brainwallet.ui.screens.yourseedwords.YourSeedWordsViewModel
 import com.brainwallet.util.cryptography.KeyStoreKeyGenerator
 import com.brainwallet.util.cryptography.KeyStoreManager
 import com.brainwallet.worker.CurrencyUpdateWorker
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.google.firebase.Firebase
+import com.google.firebase.remoteconfig.remoteConfig
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -35,7 +35,6 @@ import org.koin.core.component.inject
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
-import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 

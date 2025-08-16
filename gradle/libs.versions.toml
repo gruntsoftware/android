@@ -1,6 +1,6 @@
 [versions]
 kotlin = "2.0.0"
-agp = "8.5.0"
+agp = "8.7.3"
 androidx-core-ktx = "1.12.0"
 androidx-appcompat = "1.6.1"
 androidx-legacy-support = "1.0.0"
@@ -25,7 +25,7 @@ google-play-feature-delivery = "2.1.0"
 google-play-review = "2.0.1"
 squareup-okhttp-bom = "4.12.0"
 squareup-retrofit = "2.11.0"
-firebase-bom = "32.7.1"
+firebase-bom = "34.0.0"
 jakewarthon-timber = "4.7.1"
 eclipse-jetty = "9.2.19.v20160908"
 junit = "4.13.2"
@@ -87,7 +87,7 @@ firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 firebase-crashlytics-ndk = { module = "com.google.firebase:firebase-crashlytics-ndk" }
 #firebase-iid = { module = "com.google.firebase:firebase-iid" }
-firebase-config = { module = "com.google.firebase:firebase-config-ktx" }
+firebase-config = { module = "com.google.firebase:firebase-config" }
 firebase-messaging = { module = "com.google.firebase:firebase-messaging" }
 firebase-inappmessaging = { module = "com.google.firebase:firebase-inappmessaging-display" }
 jakewarthon-timber = { module = "com.jakewharton.timber:timber", version.ref = "jakewarthon-timber" }
