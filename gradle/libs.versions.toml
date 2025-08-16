@@ -137,3 +137,4 @@ jetbrains-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version = "2.1.0" }
 jetbrains-kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 google-services = { id = "com.google.gms.google-services", version = "4.4.2" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.2" }
+android-library = { id = "com.android.library", version.ref = "agp" }

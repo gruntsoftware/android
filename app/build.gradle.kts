@@ -187,6 +187,7 @@ dependencies {
         }
     }
 
+    implementation(project(":modules:games:content"))
     implementation("androidx.webkit:webkit:1.9.0")
     implementation(libs.androidx.core)
     implementation(libs.androidx.appcompat)

@@ -4,3 +4,6 @@
 [submodule "app/src/main/jni/core"]
 	path = app/src/main/jni/core
 	url = https://github.com/brainwallet-co/core.git
+[submodule "modules/games"]
+	path = modules/games
+	url = https://github.com/gruntsoftware/android-games.git

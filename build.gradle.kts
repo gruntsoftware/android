@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.serialization) apply false
     alias(libs.plugins.google.services) apply false
     alias(libs.plugins.firebase.crashlytics) apply false
+    alias(libs.plugins.android.library) apply false
 }
 
 tasks.register("clean", Delete::class) {

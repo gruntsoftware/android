@@ -17,9 +17,14 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
+    versionCatalogs {
+        create("games") {
+            from(files("modules/games/gradle/libs.versions.toml"))
+        }
+    }
 }
 
 rootProject.name = "Brainwallet Android"
 include(":app")
+include(":modules:games:content")
 include(":install_time_asset_pack")
-
