@@ -188,6 +188,13 @@ dependencies {
         }
     }
 
+    val gamesModule = findProject(":modules:games:content")
+    if (gamesModule != null) {
+        implementation(gamesModule)
+    } else {
+        logger.lifecycle("⚠️ Submodule ':modules:games:content' not found — skipping dependency")
+    }
+
     implementation("androidx.webkit:webkit:1.9.0")
     implementation(libs.androidx.core)
     implementation(libs.androidx.appcompat)
