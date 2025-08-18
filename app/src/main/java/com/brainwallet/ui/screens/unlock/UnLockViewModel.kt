@@ -15,10 +15,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.launch
+import org.koin.android.annotation.KoinViewModel
 import timber.log.Timber
 import java.math.BigDecimal
 
-
+@KoinViewModel
 class UnLockViewModel : BrainwalletViewModel<UnLockEvent>() {
 
     private val _state = MutableStateFlow(UnLockState())

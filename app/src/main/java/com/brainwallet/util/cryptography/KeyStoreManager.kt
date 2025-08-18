@@ -4,14 +4,14 @@ import android.content.Context
 import android.security.keystore.UserNotAuthenticatedException
 import com.brainwallet.tools.security.BRKeyStore
 import com.brainwallet.tools.security.BRKeyStore.AliasObject
-import com.brainwallet.tools.security.BRKeyStore.CANARY_ALIAS
-import com.brainwallet.tools.security.BRKeyStore.PHRASE_ALIAS
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import org.koin.core.annotation.Single
 import timber.log.Timber
 import java.security.KeyStore
 
+@Single
 class KeyStoreManager(
     private val context: Context,
     private val keyGenerator: KeyStoreKeyGenerator,

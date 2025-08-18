@@ -2,7 +2,7 @@ package com.brainwallet.data.source
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import com.brainwallet.di.json
+import com.brainwallet.di.AppModule.json
 import kotlinx.serialization.encodeToString
 
 /**

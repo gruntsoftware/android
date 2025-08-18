@@ -8,7 +8,9 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import org.koin.core.annotation.Single
 
+@Single
 class CurrencyUpdateWorker(
     private val ltcRepository: LtcRepository
 ) {

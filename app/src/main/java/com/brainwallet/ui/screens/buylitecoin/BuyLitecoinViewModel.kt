@@ -1,6 +1,5 @@
 package com.brainwallet.ui.screens.buylitecoin
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
@@ -21,7 +20,9 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.koin.android.annotation.KoinViewModel
 
+@KoinViewModel
 class BuyLitecoinViewModel(
     private val settingRepository: SettingRepository,
     private val ltcRepository: LtcRepository

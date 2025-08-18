@@ -20,8 +20,10 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.launch
+import org.koin.android.annotation.KoinViewModel
 
 //TODO: revisit this later
+@KoinViewModel
 class WelcomeViewModel(
     private val settingRepository: SettingRepository
 ) : BrainwalletViewModel<WelcomeEvent>() {

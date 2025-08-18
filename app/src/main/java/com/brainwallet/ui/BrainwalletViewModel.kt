@@ -2,7 +2,7 @@ package com.brainwallet.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.brainwallet.di.json
+import com.brainwallet.di.AppModule.json
 import com.brainwallet.navigation.UiEffect
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
