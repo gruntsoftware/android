@@ -1,5 +1,3 @@
-# Pull Request Template - Android Development
-
 ## 📱 Description
 <!-- Provide a brief description of what this PR accomplishes -->
 
