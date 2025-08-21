@@ -740,7 +740,7 @@
     <!-- Balance -->
     <string name="ManageWallet.balance">Balance</string>
     
-  <string name="Login.ltcPrice" translatable="false">1 LTC = %1$s</string>
+  <string name="Login.ltcPrice" translatable="false">%1$s = 1Ł</string>
   <string name="Login.currentLtcPrice">Current LTC value in %1$s</string>
   <string name="Settings.languages">Languages</string>
   <string name="Settings.ChangeLanguage.alertMessage">Are you sure you want to change the language to English?</string>

@@ -220,6 +220,7 @@ dependencies {
     implementation(libs.bundles.google.play.feature.delivery)
     implementation(libs.bundles.google.play.review)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.coroutines.android)
     implementation (libs.airbnb.lottie.compose)
     implementation(platform(libs.koin.bom))
     implementation(libs.bundles.koin)
@@ -243,6 +244,8 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
+    testImplementation(libs.turbine)
+    testImplementation(libs.kotlinx.coroutines.tests)
 
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.androidx.compose.ui.test)
