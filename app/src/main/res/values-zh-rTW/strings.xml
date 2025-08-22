@@ -767,7 +767,7 @@
     <string name="confirm">確認</string>
     <string name="confirm_desc">你沒有忘記吧？再次輸入。或者，返回重新開始。</string>
     <string name="ready">準備好</string>
-    <string name="restore">恢復</string>
+    <string name="restore">使用種子短語恢復</string>
     <string name="incorrect_passcode">密碼錯誤，請重試！</string>
     <string name="down_left_arrow">左下箭頭</string>
     <string name="logo">標識</string>

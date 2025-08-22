@@ -768,7 +768,7 @@
     <string name="confirm">確認する</string>
     <string name="confirm_desc">忘れてませんでしたよね？もう一度入力してください。または、戻って最初からやり直します。</string>
     <string name="ready">準備ができて</string>
-    <string name="restore">復元する</string>
+    <string name="restore">シードフレーズで復元</string>
     <string name="incorrect_passcode">パスコードが間違っています。もう一度お試しください。</string>
     <string name="down_left_arrow">左下矢印</string>
     <string name="logo">ロゴ</string>

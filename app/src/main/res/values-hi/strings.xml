@@ -406,7 +406,7 @@
   <string name="confirm">पुष्टि करना</string>
   <string name="confirm_desc">तुम भूले तो नहीं? इसे दोबारा दर्ज करें. या, दोबारा शुरू करने के लिए वापस जाएं।</string>
   <string name="ready">तैयार</string>
-  <string name="restore">पुनर्स्थापित करना</string>
+  <string name="restore">बीज वाक्यांश के साथ पुनर्स्थापित करें</string>
   <string name="incorrect_passcode">ग़लत पासकोड, कृपया पुनः प्रयास करें!</string>
   <string name="down_left_arrow">नीचे-बाएँ-तीर</string>
   <string name="logo">प्रतीक चिन्ह</string>

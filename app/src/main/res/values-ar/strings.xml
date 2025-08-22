@@ -406,7 +406,7 @@
     <string name="confirm">يتأكد</string>
     <string name="confirm_desc">أنت لم تنسى أليس كذلك؟ أدخله مرة أخرى. أو، العودة للبدء من جديد.</string>
     <string name="ready">مستعد</string>
-    <string name="restore">يعيد</string>
+    <string name="restore">استعادة باستخدام عبارة البذور</string>
     <string name="incorrect_passcode">رمز المرور غير صحيح، يرجى المحاولة مرة أخرى!</string>
     <string name="down_left_arrow">سهم لأسفل لليسار</string>
     <string name="logo">شعار</string>

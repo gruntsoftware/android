@@ -204,7 +204,7 @@ fun WelcomeScreen(
 
             ) {
                 Text(
-                    text = stringResource(R.string.ready),
+                    text = stringResource(R.string.MenuViewController_createButton),
                     fontSize = buttonFontSize.sp,
                     fontWeight = FontWeight.SemiBold,
                 )

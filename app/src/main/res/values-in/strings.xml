@@ -770,7 +770,7 @@
     <string name="confirm">Mengonfirmasi</string>
     <string name="confirm_desc">Kamu tidak lupa kan? Masukkan lagi. Atau, kembali untuk memulai kembali.</string>
     <string name="ready">Siap</string>
-    <string name="restore">Memulihkan</string>
+    <string name="restore">Pulihkan dengan Seed Phrase</string>
     <string name="incorrect_passcode">Kode Sandi salah, silakan coba lagi!</string>
     <string name="down_left_arrow">panah kiri bawah</string>
     <string name="logo">logo</string>

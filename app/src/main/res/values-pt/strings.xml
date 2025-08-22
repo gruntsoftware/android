@@ -767,7 +767,7 @@
     <string name="confirm">Confirmar</string>
     <string name="confirm_desc">Você não esqueceu, não é? Digite novamente. Ou volte para começar de novo.</string>
     <string name="ready">Preparar</string>
-    <string name="restore">Restaurar</string>
+    <string name="restore">Restaurar com frase semente</string>
     <string name="incorrect_passcode">Senha incorreta, tente novamente!</string>
     <string name="down_left_arrow">seta para baixo à esquerda</string>
     <string name="logo">logotipo</string>

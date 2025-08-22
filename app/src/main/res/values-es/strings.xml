@@ -767,7 +767,7 @@
     <string name="confirm">Confirmar</string>
     <string name="confirm_desc">No lo olvidaste ¿verdad? Ingrese nuevamente. O regrese para empezar de nuevo.</string>
     <string name="ready">Listo</string>
-    <string name="restore">Restaurar</string>
+    <string name="restore">Restaurar con frase semilla</string>
     <string name="incorrect_passcode">Código de acceso incorrecto, ¡inténtelo de nuevo!</string>
     <string name="down_left_arrow">flecha abajo-izquierda</string>
     <string name="logo">logo</string>

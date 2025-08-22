@@ -803,7 +803,7 @@
   <string name="confirm">تایید</string>
   <string name="confirm_desc">فراموش نکردی، مگه نه؟ وارد کنید دوباره. یا، به عقب برگردید تا از ابتدا شروع کنید.</string>
   <string name="ready">آماده</string>
-  <string name="restore">بازیابی</string>
+  <string name="restore">بازیابی با عبارت Seed</string>
   <string name="incorrect_passcode">رمز عبور نادرست، لطفاً دوباره تلاش کنید!</string>
   <string name="down_left_arrow">فلش به سمت پایین و چپ</string>
   <string name="logo">لوگو</string>

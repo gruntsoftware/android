@@ -768,7 +768,7 @@
     <string name="confirm">确认</string>
     <string name="confirm_desc">你没有忘记吧？再次输入。或者，返回重新开始。</string>
     <string name="ready">准备好</string>
-    <string name="restore">恢复</string>
+    <string name="restore">使用种子短语恢复</string>
     <string name="incorrect_passcode">密码错误，请重试！</string>
     <string name="down_left_arrow">左下箭头</string>
     <string name="logo">标识</string>

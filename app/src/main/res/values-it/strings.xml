@@ -768,7 +768,7 @@
     <string name="confirm">Confermare</string>
     <string name="confirm_desc">Non te ne sei dimenticato, vero? Inseriscilo di nuovo. Oppure torna indietro per ricominciare da capo.</string>
     <string name="ready">Pronto</string>
-    <string name="restore">Ripristinare</string>
+    <string name="restore">Ripristina con la frase Seed</string>
     <string name="incorrect_passcode">Codice di accesso errato, riprova!</string>
     <string name="down_left_arrow">freccia giù a sinistra</string>
     <string name="logo">logo</string>

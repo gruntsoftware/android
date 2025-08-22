@@ -790,7 +790,7 @@
     <string name="confirm">Onaylamak</string>
     <string name="confirm_desc">Unutmadın değil mi? Tekrar girin. Veya baştan başlamak için geri dönün.</string>
     <string name="ready">Hazır</string>
-    <string name="restore">Eski haline getirmek</string>
+    <string name="restore">Tohum İfadesi ile Geri Yükle</string>
     <string name="incorrect_passcode">Yanlış Şifre, lütfen tekrar deneyin!</string>
     <string name="down_left_arrow">sol aşağı ok</string>
     <string name="logo">logo</string>

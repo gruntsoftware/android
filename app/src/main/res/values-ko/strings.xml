@@ -768,7 +768,7 @@
     <string name="confirm">확인하다</string>
     <string name="confirm_desc">잊지 않았지? 다시 입력하세요. 아니면 돌아가서 다시 시작하세요.</string>
     <string name="ready">준비가 된</string>
-    <string name="restore">복원하다</string>
+    <string name="restore">시드 프레이즈로 복원</string>
     <string name="incorrect_passcode">잘못된 비밀번호입니다. 다시 시도해 주세요!</string>
     <string name="down_left_arrow">아래쪽 왼쪽 화살표</string>
     <string name="logo">심벌 마크</string>

@@ -768,7 +768,7 @@
     <string name="confirm">Bestätigen</string>
     <string name="confirm_desc">Du hast es nicht vergessen, oder? Geben Sie es erneut ein. Oder gehen Sie zurück, um von vorne zu beginnen.</string>
     <string name="ready">Bereit</string>
-    <string name="restore">Wiederherstellen</string>
+    <string name="restore">Mit Seed-Phrase wiederherstellen</string>
     <string name="incorrect_passcode">Falscher Passcode, bitte versuchen Sie es erneut!</string>
     <string name="down_left_arrow">Pfeil nach unten links</string>
     <string name="logo">Logo</string>

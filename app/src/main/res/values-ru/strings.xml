@@ -768,7 +768,7 @@
     <string name="confirm">Подтверждать</string>
     <string name="confirm_desc">Ты ведь не забыл? Введите его еще раз. Или вернитесь, чтобы начать все сначала.</string>
     <string name="ready">Готовый</string>
-    <string name="restore">Восстановить</string>
+    <string name="restore">Восстановить с помощью Seed-фразы</string>
     <string name="incorrect_passcode">Неправильный пароль, попробуйте еще раз!</string>
     <string name="down_left_arrow">стрелка вниз-влево</string>
     <string name="logo">логотип</string>

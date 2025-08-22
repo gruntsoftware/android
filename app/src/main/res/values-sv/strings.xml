@@ -406,7 +406,7 @@
   <string name="confirm">Bekräfta</string>
   <string name="confirm_desc">Du glömde väl inte? Skriv in det igen. Eller gå tillbaka för att börja om.</string>
   <string name="ready">Redo</string>
-  <string name="restore">Återställa</string>
+  <string name="restore">Återställ med Seed Phrase</string>
   <string name="incorrect_passcode">Felaktigt lösenord, försök igen!</string>
   <string name="down_left_arrow">ned-vänster-pil</string>
   <string name="logo">logotyp</string>

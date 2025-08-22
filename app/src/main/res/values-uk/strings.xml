@@ -774,7 +774,7 @@
     <string name="confirm">Підтвердити</string>
     <string name="confirm_desc">Ви не забули? Введіть його знову. Або поверніться, щоб почати спочатку.</string>
     <string name="ready">Готовий</string>
-    <string name="restore">Відновити</string>
+    <string name="restore">Відновлення за допомогою початкової фрази</string>
     <string name="incorrect_passcode">Неправильний пароль, спробуйте ще раз!</string>
     <string name="down_left_arrow">стрілка вниз-ліворуч</string>
     <string name="logo">логотип</string>
