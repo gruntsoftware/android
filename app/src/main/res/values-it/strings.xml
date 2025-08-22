@@ -748,10 +748,10 @@
     <string name="you_saved_it_right">L\'hai salvato, vero?</string>
     <string name="you_saved_it_right_desc">Dimostralo!\nTrascina le parole nell\'ordine corretto.</string>
     <string name="game_and_sync">Gioco e sincronizzazione</string>
-    <string name="ready_setup">Pronto?</string>
-    <string name="ready_setup_details_1">Fallo per te. Per favore, fallo</string>
-    <string name="ready_setup_details_2">solo</string>
-    <string name="ready_setup_details_3">Prendi carta, penna e 5 minuti</string>
+    <string name="ready_setup">Pronto per iniziare?</string>
+    <string name="ready_setup_details_1">Questo è solo per te.</string>
+    <string name="ready_setup_details_2">Imposta il codice di accesso dell\'app, apri il tuo gestore di password o prendi una penna per registrarlo insieme alla tua nuova frase seed.</string>
+    <string name="ready_setup_details_3">Non lo sappiamo e non ne abbiamo una copia!</string>
     <string name="setup_app_passcode">Imposta il codice di accesso dell\'app</string>
     <string name="setup_app_details_1">Scegli un passcode per sbloccare il tuo Brainwallet</string>
     <string name="setup_app_details_2">Non è un codice di blocco del telefono!</string>

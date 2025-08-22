@@ -749,9 +749,9 @@
     <string name="you_saved_it_right_desc">증명해보세요!\n올바른 순서로 단어를 드래그하세요.</string>
     <string name="game_and_sync">게임 및 동기화</string>
     <string name="ready_setup">준비가 된?</string>
-    <string name="ready_setup_details_1">당신을 위해 이것을하십시오. 꼭 해주세요</string>
-    <string name="ready_setup_details_2">홀로</string>
-    <string name="ready_setup_details_3">펜과 종이를 들고 5분</string>
+    <string name="ready_setup_details_1">이건 당신만을 위한 거예요.</string>
+    <string name="ready_setup_details_2">앱 비밀번호를 설정하고 비밀번호 관리자를 열거나 펜을 가져와서 비밀번호와 새로운 시드 문구를 기록하세요.</string>
+    <string name="ready_setup_details_3">우리는 그것을 모르고 사본도 없습니다!</string>
     <string name="setup_app_passcode">앱 비밀번호 설정</string>
     <string name="setup_app_details_1">Brainwallet을 잠금 해제하려면 비밀번호를 선택하세요</string>
     <string name="setup_app_details_2">전화 잠금 코드가 아닙니다!</string>

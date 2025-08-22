@@ -747,10 +747,10 @@
     <string name="you_saved_it_right">Você salvou, certo?</string>
     <string name="you_saved_it_right_desc">Prove!\nArraste as palavras na ordem correta.</string>
     <string name="game_and_sync">Jogo e sincronização</string>
-    <string name="ready_setup">Preparar?</string>
-    <string name="ready_setup_details_1">Faça isso por você. Por favor faça isso</string>
-    <string name="ready_setup_details_2">sozinho</string>
-    <string name="ready_setup_details_3">Pegue uma caneta, papel e 5 minutos</string>
+    <string name="ready_setup">Pronto para começar?</string>
+    <string name="ready_setup_details_1">Isto é somente para você.</string>
+    <string name="ready_setup_details_2">Configure a senha do aplicativo, abra seu gerenciador de senhas ou pegue uma caneta para registrá-la junto com sua nova frase-semente.</string>
+    <string name="ready_setup_details_3">Não sabemos e nem temos uma cópia!</string>
     <string name="setup_app_passcode">Configurar senha do aplicativo</string>
     <string name="setup_app_details_1">Escolha uma senha para desbloquear seu Brainwallet</string>
     <string name="setup_app_details_2">Não é um código de bloqueio do telefone!</string>

@@ -748,10 +748,10 @@
     <string name="you_saved_it_right">Ты сохранил это, да?</string>
     <string name="you_saved_it_right_desc">Докажите это!\nПеретащите слова в правильном порядке.</string>
     <string name="game_and_sync">Игра и синхронизация</string>
-    <string name="ready_setup">Готовый?</string>
-    <string name="ready_setup_details_1">Сделайте это для себя. Пожалуйста, сделай это</string>
-    <string name="ready_setup_details_2">один</string>
-    <string name="ready_setup_details_3">Возьмите ручку, бумагу и 5 минут.</string>
+    <string name="ready_setup">Готовы начать?</string>
+    <string name="ready_setup_details_1">Это только для тебя.</string>
+    <string name="ready_setup_details_2">Установите код доступа к приложению, откройте менеджер паролей или возьмите ручку, чтобы записать его и новую начальную фразу.</string>
+    <string name="ready_setup_details_3">Мы этого не знаем и у нас нет копии!</string>
     <string name="setup_app_passcode">Установить пароль приложения</string>
     <string name="setup_app_details_1">Выберите пароль, чтобы разблокировать свой Brainwallet</string>
     <string name="setup_app_details_2">Это не код блокировки телефона!</string>

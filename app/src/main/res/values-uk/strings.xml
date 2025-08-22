@@ -754,10 +754,10 @@
     <string name="you_saved_it_right">Ви зберегли його, правда?</string>
     <string name="you_saved_it_right_desc">Доведіть це!\nПеретягніть слова в правильному порядку.</string>
     <string name="game_and_sync">Гра та синхронізація</string>
-    <string name="ready_setup">готовий</string>
-    <string name="ready_setup_details_1">Зробіть це для вас. Будь ласка, зробіть це</string>
-    <string name="ready_setup_details_2">поодинці</string>
-    <string name="ready_setup_details_3">Візьміть ручку, папір і 5 хвилин</string>
+    <string name="ready_setup">Готові почати?</string>
+    <string name="ready_setup_details_1">Це тільки для тебе.</string>
+    <string name="ready_setup_details_2">Налаштуйте пароль програми, відкрийте менеджер паролів або візьміть ручку, щоб записати його та нову початкову фразу.</string>
+    <string name="ready_setup_details_3">Ми цього не знаємо і не маємо копії!</string>
     <string name="setup_app_passcode">Налаштуйте пароль програми</string>
     <string name="setup_app_details_1">Виберіть пароль, щоб розблокувати свій Brainwallet</string>
     <string name="setup_app_details_2">Не код блокування телефону!</string>
@@ -774,7 +774,7 @@
     <string name="confirm">Підтвердити</string>
     <string name="confirm_desc">Ви не забули? Введіть його знову. Або поверніться, щоб почати спочатку.</string>
     <string name="ready">Готовий</string>
-    <string name="restore">Відновлення за допомогою початкової фрази</string>
+    <string name="restore">Відновлення за  початкової фрази</string>
     <string name="incorrect_passcode">Неправильний пароль, спробуйте ще раз!</string>
     <string name="down_left_arrow">стрілка вниз-ліворуч</string>
     <string name="logo">логотип</string>

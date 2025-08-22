@@ -748,10 +748,10 @@
     <string name="you_saved_it_right">保存したんですよね？</string>
     <string name="you_saved_it_right_desc">証明してください!\n正しい順序で単語をドラッグしてください。</string>
     <string name="game_and_sync">ゲームと同期</string>
-    <string name="ready_setup">準備ができて？</string>
-    <string name="ready_setup_details_1">あなたのためにこれをしてください。やってください</string>
-    <string name="ready_setup_details_2">一人で</string>
-    <string name="ready_setup_details_3">ペンと紙を用意して 5 分</string>
+    <string name="ready_setup">시작할 준비가 되셨나요?</string>
+    <string name="ready_setup_details_1">これはあなただけのためのものです。</string>
+    <string name="ready_setup_details_2">アプリのパスコードを設定し、パスワード マネージャーを開くか、ペンを用意してパスコードと新しいシード フレーズを記録します。</string>
+    <string name="ready_setup_details_3">私たちはそれを知りませんし、コピーも持っていません!</string>
     <string name="setup_app_passcode">アプリのパスコードを設定する</string>
     <string name="setup_app_details_1">パスコードを選択してブレインウォレットのロックを解除します</string>
     <string name="setup_app_details_2">携帯電話のロックコードではありません。</string>

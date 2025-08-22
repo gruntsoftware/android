@@ -748,10 +748,10 @@
     <string name="you_saved_it_right">Vous l\'avez sauvegardé, n\'est-ce pas ?</string>
     <string name="you_saved_it_right_desc">Prouvez-le !\nFaites glisser les mots dans le bon ordre.</string>
     <string name="game_and_sync">Jeu et synchronisation</string>
-    <string name="ready_setup">Prêt?</string>
-    <string name="ready_setup_details_1">Faites cela pour vous. S\'il te plaît, fais-le</string>
-    <string name="ready_setup_details_2">seul</string>
-    <string name="ready_setup_details_3">Prenez un stylo, du papier et 5 minutes</string>
+    <string name="ready_setup">Prêt à commencer?</string>
+    <string name="ready_setup_details_1">Ceci est pour toi seul.</string>
+    <string name="ready_setup_details_2">Configurez le mot de passe de l\'application, ouvrez votre gestionnaire de mots de passe ou prenez un stylo pour l\'enregistrer ainsi que votre nouvelle phrase de départ.</string>
+    <string name="ready_setup_details_3">Nous ne le savons pas et n’en avons pas de copie !</string>
     <string name="setup_app_passcode">Configurer le mot de passe de l\'application</string>
     <string name="setup_app_details_1">Choisissez un mot de passe pour déverrouiller votre Brainwallet</string>
     <string name="setup_app_details_2">Pas un code de verrouillage du téléphone !</string>

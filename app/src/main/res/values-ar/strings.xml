@@ -386,10 +386,10 @@
     <string name="you_saved_it_right">لقد أنقذته، أليس كذلك؟</string>
     <string name="you_saved_it_right_desc">أثبت ذلك!\nاسحب الكلمات بالترتيب الصحيح.</string>
     <string name="game_and_sync">اللعبة والمزامنة</string>
-    <string name="ready_setup">مستعد؟</string>
-    <string name="ready_setup_details_1">افعل هذا من أجلك. من فضلك افعلها</string>
-    <string name="ready_setup_details_2">وحيد</string>
-    <string name="ready_setup_details_3">أحضر قلمًا وورقة و5 دقائق</string>
+    <string name="ready_setup">؟هل أنت مستعد للبدء؟</string>
+    <string name="ready_setup_details_1">هذا لك وحدك.</string>
+    <string name="ready_setup_details_2">قم بإعداد رمز مرور التطبيق، ثم افتح مدير كلمات المرور الخاص بك أو استخدم قلمًا لتسجيله وعبارة البذرة الجديدة.</string>
+    <string name="ready_setup_details_3">نحن لا نعرفه وليس لدينا نسخة منه!</string>
     <string name="setup_app_passcode">رمز مرور تطبيق الإعداد</string>
     <string name="setup_app_details_1">اختر رمز مرور لفتح Brainwallet الخاص بك</string>
     <string name="setup_app_details_2">ليس رمز قفل الهاتف!</string>
