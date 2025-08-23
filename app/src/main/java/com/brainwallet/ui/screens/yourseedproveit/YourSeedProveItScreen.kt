@@ -13,6 +13,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.draganddrop.dragAndDropSource
 import androidx.compose.foundation.draganddrop.dragAndDropTarget
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,8 +49,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.brainwallet.R
+import com.brainwallet.data.model.AppSetting
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
@@ -58,68 +61,86 @@ import com.brainwallet.ui.composable.BrainwalletTopAppBar
 import com.brainwallet.ui.composable.LargeButton
 import com.brainwallet.ui.composable.SeedWordItem
 import com.brainwallet.ui.composable.SeedWordsLayout
-import org.koin.compose.koinInject
+import com.brainwallet.ui.composable.utils.AutoScrollController
+import com.brainwallet.ui.composable.utils.rememberAutoScrollController
+import com.brainwallet.ui.theme.BrainwalletAppTheme
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun YourSeedProveItScreen(
     onNavigate: OnNavigate,
     seedWords: List<String>,
-    viewModel: YourSeedProveItViewModel = koinInject()
+    modifier: Modifier = Modifier,
+    viewModel: YourSeedProveItViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsState()
     val context = LocalContext.current
-
-    /// Layout values
-    val columnPadding = 12
-    val horizontalVerticalSpacing = 8
-    val spacerHeight = 48
-    val maxItemsPerRow = 3
 
     val clickAudioPlayer = remember { MediaPlayer.create(context, R.raw.clickseedword) }
     val errorAudioPlayer = remember { MediaPlayer.create(context, R.raw.errorsound) }
     val coinAudioPlayer = remember { MediaPlayer.create(context, R.raw.coinflip) }
 
-    LaunchedEffect(Unit) {
-        viewModel.onEvent(YourSeedProveItEvent.OnLoad(seedWords))
-    }
+    LaunchedEffect(Unit) { viewModel.onEvent(YourSeedProveItEvent.OnLoad(seedWords)) }
+    LaunchedEffect(state.orderCorrected) { if (state.orderCorrected) coinAudioPlayer.start() }
 
-    LaunchedEffect(state.orderCorrected) {
-        if (state.orderCorrected) {
-            coinAudioPlayer.start()
-        }
-    }
+    YourSeedProveItScreen(
+        state = state,
+        modifier = modifier,
+        onNavigate = onNavigate,
+        onEvent = viewModel::onEvent,
+        onCorrect = { clickAudioPlayer.start() },
+        onWrong = { errorAudioPlayer.start() }
+    )
+}
 
+@Composable
+private fun YourSeedProveItScreen(
+    state: YourSeedProveItState,
+    modifier: Modifier = Modifier,
+    onNavigate: OnNavigate = {},
+    onEvent: (YourSeedProveItEvent) -> Unit = {},
+    onCorrect: () -> Unit = {},
+    onWrong: () -> Unit = {}
+) {
+    val scrollState = rememberScrollState()
+    val autoScrollController = rememberAutoScrollController(scrollState)
     BrainwalletScaffold(
+        modifier = modifier,
         topBar = {
             BrainwalletTopAppBar(
                 navigationIcon = {
-                    IconButton(
-                        onClick = { onNavigate.invoke(UiEffect.Navigate.Back()) },
-                    ) {
+                    IconButton(onClick = { onNavigate.invoke(UiEffect.Navigate.Back()) }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = stringResource(R.string.back),
                         )
                     }
-                })
+                }
+            )
         },
     ) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .padding(columnPadding.dp)
-                .verticalScroll(rememberScrollState()),
+                .padding(12.dp)
+                .verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
+            // --- Header ---
             Text(
-                text = stringResource(if (state.orderCorrected) R.string.you_saved_your_keys else R.string.you_saved_it_right),
+                text = stringResource(
+                    if (state.orderCorrected) R.string.you_saved_your_keys
+                    else R.string.you_saved_it_right
+                ),
                 style = MaterialTheme.typography.headlineSmall,
             )
-
             Text(
-                text = stringResource(if (state.orderCorrected) R.string.you_saved_your_keys_desc else R.string.you_saved_it_right_desc),
+                text = stringResource(
+                    if (state.orderCorrected) R.string.you_saved_your_keys_desc
+                    else R.string.you_saved_it_right_desc
+                ),
                 style = MaterialTheme.typography.bodyMedium.copy(
                     textAlign = TextAlign.Center,
                     color = Color.Gray
@@ -128,66 +149,56 @@ fun YourSeedProveItScreen(
 
             Spacer(modifier = Modifier.weight(0.1f))
 
+            // --- Correct words area ---
             SeedWordsLayout {
-                itemsIndexed(items = state.correctSeedWords.values.toList()) { index: Int, (expectedWord, actualWord): SeedWordItem ->
-                    val label = if (expectedWord != actualWord && actualWord.isEmpty()) {
-                        "${index + 1}"
-                    } else {
-                        "${index + 1} $actualWord"
-                    }
+                itemsIndexed(state.correctSeedWords.values.toList()) { index, (expected, actual) ->
+                    val label =
+                        if (expected != actual && actual.isEmpty()) "${index + 1}"
+                        else "${index + 1} $actual"
 
                     SeedWordItem(
                         modifier = Modifier
                             .fillMaxWidth()
                             .dragAndDropTarget(
-                                shouldStartDragAndDrop = { event ->
-                                    event
-                                        .mimeTypes()
-                                        .contains(ClipDescription.MIMETYPE_TEXT_PLAIN)
+                                shouldStartDragAndDrop = { e ->
+                                    e.mimeTypes().contains(ClipDescription.MIMETYPE_TEXT_PLAIN)
                                 },
                                 target = remember {
-                                    object : DragAndDropTarget {
-                                        override fun onDrop(event: DragAndDropEvent): Boolean {
-                                            val text = event.toAndroidDragEvent().clipData
-                                                ?.getItemAt(0)?.text
-
-                                            viewModel.onEvent(
-                                                YourSeedProveItEvent.OnDropSeedWordItem(
-                                                    index = index,
-                                                    expectedWord = expectedWord,
-                                                    actualWord = text.toString()
-                                                )
-
-                                            )
-                                            if (text.toString() == expectedWord) {
-                                                clickAudioPlayer.start() // Success sound
-                                            }
-                                            else {
-                                                errorAudioPlayer.start() // Success sound
-                                            }
-                                            return true
-                                        }
-                                    }
+                                    seedWordTarget(
+                                        index = index,
+                                        expectedWord = expected,
+                                        onEvent = onEvent,
+                                        onCorrect = onCorrect,
+                                        onWrong = onWrong,
+                                        autoScrollController = autoScrollController
+                                    )
                                 }
                             ),
                         label = label,
-                        isError = actualWord.isNotEmpty() && expectedWord != actualWord,
+                        isError = actual.isNotEmpty() && expected != actual,
                     )
                 }
             }
 
             Spacer(modifier = Modifier.weight(1f))
+
+            // --- Instructions ---
             Text(
-                text = stringResource(if (state.orderCorrected) R.string.empty_string else R.string.tap_drag_a_word),
+                text = stringResource(
+                    if (state.orderCorrected) R.string.empty_string
+                    else R.string.tap_drag_a_word
+                ),
                 style = MaterialTheme.typography.bodyMedium.copy(
                     textAlign = TextAlign.Center,
                     color = Color.Gray
                 )
             )
+
             Spacer(modifier = Modifier.weight(0.1f))
 
+            // --- Shuffled words area ---
             SeedWordsLayout {
-                itemsIndexed(items = state.shuffledSeedWords) { index, (correctIndex, word) ->
+                itemsIndexed(state.shuffledSeedWords) { index, (correctIndex, word) ->
                     if (state.isWordUsedCorrectly(correctIndex, word)) {
                         Box(modifier = Modifier.fillMaxWidth())
                     } else {
@@ -199,10 +210,7 @@ fun YourSeedProveItScreen(
                                         onPress = {
                                             startTransfer(
                                                 DragAndDropTransferData(
-                                                    clipData = ClipData.newPlainText(
-                                                        "text",
-                                                        word
-                                                    ),
+                                                    clipData = ClipData.newPlainText("text", word),
                                                     flags = View.DRAG_FLAG_GLOBAL
                                                 )
                                             )
@@ -218,27 +226,81 @@ fun YourSeedProveItScreen(
                             }
                         )
                     }
-
-
                 }
             }
 
-
+            // --- Action button ---
             LargeButton(
                 onClick = {
                     if (state.orderCorrected) {
                         onNavigate.invoke(UiEffect.Navigate(Route.TopUp))
                     } else {
-                        viewModel.onEvent(YourSeedProveItEvent.OnClear)
+                        onEvent(YourSeedProveItEvent.OnClear)
                     }
-                },
+                }
             ) {
                 Text(
-                    text = stringResource(if (state.orderCorrected) R.string.game_and_sync else R.string.reset_start_over).uppercase(),
+                    text = stringResource(
+                        if (state.orderCorrected) R.string.game_and_sync
+                        else R.string.reset_start_over
+                    ).uppercase(),
                     style = MaterialTheme.typography.labelLarge
                 )
             }
-
         }
+    }
+}
+
+private fun seedWordTarget(
+    index: Int,
+    expectedWord: String,
+    onEvent: (YourSeedProveItEvent) -> Unit,
+    onCorrect: () -> Unit,
+    onWrong: () -> Unit,
+    autoScrollController: AutoScrollController,
+): DragAndDropTarget = object : DragAndDropTarget {
+    override fun onStarted(event: DragAndDropEvent) = autoScrollController.update(event)
+    override fun onEntered(event: DragAndDropEvent) = autoScrollController.update(event)
+    override fun onMoved(event: DragAndDropEvent) = autoScrollController.update(event)
+    override fun onChanged(event: DragAndDropEvent) = autoScrollController.update(event)
+    override fun onExited(event: DragAndDropEvent) = autoScrollController.stop()
+    override fun onEnded(event: DragAndDropEvent) = autoScrollController.stop()
+
+    override fun onDrop(event: DragAndDropEvent): Boolean {
+        autoScrollController.stop()
+        val word = event.toAndroidDragEvent().clipData?.getItemAt(0)?.text?.toString().orEmpty()
+        onEvent(
+            YourSeedProveItEvent.OnDropSeedWordItem(
+                index = index,
+                expectedWord = expectedWord,
+                actualWord = word
+            )
+        )
+        if (word == expectedWord) onCorrect() else onWrong()
+        return true
+    }
+}
+
+@PreviewLightDark
+@Composable
+private fun YourSeedProveItScreenPreview() {
+    BrainwalletAppTheme(appSetting = AppSetting(isSystemInDarkTheme())) {
+        val dummyState = YourSeedProveItState(
+            correctSeedWords = mapOf(
+                0 to SeedWordItem(expected = "apple", actual = "apple"),
+                1 to SeedWordItem(expected = "banana", actual = "mango"), // wrong
+                2 to SeedWordItem(expected = "cherry", actual = "")
+            ),
+            shuffledSeedWords = listOf(
+                0 to "apple",
+                1 to "mango",
+                2 to "cherry"
+            ),
+            orderCorrected = false
+        )
+
+        YourSeedProveItScreen(
+            state = dummyState
+        )
     }
 }
