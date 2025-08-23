@@ -90,7 +90,6 @@ fun ReceiveDialog(
     val appSetting by viewModel.appSetting.collectAsState()
     val context = LocalContext.current
     val wheelPickerFiatCurrencyState = rememberWheelPickerState(0)
-
     LaunchedEffect(Unit) {
         viewModel.onEvent(ReceiveDialogEvent.OnLoad(context))
         viewModel.uiEffect.collect { effect ->
