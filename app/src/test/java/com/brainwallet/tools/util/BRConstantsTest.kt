@@ -16,12 +16,12 @@ class BRConstantsTest {
 
     @Test
     fun `validate App external URL constant`(){
-        assertSame(BRConstants.TWITTER_LINK,"https://twitter.com/Brainwallet_App");
-        assertSame(BRConstants.INSTAGRAM_LINK,"https://www.instagram.com/brainwalletapp");
-        assertSame(BRConstants.WEB_LINK,"https://brainwallet.co");
-        assertSame(BRConstants.TOS_LINK,"https://brainwallet.co/privacy-policy.html");
-        assertSame(BRConstants.MOBILE_MP_LINK,"https://brainwallet.co/mobile-top-up.html");
-        assertSame(BRConstants.BITREFILL_AFFILIATE_LINK,"https://www.bitrefill.com/");
+        assertSame(BRConstants.TWITTER_LINK,"https://twitter.com/Brainwallet_App")
+        assertSame(BRConstants.INSTAGRAM_LINK,"https://www.instagram.com/brainwalletapp")
+        assertSame(BRConstants.WEB_LINK,"https://brainwallet.co")
+        assertSame(BRConstants.TOS_LINK,"https://brainwallet.co/privacy-policy.html")
+        assertSame(BRConstants.MOBILE_MP_LINK,"https://brainwallet.co/mobile-top-up.html")
+        assertSame(BRConstants.BITREFILL_AFFILIATE_LINK,"https://www.bitrefill.com/")
     }
 
     @Test
@@ -89,7 +89,7 @@ class BRConstantsTest {
 //    public ActivityScenarioRule<IntroActivity> mActivityRule = new ActivityScenarioRule<>(IntroActivity.class);
 //    @Before
 //    public void setUp() {
-//        Log.e(TAG, "setUp: ");
+//        Log.e(TAG, "setUp: ")
 //    }
 //
 //    @After
@@ -97,16 +97,16 @@ class BRConstantsTest {
 //    }
 //    @Test
 //    public void testLitecoinSymbolConstants() {
-//        Assert.assertSame(BRConstants.litecoinLowercase,"ł");
-//        Assert.assertSame(BRConstants.litecoinUppercase,"Ł");
+//        Assert.assertSame(BRConstants.litecoinLowercase,"ł")
+//        Assert.assertSame(BRConstants.litecoinUppercase,"Ł")
 //    }
 //    @Test
 //    public void testAppExternalURLConstants() {
-//        Assert.assertSame(BRConstants.TWITTER_LINK,"https://twitter.com/Brainwallet_App");
-//        Assert.assertSame(BRConstants.WEB_LINK,"https://brainwallet.co");
-//        Assert.assertSame(BRConstants.TOS_LINK,"https://brainwallet.co/privacy");
-//        Assert.assertSame(BRConstants.CUSTOMER_SUPPORT_LINK,"https://support.brainwallet.co/hc/en-us/requests/new");
-//        Assert.assertSame(BRConstants.BITREFILL_AFFILIATE_LINK,"https://www.bitrefill.com/");
+//        Assert.assertSame(BRConstants.TWITTER_LINK,"https://twitter.com/Brainwallet_App")
+//        Assert.assertSame(BRConstants.WEB_LINK,"https://brainwallet.co")
+//        Assert.assertSame(BRConstants.TOS_LINK,"https://brainwallet.co/privacy")
+//        Assert.assertSame(BRConstants.CUSTOMER_SUPPORT_LINK,"https://support.brainwallet.co/hc/en-us/requests/new")
+//        Assert.assertSame(BRConstants.BITREFILL_AFFILIATE_LINK,"https://www.bitrefill.com/")
 //    }
 //    @Test
 //    public void testFirebaseAnalyticsConstants() {

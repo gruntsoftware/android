@@ -51,6 +51,10 @@ class YourSeedProveItViewModel : BrainwalletViewModel<YourSeedProveItEvent>() {
             }
 
             YourSeedProveItEvent.OnGameAndSync -> viewModelScope.launch {
+                EventBus.emit(EventBus.Event.Message(LEGACY_NAVIGATE_TO_HOME))
+            }
+
+            YourSeedProveItEvent.OnCompletedPaperKey -> viewModelScope.launch {
                 EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_PAPERKEY_PROVED))
             }
         }
@@ -58,5 +62,6 @@ class YourSeedProveItViewModel : BrainwalletViewModel<YourSeedProveItEvent>() {
 
     companion object {
         const val LEGACY_EFFECT_ON_PAPERKEY_PROVED = "onPaperKeyProved"
+        const val LEGACY_NAVIGATE_TO_HOME = "navigateToHome"
     }
 }
