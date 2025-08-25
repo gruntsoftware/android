@@ -35,6 +35,7 @@ koin-annotation-bom = "2.1.0"
 ksp = "2.0.0-1.0.24"
 turbine = "1.2.1"
 coroutines = "1.10.2"
+slf4j = "1.7.36"
 
 [libraries]
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core-ktx" }
@@ -122,6 +123,7 @@ koin-annotation-compiler = { module = "io.insert-koin:koin-ksp-compiler", versio
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlinx-coroutines-tests = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+slf4j-android = { module = "org.slf4j:slf4j-android", version.ref = "slf4j" }
 
 [bundles]
 androidx-lifecycle = ["androidx-lifecycle-runtime", "androidx-lifecycle-viewmodel", "androidx-lifecycle-viewmodel-compose"]
