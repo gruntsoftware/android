@@ -13,5 +13,7 @@ sealed class YourSeedProveItEvent {
 
     object OnGameAndSync : YourSeedProveItEvent()
 
+    object OnCompletedPaperKey : YourSeedProveItEvent()
+
     object OnClear : YourSeedProveItEvent()
 }
