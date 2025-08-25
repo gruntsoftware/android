@@ -33,6 +33,8 @@ mockk = "1.13.13"
 koin-bom = "4.0.2"
 koin-annotation-bom = "2.1.0"
 ksp = "2.0.0-1.0.24"
+turbine = "1.2.1"
+coroutines = "1.10.2"
 
 [libraries]
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core-ktx" }
@@ -117,6 +119,9 @@ koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel" }
 koin-annotation-bom = { module = "io.insert-koin:koin-annotations-bom", version.ref = "koin-annotation-bom" }
 koin-annotation = { module = "io.insert-koin:koin-annotations" }
 koin-annotation-compiler = { module = "io.insert-koin:koin-ksp-compiler", version.ref = "koin-annotation-bom" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+kotlinx-coroutines-tests = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 
 [bundles]
 androidx-lifecycle = ["androidx-lifecycle-runtime", "androidx-lifecycle-viewmodel", "androidx-lifecycle-viewmodel-compose"]

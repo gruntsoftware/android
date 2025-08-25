@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.view.Display;
 import android.view.WindowManager;
@@ -66,6 +67,51 @@ public class QRUtils {
         return bitmap;
     }
 
+    public static Bitmap encodeAsTransparentBitmap(String content, int dimension) {
+        if (content == null) {
+            return null;
+        }
+
+        Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
+        String encoding = guessAppropriateEncoding(content);
+        if (encoding != null) {
+            hints.put(EncodeHintType.CHARACTER_SET, encoding);
+        }
+        hints.put(EncodeHintType.MARGIN, 1);
+
+        BitMatrix result;
+        try {
+            result = new MultiFormatWriter().encode(
+                    content,
+                    BarcodeFormat.QR_CODE,
+                    dimension,
+                    dimension,
+                    hints
+            );
+        } catch (IllegalArgumentException | WriterException e) {
+            Timber.e(e);
+            return null;
+        }
+
+        if (result == null) return null;
+
+        int width = result.getWidth();
+        int height = result.getHeight();
+        int[] pixels = new int[width * height];
+
+        for (int y = 0; y < height; y++) {
+            int offset = y * width;
+            for (int x = 0; x < width; x++) {
+                // Black pixels stay black, white becomes transparent
+                pixels[offset + x] = result.get(x, y) ? Color.BLACK : Color.TRANSPARENT;
+            }
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
+        return bitmap;
+    }
+
     public static boolean generateQR(Context ctx, String bitcoinURL, ImageView qrcode) {
         if (qrcode == null || bitcoinURL == null || bitcoinURL.isEmpty()) return false;
         WindowManager manager = (WindowManager) ctx.getSystemService(Activity.WINDOW_SERVICE);
@@ -94,7 +140,7 @@ public class QRUtils {
         int smallerDimension = Math.min(width, height);
         smallerDimension = (int) (smallerDimension * 0.45f);
         Bitmap bitmap = null;
-        bitmap = QRUtils.encodeAsBitmap(litecoinUrl, smallerDimension);
+        bitmap = QRUtils.encodeAsTransparentBitmap(litecoinUrl, smallerDimension);
         return bitmap;
     }
 

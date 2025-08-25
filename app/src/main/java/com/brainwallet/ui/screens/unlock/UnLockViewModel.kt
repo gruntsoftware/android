@@ -1,17 +1,18 @@
 package com.brainwallet.ui.screens.unlock
 
 import androidx.lifecycle.viewModelScope
+import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
-import com.brainwallet.tools.manager.BRSharedPrefs
-import com.brainwallet.tools.sqlite.CurrencyDataSource
 import com.brainwallet.tools.util.BRConstants
-import com.brainwallet.tools.util.BRCurrency
 import com.brainwallet.ui.BrainwalletViewModel
+import com.brainwallet.util.CurrencyDataGetter
 import com.brainwallet.util.EventBus
+import com.brainwallet.util.VersionCodeProvider
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.launch
@@ -20,9 +21,14 @@ import timber.log.Timber
 import java.math.BigDecimal
 
 @KoinViewModel
-class UnLockViewModel : BrainwalletViewModel<UnLockEvent>() {
+class UnLockViewModel(
+    versionCodeProvider: VersionCodeProvider,
+    private val settingRepository: SettingRepository,
+    private val currencyDataGetter: CurrencyDataGetter
+) : BrainwalletViewModel<UnLockEvent>() {
 
-    private val _state = MutableStateFlow(UnLockState())
+    private val _state =
+        MutableStateFlow(UnLockState(formattedVersion = versionCodeProvider.getFormatted()))
     val state: StateFlow<UnLockState> = _state.asStateFlow()
 
     override fun onEvent(event: UnLockEvent) {
@@ -73,17 +79,16 @@ class UnLockViewModel : BrainwalletViewModel<UnLockEvent>() {
             }
 
             is UnLockEvent.OnLoad -> {
-                val iso = BRSharedPrefs.getIsoSymbol(event.context)
+                val iso = currencyDataGetter.getIsoSymbol()
 
                 var formattedCurrency: String? = null
-                val currency = CurrencyDataSource.getInstance(event.context).getCurrencyByIso(iso)
+                val currency = currencyDataGetter.getCurrencyByIso(iso)
                 if (currency != null) {
                     val roundedPriceAmount: BigDecimal =
                         BigDecimal(currency.rate.toDouble()).multiply(BigDecimal(100))
                             .divide(BigDecimal(100), 2, BRConstants.ROUNDING_MODE)
                     formattedCurrency =
-                        BRCurrency.getFormattedCurrencyString(
-                            event.context,
+                        currencyDataGetter.getFormattedCurrencyString(
                             iso,
                             roundedPriceAmount
                         )
@@ -102,6 +107,16 @@ class UnLockViewModel : BrainwalletViewModel<UnLockEvent>() {
                     }
                 }
             }
+
+            UnLockEvent.OnToggleDarkMode -> viewModelScope.launch {
+                settingRepository.settings.firstOrNull()?.let {
+                    settingRepository.save(
+                        it.copy(isDarkMode = it.isDarkMode.not())
+                    )
+                }
+            }
+
+            UnLockEvent.OnQrClicked -> sendUiEffect(UiEffect.ShowMoonPayDialog)
         }
     }
 }
