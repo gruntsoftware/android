@@ -6,6 +6,7 @@ data class UnLockState(
     val iso: String = "USD",
     val formattedCurrency: String = "",
     val isUpdatePin: Boolean = false,
+    val formattedVersion: String = ""
 )
 
 fun UnLockState.isPasscodeFilled(): Boolean = passcode.all { it > -1 }
