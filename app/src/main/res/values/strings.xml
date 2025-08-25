@@ -785,10 +785,10 @@
     <string name="you_saved_it_right">You saved it, right?</string>
     <string name="you_saved_it_right_desc">Prove it!\nDrag the words in the correct order.</string>
     <string name="game_and_sync">Game &amp; Sync</string>
-    <string name="ready_setup">Ready?</string>
-    <string name="ready_setup_details_1">Do this for you. Please do it</string>
-    <string name="ready_setup_details_2">alone</string>
-    <string name="ready_setup_details_3">Grab a pen, paper and 5 minutes</string>
+    <string name="ready_setup">Ready to start?</string>
+    <string name="ready_setup_details_1">This is for you alone.</string>
+    <string name="ready_setup_details_2">Setup the app passcode, open your password manager or grab a pen to record it &amp; your new seed phrase.</string>
+    <string name="ready_setup_details_3">We do not know it nor do we have a copy!</string>
     <string name="setup_app_passcode">Setup app passcode</string>
     <string name="setup_app_details_1">Pick  a passcode to unlock your Brainwallet</string>
     <string name="setup_app_details_2">Not a phone lock code!</string>
@@ -811,7 +811,7 @@
     <string name="confirm">Confirm</string>
     <string name="confirm_desc">You didn’t forget did you? Enter it again. Or, go back to start over.</string>
     <string name="ready">Ready</string>
-    <string name="restore">Restore</string>
+    <string name="restore">Restore With Seed Phrase</string>
     <string name="incorrect_passcode">Incorrect Passcode, please try again!</string>
     <string name="down_left_arrow">down-left-arrow</string>
     <string name="logo">logo</string>

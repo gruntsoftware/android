@@ -55,10 +55,10 @@ fun ReadyScreen(
     }
 
     /// Layout values
-    val leadingCopyPadding = 16
+    val leadingCopyPadding = 18
 
     val horizontalVerticalSpacing = 8
-    val spacerHeight = 90
+    val spacerHeight = 40
 
     val activeRowHeight = 70
 
@@ -89,7 +89,7 @@ fun ReadyScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
         ) {
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.weight(0.5f))
             Row {
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowForward,
@@ -101,28 +101,27 @@ fun ReadyScreen(
                             scaleY = 2f
                         )
                 )
-                Spacer(modifier = Modifier.weight(1f))
+                Spacer(modifier = Modifier.weight(0.3f))
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
 
             Text(
                 text = stringResource(R.string.ready_setup),
                 style = MaterialTheme.typography.displaySmall.copy(textAlign = TextAlign.Left),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                fontWeight = FontWeight.Bold
             )
 
             Text(
                 text = buildAnnotatedString {
                     append(stringResource(R.string.ready_setup_details_1))
-                    append(" ")
-                    withStyle(
-                        style = SpanStyle(
-                            fontWeight = FontWeight.Bold,
-                        )
-                    ) {
-                        append(stringResource(R.string.ready_setup_details_2))
+                    append("\n\n")
+                    append(stringResource(R.string.ready_setup_details_2))
+                    append("\n\n")
+                    withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                        append(stringResource(R.string.ready_setup_details_3))
                     }
-                    append(". ")
-                    append(stringResource(R.string.ready_setup_details_3))
                 },
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.fillMaxWidth()

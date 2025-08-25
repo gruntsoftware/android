@@ -770,10 +770,10 @@
     <string name="you_saved_it_right">Onu kurtardın, değil mi?</string>
     <string name="you_saved_it_right_desc">Kanıtlayın!\nKelimeleri doğru sıraya göre sürükleyin.</string>
     <string name="game_and_sync">Oyun ve Senkronizasyon</string>
-    <string name="ready_setup">Hazır?</string>
-    <string name="ready_setup_details_1">Bunu kendin için yap. Lütfen yap</string>
-    <string name="ready_setup_details_2">yalnız</string>
-    <string name="ready_setup_details_3">Bir kalem, kağıt alın ve 5 dakika</string>
+    <string name="ready_setup">Başlamaya hazır mısınız?</string>
+    <string name="ready_setup_details_1">Bu sadece sana özel.</string>
+    <string name="ready_setup_details_2">Uygulama şifrenizi ayarlayın, şifre yöneticinizi açın veya bir kalem alıp şifrenizi ve yeni başlangıç ​​cümlenizi kaydedin.</string>
+    <string name="ready_setup_details_3">Biz bunu bilmiyoruz, kopyası da bizde yok!</string>
     <string name="setup_app_passcode">Uygulama şifresini ayarla</string>
     <string name="setup_app_details_1">Beyin Cüzdanınızın kilidini açmak için bir şifre seçin</string>
     <string name="setup_app_details_2">Telefon kilit kodu değil!</string>
@@ -790,7 +790,7 @@
     <string name="confirm">Onaylamak</string>
     <string name="confirm_desc">Unutmadın değil mi? Tekrar girin. Veya baştan başlamak için geri dönün.</string>
     <string name="ready">Hazır</string>
-    <string name="restore">Eski haline getirmek</string>
+    <string name="restore">Tohum İfadesi ile Geri Yükle</string>
     <string name="incorrect_passcode">Yanlış Şifre, lütfen tekrar deneyin!</string>
     <string name="down_left_arrow">sol aşağı ok</string>
     <string name="logo">logo</string>

@@ -750,10 +750,10 @@
     <string name="you_saved_it_right">Anda menyimpannya, kan?</string>
     <string name="you_saved_it_right_desc">Buktikan!\nSeret kata-kata dalam urutan yang benar.</string>
     <string name="game_and_sync">Permainan &amp; Sinkronisasi</string>
-    <string name="ready_setup">Siap?</string>
+    <string name="ready_setup">Siap untuk memulai?</string>
     <string name="ready_setup_details_1">Lakukan ini untukmu. Tolong lakukan itu</string>
-    <string name="ready_setup_details_2">sendiri</string>
-    <string name="ready_setup_details_3">Ambil pena, kertas, dan 5 menit</string>
+    <string name="ready_setup_details_2">Atur kode sandi aplikasi, buka pengelola kata sandi Anda atau ambil pena untuk mencatatnya &amp; frasa benih baru Anda.</string>
+    <string name="ready_setup_details_3">Kami tidak mengetahuinya dan kami tidak memiliki salinannya!</string>
     <string name="setup_app_passcode">Siapkan kode sandi aplikasi</string>
     <string name="setup_app_details_1">Pilih kode sandi untuk membuka kunci Brainwallet Anda</string>
     <string name="setup_app_details_2">Bukan kode kunci telepon!</string>
@@ -770,7 +770,7 @@
     <string name="confirm">Mengonfirmasi</string>
     <string name="confirm_desc">Kamu tidak lupa kan? Masukkan lagi. Atau, kembali untuk memulai kembali.</string>
     <string name="ready">Siap</string>
-    <string name="restore">Memulihkan</string>
+    <string name="restore">Pulihkan dengan Seed Phrase</string>
     <string name="incorrect_passcode">Kode Sandi salah, silakan coba lagi!</string>
     <string name="down_left_arrow">panah kiri bawah</string>
     <string name="logo">logo</string>

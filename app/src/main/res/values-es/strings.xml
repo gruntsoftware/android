@@ -747,10 +747,10 @@
     <string name="you_saved_it_right">Lo guardaste, ¿verdad?</string>
     <string name="you_saved_it_right_desc">¡Pruébalo!\nArrastra las palabras en el orden correcto.</string>
     <string name="game_and_sync">Juego y sincronización</string>
-    <string name="ready_setup">¿Listo?</string>
-    <string name="ready_setup_details_1">Haz esto por ti. por favor hazlo</string>
-    <string name="ready_setup_details_2">solo</string>
-    <string name="ready_setup_details_3">Coge bolígrafo, papel y 5 minutos.</string>
+    <string name="ready_setup">¿Listo para empezar?</string>
+    <string name="ready_setup_details_1">Esto es solo para ti.</string>
+    <string name="ready_setup_details_2">Configura el código de acceso de la aplicación, abre tu administrador de contraseñas o toma un bolígrafo para registrarlo junto con tu nueva frase inicial.</string>
+    <string name="ready_setup_details_3">¡No lo sabemos ni tenemos copia!</string>
     <string name="setup_app_passcode">Configurar el código de acceso de la aplicación</string>
     <string name="setup_app_details_1">Elija una contraseña para desbloquear su Brainwallet</string>
     <string name="setup_app_details_2">¡No es un código de bloqueo del teléfono!</string>
@@ -767,7 +767,7 @@
     <string name="confirm">Confirmar</string>
     <string name="confirm_desc">No lo olvidaste ¿verdad? Ingrese nuevamente. O regrese para empezar de nuevo.</string>
     <string name="ready">Listo</string>
-    <string name="restore">Restaurar</string>
+    <string name="restore">Restaurar con frase semilla</string>
     <string name="incorrect_passcode">Código de acceso incorrecto, ¡inténtelo de nuevo!</string>
     <string name="down_left_arrow">flecha abajo-izquierda</string>
     <string name="logo">logo</string>
