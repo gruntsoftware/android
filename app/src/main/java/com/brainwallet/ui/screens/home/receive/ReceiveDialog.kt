@@ -63,7 +63,8 @@ import androidx.fragment.app.FragmentManager
 import com.brainwallet.R
 import com.brainwallet.data.model.getFormattedText
 import com.brainwallet.data.model.isCustom
-import com.brainwallet.navigation.LegacyNavigation
+import com.brainwallet.navigation.MoonPayWidgetLauncher
+import com.brainwallet.navigation.MoonPayWidgetLauncherViewModel
 import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.composable.MoonpayBuyButton
 import com.brainwallet.ui.composable.VerticalWheelPicker
@@ -77,13 +78,14 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import org.koin.android.ext.android.inject
-import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 import timber.log.Timber
 
 @Composable
 fun ReceiveDialog(
     onDismissRequest: () -> Unit,
-    viewModel: ReceiveDialogViewModel = koinInject()
+    viewModel: ReceiveDialogViewModel = koinViewModel(),
+    moonPayWidgetLauncherViewModel: MoonPayWidgetLauncherViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsState()
     val loadingState by viewModel.loadingState.collectAsState()
@@ -369,24 +371,23 @@ fun ReceiveDialog(
                     //todo: revisit this later
                     //viewModel.onEvent(ReceiveDialogEvent.OnMoonpayButtonClick)
 
-                    LegacyNavigation.showMoonPayWidget(
-                        context = context,
+                    moonPayWidgetLauncherViewModel.launch(
                         params = mapOf(
                             "baseCurrencyCode" to state.selectedFiatCurrency.code,
                             "baseCurrencyAmount" to state.fiatAmount.toString(),
                             "language" to appSetting.languageCode,
                             "walletAddress" to state.address,
                         ),
-                        isDarkMode = appSetting.isDarkMode
                     )
-                    onDismissRequest.invoke()
                 },
             )
 
 //            }
         }
-
-
+        MoonPayWidgetLauncher(
+            viewModel = moonPayWidgetLauncherViewModel,
+            onResult = onDismissRequest
+        )
     }
 }
 
