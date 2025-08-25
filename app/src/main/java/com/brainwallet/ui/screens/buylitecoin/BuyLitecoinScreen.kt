@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -26,22 +25,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.brainwallet.R
-import com.brainwallet.navigation.LegacyNavigation
+import com.brainwallet.navigation.MoonPayWidgetLauncher
+import com.brainwallet.navigation.MoonPayWidgetLauncherViewModel
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
 import com.brainwallet.ui.composable.LargeButton
-import com.brainwallet.ui.composable.LoadingDialog
-import com.brainwallet.ui.screens.home.receive.ReceiveDialogEvent
 import com.brainwallet.ui.theme.BrainwalletTheme
-import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 
 //TODO: wip
 @Composable
 fun BuyLitecoinScreen(
     onNavigate: OnNavigate,
-    viewModel: BuyLitecoinViewModel = koinInject()
+    viewModel: BuyLitecoinViewModel = koinViewModel(),
+    moonPayWidgetLauncherViewModel: MoonPayWidgetLauncherViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsState()
     val loadingState by viewModel.loadingState.collectAsState()
@@ -148,21 +147,20 @@ fun BuyLitecoinScreen(
                 modifier = Modifier.align(Alignment.BottomCenter),
                 enabled = loadingState.visible.not(),
                 onClick = {
-                    //open bread activity first then open moonpay widget
-                    LegacyNavigation.restartBreadActivity(context)
-                    LegacyNavigation.showMoonPayWidget(
-                        context = context,
+                    moonPayWidgetLauncherViewModel.launch(
                         params = mapOf(
                             "baseCurrencyCode" to appSetting.currency.code,
                             "baseCurrencyAmount" to state.fiatAmount.toString(),
                             "language" to appSetting.languageCode,
                             "walletAddress" to state.address
-                        )
+                        ),
+
                     )
                 }
             ) {
                 Text(stringResource(R.string.buy_litecoin_button_moonpay))
             }
         }
+        MoonPayWidgetLauncher(viewModel = moonPayWidgetLauncherViewModel)
     }
 }
