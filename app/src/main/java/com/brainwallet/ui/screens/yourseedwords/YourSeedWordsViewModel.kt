@@ -5,7 +5,9 @@ import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.BrainwalletViewModel
 import kotlinx.coroutines.launch
+import org.koin.android.annotation.KoinViewModel
 
+@KoinViewModel
 class YourSeedWordsViewModel : BrainwalletViewModel<YourSeedWordsEvent>() {
 
     override fun onEvent(event: YourSeedWordsEvent) {

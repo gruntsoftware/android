@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.ksp)
 }
 
 val localProperties = gradleLocalProperties(rootDir, providers)
@@ -20,8 +21,8 @@ android {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 36
-        versionCode = 202506293
-        versionName = "v4.7.0"
+        versionCode = 202506295
+        versionName = "v4.7.2"
 
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
@@ -187,6 +188,13 @@ dependencies {
         }
     }
 
+    val gamesModule = findProject(":modules:games:content")
+    if (gamesModule != null) {
+        implementation(gamesModule)
+    } else {
+        logger.lifecycle("⚠️ Submodule ':modules:games:content' not found — skipping dependency")
+    }
+
     implementation("androidx.webkit:webkit:1.9.0")
     implementation(libs.androidx.core)
     implementation(libs.androidx.appcompat)
@@ -215,6 +223,9 @@ dependencies {
     implementation (libs.airbnb.lottie.compose)
     implementation(platform(libs.koin.bom))
     implementation(libs.bundles.koin)
+    implementation(platform(libs.koin.annotation.bom))
+    implementation(libs.koin.annotation)
+    ksp(libs.koin.annotation.compiler)
 
     implementation(platform(libs.squareup.okhttp.bom))
     implementation(libs.bundles.squareup.okhttp)

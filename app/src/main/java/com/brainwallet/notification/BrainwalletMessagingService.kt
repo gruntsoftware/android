@@ -1,11 +1,13 @@
 package com.brainwallet.notification
 
+import com.brainwallet.di.AppModule
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import timber.log.Timber
 
-
-class BrainwalletMessagingService : FirebaseMessagingService() {
+class BrainwalletMessagingService(
+    private val notificationHandler: NotificationHandler = AppModule.getKoinInstance()
+) : FirebaseMessagingService() {
 
     override fun onCreate() {
         super.onCreate()
@@ -19,7 +21,7 @@ class BrainwalletMessagingService : FirebaseMessagingService() {
         Timber.d("timber: onMessageReceived data=${message.data}")
         Timber.d("timber: onMessageReceived notification=${message.notification?.title}, ${message.notification?.body}")
 
-        if (NotificationHandler.handleMessageReceived(this, message)) {
+        if (notificationHandler.handleMessageReceived(this, message)) {
             return
         }
     }

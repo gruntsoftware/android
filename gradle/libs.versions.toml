@@ -31,6 +31,8 @@ eclipse-jetty = "9.2.19.v20160908"
 junit = "4.13.2"
 mockk = "1.13.13"
 koin-bom = "4.0.2"
+koin-annotation-bom = "2.1.0"
+ksp = "2.0.0-1.0.24"
 
 [libraries]
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core-ktx" }
@@ -112,7 +114,9 @@ koin-android = { module = "io.insert-koin:koin-android" }
 koin-android-compat = { module = "io.insert-koin:koin-android-compat" }
 koin-compose = { module = "io.insert-koin:koin-compose" }
 koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel" }
-
+koin-annotation-bom = { module = "io.insert-koin:koin-annotations-bom", version.ref = "koin-annotation-bom" }
+koin-annotation = { module = "io.insert-koin:koin-annotations" }
+koin-annotation-compiler = { module = "io.insert-koin:koin-ksp-compiler", version.ref = "koin-annotation-bom" }
 
 [bundles]
 androidx-lifecycle = ["androidx-lifecycle-runtime", "androidx-lifecycle-viewmodel", "androidx-lifecycle-viewmodel-compose"]
@@ -131,9 +135,11 @@ squareup-okhttp = ["squareup-okhttp", "squareup-okhttp-logging-interceptor"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 jetbrains-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version = "2.1.0" }
 jetbrains-kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 google-services = { id = "com.google.gms.google-services", version = "4.4.2" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.2" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

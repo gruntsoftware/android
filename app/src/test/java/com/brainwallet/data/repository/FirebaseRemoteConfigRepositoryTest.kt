@@ -1,5 +1,6 @@
-package com.brainwallet.data.source
+package com.brainwallet.data.repository
 
+import com.brainwallet.data.source.RemoteConfigSource
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import io.mockk.every
@@ -10,14 +11,14 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
-class RemoteConfigSourceFirebaseImplTest {
+class FirebaseRemoteConfigRepositoryTest {
 
     private val firebaseRemoteConfig: FirebaseRemoteConfig = mockk(relaxed = true)
     private lateinit var remoteConfigSource: RemoteConfigSource
 
     @Before
     fun setUp() {
-        remoteConfigSource = RemoteConfigSource.FirebaseImpl(firebaseRemoteConfig)
+        remoteConfigSource = FirebaseRemoteConfigRepository(firebaseRemoteConfig)
     }
 
     @Test

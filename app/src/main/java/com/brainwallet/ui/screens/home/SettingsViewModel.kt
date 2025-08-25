@@ -22,8 +22,9 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.launch
+import org.koin.android.annotation.KoinViewModel
 
-
+@KoinViewModel
 class SettingsViewModel(
     private val settingRepository: SettingRepository,
     private val ltcRepository: LtcRepository

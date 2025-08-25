@@ -3,15 +3,17 @@ package com.brainwallet.notification
 import android.content.Context
 import android.os.Bundle
 import androidx.collection.arrayMapOf
-import androidx.core.app.NotificationManagerCompat
+import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.Constants.MessageNotificationKeys
 import com.google.firebase.messaging.Constants.MessagePayloadKeys
 import com.google.firebase.messaging.RemoteMessage
-import io.mockk.Runs
+import io.mockk.MockKAnnotations
 import io.mockk.every
-import io.mockk.just
-import io.mockk.mockk
+import io.mockk.impl.annotations.MockK
+import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.mockkStatic
+import io.mockk.unmockkAll
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -20,11 +22,36 @@ import org.junit.Test
 
 class NotificationHandlerTest {
 
-    private val context: Context = mockk(relaxed = true)
+    @MockK
+    private lateinit var context: Context
+
+    @MockK
+    private lateinit var notificationHandlerBuilderProvider: NotificationHandlerBuilderProvider
+
+    @RelaxedMockK
+    private lateinit var notificationNotifier: NotificationNotifier
+
+    @RelaxedMockK
+    private lateinit var notificationBuilder: NotificationCompat.Builder
+
+    private lateinit var sut: NotificationHandler
 
     @Before
     fun setUp() {
         mockkStatic(MessagePayloadKeys::class)
+        MockKAnnotations.init(this, relaxUnitFun = true)
+        every {
+            notificationHandlerBuilderProvider.createNotificationBuilder(
+                any(),
+                any()
+            )
+        } returns notificationBuilder
+        sut = NotificationHandler(notificationHandlerBuilderProvider, notificationNotifier)
+    }
+
+    @After
+    fun tearDown() {
+        unmockkAll()
     }
 
     @Test
@@ -34,7 +61,7 @@ class NotificationHandlerTest {
 
         every { MessagePayloadKeys.extractDeveloperDefinedPayload(any()) } returns arrayMapOf()
 
-        val actual = NotificationHandler.handleMessageReceived(context, remoteMessage)
+        val actual = sut.handleMessageReceived(context, remoteMessage)
 
         assertEquals(false, actual)
     }
@@ -76,13 +103,9 @@ class NotificationHandlerTest {
 
         if (testOSVersion == 6 || testOSVersion == 15) {
             assertTrue(successMessage, true)
-        }
-        else {
-            mockkStatic(NotificationManagerCompat::class)
-            every { NotificationManagerCompat.from(context).notify(any()) } just Runs
-
-            val actual = NotificationHandler.handleMessageReceived(context, remoteMessage)
-            assertEquals(failMessage,true, actual)
+        } else {
+            val actual = sut.handleMessageReceived(context, remoteMessage)
+            assertEquals(failMessage, true, actual)
         }
     }
 
