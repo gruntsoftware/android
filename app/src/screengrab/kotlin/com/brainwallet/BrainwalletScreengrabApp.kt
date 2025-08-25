@@ -1,9 +1,6 @@
 package com.brainwallet
 
 import com.brainwallet.data.source.RemoteConfigSource
-import com.brainwallet.di.appModule
-import com.brainwallet.di.dataModule
-import com.brainwallet.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext.startKoin
