@@ -71,6 +71,13 @@ android {
             firebaseCrashlytics {
                 nativeSymbolUploadEnabled = true
             }
+            buildConfigField("String[]", "SCREENGRAB_PAPERKEY",
+                "new String[] {${
+                    localProperties.getProperty("SCREENGRAB_PAPERKEY", "")
+                        .split(" ")
+                        .joinToString { "\"$it\"" }
+                }}"
+            )
         }
 
         val release by getting {
@@ -125,13 +132,6 @@ android {
             applicationId = "ltd.grunt.brainwallet.screengrab"
             versionNameSuffix = "-screengrab"
             resValue("string", "app_name", "Brainwallet (screengrab)")
-            buildConfigField("String[]", "SCREENGRAB_PAPERKEY",
-                "new String[] {${
-                    localProperties.getProperty("SCREENGRAB_PAPERKEY", "")
-                        .split(" ")
-                        .joinToString { "\"$it\"" }
-                }}"
-            )
 
             externalNativeBuild {
                 cmake {
