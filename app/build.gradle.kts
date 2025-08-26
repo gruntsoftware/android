@@ -245,12 +245,14 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
     testImplementation(libs.turbine)
+    testImplementation(libs.slf4j.android)
     testImplementation(libs.kotlinx.coroutines.tests)
 
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.androidx.compose.ui.test)
     androidTestImplementation(libs.bundles.android.test)
     androidTestImplementation(libs.fastlane.screengrab)
+    androidTestImplementation(libs.slf4j.android)
 }
 
 val ktlintCheck by tasks.registering(JavaExec::class) {
@@ -283,4 +285,8 @@ tasks.register<JavaExec>("ktlintFormat") {
         "**.kts",
         "!**/build/**",
     )
+}
+
+tasks.withType<Test> {
+    jvmArgs("-XX:+EnableDynamicAgentLoading")
 }
