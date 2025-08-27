@@ -28,6 +28,7 @@ import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
+import com.brainwallet.data.repository.SyncAnalyticsRepository
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.screens.home.SettingsEvent
@@ -48,12 +49,14 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 import org.koin.java.KoinJavaComponent.inject
 
 @Composable
 fun HomeSettingDrawerSheet(
     modifier: Modifier = Modifier,
-    viewModel: SettingsViewModel = koinInject()
+    syncAnalyticsRepository: SyncAnalyticsRepository = koinInject(),
+    viewModel: SettingsViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsState()
     val context = LocalContext.current
@@ -61,7 +64,7 @@ fun HomeSettingDrawerSheet(
     LaunchedEffect(Unit) {
         viewModel.onEvent(SettingsEvent.OnLoad(
             shareAnalyticsDataEnabled = BRSharedPrefs.getShareData(context), //currently just load analytics share data here
-            lastSyncMetadata = BRSharedPrefs.getSyncMetadata(context), //currently just load sync metadata here
+            lastSyncMetadata = syncAnalyticsRepository.getLastSyncMetadata(), //currently just load sync metadata here
         ))
     }
 
@@ -192,10 +195,14 @@ fun HomeSettingDrawerSheet(
             }
 
             item {
+                val description = state.lastSyncMetadata?.let {
+                    it.getFormatted()
+                } ?: "No sync metadata"
+
                 SettingRowItem(
                     modifier = Modifier.height(100.dp),
                     title = stringResource(R.string.settings_title_sync_metadata),
-                    description = state.lastSyncMetadata ?: "No sync metadata"
+                    description = description
                 )
             }
 
