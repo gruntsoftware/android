@@ -10,6 +10,7 @@ import com.brainwallet.R
 import com.brainwallet.data.model.Language
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.databinding.ChangeLanguageBottomSheetBinding
+import com.brainwallet.domain.LanguageSwitcherUseCase
 import com.brainwallet.navigation.LegacyNavigation
 import com.brainwallet.tools.util.Utils
 import com.brainwallet.tools.util.getString
@@ -23,6 +24,7 @@ class ChangeLanguageBottomSheet : RoundedBottomSheetDialogFragment() {
     lateinit var binding: ChangeLanguageBottomSheetBinding
 
     private val settingRepository by inject<SettingRepository>()
+    private val languageSwitcherUseCase by inject<LanguageSwitcherUseCase>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +67,7 @@ class ChangeLanguageBottomSheet : RoundedBottomSheetDialogFragment() {
 
         binding.okButton.setOnClickListener {
             if (settingRepository.getCurrentLanguage() != adapter.selectedLanguage()) {
-                settingRepository.updateCurrentLanguage(adapter.selectedLanguage().code)
+                languageSwitcherUseCase.switchLanguage(adapter.selectedLanguage())
                 LegacyNavigation.openComposeScreen(
                     context = requireContext(),
                 )

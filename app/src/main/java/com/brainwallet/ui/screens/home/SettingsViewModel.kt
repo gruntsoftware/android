@@ -8,6 +8,7 @@ import com.brainwallet.data.model.Language
 import com.brainwallet.data.model.toFeeOptions
 import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.data.repository.SettingRepository
+import com.brainwallet.domain.LanguageSwitcherUseCase
 import com.brainwallet.tools.manager.FeeManager
 import com.brainwallet.ui.BrainwalletViewModel
 import com.brainwallet.util.EventBus
@@ -27,6 +28,7 @@ import org.koin.android.annotation.KoinViewModel
 @KoinViewModel
 class SettingsViewModel(
     private val settingRepository: SettingRepository,
+    private val languageSwitcherUseCase: LanguageSwitcherUseCase,
     private val ltcRepository: LtcRepository
 ) : BrainwalletViewModel<SettingsEvent>() {
 
@@ -127,7 +129,7 @@ class SettingsViewModel(
                 )
             }.let {
                 viewModelScope.launch {
-                    settingRepository.save(appSetting.value.copy(languageCode = event.language.code))
+                    languageSwitcherUseCase.switchLanguage(event.language)
                     AppCompatDelegate.setApplicationLocales(
                         LocaleListCompat.forLanguageTags(
                             event.language.code
