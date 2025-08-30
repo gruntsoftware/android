@@ -14,6 +14,10 @@ import io.mockk.verify
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 import java.util.UUID
 
 class SyncAnalyticsRepositoryTest {
@@ -136,5 +140,53 @@ class SyncAnalyticsRepositoryTest {
     fun `given no metadata stored when getLastSyncMetadata called then null returned`() {
         val metadata = repository.getLastSyncMetadata()
         assert(metadata == null) { "expected metadata to be null" }
+    }
+
+    @Test
+    fun `given sync metadata when format then return formatted string containing correct duration and timestamp`() {
+        val fixedDateFormat = SimpleDateFormat("MMMM dd, yyyy h:mm:ss a", Locale.US).apply {
+            timeZone = TimeZone.getTimeZone("UTC")
+        }
+        val formatter = SyncAnalyticsRepository.SyncMetadata.Formatter(fixedDateFormat)
+
+        val syncMetadata = SyncAnalyticsRepository.SyncMetadata(
+            uuid = "1234",
+            durationMillis = 2500L,
+            endTimestamp = 1633072800L
+        )
+
+        val formattedOutput = formatter.format(syncMetadata)
+
+        assert(formattedOutput.contains("Duration: 2.5 seconds")) {
+            "Expected formatted string to contain 'Duration: 2.5 seconds' but got '$formattedOutput'"
+        }
+
+        val expectedDatePart = fixedDateFormat.format(Date(syncMetadata.endTimestamp * 1000))
+        assert(formattedOutput.contains(expectedDatePart)) {
+            "Expected formatted string to contain '$expectedDatePart' but got '$formattedOutput'"
+        }
+    }
+
+    @Test
+    fun `given sync metadata when format then return exactly formatted string with correct structure`() {
+        val fixedDateFormat = SimpleDateFormat("MMMM dd, yyyy h:mm:ss a", Locale.US).apply {
+            timeZone = TimeZone.getTimeZone("UTC")
+        }
+        val formatter = SyncAnalyticsRepository.SyncMetadata.Formatter(fixedDateFormat)
+
+        val syncMetadata = SyncAnalyticsRepository.SyncMetadata(
+            uuid = "1234",
+            durationMillis = 2500L,
+            endTimestamp = 1633072800L
+        )
+
+        val actual = formatter.format(syncMetadata)
+
+        val expectedDate = fixedDateFormat.format(Date(syncMetadata.endTimestamp * 1000))
+        val expected = "Duration: 2.5 seconds\nTimestamp: $expectedDate"
+
+        assert(actual == expected) {
+            "Expected exactly '$expected' but got '$actual'"
+        }
     }
 }

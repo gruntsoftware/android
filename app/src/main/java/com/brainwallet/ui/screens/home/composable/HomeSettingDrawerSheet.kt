@@ -196,7 +196,8 @@ fun HomeSettingDrawerSheet(
 
             item {
                 val description = state.lastSyncMetadata?.let {
-                    it.getFormatted()
+                    SyncAnalyticsRepository.SyncMetadata.Formatter()
+                        .format(it)
                 } ?: "No sync metadata"
 
                 SettingRowItem(

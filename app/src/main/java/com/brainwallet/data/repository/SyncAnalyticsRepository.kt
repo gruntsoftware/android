@@ -75,13 +75,19 @@ class SyncAnalyticsRepository(
         val durationMillis: Long,
         val endTimestamp: Long
     ) {
-        fun getFormatted(): String {
-            val durationSeconds = durationMillis / 1000.0
-            val date = Date(endTimestamp * 1000)
-            val dateFormat = SimpleDateFormat("MMMM dd, yyyy h:mm:ss a", Locale.getDefault())
-            val dateString = dateFormat.format(date)
+        class Formatter(
+            private val dateFormat: SimpleDateFormat = SimpleDateFormat(
+                "MMMM dd, yyyy h:mm:ss a",
+                Locale.getDefault()
+            )
+        ) {
+            fun format(syncMetadata: SyncMetadata): String {
+                val durationSeconds = syncMetadata.durationMillis / 1000.0
+                val date = Date(syncMetadata.endTimestamp * 1000)
+                val dateString = dateFormat.format(date)
 
-            return "Duration: %.1f seconds\nTimestamp: %s".format(durationSeconds, dateString)
+                return "Duration: %.1f seconds\nTimestamp: %s".format(durationSeconds, dateString)
+            }
         }
     }
 
