@@ -18,12 +18,29 @@ class MessagingTopicDataSource(
         )
     }
 
+    /**
+     * Note: Indonesian language code is normalized from "in" to "id" to maintain
+     * consistency with backend batch messaging server which uses ISO 639-1 standard.
+     * Supports both "in" and "id" as input for Indonesian language.
+     */
     private fun getBaseLanguageCode(languageCode: String): String {
         val normalizedLanguageCode = languageCode.split("_", "-").first().lowercase()
+        
+        // Handle reverse mapping: if "id" is passed, treat it as Indonesian
+        val searchCode = when (normalizedLanguageCode) {
+            "id" -> "in"
+            else -> normalizedLanguageCode
+        }
+        
         val targetLanguage = supportedLanguages.find { 
-            it.code.split("-").first().lowercase() == normalizedLanguageCode 
+            it.code.split("-").first().lowercase() == searchCode 
         } ?: defaultLanguage
         
-        return targetLanguage.code.split("-").first().lowercase()
+        val baseCode = targetLanguage.code.split("-").first().lowercase()
+        
+        return when (baseCode) {
+            "in" -> "id"
+            else -> baseCode
+        }
     }
 }

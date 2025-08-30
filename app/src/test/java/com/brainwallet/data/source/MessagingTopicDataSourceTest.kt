@@ -1,6 +1,5 @@
 package com.brainwallet.data.source
 
-import com.brainwallet.data.model.Language
 import org.junit.Before
 import org.junit.Test
 
@@ -73,11 +72,44 @@ class MessagingTopicDataSourceTest {
     }
 
     @Test
+    fun `given Indonesian language code when getTopicsByLanguageCode called then it should normalize to id for backend consistency`() {
+        val result = dataSource.getTopicsByLanguageCode("in")
+
+        val expectedTopics = listOf("initial_id", "news_id", "promo_id", "warn_id")
+        assert(result == expectedTopics) {
+            "Expected Indonesian language code 'in' to be normalized to 'id' for backend consistency but got $result"
+        }
+    }
+
+    @Test
+    fun `given Indonesian locale with region when getTopicsByLanguageCode called then it should normalize to id`() {
+        val result = dataSource.getTopicsByLanguageCode("in_ID")
+
+        val expectedTopics = listOf("initial_id", "news_id", "promo_id", "warn_id")
+        assert(result == expectedTopics) {
+            "Expected Indonesian locale 'in_ID' to be normalized to 'id' for backend consistency but got $result"
+        }
+    }
+
+    @Test
+    fun `given id language code when getTopicsByLanguageCode called then it should be recognized as Indonesian`() {
+        val result = dataSource.getTopicsByLanguageCode("id")
+
+        val expectedTopics = listOf("initial_id", "news_id", "promo_id", "warn_id")
+        assert(result == expectedTopics) {
+            "Expected 'id' language code to be recognized as Indonesian and return Indonesian topics but got $result"
+        }
+    }
+
+    @Test
     fun `given all supported languages when getTopicsByLanguageCode called then it should return correct base language topics`() {
         val testCases = mapOf(
             "en" to "en",
-            "es" to "es", 
-            "in" to "in",
+            "es" to "es",
+            // Check All possible indonesian combination
+            "in" to "id",
+            "in_ID" to "id",
+            "id" to "id",
             "ar" to "ar",
             "uk" to "uk",
             "ru" to "ru",
