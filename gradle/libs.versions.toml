@@ -36,6 +36,8 @@ ksp = "2.0.0-1.0.24"
 turbine = "1.2.1"
 coroutines = "1.10.2"
 slf4j = "1.7.36"
+room = "2.7.2"
+play-billing = "8.0.0"
 
 [libraries]
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core-ktx" }
@@ -124,6 +126,10 @@ turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlinx-coroutines-tests = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 slf4j-android = { module = "org.slf4j:slf4j-android", version.ref = "slf4j" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+play-billing = { module = "com.android.billingclient:billing-ktx", version.ref = "play-billing" }
 
 [bundles]
 androidx-lifecycle = ["androidx-lifecycle-runtime", "androidx-lifecycle-viewmodel", "androidx-lifecycle-viewmodel-compose"]
@@ -139,6 +145,7 @@ androidx-compose-ui-test = ["androidx-compose-ui-test-junit4", "androidx-compose
 koin = ["koin-android", "koin-android-compat", "koin-compose", "koin-compose-viewmodel"]
 squareup-retrofit = ["squareup-retrofit", "squareup-retrofit-kotlinx-serialization-json"]
 squareup-okhttp = ["squareup-okhttp", "squareup-okhttp-logging-interceptor"]
+room = ["room-runtime", "room-ktx"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

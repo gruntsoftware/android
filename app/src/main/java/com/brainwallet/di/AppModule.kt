@@ -3,6 +3,8 @@ package com.brainwallet.di
 import android.content.Context
 import android.content.SharedPreferences
 import com.brainwallet.BuildConfig
+import com.brainwallet.billing.data.source.local.BillingDatabase
+import com.brainwallet.billing.data.source.local.dao.PurchaseTransactionDao
 import com.brainwallet.data.source.RemoteApiSource
 import com.brainwallet.tools.sqlite.CurrencyDataSource
 import com.brainwallet.tools.util.BRConstants
@@ -15,6 +17,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
 import org.koin.core.annotation.ComponentScan
 import org.koin.core.annotation.Module
+import org.koin.core.annotation.Single
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.dsl.module
@@ -42,6 +45,15 @@ object AppModule {
         single<SharedPreferences> { provideSharedPreferences(context = androidApplication()) }
     }
 
+    @Single
+    fun provideBillingDatabase(context: Context): BillingDatabase {
+        return BillingDatabase.create(context)
+    }
+
+    @Single
+    fun providePurchaseTransactionDao(billingDatabase: BillingDatabase): PurchaseTransactionDao {
+        return billingDatabase.purchaseTransactionDao()
+    }
 
     private fun provideSharedPreferences(
         context: Context,

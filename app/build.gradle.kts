@@ -182,6 +182,7 @@ android {
 val ktlint by configurations.creating
 
 dependencies {
+    implementation(libs.play.billing)
     ktlint(libs.pinterest.ktlint) {
         attributes {
             attribute(Bundling.BUNDLING_ATTRIBUTE, objects.named(Bundling.EXTERNAL))
@@ -231,6 +232,8 @@ dependencies {
     implementation(platform(libs.squareup.okhttp.bom))
     implementation(libs.bundles.squareup.okhttp)
     implementation(libs.bundles.squareup.retrofit)
+    implementation(libs.bundles.room)
+    ksp(libs.room.compiler)
     implementation(libs.jakewarthon.timber)
     implementation(libs.commons.io)
     implementation(libs.bundles.eclipse.jetty)
