@@ -769,10 +769,10 @@
   <string name="you_saved_it_right">تُسیں اِس نُوں بچا لیا، ٹھیک؟</string>
   <string name="you_saved_it_right_desc">ثابت کرو! \nالفاظ نوں صحیح ترتیب وچ کھچو۔</string>
   <string name="game_and_sync">گیم اینڈ سنک</string>
-  <string name="ready_setup">تیار؟</string>
-  <string name="ready_setup_details_1">اے اپنے لئی کرو۔ براہ کرم یہ کریں۔</string>
-  <string name="ready_setup_details_2">اکیلا</string>
-  <string name="ready_setup_details_3">قلم، کاغذ تے 5 منٹ لَے لو۔</string>
+  <string name="ready_setup">شروع کرنے کے لیے تیار ہیں؟</string>
+  <string name="ready_setup_details_1">یہ صرف آپ کے لیے ہے۔</string>
+  <string name="ready_setup_details_2">ایپ پاس کوڈ سیٹ اپ کریں، اپنا پاس ورڈ مینیجر کھولیں یا اسے اور اپنے نئے سیڈ فقرے کو ریکارڈ کرنے کے لیے قلم پکڑیں۔</string>
+  <string name="ready_setup_details_3">ہم اسے نہیں جانتے اور نہ ہی ہمارے پاس کوئی کاپی ہے!</string>
   <string name="setup_app_passcode">ایپ پاسکوڈ سیٹ کریں</string>
   <string name="setup_app_details_1">اپنے برین والٹ کو ان لاک کرنے کے لیے ایک پاس کوڈ منتخب کریں۔</string>
   <string name="setup_app_details_2">فون لاک کوڈ نہیں!</string>
@@ -796,7 +796,7 @@
 تُہانوں 5,444,517,950,000,000,000,000,000,000,000,000,000,000,000,000,000 کوششاں لگن گیاں۔</string>
   <string name="confirm">تصدیق کریں۔</string>
   <string name="confirm_desc">تُسیں بھلّے تاں نئیں؟ اسے دوبارہ داخل کریں۔ یا، واپس جا کر دوبارہ شروع کرو۔</string>
-  <string name="ready">تیار</string>
+  <string name="ready">بیج کے جملے کے ساتھ بحال کریں۔</string>
   <string name="restore">بحال کرو</string>
   <string name="incorrect_passcode">غلط پاسکوڈ، براہ کرم دوبارہ کوشش کریں!</string>
   <string name="down_left_arrow">نیچے-کھبے-تیر</string>

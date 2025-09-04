@@ -747,10 +747,10 @@
     <string name="you_saved_it_right">你救了它，對嗎？</string>
     <string name="you_saved_it_right_desc">證明一下！</string>
     <string name="game_and_sync">遊戲與同步</string>
-    <string name="ready_setup">準備好？</string>
-    <string name="ready_setup_details_1">為你做這件事。請這樣做</string>
-    <string name="ready_setup_details_2">獨自的</string>
-    <string name="ready_setup_details_3">拿起筆、紙和 5 分鐘</string>
+    <string name="ready_setup">準備好開始了嗎？</string>
+    <string name="ready_setup_details_1">我們不知道，也沒有副本！</string>
+    <string name="ready_setup_details_2">設定應用程式密碼，打開密碼管理器或拿一支筆記錄它和你的新種子短語。</string>
+    <string name="ready_setup_details_3">我們不知道，也沒有副本！</string>
     <string name="setup_app_passcode">設定應用程式密碼</string>
     <string name="setup_app_details_1">選擇密碼來解鎖您的 Brainwallet</string>
     <string name="setup_app_details_2">不是手機鎖碼！</string>
@@ -767,7 +767,7 @@
     <string name="confirm">確認</string>
     <string name="confirm_desc">你沒有忘記吧？再次輸入。或者，返回重新開始。</string>
     <string name="ready">準備好</string>
-    <string name="restore">恢復</string>
+    <string name="restore">使用種子短語恢復</string>
     <string name="incorrect_passcode">密碼錯誤，請重試！</string>
     <string name="down_left_arrow">左下箭頭</string>
     <string name="logo">標識</string>

@@ -386,10 +386,10 @@
   <string name="you_saved_it_right">Du sparade det, eller hur?</string>
   <string name="you_saved_it_right_desc">Bevisa det!\nDra orden i rätt ordning.</string>
   <string name="game_and_sync">Spel och synkronisering</string>
-  <string name="ready_setup">Redo?</string>
-  <string name="ready_setup_details_1">Gör det här åt dig. Snälla gör det</string>
-  <string name="ready_setup_details_2">ensam</string>
-  <string name="ready_setup_details_3">Ta en penna, papper och 5 minuter</string>
+  <string name="ready_setup">Redo att börja?</string>
+  <string name="ready_setup_details_1">Detta är bara för dig.</string>
+  <string name="ready_setup_details_2">Ställ in appens lösenord, öppna lösenordshanteraren eller ta en penna för att anteckna det och din nya fröfras.</string>
+  <string name="ready_setup_details_3">Vi vet det inte och vi har ingen kopia!</string>
   <string name="setup_app_passcode">Konfigurera appens lösenord</string>
   <string name="setup_app_details_1">Välj ett lösenord för att låsa upp din Brainwallet</string>
   <string name="setup_app_details_2">Inte en telefonlåskod!</string>
@@ -406,7 +406,7 @@
   <string name="confirm">Bekräfta</string>
   <string name="confirm_desc">Du glömde väl inte? Skriv in det igen. Eller gå tillbaka för att börja om.</string>
   <string name="ready">Redo</string>
-  <string name="restore">Återställa</string>
+  <string name="restore">Återställ med Seed Phrase</string>
   <string name="incorrect_passcode">Felaktigt lösenord, försök igen!</string>
   <string name="down_left_arrow">ned-vänster-pil</string>
   <string name="logo">logotyp</string>

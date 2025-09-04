@@ -766,10 +766,10 @@
   <string name="you_saved_it_right">Uratowałeś go, prawda?</string>
   <string name="you_saved_it_right_desc">Udowodnij to! \nPrzeciągnij słowa w odpowiedniej kolejności.</string>
   <string name="game_and_sync">Gra i synchronizacja</string>
-  <string name="ready_setup">Gotowy?</string>
-  <string name="ready_setup_details_1">Zrób to dla siebie. Proszę, zrób to</string>
-  <string name="ready_setup_details_2">sam</string>
-  <string name="ready_setup_details_3">Weź długopis, papier i 5 minut</string>
+  <string name="ready_setup">Gotowy zacząć?</string>
+  <string name="ready_setup_details_1">Detta är bara för dig.</string>
+  <string name="ready_setup_details_2">Ställ in appens lösenord, öppna lösenordshanteraren eller ta en penna för att anteckna det och din nya fröfras.</string>
+  <string name="ready_setup_details_3">Vi vet det inte och har inte heller någon kopia!</string>
   <string name="setup_app_passcode">Konfiguracja kodu aplikacji</string>
   <string name="setup_app_details_1">Wybierz hasło, aby odblokować Brainwallet</string>
   <string name="setup_app_details_2">Nie kod blokady telefonu!</string>
@@ -792,7 +792,7 @@
   <string name="confirm">Potwierdzenie</string>
   <string name="confirm_desc">Nie zapomniałeś, prawda? Wprowadź go ponownie. Albo wrócić i zacząć od nowa.</string>
   <string name="ready">Gotowy</string>
-  <string name="restore">Przywracanie</string>
+  <string name="restore">Przywróć za pomocą frazy początkowej</string>
   <string name="incorrect_passcode">Nieprawidłowe hasło, spróbuj ponownie!</string>
   <string name="down_left_arrow">strzałka w dół-lewo</string>
   <string name="logo">logo</string>

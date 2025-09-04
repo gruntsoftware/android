@@ -21,7 +21,7 @@ android {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 36
-        versionCode = 202506295
+        versionCode = 202506296
         versionName = "v4.7.2"
 
         multiDexEnabled = true
@@ -71,6 +71,13 @@ android {
             firebaseCrashlytics {
                 nativeSymbolUploadEnabled = true
             }
+            buildConfigField("String[]", "SCREENGRAB_PAPERKEY",
+                "new String[] {${
+                    localProperties.getProperty("SCREENGRAB_PAPERKEY", "")
+                        .split(" ")
+                        .joinToString { "\"$it\"" }
+                }}"
+            )
         }
 
         val release by getting {
@@ -125,13 +132,6 @@ android {
             applicationId = "ltd.grunt.brainwallet.screengrab"
             versionNameSuffix = "-screengrab"
             resValue("string", "app_name", "Brainwallet (screengrab)")
-            buildConfigField("String[]", "SCREENGRAB_PAPERKEY",
-                "new String[] {${
-                    localProperties.getProperty("SCREENGRAB_PAPERKEY", "")
-                        .split(" ")
-                        .joinToString { "\"$it\"" }
-                }}"
-            )
 
             externalNativeBuild {
                 cmake {
@@ -220,6 +220,7 @@ dependencies {
     implementation(libs.bundles.google.play.feature.delivery)
     implementation(libs.bundles.google.play.review)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.coroutines.android)
     implementation (libs.airbnb.lottie.compose)
     implementation(platform(libs.koin.bom))
     implementation(libs.bundles.koin)
@@ -243,11 +244,15 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
+    testImplementation(libs.turbine)
+    testImplementation(libs.slf4j.android)
+    testImplementation(libs.kotlinx.coroutines.tests)
 
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.androidx.compose.ui.test)
     androidTestImplementation(libs.bundles.android.test)
     androidTestImplementation(libs.fastlane.screengrab)
+    androidTestImplementation(libs.slf4j.android)
 }
 
 val ktlintCheck by tasks.registering(JavaExec::class) {
@@ -280,4 +285,8 @@ tasks.register<JavaExec>("ktlintFormat") {
         "**.kts",
         "!**/build/**",
     )
+}
+
+tasks.withType<Test> {
+    jvmArgs("-XX:+EnableDynamicAgentLoading")
 }

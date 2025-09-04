@@ -386,10 +386,10 @@
   <string name="you_saved_it_right">आपने इसे सहेज लिया, है ना?</string>
   <string name="you_saved_it_right_desc">इसे साबित करें!\nशब्दों को सही क्रम में खींचें।</string>
   <string name="game_and_sync">गेम और सिंक</string>
-  <string name="ready_setup">तैयार?</string>
-  <string name="ready_setup_details_1">यह आपके लिए करें. कृपया इसे करते हैं</string>
-  <string name="ready_setup_details_2">अकेला</string>
-  <string name="ready_setup_details_3">एक कलम, कागज़ और 5 मिनट पकड़ें</string>
+  <string name="ready_setup">शुरू करने के लिए तैयार हैं?</string>
+  <string name="ready_setup_details_1">यह केवल आपके लिए है.</string>
+  <string name="ready_setup_details_2">ऐप पासकोड सेट करें, अपना पासवर्ड मैनेजर खोलें या इसे और अपने नए बीज वाक्यांश को रिकॉर्ड करने के लिए एक पेन लें।</string>
+  <string name="ready_setup_details_3">हमें इसकी जानकारी नहीं है और न ही हमारे पास इसकी कोई प्रति है!</string>
   <string name="setup_app_passcode">ऐप पासकोड सेटअप करें</string>
   <string name="setup_app_details_1">अपने ब्रेनवॉलेट को अनलॉक करने के लिए एक पासकोड चुनें</string>
   <string name="setup_app_details_2">फ़ोन लॉक कोड नहीं!</string>
@@ -406,7 +406,7 @@
   <string name="confirm">पुष्टि करना</string>
   <string name="confirm_desc">तुम भूले तो नहीं? इसे दोबारा दर्ज करें. या, दोबारा शुरू करने के लिए वापस जाएं।</string>
   <string name="ready">तैयार</string>
-  <string name="restore">पुनर्स्थापित करना</string>
+  <string name="restore">बीज वाक्यांश के साथ पुनर्स्थापित करें</string>
   <string name="incorrect_passcode">ग़लत पासकोड, कृपया पुनः प्रयास करें!</string>
   <string name="down_left_arrow">नीचे-बाएँ-तीर</string>
   <string name="logo">प्रतीक चिन्ह</string>

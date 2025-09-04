@@ -8,6 +8,7 @@ import android.content.res.Resources
 import com.appsflyer.AppsFlyerLib
 import com.brainwallet.data.source.RemoteConfigSource
 import com.brainwallet.di.AppModule
+import com.brainwallet.domain.MessagingTopicUseCase
 import com.brainwallet.notification.NotificationHandler
 import com.brainwallet.presenter.activities.util.BRActivity
 import com.brainwallet.presenter.entities.ServiceItems
@@ -32,6 +33,7 @@ open class BrainwalletApp : Application() {
 
     private val remoteConfigSource: RemoteConfigSource by inject()
     private val notificationHandler: NotificationHandler by inject()
+    private val messagingTopicHandler: MessagingTopicUseCase by inject()
 
     override fun onCreate() {
         super.onCreate()
@@ -80,6 +82,7 @@ open class BrainwalletApp : Application() {
             modules(AppModule.dataModule, AppModule.module)
         }
         thread { remoteConfigSource.initialize() }
+        thread { messagingTopicHandler.initialize() }
     }
 
 //    override fun attachBaseContext(base: Context) {

@@ -59,6 +59,10 @@ val LocalLanguageCode = staticCompositionLocalOf {
     Language.ENGLISH.code //default
 }
 
+val LocalDarkModeFlag = staticCompositionLocalOf {
+    false
+}
+
 @Composable
 fun BrainwalletAppTheme(
     appSetting: AppSetting = AppSetting(),
@@ -68,7 +72,8 @@ fun BrainwalletAppTheme(
 
     CompositionLocalProvider(
         LocalBrainwalletColors provides colors,
-        LocalLanguageCode provides appSetting.languageCode
+        LocalLanguageCode provides appSetting.languageCode,
+        LocalDarkModeFlag provides appSetting.isDarkMode,
     ) {
         MaterialTheme(
             typography = AppTypography,

@@ -748,10 +748,10 @@
     <string name="you_saved_it_right">Du hast es gespeichert, oder?</string>
     <string name="you_saved_it_right_desc">Beweisen Sie es!\nZiehen Sie die Wörter in die richtige Reihenfolge.</string>
     <string name="game_and_sync">Spiel &amp; Synchronisierung</string>
-    <string name="ready_setup">Bereit?</string>
-    <string name="ready_setup_details_1">Tun Sie dies für Sie. Bitte tun Sie es</string>
-    <string name="ready_setup_details_2">allein</string>
-    <string name="ready_setup_details_3">Schnappen Sie sich einen Stift, Papier und 5 Minuten</string>
+    <string name="ready_setup">Bereit zum Start?</string>
+    <string name="ready_setup_details_1">Das ist nur für dich.</string>
+    <string name="ready_setup_details_2">Richten Sie den App-Passcode ein, öffnen Sie Ihren Passwort-Manager oder nehmen Sie einen Stift, um ihn und Ihre neue Seed-Phrase aufzuzeichnen.</string>
+    <string name="ready_setup_details_3">Wir kennen es nicht und haben auch keine Kopie!</string>
     <string name="setup_app_passcode">App-Passcode einrichten</string>
     <string name="setup_app_details_1">Wählen Sie einen Passcode, um Ihr Brainwallet zu entsperren</string>
     <string name="setup_app_details_2">Kein Telefonsperrcode!</string>
@@ -768,7 +768,7 @@
     <string name="confirm">Bestätigen</string>
     <string name="confirm_desc">Du hast es nicht vergessen, oder? Geben Sie es erneut ein. Oder gehen Sie zurück, um von vorne zu beginnen.</string>
     <string name="ready">Bereit</string>
-    <string name="restore">Wiederherstellen</string>
+    <string name="restore">Mit Seed-Phrase wiederherstellen</string>
     <string name="incorrect_passcode">Falscher Passcode, bitte versuchen Sie es erneut!</string>
     <string name="down_left_arrow">Pfeil nach unten links</string>
     <string name="logo">Logo</string>

@@ -1,5 +1,6 @@
 package com.brainwallet.tools.manager;
 
+import static com.brainwallet.data.source.RemoteConfigSource.KEY_FEATURE_SELECTED_PEERS_ENABLED;
 import static com.brainwallet.tools.manager.BRSharedPrefs.putSyncMetadata;
 
 import android.app.AlarmManager;
@@ -9,12 +10,16 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.brainwallet.data.repository.SyncAnalyticsRepository;
+import com.brainwallet.data.source.RemoteConfigSource;
 import com.brainwallet.tools.listeners.SyncReceiver;
 import com.brainwallet.tools.util.BRConstants;
 import com.brainwallet.tools.util.Utils;
 import com.brainwallet.R;
 import com.brainwallet.presenter.activities.BreadActivity;
 import com.brainwallet.wallet.BRPeerManager;
+
+import org.koin.java.KoinJavaComponent;
 
 import java.util.concurrent.TimeUnit;
 
@@ -34,6 +39,10 @@ public class SyncManager {
     private SyncManager() {
     }
 
+    public static SyncAnalyticsRepository getSyncAnalyticsRepository() {
+        return KoinJavaComponent.get(SyncAnalyticsRepository.class);
+    }
+
     public synchronized void startSyncingProgressThread(Context app) {
         try {
             if (syncTask != null) {
@@ -45,6 +54,7 @@ public class SyncManager {
                 syncTask = null;
             }
             syncTask = new SyncProgressTask();
+            getSyncAnalyticsRepository().startSync();
             syncTask.start();
             updateStartSyncData(app);
         } catch (IllegalThreadStateException ex) {
@@ -59,10 +69,11 @@ public class SyncManager {
     private synchronized void markFinishedSyncData(Context app) {
         Timber.d("timber: || SYNC ELAPSE markFinish threadname:%s", Thread.currentThread().getName());
         final double progress = BRPeerManager.syncProgress(BRSharedPrefs.getStartHeight(app));
+        getSyncAnalyticsRepository().completeSync();
     }
 
     public synchronized void stopSyncingProgressThread(Context app) {
-
+        getSyncAnalyticsRepository().stopSync();
         if (app == null) {
             Timber.i("timber: || stopSyncingProgressThread: ctx is null");
             return;

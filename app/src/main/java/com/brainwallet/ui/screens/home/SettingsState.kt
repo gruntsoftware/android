@@ -7,6 +7,8 @@ import com.brainwallet.data.model.Language
 import com.brainwallet.data.model.toFeeOptions
 import com.brainwallet.tools.manager.FeeManager
 
+import com.brainwallet.data.repository.SyncAnalyticsRepository
+
 data class SettingsState(
     val darkMode: Boolean = true,
     val selectedLanguage: Language = Language.ENGLISH,
@@ -19,7 +21,7 @@ data class SettingsState(
     val languageSelectorBottomSheetVisible: Boolean = false,
     val fiatSelectorBottomSheetVisible: Boolean = false,
     val shareAnalyticsDataEnabled: Boolean = false,
-    val lastSyncMetadata: String? = null,
+    val lastSyncMetadata: SyncAnalyticsRepository.SyncMetadata? = null,
     val currentFeeOptions: List<FeeOption> = Fee.Default.toFeeOptions(),
     val selectedFeeType: String = FeeManager.LUXURY
 )
