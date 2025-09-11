@@ -1,5 +1,4 @@
 [versions]
-kotlin = "2.0.0"
 agp = "8.7.3"
 androidx-core-ktx = "1.12.0"
 androidx-appcompat = "1.6.1"
@@ -30,9 +29,6 @@ jakewarthon-timber = "4.7.1"
 eclipse-jetty = "9.2.19.v20160908"
 junit = "4.13.2"
 mockk = "1.13.13"
-koin-bom = "4.0.2"
-koin-annotation-bom = "2.1.0"
-ksp = "2.0.0-1.0.24"
 turbine = "1.2.1"
 coroutines = "1.10.2"
 slf4j = "1.7.36"
@@ -112,14 +108,6 @@ mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 pinterest-ktlint = "com.pinterest.ktlint:ktlint-cli:1.5.0"
 fastlane-screengrab = "tools.fastlane:screengrab:2.1.1"
 airbnb-lottie-compose = "com.airbnb.android:lottie-compose:6.5.2"
-koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
-koin-android = { module = "io.insert-koin:koin-android" }
-koin-android-compat = { module = "io.insert-koin:koin-android-compat" }
-koin-compose = { module = "io.insert-koin:koin-compose" }
-koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel" }
-koin-annotation-bom = { module = "io.insert-koin:koin-annotations-bom", version.ref = "koin-annotation-bom" }
-koin-annotation = { module = "io.insert-koin:koin-annotations" }
-koin-annotation-compiler = { module = "io.insert-koin:koin-ksp-compiler", version.ref = "koin-annotation-bom" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlinx-coroutines-tests = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
@@ -136,17 +124,12 @@ google-play-review = ["google-play-review", "google-play-review-ktx"]
 eclipse-jetty = ["eclipse-jetty-webapp", "eclipse-jetty-websocket", "eclipse-jetty-continuation"]
 android-test = ["androidx-test-core", "androidx-test-core-ktx", "androidx-test-rules","androidx-test-espresso-core", "androidx-test-junit-ext","androidx-test-juniext-ext-ktx", "androidx-test-runner", "androidx-test-uiautomator"]
 androidx-compose-ui-test = ["androidx-compose-ui-test-junit4", "androidx-compose-ui-test-manifest"]
-koin = ["koin-android", "koin-android-compat", "koin-compose", "koin-compose-viewmodel"]
 squareup-retrofit = ["squareup-retrofit", "squareup-retrofit-kotlinx-serialization-json"]
 squareup-okhttp = ["squareup-okhttp", "squareup-okhttp-logging-interceptor"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 jetbrains-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version = "2.1.0" }
-jetbrains-kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 google-services = { id = "com.google.gms.google-services", version = "4.4.2" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.2" }
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

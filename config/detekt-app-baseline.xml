@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>ComposableParamOrder:CurrencyDetail.kt$CurrencyDetail</ID>
+    <ID>ComposableParamOrder:Foundation.kt$BrainwalletTopAppBar</ID>
+    <ID>ComposableParamOrder:LanguageDetail.kt$LanguageDetail</ID>
+    <ID>ComposableParamOrder:LargeButton.kt$BorderedLargeButton</ID>
+    <ID>ComposableParamOrder:LargeButton.kt$LargeButton</ID>
+    <ID>ComposableParamOrder:LitecoinBlockchainDetail.kt$LitecoinBlockchainDetail</ID>
+    <ID>ComposableParamOrder:MainNav.kt$MainNavHost</ID>
+    <ID>ComposableParamOrder:MediumButton.kt$MediumTextButton</ID>
+    <ID>ComposableParamOrder:SeedWordItem.kt$SeedWordItem</ID>
+    <ID>ComposableParamOrder:SeedWordItem.kt$SeedWordItemTextField</ID>
+    <ID>ComposableParamOrder:SettingRowItem.kt$SettingRowItem</ID>
+    <ID>ComposableParamOrder:SettingRowItem.kt$SettingRowItemExpandable</ID>
+    <ID>ComposableParamOrder:WheelPicker.kt$ItemSizeBox</ID>
+    <ID>ComposableParamOrder:WheelPicker.kt$SafeBox</ID>
+    <ID>ComposableParamOrder:WheelPicker.kt$VerticalWheelPicker</ID>
+    <ID>MaxLineLength:CountryLanguageAdapter.kt$CountryLanguageAdapter$class</ID>
+    <ID>MaxLineLength:FragmentSend.kt$FragmentSend$if</ID>
+    <ID>MaxLineLength:HomeSettingDrawerSheet.kt$lastSyncMetadata = syncAnalyticsRepository.getLastSyncMetadata()</ID>
+    <ID>MaxLineLength:KeyStoreManager.kt$KeyStoreManager$"timber: KeyStoreManager.getData new key in prefs not exists | ${aliasObject.alias}, ${aliasObject.datafileName}, ${aliasObject.ivFileName}"</ID>
+    <ID>MaxLineLength:YourSeedProveItViewModel.kt$YourSeedProveItViewModel$orderCorrected = correctSeedWords.all { (_, seedWordItem) -&gt; seedWordItem.expected == seedWordItem.actual }</ID>
+    <ID>MaximumLineLength:CountryLanguageAdapter.kt$CountryLanguageAdapter$class</ID>
+    <ID>MaximumLineLength:FragmentSend.kt$FragmentSend$ </ID>
+    <ID>MaximumLineLength:HomeSettingDrawerSheet.kt$ </ID>
+    <ID>MaximumLineLength:KeyStoreManager.kt$KeyStoreManager$ </ID>
+    <ID>MaximumLineLength:ReceiveDialogViewModel.kt$ReceiveDialogViewModel$ </ID>
+    <ID>MaximumLineLength:YourSeedProveItViewModel.kt$YourSeedProveItViewModel$ </ID>
+    <ID>ModifierMissing:BuyLitecoinScreen.kt$BuyLitecoinScreen</ID>
+    <ID>ModifierMissing:FiatSelectorBottomSheet.kt$FiatSelectorBottomSheet</ID>
+    <ID>ModifierMissing:HistoryScreen.kt$HistoryScreen</ID>
+    <ID>ModifierMissing:HomeScreen.kt$HomeBottomNavBar</ID>
+    <ID>ModifierMissing:HomeScreen.kt$HomeScreen</ID>
+    <ID>ModifierMissing:HomeScreen.kt$HomeTopBar</ID>
+    <ID>ModifierMissing:InputWordsScreen.kt$InputWordsScreen</ID>
+    <ID>ModifierMissing:LanguageSelectorBottomSheet.kt$LanguageSelectorBottomSheet</ID>
+    <ID>ModifierMissing:LoadingDialog.kt$LoadingDialog</ID>
+    <ID>ModifierMissing:PasscodeKeypad.kt$PasscodeKeypad</ID>
+    <ID>ModifierMissing:ReadyScreen.kt$ReadyScreen</ID>
+    <ID>ModifierMissing:SetPasscodeScreen.kt$SetPasscodeScreen</ID>
+    <ID>ModifierMissing:ThemeSettingRowItem.kt$ThemeSettingRowItem</ID>
+    <ID>ModifierMissing:TopUpScreen.kt$TopUpScreen</ID>
+    <ID>ModifierMissing:WelcomeScreen.kt$WelcomeScreen</ID>
+    <ID>ModifierMissing:WheelPicker.kt$DefaultWheelPickerDisplay</ID>
+    <ID>ModifierMissing:YourSeedProveItScreen.kt$YourSeedProveItScreen</ID>
+    <ID>ModifierMissing:YourSeedWordsScreen.kt$YourSeedWordsScreen</ID>
+    <ID>ModifierReused:SeedWordItem.kt$Box(modifier = modifier) { Row( modifier = modifier .background( color = BrainwalletTheme.colors.background.copy(alpha = 0.3f), shape = MaterialTheme.shapes.extraLarge ) .padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically ) { content.invoke(this) } }</ID>
+    <ID>ModifierReused:SeedWordItem.kt$Row( modifier = modifier .background( color = BrainwalletTheme.colors.background.copy(alpha = 0.3f), shape = MaterialTheme.shapes.extraLarge ) .padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically ) { content.invoke(this) }</ID>
+    <ID>ModifierWithoutDefault:WheelPicker.kt$modifier</ID>
+    <ID>NoWildcardImports:FragmentBalanceSeedReminder.kt$import android.widget.*</ID>
+    <ID>SerialVersionUIDInSerializableClass:CurrencyEntity.kt$CurrencyEntity : Serializable</ID>
+    <ID>UnstableCollections:LitecoinBlockchainDetail.kt$List&lt;FeeOption&gt;</ID>
+    <ID>UnstableCollections:PasscodeIndicator.kt$List&lt;Int&gt;</ID>
+    <ID>UnstableCollections:SeedWordItem.kt$List&lt;String&gt;</ID>
+    <ID>UnstableCollections:SetPasscodeScreen.kt$List&lt;Int&gt;</ID>
+    <ID>UnstableCollections:UnLockScreenBody.kt$List&lt;Int&gt;</ID>
+    <ID>UnstableCollections:YourSeedProveItScreen.kt$List&lt;String&gt;</ID>
+    <ID>UnstableCollections:YourSeedWordsScreen.kt$List&lt;String&gt;</ID>
+    <ID>UnusedPrivateMember:BrainWalletLogo.kt$@PreviewLightDark @Composable private fun BrainWalletLogoPreview()</ID>
+    <ID>UnusedPrivateMember:DarkModeToggleButton.kt$@PreviewLightDark @Composable private fun DarkModeToggleButtonPreview()</ID>
+    <ID>UnusedPrivateMember:PaperKeyActivity.kt$PaperKeyActivity$private fun onSavedItClick()</ID>
+    <ID>UnusedPrivateMember:ReceiveDialog.kt$@PreviewLightDark @Composable private fun ReceiveDialogPreview()</ID>
+    <ID>UnusedPrivateMember:UnLockScreen.kt$@PreviewLightDark @Composable private fun UnLockScreenPreview()</ID>
+    <ID>UnusedPrivateMember:UnLockScreenBody.kt$@PreviewLightDark @Composable private fun UnLockScreenBodyPreview()</ID>
+    <ID>UnusedPrivateMember:UnLockScreenFooter.kt$@PreviewLightDark @Composable private fun UnLockScreenFooterPreview()</ID>
+    <ID>UnusedPrivateMember:UnLockScreenHeader.kt$@PreviewLightDark @Composable private fun UnLockScreenHeaderPreview()</ID>
+    <ID>WildcardImport:FragmentBalanceSeedReminder.kt$import android.widget.*</ID>
+  </CurrentIssues>
+</SmellBaseline>

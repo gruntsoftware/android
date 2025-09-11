@@ -1,14 +1,17 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import org.gradle.kotlin.dsl.grunt
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.jetbrains.kotlin.compose)
+    alias(grunt.plugins.jetbrains.kotlin.android)
+    alias(grunt.plugins.jetbrains.kotlin.compose)
     alias(libs.plugins.jetbrains.kotlin.kapt)
-    alias(libs.plugins.jetbrains.kotlin.serialization)
+    alias(grunt.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
-    alias(libs.plugins.ksp)
+    alias(grunt.plugins.ksp)
+    alias(grunt.plugins.buildlogic.test)
+    alias(grunt.plugins.buildlogic.detekt)
 }
 
 val localProperties = gradleLocalProperties(rootDir, providers)
@@ -222,11 +225,11 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.coroutines.android)
     implementation (libs.airbnb.lottie.compose)
-    implementation(platform(libs.koin.bom))
-    implementation(libs.bundles.koin)
-    implementation(platform(libs.koin.annotation.bom))
-    implementation(libs.koin.annotation)
-    ksp(libs.koin.annotation.compiler)
+    implementation(platform(grunt.koin.bom))
+    implementation(grunt.bundles.koin)
+    implementation(platform(grunt.koin.annotation.bom))
+    implementation(grunt.koin.annotation)
+    ksp(grunt.koin.annotation.compiler)
 
     implementation(platform(libs.squareup.okhttp.bom))
     implementation(libs.bundles.squareup.okhttp)

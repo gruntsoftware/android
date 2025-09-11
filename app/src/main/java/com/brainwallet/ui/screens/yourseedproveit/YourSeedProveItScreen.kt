@@ -12,7 +12,6 @@ import android.view.View
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.draganddrop.dragAndDropSource
 import androidx.compose.foundation.draganddrop.dragAndDropTarget
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -198,19 +197,13 @@ fun YourSeedProveItScreen(
                         SeedWordItem(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .dragAndDropSource {
-                                    detectTapGestures(
-                                        onPress = {
-                                            startTransfer(
-                                                DragAndDropTransferData(
-                                                    clipData = ClipData.newPlainText(
-                                                        "text",
-                                                        word
-                                                    ),
-                                                    flags = View.DRAG_FLAG_GLOBAL
-                                                )
-                                            )
-                                        }
+                                .dragAndDropSource { _ ->
+                                    DragAndDropTransferData(
+                                        clipData = ClipData.newPlainText(
+                                            "text",
+                                            word
+                                        ),
+                                        flags = View.DRAG_FLAG_GLOBAL
                                     )
                                 },
                             label = word,
