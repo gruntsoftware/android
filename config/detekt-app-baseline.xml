@@ -2,6 +2,271 @@
 <SmellBaseline>
   <ManuallySuppressedIssues/>
   <CurrentIssues>
+    <ID>AnnotationOnSeparateLine:Theme.kt$@Composable()</ID>
+    <ID>AnnotationOnSeparateLine:Theme.kt$BrainwalletTheme$@Composable @ReadOnlyComposable</ID>
+    <ID>ArgumentListWrapping:CountryLanguageAdapter.kt$CountryLanguageAdapter$( mContext!!, Uri.parse("android.resource://" + mContext?.packageName + "/" + selectedAudio()))</ID>
+    <ID>ArgumentListWrapping:CountryLanguageAdapter.kt$CountryLanguageAdapter$(mContext!!, Uri.parse("android.resource://" + mContext?.packageName + "/" + selectedAudio()))</ID>
+    <ID>ArgumentListWrapping:GoogleServicesTests.kt$GoogleServicesTest$( "\"{\\n \\\"project_info\\\": {\\n \\\"project_number\\\": \\\"837833052833\\\",\\n \\\"project_id\\\": \\\"brainwallet-mobile\\\"\\n }\\n}\"")</ID>
+    <ID>ArgumentListWrapping:GoogleServicesTests.kt$GoogleServicesTest$("\"{\\n \\\"project_info\\\": {\\n \\\"project_number\\\": \\\"837833052833\\\",\\n \\\"project_id\\\": \\\"brainwallet-mobile\\\"\\n }\\n}\"")</ID>
+    <ID>ArgumentListWrapping:HomeSettingDrawerSheet.kt$( context)</ID>
+    <ID>ArgumentListWrapping:HomeSettingDrawerSheet.kt$(context)</ID>
+    <ID>ArgumentListWrapping:InputWordsScreen.kt$( ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class, ExperimentalComposeUiApi::class )</ID>
+    <ID>ArgumentListWrapping:InputWordsScreen.kt$( index = index, text = it, )</ID>
+    <ID>ArgumentListWrapping:KeyStoreManager.kt$KeyStoreManager$( "timber: KeyStoreManager.getData new key in prefs not exists | ${aliasObject.alias}, ${aliasObject.datafileName}, ${aliasObject.ivFileName}")</ID>
+    <ID>ArgumentListWrapping:KeyStoreManager.kt$KeyStoreManager$("timber: KeyStoreManager.getData new key in prefs not exists | ${aliasObject.alias}, ${aliasObject.datafileName}, ${aliasObject.ivFileName}")</ID>
+    <ID>ArgumentListWrapping:MessagingTopicDataSourceTest.kt$MessagingTopicDataSourceTest$( "initial_$expectedBase", "news_$expectedBase", "promo_$expectedBase", "warn_$expectedBase")</ID>
+    <ID>ArgumentListWrapping:MessagingTopicDataSourceTest.kt$MessagingTopicDataSourceTest$("initial_$expectedBase", "news_$expectedBase", "promo_$expectedBase", "warn_$expectedBase")</ID>
+    <ID>ArgumentListWrapping:ReceiveDialog.kt$( color = BrainwalletTheme.colors.surface)</ID>
+    <ID>ArgumentListWrapping:ReceiveDialog.kt$(color = BrainwalletTheme.colors.surface)</ID>
+    <ID>ArgumentListWrapping:SeedWordItem.kt$( BrainwalletTheme.colors.content)</ID>
+    <ID>ArgumentListWrapping:SeedWordItem.kt$( modifier = modifier .background( color = BrainwalletTheme.colors.background.copy(alpha = 0.3f), shape = MaterialTheme.shapes.extraLarge ) .padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically )</ID>
+    <ID>ArgumentListWrapping:SeedWordItem.kt$(BrainwalletTheme.colors.content)</ID>
+    <ID>ArgumentListWrapping:UnLockScreenFooter.kt$( modifier = Modifier .padding(bottom = 24.dp) .padding(horizontal = 85.dp))</ID>
+    <ID>ArgumentListWrapping:UnLockScreenFooter.kt$(modifier = Modifier .padding(bottom = 24.dp) .padding(horizontal = 85.dp))</ID>
+    <ID>ArgumentListWrapping:YourSeedProveItScreen.kt$( ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class, ExperimentalFoundationApi::class )</ID>
+    <ID>ArgumentListWrapping:YourSeedProveItScreen.kt$( if (state.orderCorrected) R.string.game_and_sync else R.string.reset_start_over)</ID>
+    <ID>ArgumentListWrapping:YourSeedProveItScreen.kt$( if (state.orderCorrected) R.string.you_saved_your_keys else R.string.you_saved_it_right)</ID>
+    <ID>ArgumentListWrapping:YourSeedProveItScreen.kt$( if (state.orderCorrected) R.string.you_saved_your_keys_desc else R.string.you_saved_it_right_desc)</ID>
+    <ID>ArgumentListWrapping:YourSeedProveItScreen.kt$( items = state.correctSeedWords.values.toList())</ID>
+    <ID>ArgumentListWrapping:YourSeedProveItScreen.kt$( navigationIcon = { IconButton( onClick = { onNavigate.invoke(UiEffect.Navigate.Back()) }, ) { Icon( imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back), ) } })</ID>
+    <ID>ArgumentListWrapping:YourSeedProveItScreen.kt$(if (state.orderCorrected) R.string.game_and_sync else R.string.reset_start_over)</ID>
+    <ID>ArgumentListWrapping:YourSeedProveItScreen.kt$(if (state.orderCorrected) R.string.you_saved_your_keys else R.string.you_saved_it_right)</ID>
+    <ID>ArgumentListWrapping:YourSeedProveItScreen.kt$(if (state.orderCorrected) R.string.you_saved_your_keys_desc else R.string.you_saved_it_right_desc)</ID>
+    <ID>ArgumentListWrapping:YourSeedProveItScreen.kt$(items = state.correctSeedWords.values.toList())</ID>
+    <ID>CommentSpacing:BRConstantsTest.kt$//@Deprecated</ID>
+    <ID>CommentSpacing:BRConstantsTest.kt$//@RunWith(AndroidJUnit4.class)</ID>
+    <ID>CommentSpacing:BRConstantsTest.kt$//import android.util.Log;</ID>
+    <ID>CommentSpacing:BRConstantsTest.kt$//import androidx.test.ext.junit.rules.ActivityScenarioRule;</ID>
+    <ID>CommentSpacing:BRConstantsTest.kt$//import androidx.test.ext.junit.runners.AndroidJUnit4;</ID>
+    <ID>CommentSpacing:BRConstantsTest.kt$//import com.breadwallet.presenter.activities.intro.IntroActivity;</ID>
+    <ID>CommentSpacing:BRConstantsTest.kt$//import com.breadwallet.tools.util.BRConstants;</ID>
+    <ID>CommentSpacing:BRConstantsTest.kt$//import java.net.URI;</ID>
+    <ID>CommentSpacing:BRConstantsTest.kt$//import org.junit.After;</ID>
+    <ID>CommentSpacing:BRConstantsTest.kt$//import org.junit.Assert;</ID>
+    <ID>CommentSpacing:BRConstantsTest.kt$//import org.junit.Before;</ID>
+    <ID>CommentSpacing:BRConstantsTest.kt$//import org.junit.Rule;</ID>
+    <ID>CommentSpacing:BRConstantsTest.kt$//import org.junit.Test;</ID>
+    <ID>CommentSpacing:BRConstantsTest.kt$//import org.junit.runner.RunWith;</ID>
+    <ID>CommentSpacing:BRConstantsTest.kt$//}</ID>
+    <ID>CommentSpacing:BRConstantsTest.kt$BRConstantsTest$//TODO: migrate from [com.brainwallet.analytics.ConstantsTests]</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//// @Override</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//// Assert.assertEquals(mds.get(0).classVersion, 3);</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//// Assert.assertEquals(mds.get(0).comment, "hehey !");</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//// Assert.assertEquals(mds.get(0).creationTime, 21324);</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//// Assert.assertEquals(mds.get(0).deviceId, "someDevice2324");</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//// Assert.assertEquals(mds.get(0).exchangeCurrency, "curr");</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//// Assert.assertEquals(mds.get(0).exchangeRate, 23.4343, 0);</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//// Assert.assertEquals(mds.get(0).fee, 234);</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//// Assert.assertEquals(mds.get(0).txSize, 23423);</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//// Assert.assertFalse(success);</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//// Assert.assertTrue(success);</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//// boolean success = store.syncAllKeys();</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//// new Thread(new Runnable() {</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//// public void run() {</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//// }</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//// }).start();</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$////@LargeTest</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$////@RunWith(androidx.test.ext.junit.runners.AndroidJUnit4::class)</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//@RunWith(AndroidJUnit4.class)</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//TODO: Transcode and add Kotlin tests. Copied from legacy Java BRKeyStoreTest</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//fun `add invoked with valid mocked values, should return correct value as expected`() {</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import android.security.keystore.UserNotAuthenticatedException;</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import androidx.test.ext.junit.runners.AndroidJUnit4;</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import androidx.test.rule.ActivityTestRule;</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import com.brainwallet.example.DependencyOne</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import com.brainwallet.example.DependencyTwo</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import com.brainwallet.example.SystemUnderTest</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import com.breadwallet.presenter.activities.intro.WriteDownActivity</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import com.breadwallet.presenter.activities.settings.TestActivity;</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import com.breadwallet.tools.security.BRKeyStore;</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import com.breadwallet.tools.threads.BRExecutor</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import com.breadwallet.tools.threads.BRExecutor;</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import com.breadwallet.tools.util.BRConstants</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import com.platform.entities.TxMetaData</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import com.platform.interfaces.KVStoreAdaptor</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import com.platform.kvstore.CompletionObject</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import com.platform.kvstore.ReplicatedKVStore</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import com.platform.sqlite.KVItem</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import com.platform.sqlite.PlatformSqliteHelper</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import com.platform.tools.KVStoreManager</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import java.io.File;</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import java.util.Arrays</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import java.util.concurrent.atomic.AtomicInteger</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import org.junit.After</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import org.junit.Assert</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import org.junit.Assert;</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import org.junit.Before</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import org.junit.ClassRule</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import org.junit.Rule;</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import org.junit.Test</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import org.junit.Test;</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import org.junit.runner.RunWith</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import org.junit.runner.RunWith;</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//import static com.breadwallet.tools.security.BRKeyStore.aliasObjectMap;</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//package com.brainwallet.security;</ID>
+    <ID>CommentSpacing:BRKeyStoreTest.kt$//}</ID>
+    <ID>CommentSpacing:BackupRateFetchTests.kt$BackupRateFetchTests$//TODO: need update this test after refactor</ID>
+    <ID>CommentSpacing:BaseURLTests.kt$BaseURLTests$//TODO: need update this test after refactor</ID>
+    <ID>CommentSpacing:Bip39ReaderTest.kt$Bip39ReaderTest$//TODO: pls fill this</ID>
+    <ID>CommentSpacing:BrainwalletActivity.kt$BrainwalletActivity$/// Ergo; Route.TopUp</ID>
+    <ID>CommentSpacing:BrainwalletActivity.kt$BrainwalletActivity$///DEV: Test / Dev Composable Shortcut swap to launch</ID>
+    <ID>CommentSpacing:BrainwalletActivity.kt$BrainwalletActivity$//for now just toast</ID>
+    <ID>CommentSpacing:BrainwalletApp.kt$BrainwalletApp.Companion$//call onStop on evert activity so</ID>
+    <ID>CommentSpacing:BrainwalletViewModel.kt$BrainwalletViewModel$//todo more error handler</ID>
+    <ID>CommentSpacing:BuyLitecoinScreen.kt$//TODO: wip</ID>
+    <ID>CommentSpacing:BuyLitecoinViewModel.kt$BuyLitecoinViewModel$//do validation</ID>
+    <ID>CommentSpacing:ChangeLanguageBottomSheet.kt$ChangeLanguageBottomSheet$//for now, need to provide [getLocale]</ID>
+    <ID>CommentSpacing:CipherStorage.kt$CipherStorageFile$//no-op</ID>
+    <ID>CommentSpacing:Color.kt$//to make color darken, since we are not providing all colors for specific case</ID>
+    <ID>CommentSpacing:CurrencyDetail.kt$/// Layout values</ID>
+    <ID>CommentSpacing:CurrencyTests.kt$CurrencyTests$//The actual number of BW currencies is 16. The 0 is a placeholder and needs to be replaced with a db query.</ID>
+    <ID>CommentSpacing:CurrencyTests.kt$CurrencyTests$//The actual number of currencies is 174. The 0 is a placeholder and needs to be replaced with a db query.</ID>
+    <ID>CommentSpacing:CurrencyUpdateWorker.kt$CurrencyUpdateWorker$//4secs</ID>
+    <ID>CommentSpacing:DatabaseTests.kt$//@Deprecated</ID>
+    <ID>CommentSpacing:DatabaseTests.kt$//@RunWith(AndroidJUnit4.class)</ID>
+    <ID>CommentSpacing:DatabaseTests.kt$//import android.util.Log;</ID>
+    <ID>CommentSpacing:DatabaseTests.kt$//import androidx.test.ext.junit.rules.ActivityScenarioRule;</ID>
+    <ID>CommentSpacing:DatabaseTests.kt$//import androidx.test.ext.junit.runners.AndroidJUnit4;</ID>
+    <ID>CommentSpacing:DatabaseTests.kt$//import com.breadwallet.presenter.activities.intro.IntroActivity;</ID>
+    <ID>CommentSpacing:DatabaseTests.kt$//import com.breadwallet.tools.util.BRConstants;</ID>
+    <ID>CommentSpacing:DatabaseTests.kt$//import java.net.URI;</ID>
+    <ID>CommentSpacing:DatabaseTests.kt$//import org.junit.After;</ID>
+    <ID>CommentSpacing:DatabaseTests.kt$//import org.junit.Assert;</ID>
+    <ID>CommentSpacing:DatabaseTests.kt$//import org.junit.Before;</ID>
+    <ID>CommentSpacing:DatabaseTests.kt$//import org.junit.Rule;</ID>
+    <ID>CommentSpacing:DatabaseTests.kt$//import org.junit.Test;</ID>
+    <ID>CommentSpacing:DatabaseTests.kt$//import org.junit.runner.RunWith;</ID>
+    <ID>CommentSpacing:DatabaseTests.kt$//package com.brainwallet.analytics;</ID>
+    <ID>CommentSpacing:DatabaseTests.kt$//}</ID>
+    <ID>CommentSpacing:EventBus.kt$EventBus.Event.LegacyPasscodeVerified$//provide this for old flow</ID>
+    <ID>CommentSpacing:Fee.kt$//2 -&gt; index of top, since we have [low,medium,top]</ID>
+    <ID>CommentSpacing:FragmentSend.kt$///DEV WIP</ID>
+    <ID>CommentSpacing:FragmentSend.kt$FragmentSend$/// Setup Currency Button that switches between LTC and the preferred fiat (e.g.; "USD")</ID>
+    <ID>CommentSpacing:FragmentSend.kt$FragmentSend$/// Setup Fees Description</ID>
+    <ID>CommentSpacing:FragmentSend.kt$FragmentSend$//Amount is zero so network fee is also zero</ID>
+    <ID>CommentSpacing:FragmentSend.kt$FragmentSend$//TODO: make sure remove unused after refactor network fee move to HomeSettingDrawerSheet</ID>
+    <ID>CommentSpacing:FragmentSend.kt$FragmentSend$//update fee</ID>
+    <ID>CommentSpacing:GamesDetail.kt$/// Layout values</ID>
+    <ID>CommentSpacing:HistoryScreen.kt$//TODO: wip</ID>
+    <ID>CommentSpacing:HomeScreen.kt$//TODO: wip</ID>
+    <ID>CommentSpacing:HomeScreen.kt$//using old fragment</ID>
+    <ID>CommentSpacing:HomeSettingDrawerSheet.kt$/// Layout values</ID>
+    <ID>CommentSpacing:HomeSettingDrawerSheet.kt$//currently just load analytics share data here</ID>
+    <ID>CommentSpacing:HomeSettingDrawerSheet.kt$//currently just load sync metadata here</ID>
+    <ID>CommentSpacing:InputWordsScreen.kt$/// Layout values</ID>
+    <ID>CommentSpacing:InputWordsScreen.kt$//12 seed words</ID>
+    <ID>CommentSpacing:InputWordsScreen.kt$//todo: the following sizing can be move to BrainwalletTheme</ID>
+    <ID>CommentSpacing:InputWordsState.kt$InputWordsState$//12 seed words</ID>
+    <ID>CommentSpacing:InputWordsViewModel.kt$InputWordsViewModel$//TODO: revisit later, please move to repository, for now just reuse the existing</ID>
+    <ID>CommentSpacing:KeyStoreManager.kt$KeyStoreManager$//TODO: need auth?</ID>
+    <ID>CommentSpacing:KeyStoreManager.kt$KeyStoreManager$//if true need device auth</ID>
+    <ID>CommentSpacing:LanguageDetail.kt$/// Layout values</ID>
+    <ID>CommentSpacing:LanguageDetail.kt$//TODO</ID>
+    <ID>CommentSpacing:LegacyNavigation.kt$LegacyNavigation$//open compose from old activity</ID>
+    <ID>CommentSpacing:LegacyNavigation.kt$LegacyNavigation$//provide old navigation using intent activity</ID>
+    <ID>CommentSpacing:LegacyNavigation.kt$LegacyNavigation$//todo</ID>
+    <ID>CommentSpacing:LitecoinBlockchainDetail.kt$/// Layout values</ID>
+    <ID>CommentSpacing:LitecoinBlockchainDetail.kt$//TODO</ID>
+    <ID>CommentSpacing:LitecoinBlockchainDetail.kt$//fiat?</ID>
+    <ID>CommentSpacing:LtcRepository.kt$LtcRepository.Companion$//e.g. buy_limits:usd</ID>
+    <ID>CommentSpacing:LtcRepositoryImpl.kt$LtcRepositoryImpl$//5 minutes</ID>
+    <ID>CommentSpacing:LtcRepositoryImpl.kt$LtcRepositoryImpl$//legacy logic</ID>
+    <ID>CommentSpacing:LtcRepositoryImpl.kt$LtcRepositoryImpl$//replace base url from buy.moonpay.com</ID>
+    <ID>CommentSpacing:LtcRepositoryImpl.kt$LtcRepositoryImpl$//save to local</ID>
+    <ID>CommentSpacing:LtcRepositoryImpl.kt$LtcRepositoryImpl$//todo: make it offline first here later, currently just using CurrencyDataSource.getAllCurrencies</ID>
+    <ID>CommentSpacing:LtcRepositoryImpl.kt$LtcRepositoryImpl$//using static fee</ID>
+    <ID>CommentSpacing:MainNav.kt$//since we still have multiple activity, we just start from the param</ID>
+    <ID>CommentSpacing:MainNav.kt$//todo add more composable screens</ID>
+    <ID>CommentSpacing:MoonPayWidgeLauncher.kt$MoonPayWidgetLauncherViewModel$//replace base url from buy.moonpay.com</ID>
+    <ID>CommentSpacing:MoonpayBuyWidget.kt$//TODO: wip here</ID>
+    <ID>CommentSpacing:NewKeyStoreTests.kt$//@RunWith(AndroidJUnit4.class)</ID>
+    <ID>CommentSpacing:NewKeyStoreTests.kt$//import android.app.Activity;</ID>
+    <ID>CommentSpacing:NewKeyStoreTests.kt$//import android.security.keystore.UserNotAuthenticatedException;</ID>
+    <ID>CommentSpacing:NewKeyStoreTests.kt$//import androidx.test.ext.junit.runners.AndroidJUnit4;</ID>
+    <ID>CommentSpacing:NewKeyStoreTests.kt$//import androidx.test.rule.ActivityTestRule;</ID>
+    <ID>CommentSpacing:NewKeyStoreTests.kt$//import com.breadwallet.presenter.activities.settings.TestActivity;</ID>
+    <ID>CommentSpacing:NewKeyStoreTests.kt$//import com.breadwallet.tools.security.BRKeyStore;</ID>
+    <ID>CommentSpacing:NewKeyStoreTests.kt$//import org.junit.Assert;</ID>
+    <ID>CommentSpacing:NewKeyStoreTests.kt$//import org.junit.Before;</ID>
+    <ID>CommentSpacing:NewKeyStoreTests.kt$//import org.junit.Rule;</ID>
+    <ID>CommentSpacing:NewKeyStoreTests.kt$//import org.junit.Test;</ID>
+    <ID>CommentSpacing:NewKeyStoreTests.kt$//import org.junit.runner.RunWith;</ID>
+    <ID>CommentSpacing:NewKeyStoreTests.kt$//import static com.breadwallet.tools.security.BRKeyStore.PHRASE_ALIAS;</ID>
+    <ID>CommentSpacing:NewKeyStoreTests.kt$//import static com.breadwallet.tools.security.BRKeyStore.aliasObjectMap;</ID>
+    <ID>CommentSpacing:NewKeyStoreTests.kt$//}</ID>
+    <ID>CommentSpacing:NotificationHandlerTest.kt$NotificationHandlerTest$//dev: filtering until a multi OS test is decided</ID>
+    <ID>CommentSpacing:NotificationHandlerTest.kt$NotificationHandlerTest$//todo: revisit, test still fail because specific platform API e.g. android.app.Notification$Builder</ID>
+    <ID>CommentSpacing:PasscodeKeypad.kt$//hardcoded false for now</ID>
+    <ID>CommentSpacing:PasscodeKeypad.kt$//pin number button</ID>
+    <ID>CommentSpacing:ProdAPIManagerTests.kt$ProdAPIManagerTests$//TODO: need update this test after refactor</ID>
+    <ID>CommentSpacing:ReadyScreen.kt$/// Layout values</ID>
+    <ID>CommentSpacing:ReceiveDialog.kt$//buy / receive</ID>
+    <ID>CommentSpacing:ReceiveDialog.kt$//invert surface</ID>
+    <ID>CommentSpacing:ReceiveDialog.kt$//moonpay widget</ID>
+    <ID>CommentSpacing:ReceiveDialog.kt$//todo: revisit this later</ID>
+    <ID>CommentSpacing:ReceiveDialog.kt$//viewModel.onEvent(ReceiveDialogEvent.OnMoonpayButtonClick)</ID>
+    <ID>CommentSpacing:ReceiveDialogState.kt$//3 will be custom</ID>
+    <ID>CommentSpacing:ReceiveDialogState.kt$//default is 10X</ID>
+    <ID>CommentSpacing:ReceiveDialogState.kt$ReceiveDialogState$//default is 10X, other [min, 10x, max, custom]</ID>
+    <ID>CommentSpacing:ReceiveDialogViewModel.kt$ReceiveDialogViewModel$//default to 10X</ID>
+    <ID>CommentSpacing:ReceiveDialogViewModel.kt$ReceiveDialogViewModel$//do validation</ID>
+    <ID>CommentSpacing:ReceiveDialogViewModel.kt$ReceiveDialogViewModel$//todo: wip</ID>
+    <ID>CommentSpacing:RemoteApiSource.kt$RemoteApiSource$//TODO</ID>
+    <ID>CommentSpacing:ReplicatedKVStoreTest.kt$ReplicatedKVStoreTest$//TODO: pls fill this</ID>
+    <ID>CommentSpacing:SecurityDetail.kt$/// Layout values</ID>
+    <ID>CommentSpacing:SecurityDetail.kt$//TODO</ID>
+    <ID>CommentSpacing:SeedWordItem.kt$///</ID>
+    <ID>CommentSpacing:SeedWordItem.kt$//todo: change with materialtheme so it will be adapt automatically when switch darkmode</ID>
+    <ID>CommentSpacing:SeedWordTests.kt$//@RunWith(AndroidJUnit4.class)</ID>
+    <ID>CommentSpacing:SeedWordTests.kt$//import android.util.Log;</ID>
+    <ID>CommentSpacing:SeedWordTests.kt$//import androidx.test.ext.junit.runners.AndroidJUnit4;</ID>
+    <ID>CommentSpacing:SeedWordTests.kt$//import androidx.test.filters.LargeTest;</ID>
+    <ID>CommentSpacing:SeedWordTests.kt$//import com.breadwallet.tools.util.Bip39Reader;</ID>
+    <ID>CommentSpacing:SeedWordTests.kt$//import com.breadwallet.wallet.BRWalletManager;</ID>
+    <ID>CommentSpacing:SeedWordTests.kt$//import java.io.IOException;</ID>
+    <ID>CommentSpacing:SeedWordTests.kt$//import java.io.InputStream;</ID>
+    <ID>CommentSpacing:SeedWordTests.kt$//import java.util.ArrayList;</ID>
+    <ID>CommentSpacing:SeedWordTests.kt$//import java.util.Arrays;</ID>
+    <ID>CommentSpacing:SeedWordTests.kt$//import java.util.List;</ID>
+    <ID>CommentSpacing:SeedWordTests.kt$//import org.apache.commons.io.IOUtils;</ID>
+    <ID>CommentSpacing:SeedWordTests.kt$//import org.junit.Assert;</ID>
+    <ID>CommentSpacing:SeedWordTests.kt$//import org.junit.Test;</ID>
+    <ID>CommentSpacing:SeedWordTests.kt$//import org.junit.runner.RunWith;</ID>
+    <ID>CommentSpacing:SeedWordTests.kt$//import static org.hamcrest.Matchers.is;</ID>
+    <ID>CommentSpacing:SeedWordTests.kt$//import static org.hamcrest.Matchers.notNullValue;</ID>
+    <ID>CommentSpacing:SeedWordTests.kt$//import static org.junit.Assert.assertThat;</ID>
+    <ID>CommentSpacing:SeedWordTests.kt$//package com.brainwallet</ID>
+    <ID>CommentSpacing:SeedWordsLayout.kt$//fixed 3</ID>
+    <ID>CommentSpacing:SelectedPeersRepositoryImpl.kt$SelectedPeersRepositoryImpl.&lt;no name provided&gt;$//filter criteria</ID>
+    <ID>CommentSpacing:SelectedPeersRepositoryImpl.kt$SelectedPeersRepositoryImpl.&lt;no name provided&gt;$//just return empty if failed or need hardcoded?</ID>
+    <ID>CommentSpacing:SetPasscodeScreen.kt$/// Layout values</ID>
+    <ID>CommentSpacing:SetPasscodeState.kt$SetPasscodeState$//create 4 digit</ID>
+    <ID>CommentSpacing:SetPasscodeViewModel.kt$SetPasscodeViewModel$//if passcode all filled, then goto confirm</ID>
+    <ID>CommentSpacing:SetPasscodeViewModel.kt$SetPasscodeViewModel$//if passcode confirm all filled, then goto your seed words</ID>
+    <ID>CommentSpacing:SettingRowItem.kt$/// Layout values</ID>
+    <ID>CommentSpacing:SettingsState.kt$SettingsState$//-1 = need to fetch</ID>
+    <ID>CommentSpacing:SyncBlockWorker.kt$SyncBlockWorker$//todo: maybe need ongoing notification?</ID>
+    <ID>CommentSpacing:Theme.kt$//default</ID>
+    <ID>CommentSpacing:Theme.kt$//provide compose theme wrapper for transition</ID>
+    <ID>CommentSpacing:Theme.kt$BrainwalletTheme$//todo: add typography, shape? for the design system</ID>
+    <ID>CommentSpacing:TopUpScreen.kt$/// Layout values</ID>
+    <ID>CommentSpacing:TransactionDataItem.kt$TransactionDataItem$///Refactored Transaction data item. Replaces TxItem</ID>
+    <ID>CommentSpacing:UnLockEvent.kt$//todo</ID>
+    <ID>CommentSpacing:UnLockScreenBody.kt$//for now just toast</ID>
+    <ID>CommentSpacing:UnLockScreenBody.kt$//provide old logic here, its like on the BrainwalletActivity.onUnlock</ID>
+    <ID>CommentSpacing:UnLockState.kt$//todo</ID>
+    <ID>CommentSpacing:UnLockState.kt$UnLockState$//4 digit passcode/pin</ID>
+    <ID>CommentSpacing:UnLockViewModel.kt$UnLockViewModel$//if update pin from drawer</ID>
+    <ID>CommentSpacing:WelcomeScreen.kt$//fiat/currency selector</ID>
+    <ID>CommentSpacing:WelcomeScreen.kt$//language selector</ID>
+    <ID>CommentSpacing:WelcomeScreen.kt$//todo: the following sizing can be move to BrainwalletTheme</ID>
+    <ID>CommentSpacing:WelcomeState.kt$WelcomeState$//-1 = need to fetch</ID>
+    <ID>CommentSpacing:WelcomeViewModel.kt$WelcomeViewModel$//TODO: revisit this later</ID>
+    <ID>CommentSpacing:WheelPicker.kt$//default</ID>
+    <ID>CommentSpacing:WheelPicker.kt$//state</ID>
+    <ID>CommentSpacing:YourSeedProveItScreen.kt$/// Layout values</ID>
+    <ID>CommentSpacing:YourSeedWordsScreen.kt$/// Layout values</ID>
+    <ID>CommentSpacing:YourSeedWordsScreen.kt$//todo: yuana private key text need to open dialog?</ID>
     <ID>ComposableParamOrder:CurrencyDetail.kt$CurrencyDetail</ID>
     <ID>ComposableParamOrder:Foundation.kt$BrainwalletTopAppBar</ID>
     <ID>ComposableParamOrder:LanguageDetail.kt$LanguageDetail</ID>
@@ -17,6 +282,104 @@
     <ID>ComposableParamOrder:WheelPicker.kt$ItemSizeBox</ID>
     <ID>ComposableParamOrder:WheelPicker.kt$SafeBox</ID>
     <ID>ComposableParamOrder:WheelPicker.kt$VerticalWheelPicker</ID>
+    <ID>FinalNewline:AppSetting.kt$com.brainwallet.data.model.AppSetting.kt</ID>
+    <ID>FinalNewline:BRKeyStoreTest.kt$com.brainwallet.tools.security.BRKeyStoreTest.kt</ID>
+    <ID>FinalNewline:BackupRateFetchTests.kt$com.brainwallet.currency.BackupRateFetchTests.kt</ID>
+    <ID>FinalNewline:Bip39ReaderTest.kt$com.brainwallet.tools.util.Bip39ReaderTest.kt</ID>
+    <ID>FinalNewline:BrainwalletActivity.kt$com.brainwallet.ui.BrainwalletActivity.kt</ID>
+    <ID>FinalNewline:BrainwalletMessagingService.kt$com.brainwallet.notification.BrainwalletMessagingService.kt</ID>
+    <ID>FinalNewline:BrainwalletViewModel.kt$com.brainwallet.ui.BrainwalletViewModel.kt</ID>
+    <ID>FinalNewline:BuyLitecoinEvent.kt$com.brainwallet.ui.screens.buylitecoin.BuyLitecoinEvent.kt</ID>
+    <ID>FinalNewline:BuyLitecoinScreen.kt$com.brainwallet.ui.screens.buylitecoin.BuyLitecoinScreen.kt</ID>
+    <ID>FinalNewline:BuyLitecoinViewModel.kt$com.brainwallet.ui.screens.buylitecoin.BuyLitecoinViewModel.kt</ID>
+    <ID>FinalNewline:CipherBox.kt$com.brainwallet.util.cryptography.CipherBox.kt</ID>
+    <ID>FinalNewline:CipherStorage.kt$com.brainwallet.util.cryptography.CipherStorage.kt</ID>
+    <ID>FinalNewline:CircleButton.kt$com.brainwallet.ui.composable.CircleButton.kt</ID>
+    <ID>FinalNewline:Color.kt$com.brainwallet.ui.theme.Color.kt</ID>
+    <ID>FinalNewline:Country.kt$com.brainwallet.data.model.Country.kt</ID>
+    <ID>FinalNewline:CurrencyDetail.kt$com.brainwallet.ui.screens.home.composable.settingsrows.CurrencyDetail.kt</ID>
+    <ID>FinalNewline:CurrencyEntity.kt$com.brainwallet.data.model.CurrencyEntity.kt</ID>
+    <ID>FinalNewline:CurrencyUpdateWorker.kt$com.brainwallet.worker.CurrencyUpdateWorker.kt</ID>
+    <ID>FinalNewline:ExampleTest.kt$com.brainwallet.example.ExampleTest.kt</ID>
+    <ID>FinalNewline:FiatSelectorBottomSheet.kt$com.brainwallet.ui.composable.bottomsheet.FiatSelectorBottomSheet.kt</ID>
+    <ID>FinalNewline:Font.kt$com.brainwallet.ui.theme.Font.kt</ID>
+    <ID>FinalNewline:GamesDetail.kt$com.brainwallet.ui.screens.home.composable.settingsrows.GamesDetail.kt</ID>
+    <ID>FinalNewline:GoogleServicesTests.kt$com.brainwallet.tools.util.GoogleServicesTests.kt</ID>
+    <ID>FinalNewline:HistoryScreen.kt$com.brainwallet.ui.screens.home.history.HistoryScreen.kt</ID>
+    <ID>FinalNewline:HomeSettingDrawerSheet.kt$com.brainwallet.ui.screens.home.composable.HomeSettingDrawerSheet.kt</ID>
+    <ID>FinalNewline:InputWordsEvent.kt$com.brainwallet.ui.screens.inputwords.InputWordsEvent.kt</ID>
+    <ID>FinalNewline:InputWordsState.kt$com.brainwallet.ui.screens.inputwords.InputWordsState.kt</ID>
+    <ID>FinalNewline:KeyStoreKeyGenerator.kt$com.brainwallet.util.cryptography.KeyStoreKeyGenerator.kt</ID>
+    <ID>FinalNewline:KeyStoreManager.kt$com.brainwallet.util.cryptography.KeyStoreManager.kt</ID>
+    <ID>FinalNewline:LanguageDetail.kt$com.brainwallet.ui.screens.home.composable.settingsrows.LanguageDetail.kt</ID>
+    <ID>FinalNewline:LanguageSelectorBottomSheet.kt$com.brainwallet.ui.composable.bottomsheet.LanguageSelectorBottomSheet.kt</ID>
+    <ID>FinalNewline:LargeButton.kt$com.brainwallet.ui.composable.LargeButton.kt</ID>
+    <ID>FinalNewline:LoadingDialog.kt$com.brainwallet.ui.composable.LoadingDialog.kt</ID>
+    <ID>FinalNewline:LocalCacheSource.kt$com.brainwallet.data.source.LocalCacheSource.kt</ID>
+    <ID>FinalNewline:LocaleHelperTest.kt$com.brainwallet.tools.util.LocaleHelperTest.kt</ID>
+    <ID>FinalNewline:LockSettingRowItem.kt$com.brainwallet.ui.screens.home.composable.settingsrows.LockSettingRowItem.kt</ID>
+    <ID>FinalNewline:LtcRepository.kt$com.brainwallet.data.repository.LtcRepository.kt</ID>
+    <ID>FinalNewline:MessagingTopicUseCase.kt$com.brainwallet.domain.MessagingTopicUseCase.kt</ID>
+    <ID>FinalNewline:MoonpayBuyButton.kt$com.brainwallet.ui.composable.MoonpayBuyButton.kt</ID>
+    <ID>FinalNewline:MoonpayBuyWidget.kt$com.brainwallet.ui.composable.MoonpayBuyWidget.kt</ID>
+    <ID>FinalNewline:MoonpayCurrencyLimit.kt$com.brainwallet.data.model.MoonpayCurrencyLimit.kt</ID>
+    <ID>FinalNewline:NotificationHandlerTest.kt$com.brainwallet.notification.NotificationHandlerTest.kt</ID>
+    <ID>FinalNewline:PaperKeyActivity.kt$com.brainwallet.presenter.activities.PaperKeyActivity.kt</ID>
+    <ID>FinalNewline:PasscodeKeypad.kt$com.brainwallet.ui.composable.PasscodeKeypad.kt</ID>
+    <ID>FinalNewline:PermissionUtil.kt$com.brainwallet.util.PermissionUtil.kt</ID>
+    <ID>FinalNewline:PinDotItem.kt$com.brainwallet.ui.composable.PinDotItem.kt</ID>
+    <ID>FinalNewline:ProdAPIManagerTests.kt$com.brainwallet.tools.util.ProdAPIManagerTests.kt</ID>
+    <ID>FinalNewline:QuickFiatAmountOption.kt$com.brainwallet.data.model.QuickFiatAmountOption.kt</ID>
+    <ID>FinalNewline:ReadyEvent.kt$com.brainwallet.ui.screens.ready.ReadyEvent.kt</ID>
+    <ID>FinalNewline:ReceiveDialogEvent.kt$com.brainwallet.ui.screens.home.receive.ReceiveDialogEvent.kt</ID>
+    <ID>FinalNewline:ReceiveDialogState.kt$com.brainwallet.ui.screens.home.receive.ReceiveDialogState.kt</ID>
+    <ID>FinalNewline:ReceiveDialogViewModel.kt$com.brainwallet.ui.screens.home.receive.ReceiveDialogViewModel.kt</ID>
+    <ID>FinalNewline:RemoteApiSource.kt$com.brainwallet.data.source.RemoteApiSource.kt</ID>
+    <ID>FinalNewline:RemoteConfigSource.kt$com.brainwallet.data.source.RemoteConfigSource.kt</ID>
+    <ID>FinalNewline:ReplicatedKVStoreTest.kt$com.brainwallet.tools.security.ReplicatedKVStoreTest.kt</ID>
+    <ID>FinalNewline:Route.kt$com.brainwallet.navigation.Route.kt</ID>
+    <ID>FinalNewline:SecurityDetail.kt$com.brainwallet.ui.screens.home.composable.settingsrows.SecurityDetail.kt</ID>
+    <ID>FinalNewline:SeedWordItem.kt$com.brainwallet.ui.composable.SeedWordItem.kt</ID>
+    <ID>FinalNewline:SeedWordsLayout.kt$com.brainwallet.ui.composable.SeedWordsLayout.kt</ID>
+    <ID>FinalNewline:SelectedPeersRepository.kt$com.brainwallet.data.repository.SelectedPeersRepository.kt</ID>
+    <ID>FinalNewline:ServiceItems.kt$com.brainwallet.presenter.entities.ServiceItems.kt</ID>
+    <ID>FinalNewline:SetPasscodeEvent.kt$com.brainwallet.ui.screens.setpasscode.SetPasscodeEvent.kt</ID>
+    <ID>FinalNewline:SetPasscodeViewModel.kt$com.brainwallet.ui.screens.setpasscode.SetPasscodeViewModel.kt</ID>
+    <ID>FinalNewline:SettingRepository.kt$com.brainwallet.data.repository.SettingRepository.kt</ID>
+    <ID>FinalNewline:SettingRowItem.kt$com.brainwallet.ui.screens.home.composable.settingsrows.SettingRowItem.kt</ID>
+    <ID>FinalNewline:SettingsEvent.kt$com.brainwallet.ui.screens.home.SettingsEvent.kt</ID>
+    <ID>FinalNewline:SettingsState.kt$com.brainwallet.ui.screens.home.SettingsState.kt</ID>
+    <ID>FinalNewline:SettingsViewModel.kt$com.brainwallet.ui.screens.home.SettingsViewModel.kt</ID>
+    <ID>FinalNewline:SyncBlockWorker.kt$com.brainwallet.worker.SyncBlockWorker.kt</ID>
+    <ID>FinalNewline:Theme.kt$com.brainwallet.ui.theme.Theme.kt</ID>
+    <ID>FinalNewline:ThemeSettingRowItem.kt$com.brainwallet.ui.screens.home.composable.settingsrows.ThemeSettingRowItem.kt</ID>
+    <ID>FinalNewline:TopUpScreen.kt$com.brainwallet.ui.screens.topup.TopUpScreen.kt</ID>
+    <ID>FinalNewline:UnLockEvent.kt$com.brainwallet.ui.screens.unlock.UnLockEvent.kt</ID>
+    <ID>FinalNewline:WelcomeEvent.kt$com.brainwallet.ui.screens.welcome.WelcomeEvent.kt</ID>
+    <ID>FinalNewline:WelcomeScreen.kt$com.brainwallet.ui.screens.welcome.WelcomeScreen.kt</ID>
+    <ID>FinalNewline:WelcomeViewModel.kt$com.brainwallet.ui.screens.welcome.WelcomeViewModel.kt</ID>
+    <ID>FinalNewline:WheelPicker.kt$com.brainwallet.ui.composable.WheelPicker.kt</ID>
+    <ID>FinalNewline:YourSeedProveItEvent.kt$com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItEvent.kt</ID>
+    <ID>FinalNewline:YourSeedProveItScreen.kt$com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItScreen.kt</ID>
+    <ID>FinalNewline:YourSeedProveItState.kt$com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItState.kt</ID>
+    <ID>FinalNewline:YourSeedProveItViewModel.kt$com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItViewModel.kt</ID>
+    <ID>FinalNewline:YourSeedWordsEvent.kt$com.brainwallet.ui.screens.yourseedwords.YourSeedWordsEvent.kt</ID>
+    <ID>FinalNewline:YourSeedWordsScreen.kt$com.brainwallet.ui.screens.yourseedwords.YourSeedWordsScreen.kt</ID>
+    <ID>FinalNewline:YourSeedWordsViewModel.kt$com.brainwallet.ui.screens.yourseedwords.YourSeedWordsViewModel.kt</ID>
+    <ID>FunctionStartOfBodySpacing:BRConstantsTest.kt$BRConstantsTest$@Test fun `validate App external URL constant`()</ID>
+    <ID>FunctionStartOfBodySpacing:BRConstantsTest.kt$BRConstantsTest$@Test fun `validate Firebase Analytics constants`()</ID>
+    <ID>Indentation:AppModule.kt$AppModule$ </ID>
+    <ID>Indentation:CurrencyDetail.kt$ </ID>
+    <ID>Indentation:FiatSelectorBottomSheet.kt$ </ID>
+    <ID>Indentation:FragmentMoonpay.kt$FragmentMoonpay$ </ID>
+    <ID>Indentation:FragmentSend.kt$FragmentSend$ </ID>
+    <ID>Indentation:HomeSettingDrawerSheet.kt$ </ID>
+    <ID>Indentation:MoonPayWidgeLauncher.kt$MoonPayWidgetLauncherViewModel$ </ID>
+    <ID>Indentation:PinDotItem.kt$ </ID>
+    <ID>Indentation:RecoverActivity.kt$RecoverActivity$ </ID>
+    <ID>Indentation:UnLockScreen.kt$ </ID>
+    <ID>Indentation:UnLockScreenFooter.kt$ </ID>
+    <ID>Indentation:UnLockViewModelTest.kt$UnLockViewModelTest$ </ID>
     <ID>MaxLineLength:CountryLanguageAdapter.kt$CountryLanguageAdapter$class</ID>
     <ID>MaxLineLength:FragmentSend.kt$FragmentSend$if</ID>
     <ID>MaxLineLength:HomeSettingDrawerSheet.kt$lastSyncMetadata = syncAnalyticsRepository.getLastSyncMetadata()</ID>
@@ -49,8 +412,180 @@
     <ID>ModifierReused:SeedWordItem.kt$Box(modifier = modifier) { Row( modifier = modifier .background( color = BrainwalletTheme.colors.background.copy(alpha = 0.3f), shape = MaterialTheme.shapes.extraLarge ) .padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically ) { content.invoke(this) } }</ID>
     <ID>ModifierReused:SeedWordItem.kt$Row( modifier = modifier .background( color = BrainwalletTheme.colors.background.copy(alpha = 0.3f), shape = MaterialTheme.shapes.extraLarge ) .padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically ) { content.invoke(this) }</ID>
     <ID>ModifierWithoutDefault:WheelPicker.kt$modifier</ID>
+    <ID>MultiLineIfElse:CipherBox.kt$CipherBox.Impl$GCMParameterSpec(128, iv)</ID>
+    <ID>MultiLineIfElse:CipherBox.kt$CipherBox.Impl$IvParameterSpec(iv)</ID>
+    <ID>MultiLineIfElse:FragmentSend.kt$FragmentSend$"LTC"</ID>
+    <ID>MultiLineIfElse:FragmentSend.kt$FragmentSend$BRSharedPrefs.getIsoSymbol( context )</ID>
+    <ID>MultiLineIfElse:FragmentSend.kt$FragmentSend$selectedIsoCurrencySymbol = savedIsoCurrencySymbol</ID>
+    <ID>MultiLineIfElse:LegacyNavigation.kt$LegacyNavigation$BrainwalletActivity.createIntent(from, Route.UnLock())</ID>
+    <ID>MultiLineIfElse:LegacyNavigation.kt$LegacyNavigation$Intent(from, BreadActivity::class.java)</ID>
+    <ID>MultiLineIfElse:MoonPayWidgeLauncher.kt$CustomTabsIntent.COLOR_SCHEME_DARK</ID>
+    <ID>MultiLineIfElse:MoonPayWidgeLauncher.kt$CustomTabsIntent.COLOR_SCHEME_LIGHT</ID>
+    <ID>MultiLineIfElse:ReceiveDialog.kt$quickFiatAmountOption.getFormattedText()</ID>
+    <ID>MultiLineIfElse:ReceiveDialog.kt$stringResource(R.string.custom)</ID>
+    <ID>MultiLineIfElse:ReceiveDialogViewModel.kt$ReceiveDialogViewModel$event.quickFiatAmountOption.value</ID>
+    <ID>MultiLineIfElse:ReceiveDialogViewModel.kt$ReceiveDialogViewModel$it.fiatAmount</ID>
+    <ID>NoBlankLineBeforeRbrace:BrainwalletActivity.kt$BrainwalletActivity$ </ID>
+    <ID>NoBlankLineBeforeRbrace:BuyLitecoinScreen.kt$ </ID>
+    <ID>NoBlankLineBeforeRbrace:BuyLitecoinViewModel.kt$BuyLitecoinViewModel$ </ID>
+    <ID>NoBlankLineBeforeRbrace:CipherBox.kt$CipherBox.Impl$ </ID>
+    <ID>NoBlankLineBeforeRbrace:CipherStorage.kt$CipherStorageFile$ </ID>
+    <ID>NoBlankLineBeforeRbrace:CurrencyDetail.kt$ </ID>
+    <ID>NoBlankLineBeforeRbrace:CurrencyUpdateWorker.kt$CurrencyUpdateWorker$ </ID>
+    <ID>NoBlankLineBeforeRbrace:ExampleTest.kt$ExampleTest$ </ID>
+    <ID>NoBlankLineBeforeRbrace:FirebaseRemoteConfigRepository.kt$FirebaseRemoteConfigRepository.&lt;no name provided&gt;$ </ID>
+    <ID>NoBlankLineBeforeRbrace:GamesDetail.kt$ </ID>
+    <ID>NoBlankLineBeforeRbrace:HomeScreen.kt$ </ID>
+    <ID>NoBlankLineBeforeRbrace:HomeSettingDrawerSheet.kt$ </ID>
+    <ID>NoBlankLineBeforeRbrace:InputWordsScreen.kt$ </ID>
+    <ID>NoBlankLineBeforeRbrace:InputWordsViewModel.kt$InputWordsViewModel$ </ID>
+    <ID>NoBlankLineBeforeRbrace:KeyStoreManager.kt$KeyStoreManager$ </ID>
+    <ID>NoBlankLineBeforeRbrace:LitecoinBlockchainDetail.kt$ </ID>
+    <ID>NoBlankLineBeforeRbrace:LocaleHelperTest.kt$LocaleHelperTest$ </ID>
+    <ID>NoBlankLineBeforeRbrace:LtcRepositoryImpl.kt$LtcRepositoryImpl$ </ID>
+    <ID>NoBlankLineBeforeRbrace:MoonpayBuyButton.kt$ </ID>
+    <ID>NoBlankLineBeforeRbrace:MoonpayBuyWidget.kt$ </ID>
+    <ID>NoBlankLineBeforeRbrace:NotificationHandlerTest.kt$NotificationHandlerTest$ </ID>
+    <ID>NoBlankLineBeforeRbrace:PermissionUtil.kt$PermissionUtil$ </ID>
+    <ID>NoBlankLineBeforeRbrace:ReceiveDialogViewModel.kt$ReceiveDialogViewModel$ </ID>
+    <ID>NoBlankLineBeforeRbrace:RemoteApiSource.kt$RemoteApiSource$ </ID>
+    <ID>NoBlankLineBeforeRbrace:Route.kt$Route$ </ID>
+    <ID>NoBlankLineBeforeRbrace:SecurityDetail.kt$ </ID>
+    <ID>NoBlankLineBeforeRbrace:SeedWordItem.kt$ </ID>
+    <ID>NoBlankLineBeforeRbrace:SelectedPeersRepositoryImpl.kt$SelectedPeersRepositoryImpl$ </ID>
+    <ID>NoBlankLineBeforeRbrace:SelectedPeersRepositoryImpl.kt$SelectedPeersRepositoryImpl.&lt;no name provided&gt;$ </ID>
+    <ID>NoBlankLineBeforeRbrace:SetPasscodeScreen.kt$ </ID>
+    <ID>NoBlankLineBeforeRbrace:UnLockScreenBody.kt$ </ID>
+    <ID>NoBlankLineBeforeRbrace:UnLockViewModel.kt$UnLockViewModel$ </ID>
+    <ID>NoBlankLineBeforeRbrace:WelcomeScreen.kt$ </ID>
+    <ID>NoBlankLineBeforeRbrace:WelcomeViewModel.kt$WelcomeViewModel$ </ID>
+    <ID>NoBlankLineBeforeRbrace:YourSeedProveItScreen.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:AppModule.kt$AppModule$ </ID>
+    <ID>NoConsecutiveBlankLines:BRConstantsTest.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:BRKeyStoreTest.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:BaseFragment.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:BaseURLTests.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:BrainwalletActivity.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:BrainwalletActivity.kt$BrainwalletActivity$ </ID>
+    <ID>NoConsecutiveBlankLines:BuyLitecoinScreen.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:CertificateChainNotFound.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:CipherBox.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:CountryLanguageAdapter.kt$CountryLanguageAdapter$ </ID>
+    <ID>NoConsecutiveBlankLines:EventBus.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:EventBus.kt$EventBus$ </ID>
+    <ID>NoConsecutiveBlankLines:EventBus.kt$EventBus.Event$ </ID>
+    <ID>NoConsecutiveBlankLines:ExampleTest.kt$ExampleTest$ </ID>
+    <ID>NoConsecutiveBlankLines:Fee.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:FiatSelectorBottomSheet.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:FragmentSend.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:GoogleServicesTests.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:InputWordsScreen.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:KeyStoreManager.kt$KeyStoreManager$ </ID>
+    <ID>NoConsecutiveBlankLines:Language.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:LanguageAdapter.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:LanguageDetail.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:LocaleHelperTest.kt$LocaleHelperTest$ </ID>
+    <ID>NoConsecutiveBlankLines:MainNav.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:MoonpayBuyWidget.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:NotificationHandlerTest.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:PaymentRequestExpiredException.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:QuickFiatAmountOption.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:ReadyScreen.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:ReceiveDialog.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:ReceiveDialogState.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:Route.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:SeedWordItem.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:SeedWordTests.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:SettingRepositoryImpl.kt$SettingRepositoryImpl$ </ID>
+    <ID>NoConsecutiveBlankLines:SettingRowItem.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:Theme.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:TopUpScreen.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:Type.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:UnLockViewModelTest.kt$UnLockViewModelTest$ </ID>
+    <ID>NoConsecutiveBlankLines:WelcomeScreen.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:WheelPicker.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:YourSeedProveItScreen.kt$ </ID>
+    <ID>NoEmptyClassBody:BRKeyStoreTest.kt$BRKeyStoreTest${ }</ID>
+    <ID>NoEmptyClassBody:DatabaseTests.kt$DatabaseTests${ }</ID>
+    <ID>NoEmptyClassBody:Font.kt$Font${ }</ID>
+    <ID>NoEmptyClassBody:NewKeyStoreTests.kt$NewKeyStoreTests${ }</ID>
+    <ID>NoEmptyClassBody:SeedWordTests.kt$SeedWordTests${ }</ID>
+    <ID>NoEmptyClassBody:TransactionDataSourceTest.kt$TransactionDataSourceTest${}</ID>
+    <ID>NoEmptyFirstLineInMethodBlock:BuyLitecoinScreen.kt$ </ID>
+    <ID>NoEmptyFirstLineInMethodBlock:CurrencyTests.kt$CurrencyTests$ </ID>
+    <ID>NoEmptyFirstLineInMethodBlock:FirebaseRemoteConfigRepositoryTest.kt$FirebaseRemoteConfigRepositoryTest$ </ID>
+    <ID>NoEmptyFirstLineInMethodBlock:GamesDetail.kt$ </ID>
+    <ID>NoEmptyFirstLineInMethodBlock:GoogleServicesTests.kt$GoogleServicesTest$ </ID>
+    <ID>NoEmptyFirstLineInMethodBlock:InputWordsScreen.kt$ </ID>
+    <ID>NoEmptyFirstLineInMethodBlock:LitecoinBlockchainDetail.kt$ </ID>
+    <ID>NoEmptyFirstLineInMethodBlock:NotificationHandlerTest.kt$NotificationHandlerTest$ </ID>
+    <ID>NoEmptyFirstLineInMethodBlock:ReceiveDialog.kt$ </ID>
+    <ID>NoEmptyFirstLineInMethodBlock:ReceiveDialogViewModel.kt$ReceiveDialogViewModel$ </ID>
+    <ID>NoEmptyFirstLineInMethodBlock:SecurityDetail.kt$ </ID>
+    <ID>NoEmptyFirstLineInMethodBlock:TopUpScreen.kt$ </ID>
+    <ID>NoEmptyFirstLineInMethodBlock:UnLockViewModel.kt$UnLockViewModel$ </ID>
+    <ID>NoEmptyFirstLineInMethodBlock:WelcomeScreen.kt$ </ID>
+    <ID>NoEmptyFirstLineInMethodBlock:WheelPicker.kt$ </ID>
+    <ID>NoMultipleSpaces:Fee.kt$ </ID>
+    <ID>NoSemicolons:BRConstantsTest.kt$BRConstantsTest$;</ID>
+    <ID>NoSemicolons:CountryLanguageAdapter.kt$CountryLanguageAdapter$;</ID>
+    <ID>NoSemicolons:FragmentBalanceSeedReminder.kt$FragmentBalanceSeedReminder$;</ID>
+    <ID>NoSemicolons:FragmentMoonpay.kt$FragmentMoonpay$;</ID>
+    <ID>NoSemicolons:FragmentSend.kt$FragmentSend$;</ID>
+    <ID>NoSemicolons:HistoryFragment.kt$HistoryFragment$;</ID>
+    <ID>NoSemicolons:TransactionDataItem.kt$TransactionDataItem$;</ID>
+    <ID>NoTrailingSpaces:CurrencyDataGetterTest.kt$CurrencyDataGetterTest$ </ID>
+    <ID>NoTrailingSpaces:MediumButton.kt$ </ID>
+    <ID>NoTrailingSpaces:MessagingTopicDataSource.kt$MessagingTopicDataSource$ </ID>
+    <ID>NoTrailingSpaces:ReplicatedKVStoreTest.kt$ </ID>
+    <ID>NoUnusedImports:BRKeyStoreTest.kt$com.brainwallet.tools.security.BRKeyStoreTest.kt</ID>
+    <ID>NoUnusedImports:BackupRateFetchTests.kt$com.brainwallet.currency.BackupRateFetchTests.kt</ID>
+    <ID>NoUnusedImports:BaseURLTests.kt$com.brainwallet.data.BaseURLTests.kt</ID>
+    <ID>NoUnusedImports:FiatSelectorBottomSheet.kt$com.brainwallet.ui.composable.bottomsheet.FiatSelectorBottomSheet.kt</ID>
+    <ID>NoUnusedImports:Font.kt$com.brainwallet.ui.theme.Font.kt</ID>
+    <ID>NoUnusedImports:FragmentBalanceSeedReminder.kt$com.brainwallet.presenter.fragments.FragmentBalanceSeedReminder.kt</ID>
+    <ID>NoUnusedImports:FragmentMoonpay.kt$com.brainwallet.presenter.fragments.FragmentMoonpay.kt</ID>
+    <ID>NoUnusedImports:GoogleServicesTests.kt$com.brainwallet.tools.util.GoogleServicesTests.kt</ID>
+    <ID>NoUnusedImports:LegacyNavigation.kt$com.brainwallet.navigation.LegacyNavigation.kt</ID>
+    <ID>NoUnusedImports:LitecoinBlockchainDetail.kt$com.brainwallet.ui.screens.home.composable.settingsrows.LitecoinBlockchainDetail.kt</ID>
+    <ID>NoUnusedImports:LoadingDialog.kt$com.brainwallet.ui.composable.LoadingDialog.kt</ID>
+    <ID>NoUnusedImports:MediumButton.kt$com.brainwallet.ui.composable.MediumButton.kt</ID>
+    <ID>NoUnusedImports:NewKeyStoreTests.kt$com.brainwallet.tools.security.NewKeyStoreTests.kt</ID>
+    <ID>NoUnusedImports:ProdAPIManagerTests.kt$com.brainwallet.tools.util.ProdAPIManagerTests.kt</ID>
+    <ID>NoUnusedImports:ReceiveDialogFragment.kt$com.brainwallet.ui.screens.home.receive.ReceiveDialogFragment.kt</ID>
+    <ID>NoUnusedImports:RoundedBottomSheetDialogFragment.kt$com.brainwallet.ui.RoundedBottomSheetDialogFragment.kt</ID>
+    <ID>NoUnusedImports:TopUpScreen.kt$com.brainwallet.ui.screens.topup.TopUpScreen.kt</ID>
+    <ID>NoUnusedImports:Type.kt$com.brainwallet.ui.theme.Type.kt</ID>
+    <ID>NoUnusedImports:UnLockScreen.kt$com.brainwallet.ui.screens.unlock.UnLockScreen.kt</ID>
+    <ID>NoUnusedImports:UnLockScreenBody.kt$com.brainwallet.ui.screens.unlock.components.UnLockScreenBody.kt</ID>
+    <ID>NoUnusedImports:WelcomeScreen.kt$com.brainwallet.ui.screens.welcome.WelcomeScreen.kt</ID>
     <ID>NoWildcardImports:FragmentBalanceSeedReminder.kt$import android.widget.*</ID>
+    <ID>ParameterListWrapping:FragmentMoonpay.kt$FragmentMoonpay$( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? )</ID>
+    <ID>ParameterListWrapping:HomeSettingDrawerSheet.kt$HomeSettingDrawerComposeView$( context: Context, attrs: AttributeSet? = null )</ID>
+    <ID>ParameterListWrapping:KeyStoreKeyGeneratorImpl.kt$KeyStoreKeyGeneratorImpl$( builder: KeyGenParameterSpec.Builder, authTimeout: Int? )</ID>
+    <ID>ParameterListWrapping:SeedWordItem.kt$( modifier: Modifier = Modifier, content: @Composable RowScope.() -&gt; Unit )</ID>
     <ID>SerialVersionUIDInSerializableClass:CurrencyEntity.kt$CurrencyEntity : Serializable</ID>
+    <ID>SpacingAroundColon:CountryLanguageAdapter.kt$CountryLanguageAdapter$:</ID>
+    <ID>SpacingAroundColon:IntroLanguage.kt$IntroLanguage$:</ID>
+    <ID>SpacingAroundColon:UiEffect.kt$UiEffect.ShowDialog$:</ID>
+    <ID>SpacingAroundColon:UiEffect.kt$UiEffect.ShowMoonPayDialog$:</ID>
+    <ID>SpacingAroundComma:BRConstantsTest.kt$BRConstantsTest$,</ID>
+    <ID>SpacingAroundComma:CountryLanguageAdapter.kt$CountryLanguageAdapter$,</ID>
+    <ID>SpacingAroundCurly:BRConstantsTest.kt$BRConstantsTest${</ID>
+    <ID>SpacingAroundKeyword:CountryLanguageAdapter.kt$CountryLanguageAdapter$if</ID>
+    <ID>SpacingAroundKeyword:FragmentBalanceSeedReminder.kt$FragmentBalanceSeedReminder$else</ID>
+    <ID>SpacingAroundKeyword:HistoryFragment.kt$HistoryFragment$else</ID>
+    <ID>SpacingAroundKeyword:LanguageSelectorBottomSheet.kt$if</ID>
+    <ID>SpacingAroundKeyword:YourSeedProveItScreen.kt$&lt;no name provided&gt;$else</ID>
+    <ID>SpacingAroundOperators:CurrencyEntity.kt$CurrencyEntity$=</ID>
+    <ID>SpacingAroundOperators:LanguageSelectorBottomSheet.kt$-</ID>
+    <ID>SpacingAroundParens:DarkModeToggleButton.kt$)</ID>
+    <ID>SpacingAroundParens:Language.kt$Language$(</ID>
+    <ID>SpacingBetweenDeclarationsWithAnnotations:GoogleServicesTests.kt$GoogleServicesTest$@Test fun `read GoogleServices file and parse into a JSON object , should return the correct project_id`()</ID>
+    <ID>SpacingBetweenDeclarationsWithAnnotations:MediumButton.kt$@Preview @Composable fun MediumTextButtonPreview()</ID>
+    <ID>StringTemplate:CipherStorage.kt$CipherStorageFile$${fileName}</ID>
+    <ID>StringTemplate:KeyStoreManager.kt$KeyStoreManager$${decryptedData}</ID>
+    <ID>StringTemplate:ReceiveDialogViewModel.kt$ReceiveDialogViewModel$${address}</ID>
     <ID>UnstableCollections:LitecoinBlockchainDetail.kt$List&lt;FeeOption&gt;</ID>
     <ID>UnstableCollections:PasscodeIndicator.kt$List&lt;Int&gt;</ID>
     <ID>UnstableCollections:SeedWordItem.kt$List&lt;String&gt;</ID>
@@ -67,5 +602,19 @@
     <ID>UnusedPrivateMember:UnLockScreenFooter.kt$@PreviewLightDark @Composable private fun UnLockScreenFooterPreview()</ID>
     <ID>UnusedPrivateMember:UnLockScreenHeader.kt$@PreviewLightDark @Composable private fun UnLockScreenHeaderPreview()</ID>
     <ID>WildcardImport:FragmentBalanceSeedReminder.kt$import android.widget.*</ID>
+    <ID>Wrapping:AppModule.kt$AppModule$(</ID>
+    <ID>Wrapping:CurrencyDetail.kt$(</ID>
+    <ID>Wrapping:CurrencyDetail.kt$(colors = ListItemDefaults.colors( containerColor = BrainwalletTheme.colors.background, headlineColor = BrainwalletTheme.colors.content, ), modifier = Modifier.clickable { onFiatSelect.invoke(currency) }, headlineContent = { Row { Text( modifier = Modifier.padding(tinyPad.dp), text = currency.name, style = MaterialTheme.typography.labelMedium .copy(textAlign = TextAlign.Left) ) Spacer(modifier = Modifier.weight(1f)) Text( modifier = Modifier.padding(tinyPad.dp), text = "${currency.code} (${currency.symbol})", style = MaterialTheme.typography.labelMedium .copy(textAlign = TextAlign.Left) ) } }, trailingContent = { if (selectedCurrency.code == currency.code) { Icon( Icons.Default.CheckCircle, contentDescription = null, tint = BrainwalletTheme.colors.affirm ) } else { Box( modifier = Modifier .size(unselectedCircleSize.dp) .alpha(0.1f) .clip(CircleShape) .background(BrainwalletTheme.colors.content) ) } })</ID>
+    <ID>Wrapping:FiatSelectorBottomSheet.kt$(</ID>
+    <ID>Wrapping:FiatSelectorBottomSheet.kt$(colors = ListItemDefaults.colors( containerColor = BrainwalletTheme.colors.background, headlineColor = BrainwalletTheme.colors.content, ), modifier = Modifier.clickable { onFiatSelect.invoke(currency) }, headlineContent = { Row { Text( modifier = Modifier.padding(tinyPad.dp), text = currency.name, style = BrainwalletTheme.typography.labelLarge .copy(textAlign = TextAlign.Left) ) Spacer(modifier = Modifier.weight(1f)) Text( modifier = Modifier.padding(tinyPad.dp), text = "${currency.code} (${currency.symbol})", style = BrainwalletTheme.typography.labelLarge .copy(textAlign = TextAlign.Left) ) } }, trailingContent = { if (selectedCurrency.code == currency.code) { Icon( Icons.Default.CheckCircle, contentDescription = null, tint = BrainwalletTheme.colors.affirm ) } else { Box( modifier = Modifier .size(unselectedCircleSize.dp) .alpha(0.1f) .clip(CircleShape) .background(BrainwalletTheme.colors.content) ) } })</ID>
+    <ID>Wrapping:FirebaseRemoteConfigRepositoryTest.kt$FirebaseRemoteConfigRepositoryTest$firebaseRemoteConfig.getString(any())</ID>
+    <ID>Wrapping:HomeSettingDrawerSheet.kt$(</ID>
+    <ID>Wrapping:MoonPayWidgeLauncher.kt$MoonPayWidgetLauncherViewModel$(</ID>
+    <ID>Wrapping:RecoverActivity.kt$RecoverActivity$(</ID>
+    <ID>Wrapping:SeedWordItem.kt$(</ID>
+    <ID>Wrapping:TransactionDataItem.kt$TransactionDataItem$;</ID>
+    <ID>Wrapping:UnLockScreen.kt$(</ID>
+    <ID>Wrapping:UnLockViewModelTest.kt$UnLockViewModelTest$(</ID>
+    <ID>Wrapping:YourSeedWordsScreen.kt$(</ID>
   </CurrentIssues>
 </SmellBaseline>

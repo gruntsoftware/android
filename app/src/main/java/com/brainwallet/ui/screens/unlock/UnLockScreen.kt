@@ -2,7 +2,6 @@
 
 package com.brainwallet.ui.screens.unlock
 
-import androidx.activity.ComponentActivity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
@@ -97,10 +96,12 @@ private fun UnLockScreen(
 @Composable
 private fun UnLockScreenPreview() {
     BrainwalletAppTheme(appSetting = AppSetting(isDarkMode = isSystemInDarkTheme())) {
-        UnLockScreen(uiState = UnLockState(
-            isUpdatePin = true,
-            formattedCurrency = "$90.00",
-            formattedVersion = "v4.0.0 (202501201)"
-        ))
+        UnLockScreen(
+            uiState = UnLockState(
+                isUpdatePin = true,
+                formattedCurrency = "$90.00",
+                formattedVersion = "v4.0.0 (202501201)"
+            )
+        )
     }
 }

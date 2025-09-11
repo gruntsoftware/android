@@ -56,7 +56,7 @@ class HistoryFragment :
     }
     private fun registerAnalyticsError(errorString: String) {
         val params = Bundle()
-        params.putString("lwa_error_message", errorString);
+        params.putString("lwa_error_message", errorString)
         AnalyticsManager.logCustomEventWithParams(BRConstants._20200112_ERR, params)
         Timber.d("History Fragment: RegisterError : %s", errorString)
     }
@@ -66,8 +66,7 @@ class HistoryFragment :
 
         if (this.activity == null) {
             registerAnalyticsError("null_in_history_fragment_on_resume")
-        }
-        else {
+        } else {
             TxManager.getInstance().onResume(this.activity)
         }
     }
@@ -85,8 +84,7 @@ class HistoryFragment :
         BRExecutor.getInstance().forBackgroundTasks().execute {
             if (this.activity == null) {
                 registerAnalyticsError("null_in_history_fragment_on_status_update")
-            }
-            else {
+            } else {
                 TxManager.getInstance().updateTxList(this.activity)
             }
         }
@@ -100,8 +98,7 @@ class HistoryFragment :
         BRExecutor.getInstance().forBackgroundTasks().execute {
             if (this.activity == null) {
                 registerAnalyticsError("null_in_history_fragment_on_tx_added")
-            }
-            else {
+            } else {
                 TxManager.getInstance().updateTxList(this.activity)
             }
         }
@@ -110,8 +107,7 @@ class HistoryFragment :
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute {
             if (this.activity == null) {
                 registerAnalyticsError("null_in_history_fragment_update_ui")
-            }
-            else {
+            } else {
                 Thread.currentThread().name = Thread.currentThread().name + "HistoryFragment:updateUI"
                 TxManager.getInstance().updateTxList(this.activity)
             }

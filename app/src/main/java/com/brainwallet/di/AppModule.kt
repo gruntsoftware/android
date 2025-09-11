@@ -42,7 +42,6 @@ object AppModule {
         single<SharedPreferences> { provideSharedPreferences(context = androidApplication()) }
     }
 
-
     private fun provideSharedPreferences(
         context: Context,
         name: String = "${BuildConfig.APPLICATION_ID}.prefs"
@@ -60,14 +59,16 @@ object AppModule {
                 .addHeader("Accept-Language", "en")
             chain.proceed(requestBuilder.build())
         }
-        .addInterceptor(HttpLoggingInterceptor().apply {
-            setLevel(
-                when {
-                    BuildConfig.DEBUG -> HttpLoggingInterceptor.Level.BODY
-                    else -> HttpLoggingInterceptor.Level.NONE
-                }
-            )
-        })
+        .addInterceptor(
+            HttpLoggingInterceptor().apply {
+                setLevel(
+                    when {
+                        BuildConfig.DEBUG -> HttpLoggingInterceptor.Level.BODY
+                        else -> HttpLoggingInterceptor.Level.NONE
+                    }
+                )
+            }
+        )
         .build()
 
     internal fun provideRetrofit(

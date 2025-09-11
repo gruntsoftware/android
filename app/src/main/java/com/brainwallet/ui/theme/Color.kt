@@ -12,7 +12,7 @@ val nearBlack = Color(0xFF151515)
 val lavender = Color(0xFFDDD5FA)
 val white = Color.White
 
-//to make color darken, since we are not providing all colors for specific case
+// to make color darken, since we are not providing all colors for specific case
 inline fun Color.darken(darkenBy: Float = 0.3f): Color {
     return copy(
         red = red * darkenBy,

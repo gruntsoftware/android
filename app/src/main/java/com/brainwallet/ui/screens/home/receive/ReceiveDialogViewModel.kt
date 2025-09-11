@@ -23,7 +23,7 @@ import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
-//todo: wip
+// todo: wip
 @KoinViewModel
 class ReceiveDialogViewModel(
     private val settingRepository: SettingRepository,
@@ -50,7 +50,7 @@ class ReceiveDialogViewModel(
                 val address = BRSharedPrefs.getReceiveAddress(event.context)
                 it.copy(
                     address = address,
-                    qrBitmap = QRUtils.generateQR(event.context, "litecoin:${address}"),
+                    qrBitmap = QRUtils.generateQR(event.context, "litecoin:$address"),
                     fiatCurrencies = CurrencyDataSource.getInstance(event.context)
                         .getCurrenciesForBuy(),
                 )
@@ -62,7 +62,7 @@ class ReceiveDialogViewModel(
             )
 
             is ReceiveDialogEvent.OnFiatAmountChange -> viewModelScope.launch {
-                //do validation
+                // do validation
                 val (_, min, max) = state.value.moonpayCurrencyLimit.data.baseCurrency
                 val errorStringId = when {
                     event.fiatAmount < min -> R.string.buy_litecoin_fiat_amount_validation_min
@@ -96,13 +96,11 @@ class ReceiveDialogViewModel(
                             ltcAmount = result.data.quoteCurrencyAmount,
                         )
                     }
-
                 } catch (e: Exception) {
                     handleError(e)
                 } finally {
                     onLoading(false)
                 }
-
             }
 
             is ReceiveDialogEvent.OnFiatCurrencyChange -> viewModelScope.launch {
@@ -114,7 +112,7 @@ class ReceiveDialogViewModel(
                         it.copy(
                             selectedFiatCurrency = event.fiatCurrency,
                             moonpayCurrencyLimit = currencyLimit,
-                            selectedQuickFiatAmountOptionIndex = 1, //default to 10X
+                            selectedQuickFiatAmountOptionIndex = 1, // default to 10X
                             fiatAmount = it.getDefaultFiatAmount(),
                         )
                     }.let {
@@ -125,7 +123,6 @@ class ReceiveDialogViewModel(
                             )
                         )
                     }
-
                 } catch (e: Exception) {
                     handleError(e)
                 } finally {
@@ -136,8 +133,11 @@ class ReceiveDialogViewModel(
             is ReceiveDialogEvent.OnFiatAmountOptionIndexChange -> _state.updateAndGet {
                 it.copy(
                     selectedQuickFiatAmountOptionIndex = event.index,
-                    fiatAmount = if (event.quickFiatAmountOption.isCustom()) it.fiatAmount
-                    else event.quickFiatAmountOption.value
+                    fiatAmount = if (event.quickFiatAmountOption.isCustom()) {
+                        it.fiatAmount
+                    } else {
+                        event.quickFiatAmountOption.value
+                    }
                 )
             }.let {
                 if (event.quickFiatAmountOption.isCustom().not()) {
@@ -161,15 +161,11 @@ class ReceiveDialogViewModel(
                     )
 
                     _state.update { it.copy(moonpayBuySignedUrl = signedUrl) }
-
                 } catch (e: Exception) {
                     handleError(e)
                 } finally {
-
                     onLoading(false)
-
                 }
-
             }
 
             ReceiveDialogEvent.OnSignedUrlClear -> _state.update { it.copy(moonpayBuySignedUrl = null) }

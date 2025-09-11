@@ -13,7 +13,6 @@ import androidx.compose.ui.platform.ComposeView
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.model.Language
 
-
 /**
  * define custom colors naming for brainwallet colors
  */
@@ -56,7 +55,7 @@ val LocalBrainwalletColors = staticCompositionLocalOf {
 }
 
 val LocalLanguageCode = staticCompositionLocalOf {
-    Language.ENGLISH.code //default
+    Language.ENGLISH.code // default
 }
 
 val LocalDarkModeFlag = staticCompositionLocalOf {
@@ -66,7 +65,9 @@ val LocalDarkModeFlag = staticCompositionLocalOf {
 @Composable
 fun BrainwalletAppTheme(
     appSetting: AppSetting = AppSetting(),
-    content: @Composable() () -> Unit
+    content:
+    @Composable()
+    () -> Unit
 ) {
     val colors = if (appSetting.isDarkMode) darkColorScheme else lightColorScheme
 
@@ -88,15 +89,17 @@ object BrainwalletTheme {
         get() = LocalBrainwalletColors.current
 
     val typography: Typography
-        @Composable @ReadOnlyComposable get() = MaterialTheme.typography
+        @Composable @ReadOnlyComposable
+        get() = MaterialTheme.typography
 
     val shapes: Shapes
-        @Composable @ReadOnlyComposable get() = MaterialTheme.shapes
+        @Composable @ReadOnlyComposable
+        get() = MaterialTheme.shapes
 
-    //todo: add typography, shape? for the design system
+    // todo: add typography, shape? for the design system
 }
 
-//provide compose theme wrapper for transition
+// provide compose theme wrapper for transition
 fun ComposeView.setContentWithTheme(content: @Composable () -> Unit) {
     setContent {
         BrainwalletAppTheme { content.invoke() }

@@ -70,7 +70,6 @@ class SettingRepositoryImpl(
         sharedPreferences.getString(KEY_SELECTED_FEE_TYPE, FeeManager.REGULAR)
             ?: FeeManager.REGULAR
 
-
     private fun load(): AppSetting {
         return AppSetting(
             isDarkMode = sharedPreferences.getBoolean(KEY_IS_DARK_MODE, true),

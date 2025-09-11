@@ -44,7 +44,7 @@ class SelectedPeersRepositoryImpl(
         return suspendCoroutine { continuation ->
             okHttpClient.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
-                    continuation.resume(emptySet()) //just return empty if failed or need hardcoded?
+                    continuation.resume(emptySet()) // just return empty if failed or need hardcoded?
                 }
 
                 override fun onResponse(call: Call, response: Response) {
@@ -60,7 +60,7 @@ class SelectedPeersRepositoryImpl(
                         val dataObject = jsonElement.jsonObject["data"]?.jsonObject
                         val nodesObject = dataObject?.get("nodes")?.jsonObject
 
-                        //filter criteria
+                        // filter criteria
                         val requiredServices = 0x01 or 0x04 // NODE_NETWORK | NODE_BLOOM
 
                         nodesObject?.entries
@@ -72,7 +72,6 @@ class SelectedPeersRepositoryImpl(
                             ?.map { it.key.replace(":9333", "") }
                             ?.toSet().also { Timber.d("Total Selected Peers ${it?.size}") }
                             ?: emptySet()
-
                     } ?: emptySet()
 
                     sharedPreferences.edit {
@@ -85,5 +84,4 @@ class SelectedPeersRepositoryImpl(
             })
         }
     }
-
 }

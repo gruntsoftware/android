@@ -65,12 +65,11 @@ fun SettingRowItemExpandable(
 ) {
     var expanded by remember { mutableStateOf(false) }
 
-    /// Layout values
+    // / Layout values
     val closedHeight = 60
     val expandedHeight = 100
     val dividerThickness = 1
     val horizontalPadding = 14
-
 
     Column(
         modifier = modifier.background(BrainwalletTheme.colors.settingRowItemBackground(expanded))

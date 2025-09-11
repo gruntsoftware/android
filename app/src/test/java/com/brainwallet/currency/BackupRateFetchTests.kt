@@ -1,25 +1,6 @@
 package com.brainwallet.currency
 
-import android.app.Activity
-import android.content.Context
-import com.brainwallet.data.source.RemoteConfigSource
-import com.brainwallet.presenter.activities.util.ActivityUTILS
-import com.brainwallet.tools.util.BRConstants
-import com.brainwallet.tools.util.Utils
-import com.platform.APIClient
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.mockkObject
-import io.mockk.mockkStatic
-import io.mockk.spyk
-import okhttp3.Protocol
-import okhttp3.Request
-import okhttp3.Response
-import okhttp3.ResponseBody.Companion.toResponseBody
-import org.junit.Before
-import org.junit.Test
-
-//TODO: need update this test after refactor
+// TODO: need update this test after refactor
 class BackupRateFetchTests {
 //    private val remoteConfigSource: RemoteConfigSource = mockk()
 //    private lateinit var apiManager: BRApiManager

@@ -15,8 +15,6 @@ import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,7 +30,7 @@ import com.brainwallet.data.model.getSelectedIndex
 import com.brainwallet.ui.screens.home.SettingsEvent
 import com.brainwallet.ui.theme.BrainwalletTheme
 
-//TODO
+// TODO
 @Composable
 fun LitecoinBlockchainDetail(
     modifier: Modifier = Modifier,
@@ -41,8 +39,7 @@ fun LitecoinBlockchainDetail(
     feeOptions: List<FeeOption>,
     onEvent: (SettingsEvent) -> Unit,
 ) {
-
-    /// Layout values
+    // / Layout values
     val contentHeight = 60
     val horizontalPadding = 14
 
@@ -54,7 +51,6 @@ fun LitecoinBlockchainDetail(
             modifier = Modifier.padding(horizontal = horizontalPadding.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-
             Row(
                 modifier = Modifier.height(contentHeight.dp),
                 verticalAlignment = Alignment.CenterVertically
@@ -82,7 +78,6 @@ fun LitecoinBlockchainDetail(
             ) { newSelectedIndex ->
                 onEvent.invoke(SettingsEvent.OnFeeTypeChange(feeOptions[newSelectedIndex].type))
             }
-
         }
     }
 }
@@ -114,7 +109,7 @@ private fun NetworkFeeSelector(
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = feeOptions[index].getFiatFormatted(selectedCurrency), //fiat?
+                        text = feeOptions[index].getFiatFormatted(selectedCurrency), // fiat?
                         fontSize = 12.sp
                     )
                 }
@@ -135,7 +130,5 @@ private fun NetworkFeeSelector(
                 )
             }
         }
-
-
     }
 }

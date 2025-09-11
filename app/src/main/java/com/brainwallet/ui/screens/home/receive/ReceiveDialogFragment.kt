@@ -12,7 +12,6 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.viewModels
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import org.koin.compose.viewmodel.koinViewModel
 

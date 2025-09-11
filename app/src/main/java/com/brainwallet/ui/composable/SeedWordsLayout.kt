@@ -18,7 +18,7 @@ fun SeedWordsLayout(
     LazyVerticalGrid(
         modifier = modifier
             .height(220.dp),
-        columns = GridCells.Fixed(3), //fixed 3
+        columns = GridCells.Fixed(3), // fixed 3
         contentPadding = PaddingValues(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),

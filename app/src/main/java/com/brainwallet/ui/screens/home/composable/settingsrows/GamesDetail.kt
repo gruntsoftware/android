@@ -18,7 +18,7 @@ import com.brainwallet.R
 fun GamesDetail(
     modifier: Modifier = Modifier
 ) {
-    /// Layout values
+    // / Layout values
     val contentHeight = 60
     val horizontalPadding = 14
 
@@ -30,7 +30,6 @@ fun GamesDetail(
             modifier = Modifier.padding(horizontal = horizontalPadding.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-
             Row(
                 modifier = Modifier
                     .height(contentHeight.dp),
@@ -81,8 +80,6 @@ fun GamesDetail(
                     Text(stringResource(R.string.game_buy_price_4, "TBD"))
                 }
             }
-
         }
     }
-
 }

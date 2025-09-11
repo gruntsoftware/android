@@ -15,15 +15,14 @@ import androidx.compose.ui.unit.dp
 import com.brainwallet.R
 import com.brainwallet.ui.screens.home.SettingsEvent
 
-//TODO
+// TODO
 @Composable
 fun SecurityDetail(
     modifier: Modifier = Modifier,
     shareAnalyticsDataEnabled: Boolean = false,
     onEvent: (SettingsEvent) -> Unit
 ) {
-
-    /// Layout values
+    // / Layout values
     val contentHeight = 60
     val horizontalPadding = 14
 
@@ -88,7 +87,6 @@ fun SecurityDetail(
                     Text(stringResource(if (shareAnalyticsDataEnabled) R.string.Button_yes else R.string.Button_no))
                 }
             }
-
         }
     }
 }

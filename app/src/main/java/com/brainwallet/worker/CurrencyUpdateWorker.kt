@@ -25,10 +25,8 @@ class CurrencyUpdateWorker(
         job = scope.launch(Dispatchers.IO) {
             while (isActive) {
                 ltcRepository.fetchRates()
-                delay(4000L) //4secs
+                delay(4000L) // 4secs
             }
         }
     }
-
-
 }

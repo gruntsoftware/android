@@ -24,5 +24,5 @@ fun PinDotItem(
             .background(if (checked) BrainwalletTheme.colors.content else Color.Transparent, CircleShape)
             .border(1.dp, BrainwalletTheme.colors.content, CircleShape),
 
-        )
+    )
 }

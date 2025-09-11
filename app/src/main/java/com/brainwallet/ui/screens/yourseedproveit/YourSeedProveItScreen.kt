@@ -1,5 +1,6 @@
 @file:OptIn(
-    ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class,
+    ExperimentalMaterial3Api::class,
+    ExperimentalLayoutApi::class,
     ExperimentalFoundationApi::class
 )
 
@@ -70,7 +71,7 @@ fun YourSeedProveItScreen(
     val state by viewModel.state.collectAsState()
     val context = LocalContext.current
 
-    /// Layout values
+    // / Layout values
     val columnPadding = 12
     val horizontalVerticalSpacing = 8
     val spacerHeight = 48
@@ -104,7 +105,8 @@ fun YourSeedProveItScreen(
                             contentDescription = stringResource(R.string.back),
                         )
                     }
-                })
+                }
+            )
         },
     ) { paddingValues ->
         Column(
@@ -117,12 +119,16 @@ fun YourSeedProveItScreen(
             verticalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
         ) {
             Text(
-                text = stringResource(if (state.orderCorrected) R.string.you_saved_your_keys else R.string.you_saved_it_right),
+                text = stringResource(
+                    if (state.orderCorrected) R.string.you_saved_your_keys else R.string.you_saved_it_right
+                ),
                 style = MaterialTheme.typography.headlineSmall,
             )
 
             Text(
-                text = stringResource(if (state.orderCorrected) R.string.you_saved_your_keys_desc else R.string.you_saved_it_right_desc),
+                text = stringResource(
+                    if (state.orderCorrected) R.string.you_saved_your_keys_desc else R.string.you_saved_it_right_desc
+                ),
                 style = MaterialTheme.typography.bodyMedium.copy(
                     textAlign = TextAlign.Center,
                     color = Color.Gray
@@ -132,7 +138,9 @@ fun YourSeedProveItScreen(
             Spacer(modifier = Modifier.weight(0.1f))
 
             SeedWordsLayout {
-                itemsIndexed(items = state.correctSeedWords.values.toList()) { index: Int, (expectedWord, actualWord): SeedWordItem ->
+                itemsIndexed(
+                    items = state.correctSeedWords.values.toList()
+                ) { index: Int, (expectedWord, actualWord): SeedWordItem ->
                     val label = if (expectedWord != actualWord && actualWord.isEmpty()) {
                         "${index + 1}"
                     } else {
@@ -164,8 +172,7 @@ fun YourSeedProveItScreen(
                                             )
                                             if (text.toString() == expectedWord) {
                                                 clickAudioPlayer.start() // Success sound
-                                            }
-                                            else {
+                                            } else {
                                                 errorAudioPlayer.start() // Success sound
                                             }
                                             return true
@@ -215,11 +222,8 @@ fun YourSeedProveItScreen(
                             }
                         )
                     }
-
-
                 }
             }
-
 
             LargeButton(
                 onClick = {
@@ -231,11 +235,12 @@ fun YourSeedProveItScreen(
                 },
             ) {
                 Text(
-                    text = stringResource(if (state.orderCorrected) R.string.game_and_sync else R.string.reset_start_over).uppercase(),
+                    text = stringResource(
+                        if (state.orderCorrected) R.string.game_and_sync else R.string.reset_start_over
+                    ).uppercase(),
                     style = MaterialTheme.typography.labelLarge
                 )
             }
-
         }
     }
 }

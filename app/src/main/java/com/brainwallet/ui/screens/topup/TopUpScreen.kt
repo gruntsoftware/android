@@ -2,7 +2,6 @@
 
 package com.brainwallet.ui.screens.topup
 
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,7 +29,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
-import com.brainwallet.navigation.LegacyNavigation
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
@@ -47,10 +45,9 @@ fun TopUpScreen(
     onNavigate: OnNavigate,
     viewModel: YourSeedProveItViewModel = viewModel()
 ) {
-
     val context = LocalContext.current
 
-    /// Layout values
+    // / Layout values
     val leadingCopyPadding = 16
     val buttonRowHeight = 55
     val horizontalVerticalSpacing = 8

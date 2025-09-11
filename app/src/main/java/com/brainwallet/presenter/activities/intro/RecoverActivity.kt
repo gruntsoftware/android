@@ -20,13 +20,15 @@ class RecoverActivity : BRActivity() {
         val view = binding.root
         setContentView(view)
 
-        binding.sendButton.setOnClickListener(View.OnClickListener {
-            if (!BRAnimator.isClickAllowed()) return@OnClickListener
-            LegacyNavigation.openComposeScreen(
-                context = this@RecoverActivity,
-                destination = Route.InputWords()
-            )
-        })
+        binding.sendButton.setOnClickListener(
+            View.OnClickListener {
+                if (!BRAnimator.isClickAllowed()) return@OnClickListener
+                LegacyNavigation.openComposeScreen(
+                    context = this@RecoverActivity,
+                    destination = Route.InputWords()
+                )
+            }
+        )
     }
 
     override fun onResume() {

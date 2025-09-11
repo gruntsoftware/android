@@ -45,20 +45,22 @@ class MoonPayWidgetLauncherViewModel(
         _isLoading.update { true }
         viewModelScope.launch(ioDispatcher) {
             val isDarkMode = settingRepository.isDarkMode()
-            _result.send(ltcRepository.runCatching {
-                val result = ltcRepository.fetchMoonpaySignedUrl(
-                    params = params.toMutableMap().apply {
-                        put("theme", if (isDarkMode) "dark" else "light")
-                    }
-                )
-                isDarkMode to result.toUri().buildUpon()
-                    .apply {
-                        if (BuildConfig.DEBUG) {
-                            authority("buy-sandbox.moonpay.com")//replace base url from buy.moonpay.com
+            _result.send(
+                ltcRepository.runCatching {
+                    val result = ltcRepository.fetchMoonpaySignedUrl(
+                        params = params.toMutableMap().apply {
+                            put("theme", if (isDarkMode) "dark" else "light")
                         }
-                    }
-                    .build()
-            })
+                    )
+                    isDarkMode to result.toUri().buildUpon()
+                        .apply {
+                            if (BuildConfig.DEBUG) {
+                                authority("buy-sandbox.moonpay.com") // replace base url from buy.moonpay.com
+                            }
+                        }
+                        .build()
+                }
+            )
             _isLoading.update { false }
         }
     }
@@ -83,8 +85,11 @@ fun MoonPayWidgetLauncher(
                 onSuccess = { (isDarkMode, uri) ->
                     val intent = CustomTabsIntent.Builder()
                         .setColorScheme(
-                            if (isDarkMode) CustomTabsIntent.COLOR_SCHEME_DARK
-                            else CustomTabsIntent.COLOR_SCHEME_LIGHT
+                            if (isDarkMode) {
+                                CustomTabsIntent.COLOR_SCHEME_DARK
+                            } else {
+                                CustomTabsIntent.COLOR_SCHEME_LIGHT
+                            }
                         )
                         .build()
                     intent.launchUrl(context, uri)

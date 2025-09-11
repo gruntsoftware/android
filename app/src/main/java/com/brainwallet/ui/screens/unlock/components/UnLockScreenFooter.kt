@@ -39,9 +39,11 @@ fun UnLockScreenFooter(
         modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Row(modifier = Modifier
-            .padding(bottom = 24.dp)
-            .padding(horizontal = 85.dp)) {
+        Row(
+            modifier = Modifier
+                .padding(bottom = 24.dp)
+                .padding(horizontal = 85.dp)
+        ) {
             DarkModeToggleButton(
                 checked = LocalDarkModeFlag.current,
                 onCheckedChange = {

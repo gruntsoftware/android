@@ -28,7 +28,7 @@ fun LanguageSelectorBottomSheet(
     ) {
         LazyColumn {
             val languages = Language.entries.toTypedArray()
-            val lastLanguageItem = languages[languages.size -1]
+            val lastLanguageItem = languages[languages.size - 1]
             val lastLanguageBottomPad = 16
             items(
                 items = languages
@@ -42,7 +42,7 @@ fun LanguageSelectorBottomSheet(
                         if (language.code.isNotBlank()) {
                             onLanguageSelect.invoke(language)
                         }
-                    }.padding(bottom = if(language == lastLanguageItem) lastLanguageBottomPad.dp else 0.dp),
+                    }.padding(bottom = if (language == lastLanguageItem) lastLanguageBottomPad.dp else 0.dp),
                     headlineContent = {
                         Text(language.title)
                     },

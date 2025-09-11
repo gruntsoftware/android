@@ -2,7 +2,6 @@
 
 package com.brainwallet.ui.screens.ready
 
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -42,7 +41,6 @@ import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
 import org.koin.compose.koinInject
 
-
 @Composable
 fun ReadyScreen(
     onNavigate: OnNavigate,
@@ -54,7 +52,7 @@ fun ReadyScreen(
         viewModel.onEvent(ReadyEvent.OnLoad(context))
     }
 
-    /// Layout values
+    // / Layout values
     val leadingCopyPadding = 18
 
     val horizontalVerticalSpacing = 8

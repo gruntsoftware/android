@@ -60,7 +60,7 @@ fun SetPasscodeScreen(
         }
     }
 
-    /// Layout values
+    // / Layout values
     val leadingCopyPadding = 16
 
     val horizontalVerticalSpacing = 8
@@ -151,6 +151,5 @@ fun SetPasscodeScreen(
             }
             Spacer(modifier = Modifier.weight(0.05f))
         }
-
     }
 }

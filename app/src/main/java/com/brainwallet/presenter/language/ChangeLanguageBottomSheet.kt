@@ -116,7 +116,7 @@ class ChangeLanguageBottomSheet : RoundedBottomSheetDialogFragment() {
         return dialog
     }
 
-    //for now, need to provide [getLocale]
+    // for now, need to provide [getLocale]
     private fun getLocale(language: Language): Locale {
         val codes = language.code.split("-")
         return if (codes.size == 2) {

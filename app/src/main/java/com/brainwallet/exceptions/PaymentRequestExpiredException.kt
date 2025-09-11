@@ -2,7 +2,6 @@ package com.brainwallet.exceptions
 
 import java.security.GeneralSecurityException
 
-
 class PaymentRequestExpiredException : GeneralSecurityException {
     private constructor() : super()
 

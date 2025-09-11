@@ -34,7 +34,7 @@ abstract class BrainwalletViewModel<Event> : ViewModel() {
 
     protected fun handleError(t: Throwable) {
         val errorMessage = t.message ?: "Oops, something went wrong"
-        //todo more error handler
+        // todo more error handler
 
         if (t is retrofit2.HttpException) {
             val message = t.response()?.errorBody()?.string()?.let {

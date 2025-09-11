@@ -48,24 +48,24 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.regex.Pattern
 
-//TODO: make sure remove unused after refactor network fee move to HomeSettingDrawerSheet
+// TODO: make sure remove unused after refactor network fee move to HomeSettingDrawerSheet
 class FragmentSend : Fragment() {
-    private lateinit var signalLayout: LinearLayout;
+    private lateinit var signalLayout: LinearLayout
     private lateinit var keyboardLayout: LinearLayout
-    private lateinit var scanButton: Button;
-    private lateinit var pasteButton: Button;
-    private lateinit var sendButton: Button;
+    private lateinit var scanButton: Button
+    private lateinit var pasteButton: Button
+    private lateinit var sendButton: Button
     private lateinit var isoCurrencySymbolButton: Button
-    private lateinit var commentEdit: EditText;
-    private lateinit var addressEdit: EditText;
+    private lateinit var commentEdit: EditText
+    private lateinit var addressEdit: EditText
     private lateinit var amountEdit: EditText
-    private lateinit var isoCurrencySymbolText: TextView;
-    private lateinit var balanceText: TextView;
-    private lateinit var feeText: TextView;
-    private lateinit var feeDescription: TextView;
+    private lateinit var isoCurrencySymbolText: TextView
+    private lateinit var balanceText: TextView
+    private lateinit var feeText: TextView
+    private lateinit var feeDescription: TextView
     private lateinit var warningText: TextView
-    private var amountLabelOn = true;
-    private var ignoreCleanup = false;
+    private var amountLabelOn = true
+    private var ignoreCleanup = false
     private var feeButtonsShown = false
     private var currentBalance: Long = 0
     private var keyboardIndex = 0
@@ -104,19 +104,23 @@ class FragmentSend : Fragment() {
 //        warningText = rootView.findViewById<View>(R.id.warning_text) as TextView
         closeButton = rootView.findViewById<View>(R.id.close_button) as ImageButton
         selectedIsoCurrencySymbol =
-            if (BRSharedPrefs.getPreferredLTC(context)) "LTC" else BRSharedPrefs.getIsoSymbol(
-                context
-            )
+            if (BRSharedPrefs.getPreferredLTC(context)) {
+                "LTC"
+            } else {
+                BRSharedPrefs.getIsoSymbol(
+                    context
+                )
+            }
         amountBuilder = StringBuilder(0)
         setListeners()
 
-        /// Setup Currency Button that switches between LTC and the preferred fiat (e.g.; "USD")
+        // / Setup Currency Button that switches between LTC and the preferred fiat (e.g.; "USD")
         isoCurrencySymbolText.text = getString(R.string.Send_amountLabel)
         isoCurrencySymbolText.textSize = 18f
         isoCurrencySymbolText.setTextColor(requireContext().getColor(R.color.cheddar))
         isoCurrencySymbolText.requestLayout()
 
-        /// Setup Fees Description
+        // / Setup Fees Description
         feeText.text = ""
 
         signalLayout.setOnTouchListener(SlideDetector(signalLayout) { animateClose() })
@@ -135,7 +139,7 @@ class FragmentSend : Fragment() {
 
         updateText()
 
-        //update fee
+        // update fee
         BRWalletManager.getInstance().setFeePerKb(FeeManager.getInstance().currentFeeValue)
 
         return rootView
@@ -631,7 +635,7 @@ class FragmentSend : Fragment() {
             BRWalletManager.getInstance().feeForTransactionAmount(totalAmountToCalculateFees)
         } else {
             0
-        } //Amount is zero so network fee is also zero
+        } // Amount is zero so network fee is also zero
         val networkFeeForISOSymbol =
             BRExchange.getAmountFromLitoshis(activity, selectedISOSymbol, BigDecimal(networkFee))
                 .setScale(scaleValue, RoundingMode.HALF_UP)
@@ -746,8 +750,10 @@ class FragmentSend : Fragment() {
     private fun loadMetaData() {
         ignoreCleanup = false
         if (!Utils.isNullOrEmpty(savedMemo)) commentEdit.setText(savedMemo)
-        if (!Utils.isNullOrEmpty(savedIsoCurrencySymbol)) selectedIsoCurrencySymbol =
-            savedIsoCurrencySymbol
+        if (!Utils.isNullOrEmpty(savedIsoCurrencySymbol)) {
+            selectedIsoCurrencySymbol =
+                savedIsoCurrencySymbol
+        }
         if (!Utils.isNullOrEmpty(savedAmount)) {
             amountBuilder = StringBuilder(savedAmount!!)
             Handler().postDelayed({
@@ -775,8 +781,7 @@ class FragmentSend : Fragment() {
     }
 }
 
-
-///DEV WIP
+// /DEV WIP
 
 //      val approximateNetworkFee = BRCurrency.getFormattedCurrencyString(activity, selectedISOSymbol, feeForISOSymbol)
 

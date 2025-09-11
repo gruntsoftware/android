@@ -7,12 +7,11 @@ import com.brainwallet.R
 import com.brainwallet.presenter.activities.BreadActivity
 import com.brainwallet.ui.BrainwalletActivity
 import timber.log.Timber
-import com.google.firebase.analytics.FirebaseAnalytics
 
-//provide old navigation using intent activity
+// provide old navigation using intent activity
 object LegacyNavigation {
 
-    //todo
+    // todo
 
     /**
      * wrapper for old `startBreadActivity`
@@ -25,8 +24,11 @@ object LegacyNavigation {
     ) {
         Timber.i("timber: startBreadActivity: %s", from.javaClass.name)
 
-        val intent = if (auth) BrainwalletActivity.createIntent(from, Route.UnLock())
-        else Intent(from, BreadActivity::class.java)
+        val intent = if (auth) {
+            BrainwalletActivity.createIntent(from, Route.UnLock())
+        } else {
+            Intent(from, BreadActivity::class.java)
+        }
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         from.startActivity(intent)
         from.overridePendingTransition(R.anim.fade_up, R.anim.fade_down)
@@ -46,7 +48,7 @@ object LegacyNavigation {
         }
     }
 
-    //open compose from old activity
+    // open compose from old activity
     @JvmStatic
     @JvmOverloads
     fun openComposeScreen(

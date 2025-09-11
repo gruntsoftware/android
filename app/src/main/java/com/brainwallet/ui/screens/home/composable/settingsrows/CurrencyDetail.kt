@@ -39,7 +39,7 @@ fun CurrencyDetail(
 ) {
     val context = LocalContext.current
 
-    /// Layout values
+    // / Layout values
     val closedHeight = 60
     val expandedHeight = 100
     val dividerThickness = 1
@@ -56,45 +56,49 @@ fun CurrencyDetail(
             items(
                 items = CurrencyDataSource.getInstance(context).getAllCurrencies(true)
             ) { currency ->
-                ListItem(colors = ListItemDefaults.colors(
-                    containerColor = BrainwalletTheme.colors.background,
-                    headlineColor = BrainwalletTheme.colors.content,
-                ), modifier = Modifier.clickable {
-                    onFiatSelect.invoke(currency)
-                }, headlineContent = {
-                    Row {
-                        Text(
-                            modifier = Modifier.padding(tinyPad.dp),
-                            text = currency.name,
-                            style = MaterialTheme.typography.labelMedium
-                                .copy(textAlign = TextAlign.Left)
-                        )
-                        Spacer(modifier = Modifier.weight(1f))
-                        Text(
-                            modifier = Modifier.padding(tinyPad.dp),
-                            text = "${currency.code} (${currency.symbol})",
-                            style = MaterialTheme.typography.labelMedium
-                                .copy(textAlign = TextAlign.Left)
-                        )
+                ListItem(
+                    colors = ListItemDefaults.colors(
+                        containerColor = BrainwalletTheme.colors.background,
+                        headlineColor = BrainwalletTheme.colors.content,
+                    ),
+                    modifier = Modifier.clickable {
+                        onFiatSelect.invoke(currency)
+                    },
+                    headlineContent = {
+                        Row {
+                            Text(
+                                modifier = Modifier.padding(tinyPad.dp),
+                                text = currency.name,
+                                style = MaterialTheme.typography.labelMedium
+                                    .copy(textAlign = TextAlign.Left)
+                            )
+                            Spacer(modifier = Modifier.weight(1f))
+                            Text(
+                                modifier = Modifier.padding(tinyPad.dp),
+                                text = "${currency.code} (${currency.symbol})",
+                                style = MaterialTheme.typography.labelMedium
+                                    .copy(textAlign = TextAlign.Left)
+                            )
+                        }
+                    },
+                    trailingContent = {
+                        if (selectedCurrency.code == currency.code) {
+                            Icon(
+                                Icons.Default.CheckCircle,
+                                contentDescription = null,
+                                tint = BrainwalletTheme.colors.affirm
+                            )
+                        } else {
+                            Box(
+                                modifier = Modifier
+                                    .size(unselectedCircleSize.dp)
+                                    .alpha(0.1f)
+                                    .clip(CircleShape)
+                                    .background(BrainwalletTheme.colors.content)
+                            )
+                        }
                     }
-
-                }, trailingContent = {
-                    if (selectedCurrency.code == currency.code) {
-                        Icon(
-                            Icons.Default.CheckCircle,
-                            contentDescription = null,
-                            tint = BrainwalletTheme.colors.affirm
-                        )
-                    } else {
-                        Box(
-                            modifier = Modifier
-                                .size(unselectedCircleSize.dp)
-                                .alpha(0.1f)
-                                .clip(CircleShape)
-                                .background(BrainwalletTheme.colors.content)
-                        )
-                    }
-                })
+                )
             }
         }
     }

@@ -13,7 +13,7 @@ class SyncBlockWorker(
     params: WorkerParameters
 ) : CoroutineWorker(context, params) {
 
-    //todo: maybe need ongoing notification?
+    // todo: maybe need ongoing notification?
 
     override suspend fun doWork(): Result {
         BRWalletManager.getInstance().initWallet(applicationContext)

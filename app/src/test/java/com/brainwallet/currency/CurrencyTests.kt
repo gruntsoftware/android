@@ -38,21 +38,21 @@ class CurrencyTests {
 
     @Test
     fun `invoke CurrencyDataSource instance and getAllCurrencies, should return the correct number of currencies`() {
-        //The actual number of currencies is 174. The 0 is a placeholder and needs to be replaced with a db query.
+        // The actual number of currencies is 174. The 0 is a placeholder and needs to be replaced with a db query.
         mockCursorDataFromDatabase()
         assertEquals(currencyDataSource?.getAllCurrencies(false)?.count(), 0)
     }
 
     @Test
     fun `invoke CurrencyDataSource instance and Brainwallet filtered Fiats, should return the correct number of Brainwallet currencies`() {
-        //The actual number of BW currencies is 16. The 0 is a placeholder and needs to be replaced with a db query.
+        // The actual number of BW currencies is 16. The 0 is a placeholder and needs to be replaced with a db query.
         mockCursorDataFromDatabase()
         assertEquals(currencyDataSource?.getAllCurrencies(true)?.count(), 0)
     }
 
     @Test
     fun `invoke CurrencyDataSource instance and Brainwallet filtered Fiats for Buy, should return the correct number of supported currencies (moonpay)`() {
-        //The actual number of BW currencies is 16. The 0 is a placeholder and needs to be replaced with a db query.
+        // The actual number of BW currencies is 16. The 0 is a placeholder and needs to be replaced with a db query.
         mockCursorDataFromDatabase()
         assertEquals(currencyDataSource?.currenciesForBuy?.count(), 0)
     }
@@ -65,7 +65,6 @@ class CurrencyTests {
 
     @Test
     fun `invoke CurrencyDataSource instance database, should return currency by ISO`() {
-
         val expected =
             CurrencyEntity("USD", "USD", 110.345f, "$")
         mockCursorDataFromDatabase(isEmpty = false, expected = expected)

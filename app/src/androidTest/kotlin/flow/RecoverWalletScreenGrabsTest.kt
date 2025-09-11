@@ -80,11 +80,9 @@ class RecoverWalletScreenGrabsTest {
         CleanStatusBar.disable()
     }
 
-
     @OptIn(ExperimentalTestApi::class)
     @Test
     fun onRecoverFlowSuccess() {
-
         composeTestRule.activityRule.scenario.onActivity {
             Screengrab.setDefaultScreenshotStrategy(FalconScreenshotStrategy(it))
         }
@@ -102,7 +100,7 @@ class RecoverWalletScreenGrabsTest {
 
         Screengrab.screenshot("2_input_words_screen")
 
-        //seed words input
+        // seed words input
         val editTextTags = (0..11).map { index -> "textFieldSeedWord$index" }
 
         val paperKey = BuildConfig.SCREENGRAB_PAPERKEY
@@ -148,7 +146,7 @@ class RecoverWalletScreenGrabsTest {
 
         Screengrab.screenshot("6_main_screen")
 
-        //setting drawer
+        // setting drawer
         onView(withId(R.id.menuBut)).perform(click())
 
         Screengrab.screenshot("7_setting_drawer_open")
@@ -216,8 +214,7 @@ class RecoverWalletScreenGrabsTest {
         uiDevice.waitForIdle()
         Thread.sleep(1000)
 
-
-        //tx send ui
+        // tx send ui
         onView(withId(R.id.nav_send)).perform(click())
 
         onView(withId(R.id.amount_edit)).perform(click())
@@ -226,8 +223,7 @@ class RecoverWalletScreenGrabsTest {
 
         onView(withId(R.id.close_button)).perform(click())
 
-
-        //tx buy/receive ui
+        // tx buy/receive ui
         onView(withId(R.id.nav_receive)).perform(click())
 
         Screengrab.screenshot("15_transaction_buy_receive")
@@ -235,7 +231,6 @@ class RecoverWalletScreenGrabsTest {
         composeTestRule.onNodeWithTag("buttonClose").performClick()
 
         uiDevice.waitForIdle()
-
     }
 
     private fun waitUntilReady() {
@@ -262,5 +257,4 @@ class RecoverWalletScreenGrabsTest {
             }
         }
     }
-
 }

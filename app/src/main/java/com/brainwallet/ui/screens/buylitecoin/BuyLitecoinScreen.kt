@@ -35,7 +35,7 @@ import com.brainwallet.ui.composable.LargeButton
 import com.brainwallet.ui.theme.BrainwalletTheme
 import org.koin.compose.viewmodel.koinViewModel
 
-//TODO: wip
+// TODO: wip
 @Composable
 fun BuyLitecoinScreen(
     onNavigate: OnNavigate,
@@ -82,7 +82,6 @@ fun BuyLitecoinScreen(
                 .fillMaxSize(),
             contentAlignment = Alignment.TopCenter
         ) {
-
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(24.dp)
@@ -139,9 +138,7 @@ fun BuyLitecoinScreen(
                         )
                     )
                 )
-
             }
-
 
             LargeButton(
                 modifier = Modifier.align(Alignment.BottomCenter),

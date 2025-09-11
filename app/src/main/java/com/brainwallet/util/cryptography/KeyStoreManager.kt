@@ -36,7 +36,7 @@ class KeyStoreManager(
             try {
                 val secretKey = keyGenerator.generateKey(
                     alias = aliasObject.alias,
-                    isAuthRequired = false, //if true need device auth
+                    isAuthRequired = false, // if true need device auth
                     authTimeout = BRKeyStore.AUTH_DURATION_SEC
                 )
                 cipherStoragePref.saveKey(
@@ -46,7 +46,7 @@ class KeyStoreManager(
                 )
                 return true
             } catch (e: UserNotAuthenticatedException) {
-                //TODO: need auth?
+                // TODO: need auth?
                 Timber.d("timber: KeyStoreManager.setData: ${e.message}")
                 throw e
             } catch (e: Exception) {
@@ -79,7 +79,7 @@ class KeyStoreManager(
 
                     secretKey = keyGenerator.generateKey(
                         alias = aliasObject.alias,
-                        isAuthRequired = false, //if true need device auth
+                        isAuthRequired = false, // if true need device auth
                         authTimeout = BRKeyStore.AUTH_DURATION_SEC
                     )
 
@@ -97,23 +97,24 @@ class KeyStoreManager(
                     }
                 }
 
-
                 /**
                  * the following are the new format logic that stored on the shared preferences
                  */
 
                 if (cipherStoragePref.hasKey(aliasObject).not()) {
-                    Timber.d("timber: KeyStoreManager.getData new key in prefs not exists | ${aliasObject.alias}, ${aliasObject.datafileName}, ${aliasObject.ivFileName}")
+                    Timber.d(
+                        "timber: KeyStoreManager.getData new key in prefs not exists | ${aliasObject.alias}, ${aliasObject.datafileName}, ${aliasObject.ivFileName}"
+                    )
                     return null
                 }
 
                 val decryptedData = cipherStoragePref.getKey(secretKey, aliasObject)
-                Timber.d("timber: KeyStoreManager.getData: decryptedData=${decryptedData}")
+                Timber.d("timber: KeyStoreManager.getData: decryptedData=$decryptedData")
                 return decryptedData.also {
                     Timber.d("timber: KeyStoreManager.getData key: $it")
                 }
             } catch (e: UserNotAuthenticatedException) {
-                //TODO: need auth?
+                // TODO: need auth?
                 Timber.d("timber: KeyStoreManager.getData: ${e.message}")
                 throw e
             } catch (e: Exception) {
@@ -128,5 +129,4 @@ class KeyStoreManager(
     fun getDataBlocking(aliasObject: AliasObject) = runBlocking {
         getData(aliasObject)
     }
-
 }
