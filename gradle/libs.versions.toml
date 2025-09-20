@@ -105,7 +105,6 @@ unstoppable-domain = "com.unstoppabledomains:resolution:5.0.0"
 razir-progressbutton = "com.github.razir.progressbutton:progressbutton:2.1.0"
 junit = { module = "junit:junit", version.ref = "junit" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
-pinterest-ktlint = "com.pinterest.ktlint:ktlint-cli:1.5.0"
 fastlane-screengrab = "tools.fastlane:screengrab:2.1.1"
 airbnb-lottie-compose = "com.airbnb.android:lottie-compose:6.5.2"
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
