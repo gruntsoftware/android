@@ -33,5 +33,4 @@ object PermissionUtil {
         launcher: ActivityResultLauncher<String>,
         permission: String
     ) = launcher.launch(permission)
-
 }

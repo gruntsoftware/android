@@ -25,19 +25,19 @@ class MessagingTopicDataSource(
      */
     private fun getBaseLanguageCode(languageCode: String): String {
         val normalizedLanguageCode = languageCode.split("_", "-").first().lowercase()
-        
+
         // Handle reverse mapping: if "id" is passed, treat it as Indonesian
         val searchCode = when (normalizedLanguageCode) {
             "id" -> "in"
             else -> normalizedLanguageCode
         }
-        
-        val targetLanguage = supportedLanguages.find { 
-            it.code.split("-").first().lowercase() == searchCode 
+
+        val targetLanguage = supportedLanguages.find {
+            it.code.split("-").first().lowercase() == searchCode
         } ?: defaultLanguage
-        
+
         val baseCode = targetLanguage.code.split("-").first().lowercase()
-        
+
         return when (baseCode) {
             "in" -> "id"
             else -> baseCode

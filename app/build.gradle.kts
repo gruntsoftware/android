@@ -1,14 +1,17 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import org.gradle.kotlin.dsl.grunt
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.jetbrains.kotlin.compose)
+    alias(grunt.plugins.jetbrains.kotlin.android)
+    alias(grunt.plugins.jetbrains.kotlin.compose)
     alias(libs.plugins.jetbrains.kotlin.kapt)
-    alias(libs.plugins.jetbrains.kotlin.serialization)
+    alias(grunt.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
-    alias(libs.plugins.ksp)
+    alias(grunt.plugins.ksp)
+    alias(grunt.plugins.buildlogic.test)
+    alias(grunt.plugins.buildlogic.detekt)
 }
 
 val localProperties = gradleLocalProperties(rootDir, providers)
@@ -179,15 +182,7 @@ android {
     //TODO: rename output apk/bundle
 }
 
-val ktlint by configurations.creating
-
 dependencies {
-    ktlint(libs.pinterest.ktlint) {
-        attributes {
-            attribute(Bundling.BUNDLING_ATTRIBUTE, objects.named(Bundling.EXTERNAL))
-        }
-    }
-
     val gamesModule = findProject(":modules:games:content")
     if (gamesModule != null) {
         implementation(gamesModule)
@@ -222,11 +217,11 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.coroutines.android)
     implementation (libs.airbnb.lottie.compose)
-    implementation(platform(libs.koin.bom))
-    implementation(libs.bundles.koin)
-    implementation(platform(libs.koin.annotation.bom))
-    implementation(libs.koin.annotation)
-    ksp(libs.koin.annotation.compiler)
+    implementation(platform(grunt.koin.bom))
+    implementation(grunt.bundles.koin)
+    implementation(platform(grunt.koin.annotation.bom))
+    implementation(grunt.koin.annotation)
+    ksp(grunt.koin.annotation.compiler)
 
     implementation(platform(libs.squareup.okhttp.bom))
     implementation(libs.bundles.squareup.okhttp)
@@ -253,38 +248,6 @@ dependencies {
     androidTestImplementation(libs.bundles.android.test)
     androidTestImplementation(libs.fastlane.screengrab)
     androidTestImplementation(libs.slf4j.android)
-}
-
-val ktlintCheck by tasks.registering(JavaExec::class) {
-    group = LifecycleBasePlugin.VERIFICATION_GROUP
-    description = "Check Kotlin code style"
-    classpath = ktlint
-    mainClass.set("com.pinterest.ktlint.Main")
-    // see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information
-    args(
-        "**/src/**/*.kt",
-        "**.kts",
-        "!**/build/**",
-    )
-}
-
-tasks.check {
-    dependsOn(ktlintCheck)
-}
-
-tasks.register<JavaExec>("ktlintFormat") {
-    group = LifecycleBasePlugin.VERIFICATION_GROUP
-    description = "Check Kotlin code style and format"
-    classpath = ktlint
-    mainClass.set("com.pinterest.ktlint.Main")
-    jvmArgs("--add-opens=java.base/java.lang=ALL-UNNAMED")
-    // see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information
-    args(
-        "-F",
-        "**/src/**/*.kt",
-        "**.kts",
-        "!**/build/**",
-    )
 }
 
 tasks.withType<Test> {

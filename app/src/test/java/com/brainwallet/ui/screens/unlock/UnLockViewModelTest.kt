@@ -144,7 +144,8 @@ class UnLockViewModelTest {
                 viewModel.onEvent(
                     UnLockEvent.OnPinDigitChange(
                         digit = index + 1,
-                        isValidPin = { false })
+                        isValidPin = { false }
+                    )
                 )
                 awaitItem()
             }
@@ -170,7 +171,8 @@ class UnLockViewModelTest {
                     viewModel.onEvent(
                         UnLockEvent.OnPinDigitChange(
                             digit = index + 1,
-                            isValidPin = { true })
+                            isValidPin = { true }
+                        )
                     )
                     awaitItem()
                 }
@@ -178,7 +180,8 @@ class UnLockViewModelTest {
                 viewModel.onEvent(
                     UnLockEvent.OnPinDigitChange(
                         digit = 4,
-                        isValidPin = { true })
+                        isValidPin = { true }
+                    )
                 )
                 awaitItem()
             }
@@ -210,7 +213,8 @@ class UnLockViewModelTest {
                     viewModel.onEvent(
                         UnLockEvent.OnPinDigitChange(
                             digit = index + 1,
-                            isValidPin = { false })
+                            isValidPin = { false }
+                        )
                     )
                     awaitItem()
                 }
@@ -222,9 +226,11 @@ class UnLockViewModelTest {
             testScheduler.advanceUntilIdle()
 
             coVerify {
-                EventBus.emit(match<EventBus.Event.LegacyUnLock> { event ->
-                    event.passcode == listOf(1, 2, 3, 4)
-                })
+                EventBus.emit(
+                    match<EventBus.Event.LegacyUnLock> { event ->
+                        event.passcode == listOf(1, 2, 3, 4)
+                    }
+                )
             }
         }
 
@@ -293,7 +299,6 @@ class UnLockViewModelTest {
                 }
             }
         }
-
 
     @Test
     fun `given OnLoad event with null currency when processed then state remains unchanged`() =

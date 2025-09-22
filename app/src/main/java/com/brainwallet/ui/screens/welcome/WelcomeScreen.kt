@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
@@ -76,7 +75,7 @@ fun WelcomeScreen(
         viewModel.onEvent(WelcomeEvent.OnLoad(context))
     }
 
-    //todo: the following sizing can be move to BrainwalletTheme
+    // todo: the following sizing can be move to BrainwalletTheme
     // Global layout
     val buttonFontSize = 24
     val thinButtonFontSize = 22
@@ -134,7 +133,6 @@ fun WelcomeScreen(
             )
         }
 
-
         Column(
             modifier = Modifier.align(Alignment.BottomCenter),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -149,7 +147,6 @@ fun WelcomeScreen(
                 horizontalArrangement = Arrangement.SpaceEvenly
 
             ) {
-
                 BrainwalletButton(
                     modifier = Modifier
                         .weight(1f)
@@ -191,7 +188,6 @@ fun WelcomeScreen(
                         color = BrainwalletTheme.colors.content
                     )
                 }
-
             }
             // Ready Button
             BorderedLargeButton(
@@ -239,7 +235,7 @@ fun WelcomeScreen(
         }
     }
 
-    //language selector
+    // language selector
     if (state.languageSelectorBottomSheetVisible) {
         LanguageSelectorBottomSheet(
             selectedLanguage = state.selectedLanguage,
@@ -256,7 +252,7 @@ fun WelcomeScreen(
         )
     }
 
-    //fiat/currency selector
+    // fiat/currency selector
     if (state.fiatSelectorBottomSheetVisible) {
         FiatSelectorBottomSheet(
             selectedCurrency = state.selectedCurrency,
@@ -269,7 +265,6 @@ fun WelcomeScreen(
         )
     }
 }
-
 
 @Preview
 @Composable

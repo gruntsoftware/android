@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.brainwallet.R
 import com.brainwallet.data.model.Language
 
-
 class LanguageAdapter(val languages: Array<Language>) : RecyclerView.Adapter<LanguageAdapter.ViewHolder>() {
     var selectedPosition = 0
 

@@ -136,7 +136,7 @@ open class BrainwalletApp : Application() {
             return context == null || activityCounter.get() <= 0
         }
 
-        //call onStop on evert activity so
+        // call onStop on evert activity so
         @JvmStatic
         fun onStop(app: BRActivity?) {
             if (isBackgroundChecker != null) isBackgroundChecker!!.cancel()

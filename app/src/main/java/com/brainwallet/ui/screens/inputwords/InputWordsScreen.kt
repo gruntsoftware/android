@@ -1,5 +1,6 @@
 @file:OptIn(
-    ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class,
+    ExperimentalMaterial3Api::class,
+    ExperimentalLayoutApi::class,
     ExperimentalComposeUiApi::class
 )
 
@@ -68,7 +69,7 @@ fun InputWordsScreen(
     viewModel: InputWordsViewModel = koinInject()
 ) {
     val state by viewModel.state.collectAsState()
-    val focusRequesters = List(12) { FocusRequester() } //12 seed words
+    val focusRequesters = List(12) { FocusRequester() } // 12 seed words
     val focusManager = LocalFocusManager.current
     val context = LocalContext.current
     val appSetting = AppSetting()
@@ -78,7 +79,7 @@ fun InputWordsScreen(
     var mainBoxFactor = 0.5
     val thirdOfScreenHeight = (screenHeight * mainBoxFactor).toInt()
 
-    //todo: the following sizing can be move to BrainwalletTheme
+    // todo: the following sizing can be move to BrainwalletTheme
 
     val leadTrailPadding = 24
     val halfLeadTrailPadding = leadTrailPadding / 2
@@ -86,7 +87,6 @@ fun InputWordsScreen(
     val buttonMediumFontSize = 20
     val rowPadding = 8
     val activeRowHeight = 70
-
 
     LaunchedEffect(Unit) {
         viewModel.onEvent(InputWordsEvent.OnLoad(source))
@@ -98,7 +98,7 @@ fun InputWordsScreen(
         }
     }
 
-    /// Layout values
+    // / Layout values
     val columnPadding = 16
     val horizontalVerticalSpacing = 8
     val spacerHeight = 48
@@ -174,7 +174,8 @@ fun InputWordsScreen(
                         onValueChange = {
                             viewModel.onEvent(
                                 InputWordsEvent.OnSeedWordItemChange(
-                                    index = index, text = it,
+                                    index = index,
+                                    text = it,
                                 )
                             )
                         },
@@ -185,9 +186,7 @@ fun InputWordsScreen(
                             Text("${index + 1}")
                         }
                     )
-
                 }
-
             }
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -219,7 +218,6 @@ fun InputWordsScreen(
             )
             Spacer(modifier = Modifier.weight(0.5f))
 
-
             Text(
                 text = stringResource(R.string.blockchain_litecoin),
                 style = MaterialTheme.typography.titleMedium.copy(textAlign = TextAlign.Center)
@@ -238,7 +236,6 @@ fun InputWordsScreen(
                     focusManager.clearFocus()
                 },
             ) {
-
                 Text(
                     text = stringResource(R.string.restore_my_brainwallet),
                     fontSize = buttonMediumFontSize.sp,
@@ -247,7 +244,6 @@ fun InputWordsScreen(
             }
 
             Spacer(modifier = Modifier.height(horizontalVerticalSpacing.dp))
-
         }
     }
 }

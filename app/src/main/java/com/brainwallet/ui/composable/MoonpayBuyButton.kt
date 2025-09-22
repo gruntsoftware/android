@@ -60,7 +60,5 @@ fun MoonpayBuyButton(
                 )
             }
         }
-
     }
-
 }

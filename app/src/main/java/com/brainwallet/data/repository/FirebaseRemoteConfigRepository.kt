@@ -45,7 +45,6 @@ class FirebaseRemoteConfigRepository(
             override fun onError(error: FirebaseRemoteConfigException) {
                 Timber.d("timber: [RemoteConfig] onError ${error.code} | ${error.message}")
             }
-
         })
     }
 

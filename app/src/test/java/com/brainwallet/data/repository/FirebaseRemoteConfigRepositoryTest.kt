@@ -43,8 +43,9 @@ class FirebaseRemoteConfigRepositoryTest {
 
     @Test
     fun `call getString, then should return with expected config value`() {
-
-        every { firebaseRemoteConfig.getString(any()) } returns """
+        every {
+            firebaseRemoteConfig.getString(any())
+        } returns """
             {"enabled":false,"title":"brainwallet-co-android repository","url":"https://github.com/brainwallet-co/android"}
         """.trimIndent()
         val actual =

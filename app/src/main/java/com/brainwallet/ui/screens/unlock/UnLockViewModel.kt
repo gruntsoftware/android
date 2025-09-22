@@ -46,9 +46,8 @@ class UnLockViewModel(
                 pinDigits[index] = event.digit
                 it.copy(passcode = pinDigits)
             }.also {
-
                 if (it.isPasscodeFilled() && it.isUpdatePin) {
-                    //if update pin from drawer
+                    // if update pin from drawer
                     if (event.isValidPin.invoke(it.passcode.joinToString(""))) {
                         sendUiEffect(
                             UiEffect.Navigate(
@@ -103,7 +102,6 @@ class UnLockViewModel(
                             formattedCurrency = formattedCurrency,
                             isUpdatePin = event.isUpdatePin
                         )
-
                     }
                 }
             }

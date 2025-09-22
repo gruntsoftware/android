@@ -1,28 +1,27 @@
 package com.brainwallet.tools.database
 
-class DatabaseTests {
-}
+class DatabaseTests
 // TODO: Reopen in Kotlin mocckk
 // TODO: BRSQLiteHelper.BRAINWALLET_FIAT_CODES Test
-//package com.brainwallet.analytics;
-//import androidx.test.ext.junit.runners.AndroidJUnit4;
-//import android.util.Log;
-//import androidx.test.ext.junit.rules.ActivityScenarioRule;
+// package com.brainwallet.analytics;
+// import androidx.test.ext.junit.runners.AndroidJUnit4;
+// import android.util.Log;
+// import androidx.test.ext.junit.rules.ActivityScenarioRule;
 //
-//import com.breadwallet.presenter.activities.intro.IntroActivity;
-//import com.breadwallet.tools.util.BRConstants;
+// import com.breadwallet.presenter.activities.intro.IntroActivity;
+// import com.breadwallet.tools.util.BRConstants;
 //
-//import org.junit.After;
-//import org.junit.Assert;
-//import org.junit.Before;
-//import org.junit.Rule;
-//import org.junit.Test;
-//import org.junit.runner.RunWith;
+// import org.junit.After;
+// import org.junit.Assert;
+// import org.junit.Before;
+// import org.junit.Rule;
+// import org.junit.Test;
+// import org.junit.runner.RunWith;
 //
-//import java.net.URI;
+// import java.net.URI;
 //
-//@Deprecated
-//@RunWith(AndroidJUnit4.class)
+// @Deprecated
+// @RunWith(AndroidJUnit4.class)
 //        public class ConstantsTests {
 //    public static final String TAG = ConstantsTests.class.getName();
 //    @Rule
@@ -82,4 +81,4 @@ class DatabaseTests {
 //        Assert.assertSame(BRConstants._20241006_DRR,"did_request_rating");
 //        Assert.assertSame(BRConstants._20241006_UCR,"user_completed_rating");
 //    }
-//}
+// }

@@ -9,7 +9,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import retrofit2.http.QueryMap
 
-//TODO
+// TODO
 interface RemoteApiSource {
 
     @GET("v1/rates")
@@ -32,5 +32,4 @@ interface RemoteApiSource {
     suspend fun getBuyQuote(
         @QueryMap params: Map<String, String>
     ): GetMoonpayBuyQuoteResponse
-
 }

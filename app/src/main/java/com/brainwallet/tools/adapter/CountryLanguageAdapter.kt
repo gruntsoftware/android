@@ -14,11 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.brainwallet.R
 import com.brainwallet.data.model.IntroLanguage
 
-class CountryLanguageAdapter(context: Context,val languages: Array<IntroLanguage>) : RecyclerView.Adapter<CountryLanguageAdapter.ViewHolder>() {
+class CountryLanguageAdapter(context: Context, val languages: Array<IntroLanguage>) : RecyclerView.Adapter<CountryLanguageAdapter.ViewHolder>() {
     private var mCountryLang: Array<IntroLanguage>? = null
     private var mInflater: LayoutInflater? = null
-    private var mSelectedItem = -1;
-    private var barlowFont : Typeface? = null
+    private var mSelectedItem = -1
+    private var barlowFont: Typeface? = null
     private var mContext: Context? = null
     private var mediaPlayer: MediaPlayer? = null
 
@@ -49,7 +49,6 @@ class CountryLanguageAdapter(context: Context,val languages: Array<IntroLanguage
         return ViewHolder(languageView)
     }
 
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val langQuestion = languages[position]
         val textLanguage = holder.txtLang
@@ -57,11 +56,14 @@ class CountryLanguageAdapter(context: Context,val languages: Array<IntroLanguage
 
         // Make text bold if it's in the center
         if (position == mSelectedItem) {
-            if(barlowFont == null) {
+            if (barlowFont == null) {
                 Log.e("FONT", "FAILED TO LOAD")
             }
             mediaPlayer?.reset()
-            mediaPlayer?.setDataSource(mContext!!, Uri.parse("android.resource://" + mContext?.packageName + "/" + selectedAudio()))
+            mediaPlayer?.setDataSource(
+                mContext!!,
+                Uri.parse("android.resource://" + mContext?.packageName + "/" + selectedAudio())
+            )
             mediaPlayer?.prepare()
             mediaPlayer?.start()
             holder.txtLang.setTypeface(barlowFont, Typeface.BOLD)

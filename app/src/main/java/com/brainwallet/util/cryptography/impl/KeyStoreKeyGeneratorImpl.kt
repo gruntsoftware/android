@@ -44,7 +44,8 @@ class KeyStoreKeyGeneratorImpl : KeyStoreKeyGenerator {
     }
 
     private fun setUserAuth(
-        builder: KeyGenParameterSpec.Builder, authTimeout: Int?
+        builder: KeyGenParameterSpec.Builder,
+        authTimeout: Int?
     ) {
         builder.setUserAuthenticationRequired(true)
         if (authTimeout != null) {

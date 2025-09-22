@@ -17,7 +17,7 @@ data class SettingsState(
         "US Dollar",
         -1f,
         "$"
-    ), //-1 = need to fetch
+    ), // -1 = need to fetch
     val languageSelectorBottomSheetVisible: Boolean = false,
     val fiatSelectorBottomSheetVisible: Boolean = false,
     val shareAnalyticsDataEnabled: Boolean = false,

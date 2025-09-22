@@ -43,7 +43,6 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
-
 /**
  * Compose entry point here
  */
@@ -53,8 +52,8 @@ class BrainwalletActivity : BRActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ///DEV: Test / Dev Composable Shortcut swap to launch
-        /// Ergo; Route.TopUp
+        // /DEV: Test / Dev Composable Shortcut swap to launch
+        // / Ergo; Route.TopUp
         val startDestination =
             intent.getSerializableExtra(EXTRA_START_DESTINATION) ?: Route.Welcome
 
@@ -157,7 +156,6 @@ class BrainwalletActivity : BRActivity() {
                                         flags =
                                             Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                                     }.also { startActivity(it) }
-
                                 },
                                 { brDialogView -> brDialogView.dismissWithAnimation() },
                                 null,
@@ -165,7 +163,6 @@ class BrainwalletActivity : BRActivity() {
                             )
 
                             else -> Unit
-
                         }
                     }
 
@@ -175,7 +172,6 @@ class BrainwalletActivity : BRActivity() {
             }
             .launchIn(lifecycleScope)
     }
-
 
     /**
      * legacy logic, when the pin/passcode empty (not set)
@@ -208,7 +204,7 @@ class BrainwalletActivity : BRActivity() {
             LegacyNavigation.startBreadActivity(this, false)
         } else {
             AuthManager.getInstance().authFail(this)
-            //for now just toast
+            // for now just toast
             Toast.makeText(this, R.string.incorrect_passcode, Toast.LENGTH_SHORT).show()
         }
     }

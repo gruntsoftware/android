@@ -14,7 +14,6 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -42,7 +41,6 @@ fun FiatSelectorBottomSheet(
     val unselectedCircleSize = 20
     val tinyPad = 2
 
-
     BrainwalletBottomSheet(
         onDismissRequest = onDismissRequest,
     ) {
@@ -51,44 +49,49 @@ fun FiatSelectorBottomSheet(
             items(
                 items = currencies
             ) { currency ->
-                ListItem(colors = ListItemDefaults.colors(
-                    containerColor = BrainwalletTheme.colors.background,
-                    headlineColor = BrainwalletTheme.colors.content,
-                ), modifier = Modifier.clickable {
-                    onFiatSelect.invoke(currency)
-                }, headlineContent = {
-                    Row {
-                        Text(
-                            modifier = Modifier.padding(tinyPad.dp),
-                            text = currency.name,
-                            style = BrainwalletTheme.typography.labelLarge
-                                .copy(textAlign = TextAlign.Left)
-                        )
-                        Spacer(modifier = Modifier.weight(1f))
-                        Text(
-                            modifier = Modifier.padding(tinyPad.dp),
-                            text = "${currency.code} (${currency.symbol})",
-                            style = BrainwalletTheme.typography.labelLarge
-                                .copy(textAlign = TextAlign.Left)
-                        )
+                ListItem(
+                    colors = ListItemDefaults.colors(
+                        containerColor = BrainwalletTheme.colors.background,
+                        headlineColor = BrainwalletTheme.colors.content,
+                    ),
+                    modifier = Modifier.clickable {
+                        onFiatSelect.invoke(currency)
+                    },
+                    headlineContent = {
+                        Row {
+                            Text(
+                                modifier = Modifier.padding(tinyPad.dp),
+                                text = currency.name,
+                                style = BrainwalletTheme.typography.labelLarge
+                                    .copy(textAlign = TextAlign.Left)
+                            )
+                            Spacer(modifier = Modifier.weight(1f))
+                            Text(
+                                modifier = Modifier.padding(tinyPad.dp),
+                                text = "${currency.code} (${currency.symbol})",
+                                style = BrainwalletTheme.typography.labelLarge
+                                    .copy(textAlign = TextAlign.Left)
+                            )
+                        }
+                    },
+                    trailingContent = {
+                        if (selectedCurrency.code == currency.code) {
+                            Icon(
+                                Icons.Default.CheckCircle,
+                                contentDescription = null,
+                                tint = BrainwalletTheme.colors.affirm
+                            )
+                        } else {
+                            Box(
+                                modifier = Modifier
+                                    .size(unselectedCircleSize.dp)
+                                    .alpha(0.1f)
+                                    .clip(CircleShape)
+                                    .background(BrainwalletTheme.colors.content)
+                            )
+                        }
                     }
-                }, trailingContent = {
-                    if (selectedCurrency.code == currency.code) {
-                        Icon(
-                            Icons.Default.CheckCircle,
-                            contentDescription = null,
-                            tint = BrainwalletTheme.colors.affirm
-                        )
-                    } else {
-                    Box(
-                        modifier = Modifier
-                            .size(unselectedCircleSize.dp)
-                            .alpha(0.1f)
-                            .clip(CircleShape)
-                            .background(BrainwalletTheme.colors.content)
-                    )
-                }
-                })
+                )
             }
         }
     }

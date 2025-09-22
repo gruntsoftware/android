@@ -6,7 +6,7 @@ import java.io.Serializable
 @kotlinx.serialization.Serializable
 data class CurrencyEntity(
     @JvmField
-    var code: String ="",
+    var code: String = "",
     @JvmField
     var name: String = "",
     @JvmField

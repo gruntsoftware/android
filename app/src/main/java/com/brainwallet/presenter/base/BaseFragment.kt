@@ -5,7 +5,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import timber.log.Timber
 
-
 abstract class BaseFragment<P : BasePresenter<BaseView>> : Fragment() {
     lateinit var presenter: P
 

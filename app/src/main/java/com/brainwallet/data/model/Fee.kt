@@ -49,7 +49,6 @@ data class Fee(
     }
 }
 
-
 data class FeeOption(
     @FeeType
     val type: String,
@@ -90,5 +89,5 @@ fun FeeOption.getFiatFormatted(currencyEntity: CurrencyEntity): String {
 
 fun List<FeeOption>.getSelectedIndex(selectedFeeType: String): Int {
     return indexOfFirst { it.type == selectedFeeType }.takeIf { it >= 0 }
-        ?: 2  //2 -> index of top, since we have [low,medium,top]
+        ?: 2 // 2 -> index of top, since we have [low,medium,top]
 }

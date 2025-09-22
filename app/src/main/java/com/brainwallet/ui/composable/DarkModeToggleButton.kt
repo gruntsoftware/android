@@ -65,7 +65,7 @@ fun DarkModeToggleButton(
 private fun DarkModeToggleButtonPreview() {
     BrainwalletAppTheme(AppSetting(isDarkMode = isSystemInDarkTheme())) {
         Box(modifier = Modifier.background(BrainwalletTheme.colors.background)) {
-            DarkModeToggleButton(checked = isSystemInDarkTheme(), onCheckedChange = {}, )
+            DarkModeToggleButton(checked = isSystemInDarkTheme(), onCheckedChange = {},)
         }
     }
 }

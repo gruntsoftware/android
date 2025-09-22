@@ -66,7 +66,8 @@ fun SeedWordItem(
 
 @Composable
 fun SeedWordItemBox(
-    modifier: Modifier = Modifier, content: @Composable RowScope.() -> Unit
+    modifier: Modifier = Modifier,
+    content: @Composable RowScope.() -> Unit
 ) {
     Box(modifier = modifier) {
         Row(
@@ -75,7 +76,8 @@ fun SeedWordItemBox(
                     color = BrainwalletTheme.colors.background.copy(alpha = 0.3f),
                     shape = MaterialTheme.shapes.extraLarge
                 )
-                .padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically
+                .padding(horizontal = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             content.invoke(this)
         }
@@ -93,7 +95,9 @@ fun SeedWordItemTextField(
     ),
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
-    cursorBrush: Brush = SolidColor(BrainwalletTheme.colors.content), //todo: change with materialtheme so it will be adapt automatically when switch darkmode
+    cursorBrush: Brush = SolidColor(
+        BrainwalletTheme.colors.content
+    ), // todo: change with materialtheme so it will be adapt automatically when switch darkmode
     prefix: @Composable (() -> Unit)? = null,
 ) {
     var suggestionsExpanded by remember { mutableStateOf(false) }
@@ -135,7 +139,8 @@ fun SeedWordItemTextField(
                         }
                     }
                 }
-            })
+            }
+        )
 
         DropdownMenu(
             modifier = Modifier
@@ -162,10 +167,7 @@ fun SeedWordItemTextField(
                 })
             }
         }
-
     }
-
 }
 
-
-///
+// /

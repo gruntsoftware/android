@@ -1,6 +1,5 @@
 package com.brainwallet.ui.composable
 
-
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.viewinterop.AndroidView
 
-//TODO: wip here
+// TODO: wip here
 
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
@@ -45,12 +44,10 @@ fun MoonpayBuyWidget(
                         super.onPageFinished(view, url)
                     }
                 }
-
             }
         },
         update = {
             it.loadUrl(signedUrl)
         }
     )
-
 }

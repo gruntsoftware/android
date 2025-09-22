@@ -131,7 +131,12 @@ class MessagingTopicDataSourceTest {
 
         testCases.forEach { (input, expectedBase) ->
             val result = dataSource.getTopicsByLanguageCode(input)
-            val expectedTopics = listOf("initial_$expectedBase", "news_$expectedBase", "promo_$expectedBase", "warn_$expectedBase")
+            val expectedTopics = listOf(
+                "initial_$expectedBase",
+                "news_$expectedBase",
+                "promo_$expectedBase",
+                "warn_$expectedBase"
+            )
             assert(result == expectedTopics) {
                 "Expected topics for '$input' to have base '$expectedBase' but got $result"
             }

@@ -171,7 +171,7 @@ private fun ReceiveDialog(
         ) {
             CenterAlignedTopAppBar(
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = BrainwalletTheme.colors.content //invert surface
+                    containerColor = BrainwalletTheme.colors.content // invert surface
                 ),
                 expandedHeight = 56.dp,
                 title = {
@@ -208,8 +208,8 @@ private fun ReceiveDialog(
                 }
             )
 
-            //moonpay widget
-            //todo: revisit this later
+            // moonpay widget
+            // todo: revisit this later
 //        AnimatedVisibility(visible = state.moonpayWidgetVisible()) {
 //            state.moonpayBuySignedUrl?.let { signedUrl ->
 //                MoonpayBuyWidget(
@@ -219,8 +219,7 @@ private fun ReceiveDialog(
 //            }
 //        }
 
-
-            //buy / receive
+            // buy / receive
 //        AnimatedVisibility(visible = state.moonpayWidgetVisible().not()) {
             Column {
                 Row(
@@ -356,9 +355,11 @@ private fun ReceiveDialog(
                             },
                             label = {
                                 Text(
-                                    text = if (quickFiatAmountOption.isCustom())
+                                    text = if (quickFiatAmountOption.isCustom()) {
                                         stringResource(R.string.custom)
-                                    else quickFiatAmountOption.getFormattedText(),
+                                    } else {
+                                        quickFiatAmountOption.getFormattedText()
+                                    },
                                     style = BrainwalletTheme.typography.bodyMedium.copy(
                                         color = BrainwalletTheme.colors.surface
                                     )
@@ -373,14 +374,15 @@ private fun ReceiveDialog(
                     }
                 }
 
-
                 AnimatedVisibility(visible = state.isQuickFiatAmountOptionCustom()) {
                     OutlinedTextField(
                         modifier = Modifier.fillMaxWidth(),
                         prefix = {
                             Text(
                                 text = state.selectedFiatCurrency.symbol,
-                                style = BrainwalletTheme.typography.bodyMedium.copy(color = BrainwalletTheme.colors.surface)
+                                style = BrainwalletTheme.typography.bodyMedium.copy(
+                                    color = BrainwalletTheme.colors.surface
+                                )
                             )
                         },
                         trailingIcon = {
@@ -390,7 +392,9 @@ private fun ReceiveDialog(
                                 Icon(Icons.Default.Done, contentDescription = null)
                             }
                         },
-                        textStyle = BrainwalletTheme.typography.bodyMedium.copy(color = BrainwalletTheme.colors.surface),
+                        textStyle = BrainwalletTheme.typography.bodyMedium.copy(
+                            color = BrainwalletTheme.colors.surface
+                        ),
                         value = "${if (state.fiatAmount < 1) "" else state.fiatAmount}",
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -412,9 +416,8 @@ private fun ReceiveDialog(
                     modifier = Modifier.fillMaxWidth(),
                     enabled = loadingState.visible.not(),
                     onClick = {
-
-                        //todo: revisit this later
-                        //viewModel.onEvent(ReceiveDialogEvent.OnMoonpayButtonClick)
+                        // todo: revisit this later
+                        // viewModel.onEvent(ReceiveDialogEvent.OnMoonpayButtonClick)
                         onMoonPayLaunch(
                             mapOf(
                                 "baseCurrencyCode" to state.selectedFiatCurrency.code,

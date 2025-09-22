@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("gruntsoftware-build-logic")
     repositories {
         google {
             content {
@@ -27,6 +28,11 @@ dependencyResolutionManagement {
             }
         } else {
             logger.lifecycle("⚠️ Submodule catalog 'games' not loaded — file not found: $gamesToml")
+        }
+    }
+    versionCatalogs {
+        create("grunt") {
+            from(files("gruntsoftware-build-logic/gradle/libs.versions.toml"))
         }
     }
 }

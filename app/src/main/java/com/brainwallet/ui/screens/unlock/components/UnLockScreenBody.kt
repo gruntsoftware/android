@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -69,17 +68,16 @@ fun UnLockScreenBody(
                         digit = passcodeKeypadEvent.digit,
                         isValidPin = { pin ->
 
-                            //provide old logic here, its like on the BrainwalletActivity.onUnlock
+                            // provide old logic here, its like on the BrainwalletActivity.onUnlock
                             return@OnPinDigitChange AuthManager.getInstance()
                                 .checkAuth(pin, context).also { isValid ->
                                     if (isValid) {
                                         AuthManager.getInstance().authSuccess(context)
                                         AnalyticsManager.logCustomEvent(BRConstants._20200217_DUWB)
                                         AnalyticsManager.logCustomEvent(BRConstants._20200217_DUWB)
-
                                     } else {
                                         AuthManager.getInstance().authFail(context)
-                                        //for now just toast
+                                        // for now just toast
                                         Toast.makeText(
                                             context,
                                             R.string.incorrect_passcode,

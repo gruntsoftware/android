@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-
 data class ReceiveDialogState(
     val address: String = "",
     val qrBitmap: Bitmap? = null,
@@ -24,7 +23,7 @@ data class ReceiveDialogState(
     val fiatAmount: Float = 0f,
     val ltcAmount: Float = 0f,
     val ratesUpdatedAt: Long = System.currentTimeMillis(),
-    val selectedQuickFiatAmountOptionIndex: Int = 1, //default is 10X, other [min, 10x, max, custom]
+    val selectedQuickFiatAmountOptionIndex: Int = 1, // default is 10X, other [min, 10x, max, custom]
     val errorFiatAmountStringId: Int? = null,
     val moonpayBuySignedUrl: String? = null,
 )
@@ -34,7 +33,7 @@ fun ReceiveDialogState.getSelectedFiatCurrencyIndex(): Int = fiatCurrencies
 
 fun ReceiveDialogState.getDefaultFiatAmount(): Float {
     val (_, min, max) = moonpayCurrencyLimit.data.baseCurrency
-    return min * 10 //default is 10X
+    return min * 10 // default is 10X
 }
 
 fun ReceiveDialogState.getRatesUpdatedAtFormatted(): String {
@@ -56,6 +55,6 @@ fun ReceiveDialogState.getQuickFiatAmountOptions(): List<QuickFiatAmountOption> 
 }
 
 fun ReceiveDialogState.isQuickFiatAmountOptionCustom(): Boolean =
-    selectedQuickFiatAmountOptionIndex == 3 //3 will be custom
+    selectedQuickFiatAmountOptionIndex == 3 // 3 will be custom
 
 fun ReceiveDialogState.moonpayWidgetVisible(): Boolean = moonpayBuySignedUrl != null
