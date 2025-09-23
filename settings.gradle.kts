@@ -41,9 +41,9 @@ rootProject.name = "Brainwallet Android"
 include(":app")
 include(":install_time_asset_pack")
 
-val gamesDir = file("modules/games/content")
-if (gamesDir.exists()) {
-    include(":modules:games:content")
+val privateGeneralPurpDir = file("modules/private-general-purpose/content")
+if (privateGeneralPurpDir.exists()) {
+    include(":modules:private-general-purpose:content")
 } else {
-    logger.lifecycle("⚠️ Submodule ':modules:games:content' not included — folder not found: $gamesDir")
+    logger.lifecycle("⚠️ Submodule ':modules:private-general-purpose:content' not included — folder not found: $privateGeneralPurpDir")
 }
