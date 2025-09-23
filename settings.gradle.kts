@@ -29,5 +29,10 @@ dependencyResolutionManagement {
 rootProject.name = "Brainwallet Android"
 include(":app")
 include(":install_time_asset_pack")
-include(":games")
-project(":games").projectDir = file("modules/private-general-purpose/games")
+
+val privateGeneralPurpDir = file("modules/private-general-purpose/content")
+if (privateGeneralPurpDir.exists()) {
+    include(":modules:private-general-purpose:content")
+} else {
+    logger.lifecycle("⚠️ Submodule ':modules:private-general-purpose:content' not included — folder not found: $privateGeneralPurpDir")
+}
