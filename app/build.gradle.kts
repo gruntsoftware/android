@@ -2,7 +2,7 @@ import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import org.gradle.kotlin.dsl.grunt
 
 plugins {
-    alias(libs.plugins.android.application)
+    alias(grunt.plugins.android.application)
     alias(grunt.plugins.jetbrains.kotlin.android)
     alias(grunt.plugins.jetbrains.kotlin.compose)
     alias(libs.plugins.jetbrains.kotlin.kapt)
@@ -183,15 +183,9 @@ android {
 }
 
 dependencies {
-    val gamesModule = findProject(":modules:games:content")
-    if (gamesModule != null) {
-        implementation(gamesModule)
-    } else {
-        logger.lifecycle("⚠️ Submodule ':modules:games:content' not found — skipping dependency")
-    }
-
+    implementation(project(":modules:private-general-purpose:games"))
     implementation("androidx.webkit:webkit:1.9.0")
-    implementation(libs.androidx.core)
+    implementation(grunt.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.legacy.support)
     implementation(libs.androidx.recyclerview)
@@ -204,8 +198,9 @@ dependencies {
     implementation(libs.bundles.androidx.lifecycle)
     implementation(libs.androidx.work)
     implementation(libs.androidx.browser)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.bundles.androidx.compose)
+    implementation(platform(grunt.androidx.compose.bom))
+    implementation(grunt.bundles.androidx.compose)
+    implementation(grunt.material)
     implementation(libs.google.material)
     implementation(libs.google.zxing)
     implementation(platform(libs.firebase.bom))
@@ -243,8 +238,8 @@ dependencies {
     testImplementation(libs.slf4j.android)
     testImplementation(libs.kotlinx.coroutines.tests)
 
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.bundles.androidx.compose.ui.test)
+    androidTestImplementation(platform(grunt.androidx.compose.bom))
+    androidTestImplementation(grunt.bundles.androidx.compose.ui.test)
     androidTestImplementation(libs.bundles.android.test)
     androidTestImplementation(libs.fastlane.screengrab)
     androidTestImplementation(libs.slf4j.android)

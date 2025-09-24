@@ -19,17 +19,6 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
-
-    versionCatalogs {
-        val gamesToml = file("modules/games/gradle/libs.versions.toml")
-        if (gamesToml.exists()) {
-            create("games") {
-                from(files(gamesToml))
-            }
-        } else {
-            logger.lifecycle("⚠️ Submodule catalog 'games' not loaded — file not found: $gamesToml")
-        }
-    }
     versionCatalogs {
         create("grunt") {
             from(files("gruntsoftware-build-logic/gradle/libs.versions.toml"))
@@ -40,10 +29,4 @@ dependencyResolutionManagement {
 rootProject.name = "Brainwallet Android"
 include(":app")
 include(":install_time_asset_pack")
-
-val privateGeneralPurpDir = file("modules/private-general-purpose/content")
-if (privateGeneralPurpDir.exists()) {
-    include(":modules:private-general-purpose:content")
-} else {
-    logger.lifecycle("⚠️ Submodule ':modules:private-general-purpose:content' not included — folder not found: $privateGeneralPurpDir")
-}
+include(":modules:private-general-purpose:games")
