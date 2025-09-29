@@ -183,7 +183,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":modules:private-general-purpose:games"))
+    implementation(project(":games"))
     implementation("androidx.webkit:webkit:1.9.0")
     implementation(grunt.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
