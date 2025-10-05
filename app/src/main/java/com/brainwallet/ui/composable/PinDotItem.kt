@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.brainwallet.ui.theme.BrainwalletTheme
+import ltd.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 @Composable
 fun PinDotItem(

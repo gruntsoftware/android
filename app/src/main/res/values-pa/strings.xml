@@ -843,4 +843,5 @@
   <string name="bottom_nav_item_buy_receive_title">خرید / وصول</string>
   <string name="custom">حسب ضرورت</string>
   <string name="reset_start_over">ری سیٹ / دوبارہ شروع کریں</string>
+  <string name="cta_export_transaction">ਟ੍ਰਾਂਜ਼ੈਕਸ਼ਨ ਡਾਟਾ ਐਕਸਪੋਰਟ ਕਰੋ</string>
 </resources>

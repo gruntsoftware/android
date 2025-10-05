@@ -24,7 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.brainwallet.R
 import com.brainwallet.data.model.Language
-import com.brainwallet.ui.theme.BrainwalletTheme
+import ltd.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 // TODO
 @Composable

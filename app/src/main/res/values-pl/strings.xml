@@ -838,4 +838,5 @@
   <string name="bottom_nav_item_buy_receive_title">Kup / Odbierz</string>
   <string name="custom">Niestandardowe</string>
   <string name="reset_start_over">Reset / Rozpocznij od nowa</string>
+  <string name="cta_export_transaction">Eksportuj dane transakcji</string>
 </resources>

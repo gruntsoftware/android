@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.brainwallet.ui.theme.BrainwalletTheme
+import ltd.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 @Composable
 fun MediumTextButton(

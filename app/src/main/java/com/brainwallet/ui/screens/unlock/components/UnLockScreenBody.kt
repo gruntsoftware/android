@@ -31,7 +31,7 @@ import com.brainwallet.ui.composable.PasscodeKeypad
 import com.brainwallet.ui.composable.PasscodeKeypadEvent
 import com.brainwallet.ui.screens.unlock.UnLockEvent
 import com.brainwallet.ui.theme.BrainwalletAppTheme
-import com.brainwallet.ui.theme.BrainwalletTheme
+import ltd.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import com.google.common.collect.ImmutableList
 
 @Composable

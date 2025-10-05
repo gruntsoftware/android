@@ -11,8 +11,8 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.ui.theme.BrainwalletAppTheme
-import com.brainwallet.ui.theme.BrainwalletTheme
-import com.brainwallet.ui.theme.LocalDarkModeFlag
+import ltd.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import ltd.grunt.brainwallet.core.presentation.theme.LocalDarkModeFlag
 
 @Composable
 fun BrainWalletLogo(modifier: Modifier = Modifier) {

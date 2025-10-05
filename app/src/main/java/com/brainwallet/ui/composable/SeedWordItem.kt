@@ -36,8 +36,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
-import com.brainwallet.ui.theme.BrainwalletTheme
-import com.brainwallet.ui.theme.chilli
+import ltd.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import ltd.grunt.brainwallet.core.presentation.theme.chilli
 
 @Composable
 fun SeedWordItem(

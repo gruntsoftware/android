@@ -52,7 +52,14 @@
         tools:replace="android:fullBackupContent,android:allowBackup">
 
         <property android:name="android.window.PROPERTY_COMPAT_ALLOW_RESTRICTED_RESIZABILITY" android:value="true" />
-
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data  android:name="com.brainwallet.initializer.AppInitializer"
+                android:value="androidx.startup" />
+        </provider>
         <!-- Main Compose Activity -->
         <activity
             android:name=".ui.BrainwalletActivity"

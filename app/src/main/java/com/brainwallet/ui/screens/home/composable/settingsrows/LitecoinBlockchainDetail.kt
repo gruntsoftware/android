@@ -28,7 +28,7 @@ import com.brainwallet.data.model.FeeOption
 import com.brainwallet.data.model.getFiatFormatted
 import com.brainwallet.data.model.getSelectedIndex
 import com.brainwallet.ui.screens.home.SettingsEvent
-import com.brainwallet.ui.theme.BrainwalletTheme
+import ltd.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 // TODO
 @Composable

@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.brainwallet.data.model.Language
 import com.brainwallet.ui.composable.BrainwalletBottomSheet
-import com.brainwallet.ui.theme.BrainwalletTheme
+import ltd.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 @Composable
 fun LanguageSelectorBottomSheet(

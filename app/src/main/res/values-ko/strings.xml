@@ -812,4 +812,7 @@
     <string name="buy_litecoin_button_moonpay">문페이로 구매하세요</string>
     <string name="new_address">새 주소</string>
     <string name="bottom_nav_item_buy_receive_title">구매 / 받기</string>
+    <string name="custom">사용자 정의</string>
+    <string name="reset_start_over">재설정 / 다시 시작</string>
+    <string name="cta_export_transaction">거래 데이터 내보내기</string>
 </resources>
