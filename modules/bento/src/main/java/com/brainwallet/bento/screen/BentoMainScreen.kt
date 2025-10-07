@@ -1,0 +1,137 @@
+package com.brainwallet.bento.screen
+
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalDrawerSheet
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.rememberDrawerState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.unit.dp
+import com.brainwallet.bento.component.rail.BentoRail
+import com.brainwallet.bento.component.widget.BentoBottomNavBar
+import com.brainwallet.bento.component.widget.BentoHomeGrid
+import com.brainwallet.bento.component.widget.BentoRailButton
+import com.brainwallet.bento.component.widget.BentoTopBarActions
+import kotlinx.coroutines.launch
+import ltd.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+
+/**
+ * The main screen of the application, featuring a bento-style grid layout.
+ * It integrates the top bar, bottom navigation, and content grid.
+ *
+ * @param modifier The modifier to be applied to the component.
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun BentoMainScreen(
+    modifier: Modifier = Modifier
+) {
+    var currentRoute by remember { mutableStateOf("send") }
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
+
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = {
+            ModalDrawerSheet {
+                BentoRail(
+                    userName = "Joseph Sanjaya",
+                    appVersion = "v.X.X.X (XXXXXXXXXXXX)"
+                )
+            }
+        }
+    ) {
+        Scaffold(
+            modifier = modifier,
+            containerColor = BrainwalletTheme.colors.surface,
+            topBar = {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    BentoRailButton {
+                        scope.launch {
+                            drawerState.apply {
+                                if (isClosed) open() else close()
+                            }
+                        }
+                    }
+                    Spacer(modifier = Modifier.weight(1f))
+                    BentoTopBarActions(onSettingsClick = {}, onNotificationsClick = {})
+                }
+            },
+            bottomBar = {
+                BentoBottomNavBar(currentRoute = currentRoute, onItemClick = { currentRoute = it })
+            }
+        ) { paddingValues ->
+            val gridItems = remember {
+                listOf(
+                    "Balance Bento View",
+                    "Transaction History View",
+                    "Tutorials Bento View",
+                    "LTC Price Bento View",
+                    "Favourites Bento View",
+                    "Game Hub Bento View"
+                )
+            }
+
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                modifier = Modifier
+                    .padding(paddingValues)
+                    .padding(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                item(span = { GridItemSpan(2) }) {
+                    BentoHomeGrid(name = gridItems[0], modifier = Modifier.height(150.dp))
+                }
+                item(span = { GridItemSpan(2) }) {
+                    BentoHomeGrid(name = gridItems[1], modifier = Modifier.height(100.dp))
+                }
+                item(span = { GridItemSpan(1) }) {
+                    BentoHomeGrid(name = gridItems[2], modifier = Modifier.height(220.dp))
+                }
+                item(span = { GridItemSpan(1) }) {
+                    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                        BentoHomeGrid(name = gridItems[3], modifier = Modifier.height(100.dp))
+                        BentoHomeGrid(name = gridItems[4], modifier = Modifier.height(100.dp))
+                    }
+                }
+                item(span = { GridItemSpan(2) }) {
+                    BentoHomeGrid(name = gridItems[5], modifier = Modifier.height(120.dp))
+                }
+            }
+        }
+    }
+}
+
+@Composable
+@PreviewLightDark
+fun BentoMainScreenPreview() {
+    BrainwalletTheme(isSystemInDarkTheme()) {
+        BentoMainScreen()
+    }
+}

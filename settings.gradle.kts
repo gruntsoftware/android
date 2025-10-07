@@ -34,3 +34,4 @@ project(":general-purpose-app").projectDir = file("modules/private-general-purpo
 project(":core").projectDir = file("modules/private-general-purpose/core")
 project(":games").projectDir = file("modules/private-general-purpose/games")
 project(":iap").projectDir = file("modules/private-general-purpose/iap")
+include(":modules:bento")
