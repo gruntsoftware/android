@@ -1,5 +1,5 @@
 plugins {
-    alias(grunt.plugins.android.library)
+    alias(grunt.plugins.android.application)
     alias(grunt.plugins.jetbrains.kotlin.android)
     alias(grunt.plugins.jetbrains.kotlin.compose)
     alias(grunt.plugins.buildlogic.test)
@@ -15,7 +15,6 @@ android {
         minSdk = 29
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {

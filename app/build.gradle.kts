@@ -190,7 +190,6 @@ dependencies {
     implementation(project(":games"))
     implementation(project(":iap"))
     implementation(project(":core"))
-    implementation(project(":modules:bento"))
     implementation("androidx.webkit:webkit:1.9.0")
     implementation(grunt.androidx.core.ktx)
     implementation(grunt.app.startup)
