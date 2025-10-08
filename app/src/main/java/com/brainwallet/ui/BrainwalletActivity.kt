@@ -12,6 +12,7 @@ import com.brainwallet.BrainwalletApp
 import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.repository.SettingRepository
+import com.brainwallet.design.navigation.BentoNavigation
 import com.brainwallet.navigation.LegacyNavigation
 import com.brainwallet.navigation.MainNavHost
 import com.brainwallet.navigation.Route
@@ -49,6 +50,7 @@ import timber.log.Timber
 class BrainwalletActivity : BRActivity() {
 
     private val settingRepository by inject<SettingRepository>()
+    private val bentoNavigation: BentoNavigation by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -118,10 +120,7 @@ class BrainwalletActivity : BRActivity() {
                             }
 
                             LEGACY_NAVIGATE_TO_HOME -> {
-                                LegacyNavigation.startBreadActivity(
-                                    this@BrainwalletActivity,
-                                    false
-                                )
+                                bentoNavigation.navigateToBento(this)
                                 finishAffinity()
                             }
 
