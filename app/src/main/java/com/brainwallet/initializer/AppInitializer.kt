@@ -5,7 +5,7 @@ import androidx.startup.Initializer
 import com.brainwallet.data.source.RemoteConfigSource
 import com.brainwallet.di.AppModule
 import com.brainwallet.domain.MessagingTopicUseCase
-import ltd.grunt.brainwallet.core.presentation.KoinInitializer
+import com.grunt.brainwallet.core.presentation.KoinInitializer
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.loadKoinModules

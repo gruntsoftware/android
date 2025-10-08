@@ -22,8 +22,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import ltd.grunt.brainwallet.core.presentation.theme.BrainwalletColors
-import ltd.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.grunt.brainwallet.core.presentation.theme.BrainwalletColors
+import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 /**
  * main composable for [SettingRowItem] and [SettingRowItemExpandable]

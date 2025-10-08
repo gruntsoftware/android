@@ -8,7 +8,7 @@ import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.verify
-import ltd.grunt.brainwallet.core.presentation.KoinInitializer
+import com.grunt.brainwallet.core.presentation.KoinInitializer
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 

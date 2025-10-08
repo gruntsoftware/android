@@ -36,8 +36,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
-import ltd.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
-import ltd.grunt.brainwallet.core.presentation.theme.chilli
+import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.grunt.brainwallet.core.presentation.theme.chili
 
 @Composable
 fun SeedWordItem(
@@ -53,7 +53,7 @@ fun SeedWordItem(
                 .weight(1f),
             text = label,
             style = MaterialTheme.typography.bodyMedium,
-            color = if (isError) chilli else BrainwalletTheme.colors.content,
+            color = if (isError) chili else BrainwalletTheme.colors.content,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1
         )

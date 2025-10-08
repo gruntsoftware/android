@@ -42,7 +42,7 @@ import com.brainwallet.ui.screens.home.composable.settingsrows.SecurityDetail
 import com.brainwallet.ui.screens.home.composable.settingsrows.SettingRowItem
 import com.brainwallet.ui.screens.home.composable.settingsrows.ThemeSettingRowItem
 import com.brainwallet.ui.theme.BrainwalletAppTheme
-import ltd.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import com.brainwallet.util.EventBus
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn

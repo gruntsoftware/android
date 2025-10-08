@@ -17,9 +17,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brainwallet.R
-import ltd.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
-import ltd.grunt.brainwallet.core.presentation.theme.lavender
-import ltd.grunt.brainwallet.core.presentation.theme.nearBlack
+import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.grunt.brainwallet.core.presentation.theme.lavender
+import com.grunt.brainwallet.core.presentation.theme.nearBlack
 
 @Composable
 fun MoonpayBuyButton(

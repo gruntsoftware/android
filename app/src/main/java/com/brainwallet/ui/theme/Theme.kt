@@ -5,7 +5,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.repository.SettingRepository
-import ltd.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import org.koin.compose.koinInject
 
 @Composable

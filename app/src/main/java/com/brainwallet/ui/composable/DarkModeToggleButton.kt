@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.ui.theme.BrainwalletAppTheme
-import ltd.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 @Composable
 fun DarkModeToggleButton(

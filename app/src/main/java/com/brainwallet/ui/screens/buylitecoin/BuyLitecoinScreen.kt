@@ -32,7 +32,7 @@ import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
 import com.brainwallet.ui.composable.LargeButton
-import ltd.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import org.koin.compose.viewmodel.koinViewModel
 
 // TODO: wip
