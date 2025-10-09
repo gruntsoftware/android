@@ -83,6 +83,7 @@ class RecoverWalletScreenGrabsTest {
     @OptIn(ExperimentalTestApi::class)
     @Test
     fun onRecoverFlowSuccess() {
+
         composeTestRule.activityRule.scenario.onActivity {
             Screengrab.setDefaultScreenshotStrategy(FalconScreenshotStrategy(it))
         }

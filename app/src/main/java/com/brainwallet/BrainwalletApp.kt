@@ -19,6 +19,7 @@ import timber.log.Timber.DebugTree
 import java.util.Timer
 import java.util.TimerTask
 import java.util.concurrent.atomic.AtomicInteger
+import kotlin.concurrent.thread
 
 open class BrainwalletApp : Application() {
 
