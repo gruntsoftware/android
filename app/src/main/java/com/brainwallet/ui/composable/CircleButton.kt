@@ -6,7 +6,7 @@ import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.brainwallet.ui.theme.BrainwalletTheme
+import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 @Composable
 fun CircleButton(

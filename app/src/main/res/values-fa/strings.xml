@@ -849,4 +849,5 @@
   <string name="bottom_nav_item_buy_receive_title">خرید / دریافت</string>
   <string name="custom">سفارشی</string>
   <string name="reset_start_over">بازنشانی / شروع مجدد</string>
+  <string name="cta_export_transaction">صادرات داده‌های تراکنش</string>
 </resources>

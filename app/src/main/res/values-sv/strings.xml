@@ -450,4 +450,7 @@
   <string name="buy_litecoin_button_moonpay">Köp med Moonpay</string>
   <string name="new_address">Ny adress</string>
   <string name="bottom_nav_item_buy_receive_title">Köp/ta emot</string>
+  <string name="custom">Anpassad</string>
+  <string name="reset_start_over">Återställ / Börja om</string>
+  <string name="cta_export_transaction">Exportera transaktionsdata</string>
 </resources>

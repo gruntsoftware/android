@@ -70,7 +70,7 @@ import com.brainwallet.ui.composable.WheelPickerFocusVertical
 import com.brainwallet.ui.composable.WheelPickerState
 import com.brainwallet.ui.composable.rememberWheelPickerState
 import com.brainwallet.ui.theme.BrainwalletAppTheme
-import com.brainwallet.ui.theme.BrainwalletTheme
+import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.debounce

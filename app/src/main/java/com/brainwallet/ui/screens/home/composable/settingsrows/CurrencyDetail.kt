@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import com.brainwallet.R
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.tools.sqlite.CurrencyDataSource
-import com.brainwallet.ui.theme.BrainwalletTheme
+import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 @Composable
 fun CurrencyDetail(

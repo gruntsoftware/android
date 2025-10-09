@@ -41,6 +41,8 @@
 -dontwarn org.slf4j.impl.StaticMDCBinder
 -dontwarn org.slf4j.impl.StaticMarkerBinder
 -dontwarn java.lang.reflect.AnnotatedType
+-dontwarn com.google.api.client.http.**
+-dontwarn org.joda.time.**
 
 -keepclasseswithmembernames class * {
  native <methods>;

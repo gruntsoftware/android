@@ -26,8 +26,8 @@ import com.brainwallet.data.model.AppSetting
 import com.brainwallet.ui.composable.DarkModeToggleButton
 import com.brainwallet.ui.screens.unlock.UnLockEvent
 import com.brainwallet.ui.theme.BrainwalletAppTheme
-import com.brainwallet.ui.theme.BrainwalletTheme
-import com.brainwallet.ui.theme.LocalDarkModeFlag
+import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.grunt.brainwallet.core.presentation.theme.LocalDarkModeFlag
 
 @Composable
 fun UnLockScreenFooter(
