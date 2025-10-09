@@ -164,13 +164,17 @@ android {
         viewBinding = true
         compose = true
     }
-
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.valueOf("VERSION_${grunt.versions.jvm.target.get()}")
+        targetCompatibility = JavaVersion.valueOf("VERSION_${grunt.versions.jvm.target.get()}")
     }
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    kotlin {
+        jvmToolchain(grunt.versions.jvm.target.get().toInt())
+        compilerOptions {
+            jvmTarget.set(
+                org.jetbrains.kotlin.gradle.dsl.JvmTarget.fromTarget(grunt.versions.jvm.target.get())
+            )
+        }
     }
 
     packaging {
@@ -184,8 +188,11 @@ android {
 
 dependencies {
     implementation(project(":games"))
+    implementation(project(":iap"))
+    implementation(project(":core"))
     implementation("androidx.webkit:webkit:1.9.0")
     implementation(grunt.androidx.core.ktx)
+    implementation(grunt.app.startup)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.legacy.support)
     implementation(libs.androidx.recyclerview)
@@ -200,6 +207,7 @@ dependencies {
     implementation(libs.androidx.browser)
     implementation(platform(grunt.androidx.compose.bom))
     implementation(grunt.bundles.androidx.compose)
+    implementation(grunt.kotlin.immutable)
     implementation(grunt.material)
     implementation(libs.google.material)
     implementation(libs.google.zxing)

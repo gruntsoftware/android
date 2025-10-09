@@ -8,23 +8,25 @@ import android.os.Looper;
 import android.util.AttributeSet;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.brainwallet.presenter.activities.BreadActivity;
+import com.brainwallet.presenter.entities.TxItem;
 import com.brainwallet.tools.adapter.TransactionListAdapter;
 import com.brainwallet.tools.animation.BRAnimator;
 import com.brainwallet.tools.listeners.RecyclerItemClickListener;
 import com.brainwallet.tools.threads.BRExecutor;
-import com.brainwallet.presenter.activities.BreadActivity;
-import com.brainwallet.presenter.entities.TxItem;
 import com.brainwallet.wallet.BRPeerManager;
 import com.brainwallet.wallet.BRWalletManager;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import timber.log.Timber;
 
@@ -143,13 +145,20 @@ public class TxManager {
 
     @WorkerThread
     public synchronized void updateTxList(final Context app) {
+        updateTxList(app, null);
+    }
+
+    @WorkerThread
+    public synchronized void updateTxList(final Context app, @Nullable final Consumer<List<TxItem>> callback) {
         long start = System.currentTimeMillis();
         final TxItem[] arr = BRWalletManager.getInstance().getTransactions();
         final List<TxItem> items = arr == null ? null : new LinkedList<>(Arrays.asList(arr));
 
         long took = (System.currentTimeMillis() - start);
-        if (took > 500)
+        if (took > 500) {
             Timber.d("timber: updateTxList: took: %s", took);
+        }
+
         if (adapter != null) {
             ((Activity) app).runOnUiThread(new Runnable() {
                 @Override
@@ -158,8 +167,16 @@ public class TxManager {
                     txList.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                     Timber.d("timber: updateTxList: %s", currentPrompt);
+
+                    if (callback != null) {
+                        callback.accept(items);
+                    }
                 }
             });
+        } else {
+            if (callback != null) {
+                callback.accept(items);
+            }
         }
     }
 

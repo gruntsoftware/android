@@ -812,4 +812,7 @@
     <string name="buy_litecoin_button_moonpay">Купить с помощью Moonpay</string>
     <string name="new_address">Новый адрес</string>
     <string name="bottom_nav_item_buy_receive_title">Купить/получить</string>
+    <string name="custom">Пользовательский</string>
+    <string name="reset_start_over">Сбросить / Начать заново</string>
+    <string name="cta_export_transaction">Экспорт данных транзакции</string>
 </resources>
