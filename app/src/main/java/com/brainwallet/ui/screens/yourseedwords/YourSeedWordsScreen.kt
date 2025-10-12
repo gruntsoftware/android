@@ -44,7 +44,7 @@ fun YourSeedWordsScreen(
     seedWords: List<String>,
     viewModel: YourSeedWordsViewModel = koinInject()
 ) {
-    /// Layout values
+    // / Layout values
     val columnPadding = 12
     val horizontalVerticalSpacing = 8
     val spacerHeight = 36
@@ -72,7 +72,8 @@ fun YourSeedWordsScreen(
                             contentDescription = stringResource(R.string.back),
                         )
                     }
-                })
+                }
+            )
         }
     ) { paddingValues ->
         Column(
@@ -89,7 +90,7 @@ fun YourSeedWordsScreen(
                 style = MaterialTheme.typography.headlineSmall,
             )
 
-            //todo: yuana private key text need to open dialog?
+            // todo: yuana private key text need to open dialog?
             Text(
                 modifier = Modifier
                     .padding(top = leadingCopyPadding.dp),

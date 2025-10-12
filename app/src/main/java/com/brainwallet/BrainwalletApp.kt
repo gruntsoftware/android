@@ -6,9 +6,6 @@ import android.app.Application
 import android.content.Context
 import android.content.res.Resources
 import com.appsflyer.AppsFlyerLib
-import com.brainwallet.data.source.RemoteConfigSource
-import com.brainwallet.di.AppModule
-import com.brainwallet.domain.MessagingTopicUseCase
 import com.brainwallet.notification.NotificationHandler
 import com.brainwallet.presenter.activities.util.BRActivity
 import com.brainwallet.presenter.entities.ServiceItems
@@ -17,28 +14,18 @@ import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.tools.util.Utils
 import org.koin.android.ext.android.inject
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.GlobalContext.startKoin
-import org.koin.core.logger.Level
-import org.koin.ksp.generated.module
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 import java.util.Timer
 import java.util.TimerTask
 import java.util.concurrent.atomic.AtomicInteger
-import kotlin.concurrent.thread
 
 open class BrainwalletApp : Application() {
 
-    private val remoteConfigSource: RemoteConfigSource by inject()
     private val notificationHandler: NotificationHandler by inject()
-    private val messagingTopicHandler: MessagingTopicUseCase by inject()
 
     override fun onCreate() {
         super.onCreate()
-
-        initializeModule()
 
         /** DEV:  Top placement requirement. **/
         val enableCrashlytics = !Utils.isEmulatorOrDebug(this)
@@ -73,16 +60,6 @@ open class BrainwalletApp : Application() {
         appsFlyerLib.setDebugLog(BuildConfig.DEBUG)
         appsFlyerLib.setCollectAndroidID(true)
         appsFlyerLib.start(this)
-    }
-
-    protected open fun initializeModule() {
-        startKoin {
-            androidLogger(if (BuildConfig.DEBUG) Level.DEBUG else Level.ERROR)
-            androidContext(this@BrainwalletApp)
-            modules(AppModule.dataModule, AppModule.module)
-        }
-        thread { remoteConfigSource.initialize() }
-        thread { messagingTopicHandler.initialize() }
     }
 
 //    override fun attachBaseContext(base: Context) {
@@ -136,7 +113,7 @@ open class BrainwalletApp : Application() {
             return context == null || activityCounter.get() <= 0
         }
 
-        //call onStop on evert activity so
+        // call onStop on evert activity so
         @JvmStatic
         fun onStop(app: BRActivity?) {
             if (isBackgroundChecker != null) isBackgroundChecker!!.cancel()

@@ -19,7 +19,7 @@ interface LtcRepository {
     companion object {
         const val PREF_KEY_NETWORK_FEE_PER_KB = "network_fee_per_kb"
         const val PREF_KEY_NETWORK_FEE_PER_KB_CACHED_AT = "${PREF_KEY_NETWORK_FEE_PER_KB}_cached_at"
-        const val PREF_KEY_BUY_LIMITS_PREFIX = "buy_limits:" //e.g. buy_limits:usd
+        const val PREF_KEY_BUY_LIMITS_PREFIX = "buy_limits:" // e.g. buy_limits:usd
         const val PREF_KEY_BUY_LIMITS_PREFIX_CACHED_AT = "buy_limits_cached_at:"
     }
 }

@@ -1,36 +1,34 @@
 package com.brainwallet.tools.util
 
-
-class SeedWordTests {
-}
+class SeedWordTests
 
 //
 //
-//package com.brainwallet
-//import android.util.Log;
+// package com.brainwallet
+// import android.util.Log;
 //
-//import com.breadwallet.tools.util.Bip39Reader;
-//import com.breadwallet.wallet.BRWalletManager;
+// import com.breadwallet.tools.util.Bip39Reader;
+// import com.breadwallet.wallet.BRWalletManager;
 //
-//import org.apache.commons.io.IOUtils;
-//import org.junit.Assert;
-//import org.junit.Test;
-//import org.junit.runner.RunWith;
+// import org.apache.commons.io.IOUtils;
+// import org.junit.Assert;
+// import org.junit.Test;
+// import org.junit.runner.RunWith;
 //
-//import java.io.IOException;
-//import java.io.InputStream;
-//import java.util.ArrayList;
-//import java.util.Arrays;
-//import java.util.List;
+// import java.io.IOException;
+// import java.io.InputStream;
+// import java.util.ArrayList;
+// import java.util.Arrays;
+// import java.util.List;
 //
-//import static org.hamcrest.Matchers.is;
-//import static org.hamcrest.Matchers.notNullValue;
-//import static org.junit.Assert.assertThat;
+// import static org.hamcrest.Matchers.is;
+// import static org.hamcrest.Matchers.notNullValue;
+// import static org.junit.Assert.assertThat;
 //
-//import androidx.test.ext.junit.runners.AndroidJUnit4;
-//import androidx.test.filters.LargeTest;
+// import androidx.test.ext.junit.runners.AndroidJUnit4;
+// import androidx.test.filters.LargeTest;
 //
-//@RunWith(AndroidJUnit4.class)
+// @RunWith(AndroidJUnit4.class)
 //    @LargeTest
 //
 //    public class PaperKeyTests {

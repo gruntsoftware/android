@@ -42,7 +42,7 @@ import com.brainwallet.ui.screens.home.composable.settingsrows.SecurityDetail
 import com.brainwallet.ui.screens.home.composable.settingsrows.SettingRowItem
 import com.brainwallet.ui.screens.home.composable.settingsrows.ThemeSettingRowItem
 import com.brainwallet.ui.theme.BrainwalletAppTheme
-import com.brainwallet.ui.theme.BrainwalletTheme
+import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import com.brainwallet.util.EventBus
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
@@ -62,13 +62,17 @@ fun HomeSettingDrawerSheet(
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {
-        viewModel.onEvent(SettingsEvent.OnLoad(
-            shareAnalyticsDataEnabled = BRSharedPrefs.getShareData(context), //currently just load analytics share data here
-            lastSyncMetadata = syncAnalyticsRepository.getLastSyncMetadata(), //currently just load sync metadata here
-        ))
+        viewModel.onEvent(
+            SettingsEvent.OnLoad(
+                shareAnalyticsDataEnabled = BRSharedPrefs.getShareData(
+                    context
+                ), // currently just load analytics share data here
+                lastSyncMetadata = syncAnalyticsRepository.getLastSyncMetadata(), // currently just load sync metadata here
+            )
+        )
     }
 
-    /// Layout values
+    // / Layout values
     val headerPadding = 56
 
     ModalDrawerSheet(
@@ -112,7 +116,6 @@ fun HomeSettingDrawerSheet(
                         )
                     }
                 )
-
             }
             item {
                 CurrencyDetail(
@@ -223,7 +226,8 @@ fun HomeSettingDrawerSheet(
  */
 
 class HomeSettingDrawerComposeView @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null
+    context: Context,
+    attrs: AttributeSet? = null
 ) : AbstractComposeView(context, attrs) {
 
     private val settingsViewModel: SettingsViewModel by inject(SettingsViewModel::class.java)

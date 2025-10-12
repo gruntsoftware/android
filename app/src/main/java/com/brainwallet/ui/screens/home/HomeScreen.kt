@@ -24,7 +24,7 @@ import androidx.fragment.compose.rememberFragmentState
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.presenter.history.HistoryFragment
 
-//TODO: wip
+// TODO: wip
 @Composable
 fun HomeScreen(
     onNavigate: OnNavigate
@@ -37,7 +37,7 @@ fun HomeScreen(
             modifier = Modifier.padding(paddingValues)
         ) {
             val fragmentState = rememberFragmentState()
-            //using old fragment
+            // using old fragment
             AndroidFragment<HistoryFragment>(
                 fragmentState = fragmentState
             )
@@ -53,7 +53,6 @@ fun HomeTopBar() {
         },
         actions = {
             IconButton(onClick = {
-
             }) {
                 Icon(Icons.Default.Menu, contentDescription = "menu")
             }

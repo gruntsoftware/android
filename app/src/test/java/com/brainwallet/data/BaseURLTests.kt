@@ -1,15 +1,6 @@
 package com.brainwallet.data
 
-import com.brainwallet.data.source.RemoteConfigSource
-import com.brainwallet.tools.util.BRConstants
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.spyk
-import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Test
-
-//TODO: need update this test after refactor
+// TODO: need update this test after refactor
 class BaseURLTests {
 
 //    private val remoteConfigSource: RemoteConfigSource = mockk()
@@ -29,5 +20,3 @@ class BaseURLTests {
 //        assertEquals(BRConstants.BW_API_PROD_HOST, actual)
 //    }
 }
-
-

@@ -1,62 +1,50 @@
 package com.brainwallet.tools.security
 //
-//import com.breadwallet.presenter.activities.intro.WriteDownActivity
-//import com.breadwallet.tools.threads.BRExecutor
-//import com.breadwallet.tools.util.BRConstants
-//import com.brainwallet.example.DependencyOne
-//import com.brainwallet.example.DependencyTwo
-//import com.brainwallet.example.SystemUnderTest
-//import com.platform.entities.TxMetaData
-//import com.platform.interfaces.KVStoreAdaptor
-//import com.platform.kvstore.CompletionObject
-//import com.platform.kvstore.ReplicatedKVStore
-//import com.platform.sqlite.KVItem
-//import com.platform.sqlite.PlatformSqliteHelper
-//import com.platform.tools.KVStoreManager
-//import org.junit.After
-//import org.junit.Assert
-//import org.junit.Before
-//import org.junit.ClassRule
-//import org.junit.Test
-//import org.junit.runner.RunWith
-//import java.util.Arrays
-//import java.util.concurrent.atomic.AtomicInteger
-import io.mockk.coVerify
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.spyk
-import io.mockk.verify
-import io.mockk.verifyOrder
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
-import org.junit.Assert.assertEquals
-import org.junit.Test
+// import com.breadwallet.presenter.activities.intro.WriteDownActivity
+// import com.breadwallet.tools.threads.BRExecutor
+// import com.breadwallet.tools.util.BRConstants
+// import com.brainwallet.example.DependencyOne
+// import com.brainwallet.example.DependencyTwo
+// import com.brainwallet.example.SystemUnderTest
+// import com.platform.entities.TxMetaData
+// import com.platform.interfaces.KVStoreAdaptor
+// import com.platform.kvstore.CompletionObject
+// import com.platform.kvstore.ReplicatedKVStore
+// import com.platform.sqlite.KVItem
+// import com.platform.sqlite.PlatformSqliteHelper
+// import com.platform.tools.KVStoreManager
+// import org.junit.After
+// import org.junit.Assert
+// import org.junit.Before
+// import org.junit.ClassRule
+// import org.junit.Test
+// import org.junit.runner.RunWith
+// import java.util.Arrays
+// import java.util.concurrent.atomic.AtomicInteger
 //
-class BRKeyStoreTest {
-
-}
+class BRKeyStoreTest
 
 //  from com.brainwallet.security;
-//package com.brainwallet.security;
+// package com.brainwallet.security;
 //
-//import android.security.keystore.UserNotAuthenticatedException;
-//import androidx.test.rule.ActivityTestRule;
-//import androidx.test.ext.junit.runners.AndroidJUnit4;
+// import android.security.keystore.UserNotAuthenticatedException;
+// import androidx.test.rule.ActivityTestRule;
+// import androidx.test.ext.junit.runners.AndroidJUnit4;
 //
-//import com.breadwallet.presenter.activities.settings.TestActivity;
-//import com.breadwallet.tools.security.BRKeyStore;
-//import com.breadwallet.tools.threads.BRExecutor;
+// import com.breadwallet.presenter.activities.settings.TestActivity;
+// import com.breadwallet.tools.security.BRKeyStore;
+// import com.breadwallet.tools.threads.BRExecutor;
 //
-//import org.junit.Assert;
-//import org.junit.Rule;
-//import org.junit.Test;
-//import org.junit.runner.RunWith;
+// import org.junit.Assert;
+// import org.junit.Rule;
+// import org.junit.Test;
+// import org.junit.runner.RunWith;
 //
-//import java.io.File;
+// import java.io.File;
 //
-//import static com.breadwallet.tools.security.BRKeyStore.aliasObjectMap;
+// import static com.breadwallet.tools.security.BRKeyStore.aliasObjectMap;
 //
-//@RunWith(AndroidJUnit4.class)
+// @RunWith(AndroidJUnit4.class)
 //        public class KeyStoreTests {
 //    public static final String TAG = KeyStoreTests.class.getName();
 //
@@ -358,13 +346,12 @@ class BRKeyStoreTest {
 //        Assert.assertFalse(new File(BRKeyStore.getFilePath(aliasObjectMap.get(alias).ivFileName, mActivityRule.getActivity())).exists());
 //    }
 //
-//}
+// }
 
-
-//TODO: Transcode and add Kotlin tests.  Copied from legacy Java BRKeyStoreTest
-////@RunWith(androidx.test.ext.junit.runners.AndroidJUnit4::class)
-////@LargeTest
-//fun `add invoked with valid mocked values, should return correct value as expected`() {
+// TODO: Transcode and add Kotlin tests.  Copied from legacy Java BRKeyStoreTest
+// //@RunWith(androidx.test.ext.junit.runners.AndroidJUnit4::class)
+// //@LargeTest
+// fun `add invoked with valid mocked values, should return correct value as expected`() {
 //    val dependencyOne = mockk<DependencyOne>()
 //    val dependencyTwo = mockk<DependencyTwo>()
 //
@@ -380,7 +367,7 @@ class BRKeyStoreTest {
 //        dependencyOne.value
 //        dependencyTwo.value
 //    }
-//}
+// }
 //
 //
 //    class MockUpAdapter : KVStoreAdaptor {
@@ -800,16 +787,16 @@ class BRKeyStoreTest {
 //
 //    @Test
 //    fun testSyncPreventsAnotherConcurrentSync() {
-////        boolean success = store.syncAllKeys();
-////        new Thread(new Runnable() {
-////            @Override
-////            public void run() {
-////                boolean success = store.syncAllKeys();
-////                Assert.assertTrue(success);
-////                Assert.assertFalse(success);
-////            }
-////        }).start();
-////        Assert.assertTrue(success);
+// //        boolean success = store.syncAllKeys();
+// //        new Thread(new Runnable() {
+// //            @Override
+// //            public void run() {
+// //                boolean success = store.syncAllKeys();
+// //                Assert.assertTrue(success);
+// //                Assert.assertFalse(success);
+// //            }
+// //        }).start();
+// //        Assert.assertTrue(success);
 //    }
 //
 //    @Test
@@ -986,14 +973,14 @@ class BRKeyStoreTest {
 //        Assert.assertEquals(mds.size.toLong(), 1)
 //
 //        //        Assert.assertEquals(mds.(0).blockHeight, 123);
-////        Assert.assertEquals(mds.get(0).classVersion, 3);
-////        Assert.assertEquals(mds.get(0).comment, "hehey !");
-////        Assert.assertEquals(mds.get(0).creationTime, 21324);
-////        Assert.assertEquals(mds.get(0).deviceId, "someDevice2324");
-////        Assert.assertEquals(mds.get(0).fee, 234);
-////        Assert.assertEquals(mds.get(0).txSize, 23423);
-////        Assert.assertEquals(mds.get(0).exchangeCurrency, "curr");
-////        Assert.assertEquals(mds.get(0).exchangeRate, 23.4343, 0);
+// //        Assert.assertEquals(mds.get(0).classVersion, 3);
+// //        Assert.assertEquals(mds.get(0).comment, "hehey !");
+// //        Assert.assertEquals(mds.get(0).creationTime, 21324);
+// //        Assert.assertEquals(mds.get(0).deviceId, "someDevice2324");
+// //        Assert.assertEquals(mds.get(0).fee, 234);
+// //        Assert.assertEquals(mds.get(0).txSize, 23423);
+// //        Assert.assertEquals(mds.get(0).exchangeCurrency, "curr");
+// //        Assert.assertEquals(mds.get(0).exchangeRate, 23.4343, 0);
 //    }
 //
 //    @Test
@@ -1054,6 +1041,6 @@ class BRKeyStoreTest {
 //        private val remote: KVStoreAdaptor = MockUpAdapter()
 //        private var store: ReplicatedKVStore? = null
 //    }
-//}
+// }
 //
-//}
+// }

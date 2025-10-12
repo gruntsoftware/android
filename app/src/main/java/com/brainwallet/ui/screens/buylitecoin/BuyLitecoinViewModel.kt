@@ -52,7 +52,6 @@ class BuyLitecoinViewModel(
                     onEvent(BuyLitecoinEvent.OnFiatAmountChange(it))
                 }
         }
-
     }
 
     override fun onEvent(event: BuyLitecoinEvent) {
@@ -78,11 +77,10 @@ class BuyLitecoinViewModel(
                 } finally {
                     onLoading(false)
                 }
-
             }
 
             is BuyLitecoinEvent.OnFiatAmountChange -> viewModelScope.launch {
-                //do validation
+                // do validation
                 val (_, min, max) = state.value.moonpayCurrencyLimit.data.baseCurrency
                 val errorStringId = when {
                     event.fiatAmount < min -> R.string.buy_litecoin_fiat_amount_validation_min
@@ -116,7 +114,6 @@ class BuyLitecoinViewModel(
                             ltcAmount = result.data.quoteCurrencyAmount,
                         )
                     }
-
                 } catch (e: Exception) {
                     handleError(e)
                 } finally {
@@ -125,5 +122,4 @@ class BuyLitecoinViewModel(
             }
         }
     }
-
 }

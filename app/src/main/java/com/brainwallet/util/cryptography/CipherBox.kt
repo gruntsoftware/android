@@ -6,7 +6,6 @@ import javax.crypto.Cipher
 import javax.crypto.spec.GCMParameterSpec
 import javax.crypto.spec.IvParameterSpec
 
-
 interface CipherBox {
     fun initEncryptCipher(
         cipherAlgorithm: String,
@@ -49,9 +48,11 @@ interface CipherBox {
             iv: ByteArray
         ): Cipher {
             val cipher = Cipher.getInstance(cipherAlgorithm)
-            val spec = if (cipherAlgorithm == BRKeyStore.NEW_CIPHER_ALGORITHM)
+            val spec = if (cipherAlgorithm == BRKeyStore.NEW_CIPHER_ALGORITHM) {
                 GCMParameterSpec(128, iv)
-            else IvParameterSpec(iv)
+            } else {
+                IvParameterSpec(iv)
+            }
             cipher.init(Cipher.DECRYPT_MODE, secretKey, spec)
             return cipher
         }
@@ -62,6 +63,5 @@ interface CipherBox {
         ): ByteArray {
             return cipher.doFinal(encryptedData)
         }
-
     }
 }

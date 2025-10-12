@@ -33,7 +33,7 @@ fun MainNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = startDestination //since we still have multiple activity, we just start from the param
+        startDestination = startDestination // since we still have multiple activity, we just start from the param
     ) {
         mainNavGraph(
             onNavigate = {
@@ -118,7 +118,5 @@ fun NavGraphBuilder.mainNavGraph(
         BuyLitecoinScreen(onNavigate = onNavigate)
     }
 
-    //todo add more composable screens
+    // todo add more composable screens
 }
-
-

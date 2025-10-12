@@ -24,9 +24,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.brainwallet.R
 import com.brainwallet.data.model.Language
-import com.brainwallet.ui.theme.BrainwalletTheme
+import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
-//TODO
+// TODO
 @Composable
 fun LanguageDetail(
     modifier: Modifier = Modifier,
@@ -35,10 +35,9 @@ fun LanguageDetail(
 ) {
     val languages = Language.entries.toTypedArray()
 
-    /// Layout values
+    // / Layout values
     val expandedHeight = 150
     val unselectedCircleSize = 20
-
 
     SettingRowItemExpandable(
         modifier = modifier,

@@ -3,7 +3,6 @@ package com.brainwallet.navigation
 import kotlinx.serialization.Serializable
 import java.io.Serializable as JavaSerializable
 
-
 sealed class Route : JavaSerializable {
 
     @Serializable
@@ -47,5 +46,4 @@ sealed class Route : JavaSerializable {
 
     @Serializable
     object BuyLitecoin : Route()
-
 }

@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
-//TODO: revisit this later
+// TODO: revisit this later
 @KoinViewModel
 class WelcomeViewModel(
     private val settingRepository: SettingRepository
@@ -98,7 +98,6 @@ class WelcomeViewModel(
                             event.language.code
                         )
                     )
-
                 }
             }
 
@@ -123,5 +122,4 @@ class WelcomeViewModel(
             }
         }
     }
-
 }

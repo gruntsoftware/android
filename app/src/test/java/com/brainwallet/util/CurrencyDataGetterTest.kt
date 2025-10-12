@@ -92,8 +92,8 @@ class CurrencyDataGetterTest {
         val currencyCode = "GBP"
         val amount = BigDecimal("123.45")
         val expectedFormattedString = "£123.45"
-        every { 
-            mockFormattedCurrencyStringGetter.invoke(mockContext, currencyCode, amount) 
+        every {
+            mockFormattedCurrencyStringGetter.invoke(mockContext, currencyCode, amount)
         } returns expectedFormattedString
 
         val actualFormattedString = currencyDataGetter.getFormattedCurrencyString(currencyCode, amount)
@@ -101,8 +101,8 @@ class CurrencyDataGetterTest {
         assert(actualFormattedString == expectedFormattedString) {
             "Expected formatted currency '$expectedFormattedString' but was '$actualFormattedString'"
         }
-        verify(exactly = 1) { 
-            mockFormattedCurrencyStringGetter.invoke(mockContext, currencyCode, amount) 
+        verify(exactly = 1) {
+            mockFormattedCurrencyStringGetter.invoke(mockContext, currencyCode, amount)
         }
     }
 
@@ -110,16 +110,16 @@ class CurrencyDataGetterTest {
     fun `given invalid currency code when getting formatted string then returns null`() {
         val invalidCurrencyCode = "INVALID"
         val amount = BigDecimal("100.00")
-        every { 
-            mockFormattedCurrencyStringGetter.invoke(mockContext, invalidCurrencyCode, amount) 
+        every {
+            mockFormattedCurrencyStringGetter.invoke(mockContext, invalidCurrencyCode, amount)
         } returns null
         val actualFormattedString = currencyDataGetter.getFormattedCurrencyString(invalidCurrencyCode, amount)
 
         assert(actualFormattedString == null) {
             "Expected null for invalid currency code '$invalidCurrencyCode' but was '$actualFormattedString'"
         }
-        verify(exactly = 1) { 
-            mockFormattedCurrencyStringGetter.invoke(mockContext, invalidCurrencyCode, amount) 
+        verify(exactly = 1) {
+            mockFormattedCurrencyStringGetter.invoke(mockContext, invalidCurrencyCode, amount)
         }
     }
 }

@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.ui.theme.BrainwalletAppTheme
-import com.brainwallet.ui.theme.BrainwalletTheme
+import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 @Composable
 fun DarkModeToggleButton(
@@ -65,7 +65,7 @@ fun DarkModeToggleButton(
 private fun DarkModeToggleButtonPreview() {
     BrainwalletAppTheme(AppSetting(isDarkMode = isSystemInDarkTheme())) {
         Box(modifier = Modifier.background(BrainwalletTheme.colors.background)) {
-            DarkModeToggleButton(checked = isSystemInDarkTheme(), onCheckedChange = {}, )
+            DarkModeToggleButton(checked = isSystemInDarkTheme(), onCheckedChange = {},)
         }
     }
 }

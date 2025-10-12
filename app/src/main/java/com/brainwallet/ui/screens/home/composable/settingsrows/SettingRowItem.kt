@@ -22,8 +22,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.brainwallet.ui.theme.BrainwalletColors
-import com.brainwallet.ui.theme.BrainwalletTheme
+import com.grunt.brainwallet.core.presentation.theme.BrainwalletColors
+import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 /**
  * main composable for [SettingRowItem] and [SettingRowItemExpandable]
@@ -65,12 +65,11 @@ fun SettingRowItemExpandable(
 ) {
     var expanded by remember { mutableStateOf(false) }
 
-    /// Layout values
+    // / Layout values
     val closedHeight = 60
     val expandedHeight = 100
     val dividerThickness = 1
     val horizontalPadding = 14
-
 
     Column(
         modifier = modifier.background(BrainwalletTheme.colors.settingRowItemBackground(expanded))

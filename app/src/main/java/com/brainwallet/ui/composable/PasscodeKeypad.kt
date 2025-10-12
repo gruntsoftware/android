@@ -29,7 +29,7 @@ fun PasscodeKeypad(
         verticalArrangement = Arrangement.spacedBy(24.dp),
         maxItemsInEachRow = 3
     ) {
-        //pin number button
+        // pin number button
         val modifierCircleButton = Modifier.size(75.dp)
 
         repeat(9) { index ->
@@ -48,7 +48,7 @@ fun PasscodeKeypad(
         }
 
         // Bottom row with biometric, 0, and backspace
-        if (false) {//hardcoded false for now
+        if (false) { // hardcoded false for now
             CircleButton(
                 modifier = modifierCircleButton,
                 onClick = {

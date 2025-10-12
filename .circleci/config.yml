@@ -54,8 +54,11 @@ commands:
             EOL
             ls && cat local.properties
       - run:
-          name: "Initialize submodule"
-          command: "git submodule init && git submodule update --init --recursive"
+          name: Rewrite .gitmodules with token
+          command: |
+            sed -i "s#https://github.com/#https://${GH_TOKEN}@github.com/#g" .gitmodules
+            git submodule sync --recursive
+            git submodule update --init --recursive
       - android/restore_gradle_cache
 
 # Define a job to be invoked later in a workflow.

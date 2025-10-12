@@ -9,7 +9,7 @@ import java.util.Locale
  * Brainwallet localizations. Will be updated from time to time
  * based on business objectives
  */
-enum class Language (
+enum class Language(
     val code: String,
     val title: String,
     val desc: String,
@@ -49,4 +49,3 @@ enum class Language (
         }
     }
 }
-

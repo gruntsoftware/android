@@ -18,8 +18,8 @@ sealed class UiEffect {
         }
     }
 
-    data class ShowDialog(val name: String): UiEffect()
-    data object ShowMoonPayDialog: UiEffect()
+    data class ShowDialog(val name: String) : UiEffect()
+    data object ShowMoonPayDialog : UiEffect()
 
     data class ShowMessage(
         val message: String,

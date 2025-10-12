@@ -100,7 +100,7 @@ class CipherStorageFile(
 ) : CipherStorage {
 
     override fun saveKey(secretKey: Key, aliasObject: AliasObject, data: ByteArray) {
-        //no-op
+        // no-op
     }
 
     override fun getKey(secretKey: Key, aliasObject: AliasObject): ByteArray? {
@@ -123,7 +123,6 @@ class CipherStorageFile(
         )
 
         return decryptedData
-
     }
 
     override fun hasKey(aliasObject: AliasObject): Boolean {
@@ -144,14 +143,13 @@ class CipherStorageFile(
     }
 
     override fun removeAll() {
-        //no-op
+        // no-op
     }
 
     private fun getFile(fileName: String): File = File(getFilePath(fileName))
 
     private fun getFilePath(fileName: String): String {
         val filesDir = context.filesDir.absolutePath
-        return "${filesDir}${File.separator}${fileName}"
+        return "${filesDir}${File.separator}$fileName"
     }
-
 }

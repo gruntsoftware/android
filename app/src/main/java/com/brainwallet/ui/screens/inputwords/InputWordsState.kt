@@ -6,7 +6,7 @@ data class InputWordsState(
     val source: Route.InputWords.Source? = null,
     val bip39Words: List<String> = emptyList(),
     val suggestionsSeedWords: List<String> = emptyList(),
-    val seedWords: SeedWords = (0..11).associateWith { "" } //12 seed words
+    val seedWords: SeedWords = (0..11).associateWith { "" } // 12 seed words
 )
 
 typealias SeedWords = Map<Int, String>

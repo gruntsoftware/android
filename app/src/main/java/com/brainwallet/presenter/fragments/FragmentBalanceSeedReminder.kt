@@ -1,7 +1,6 @@
 package com.brainwallet.presenter.fragments
 
 import android.os.Bundle
-import android.security.keystore.UserNotAuthenticatedException
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import androidx.fragment.app.Fragment
 import com.brainwallet.R
 import com.brainwallet.tools.animation.BRAnimator
 import com.brainwallet.tools.manager.AnalyticsManager
-import com.brainwallet.tools.manager.TxManager
 import com.brainwallet.tools.security.BRKeyStore
 import com.brainwallet.tools.util.BRConstants
 import timber.log.Timber
@@ -73,15 +71,14 @@ class FragmentBalanceSeedReminder : Fragment() {
     private fun registerAnalyticsError(errorString: String) {
         Timber.d("Fragment Balance Seed: RegisterError : %s", errorString)
         val params = Bundle()
-        params.putString("lwa_error_message", errorString);
+        params.putString("lwa_error_message", errorString)
         AnalyticsManager.logCustomEventWithParams(BRConstants._20200112_ERR, params)
     }
     fun fetchSeedPhrase() {
         seedPhraseTextView.text = "NO_PHRASE"
         if (this.activity == null) {
             registerAnalyticsError("null_in_fragment_balance_fetch_seed")
-        }
-        else {
+        } else {
             seedPhraseTextView.text = runCatching { BRKeyStore.getPhrase(this.activity, 0) }
                 .getOrNull()?.decodeToString() ?: "NO_PHRASE"
         }

@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("gruntsoftware-build-logic")
     repositories {
         google {
             content {
@@ -18,15 +19,9 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
-
     versionCatalogs {
-        val gamesToml = file("modules/games/gradle/libs.versions.toml")
-        if (gamesToml.exists()) {
-            create("games") {
-                from(files(gamesToml))
-            }
-        } else {
-            logger.lifecycle("⚠️ Submodule catalog 'games' not loaded — file not found: $gamesToml")
+        create("grunt") {
+            from(files("gruntsoftware-build-logic/gradle/libs.versions.toml"))
         }
     }
 }
@@ -34,10 +29,8 @@ dependencyResolutionManagement {
 rootProject.name = "Brainwallet Android"
 include(":app")
 include(":install_time_asset_pack")
-
-val gamesDir = file("modules/games/content")
-if (gamesDir.exists()) {
-    include(":modules:games:content")
-} else {
-    logger.lifecycle("⚠️ Submodule ':modules:games:content' not included — folder not found: $gamesDir")
-}
+include(":core", ":games", ":iap", ":general-purpose-app")
+project(":general-purpose-app").projectDir = file("modules/private-general-purpose/app")
+project(":core").projectDir = file("modules/private-general-purpose/core")
+project(":games").projectDir = file("modules/private-general-purpose/games")
+project(":iap").projectDir = file("modules/private-general-purpose/iap")

@@ -1,23 +1,17 @@
 package com.brainwallet.ui.composable
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.brainwallet.ui.screens.welcome.WelcomeScreen
-import com.brainwallet.ui.theme.BrainwalletColors
-import com.brainwallet.ui.theme.BrainwalletTheme
+import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 @Composable
 fun MediumTextButton(
@@ -40,6 +34,7 @@ fun MediumTextButton(
         content = content
     )
 }
+
 @Preview
 @Composable
 fun MediumTextButtonPreview() {
@@ -51,4 +46,3 @@ fun MediumTextButtonPreview() {
         content = TODO()
     )
 }
- 

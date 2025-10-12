@@ -2,7 +2,6 @@ package com.brainwallet.exceptions
 
 import java.security.GeneralSecurityException
 
-
 class CertificateChainNotFound : GeneralSecurityException {
     private constructor() : super()
 
@@ -16,4 +15,3 @@ class CertificateChainNotFound : GeneralSecurityException {
         val TAG: String = CertificateChainNotFound::class.java.name
     }
 }
-

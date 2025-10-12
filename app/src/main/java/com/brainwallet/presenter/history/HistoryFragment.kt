@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.runtime.getValue
 import com.brainwallet.databinding.FragmentHistoryBinding
 import com.brainwallet.presenter.activities.BreadActivity
 import com.brainwallet.presenter.base.BaseFragment
@@ -14,10 +15,13 @@ import com.brainwallet.tools.manager.TxManager
 import com.brainwallet.tools.sqlite.TransactionDataSource.OnTxAddedListener
 import com.brainwallet.tools.threads.BRExecutor
 import com.brainwallet.tools.util.BRConstants
+import com.brainwallet.ui.theme.setContentWithTheme
 import com.brainwallet.wallet.BRPeerManager
 import com.brainwallet.wallet.BRPeerManager.OnTxStatusUpdate
 import com.brainwallet.wallet.BRWalletManager
 import com.brainwallet.wallet.BRWalletManager.OnBalanceChanged
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.orbitmvi.orbit.compose.collectAsState
 import timber.log.Timber
 
 class HistoryFragment :
@@ -28,6 +32,7 @@ class HistoryFragment :
     OnTxAddedListener,
     HistoryView {
     lateinit var binding: FragmentHistoryBinding
+    private val viewModel: HistoryFragmentViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,6 +45,10 @@ class HistoryFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.composeView.setContentWithTheme {
+            val exportedTransaction by viewModel.collectAsState()
+            HistoryFooter(exportedTransactions = exportedTransaction)
+        }
         TxManager.getInstance().init(requireActivity() as BreadActivity, binding.recyclerView)
     }
 
@@ -54,20 +63,21 @@ class HistoryFragment :
         BRPeerManager.getInstance().removeListener(this)
         BRSharedPrefs.removeListener(this)
     }
+
     private fun registerAnalyticsError(errorString: String) {
         val params = Bundle()
-        params.putString("lwa_error_message", errorString);
+        params.putString("lwa_error_message", errorString)
         AnalyticsManager.logCustomEventWithParams(BRConstants._20200112_ERR, params)
         Timber.d("History Fragment: RegisterError : %s", errorString)
     }
+
     override fun onResume() {
         super.onResume()
         addObservers()
 
         if (this.activity == null) {
             registerAnalyticsError("null_in_history_fragment_on_resume")
-        }
-        else {
+        } else {
             TxManager.getInstance().onResume(this.activity)
         }
     }
@@ -85,9 +95,10 @@ class HistoryFragment :
         BRExecutor.getInstance().forBackgroundTasks().execute {
             if (this.activity == null) {
                 registerAnalyticsError("null_in_history_fragment_on_status_update")
-            }
-            else {
-                TxManager.getInstance().updateTxList(this.activity)
+            } else {
+                TxManager.getInstance().updateTxList(this.activity) {
+                    viewModel.updateTx(it.orEmpty())
+                }
             }
         }
     }
@@ -100,20 +111,24 @@ class HistoryFragment :
         BRExecutor.getInstance().forBackgroundTasks().execute {
             if (this.activity == null) {
                 registerAnalyticsError("null_in_history_fragment_on_tx_added")
-            }
-            else {
-                TxManager.getInstance().updateTxList(this.activity)
+            } else {
+                TxManager.getInstance().updateTxList(this.activity) {
+                    viewModel.updateTx(it.orEmpty())
+                }
             }
         }
     }
+
     private fun updateUI() {
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute {
             if (this.activity == null) {
                 registerAnalyticsError("null_in_history_fragment_update_ui")
-            }
-            else {
-                Thread.currentThread().name = Thread.currentThread().name + "HistoryFragment:updateUI"
-                TxManager.getInstance().updateTxList(this.activity)
+            } else {
+                Thread.currentThread().name =
+                    Thread.currentThread().name + "HistoryFragment:updateUI"
+                TxManager.getInstance().updateTxList(this.activity) {
+                    viewModel.updateTx(it.orEmpty())
+                }
             }
         }
     }

@@ -26,12 +26,12 @@ class LtcRepositoryImpl(
     private val sharedPreferences: SharedPreferences,
 ) : LtcRepository {
 
-    //todo: make it offline first here later, currently just using CurrencyDataSource.getAllCurrencies
+    // todo: make it offline first here later, currently just using CurrencyDataSource.getAllCurrencies
     override suspend fun fetchRates(): List<CurrencyEntity> {
         return runCatching {
             val rates = remoteApiSource.getRates()
 
-            //legacy logic
+            // legacy logic
             FeeManager.updateFeePerKb(context)
             val selectedISO = BRSharedPrefs.getIsoSymbol(context)
             rates.forEachIndexed { index, currencyEntity ->
@@ -41,11 +41,10 @@ class LtcRepositoryImpl(
                 }
             }
 
-            //save to local
+            // save to local
             currencyDataSource.putCurrencies(rates)
             return rates
         }.getOrElse { currencyDataSource.getAllCurrencies(true) }
-
     }
 
     /**
@@ -54,13 +53,13 @@ class LtcRepositoryImpl(
      *
      * maybe need updaete core if we need to use dynamic fee?
      */
-    override suspend fun fetchFeePerKb(): Fee = Fee.Default //using static fee
+    override suspend fun fetchFeePerKb(): Fee = Fee.Default // using static fee
 
     override suspend fun fetchLimits(baseCurrencyCode: String): MoonpayCurrencyLimit {
         return sharedPreferences.fetchWithCache(
             key = "${PREF_KEY_BUY_LIMITS_PREFIX}${baseCurrencyCode.lowercase()}",
             cachedAtKey = "${PREF_KEY_BUY_LIMITS_PREFIX_CACHED_AT}${baseCurrencyCode.lowercase()}",
-            cacheTimeMs = 5 * 60 * 1000, //5 minutes
+            cacheTimeMs = 5 * 60 * 1000, // 5 minutes
             fetchData = {
                 remoteApiSource.getMoonpayCurrencyLimit(baseCurrencyCode)
             }
@@ -83,11 +82,10 @@ class LtcRepositoryImpl(
             .buildUpon()
             .apply {
                 if (BuildConfig.DEBUG) {
-                    authority("buy-sandbox.moonpay.com")//replace base url from buy.moonpay.com
+                    authority("buy-sandbox.moonpay.com") // replace base url from buy.moonpay.com
                 }
             }
             .build()
             .toString()
     }
-
 }

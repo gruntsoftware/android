@@ -19,7 +19,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
-
 class NotificationHandlerTest {
 
     @MockK
@@ -56,7 +55,6 @@ class NotificationHandlerTest {
 
     @Test
     fun `invoke handleMessageReceived with data not contains key brainwallet, then should return false`() {
-
         val remoteMessage = RemoteMessage(Bundle())
 
         every { MessagePayloadKeys.extractDeveloperDefinedPayload(any()) } returns arrayMapOf()
@@ -68,7 +66,6 @@ class NotificationHandlerTest {
 
     @Test
     fun `invoke handleMessageReceived with valid data & notification, then should return true`() {
-
         val mapData = mapOf(
             MessageNotificationKeys.TITLE to "Hello There!",
             MessageNotificationKeys.BODY to "This is Body!",
@@ -92,8 +89,8 @@ class NotificationHandlerTest {
             "body" to "This is Body!"
         )
 
-        //dev: filtering until a multi OS test is decided
-        //todo: revisit, test still fail because specific platform API e.g. android.app.Notification$Builder
+        // dev: filtering until a multi OS test is decided
+        // todo: revisit, test still fail because specific platform API e.g. android.app.Notification$Builder
         val testOSVersionString = System.getProperty("os.version")?.toString()
         val testOSVersion = System.getProperty("os.version")?.split(".")?.first()?.toInt()
         val successMessage =
@@ -108,5 +105,4 @@ class NotificationHandlerTest {
             assertEquals(failMessage, true, actual)
         }
     }
-
 }

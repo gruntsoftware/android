@@ -1,14 +1,17 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import org.gradle.kotlin.dsl.grunt
 
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.jetbrains.kotlin.compose)
+    alias(grunt.plugins.android.application)
+    alias(grunt.plugins.jetbrains.kotlin.android)
+    alias(grunt.plugins.jetbrains.kotlin.compose)
     alias(libs.plugins.jetbrains.kotlin.kapt)
-    alias(libs.plugins.jetbrains.kotlin.serialization)
+    alias(grunt.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
-    alias(libs.plugins.ksp)
+    alias(grunt.plugins.ksp)
+    alias(grunt.plugins.buildlogic.test)
+    alias(grunt.plugins.buildlogic.detekt)
 }
 
 val localProperties = gradleLocalProperties(rootDir, providers)
@@ -21,8 +24,8 @@ android {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 36
-        versionCode = 202506296
-        versionName = "v4.7.2"
+        versionCode = 202506298
+        versionName = "v4.8.0"
 
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
@@ -161,13 +164,17 @@ android {
         viewBinding = true
         compose = true
     }
-
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.valueOf("VERSION_${grunt.versions.jvm.target.get()}")
+        targetCompatibility = JavaVersion.valueOf("VERSION_${grunt.versions.jvm.target.get()}")
     }
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    kotlin {
+        jvmToolchain(grunt.versions.jvm.target.get().toInt())
+        compilerOptions {
+            jvmTarget.set(
+                org.jetbrains.kotlin.gradle.dsl.JvmTarget.fromTarget(grunt.versions.jvm.target.get())
+            )
+        }
     }
 
     packaging {
@@ -179,24 +186,13 @@ android {
     //TODO: rename output apk/bundle
 }
 
-val ktlint by configurations.creating
-
 dependencies {
-    ktlint(libs.pinterest.ktlint) {
-        attributes {
-            attribute(Bundling.BUNDLING_ATTRIBUTE, objects.named(Bundling.EXTERNAL))
-        }
-    }
-
-    val gamesModule = findProject(":modules:games:content")
-    if (gamesModule != null) {
-        implementation(gamesModule)
-    } else {
-        logger.lifecycle("⚠️ Submodule ':modules:games:content' not found — skipping dependency")
-    }
-
+    implementation(project(":games"))
+    implementation(project(":iap"))
+    implementation(project(":core"))
     implementation("androidx.webkit:webkit:1.9.0")
-    implementation(libs.androidx.core)
+    implementation(grunt.androidx.core.ktx)
+    implementation(grunt.app.startup)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.legacy.support)
     implementation(libs.androidx.recyclerview)
@@ -209,8 +205,10 @@ dependencies {
     implementation(libs.bundles.androidx.lifecycle)
     implementation(libs.androidx.work)
     implementation(libs.androidx.browser)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.bundles.androidx.compose)
+    implementation(platform(grunt.androidx.compose.bom))
+    implementation(grunt.bundles.androidx.compose)
+    implementation(grunt.kotlin.immutable)
+    implementation(grunt.material)
     implementation(libs.google.material)
     implementation(libs.google.zxing)
     implementation(platform(libs.firebase.bom))
@@ -222,11 +220,11 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.coroutines.android)
     implementation (libs.airbnb.lottie.compose)
-    implementation(platform(libs.koin.bom))
-    implementation(libs.bundles.koin)
-    implementation(platform(libs.koin.annotation.bom))
-    implementation(libs.koin.annotation)
-    ksp(libs.koin.annotation.compiler)
+    implementation(platform(grunt.koin.bom))
+    implementation(grunt.bundles.koin)
+    implementation(platform(grunt.koin.annotation.bom))
+    implementation(grunt.koin.annotation)
+    ksp(grunt.koin.annotation.compiler)
 
     implementation(platform(libs.squareup.okhttp.bom))
     implementation(libs.bundles.squareup.okhttp)
@@ -248,43 +246,11 @@ dependencies {
     testImplementation(libs.slf4j.android)
     testImplementation(libs.kotlinx.coroutines.tests)
 
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.bundles.androidx.compose.ui.test)
+    androidTestImplementation(platform(grunt.androidx.compose.bom))
+    androidTestImplementation(grunt.bundles.androidx.compose.ui.test)
     androidTestImplementation(libs.bundles.android.test)
     androidTestImplementation(libs.fastlane.screengrab)
     androidTestImplementation(libs.slf4j.android)
-}
-
-val ktlintCheck by tasks.registering(JavaExec::class) {
-    group = LifecycleBasePlugin.VERIFICATION_GROUP
-    description = "Check Kotlin code style"
-    classpath = ktlint
-    mainClass.set("com.pinterest.ktlint.Main")
-    // see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information
-    args(
-        "**/src/**/*.kt",
-        "**.kts",
-        "!**/build/**",
-    )
-}
-
-tasks.check {
-    dependsOn(ktlintCheck)
-}
-
-tasks.register<JavaExec>("ktlintFormat") {
-    group = LifecycleBasePlugin.VERIFICATION_GROUP
-    description = "Check Kotlin code style and format"
-    classpath = ktlint
-    mainClass.set("com.pinterest.ktlint.Main")
-    jvmArgs("--add-opens=java.base/java.lang=ALL-UNNAMED")
-    // see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information
-    args(
-        "-F",
-        "**/src/**/*.kt",
-        "**.kts",
-        "!**/build/**",
-    )
 }
 
 tasks.withType<Test> {

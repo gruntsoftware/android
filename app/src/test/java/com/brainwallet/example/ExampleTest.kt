@@ -68,7 +68,6 @@ class ExampleTest {
         }
     }
 
-
     @Test
     fun `calc invoked with valid mocked values, should return correct value as expected and verify by order`() {
         val dependencyOne = mockk<DependencyOne>()
@@ -103,7 +102,6 @@ class ExampleTest {
         assertEquals(expected, result)
         coVerify { system.fetch() }
     }
-
 }
 
 class DependencyOne(val value: Int)

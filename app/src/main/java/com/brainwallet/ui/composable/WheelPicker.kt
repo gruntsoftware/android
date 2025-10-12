@@ -94,7 +94,6 @@ fun VerticalWheelPicker(
     )
 }
 
-
 @Composable
 private fun WheelPicker(
     modifier: Modifier,
@@ -201,9 +200,7 @@ private fun InternalWheelPicker(
             },
         contentAlignment = Alignment.Center,
     ) {
-
         val lazyListScope: LazyListScope.() -> Unit = {
-
             repeat(unfocusedCount) {
                 item(contentType = "placeholder") {
                     ItemSizeBox(
@@ -381,7 +378,7 @@ internal inline fun logMsg(debug: Boolean, block: () -> String) {
     }
 }
 
-//default
+// default
 /**
  * The default implementation of focus view in vertical.
  */
@@ -444,7 +441,7 @@ fun WheelPickerDisplayScope.DefaultWheelPickerDisplay(
     }
 }
 
-//state
+// state
 @Composable
 fun rememberWheelPickerState(
     initialIndex: Int = 0,
