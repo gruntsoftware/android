@@ -188,6 +188,7 @@ android {
 
 dependencies {
     implementation(project(":games"))
+    implementation(project(":modules:design-system"))
     implementation(project(":iap"))
     implementation(project(":core"))
     implementation("androidx.webkit:webkit:1.9.0")
