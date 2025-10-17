@@ -11,6 +11,7 @@ import com.brainwallet.R;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.presenter.customviews.BRKeyboard;
 import com.brainwallet.tools.manager.BRSharedPrefs;
+import com.brainwallet.ui.activities.ReEnterPinActivity;
 
 import timber.log.Timber;
 
@@ -123,17 +124,16 @@ public class SetPinActivity extends BRActivity {
         if (pin.length() ==4) {
             if (startingNextActivity) return;
             startingNextActivity = true;
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent(SetPinActivity.this, ReEnterPinActivity.class);
-                    intent.putExtra("pin", pin.toString());
-                    intent.putExtra("noPin", getIntent().getBooleanExtra("noPin", false));
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-                    pin = new StringBuilder("");
-                    startingNextActivity = false;
-                }
+            new Handler().postDelayed(() -> {
+                Intent intent = ReEnterPinActivity.Companion.createIntent(
+                    SetPinActivity.this,
+                    pin.toString(),
+                    getIntent().getBooleanExtra("noPin", false)
+                );
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+                pin = new StringBuilder();
+                startingNextActivity = false;
             }, 100);
         }
     }
