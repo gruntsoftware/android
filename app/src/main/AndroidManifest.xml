@@ -174,11 +174,7 @@
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".presenter.activities.InputWordsActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".presenter.activities.camera.ScanQRActivity"
             android:exported="true"
