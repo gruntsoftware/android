@@ -95,26 +95,14 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity
-            android:name=".presenter.activities.SetPinActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".presenter.activities.intro.RecoverActivity"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activities.ReEnterPinActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".presenter.activities.UpdatePinActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+
+
         <activity
             android:name=".presenter.activities.LoginActivity"
             android:exported="true"

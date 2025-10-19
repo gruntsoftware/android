@@ -135,8 +135,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         primaryPrice.setTextSize(PRIMARY_TEXT_SIZE);
         secondaryPrice.setTextSize(SECONDARY_TEXT_SIZE);
 
-        finishActivities(SetPinActivity.introSetPitActivity, null);
-
         onConnectionChanged(InternetManager.getInstance().isConnected(this));
 
         updateUI();
