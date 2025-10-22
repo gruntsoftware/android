@@ -65,7 +65,6 @@
         <activity
             android:name=".ui.BrainwalletActivity"
             android:exported="true"
-            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -77,7 +76,6 @@
             android:name=".presenter.activities.BreadActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -107,57 +105,57 @@
             android:name=".presenter.activities.LoginActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            />
         <activity
             android:name=".presenter.activities.settings.SettingsActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".presenter.activities.settings.NotificationActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            />
         <activity
             android:name=".presenter.activities.settings.SyncBlockchainActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            />
+        <activity
+            android:name=".presenter.activities.settings.NotificationActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            />
         <activity
             android:name=".presenter.activities.settings.DisplayCurrencyActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            />
         <activity
             android:name=".presenter.activities.settings.AboutActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            />
         <activity
             android:name=".presenter.activities.settings.SecurityCenterActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            />
         <activity
             android:name=".presenter.activities.settings.ShareDataActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            />
         <activity
             android:name=".presenter.activities.intro.WriteDownActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            />
         <activity
             android:name=".presenter.activities.PaperKeyActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            />
         <activity
             android:name=".presenter.activities.settings.SpendLimitActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            />
         <activity
             android:name=".presenter.activities.PaperKeyProveActivity"
             android:exported="true"
@@ -168,32 +166,32 @@
             android:name=".presenter.activities.camera.ScanQRActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            />
         <activity
             android:name=".presenter.activities.DisabledActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            />
         <activity
             android:name=".presenter.activities.settings.AdvancedActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            />
         <activity
             android:name=".presenter.activities.settings.NodesActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            />
         <activity
             android:name=".presenter.activities.camera.CameraActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            />
         <activity
             android:name=".presenter.activities.settings.TestActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            />
 
         <service
             android:name=".tools.listeners.SyncReceiver"

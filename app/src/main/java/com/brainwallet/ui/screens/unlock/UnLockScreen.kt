@@ -2,11 +2,14 @@
 
 package com.brainwallet.ui.screens.unlock
 
+import android.app.Activity
+import android.content.pm.ActivityInfo
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -35,6 +38,13 @@ fun UnLockScreen(
     isUpdatePin: Boolean = false,
     viewModel: UnLockViewModel = koinViewModel()
 ) {
+    val activity = LocalContext.current as? Activity
+    DisposableEffect(Unit) {
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        onDispose {
+            activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+        }
+    }
     val fragmentManager = (LocalContext.current as? FragmentActivity)?.supportFragmentManager
     val uiState by viewModel.state.collectAsState()
     LaunchedEffect(Unit) {
