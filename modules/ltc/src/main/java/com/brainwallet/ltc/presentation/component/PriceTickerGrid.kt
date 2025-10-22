@@ -26,7 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.brainwallet.design.component.effect.CardGlassContainer
+import com.brainwallet.design.component.effect.CardOpacityContainer
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
@@ -40,7 +40,7 @@ fun PriceTickerGrid(
 ) {
     val pagerState = rememberPagerState(pageCount = { tradingPairs.size })
 
-    CardGlassContainer(
+    CardOpacityContainer(
         modifier = modifier.fillMaxWidth()
     ) {
         Column(

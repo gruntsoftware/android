@@ -14,7 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.brainwallet.design.component.effect.CardGlassContainer
+import com.brainwallet.design.component.effect.CardOpacityContainer
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 @Composable
@@ -23,7 +23,7 @@ fun BentoHomeGrid(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
-    CardGlassContainer(
+    CardOpacityContainer(
         modifier = modifier
             .fillMaxWidth()
             .clickable { onClick() }

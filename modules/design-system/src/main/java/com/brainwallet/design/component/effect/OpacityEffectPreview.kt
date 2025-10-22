@@ -18,10 +18,10 @@ import androidx.compose.ui.unit.dp
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 /**
- * Showcase composable demonstrating different glass effect variations.
+ * Showcase composable demonstrating different opacity effect variations.
  */
 @Composable
-fun GlassEffectShowcase(
+fun OpacityEffectShowcase(
     modifier: Modifier = Modifier
 ) {
     Box(modifier = modifier.fillMaxSize()) {
@@ -37,43 +37,43 @@ fun GlassEffectShowcase(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            LightGlassContainer(
+            LightOpacityContainer(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(80.dp)
             ) {
-                GlassEffectCard("Light Glass Container")
+                OpacityEffectCard("Light Opacity Container")
             }
 
-            MediumGlassContainer(
+            MediumOpacityContainer(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(80.dp)
             ) {
-                GlassEffectCard("Medium Glass Container")
+                OpacityEffectCard("Medium Opacity Container")
             }
 
-            HeavyGlassContainer(
+            HeavyOpacityContainer(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(80.dp)
             ) {
-                GlassEffectCard("Heavy Glass Container")
+                OpacityEffectCard("Heavy Opacity Container")
             }
 
-            CardGlassContainer(
+            CardOpacityContainer(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(80.dp)
             ) {
-                GlassEffectCard("Card Glass Container")
+                OpacityEffectCard("Card Opacity Container")
             }
         }
     }
 }
 
 @Composable
-private fun GlassEffectCard(
+private fun OpacityEffectCard(
     title: String
 ) {
     Box(
@@ -94,8 +94,8 @@ private fun GlassEffectCard(
 
 @PreviewLightDark
 @Composable
-fun GlassEffectShowcasePreview() {
+fun OpacityEffectShowcasePreview() {
     BrainwalletTheme(isSystemInDarkTheme()) {
-        GlassEffectShowcase()
+        OpacityEffectShowcase()
     }
 }
