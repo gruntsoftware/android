@@ -1,13 +1,11 @@
 package com.brainwallet.design.component.widget
 
-import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,6 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.brainwallet.design.R
+import com.brainwallet.design.component.effect.LightGlassContainer
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 @Composable
@@ -23,13 +22,11 @@ fun BentoRailButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
-    Card(
-        modifier = modifier.size(48.dp),
-        shape = CircleShape,
-        colors = CardDefaults.cardColors(containerColor = BrainwalletTheme.colors.surface),
-        border = BorderStroke(1.dp, BrainwalletTheme.colors.content.copy(alpha = 0.2f)),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-        onClick = onClick
+    LightGlassContainer(
+        modifier = modifier
+            .size(48.dp)
+            .clickable { onClick() },
+        shape = CircleShape
     ) {
         Box(
             modifier = Modifier.fillMaxSize(),

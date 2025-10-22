@@ -2,18 +2,17 @@ package com.brainwallet.design.component.rail
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,31 +25,34 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.brainwallet.design.R
+import com.brainwallet.design.component.effect.MediumGlassContainer
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
+/**
+ * Account section component for the navigation rail.
+ * Displays user information with glass effect styling.
+ */
 @Composable
 fun BentoRailAccount(
     name: String,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
-    Card(
-        modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = BrainwalletTheme.colors.background.copy(alpha = 0.2f)
-        ),
-        onClick = onClick
+    MediumGlassContainer(
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable { onClick() }
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(vertical = 27.dp, horizontal = 19.dp)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(vertical = 27.dp, horizontal = 19.dp)
         ) {
             Surface(
                 shape = CircleShape,
                 border = BorderStroke(1.dp, BrainwalletTheme.colors.content.copy(alpha = 0.2f)),
-                color = BrainwalletTheme.colors.surface
+                color = BrainwalletTheme.colors.surface.copy(alpha = 0.3f)
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -92,8 +94,8 @@ fun BentoRailAccount(
     }
 }
 
-@Composable
 @PreviewLightDark
+@Composable
 fun BentoRailAccountPreview() {
     BrainwalletTheme(isSystemInDarkTheme()) {
         BentoRailAccount("Joseph Sanjaya")
