@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.BIND_JOB_SERVICE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" /> <!-- Allows unlocking your device and activating its screen so UI tests can succeed -->
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" /> <!-- Allows changing locales -->
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
@@ -92,26 +93,14 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity
-            android:name=".presenter.activities.SetPinActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            />
+
         <activity
             android:name=".presenter.activities.intro.RecoverActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            />
-        <activity
-            android:name=".presenter.activities.ReEnterPinActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            />
-        <activity
-            android:name=".presenter.activities.UpdatePinActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            />
+            android:screenOrientation="portrait" />
+
+
         <activity
             android:name=".presenter.activities.LoginActivity"
             android:exported="true"
@@ -171,12 +160,8 @@
             android:name=".presenter.activities.PaperKeyProveActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            />
-        <activity
-            android:name=".presenter.activities.InputWordsActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".presenter.activities.camera.ScanQRActivity"
             android:exported="true"
