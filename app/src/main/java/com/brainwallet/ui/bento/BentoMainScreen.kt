@@ -45,6 +45,7 @@ import com.brainwallet.design.component.rail.BentoRail
 import com.brainwallet.design.component.widget.BentoBottomNavBar
 import com.brainwallet.design.component.widget.BentoHomeGrid
 import com.brainwallet.ltc.presentation.component.BalanceBentoGrid
+import com.brainwallet.ltc.presentation.component.TransactionHistoryGrid
 import com.brainwallet.design.component.widget.BentoRailButton
 import com.brainwallet.design.component.widget.BentoTopBarActions
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
@@ -166,7 +167,7 @@ fun BentoMainScreen(
                         BalanceBentoGrid(modifier = Modifier.height(150.dp))
                     }
                     item(span = { GridItemSpan(2) }) {
-                        BentoHomeGrid(name = gridItems[1], modifier = Modifier.height(100.dp))
+                        TransactionHistoryGrid(modifier = Modifier.height(100.dp))
                     }
                     item(span = { GridItemSpan(1) }) {
                         BentoHomeGrid(name = gridItems[2], modifier = Modifier.height(220.dp))
