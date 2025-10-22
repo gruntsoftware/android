@@ -14,7 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.brainwallet.design.R
-import com.brainwallet.design.component.effect.LightGlassContainer
+import com.brainwallet.design.component.effect.LightOpacityContainer
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 /**
@@ -31,7 +31,7 @@ fun BentoTopBarActions(
     onNotificationsClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    LightGlassContainer(
+    LightOpacityContainer(
         modifier = modifier,
         shape = CircleShape
     ) {

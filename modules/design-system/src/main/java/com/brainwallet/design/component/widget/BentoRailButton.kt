@@ -14,7 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.brainwallet.design.R
-import com.brainwallet.design.component.effect.LightGlassContainer
+import com.brainwallet.design.component.effect.LightOpacityContainer
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 @Composable
@@ -22,7 +22,7 @@ fun BentoRailButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
-    LightGlassContainer(
+    LightOpacityContainer(
         modifier = modifier
             .size(48.dp)
             .clickable { onClick() },

@@ -15,10 +15,10 @@ import androidx.compose.ui.unit.dp
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 /**
- * Applies glass effect styling to a modifier without blur.
- * Creates flat tempered glass appearance with gradient background and border.
+ * Applies opacity effect styling to a modifier.
+ * Creates elegant appearance with gradient background and border.
  */
-fun Modifier.glassEffect(
+fun Modifier.opacityEffect(
     shape: Shape = RoundedCornerShape(16.dp),
     backgroundAlpha: Float = 0.15f,
     borderAlpha: Float = 0.3f,
@@ -27,17 +27,17 @@ fun Modifier.glassEffect(
     val surfaceColor = BrainwalletTheme.colors.surface
     val borderColor = BrainwalletTheme.colors.border
 
-    val glassBrush = remember(surfaceColor, backgroundAlpha) {
-        createGlassGradient(surfaceColor, backgroundAlpha)
+    val backgroundBrush = remember(surfaceColor, backgroundAlpha) {
+        createBackgroundGradient(surfaceColor, backgroundAlpha)
     }
 
     val borderBrush = remember(borderColor, borderAlpha) {
-        createGlassBorderGradient(borderColor, borderAlpha)
+        createBorderGradient(borderColor, borderAlpha)
     }
 
     this
         .background(
-            brush = glassBrush,
+            brush = backgroundBrush,
             shape = shape
         )
         .border(
@@ -48,7 +48,7 @@ fun Modifier.glassEffect(
         .clip(shape)
 }
 
-private fun createGlassGradient(
+private fun createBackgroundGradient(
     baseColor: Color,
     alpha: Float
 ): Brush {
@@ -63,7 +63,7 @@ private fun createGlassGradient(
     )
 }
 
-private fun createGlassBorderGradient(
+private fun createBorderGradient(
     borderColor: Color,
     alpha: Float
 ): Brush {

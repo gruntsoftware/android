@@ -14,7 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.brainwallet.design.component.effect.MediumGlassContainer
+import com.brainwallet.design.component.effect.MediumOpacityContainer
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 /**
@@ -26,7 +26,7 @@ fun BentoRailLearningBanner(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
-    MediumGlassContainer(
+    MediumOpacityContainer(
         modifier = modifier
             .fillMaxWidth()
             .clickable { onClick() }

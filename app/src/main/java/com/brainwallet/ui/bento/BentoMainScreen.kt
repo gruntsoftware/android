@@ -39,12 +39,13 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.brainwallet.design.component.effect.AnimatedLightBleedBackground
-import com.brainwallet.design.component.effect.DrawerGlassContainer
-import com.brainwallet.design.component.effect.LightGlassContainer
+import com.brainwallet.design.component.effect.DrawerOpacityContainer
+import com.brainwallet.design.component.effect.LightOpacityContainer
 import com.brainwallet.design.component.rail.BentoRail
 import com.brainwallet.design.component.widget.BentoBottomNavBar
 import com.brainwallet.design.component.widget.BentoHomeGrid
 import com.brainwallet.ltc.presentation.component.BalanceBentoGrid
+import com.brainwallet.ltc.presentation.component.FavoriteGrid
 import com.brainwallet.ltc.presentation.component.PriceTickerGrid
 import com.brainwallet.ltc.presentation.component.TransactionHistoryGrid
 import com.brainwallet.design.component.widget.BentoRailButton
@@ -134,7 +135,7 @@ fun BentoMainScreen(
                     }
                 },
                 bottomBar = {
-                    LightGlassContainer(
+                    LightOpacityContainer(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
                     ) {
@@ -175,8 +176,8 @@ fun BentoMainScreen(
                     }
                     item(span = { GridItemSpan(1) }) {
                         Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                            PriceTickerGrid(modifier = Modifier.height(100.dp))
-                            BentoHomeGrid(name = gridItems[4], modifier = Modifier.height(100.dp))
+                            PriceTickerGrid(modifier = Modifier.height(102.dp))
+                            FavoriteGrid(modifier = Modifier.height(102.dp))
                         }
                     }
                     item(span = { GridItemSpan(2) }) {
@@ -193,7 +194,7 @@ fun BentoMainScreen(
                 .offset(x = railOffset)
                 .zIndex(2f)
         ) {
-            DrawerGlassContainer(
+            DrawerOpacityContainer(
                 modifier = Modifier.fillMaxSize()
             ) {
                 BentoRail(

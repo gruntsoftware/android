@@ -1,6 +1,5 @@
 package com.brainwallet.design.component.effect
 
-import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -8,8 +7,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.BlurredEdgeTreatment
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -19,14 +16,13 @@ import androidx.compose.ui.unit.dp
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 /**
- * Container that provides glass effect with background blur while keeping content sharp.
- * Uses layered approach with separate background and content layers.
+ * Container that provides elegant surface styling with gradient backgrounds and borders.
+ * Optimized for performance with simple opacity-based effects.
  */
 @Composable
-fun GlassContainer(
+fun OpacityContainer(
     modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(16.dp),
-    blurRadius: Dp = 12.dp,
     backgroundAlpha: Float = 0.15f,
     borderAlpha: Float = 0.3f,
     borderWidth: Dp = 1.dp,
@@ -35,44 +31,25 @@ fun GlassContainer(
     val surfaceColor = BrainwalletTheme.colors.surface
     val borderColor = BrainwalletTheme.colors.border
 
-    val glassBrush = remember(surfaceColor, backgroundAlpha) {
-        createGlassGradient(surfaceColor, backgroundAlpha)
+    val backgroundBrush = remember(surfaceColor, backgroundAlpha) {
+        createBackgroundGradient(surfaceColor, backgroundAlpha)
     }
 
     val borderBrush = remember(borderColor, borderAlpha) {
-        createGlassBorderGradient(borderColor, borderAlpha)
+        createBorderGradient(borderColor, borderAlpha)
     }
 
-    Box(modifier = modifier.clip(shape)) {
-        Box(
-            modifier = Modifier
-                .matchParentSize()
-                .then(
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                        Modifier.blur(
-                            radius = blurRadius,
-                            edgeTreatment = BlurredEdgeTreatment(shape)
-                        )
-                    } else {
-                        Modifier
-                    }
-                )
-                .background(
-                    brush = glassBrush,
-                    shape = shape
-                )
-                .border(
-                    width = borderWidth,
-                    brush = borderBrush,
-                    shape = shape
-                )
-        )
-
+    Box(
+        modifier = modifier
+            .background(brush = backgroundBrush, shape = shape)
+            .border(width = borderWidth, brush = borderBrush, shape = shape)
+            .clip(shape)
+    ) {
         content()
     }
 }
 
-private fun createGlassGradient(
+private fun createBackgroundGradient(
     baseColor: Color,
     alpha: Float
 ): Brush {
@@ -87,7 +64,7 @@ private fun createGlassGradient(
     )
 }
 
-private fun createGlassBorderGradient(
+private fun createBorderGradient(
     borderColor: Color,
     alpha: Float
 ): Brush {
