@@ -1,4 +1,4 @@
-package com.brainwallet.design.screen
+package com.brainwallet.ui.bento
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.CubicBezierEasing
@@ -15,8 +15,10 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
@@ -42,19 +44,20 @@ import com.brainwallet.design.component.effect.LightGlassContainer
 import com.brainwallet.design.component.rail.BentoRail
 import com.brainwallet.design.component.widget.BentoBottomNavBar
 import com.brainwallet.design.component.widget.BentoHomeGrid
+import com.brainwallet.ltc.presentation.component.BalanceBentoGrid
 import com.brainwallet.design.component.widget.BentoRailButton
 import com.brainwallet.design.component.widget.BentoTopBarActions
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 /**
  * Main application screen featuring a push-to-side rail navigation with smooth animations.
- * 
+ *
  * The screen consists of:
  * - Animated light bleed background
  * - Main content area with bento grid layout
  * - Slide-out rail navigation menu
  * - Glass effect containers for premium visual appeal
- * 
+ *
  * @param modifier Optional modifier for the root container
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -86,7 +89,12 @@ fun BentoMainScreen(
         label = "railOffset"
     )
 
-    Box(modifier = modifier.fillMaxSize()) {
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .statusBarsPadding()
+            .navigationBarsPadding()
+    ) {
         AnimatedLightBleedBackground(
             modifier = Modifier.fillMaxSize(),
             animationDurationMs = 12000,
@@ -128,7 +136,10 @@ fun BentoMainScreen(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
                     ) {
-                        BentoBottomNavBar(currentRoute = currentRoute, onItemClick = { currentRoute = it })
+                        BentoBottomNavBar(
+                            currentRoute = currentRoute,
+                            onItemClick = { currentRoute = it }
+                        )
                     }
                 }
             ) { paddingValues ->
@@ -152,7 +163,7 @@ fun BentoMainScreen(
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
                     item(span = { GridItemSpan(2) }) {
-                        BentoHomeGrid(name = gridItems[0], modifier = Modifier.height(150.dp))
+                        BalanceBentoGrid(modifier = Modifier.height(150.dp))
                     }
                     item(span = { GridItemSpan(2) }) {
                         BentoHomeGrid(name = gridItems[1], modifier = Modifier.height(100.dp))

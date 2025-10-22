@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import com.brainwallet.R
-import com.brainwallet.design.navigation.BentoNavigation
+import com.brainwallet.ui.bento.BentoNavigation
 import com.brainwallet.presenter.activities.BreadActivity
 import com.brainwallet.ui.BrainwalletActivity
 import org.koin.java.KoinJavaComponent
