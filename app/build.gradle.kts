@@ -180,6 +180,8 @@ android {
     packaging {
         resources {
             pickFirsts.add("protobuf.meta")
+            excludes += "/META-INF/LICENSE.md"
+            excludes += "/META-INF/LICENSE-notice.md"
         }
     }
 
@@ -189,6 +191,7 @@ android {
 dependencies {
     implementation(project(":games"))
     implementation(project(":modules:design-system"))
+    implementation(project(":modules:ltc"))
     implementation(project(":iap"))
     implementation(project(":core"))
     implementation("androidx.webkit:webkit:1.9.0")

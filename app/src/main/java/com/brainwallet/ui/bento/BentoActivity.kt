@@ -1,18 +1,19 @@
-package com.brainwallet.design
+package com.brainwallet.ui.bento
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
-import com.brainwallet.design.screen.BentoMainScreen
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 class BentoActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent {
             BrainwalletTheme(isSystemInDarkTheme()) {
                 BentoMainScreen()
