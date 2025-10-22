@@ -15,12 +15,6 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.brainwallet.design.R
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
-/**
- * Data class representing an item in the bottom navigation bar.
- * @param label The text label for the item.
- * @param icon The icon for the item.
- * @param route The navigation route associated with the item.
- */
 private data class BentoBottomNavItem(
     val label: String,
     val icon: Int,
@@ -28,11 +22,8 @@ private data class BentoBottomNavItem(
 )
 
 /**
- * A custom bottom navigation bar component based on the provided design.
- *
- * @param modifier The modifier to be applied to the component.
- * @param currentRoute The currently selected navigation route.
- * @param onItemClick Callback invoked when a navigation item is clicked.
+ * Bottom navigation bar component with glass effect styling.
+ * Provides main navigation options for the application.
  */
 @Composable
 fun BentoBottomNavBar(
@@ -51,7 +42,7 @@ fun BentoBottomNavBar(
 
     NavigationBar(
         modifier = modifier,
-        containerColor = BrainwalletTheme.colors.surface,
+        containerColor = Color.Transparent,
         contentColor = BrainwalletTheme.colors.content
     ) {
         items.forEach { item ->
@@ -78,8 +69,8 @@ fun BentoBottomNavBar(
     }
 }
 
-@Composable
 @PreviewLightDark
+@Composable
 fun BentoBottomNavBarPreview() {
     BrainwalletTheme(isSystemInDarkTheme()) {
         BentoBottomNavBar(currentRoute = "send", {})

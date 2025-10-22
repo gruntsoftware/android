@@ -11,6 +11,12 @@ android {
     namespace = "com.brainwallet.design"
     compileSdk = 36
 
+    packaging {
+        resources {
+            excludes += "/META-INF/LICENSE.md"
+            excludes += "/META-INF/LICENSE-notice.md"
+        }
+    }
     defaultConfig {
         minSdk = 29
 
