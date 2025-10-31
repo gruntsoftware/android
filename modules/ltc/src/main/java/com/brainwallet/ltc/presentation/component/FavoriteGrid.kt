@@ -2,6 +2,7 @@ package com.brainwallet.ltc.presentation.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,6 +27,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brainwallet.design.component.effect.CardOpacityContainer
+import com.brainwallet.design.component.widget.GridChip
 import com.brainwallet.design.R as DesignR
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import com.grunt.brainwallet.core.presentation.theme.blue
@@ -53,15 +55,7 @@ fun FavoriteGrid(
                 .padding(20.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Text(
-                text = "FAVOURITES",
-                style = BrainwalletTheme.typography.labelMedium.copy(
-                    color = BrainwalletTheme.colors.content,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 12.sp
-                )
-            )
-
+            GridChip("TOP SECRET", modifier = Modifier.padding(bottom = 3.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(-16.dp),
@@ -167,7 +161,7 @@ private val defaultFavoriteContacts = persistentListOf(
 @Composable
 @PreviewLightDark
 fun FavoriteGridPreview() {
-    BrainwalletTheme(darkTheme = false) {
+    BrainwalletTheme(darkTheme = isSystemInDarkTheme()) {
         FavoriteGrid()
     }
 }

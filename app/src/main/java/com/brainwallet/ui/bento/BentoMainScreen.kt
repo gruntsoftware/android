@@ -43,13 +43,14 @@ import com.brainwallet.design.component.effect.DrawerOpacityContainer
 import com.brainwallet.design.component.effect.LightOpacityContainer
 import com.brainwallet.design.component.rail.BentoRail
 import com.brainwallet.design.component.widget.BentoBottomNavBar
-import com.brainwallet.design.component.widget.BentoHomeGrid
 import com.brainwallet.ltc.presentation.component.BalanceBentoGrid
 import com.brainwallet.ltc.presentation.component.FavoriteGrid
 import com.brainwallet.ltc.presentation.component.PriceTickerGrid
 import com.brainwallet.ltc.presentation.component.TransactionHistoryGrid
 import com.brainwallet.design.component.widget.BentoRailButton
 import com.brainwallet.design.component.widget.BentoTopBarActions
+import com.brainwallet.gamehub.presentation.component.GameHubGrid
+import com.brainwallet.tutorial.presentation.component.TutorialGrid
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 /**
@@ -166,22 +167,22 @@ fun BentoMainScreen(
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
                     item(span = { GridItemSpan(2) }) {
-                        BalanceBentoGrid(modifier = Modifier.height(150.dp))
+                        BalanceBentoGrid(modifier = Modifier.height(160.dp))
                     }
                     item(span = { GridItemSpan(2) }) {
                         TransactionHistoryGrid(modifier = Modifier.height(100.dp))
                     }
                     item(span = { GridItemSpan(1) }) {
-                        BentoHomeGrid(name = gridItems[2], modifier = Modifier.height(220.dp))
+                        TutorialGrid(modifier = Modifier.height(260.dp))
                     }
                     item(span = { GridItemSpan(1) }) {
                         Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                            PriceTickerGrid(modifier = Modifier.height(102.dp))
-                            FavoriteGrid(modifier = Modifier.height(102.dp))
+                            PriceTickerGrid(modifier = Modifier.height(122.dp))
+                            FavoriteGrid(modifier = Modifier.height(122.dp))
                         }
                     }
                     item(span = { GridItemSpan(2) }) {
-                        BentoHomeGrid(name = gridItems[5], modifier = Modifier.height(120.dp))
+                        GameHubGrid(modifier = Modifier.height(120.dp))
                     }
                 }
             }
