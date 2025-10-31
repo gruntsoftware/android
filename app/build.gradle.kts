@@ -192,6 +192,8 @@ dependencies {
     implementation(project(":games"))
     implementation(project(":modules:design-system"))
     implementation(project(":modules:ltc"))
+    implementation(project(":modules:tutorial"))
+    implementation(project(":modules:gamehub"))
     implementation(project(":iap"))
     implementation(project(":core"))
     implementation("androidx.webkit:webkit:1.9.0")

@@ -1,6 +1,5 @@
-package com.brainwallet.ltc.presentation.component
+package com.brainwallet.tutorial.presentation.component
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Text
@@ -24,19 +22,32 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brainwallet.design.component.effect.CardOpacityContainer
+import com.brainwallet.design.component.widget.GridChip
 import com.brainwallet.design.component.widget.PaginationDot
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun PriceTickerGrid(
-    modifier: Modifier = Modifier,
-    tradingPairs: PersistentList<TradingPairData> = defaultTradingPairs,
-    onClick: () -> Unit = {}
+data class TutorialData(
+    val title: String,
+    val body: String
 ) {
-    val pagerState = rememberPagerState(pageCount = { tradingPairs.size })
+    companion object {
+        val default = persistentListOf(
+            TutorialData(
+                "Only you know the meaning!",
+                "Remember your seed phrase and train yourself"
+            )
+        )
+    }
+}
+
+@Composable
+fun TutorialGrid(
+    modifier: Modifier = Modifier,
+    tutorials: PersistentList<TutorialData> = TutorialData.default,
+) {
+    val pagerState = rememberPagerState(pageCount = { tutorials.size })
 
     CardOpacityContainer(
         modifier = modifier.fillMaxWidth()
@@ -47,11 +58,12 @@ fun PriceTickerGrid(
                 .padding(16.dp),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
+            GridChip("TUTORIALS", modifier = Modifier.padding(bottom = 3.dp))
             HorizontalPager(
                 state = pagerState,
                 modifier = Modifier.weight(1f)
             ) { page ->
-                val currentPair = tradingPairs[page]
+                val currentTutorial = tutorials[page]
 
                 Column(
                     modifier = Modifier.fillMaxSize(),
@@ -59,11 +71,11 @@ fun PriceTickerGrid(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = currentPair.pairSymbol,
-                        style = BrainwalletTheme.typography.bodyMedium.copy(
-                            color = BrainwalletTheme.colors.content.copy(alpha = 0.7f),
-                            fontWeight = FontWeight.Medium,
-                            fontSize = 14.sp
+                        text = currentTutorial.title,
+                        style = BrainwalletTheme.typography.headlineMedium.copy(
+                            color = BrainwalletTheme.colors.content,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 20.sp
                         ),
                         textAlign = TextAlign.Start,
                         modifier = Modifier.fillMaxWidth()
@@ -72,11 +84,11 @@ fun PriceTickerGrid(
                     Spacer(modifier = Modifier.height(4.dp))
 
                     Text(
-                        text = currentPair.formattedPrice,
-                        style = BrainwalletTheme.typography.headlineMedium.copy(
-                            color = BrainwalletTheme.colors.content,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 24.sp
+                        text = currentTutorial.body,
+                        style = BrainwalletTheme.typography.bodyMedium.copy(
+                            color = BrainwalletTheme.colors.content.copy(alpha = 0.7f),
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 14.sp
                         ),
                         textAlign = TextAlign.Start,
                         modifier = Modifier.fillMaxWidth()
@@ -89,7 +101,7 @@ fun PriceTickerGrid(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                tradingPairs.forEachIndexed { index, _ ->
+                tutorials.forEachIndexed { index, _ ->
                     PaginationDot(
                         isActive = index == pagerState.currentPage,
                         modifier = Modifier.padding(horizontal = 3.dp)
@@ -100,35 +112,11 @@ fun PriceTickerGrid(
     }
 }
 
-data class TradingPairData(
-    val pairSymbol: String,
-    val price: Double,
-    val formattedPrice: String = formatPrice(price)
-)
-
-private fun formatPrice(price: Double): String {
-    return when {
-        price >= 1000 -> String.format("%.2f", price).replace(",", " ")
-        price >= 100 -> String.format("%.2f", price)
-        price >= 10 -> String.format("%.3f", price)
-        else -> String.format("%.4f", price)
-    }
-}
-
-private val defaultTradingPairs = persistentListOf(
-    TradingPairData("LTC/USD", 115.96),
-    TradingPairData("LTC/BTC", 0.00234),
-    TradingPairData("LTC/EUR", 108.45),
-    TradingPairData("LTC/GBP", 92.18)
-)
-
-@Composable
 @PreviewLightDark
 @Preview
-fun PriceTickerGridPreview() {
-    BrainwalletTheme(darkTheme = isSystemInDarkTheme()) {
-        PriceTickerGrid(
-            modifier = Modifier.height(120.dp)
-        )
+@Composable
+private fun TutorialGridPreview() {
+    BrainwalletTheme(isSystemInDarkTheme()) {
+        TutorialGrid()
     }
 }
