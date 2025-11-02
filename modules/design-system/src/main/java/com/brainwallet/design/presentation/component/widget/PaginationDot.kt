@@ -1,4 +1,4 @@
-package com.brainwallet.design.component.widget
+package com.brainwallet.design.presentation.component.widget
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme

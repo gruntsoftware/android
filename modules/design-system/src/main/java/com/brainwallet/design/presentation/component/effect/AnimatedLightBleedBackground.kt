@@ -1,5 +1,6 @@
-package com.brainwallet.design.component.effect
+package com.brainwallet.design.presentation.component.effect
 
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -57,7 +58,7 @@ fun AnimatedLightBleedBackground(
         targetValue = if (isDarkMode) 1f else 0f,
         animationSpec = tween(
             durationMillis = 800,
-            easing = androidx.compose.animation.core.FastOutSlowInEasing
+            easing = FastOutSlowInEasing
         ),
         label = "themeTransition"
     )

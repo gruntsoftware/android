@@ -1,4 +1,4 @@
-package com.brainwallet.design.component.widget
+package com.brainwallet.design.presentation.component.widget
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -13,19 +13,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.brainwallet.design.R
-import com.brainwallet.design.component.effect.LightOpacityContainer
+import com.brainwallet.design.presentation.component.effect.LightOpacityContainer
+import com.brainwallet.design.presentation.state.DarkModeState
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 @Composable
-fun BentoRailButton(
+fun BentoDarkModeToggle(
+    darkModeState: DarkModeState,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit
 ) {
     LightOpacityContainer(
         modifier = modifier
             .size(48.dp)
-            .clickable { onClick() },
+            .clickable { darkModeState.toggle() },
         shape = CircleShape
     ) {
         Box(
@@ -33,8 +33,8 @@ fun BentoRailButton(
             contentAlignment = Alignment.Center
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_burger_menu),
-                contentDescription = "Menu",
+                painter = painterResource(id = darkModeState.icon),
+                contentDescription = "Settings",
                 tint = BrainwalletTheme.colors.content
             )
         }
@@ -43,8 +43,9 @@ fun BentoRailButton(
 
 @Composable
 @PreviewLightDark
-fun BentoRailButtonPreview() {
-    BrainwalletTheme(isSystemInDarkTheme()) {
-        BentoRailButton {}
+fun BentoDarkModeTogglePreview() {
+    val darkModeState = DarkModeState(isSystemInDarkTheme()) { !it }
+    BrainwalletTheme(darkModeState.isDarkMode) {
+        BentoDarkModeToggle(darkModeState = darkModeState)
     }
 }

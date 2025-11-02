@@ -1,4 +1,4 @@
-package com.brainwallet.design.component.rail
+package com.brainwallet.design.presentation.component.rail
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement

@@ -1,4 +1,4 @@
-package com.brainwallet.design.component.rail
+package com.brainwallet.design.presentation.component.rail
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -25,7 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.brainwallet.design.R
-import com.brainwallet.design.component.effect.MediumOpacityContainer
+import com.brainwallet.design.presentation.component.effect.MediumOpacityContainer
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 /**

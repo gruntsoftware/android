@@ -1,11 +1,12 @@
-package com.brainwallet.design.component.effect
+package com.brainwallet.design.presentation.component.effect
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -15,15 +16,18 @@ import androidx.compose.ui.unit.dp
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 /**
- * Applies opacity effect styling to a modifier.
- * Creates elegant appearance with gradient background and border.
+ * Container that provides elegant surface styling with gradient backgrounds and borders.
+ * Optimized for performance with simple opacity-based effects.
  */
-fun Modifier.opacityEffect(
+@Composable
+fun OpacityContainer(
+    modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(16.dp),
     backgroundAlpha: Float = 0.15f,
     borderAlpha: Float = 0.3f,
-    borderWidth: Dp = 1.dp
-): Modifier = composed {
+    borderWidth: Dp = 1.dp,
+    content: @Composable () -> Unit
+) {
     val surfaceColor = BrainwalletTheme.colors.surface
     val borderColor = BrainwalletTheme.colors.border
 
@@ -35,17 +39,14 @@ fun Modifier.opacityEffect(
         createBorderGradient(borderColor, borderAlpha)
     }
 
-    this
-        .background(
-            brush = backgroundBrush,
-            shape = shape
-        )
-        .border(
-            width = borderWidth,
-            brush = borderBrush,
-            shape = shape
-        )
-        .clip(shape)
+    Box(
+        modifier = modifier
+            .background(brush = backgroundBrush, shape = shape)
+            .border(width = borderWidth, brush = borderBrush, shape = shape)
+            .clip(shape)
+    ) {
+        content()
+    }
 }
 
 private fun createBackgroundGradient(

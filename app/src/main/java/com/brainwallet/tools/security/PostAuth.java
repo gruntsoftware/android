@@ -109,7 +109,7 @@ public class PostAuth {
         app.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
     }
 
-    public void onRecoverWalletAuth(FragmentActivity app, boolean authAsked) {
+    public void onRecoverWalletAuth(Activity app, boolean authAsked) {
         if (phraseForKeyStore == null) {
             Timber.e(new NullPointerException("onRecoverWalletAuth: phraseForKeyStore is null"));
             return;
@@ -144,6 +144,8 @@ public class PostAuth {
                     BRKeyStore.putAuthKey(authKey, app);
                     byte[] pubKey = BRWalletManager.getInstance().getMasterPubKey(bytePhrase);
                     BRKeyStore.putMasterPublicKey(pubKey, app);
+                    String firstAddress = BRWalletManager.getFirstAddress(pubKey);
+                    BRSharedPrefs.putFirstAddress(app, firstAddress);
                     app.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
 
                     //using setpasscode from

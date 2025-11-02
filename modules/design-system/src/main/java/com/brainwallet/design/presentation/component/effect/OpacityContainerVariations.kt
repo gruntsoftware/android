@@ -1,4 +1,4 @@
-package com.brainwallet.design.component.effect
+package com.brainwallet.design.presentation.component.effect
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape

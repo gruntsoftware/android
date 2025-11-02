@@ -1,4 +1,4 @@
-package com.brainwallet.design.component.rail
+package com.brainwallet.design.presentation.component.widget
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -14,19 +14,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.brainwallet.design.component.effect.MediumOpacityContainer
+import com.brainwallet.design.presentation.component.effect.CardOpacityContainer
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
-/**
- * Settings section component for the navigation rail.
- * Provides access to app settings with glass effect styling.
- */
 @Composable
-fun BentoRailSettings(
+fun BentoHomeGrid(
+    name: String,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
-    MediumOpacityContainer(
+    CardOpacityContainer(
         modifier = modifier
             .fillMaxWidth()
             .clickable { onClick() }
@@ -38,8 +35,8 @@ fun BentoRailSettings(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                "Settings",
-                style = BrainwalletTheme.typography.bodyLarge.copy(
+                text = name,
+                style = BrainwalletTheme.typography.bodySmall.copy(
                     color = BrainwalletTheme.colors.content,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Bold
@@ -50,10 +47,10 @@ fun BentoRailSettings(
     }
 }
 
-@PreviewLightDark
 @Composable
-fun BentoRailSettingsPreview() {
+@PreviewLightDark
+fun BentoHomeGridPreview() {
     BrainwalletTheme(isSystemInDarkTheme()) {
-        BentoRailSettings()
+        BentoHomeGrid("Test")
     }
 }
