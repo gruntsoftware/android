@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.brainwallet.design.R
 import com.brainwallet.design.presentation.component.effect.LightOpacityContainer
 import com.brainwallet.design.presentation.state.DarkModeState
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
@@ -34,7 +33,7 @@ fun BentoDarkModeToggle(
             contentAlignment = Alignment.Center
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_gear),
+                painter = painterResource(id = darkModeState.icon),
                 contentDescription = "Settings",
                 tint = BrainwalletTheme.colors.content
             )

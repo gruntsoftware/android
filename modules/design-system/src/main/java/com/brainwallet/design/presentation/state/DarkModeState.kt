@@ -6,6 +6,7 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import com.brainwallet.design.R
 import com.brainwallet.design.domain.DarkModeUseCase
 import org.koin.compose.koinInject
 
@@ -26,6 +27,8 @@ class DarkModeState(
 ) {
     var isDarkMode by mutableStateOf(initialIsDarkMode)
         private set
+
+    val icon get() = if (isDarkMode) R.drawable.ic_dark_mode else R.drawable.ic_light_mode
 
     fun toggle() {
         this.isDarkMode = onToggle(isDarkMode)
