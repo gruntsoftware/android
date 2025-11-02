@@ -42,7 +42,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.brainwallet.design.component.effect.CardOpacityContainer
+import com.brainwallet.design.presentation.component.effect.CardOpacityContainer
 import com.brainwallet.design.R as DesignR
 import com.brainwallet.ltc.R
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme

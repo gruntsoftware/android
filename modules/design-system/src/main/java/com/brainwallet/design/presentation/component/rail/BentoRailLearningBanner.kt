@@ -1,4 +1,4 @@
-package com.brainwallet.design.component.rail
+package com.brainwallet.design.presentation.component.rail
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -14,7 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.brainwallet.design.component.effect.MediumOpacityContainer
+import com.brainwallet.design.presentation.component.effect.MediumOpacityContainer
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 /**

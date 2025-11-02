@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.os.NetworkOnMainThreadException;
 import android.os.SystemClock;
 import android.security.keystore.UserNotAuthenticatedException;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -457,6 +458,8 @@ public class BRWalletManager {
 
     public void startTheWalletIfExists(final Activity app) {
         final BRWalletManager m = BRWalletManager.getInstance();
+        String message = "startTheWalletIfExists, noWallet: " + m.noWallet(app) + ", pharse: " + BRSharedPrefs.getPhraseWroteDown(app);
+        Log.d("ketai", message);
         if (!m.noWallet(app) && BRSharedPrefs.getPhraseWroteDown(app)) {
             BRAnimator.startBreadActivity(app, true);
         }

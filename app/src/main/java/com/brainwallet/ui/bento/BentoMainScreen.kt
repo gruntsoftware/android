@@ -38,17 +38,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.brainwallet.design.component.effect.AnimatedLightBleedBackground
-import com.brainwallet.design.component.effect.DrawerOpacityContainer
-import com.brainwallet.design.component.effect.LightOpacityContainer
-import com.brainwallet.design.component.rail.BentoRail
-import com.brainwallet.design.component.widget.BentoBottomNavBar
+import com.brainwallet.design.presentation.component.effect.AnimatedLightBleedBackground
+import com.brainwallet.design.presentation.component.effect.DrawerOpacityContainer
+import com.brainwallet.design.presentation.component.effect.LightOpacityContainer
+import com.brainwallet.design.presentation.component.rail.BentoRail
+import com.brainwallet.design.presentation.component.widget.BentoBottomNavBar
 import com.brainwallet.ltc.presentation.component.BalanceBentoGrid
 import com.brainwallet.ltc.presentation.component.FavoriteGrid
 import com.brainwallet.ltc.presentation.component.PriceTickerGrid
 import com.brainwallet.ltc.presentation.component.TransactionHistoryGrid
-import com.brainwallet.design.component.widget.BentoRailButton
-import com.brainwallet.design.component.widget.BentoTopBarActions
+import com.brainwallet.design.presentation.component.widget.BentoRailButton
+import com.brainwallet.design.presentation.component.widget.BentoDarkModeToggle
+import com.brainwallet.design.presentation.state.DarkModeState
+import com.brainwallet.design.presentation.state.rememberDarkModeState
 import com.brainwallet.gamehub.presentation.component.GameHubGrid
 import com.brainwallet.tutorial.presentation.component.TutorialGrid
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
@@ -67,6 +69,18 @@ import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BentoMainScreen(
+    modifier: Modifier = Modifier
+) {
+    val darkModeState = rememberDarkModeState()
+    BrainwalletTheme(darkModeState.isDarkMode) {
+        BentoMainScreen(darkModeState, modifier)
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun BentoMainScreen(
+    darkModeState: DarkModeState,
     modifier: Modifier = Modifier
 ) {
     var currentRoute by remember { mutableStateOf("send") }
@@ -128,11 +142,11 @@ fun BentoMainScreen(
                             .padding(horizontal = 16.dp, vertical = 8.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
+                        BentoDarkModeToggle(darkModeState = darkModeState)
+                        Spacer(modifier = Modifier.weight(1f))
                         BentoRailButton {
                             isRailOpen = !isRailOpen
                         }
-                        Spacer(modifier = Modifier.weight(1f))
-                        BentoTopBarActions(onSettingsClick = {}, onNotificationsClick = {})
                     }
                 },
                 bottomBar = {
@@ -147,17 +161,6 @@ fun BentoMainScreen(
                     }
                 }
             ) { paddingValues ->
-                val gridItems = remember {
-                    listOf(
-                        "Balance Bento View",
-                        "Transaction History View",
-                        "Tutorials Bento View",
-                        "LTC Price Bento View",
-                        "Favourites Bento View",
-                        "Game Hub Bento View"
-                    )
-                }
-
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2),
                     modifier = Modifier
@@ -225,7 +228,8 @@ fun BentoMainScreen(
 @PreviewLightDark
 @Composable
 fun BentoMainScreenPreview() {
-    BrainwalletTheme(isSystemInDarkTheme()) {
-        BentoMainScreen()
+    val darkModeState = DarkModeState(isSystemInDarkTheme())
+    BrainwalletTheme(darkModeState.isDarkMode) {
+        BentoMainScreen(darkModeState)
     }
 }

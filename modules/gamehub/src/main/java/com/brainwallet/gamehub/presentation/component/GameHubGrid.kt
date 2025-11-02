@@ -18,9 +18,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.brainwallet.design.component.effect.CardOpacityContainer
-import com.brainwallet.design.component.widget.GridChip
-import com.brainwallet.design.component.widget.PaginationDot
+import com.brainwallet.design.presentation.component.effect.CardOpacityContainer
+import com.brainwallet.design.presentation.component.widget.GridChip
+import com.brainwallet.design.presentation.component.widget.PaginationDot
 import com.brainwallet.gamehub.R
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import kotlinx.collections.immutable.PersistentList
