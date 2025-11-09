@@ -3,10 +3,11 @@ package com.brainwallet.design.presentation.component.rail
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,14 +30,13 @@ fun BentoRail(
     Column(
         modifier = modifier
             .fillMaxHeight()
+            .verticalScroll(rememberScrollState())
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
-        BentoRailAccount(userName, modifier = Modifier.weight(1f))
-        BentoRailSettings(modifier = Modifier.weight(2f))
-        BentoRailLearningBanner(modifier = Modifier.weight(0.5f))
-        Spacer(Modifier.weight(0.25f))
+//        BentoRailAccount(userName)
+        BentoRailSettings(modifier = Modifier)
         Text(
             text = "App version:\n$appVersion",
             style = BrainwalletTheme.typography.bodySmall,
