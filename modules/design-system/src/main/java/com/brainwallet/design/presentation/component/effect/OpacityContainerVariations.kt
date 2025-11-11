@@ -1,5 +1,6 @@
 package com.brainwallet.design.presentation.component.effect
 
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -19,7 +20,7 @@ import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 fun LightOpacityContainer(
     modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(12.dp),
-    content: @Composable () -> Unit
+    content: @Composable BoxScope.() -> Unit
 ) {
     OpacityContainer(
         modifier = modifier,
@@ -39,7 +40,7 @@ fun LightOpacityContainer(
 fun MediumOpacityContainer(
     modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(16.dp),
-    content: @Composable () -> Unit
+    content: @Composable BoxScope.() -> Unit
 ) {
     OpacityContainer(
         modifier = modifier,
@@ -59,7 +60,7 @@ fun MediumOpacityContainer(
 fun HeavyOpacityContainer(
     modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(20.dp),
-    content: @Composable () -> Unit
+    content: @Composable BoxScope.() -> Unit
 ) {
     OpacityContainer(
         modifier = modifier,
@@ -77,7 +78,7 @@ fun HeavyOpacityContainer(
 @Composable
 fun CardOpacityContainer(
     modifier: Modifier = Modifier,
-    content: @Composable () -> Unit
+    content: @Composable BoxScope.() -> Unit
 ) {
     MediumOpacityContainer(
         modifier = modifier,
@@ -94,7 +95,7 @@ fun CardOpacityContainer(
 fun DrawerOpacityContainer(
     modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(topEnd = 16.dp, bottomEnd = 16.dp),
-    content: @Composable () -> Unit
+    content: @Composable BoxScope.() -> Unit
 ) {
     OpacityContainer(
         modifier = modifier,

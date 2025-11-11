@@ -51,6 +51,7 @@ android {
 
 dependencies {
     implementation(project(":core"))
+    implementation(project(":iap"))
     implementation(project(":modules:design-system"))
     implementation(platform(grunt.androidx.compose.bom))
     implementation(grunt.bundles.androidx.compose)

@@ -19,16 +19,18 @@ class BentoActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val darkModeState = rememberDarkModeState()
-            enableEdgeToEdge(
-                navigationBarStyle = SystemBarStyle.auto(
-                    BrainwalletTheme.colors.background.toArgb(),
-                    BrainwalletTheme.colors.background.toArgb(),
-                    detectDarkMode = {
-                        darkModeState.isDarkMode
-                    }
+            BrainwalletTheme(darkModeState.isDarkMode) {
+                enableEdgeToEdge(
+                    navigationBarStyle = SystemBarStyle.auto(
+                        BrainwalletTheme.colors.background.toArgb(),
+                        BrainwalletTheme.colors.background.toArgb(),
+                        detectDarkMode = {
+                            darkModeState.isDarkMode
+                        }
+                    )
                 )
-            )
-            BentoMainScreen()
+                BentoMainScreen()
+            }
         }
     }
 

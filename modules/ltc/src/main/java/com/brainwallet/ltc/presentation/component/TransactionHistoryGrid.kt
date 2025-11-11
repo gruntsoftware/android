@@ -1,5 +1,7 @@
 package com.brainwallet.ltc.presentation.component
 
+import android.R.attr.onClick
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -19,8 +21,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
@@ -38,10 +43,14 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.brainwallet.design.presentation.component.effect.CardOpacityContainer
+import com.brainwallet.design.presentation.component.effect.OpacityContainer
+import com.brainwallet.ltc.R
 import com.brainwallet.ltc.domain.flow.TransactionFlow
 import com.brainwallet.ltc.domain.model.TxItem
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import com.grunt.brainwallet.core.presentation.util.toLtcStringFormatted
+import com.grunt.brainwallet.iap.presentation.model.ExportedTransaction
+import com.grunt.brainwallet.iap.presentation.screen.ExportTrxSheet
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
@@ -50,17 +59,41 @@ import org.koin.compose.koinInject
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import kotlin.collections.map
 import com.brainwallet.design.R as DesignR
 
 @Stable
 class TransactionHistoryGridUiState(
     initialTransactions: PersistentList<TxItem> = persistentListOf()
 ) {
+    var showExportDialog by mutableStateOf(false)
+        private set
+
     var transactions by mutableStateOf(initialTransactions)
         private set
 
+    val exportedTransaction get() = mapToExportedTransactions(transactions)
+
+    fun toggleShowExport() {
+        showExportDialog = !showExportDialog
+    }
+
     fun updateTransactions(newTransactions: PersistentList<TxItem>) {
         transactions = newTransactions
+    }
+
+    private fun mapToExportedTransactions(txItems: List<TxItem>): PersistentList<ExportedTransaction> {
+        return txItems.map {
+            ExportedTransaction(
+                timeStamp = it.timeStamp,
+                blockHeight = it.blockHeight,
+                txHashReversed = it.txReversed,
+                sent = it.sent,
+                received = it.received,
+                fee = it.fee,
+                to = it.to.toList()
+            )
+        }.toPersistentList()
     }
 }
 
@@ -76,6 +109,7 @@ fun rememberTransactionHistoryGridState(
     return state
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TransactionHistoryGrid(
     modifier: Modifier = Modifier,
@@ -87,6 +121,28 @@ fun TransactionHistoryGrid(
     CardOpacityContainer(
         modifier = modifier.fillMaxWidth()
     ) {
+        AnimatedVisibility(
+            uiState.transactions.isNotEmpty(),
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .padding(16.dp)
+        ) {
+            OpacityContainer(
+                shape = CircleShape,
+                modifier = Modifier.clickable {
+                    uiState.toggleShowExport()
+                }
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.launch),
+                    contentDescription = "Export",
+                    modifier = Modifier
+                        .size(32.dp)
+                        .padding(6.dp),
+                    tint = BrainwalletTheme.colors.content
+                )
+            }
+        }
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -131,6 +187,22 @@ fun TransactionHistoryGrid(
                     }
                 }
             }
+        }
+    }
+
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+
+    if (uiState.showExportDialog) {
+        ModalBottomSheet(
+            sheetState = sheetState,
+            containerColor = BrainwalletTheme.colors.surface,
+            contentColor = BrainwalletTheme.colors.content,
+            onDismissRequest = { uiState.toggleShowExport() }
+        ) {
+            ExportTrxSheet(
+                transactions = uiState.exportedTransaction,
+                modifier = Modifier.fillMaxWidth()
+            )
         }
     }
 }

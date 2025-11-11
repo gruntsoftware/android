@@ -3,6 +3,7 @@ package com.brainwallet.design.presentation.component.effect
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -26,7 +27,7 @@ fun OpacityContainer(
     backgroundAlpha: Float = 0.15f,
     borderAlpha: Float = 0.3f,
     borderWidth: Dp = 1.dp,
-    content: @Composable () -> Unit
+    content: @Composable BoxScope.() -> Unit
 ) {
     val surfaceColor = BrainwalletTheme.colors.surface
     val borderColor = BrainwalletTheme.colors.border
