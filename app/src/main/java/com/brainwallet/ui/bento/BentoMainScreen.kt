@@ -110,8 +110,6 @@ private fun BentoMainScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .statusBarsPadding()
-            .navigationBarsPadding()
     ) {
         AnimatedLightBleedBackground(
             modifier = Modifier.fillMaxSize(),
@@ -133,7 +131,10 @@ private fun BentoMainScreen(
                 .zIndex(1f)
         ) {
             Scaffold(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .statusBarsPadding()
+                    .navigationBarsPadding(),
                 containerColor = Color.Transparent,
                 topBar = {
                     Row(
@@ -173,7 +174,7 @@ private fun BentoMainScreen(
                         BalanceBentoGrid()
                     }
                     item(span = { GridItemSpan(2) }) {
-                        TransactionHistoryGrid(modifier = Modifier.height(150.dp))
+                        TransactionHistoryGrid(modifier = Modifier.height(130.dp))
                     }
                     item(span = { GridItemSpan(1) }) {
                         TutorialGrid(modifier = Modifier.height(260.dp))

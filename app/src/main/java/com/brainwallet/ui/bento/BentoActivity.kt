@@ -4,9 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.ui.graphics.toArgb
+import com.brainwallet.design.presentation.state.rememberDarkModeState
 import com.brainwallet.tools.threads.BRExecutor
 import com.brainwallet.wallet.BRWalletManager
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
@@ -15,11 +17,18 @@ class BentoActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
-            BrainwalletTheme(isSystemInDarkTheme()) {
-                BentoMainScreen()
-            }
+            val darkModeState = rememberDarkModeState()
+            enableEdgeToEdge(
+                navigationBarStyle = SystemBarStyle.auto(
+                    BrainwalletTheme.colors.background.toArgb(),
+                    BrainwalletTheme.colors.background.toArgb(),
+                    detectDarkMode = {
+                        darkModeState.isDarkMode
+                    }
+                )
+            )
+            BentoMainScreen()
         }
     }
 

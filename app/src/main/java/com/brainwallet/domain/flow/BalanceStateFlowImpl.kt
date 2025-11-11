@@ -2,24 +2,33 @@ package com.brainwallet.domain.flow
 
 import android.content.Context
 import com.brainwallet.ltc.domain.flow.BalanceStateFlow
+import com.brainwallet.ltc.domain.model.BalanceState
 import com.brainwallet.tools.manager.BRSharedPrefs
+import com.brainwallet.tools.util.BRCurrency
+import com.brainwallet.tools.util.BRExchange
 import com.brainwallet.wallet.BRWalletManager
 import kotlinx.coroutines.ExperimentalForInheritanceCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import org.koin.core.annotation.Single
+import java.math.BigDecimal
 
 @OptIn(ExperimentalForInheritanceCoroutinesApi::class)
 @Single
 class BalanceStateFlowImpl(
     private val context: Context,
-    private val upstream: MutableStateFlow<Long> = MutableStateFlow(
+    private val upstream: MutableStateFlow<BalanceState> = MutableStateFlow(
         BRSharedPrefs.getCatchedBalance(
             context
-        )
+        ).let { value ->
+            BalanceState(
+                getFormattedLTC(context, value),
+                getFormattedLTCAsCurrency(context, value)
+            )
+        }
     )
-) : BalanceStateFlow, StateFlow<Long> by upstream, BRWalletManager.OnBalanceChanged {
+) : BalanceStateFlow, StateFlow<BalanceState> by upstream, BRWalletManager.OnBalanceChanged {
 
     init {
         BRWalletManager.getInstance().addBalanceChangedListener(this)
@@ -31,6 +40,33 @@ class BalanceStateFlowImpl(
     }
 
     override fun onBalanceChanged(balance: Long) {
-        upstream.update { balance }
+        upstream.update {
+            balance.let { value ->
+                BalanceState(
+                    getFormattedLTC(context, value),
+                    getFormattedLTCAsCurrency(context, value)
+                )
+            }
+        }
     }
+}
+
+private fun getFormattedLTC(context: Context, value: Long): String {
+    return BRCurrency.getFormattedCurrencyString(
+        context,
+        "LTC",
+        BRExchange.getLitecoinForLitoshis(context, BigDecimal(value))
+    ) ?: "$value"
+}
+
+private fun getFormattedLTCAsCurrency(context: Context, value: Long): String {
+    return BRCurrency.getFormattedCurrencyString(
+        context,
+        BRSharedPrefs.getIsoSymbol(context),
+        BRExchange.getAmountFromLitoshis(
+            context,
+            BRSharedPrefs.getIsoSymbol(context),
+            BigDecimal(value)
+        )
+    ) ?: "$value"
 }

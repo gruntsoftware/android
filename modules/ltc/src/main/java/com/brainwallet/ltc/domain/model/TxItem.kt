@@ -1,5 +1,8 @@
 package com.brainwallet.ltc.domain.model
 
+import androidx.compose.runtime.Stable
+
+@Stable
 data class TxItem(
     val timeStamp: Long,
     val blockHeight: Int,
