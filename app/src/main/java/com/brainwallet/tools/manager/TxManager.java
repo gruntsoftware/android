@@ -110,7 +110,7 @@ public class TxManager {
         });
     }
 
-    void showPrompt(Activity app, PromptManager.PromptItem item) {
+    void showPrompt(Context app, PromptManager.PromptItem item) {
         crashIfNotMain();
         if (item == null) throw new RuntimeException("can't be null");
         if (currentPrompt != PromptManager.PromptItem.SYNCING) {
@@ -119,10 +119,10 @@ public class TxManager {
         updateCard(app);
     }
 
-    void hidePrompt(final Activity app, final PromptManager.PromptItem item) {
+    void hidePrompt(final Context app, final PromptManager.PromptItem item) {
         crashIfNotMain();
         currentPrompt = null;
-        if (txList.getAdapter() != null)
+        if (txList != null && txList.getAdapter() != null)
             txList.getAdapter().notifyItemRemoved(0);
         if (item == PromptManager.PromptItem.SYNCING) {
             showNextPrompt(app);
@@ -130,7 +130,7 @@ public class TxManager {
         }
     }
 
-    private void showNextPrompt(Activity app) {
+    private void showNextPrompt(Context app) {
         crashIfNotMain();
         PromptManager.PromptItem toShow = PromptManager.getInstance().nextPrompt(app);
         if (toShow != null) {

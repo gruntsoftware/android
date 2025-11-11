@@ -68,7 +68,7 @@ public class PromptManager {
         return null;
     }
 
-    public PromptInfo promptInfo(final Activity app, PromptItem item) {
+    public PromptInfo promptInfo(final Context app, PromptItem item) {
         switch (item) {
             case UPGRADE_PIN:
                 return new PromptInfo(app.getString(R.string.Prompts_UpgradePin_title), app.getString(R.string.Prompts_UpgradePin_body), new View.OnClickListener() {
@@ -76,7 +76,6 @@ public class PromptManager {
                     public void onClick(View v) {
                         Intent intent = new Intent(app, UpdatePinActivity.class);
                         app.startActivity(intent);
-                        app.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
                     }
                 });
             case RECOMMEND_RESCAN:

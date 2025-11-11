@@ -82,7 +82,7 @@ public class BRWalletManager {
         }
     }
 
-    public void refreshBalance(Activity app) {
+    public void refreshBalance(Context app) {
         long nativeBalance = nativeBalance();
         if (nativeBalance != -1) {
             setBalance(app, nativeBalance);

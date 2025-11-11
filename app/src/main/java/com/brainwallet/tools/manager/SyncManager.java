@@ -1,6 +1,5 @@
 package com.brainwallet.tools.manager;
 
-import static com.brainwallet.data.source.RemoteConfigSource.KEY_FEATURE_SELECTED_PEERS_ENABLED;
 import static com.brainwallet.tools.manager.BRSharedPrefs.putSyncMetadata;
 
 import android.app.AlarmManager;
@@ -8,12 +7,11 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
+
+import androidx.core.content.ContextCompat;
 
 import com.brainwallet.data.repository.SyncAnalyticsRepository;
-import com.brainwallet.data.source.RemoteConfigSource;
 import com.brainwallet.tools.listeners.SyncReceiver;
-import com.brainwallet.tools.util.BRConstants;
 import com.brainwallet.tools.util.Utils;
 import com.brainwallet.R;
 import com.brainwallet.presenter.activities.BreadActivity;
@@ -21,6 +19,8 @@ import com.brainwallet.wallet.BRPeerManager;
 
 import org.koin.java.KoinJavaComponent;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import timber.log.Timber;
@@ -30,6 +30,8 @@ public class SyncManager {
     private static final long SYNC_PERIOD = TimeUnit.HOURS.toMillis(24);
     private static SyncProgressTask syncTask;
     public volatile boolean running;
+
+    public List<Listener> listeners = new ArrayList<>();
 
     public static SyncManager getInstance() {
         if (instance == null) instance = new SyncManager();
@@ -41,6 +43,10 @@ public class SyncManager {
 
     public static SyncAnalyticsRepository getSyncAnalyticsRepository() {
         return KoinJavaComponent.get(SyncAnalyticsRepository.class);
+    }
+
+    public static Context getContext() {
+        return KoinJavaComponent.get(Context.class);
     }
 
     public synchronized void startSyncingProgressThread(Context app) {
@@ -107,7 +113,7 @@ public class SyncManager {
 
     private class SyncProgressTask extends Thread {
         public double progressStatus = 0;
-        private BreadActivity app;
+        private Context app;
 
         public SyncProgressTask() {
             progressStatus = 0;
@@ -117,27 +123,31 @@ public class SyncManager {
         public void run() {
             if (running) return;
             try {
-                app = BreadActivity.getApp();
+                app = getContext();
                 progressStatus = 0;
                 running = true;
                 long runTimeStamp = System.currentTimeMillis();
                 Timber.d("timber: run: starting: %s date: %d", progressStatus, runTimeStamp);
                 ///Set StartSync
                 BRSharedPrefs.putStartSyncTimestamp(app, runTimeStamp);
+                onSyncStartedListener(runTimeStamp);
 
                 if (app != null) {
                     final long lastBlockTimeStamp = BRPeerManager.getInstance().getLastBlockTimestamp() * 1000;
-                    app.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (TxManager.getInstance().syncingProgressViewHolder != null)
-                                TxManager.getInstance().syncingProgressViewHolder.progress.setProgress((int) (progressStatus * 100));
-                            if (TxManager.getInstance().syncingProgressViewHolder != null) {
-                                TxManager.getInstance().syncingProgressViewHolder.date.setText(Utils.formatTimeStamp(lastBlockTimeStamp, "MMM. dd, yyyy  ha"));
-                                TxManager.getInstance().syncingProgressViewHolder.label.setText(BreadActivity.getApp().getString(R.string.SyncingView_header));
+                    runOnUiThread(
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    onSyncProgressListener(progressStatus, lastBlockTimeStamp, BRPeerManager.getCurrentBlockHeight());
+                                    if (TxManager.getInstance().syncingProgressViewHolder != null)
+                                        TxManager.getInstance().syncingProgressViewHolder.progress.setProgress((int) (progressStatus * 100));
+                                    if (TxManager.getInstance().syncingProgressViewHolder != null) {
+                                        TxManager.getInstance().syncingProgressViewHolder.date.setText(Utils.formatTimeStamp(lastBlockTimeStamp, "MMM. dd, yyyy  ha"));
+                                        TxManager.getInstance().syncingProgressViewHolder.label.setText(app.getString(R.string.SyncingView_header));
+                                    }
+                                }
                             }
-                        }
-                    });
+                    );
                 }
 
                 while (running) {
@@ -153,32 +163,33 @@ public class SyncManager {
 
                             double syncDuration = (double) (endSyncTimeStamp - startTimeStamp) / 1_000.0 / 60.0;
                             /// only update if the sync duration is longer than 2 mins
-                           if (syncDuration > 2.0) {
+                            if (syncDuration > 2.0) {
                                 putSyncMetadata(app, startTimeStamp, endSyncTimeStamp);
-                           }
+                            }
+                            onSyncProgressCompleted(startTimeStamp, endSyncTimeStamp, syncDuration);
                             continue;
                         }
-                        final long lastBlockTimeStamp = BRPeerManager.getInstance().getLastBlockTimestamp() * 1000;
-                        final int currentBlockHeight = BRPeerManager.getCurrentBlockHeight();
-                        app.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (TxManager.getInstance().currentPrompt != PromptManager.PromptItem.SYNCING) {
-                                    Timber.d("timber: run: currentPrompt != SYNCING, showPrompt(SYNCING) ....");
-                                    TxManager.getInstance().showPrompt(app, PromptManager.PromptItem.SYNCING);
-                                }
-                                if (TxManager.getInstance().syncingProgressViewHolder != null) {
-                                    TxManager.getInstance().syncingProgressViewHolder.progress.setProgress((int) (progressStatus * 100));
-                                    TxManager.getInstance().syncingProgressViewHolder.date.setText(Utils.formatTimeStamp(lastBlockTimeStamp, "MMM. dd, yyyy  ha"));
-                                    String progressString = String.format("%3.2f%%", progressStatus * 100);
-                                    TxManager.getInstance().syncingProgressViewHolder.label.setText(String.format("%s %s - %d",BreadActivity.getApp().getString(R.string.SyncingView_header),progressString, currentBlockHeight));
+                    }
+                    final long lastBlockTimeStamp = BRPeerManager.getInstance().getLastBlockTimestamp() * 1000;
+                    final int currentBlockHeight = BRPeerManager.getCurrentBlockHeight();
+                    runOnUiThread(
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    onSyncProgressListener(progressStatus, lastBlockTimeStamp, currentBlockHeight);
+                                    if (TxManager.getInstance().currentPrompt != PromptManager.PromptItem.SYNCING) {
+                                        Timber.d("timber: run: currentPrompt != SYNCING, showPrompt(SYNCING) ....");
+                                        TxManager.getInstance().showPrompt(app, PromptManager.PromptItem.SYNCING);
+                                    }
+                                    if (TxManager.getInstance().syncingProgressViewHolder != null) {
+                                        TxManager.getInstance().syncingProgressViewHolder.progress.setProgress((int) (progressStatus * 100));
+                                        TxManager.getInstance().syncingProgressViewHolder.date.setText(Utils.formatTimeStamp(lastBlockTimeStamp, "MMM. dd, yyyy  ha"));
+                                        String progressString = String.format("%3.2f%%", progressStatus * 100);
+                                        TxManager.getInstance().syncingProgressViewHolder.label.setText(String.format("%s %s - %d", app.getString(R.string.SyncingView_header), progressString, currentBlockHeight));
+                                    }
                                 }
                             }
-                        });
-
-                    } else {
-                        app = BreadActivity.getApp();
-                    }
+                    );
 
                     ///DEV: kcw-grunt 26-10-24
                     /// DUMB sleep was slowing sync dramatically
@@ -195,14 +206,63 @@ public class SyncManager {
             } finally {
                 running = false;
                 progressStatus = 0;
-                if (app != null)
-                    app.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                         TxManager.getInstance().hidePrompt(app, PromptManager.PromptItem.SYNCING);
-                        }
-                    });
+                runOnUiThread(
+                        () -> TxManager.getInstance().hidePrompt(app, PromptManager.PromptItem.SYNCING)
+                );
             }
         }
     }
+
+    public final void runOnUiThread(Runnable action) {
+        ContextCompat.getMainExecutor(getContext()).execute(action);
+    }
+
+    public void addListener(Listener listener) {
+        if (listener != null && !listeners.contains(listener)) {
+            listeners.add(listener);
+        }
+    }
+
+    public void removeListener(Listener listener) {
+        listeners.remove(listener);
+    }
+
+    private void onSyncStartedListener(long runTimeStamp) {
+        for (Listener listener : listeners) {
+            listener.onSyncStarted(runTimeStamp);
+        }
+    }
+
+    private void onSyncProgressListener(double progress, long timeStamp, int currentBlockHeight) {
+        for (Listener listener : listeners) {
+            listener.onProgressUpdate(
+                    progress,
+                    Utils.formatTimeStamp(timeStamp, "MMM. dd, yyyy  ha"),
+                    currentBlockHeight
+            );
+        }
+    }
+
+    private void onSyncProgressCompleted(long startTimestamp, long endTimestamp, double durationMinutes) {
+        for (Listener listener : listeners) {
+            listener.onSyncCompleted(startTimestamp, endTimestamp, durationMinutes);
+        }
+    }
+
+    public interface Listener {
+        void onSyncStarted(long startTimestamp);
+
+        void onProgressUpdate(
+                double progress,
+                String formattedTimestamp,
+                int currentBlockHeight
+        );
+
+        void onSyncCompleted(
+                long startTimestamp,
+                long endTimestamp,
+                double durationMinutes
+        );
+    }
+
 }

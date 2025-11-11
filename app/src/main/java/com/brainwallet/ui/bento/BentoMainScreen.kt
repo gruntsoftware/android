@@ -43,7 +43,7 @@ import com.brainwallet.design.presentation.component.effect.DrawerOpacityContain
 import com.brainwallet.design.presentation.component.effect.LightOpacityContainer
 import com.brainwallet.design.presentation.component.rail.BentoRail
 import com.brainwallet.design.presentation.component.widget.BentoBottomNavBar
-import com.brainwallet.ltc.presentation.component.BalanceBentoGrid
+import com.brainwallet.ltc.presentation.component.balance.BalanceBentoGrid
 import com.brainwallet.ltc.presentation.component.FavoriteGrid
 import com.brainwallet.ltc.presentation.component.PriceTickerGrid
 import com.brainwallet.ltc.presentation.component.TransactionHistoryGrid
@@ -170,10 +170,10 @@ private fun BentoMainScreen(
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
                     item(span = { GridItemSpan(2) }) {
-                        BalanceBentoGrid(modifier = Modifier.height(160.dp))
+                        BalanceBentoGrid()
                     }
                     item(span = { GridItemSpan(2) }) {
-                        TransactionHistoryGrid(modifier = Modifier.height(100.dp))
+                        TransactionHistoryGrid(modifier = Modifier.height(150.dp))
                     }
                     item(span = { GridItemSpan(1) }) {
                         TutorialGrid(modifier = Modifier.height(260.dp))

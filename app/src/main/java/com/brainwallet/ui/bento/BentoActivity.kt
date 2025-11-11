@@ -7,6 +7,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
+import com.brainwallet.tools.threads.BRExecutor
+import com.brainwallet.wallet.BRWalletManager
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 class BentoActivity : ComponentActivity() {
@@ -18,6 +20,14 @@ class BentoActivity : ComponentActivity() {
             BrainwalletTheme(isSystemInDarkTheme()) {
                 BentoMainScreen()
             }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!BRWalletManager.getInstance().isCreated()) {
+            BRExecutor.getInstance().forBackgroundTasks()
+                .execute(Runnable { BRWalletManager.getInstance().initWallet(this) })
         }
     }
 
