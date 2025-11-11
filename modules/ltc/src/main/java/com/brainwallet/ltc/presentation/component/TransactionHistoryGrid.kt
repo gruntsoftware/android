@@ -90,14 +90,15 @@ fun TransactionHistoryGrid(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(20.dp)
+                .padding(vertical = 20.dp),
         ) {
             Text(
                 text = "TRANSACTION HISTORY",
                 style = BrainwalletTheme.typography.titleMedium.copy(
                     color = BrainwalletTheme.colors.content,
                     fontWeight = FontWeight.Bold
-                )
+                ),
+                modifier = Modifier.padding(horizontal = 20.dp)
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -108,7 +109,8 @@ fun TransactionHistoryGrid(
                     style = BrainwalletTheme.typography.bodyMedium.copy(
                         color = BrainwalletTheme.colors.content.copy(alpha = 0.6f),
                         fontWeight = FontWeight.Normal
-                    )
+                    ),
+                    modifier = Modifier.padding(horizontal = 20.dp)
                 )
             } else {
                 val lazyListState = rememberLazyListState()
@@ -159,21 +161,18 @@ private fun TransactionItem(
         dateFormatter.format(Date(transaction.timeStamp * 1000))
     }
 
-    val addressText = if (isReceived) {
-        transaction.from.firstOrNull()?.let { address ->
-            "from ${address.take(12)}...${address.takeLast(8)}"
-        } ?: "from unknown"
-    } else {
-        transaction.to.firstOrNull()?.let { address ->
-            "to ${address.take(12)}...${address.takeLast(8)}"
-        } ?: "to unknown"
-    }
+    val addressText = transaction.from.firstOrNull { it.isNotEmpty() }?.let { address ->
+        "from ${address.take(12)}...${address.takeLast(8)}"
+    } ?: transaction.to.firstOrNull { it.isNotEmpty() }?.let { address ->
+        "to ${address.take(12)}...${address.takeLast(8)}"
+    } ?: "unknown"
 
     Row(
         modifier = modifier
             .fillMaxWidth()
             .clickable { onClick() }
-            .padding(16.dp),
+            .padding(vertical = 8.dp)
+            .padding(start = 16.dp, end = 18.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -299,6 +298,7 @@ fun TransactionHistoryGridWithDataPreview() {
         override suspend fun collect(collector: kotlinx.coroutines.flow.FlowCollector<List<TxItem>>): Nothing {
             flow.collect(collector)
         }
+
         override fun refresh() {}
     }
 

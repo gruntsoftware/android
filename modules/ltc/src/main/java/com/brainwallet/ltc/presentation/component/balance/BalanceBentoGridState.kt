@@ -11,6 +11,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.brainwallet.design.presentation.state.rememberIsConnectedState
 import com.brainwallet.ltc.domain.flow.BalanceStateFlow
 import com.brainwallet.ltc.domain.flow.SyncStateFlow
+import com.brainwallet.ltc.domain.model.BalanceState
 import com.brainwallet.ltc.domain.model.SyncState
 import org.koin.compose.koinInject
 
@@ -48,7 +49,7 @@ fun rememberBalanceBentoGridState(
 @Stable
 class BalanceBentoGridUiState(
     initialSyncState: SyncState = SyncState.Idle,
-    initialBalance: Long = 0L,
+    initialBalance: BalanceState = BalanceState(),
     initialLastBlock: Int = 0,
     initialIsShown: Boolean = false
 ) {
@@ -71,7 +72,7 @@ class BalanceBentoGridUiState(
         this.syncState = syncState
     }
 
-    fun updateBalanceState(balanceState: Long) {
+    fun updateBalanceState(balanceState: BalanceState) {
         this.balanceState = balanceState
     }
 

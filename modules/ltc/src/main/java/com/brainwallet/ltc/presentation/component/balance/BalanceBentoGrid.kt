@@ -41,12 +41,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.brainwallet.design.presentation.component.effect.CardOpacityContainer
 import com.brainwallet.ltc.R
+import com.brainwallet.ltc.domain.model.BalanceState
 import com.brainwallet.ltc.domain.model.SyncState
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import com.grunt.brainwallet.core.presentation.theme.blue
 import com.grunt.brainwallet.core.presentation.theme.grape
-import com.grunt.brainwallet.core.presentation.util.toLtcStringFormatted
-import java.util.Locale
 import com.brainwallet.design.R as DesignR
 
 @Composable
@@ -94,7 +93,7 @@ fun BalanceBentoGrid(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 BalanceSection(
-                    balanceInLitoshi = uiState.balanceState,
+                    balanceState = uiState.balanceState,
                     isBalanceVisible = uiState.isShown,
                     contentAlpha = contentAlpha
                 )
@@ -150,13 +149,10 @@ private fun HeaderSection(
 
 @Composable
 private fun BalanceSection(
-    balanceInLitoshi: Long,
+    balanceState: BalanceState,
     isBalanceVisible: Boolean,
     contentAlpha: Float
 ) {
-    val ltcBalance = balanceInLitoshi.toLtcStringFormatted()
-    val usdBalance = String.format(Locale.getDefault(), "$ %.2f", 0.0)
-
     Column {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -189,7 +185,7 @@ private fun BalanceSection(
                 label = "balanceVisibility"
             ) { visible ->
                 Text(
-                    text = if (visible) ltcBalance else "•••••",
+                    text = if (visible) balanceState.ltcValue else "•••••",
                     style = BrainwalletTheme.typography.headlineLarge.copy(
                         color = Color.White,
                         fontWeight = FontWeight.Bold
@@ -210,7 +206,7 @@ private fun BalanceSection(
             label = "usdBalanceVisibility"
         ) { visible ->
             Text(
-                text = if (visible) usdBalance else "$ •••",
+                text = if (visible) balanceState.valueOnCurrency else "$ •••",
                 style = BrainwalletTheme.typography.titleMedium.copy(
                     color = Color.White.copy(alpha = 0.8f),
                     fontWeight = FontWeight.Medium
@@ -228,7 +224,7 @@ fun BalanceBentoGridSyncedPreview() {
         BalanceBentoGrid(
             uiState = BalanceBentoGridUiState(
                 initialSyncState = SyncState.Synced,
-                initialBalance = 0L,
+                initialBalance = BalanceState(),
                 initialIsShown = true
             )
         )
@@ -246,7 +242,7 @@ fun BalanceBentoGridSyncingPreview() {
                     timeStamp = "Dec 11, 2023 at 2:51PM",
                     currentBlockHeight = 257985534
                 ),
-                initialBalance = 0L,
+                initialBalance = BalanceState(),
                 initialIsShown = true
             )
         )
