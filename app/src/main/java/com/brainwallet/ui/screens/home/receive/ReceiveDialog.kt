@@ -42,6 +42,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -153,12 +154,12 @@ private fun ReceiveDialog(
     Box(
         modifier = modifier
             .background(
-                BrainwalletTheme.colors.content,
+                BrainwalletTheme.colors.surface,
                 shape = BrainwalletTheme.shapes.large
             )
             .border(
                 width = 1.dp,
-                color = BrainwalletTheme.colors.surface,
+                color = BrainwalletTheme.colors.content,
                 shape = BrainwalletTheme.shapes.large
             ),
     ) {
@@ -171,14 +172,14 @@ private fun ReceiveDialog(
         ) {
             CenterAlignedTopAppBar(
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = BrainwalletTheme.colors.content // invert surface
+                    containerColor = BrainwalletTheme.colors.surface
                 ),
                 expandedHeight = 56.dp,
                 title = {
                     Text(
                         text = stringResource(R.string.bottom_nav_item_buy_receive_title).uppercase(),
                         style = BrainwalletTheme.typography.titleSmall.copy(
-                            color = BrainwalletTheme.colors.surface
+                            color = BrainwalletTheme.colors.content
                         )
                     )
                 },
@@ -202,7 +203,7 @@ private fun ReceiveDialog(
                         Icon(
                             Icons.Default.Close,
                             contentDescription = stringResource(R.string.AccessibilityLabels_close),
-                            tint = BrainwalletTheme.colors.surface
+                            tint = BrainwalletTheme.colors.content
                         )
                     }
                 }
@@ -232,7 +233,7 @@ private fun ReceiveDialog(
                                 .weight(1f),
                             bitmap = imageBitmap,
                             contentDescription = "address",
-                            colorFilter = ColorFilter.tint(BrainwalletTheme.colors.surface)
+                            colorFilter = ColorFilter.tint(BrainwalletTheme.colors.content)
                         )
                     } ?: Box(
                         modifier = Modifier
@@ -250,7 +251,7 @@ private fun ReceiveDialog(
                             text = state.address,
                             style = BrainwalletTheme.typography.bodyLarge.copy(
                                 fontWeight = FontWeight.Bold,
-                                color = BrainwalletTheme.colors.surface
+                                color = BrainwalletTheme.colors.content
                             ),
                             maxLines = 4,
                             overflow = TextOverflow.Ellipsis
@@ -262,7 +263,7 @@ private fun ReceiveDialog(
                             Text(
                                 text = stringResource(R.string.new_address).uppercase(),
                                 style = BrainwalletTheme.typography.bodySmall.copy(
-                                    color = BrainwalletTheme.colors.surface,
+                                    color = BrainwalletTheme.colors.content,
                                 ),
                                 modifier = Modifier.weight(1f)
                             )
@@ -278,13 +279,13 @@ private fun ReceiveDialog(
                                         .show()
                                 },
                                 colors = IconButtonDefaults.outlinedIconButtonColors(
-                                    containerColor = BrainwalletTheme.colors.content.copy(alpha = 0.5f)
+                                    containerColor = BrainwalletTheme.colors.surface.copy(alpha = 0.5f)
                                 ),
                             ) {
                                 Icon(
                                     painter = androidx.compose.ui.res.painterResource(id = R.drawable.ic_copy),
                                     contentDescription = stringResource(R.string.URLHandling_copy),
-                                    tint = BrainwalletTheme.colors.surface
+                                    tint = BrainwalletTheme.colors.content
                                 )
                             }
                         }
@@ -302,7 +303,7 @@ private fun ReceiveDialog(
                         modifier = Modifier.weight(1f),
                         focus = {
                             WheelPickerFocusVertical(
-                                dividerColor = BrainwalletTheme.colors.surface.copy(
+                                dividerColor = BrainwalletTheme.colors.content.copy(
                                     alpha = 0.5f
                                 )
                             )
@@ -314,7 +315,7 @@ private fun ReceiveDialog(
                         Text(
                             text = state.fiatCurrencies[index].code,
                             fontWeight = FontWeight.Bold,
-                            color = BrainwalletTheme.colors.surface
+                            color = BrainwalletTheme.colors.content
                         )
                     }
 
@@ -326,13 +327,13 @@ private fun ReceiveDialog(
                             text = state.getLtcAmountFormatted(loadingState.visible),
                             style = BrainwalletTheme.typography.titleLarge.copy(
                                 fontWeight = FontWeight.Bold,
-                                color = BrainwalletTheme.colors.surface
+                                color = BrainwalletTheme.colors.content
                             )
                         )
                         Text(
                             text = state.getRatesUpdatedAtFormatted(),
                             style = BrainwalletTheme.typography.bodySmall.copy(
-                                color = BrainwalletTheme.colors.surface
+                                color = BrainwalletTheme.colors.content
                             )
                         )
                     }
@@ -361,7 +362,7 @@ private fun ReceiveDialog(
                                         quickFiatAmountOption.getFormattedText()
                                     },
                                     style = BrainwalletTheme.typography.bodyMedium.copy(
-                                        color = BrainwalletTheme.colors.surface
+                                        color = BrainwalletTheme.colors.content
                                     )
                                 )
                             },
@@ -381,7 +382,7 @@ private fun ReceiveDialog(
                             Text(
                                 text = state.selectedFiatCurrency.symbol,
                                 style = BrainwalletTheme.typography.bodyMedium.copy(
-                                    color = BrainwalletTheme.colors.surface
+                                    color = BrainwalletTheme.colors.content
                                 )
                             )
                         },
@@ -393,7 +394,7 @@ private fun ReceiveDialog(
                             }
                         },
                         textStyle = BrainwalletTheme.typography.bodyMedium.copy(
-                            color = BrainwalletTheme.colors.surface
+                            color = BrainwalletTheme.colors.content
                         ),
                         value = "${if (state.fiatAmount < 1) "" else state.fiatAmount}",
                         singleLine = true,

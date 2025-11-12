@@ -103,7 +103,9 @@ fun BalanceBentoGrid(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 72.dp)
-                    .align(Alignment.BottomCenter)
+                    .align(Alignment.BottomCenter),
+                onSendClick = onSendClick,
+                onReceiveClick = onReceiveClick
             )
         }
     }

@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.brainwallet.ui.bento.BentoMainScreen
 import com.brainwallet.ui.screens.buylitecoin.BuyLitecoinScreen
 import com.brainwallet.ui.screens.inputwords.InputWordsScreen
 import com.brainwallet.ui.screens.ready.ReadyScreen
@@ -116,6 +117,10 @@ fun NavGraphBuilder.mainNavGraph(
 
     composable<Route.BuyLitecoin> { navBackStackEntry ->
         BuyLitecoinScreen(onNavigate = onNavigate)
+    }
+
+    composable<Route.BentoMainScreen> { navBackStackEntry ->
+        BentoMainScreen(onNavigate = onNavigate)
     }
 
     // todo add more composable screens

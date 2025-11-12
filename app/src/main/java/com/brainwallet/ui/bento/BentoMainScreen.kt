@@ -28,9 +28,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,6 +36,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.rememberModalBottomSheetState
 import com.brainwallet.design.presentation.component.effect.AnimatedLightBleedBackground
 import com.brainwallet.design.presentation.component.effect.DrawerOpacityContainer
 import com.brainwallet.design.presentation.component.effect.LightOpacityContainer
@@ -52,7 +52,9 @@ import com.brainwallet.design.presentation.component.widget.BentoDarkModeToggle
 import com.brainwallet.design.presentation.state.DarkModeState
 import com.brainwallet.design.presentation.state.rememberDarkModeState
 import com.brainwallet.gamehub.presentation.component.GameHubGrid
+import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.tutorial.presentation.component.TutorialGrid
+import com.brainwallet.ui.screens.home.receive.ReceiveDialog
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 /**
@@ -69,11 +71,12 @@ import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BentoMainScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onNavigate: OnNavigate = {},
 ) {
     val darkModeState = rememberDarkModeState()
     BrainwalletTheme(darkModeState.isDarkMode) {
-        BentoMainScreen(darkModeState, modifier)
+        BentoMainScreen(onNavigate = onNavigate, darkModeState = darkModeState, modifier = modifier)
     }
 }
 
@@ -81,16 +84,15 @@ fun BentoMainScreen(
 @Composable
 private fun BentoMainScreen(
     darkModeState: DarkModeState,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onNavigate: OnNavigate = {},
+    state: BentoMainScreenState = rememberBentoMainScreenState(onNavigate)
 ) {
-    var currentRoute by remember { mutableStateOf("send") }
-    var isRailOpen by remember { mutableStateOf(false) }
-
     val railWidth = 300.dp
     val premiumEasing = CubicBezierEasing(0.25f, 0.1f, 0.25f, 1.0f)
 
     val mainContentOffset by animateDpAsState(
-        targetValue = if (isRailOpen) railWidth + 16.dp else 0.dp,
+        targetValue = if (state.isRailOpen) railWidth + 16.dp else 0.dp,
         animationSpec = tween(
             durationMillis = 500,
             easing = premiumEasing
@@ -99,7 +101,7 @@ private fun BentoMainScreen(
     )
 
     val railOffset by animateDpAsState(
-        targetValue = if (isRailOpen) 0.dp else -railWidth,
+        targetValue = if (state.isRailOpen) 0.dp else -railWidth,
         animationSpec = tween(
             durationMillis = 450,
             easing = premiumEasing
@@ -122,7 +124,7 @@ private fun BentoMainScreen(
                 .fillMaxSize()
                 .offset(x = mainContentOffset)
                 .clip(
-                    if (isRailOpen) {
+                    if (state.isRailOpen) {
                         RoundedCornerShape(topStart = 20.dp, bottomStart = 20.dp)
                     } else {
                         RoundedCornerShape(0.dp)
@@ -146,7 +148,7 @@ private fun BentoMainScreen(
                         BentoDarkModeToggle(darkModeState = darkModeState)
                         Spacer(modifier = Modifier.weight(1f))
                         BentoRailButton {
-                            isRailOpen = !isRailOpen
+                            state.toggleRail()
                         }
                     }
                 },
@@ -156,8 +158,8 @@ private fun BentoMainScreen(
                         shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
                     ) {
                         BentoBottomNavBar(
-                            currentRoute = currentRoute,
-                            onItemClick = { currentRoute = it }
+                            currentRoute = state.currentRoute,
+                            onItemClick = { state.onRouteChange(it) }
                         )
                     }
                 }
@@ -171,7 +173,11 @@ private fun BentoMainScreen(
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
                     item(span = { GridItemSpan(2) }) {
-                        BalanceBentoGrid()
+                        BalanceBentoGrid(
+                            onClick = { state.onBalanceClicked() },
+                            onSendClick = { state.toggleReceiveDialog() },
+                            onReceiveClick = { state.toggleReceiveDialog() }
+                        )
                     }
                     item(span = { GridItemSpan(2) }) {
                         TransactionHistoryGrid(modifier = Modifier.height(130.dp))
@@ -209,7 +215,7 @@ private fun BentoMainScreen(
             }
         }
 
-        if (isRailOpen) {
+        if (state.isRailOpen) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -218,9 +224,25 @@ private fun BentoMainScreen(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = null
                     ) {
-                        isRailOpen = false
+                        state.toggleRail()
                     }
                     .zIndex(3f)
+            )
+        }
+    }
+    if (state.shouldShowReceiveDialog) {
+        val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+        fun onDismiss() {
+            state.toggleReceiveDialog()
+        }
+        ModalBottomSheet(
+            onDismissRequest = { onDismiss() },
+            sheetState = sheetState,
+            containerColor = Color.Transparent,
+        ) {
+            ReceiveDialog(
+                onDismissRequest = { onDismiss() },
+                modifier = Modifier.padding(16.dp)
             )
         }
     }
