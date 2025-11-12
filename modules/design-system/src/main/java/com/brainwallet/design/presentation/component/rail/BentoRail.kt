@@ -24,8 +24,16 @@ import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 @Composable
 fun BentoRail(
     modifier: Modifier = Modifier,
-    userName: String = "Joseph Sanjaya",
-    appVersion: String = "v.X.X.X (XXXXXXXXXXXX)"
+    uiState: BentoRailUiState = rememberBentoRailState(),
+    onSecurityClick: () -> Unit = {},
+    onLanguageClick: () -> Unit = {},
+    onCurrencyClick: () -> Unit = {},
+    onGamesClick: () -> Unit = {},
+    onBlockchainClick: () -> Unit = {},
+    onSupportClick: () -> Unit = {},
+    onSocialMediaClick: () -> Unit = {},
+    onLockClick: () -> Unit = {},
+    onSyncMetadataClick: (() -> Unit)? = null
 ) {
     Column(
         modifier = modifier
@@ -35,10 +43,25 @@ fun BentoRail(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
-//        BentoRailAccount(userName)
-        BentoRailSettings(modifier = Modifier)
+        BentoRailSettings(
+            modifier = Modifier,
+            shareAnalyticsEnabled = uiState.shareAnalyticsEnabled,
+            selectedLanguage = uiState.selectedLanguage,
+            selectedCurrency = uiState.selectedCurrency,
+            selectedFeeType = uiState.selectedFeeType,
+            syncDescription = uiState.syncDescription,
+            onSecurityClick = onSecurityClick,
+            onLanguageClick = onLanguageClick,
+            onCurrencyClick = onCurrencyClick,
+            onGamesClick = onGamesClick,
+            onBlockchainClick = onBlockchainClick,
+            onSupportClick = onSupportClick,
+            onSocialMediaClick = onSocialMediaClick,
+            onLockClick = onLockClick,
+            onSyncMetadataClick = onSyncMetadataClick
+        )
         Text(
-            text = "App version:\n$appVersion",
+            text = "App version:\n${uiState.appVersion}",
             style = BrainwalletTheme.typography.bodySmall,
             color = BrainwalletTheme.colors.content.copy(alpha = 0.7f),
             textAlign = TextAlign.Start,

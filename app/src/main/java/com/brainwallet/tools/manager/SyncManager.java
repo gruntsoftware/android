@@ -154,7 +154,7 @@ public class SyncManager {
                     if (app != null) {
                         int startHeight = BRSharedPrefs.getStartHeight(app);
                         progressStatus = BRPeerManager.syncProgress(startHeight);
-                        if (progressStatus == 1) {
+                        if (progressStatus >= 0.9999) {
                             running = false;
                             /// Record sync time
                             long startTimeStamp = BRSharedPrefs.getStartSyncTimestamp(app);

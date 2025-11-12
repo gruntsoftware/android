@@ -82,7 +82,7 @@ fun BalanceBentoSyncDetails(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "${((syncingState?.progress ?: (0 * 100))).toInt()}%",
+                        text = "${((syncingState?.progress ?: 0.0) * 100).toInt()}%",
                         style = BrainwalletTheme.typography.titleLarge.copy(
                             color = Color.White,
                             fontWeight = FontWeight.Bold

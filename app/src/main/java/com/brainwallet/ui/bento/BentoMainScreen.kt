@@ -4,6 +4,8 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.animation.core.tween
+import android.net.Uri
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -28,12 +30,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
@@ -45,6 +49,7 @@ import com.brainwallet.design.presentation.component.effect.AnimatedLightBleedBa
 import com.brainwallet.design.presentation.component.effect.DrawerOpacityContainer
 import com.brainwallet.design.presentation.component.effect.LightOpacityContainer
 import com.brainwallet.design.presentation.component.rail.BentoRail
+import com.brainwallet.design.presentation.component.rail.rememberBentoRailStateWithProvider
 import com.brainwallet.design.presentation.component.widget.BentoBottomNavBar
 import com.brainwallet.ltc.presentation.component.balance.BalanceBentoGrid
 import com.brainwallet.ltc.presentation.component.FavoriteGrid
@@ -57,9 +62,13 @@ import com.brainwallet.design.presentation.state.rememberDarkModeState
 import com.brainwallet.gamehub.presentation.component.GameHubGrid
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.presenter.fragments.FragmentSend
+import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.tutorial.presentation.component.TutorialGrid
+import com.brainwallet.ui.screens.home.SettingsEvent
+import com.brainwallet.ui.screens.home.SettingsViewModel
 import com.brainwallet.ui.screens.home.receive.ReceiveDialog
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import org.koin.compose.viewmodel.koinViewModel
 
 /**
  * Main application screen featuring a push-to-side rail navigation with smooth animations.
@@ -90,8 +99,11 @@ private fun BentoMainScreen(
     darkModeState: DarkModeState,
     modifier: Modifier = Modifier,
     onNavigate: OnNavigate = {},
-    state: BentoMainScreenState = rememberBentoMainScreenState(onNavigate)
+    state: BentoMainScreenState = rememberBentoMainScreenState(onNavigate),
+    settingsViewModel: SettingsViewModel = koinViewModel()
 ) {
+    val settingsState by settingsViewModel.state.collectAsState()
+    val context = LocalContext.current
     val railWidth = 300.dp
     val premiumEasing = CubicBezierEasing(0.25f, 0.1f, 0.25f, 1.0f)
 
@@ -213,11 +225,38 @@ private fun BentoMainScreen(
                 modifier = Modifier.fillMaxSize()
             ) {
                 BentoRail(
-                    userName = "Joseph Sanjaya",
-                    appVersion = "v.X.X.X (XXXXXXXXXXXX)",
+                    uiState = rememberBentoRailStateWithProvider(),
                     modifier = Modifier
                         .statusBarsPadding()
-                        .navigationBarsPadding()
+                        .navigationBarsPadding(),
+                    onSecurityClick = {
+                        settingsViewModel.onEvent(SettingsEvent.OnSecuritySeedPhraseClick)
+                    },
+                    onLanguageClick = {
+                        settingsViewModel.onEvent(SettingsEvent.OnLanguageSelectorButtonClick)
+                    },
+                    onCurrencyClick = {
+                        settingsViewModel.onEvent(SettingsEvent.OnFiatButtonClick)
+                    },
+                    onGamesClick = {
+                    },
+                    onBlockchainClick = {
+                        settingsViewModel.onEvent(SettingsEvent.OnBlockchainSyncClick)
+                    },
+                    onSupportClick = {
+                        val builder = CustomTabsIntent.Builder()
+                        val customTabsIntent = builder.build()
+                        customTabsIntent.launchUrl(context, Uri.parse(BRConstants.SUPPORT_WEB_LINK))
+                    },
+                    onSocialMediaClick = {
+                        val builder = CustomTabsIntent.Builder()
+                        val customTabsIntent = builder.build()
+                        customTabsIntent.launchUrl(context, Uri.parse(BRConstants.LINKTREE_URL))
+                    },
+                    onLockClick = {
+                        settingsViewModel.onEvent(SettingsEvent.OnToggleLock)
+                    },
+                    onSyncMetadataClick = null
                 )
             }
         }
