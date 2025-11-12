@@ -24,18 +24,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brainwallet.design.presentation.component.effect.CardOpacityContainer
 import com.brainwallet.design.presentation.component.widget.PaginationDot
+import com.brainwallet.ltc.domain.model.TradingPairData
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
-import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PriceTickerGrid(
     modifier: Modifier = Modifier,
-    tradingPairs: PersistentList<TradingPairData> = defaultTradingPairs,
+    uiState: PriceTickerGridUiState = rememberPriceTickerGridState(),
     onClick: () -> Unit = {}
 ) {
-    val pagerState = rememberPagerState(pageCount = { tradingPairs.size })
+    val pagerState = rememberPagerState(pageCount = { uiState.tradingPairs.size })
 
     CardOpacityContainer(
         modifier = modifier.fillMaxWidth()
@@ -50,7 +50,7 @@ fun PriceTickerGrid(
                 state = pagerState,
                 modifier = Modifier.weight(1f)
             ) { page ->
-                val currentPair = tradingPairs[page]
+                val currentPair = uiState.tradingPairs[page]
 
                 Column(
                     modifier = Modifier.fillMaxSize(),
@@ -88,7 +88,7 @@ fun PriceTickerGrid(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                tradingPairs.forEachIndexed { index, _ ->
+                uiState.tradingPairs.forEachIndexed { index, _ ->
                     PaginationDot(
                         isActive = index == pagerState.currentPage,
                         modifier = Modifier.padding(horizontal = 3.dp)
@@ -99,35 +99,21 @@ fun PriceTickerGrid(
     }
 }
 
-data class TradingPairData(
-    val pairSymbol: String,
-    val price: Double,
-    val formattedPrice: String = formatPrice(price)
-)
-
-private fun formatPrice(price: Double): String {
-    return when {
-        price >= 1000 -> String.format("%.2f", price).replace(",", " ")
-        price >= 100 -> String.format("%.2f", price)
-        price >= 10 -> String.format("%.3f", price)
-        else -> String.format("%.4f", price)
-    }
-}
-
-private val defaultTradingPairs = persistentListOf(
-    TradingPairData("LTC/USD", 115.96),
-    TradingPairData("LTC/BTC", 0.00234),
-    TradingPairData("LTC/EUR", 108.45),
-    TradingPairData("LTC/GBP", 92.18)
-)
-
 @Composable
 @PreviewLightDark
 @Preview
 fun PriceTickerGridPreview() {
     BrainwalletTheme(darkTheme = isSystemInDarkTheme()) {
         PriceTickerGrid(
-            modifier = Modifier.height(120.dp)
+            modifier = Modifier.height(120.dp),
+            uiState = PriceTickerGridUiState(
+                initialTradingPairs = persistentListOf(
+                    TradingPairData("LTC/USD", 115.96, "$115.96"),
+                    TradingPairData("LTC/EUR", 108.45, "€108.45"),
+                    TradingPairData("LTC/GBP", 92.18, "£92.18"),
+                    TradingPairData("LTC/JPY", 17850.0, "¥17,850")
+                )
+            )
         )
     }
 }

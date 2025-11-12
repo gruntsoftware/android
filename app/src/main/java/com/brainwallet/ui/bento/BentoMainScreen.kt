@@ -1,5 +1,6 @@
 package com.brainwallet.ui.bento
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.animation.core.tween
@@ -38,6 +39,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.fragment.compose.AndroidFragment
+import androidx.fragment.compose.rememberFragmentState
 import com.brainwallet.design.presentation.component.effect.AnimatedLightBleedBackground
 import com.brainwallet.design.presentation.component.effect.DrawerOpacityContainer
 import com.brainwallet.design.presentation.component.effect.LightOpacityContainer
@@ -53,6 +56,7 @@ import com.brainwallet.design.presentation.state.DarkModeState
 import com.brainwallet.design.presentation.state.rememberDarkModeState
 import com.brainwallet.gamehub.presentation.component.GameHubGrid
 import com.brainwallet.navigation.OnNavigate
+import com.brainwallet.presenter.fragments.FragmentSend
 import com.brainwallet.tutorial.presentation.component.TutorialGrid
 import com.brainwallet.ui.screens.home.receive.ReceiveDialog
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
@@ -175,8 +179,8 @@ private fun BentoMainScreen(
                     item(span = { GridItemSpan(2) }) {
                         BalanceBentoGrid(
                             onClick = { state.onBalanceClicked() },
-                            onSendClick = { state.toggleReceiveDialog() },
-                            onReceiveClick = { state.toggleReceiveDialog() }
+                            onSendClick = { state.toggleSheet(BentoMainScreenState.SheetType.SEND) },
+                            onReceiveClick = { state.toggleSheet(BentoMainScreenState.SheetType.RECEIVE) }
                         )
                     }
                     item(span = { GridItemSpan(2) }) {
@@ -210,7 +214,10 @@ private fun BentoMainScreen(
             ) {
                 BentoRail(
                     userName = "Joseph Sanjaya",
-                    appVersion = "v.X.X.X (XXXXXXXXXXXX)"
+                    appVersion = "v.X.X.X (XXXXXXXXXXXX)",
+                    modifier = Modifier
+                        .statusBarsPadding()
+                        .navigationBarsPadding()
                 )
             }
         }
@@ -230,20 +237,35 @@ private fun BentoMainScreen(
             )
         }
     }
-    if (state.shouldShowReceiveDialog) {
-        val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val fragmentState = rememberFragmentState()
+    if (state.sheetType != BentoMainScreenState.SheetType.DISMISSED) {
         fun onDismiss() {
-            state.toggleReceiveDialog()
+            state.toggleSheet()
         }
         ModalBottomSheet(
             onDismissRequest = { onDismiss() },
             sheetState = sheetState,
             containerColor = Color.Transparent,
         ) {
-            ReceiveDialog(
-                onDismissRequest = { onDismiss() },
-                modifier = Modifier.padding(16.dp)
-            )
+            AnimatedContent(state.sheetType) { type ->
+                when (type) {
+                    BentoMainScreenState.SheetType.RECEIVE -> {
+                        ReceiveDialog(
+                            onDismissRequest = { onDismiss() },
+                            modifier = Modifier.padding(16.dp)
+                        )
+                    }
+
+                    BentoMainScreenState.SheetType.SEND -> {
+                        AndroidFragment<FragmentSend>(
+                            fragmentState = fragmentState
+                        )
+                    }
+
+                    else -> Unit
+                }
+            }
         }
     }
 }

@@ -28,24 +28,40 @@ class BentoMainScreenState(
     initialShouldShowReceiveDialog: Boolean = false,
     private val ltcNavigation: LtcNavigation? = null
 ) {
+
+    enum class SheetType {
+        DISMISSED, RECEIVE, SEND
+    }
+
     var currentRoute by mutableStateOf(initialRoute)
         private set
 
     var isRailOpen by mutableStateOf(initialIsRailOpen)
         private set
 
-    var shouldShowReceiveDialog by mutableStateOf(initialShouldShowReceiveDialog)
+    var sheetType by mutableStateOf(SheetType.DISMISSED)
         private set
 
     fun onRouteChange(route: String) {
         currentRoute = route
         if (route == "buy_receive") {
-            shouldShowReceiveDialog = true
+            sheetType = SheetType.RECEIVE
+        }
+        if (route == "send") {
+            sheetType = SheetType.SEND
         }
     }
 
-    fun toggleReceiveDialog() {
-        shouldShowReceiveDialog = !shouldShowReceiveDialog
+    fun toggleSheet(type: SheetType? = null) {
+        if (type == null) {
+            sheetType = SheetType.DISMISSED
+            return
+        }
+        sheetType = if (sheetType == type) {
+            SheetType.DISMISSED
+        } else {
+            type
+        }
     }
 
     fun toggleRail() {
