@@ -8,7 +8,6 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.animation.OvershootInterpolator
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
@@ -29,7 +28,6 @@ import com.brainwallet.presenter.entities.ServiceItems
 import com.brainwallet.presenter.entities.TransactionItem
 import com.brainwallet.tools.animation.BRAnimator
 import com.brainwallet.tools.animation.BRDialog
-import com.brainwallet.tools.animation.SlideDetector
 import com.brainwallet.tools.animation.SpringAnimator
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.manager.BRClipboardManager
@@ -123,7 +121,6 @@ class FragmentSend : Fragment() {
         // / Setup Fees Description
         feeText.text = ""
 
-        signalLayout.setOnTouchListener(SlideDetector(signalLayout) { animateClose() })
         AnalyticsManager.logCustomEvent(BRConstants._20191105_VSC)
 //        setupFeesSelector(rootView)
 //        showFeeSelectionButtons(feeButtonsShown)
@@ -427,14 +424,8 @@ class FragmentSend : Fragment() {
                 }
             },
         )
-        backgroundLayout.setOnClickListener(
-            View.OnClickListener {
-                if (!BRAnimator.isClickAllowed()) return@OnClickListener
-                animateClose()
-            },
-        )
         closeButton.setOnClickListener {
-            animateClose()
+            activity?.onBackPressed()
         }
         addressEdit.setOnEditorActionListener { _, actionId, event ->
             showKeyboard(false)
@@ -484,21 +475,9 @@ class FragmentSend : Fragment() {
         savedInstanceState: Bundle?,
     ) {
         super.onViewCreated(view, savedInstanceState)
-        val observer = signalLayout.viewTreeObserver
-        observer.addOnGlobalLayoutListener(
-            object : OnGlobalLayoutListener {
-                override fun onGlobalLayout() {
-                    if (observer.isAlive) {
-                        observer.removeOnGlobalLayoutListener(this)
-                    }
-                    BRAnimator.animateBackgroundDim(backgroundLayout, false)
-                    BRAnimator.animateSignalSlide(signalLayout, false) {
-                        val bundle = arguments
-                        if (bundle?.getString("url") != null) setUrl(bundle.getString("url"))
-                    }
-                }
-            },
-        )
+        signalLayout.visibility = View.VISIBLE
+        val bundle = arguments
+        if (bundle?.getString("url") != null) setUrl(bundle.getString("url"))
     }
 
     override fun onStop() {
@@ -760,17 +739,6 @@ class FragmentSend : Fragment() {
                 amountEdit.performClick()
                 updateText()
             }, 500)
-        }
-    }
-
-    private fun animateClose() {
-        BRAnimator.animateBackgroundDim(backgroundLayout, true)
-        BRAnimator.animateSignalSlide(signalLayout, true) { close() }
-    }
-
-    private fun close() {
-        if (activity != null && activity?.isFinishing != true) {
-            activity?.onBackPressed()
         }
     }
 
