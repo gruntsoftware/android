@@ -46,4 +46,7 @@ sealed class Route : JavaSerializable {
 
     @Serializable
     object BuyLitecoin : Route()
+
+    @Serializable
+    object BentoMainScreen : Route()
 }

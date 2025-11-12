@@ -9,6 +9,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.ui.graphics.toArgb
 import com.brainwallet.design.presentation.state.rememberDarkModeState
+import com.brainwallet.navigation.MainNavHost
+import com.brainwallet.navigation.Route
 import com.brainwallet.tools.threads.BRExecutor
 import com.brainwallet.wallet.BRWalletManager
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
@@ -29,7 +31,9 @@ class BentoActivity : ComponentActivity() {
                         }
                     )
                 )
-                BentoMainScreen()
+                MainNavHost(startDestination = Route.BentoMainScreen, onFinish = {
+                    finish()
+                })
             }
         }
     }

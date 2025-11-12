@@ -35,7 +35,9 @@ import com.grunt.brainwallet.core.presentation.theme.pesto
 @Composable
 fun BalanceBentoSyncDetails(
     uiState: BalanceBentoGridUiState,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onSendClick: () -> Unit = {},
+    onReceiveClick: () -> Unit = {}
 ) {
     val syncState = uiState.syncState
     val syncingState = syncState as? SyncState.Syncing
@@ -98,7 +100,7 @@ fun BalanceBentoSyncDetails(
                 }
             }
             Spacer(modifier = Modifier.weight(1f))
-            ActionButtonsSection({}, {})
+            ActionButtonsSection(onSendClick, onReceiveClick)
         }
         AnimatedVisibility(syncingState != null) {
             LinearProgressIndicator(
