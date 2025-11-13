@@ -67,8 +67,4 @@ class BentoMainScreenState(
     fun toggleRail() {
         isRailOpen = !isRailOpen
     }
-
-    fun onBalanceClicked() {
-        ltcNavigation?.navigateToBuyLiteCoinScreen()
-    }
 }

@@ -9,6 +9,7 @@ import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,6 +29,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -62,11 +64,14 @@ fun BalanceBentoGrid(
         label = "contentAlpha"
     )
 
+    val onBalanceClick = {
+        uiState.toggleCurrencyDisplay()
+    }
+
     CardOpacityContainer(
         modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .clickable { onClick() }
     ) {
         Box(
             modifier = Modifier
@@ -95,7 +100,9 @@ fun BalanceBentoGrid(
                 BalanceSection(
                     balanceState = uiState.balanceState,
                     isBalanceVisible = uiState.isShown,
-                    contentAlpha = contentAlpha
+                    contentAlpha = contentAlpha,
+                    showLtcPrimary = uiState.showLtcPrimary,
+                    onBalanceClick = onBalanceClick
                 )
             }
             BalanceBentoSyncDetails(
@@ -153,9 +160,16 @@ private fun HeaderSection(
 private fun BalanceSection(
     balanceState: BalanceState,
     isBalanceVisible: Boolean,
-    contentAlpha: Float
+    contentAlpha: Float,
+    showLtcPrimary: Boolean,
+    onBalanceClick: () -> Unit
 ) {
-    Column {
+    Column(
+        modifier = Modifier.clickable(
+            interactionSource = remember { MutableInteractionSource() },
+            indication = null
+        ) { onBalanceClick() }
+    ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
@@ -179,15 +193,19 @@ private fun BalanceSection(
             Spacer(modifier = Modifier.width(12.dp))
 
             AnimatedContent(
-                targetState = isBalanceVisible,
+                targetState = Pair(isBalanceVisible, showLtcPrimary),
                 transitionSpec = {
                     fadeIn(animationSpec = tween(300)) togetherWith
                         fadeOut(animationSpec = tween(300))
                 },
                 label = "balanceVisibility"
-            ) { visible ->
+            ) { (visible, ltcPrimary) ->
                 Text(
-                    text = if (visible) balanceState.ltcValue else "•••••",
+                    text = when {
+                        !visible -> "•••••"
+                        ltcPrimary -> balanceState.ltcValue
+                        else -> balanceState.valueOnCurrency
+                    },
                     style = BrainwalletTheme.typography.headlineLarge.copy(
                         color = Color.White,
                         fontWeight = FontWeight.Bold
@@ -200,15 +218,19 @@ private fun BalanceSection(
         Spacer(modifier = Modifier.height(4.dp))
 
         AnimatedContent(
-            targetState = isBalanceVisible,
+            targetState = Pair(isBalanceVisible, showLtcPrimary),
             transitionSpec = {
                 fadeIn(animationSpec = tween(300)) togetherWith
                     fadeOut(animationSpec = tween(300))
             },
             label = "usdBalanceVisibility"
-        ) { visible ->
+        ) { (visible, ltcPrimary) ->
             Text(
-                text = if (visible) balanceState.valueOnCurrency else "$ •••",
+                text = when {
+                    !visible -> "$ •••"
+                    ltcPrimary -> balanceState.valueOnCurrency
+                    else -> balanceState.ltcValue
+                },
                 style = BrainwalletTheme.typography.titleMedium.copy(
                     color = Color.White.copy(alpha = 0.8f),
                     fontWeight = FontWeight.Medium

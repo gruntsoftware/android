@@ -53,8 +53,8 @@ import com.brainwallet.design.presentation.component.rail.rememberBentoRailState
 import com.brainwallet.design.presentation.component.widget.BentoBottomNavBar
 import com.brainwallet.ltc.presentation.component.balance.BalanceBentoGrid
 import com.brainwallet.ltc.presentation.component.FavoriteGrid
-import com.brainwallet.ltc.presentation.component.PriceTickerGrid
-import com.brainwallet.ltc.presentation.component.TransactionHistoryGrid
+import com.brainwallet.ltc.presentation.component.ticker.PriceTickerGrid
+import com.brainwallet.ltc.presentation.component.transactionhistory.TransactionHistoryGrid
 import com.brainwallet.design.presentation.component.widget.BentoRailButton
 import com.brainwallet.design.presentation.component.widget.BentoDarkModeToggle
 import com.brainwallet.design.presentation.state.DarkModeState
@@ -190,7 +190,6 @@ private fun BentoMainScreen(
                 ) {
                     item(span = { GridItemSpan(2) }) {
                         BalanceBentoGrid(
-                            onClick = { state.onBalanceClicked() },
                             onSendClick = { state.toggleSheet(BentoMainScreenState.SheetType.SEND) },
                             onReceiveClick = { state.toggleSheet(BentoMainScreenState.SheetType.RECEIVE) }
                         )
