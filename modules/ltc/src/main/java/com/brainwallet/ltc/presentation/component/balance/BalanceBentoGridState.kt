@@ -51,7 +51,8 @@ class BalanceBentoGridUiState(
     initialSyncState: SyncState = SyncState.Idle,
     initialBalance: BalanceState = BalanceState(),
     initialLastBlock: Int = 0,
-    initialIsShown: Boolean = false
+    initialIsShown: Boolean = false,
+    initialShowLtcPrimary: Boolean = true
 ) {
     var syncState by mutableStateOf(initialSyncState)
         private set
@@ -63,6 +64,9 @@ class BalanceBentoGridUiState(
         private set
 
     var isShown by mutableStateOf(initialIsShown)
+        private set
+
+    var showLtcPrimary by mutableStateOf(initialShowLtcPrimary)
         private set
 
     fun updateSyncState(syncState: SyncState) {
@@ -78,5 +82,9 @@ class BalanceBentoGridUiState(
 
     fun toggleShown() {
         isShown = !isShown
+    }
+
+    fun toggleCurrencyDisplay() {
+        showLtcPrimary = !showLtcPrimary
     }
 }

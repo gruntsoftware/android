@@ -1,4 +1,4 @@
-package com.brainwallet.ltc.presentation.component
+package com.brainwallet.ltc.presentation.component.transactionhistory
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
@@ -26,12 +26,7 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.Stable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,7 +35,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.brainwallet.design.presentation.component.effect.CardOpacityContainer
 import com.brainwallet.design.presentation.component.effect.OpacityContainer
 import com.brainwallet.ltc.R
@@ -48,64 +42,14 @@ import com.brainwallet.ltc.domain.flow.TransactionFlow
 import com.brainwallet.ltc.domain.model.TxItem
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import com.grunt.brainwallet.core.presentation.util.toLtcStringFormatted
-import com.grunt.brainwallet.iap.presentation.model.ExportedTransaction
 import com.grunt.brainwallet.iap.presentation.screen.ExportTrxSheet
-import kotlinx.collections.immutable.PersistentList
-import kotlinx.collections.immutable.persistentListOf
-import kotlinx.collections.immutable.toPersistentList
+import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableStateFlow
-import org.koin.compose.koinInject
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import kotlin.math.abs
 import com.brainwallet.design.R as DesignR
-
-@Stable
-class TransactionHistoryGridUiState(
-    initialTransactions: PersistentList<TxItem> = persistentListOf()
-) {
-    var showExportDialog by mutableStateOf(false)
-        private set
-
-    var transactions by mutableStateOf(initialTransactions)
-        private set
-
-    val exportedTransaction get() = mapToExportedTransactions(transactions)
-
-    fun toggleShowExport() {
-        showExportDialog = !showExportDialog
-    }
-
-    fun updateTransactions(newTransactions: PersistentList<TxItem>) {
-        transactions = newTransactions
-    }
-
-    private fun mapToExportedTransactions(txItems: List<TxItem>): PersistentList<ExportedTransaction> {
-        return txItems.map {
-            ExportedTransaction(
-                timeStamp = it.timeStamp,
-                blockHeight = it.blockHeight,
-                txHashReversed = it.txReversed,
-                sent = it.sent,
-                received = it.received,
-                fee = it.fee,
-                to = it.to.toList()
-            )
-        }.toPersistentList()
-    }
-}
-
-@Composable
-fun rememberTransactionHistoryGridState(
-    transactionFlow: TransactionFlow = koinInject()
-): TransactionHistoryGridUiState {
-    val transactions by transactionFlow.collectAsStateWithLifecycle()
-    val state = remember { TransactionHistoryGridUiState() }
-    LaunchedEffect(transactions) {
-        state.updateTransactions(transactions.toPersistentList())
-    }
-    return state
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -216,7 +160,7 @@ private fun TransactionItem(
     val amountText = buildString {
         append(if (isReceived) "+" else "-")
         append("Ł")
-        append(kotlin.math.abs(netAmount).toLtcStringFormatted())
+        append(abs(netAmount).toLtcStringFormatted())
     }
     val amountColor = if (isReceived) {
         BrainwalletTheme.colors.affirm
@@ -365,7 +309,7 @@ fun TransactionHistoryGridWithDataPreview() {
         private val flow = MutableStateFlow(mockTransactions)
         override val value: List<TxItem> get() = flow.value
         override val replayCache: List<List<TxItem>> get() = listOf(flow.value)
-        override suspend fun collect(collector: kotlinx.coroutines.flow.FlowCollector<List<TxItem>>): Nothing {
+        override suspend fun collect(collector: FlowCollector<List<TxItem>>): Nothing {
             flow.collect(collector)
         }
 
