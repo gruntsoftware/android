@@ -259,7 +259,9 @@ private fun BentoMainScreen(
                     BentoMainScreenState.SheetType.SEND -> {
                         AndroidFragment<FragmentSend>(
                             fragmentState = fragmentState
-                        )
+                        ) {
+                            it.overrideOnCloseClicked { onDismiss() }
+                        }
                     }
 
                     else -> Unit

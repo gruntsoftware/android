@@ -73,6 +73,11 @@ class FragmentSend : Fragment() {
     private var selectedIsoCurrencySymbol: String? = null
     private lateinit var backgroundLayout: ScrollView
     private lateinit var amountBuilder: StringBuilder
+
+    private var onCloseClicked: () -> Unit = {
+        activity?.onBackPressed()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -140,6 +145,10 @@ class FragmentSend : Fragment() {
         BRWalletManager.getInstance().setFeePerKb(FeeManager.getInstance().currentFeeValue)
 
         return rootView
+    }
+
+    fun overrideOnCloseClicked(onCloseClicked: () -> Unit) {
+        this.onCloseClicked = onCloseClicked
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -425,7 +434,7 @@ class FragmentSend : Fragment() {
             },
         )
         closeButton.setOnClickListener {
-            activity?.onBackPressed()
+            onCloseClicked()
         }
         addressEdit.setOnEditorActionListener { _, actionId, event ->
             showKeyboard(false)
