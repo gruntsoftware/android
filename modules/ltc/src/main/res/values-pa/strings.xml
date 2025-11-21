@@ -30,4 +30,16 @@
     <!-- Favorite Contacts Components -->
     <string name="ltc_favorite_chip_label">ਬਹੁਤ ਗੁਪਤ</string>
     <string name="ltc_favorite_add_contact_description">ਮਨਪਸੰਦ ਸੰਪਰਕ ਸ਼ਾਮਲ ਕਰੋ</string>
+    
+    <!-- Transaction Detail Components -->
+    <string name="ltc_transaction_fee_label">ਫੀਸ</string>
+    <string name="ltc_transaction_fee_value">- Ł%1$s</string>
+    <string name="ltc_transaction_balance_value">Ł %1$s</string>
+    <string name="ltc_transaction_starting_balance_label">ਸ਼ੁਰੂਆਤੀ ਬਕਾਇਆ</string>
+    <string name="ltc_transaction_ending_balance_label">ਅੰਤਮ ਬਕਾਇਆ</string>
+    <string name="ltc_transaction_to_label">ਨੂੰ</string>
+    <string name="ltc_transaction_memo_label">ਮੀਮੋ</string>
+    <string name="ltc_transaction_blockheight_label">ਬਲਾਕ ਉਚਾਈ: %1$d</string>
+    <string name="ltc_transaction_export_data_button">ਲੈਣ-ਦੇਣ ਡੇਟਾ ਨਿਰਯਾਤ ਕਰੋ</string>
+    <string name="ltc_transaction_qr_code_content_description">ਲੈਣ-ਦੇਣ QR ਕੋਡ</string>
 </resources>

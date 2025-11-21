@@ -1,6 +1,7 @@
 package com.brainwallet.ui.bento
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
@@ -55,7 +56,9 @@ import com.brainwallet.gamehub.presentation.component.FallingMojiBanner
 import com.brainwallet.ltc.presentation.component.FavoriteGrid
 import com.brainwallet.ltc.presentation.component.balance.BalanceBentoGrid
 import com.brainwallet.ltc.presentation.component.ticker.PriceTickerGrid
+import com.brainwallet.ltc.presentation.component.transactionhistory.TransactionDetailContent
 import com.brainwallet.ltc.presentation.component.transactionhistory.TransactionHistoryGrid
+import com.brainwallet.ltc.presentation.component.transactionhistory.rememberTransactionDetailState
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.presenter.fragments.FragmentSend
 import com.brainwallet.tutorial.presentation.component.TutorialGrid
@@ -63,6 +66,7 @@ import com.brainwallet.ui.screens.home.SettingsViewModel
 import com.brainwallet.ui.screens.home.composable.HomeSettingDrawerSheet
 import com.brainwallet.ui.screens.home.receive.ReceiveDialog
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.grunt.brainwallet.iap.presentation.screen.ExportTrxSheet
 import org.koin.compose.viewmodel.koinViewModel
 
 /**
@@ -190,7 +194,28 @@ private fun BentoMainScreen(
                         )
                     }
                     item(span = { GridItemSpan(2) }) {
-                        TransactionHistoryGrid(modifier = Modifier.height(130.dp))
+                        AnimatedVisibility(state.shouldShowTransactionDetail && state.snappedTxItem != null) {
+                            state.snappedTxItem?.let {
+                                TransactionDetailContent(
+                                    state = rememberTransactionDetailState(it),
+                                    modifier = Modifier.height(380.dp),
+                                    onExportClick = {
+                                        state.toggleSheet(BentoMainScreenState.SheetType.EXPORT)
+                                    }
+                                )
+                            }
+                        }
+                    }
+                    item(span = { GridItemSpan(2) }) {
+                        TransactionHistoryGrid(
+                            modifier = Modifier.height(130.dp),
+                            shouldShowExport = !state.shouldShowTransactionDetail,
+                            onSnappedTransactionChanged = { state.onTxSnapped(it) },
+                            onTransactionChange = { state.onTransactionChange(it) },
+                            onExportClick = {
+                                state.toggleSheet(BentoMainScreenState.SheetType.EXPORT)
+                            }
+                        )
                     }
                     item(span = { GridItemSpan(1) }) {
                         TutorialGrid(modifier = Modifier.height(260.dp))
@@ -243,10 +268,16 @@ private fun BentoMainScreen(
         fun onDismiss() {
             state.toggleSheet()
         }
+
+        val containerColor = if (state.sheetType == BentoMainScreenState.SheetType.EXPORT) {
+            BrainwalletTheme.colors.surface
+        } else {
+            Color.Transparent
+        }
         ModalBottomSheet(
             onDismissRequest = { onDismiss() },
             sheetState = sheetState,
-            containerColor = Color.Transparent,
+            containerColor = containerColor,
         ) {
             AnimatedContent(state.sheetType) { type ->
                 when (type) {
@@ -263,6 +294,13 @@ private fun BentoMainScreen(
                         ) {
                             it.overrideOnCloseClicked { onDismiss() }
                         }
+                    }
+
+                    BentoMainScreenState.SheetType.EXPORT -> {
+                        ExportTrxSheet(
+                            transactions = state.exportedTransaction,
+                            modifier = Modifier.fillMaxWidth()
+                        )
                     }
 
                     else -> Unit

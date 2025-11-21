@@ -30,4 +30,16 @@
     <!-- Favorite Contacts Components -->
     <string name="ltc_favorite_chip_label">سري للغاية</string>
     <string name="ltc_favorite_add_contact_description">إضافة جهة اتصال مفضلة</string>
+    
+    <!-- Transaction Detail Components -->
+    <string name="ltc_transaction_fee_label">رسوم</string>
+    <string name="ltc_transaction_fee_value">- Ł%1$s</string>
+    <string name="ltc_transaction_balance_value">Ł %1$s</string>
+    <string name="ltc_transaction_starting_balance_label">الرصيد الابتدائي</string>
+    <string name="ltc_transaction_ending_balance_label">الرصيد النهائي</string>
+    <string name="ltc_transaction_to_label">إلى</string>
+    <string name="ltc_transaction_memo_label">مذكرة</string>
+    <string name="ltc_transaction_blockheight_label">ارتفاع الكتلة: %1$d</string>
+    <string name="ltc_transaction_export_data_button">تصدير بيانات المعاملة</string>
+    <string name="ltc_transaction_qr_code_content_description">رمز QR للمعاملة</string>
 </resources>
