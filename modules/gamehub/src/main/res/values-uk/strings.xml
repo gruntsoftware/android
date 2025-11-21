@@ -5,4 +5,8 @@
     <!-- Grid Components -->
     <string name="gamehub_grid_chip_label">Ігровий Центр</string>
     <string name="gamehub_grid_banner_content_description">Банер Гри</string>
+    
+    <!-- FallingMoji Banner -->
+    <string name="gamehub_fallingmoji_title">FALLINMOJI</string>
+    <string name="gamehub_fallingmoji_subtitle">ВИ ДОСТАТНЬО ДОБРІ?</string>
 </resources>

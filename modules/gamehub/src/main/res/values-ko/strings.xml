@@ -5,4 +5,8 @@
     <!-- Grid Components -->
     <string name="gamehub_grid_chip_label">게임 허브</string>
     <string name="gamehub_grid_banner_content_description">게임 배너</string>
+    
+    <!-- FallingMoji Banner -->
+    <string name="gamehub_fallingmoji_title">FALLINMOJI</string>
+    <string name="gamehub_fallingmoji_subtitle">당신은 충분히 잘하나요?</string>
 </resources>

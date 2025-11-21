@@ -49,7 +49,7 @@ import com.brainwallet.design.presentation.component.widget.BentoDarkModeToggle
 import com.brainwallet.design.presentation.component.widget.BentoRailButton
 import com.brainwallet.design.presentation.state.DarkModeState
 import com.brainwallet.design.presentation.state.rememberDarkModeState
-import com.brainwallet.gamehub.presentation.component.GameHubGrid
+import com.brainwallet.gamehub.presentation.component.FallingMojiBanner
 import com.brainwallet.ltc.presentation.component.FavoriteGrid
 import com.brainwallet.ltc.presentation.component.balance.BalanceBentoGrid
 import com.brainwallet.ltc.presentation.component.ticker.PriceTickerGrid
@@ -195,7 +195,7 @@ private fun BentoMainScreen(
                         }
                     }
                     item(span = { GridItemSpan(2) }) {
-                        GameHubGrid(modifier = Modifier.height(120.dp))
+                        FallingMojiBanner()
                     }
                 }
             }

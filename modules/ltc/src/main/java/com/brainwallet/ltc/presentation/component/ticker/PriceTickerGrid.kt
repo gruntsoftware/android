@@ -53,7 +53,7 @@ fun PriceTickerGrid(
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.weight(1f))
 
                 Text(
                     text = currentPair.formattedPrice,
@@ -65,6 +65,18 @@ fun PriceTickerGrid(
                     textAlign = TextAlign.Start,
                     modifier = Modifier.fillMaxWidth()
                 )
+                if (uiState.formattedLastSyncTime.isNotEmpty()) {
+                    Text(
+                        text = uiState.formattedLastSyncTime,
+                        style = BrainwalletTheme.typography.bodySmall.copy(
+                            color = BrainwalletTheme.colors.content.copy(alpha = 0.5f),
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 12.sp
+                        ),
+                        textAlign = TextAlign.Start,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
             }
         }
     }
@@ -84,7 +96,8 @@ fun PriceTickerGridPreview() {
                     TradingPairData("LTC/GBP", 92.18, "£92.18"),
                     TradingPairData("LTC/JPY", 17850.0, "¥17,850")
                 ),
-                currentCurrency = "USD"
+                currentCurrency = "USD",
+                lastSyncTimestamp = System.currentTimeMillis()
             )
         )
     }

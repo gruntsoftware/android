@@ -5,4 +5,8 @@
     <!-- Grid Components -->
     <string name="gamehub_grid_chip_label">Centro de Jogos</string>
     <string name="gamehub_grid_banner_content_description">Banner do Jogo</string>
+    
+    <!-- FallingMoji Banner -->
+    <string name="gamehub_fallingmoji_title">FALLINMOJI</string>
+    <string name="gamehub_fallingmoji_subtitle">VOCÊ É BOM O SUFICIENTE?</string>
 </resources>
