@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,6 +25,7 @@ import androidx.compose.ui.unit.sp
 import com.brainwallet.design.presentation.component.effect.CardOpacityContainer
 import com.brainwallet.design.presentation.component.widget.GridChip
 import com.brainwallet.design.presentation.component.widget.PaginationDot
+import com.brainwallet.tutorial.R
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
@@ -31,21 +33,17 @@ import kotlinx.collections.immutable.persistentListOf
 data class TutorialData(
     val title: String,
     val body: String
-) {
-    companion object {
-        val default = persistentListOf(
-            TutorialData(
-                "Only you know the meaning!",
-                "Remember your seed phrase and train yourself"
-            )
-        )
-    }
-}
+)
 
 @Composable
 fun TutorialGrid(
     modifier: Modifier = Modifier,
-    tutorials: PersistentList<TutorialData> = TutorialData.default,
+    tutorials: PersistentList<TutorialData> = persistentListOf(
+        TutorialData(
+            title = stringResource(R.string.tutorial_grid_default_title),
+            body = stringResource(R.string.tutorial_grid_default_body)
+        )
+    ),
 ) {
     val pagerState = rememberPagerState(pageCount = { tutorials.size })
 
@@ -58,7 +56,7 @@ fun TutorialGrid(
                 .padding(16.dp),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            GridChip("TUTORIALS", modifier = Modifier.padding(bottom = 3.dp))
+            GridChip(stringResource(R.string.tutorial_grid_chip_label), modifier = Modifier.padding(bottom = 3.dp))
             HorizontalPager(
                 state = pagerState,
                 modifier = Modifier.weight(1f)

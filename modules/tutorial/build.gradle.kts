@@ -21,6 +21,11 @@ android {
         minSdk = 29
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        
+        resourceConfigurations += listOf(
+            "en", "ar", "de", "es", "fa", "fr", "hi", "in", "it", "ja",
+            "ko", "pa", "pl", "pt", "ru", "sv", "tr", "uk", "zh-rCN", "zh-rTW"
+        )
     }
 
     buildTypes {

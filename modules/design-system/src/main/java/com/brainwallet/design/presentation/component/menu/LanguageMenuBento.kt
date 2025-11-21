@@ -3,7 +3,9 @@ package com.brainwallet.design.presentation.component.menu
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import com.brainwallet.design.R
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 /**
@@ -13,11 +15,11 @@ import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 @Composable
 fun LanguageMenuBento(
     modifier: Modifier = Modifier,
-    selectedLanguage: String = "English",
+    selectedLanguage: String = stringResource(R.string.design_menu_language_default),
     onClick: () -> Unit = {}
 ) {
     BentoMenuBase(
-        title = "Language",
+        title = stringResource(R.string.design_menu_language_title),
         description = selectedLanguage,
         modifier = modifier,
         onClick = onClick
@@ -28,8 +30,6 @@ fun LanguageMenuBento(
 @Composable
 fun LanguageMenuBentoPreview() {
     BrainwalletTheme(isSystemInDarkTheme()) {
-        LanguageMenuBento(
-            selectedLanguage = "English"
-        )
+        LanguageMenuBento()
     }
 }

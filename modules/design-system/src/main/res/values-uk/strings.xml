@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Module: design-system -->
+    
+    <!-- Menu Components -->
+    <string name="design_menu_blockchain_title">Блокчейн</string>
+    <string name="design_menu_blockchain_fee_type">Тип комісії: %1$s</string>
+    <string name="design_menu_blockchain_fee_regular">Звичайна</string>
+    <string name="design_menu_currency_title">Валюта</string>
+    <string name="design_menu_currency_default">USD</string>
+    <string name="design_menu_games_title">Ігри</string>
+    <string name="design_menu_games_description">Розважальні функції</string>
+    <string name="design_menu_language_title">Мова</string>
+    <string name="design_menu_language_default">Англійська</string>
+    <string name="design_menu_lock_title">Блокування</string>
+    <string name="design_menu_lock_description">Блокування безпеки додатка</string>
+    <string name="design_menu_security_title">Безпека</string>
+    <string name="design_menu_security_analytics_enabled">Обмін аналітикою увімкнено</string>
+    <string name="design_menu_security_analytics_disabled">Обмін аналітикою вимкнено</string>
+    <string name="design_menu_social_media_title">Соціальні Мережі</string>
+    <string name="design_menu_social_media_link" translatable="false">linktr.ee/brainwallet</string>
+    <string name="design_menu_support_title">Підтримка</string>
+    <string name="design_menu_support_link" translatable="false">brainwallet.co/support.html</string>
+    <string name="design_menu_sync_metadata_title">Метадані Синхронізації</string>
+    <string name="design_menu_sync_metadata_no_data">Немає метаданих синхронізації</string>
+    <string name="design_menu_sync_metadata_last_sync">Остання синхронізація: %1$s</string>
+    
+    <!-- Rail Components -->
+    <string name="design_rail_learning_banner_text">Банер Навчання</string>
+    
+    <!-- Bottom Navigation -->
+    <string name="design_bottom_nav_send">Надіслати</string>
+    <string name="design_bottom_nav_buy_receive">Купити/Отримати</string>
+    <string name="design_bottom_nav_game_hub">Ігровий Центр</string>
+    <string name="design_bottom_nav_history">Історія</string>
+</resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Module: design-system -->
+    
+    <!-- Menu Components -->
+    <string name="design_menu_blockchain_title">Блокчейн</string>
+    <string name="design_menu_blockchain_fee_type">Тип комиссии: %1$s</string>
+    <string name="design_menu_blockchain_fee_regular">Обычная</string>
+    <string name="design_menu_currency_title">Валюта</string>
+    <string name="design_menu_currency_default">USD</string>
+    <string name="design_menu_games_title">Игры</string>
+    <string name="design_menu_games_description">Развлекательные функции</string>
+    <string name="design_menu_language_title">Язык</string>
+    <string name="design_menu_language_default">Английский</string>
+    <string name="design_menu_lock_title">Блокировка</string>
+    <string name="design_menu_lock_description">Блокировка безопасности приложения</string>
+    <string name="design_menu_security_title">Безопасность</string>
+    <string name="design_menu_security_analytics_enabled">Обмен аналитикой включен</string>
+    <string name="design_menu_security_analytics_disabled">Обмен аналитикой отключен</string>
+    <string name="design_menu_social_media_title">Социальные Сети</string>
+    <string name="design_menu_social_media_link" translatable="false">linktr.ee/brainwallet</string>
+    <string name="design_menu_support_title">Поддержка</string>
+    <string name="design_menu_support_link" translatable="false">brainwallet.co/support.html</string>
+    <string name="design_menu_sync_metadata_title">Метаданные Синхронизации</string>
+    <string name="design_menu_sync_metadata_no_data">Нет метаданных синхронизации</string>
+    <string name="design_menu_sync_metadata_last_sync">Последняя синхронизация: %1$s</string>
+    
+    <!-- Rail Components -->
+    <string name="design_rail_learning_banner_text">Баннер Обучения</string>
+    
+    <!-- Bottom Navigation -->
+    <string name="design_bottom_nav_send">Отправить</string>
+    <string name="design_bottom_nav_buy_receive">Купить/Получить</string>
+    <string name="design_bottom_nav_game_hub">Игровой Центр</string>
+    <string name="design_bottom_nav_history">История</string>
+</resources>

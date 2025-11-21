@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Module: tutorial -->
+    
+    <!-- Grid Components -->
+    <string name="tutorial_grid_chip_label">TUTORIELS</string>
+    <string name="tutorial_grid_default_title">Vous seul connaissez la signification!</string>
+    <string name="tutorial_grid_default_body">Mémorisez votre phrase de récupération et entraînez-vous</string>
+</resources>

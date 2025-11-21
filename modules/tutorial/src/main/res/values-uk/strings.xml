@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Module: tutorial -->
+    
+    <!-- Grid Components -->
+    <string name="tutorial_grid_chip_label">НАВЧАННЯ</string>
+    <string name="tutorial_grid_default_title">Тільки ви знаєте значення!</string>
+    <string name="tutorial_grid_default_body">Запам\'ятайте свою сід-фразу та тренуйтеся</string>
+</resources>

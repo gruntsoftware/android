@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Module: gamehub -->
+    
+    <!-- Grid Components -->
+    <string name="gamehub_grid_chip_label">게임 허브</string>
+    <string name="gamehub_grid_banner_content_description">게임 배너</string>
+</resources>

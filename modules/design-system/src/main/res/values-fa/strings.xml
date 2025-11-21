@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Module: design-system -->
+    
+    <!-- Menu Components -->
+    <string name="design_menu_blockchain_title">بلاکچین</string>
+    <string name="design_menu_blockchain_fee_type">نوع کارمزد: %1$s</string>
+    <string name="design_menu_blockchain_fee_regular">معمولی</string>
+    <string name="design_menu_currency_title">ارز</string>
+    <string name="design_menu_currency_default">دلار آمریکا</string>
+    <string name="design_menu_games_title">بازی‌ها</string>
+    <string name="design_menu_games_description">ویژگی‌های سرگرمی</string>
+    <string name="design_menu_language_title">زبان</string>
+    <string name="design_menu_language_default">انگلیسی</string>
+    <string name="design_menu_lock_title">قفل</string>
+    <string name="design_menu_lock_description">قفل امنیتی برنامه</string>
+    <string name="design_menu_security_title">امنیت</string>
+    <string name="design_menu_security_analytics_enabled">اشتراک‌گذاری تحلیل‌ها فعال است</string>
+    <string name="design_menu_security_analytics_disabled">اشتراک‌گذاری تحلیل‌ها غیرفعال است</string>
+    <string name="design_menu_social_media_title">رسانه‌های اجتماعی</string>
+    <string name="design_menu_social_media_link" translatable="false">linktr.ee/brainwallet</string>
+    <string name="design_menu_support_title">پشتیبانی</string>
+    <string name="design_menu_support_link" translatable="false">brainwallet.co/support.html</string>
+    <string name="design_menu_sync_metadata_title">متادیتای همگام‌سازی</string>
+    <string name="design_menu_sync_metadata_no_data">بدون متادیتای همگام‌سازی</string>
+    <string name="design_menu_sync_metadata_last_sync">آخرین همگام‌سازی: %1$s</string>
+    
+    <!-- Rail Components -->
+    <string name="design_rail_learning_banner_text">بنر یادگیری</string>
+    
+    <!-- Bottom Navigation -->
+    <string name="design_bottom_nav_send">ارسال</string>
+    <string name="design_bottom_nav_buy_receive">خرید/دریافت</string>
+    <string name="design_bottom_nav_game_hub">مرکز بازی</string>
+    <string name="design_bottom_nav_history">تاریخچه</string>
+</resources>

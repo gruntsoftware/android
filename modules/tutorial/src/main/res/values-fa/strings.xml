@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Module: tutorial -->
+    
+    <!-- Grid Components -->
+    <string name="tutorial_grid_chip_label">آموزش‌ها</string>
+    <string name="tutorial_grid_default_title">فقط شما معنی را می‌دانید!</string>
+    <string name="tutorial_grid_default_body">عبارت بذر خود را به خاطر بسپارید و خود را تمرین دهید</string>
+</resources>

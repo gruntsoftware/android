@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Module: tutorial -->
+    
+    <!-- Grid Components -->
+    <string name="tutorial_grid_chip_label">УЧЕБНИКИ</string>
+    <string name="tutorial_grid_default_title">Только вы знаете значение!</string>
+    <string name="tutorial_grid_default_body">Запомните свою сид-фразу и тренируйтесь</string>
+</resources>

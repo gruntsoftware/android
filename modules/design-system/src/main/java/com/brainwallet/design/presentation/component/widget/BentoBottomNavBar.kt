@@ -7,10 +7,10 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.brainwallet.design.R
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
@@ -31,14 +31,12 @@ fun BentoBottomNavBar(
     onItemClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val items = remember {
-        listOf(
-            BentoBottomNavItem("Send", R.drawable.ic_sent, "send"),
-            BentoBottomNavItem("Buy/Receive", R.drawable.ic_buy, "buy_receive"),
-            BentoBottomNavItem("Game Hub", R.drawable.ic_game_hub, "game_hub"),
-            BentoBottomNavItem("History", R.drawable.ic_history, "history")
-        )
-    }
+    val items = listOf(
+        BentoBottomNavItem(stringResource(R.string.design_bottom_nav_send), R.drawable.ic_sent, "send"),
+        BentoBottomNavItem(stringResource(R.string.design_bottom_nav_buy_receive), R.drawable.ic_buy, "buy_receive"),
+        BentoBottomNavItem(stringResource(R.string.design_bottom_nav_game_hub), R.drawable.ic_game_hub, "game_hub"),
+        BentoBottomNavItem(stringResource(R.string.design_bottom_nav_history), R.drawable.ic_history, "history")
+    )
 
     NavigationBar(
         modifier = modifier,

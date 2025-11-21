@@ -3,7 +3,9 @@ package com.brainwallet.design.presentation.component.menu
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import com.brainwallet.design.R
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 /**
@@ -13,11 +15,11 @@ import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 @Composable
 fun CurrencyMenuBento(
     modifier: Modifier = Modifier,
-    selectedCurrency: String = "USD",
+    selectedCurrency: String = stringResource(R.string.design_menu_currency_default),
     onClick: () -> Unit = {}
 ) {
     BentoMenuBase(
-        title = "Currency",
+        title = stringResource(R.string.design_menu_currency_title),
         description = selectedCurrency,
         modifier = modifier,
         onClick = onClick
@@ -28,8 +30,6 @@ fun CurrencyMenuBento(
 @Composable
 fun CurrencyMenuBentoPreview() {
     BrainwalletTheme(isSystemInDarkTheme()) {
-        CurrencyMenuBento(
-            selectedCurrency = "USD"
-        )
+        CurrencyMenuBento()
     }
 }

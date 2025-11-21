@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Module: design-system -->
+    
+    <!-- Menu Components -->
+    <string name="design_menu_blockchain_title">区块链</string>
+    <string name="design_menu_blockchain_fee_type">费用类型：%1$s</string>
+    <string name="design_menu_blockchain_fee_regular">常规</string>
+    <string name="design_menu_currency_title">货币</string>
+    <string name="design_menu_currency_default">美元</string>
+    <string name="design_menu_games_title">游戏</string>
+    <string name="design_menu_games_description">娱乐功能</string>
+    <string name="design_menu_language_title">语言</string>
+    <string name="design_menu_language_default">英语</string>
+    <string name="design_menu_lock_title">锁定</string>
+    <string name="design_menu_lock_description">应用安全锁</string>
+    <string name="design_menu_security_title">安全</string>
+    <string name="design_menu_security_analytics_enabled">已启用分析共享</string>
+    <string name="design_menu_security_analytics_disabled">已禁用分析共享</string>
+    <string name="design_menu_social_media_title">社交媒体</string>
+    <string name="design_menu_social_media_link" translatable="false">linktr.ee/brainwallet</string>
+    <string name="design_menu_support_title">支持</string>
+    <string name="design_menu_support_link" translatable="false">brainwallet.co/support.html</string>
+    <string name="design_menu_sync_metadata_title">同步元数据</string>
+    <string name="design_menu_sync_metadata_no_data">无同步元数据</string>
+    <string name="design_menu_sync_metadata_last_sync">上次同步：%1$s</string>
+    
+    <!-- Rail Components -->
+    <string name="design_rail_learning_banner_text">学习横幅</string>
+    
+    <!-- Bottom Navigation -->
+    <string name="design_bottom_nav_send">发送</string>
+    <string name="design_bottom_nav_buy_receive">购买/接收</string>
+    <string name="design_bottom_nav_game_hub">游戏中心</string>
+    <string name="design_bottom_nav_history">历史</string>
+</resources>

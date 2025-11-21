@@ -38,6 +38,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -129,7 +130,7 @@ private fun HeaderSection(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "YOUR BALANCE",
+            text = stringResource(R.string.ltc_balance_header_title),
             style = BrainwalletTheme.typography.labelMedium.copy(
                 color = Color.White,
                 fontWeight = FontWeight.SemiBold
@@ -148,7 +149,11 @@ private fun HeaderSection(
                         DesignR.drawable.ic_eye_disabled
                     }
                 ),
-                contentDescription = if (isBalanceVisible) "Hide balance" else "Show balance",
+                contentDescription = if (isBalanceVisible) {
+                    stringResource(R.string.ltc_balance_hide_content_description)
+                } else {
+                    stringResource(R.string.ltc_balance_show_content_description)
+                },
                 tint = Color.White,
                 modifier = Modifier.size(20.dp)
             )
@@ -184,7 +189,7 @@ private fun BalanceSection(
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_ltc),
-                    contentDescription = "Litecoin",
+                    contentDescription = stringResource(R.string.ltc_balance_litecoin_content_description),
                     modifier = Modifier.size(24.dp),
                     colorFilter = ColorFilter.tint(Color.White)
                 )

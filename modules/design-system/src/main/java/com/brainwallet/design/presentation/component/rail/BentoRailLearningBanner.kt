@@ -10,10 +10,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.brainwallet.design.R
 import com.brainwallet.design.presentation.component.effect.MediumOpacityContainer
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
@@ -38,7 +40,7 @@ fun BentoRailLearningBanner(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                "Learning Banner",
+                stringResource(R.string.design_rail_learning_banner_text),
                 style = BrainwalletTheme.typography.bodyLarge.copy(
                     color = BrainwalletTheme.colors.content,
                     textAlign = TextAlign.Center,

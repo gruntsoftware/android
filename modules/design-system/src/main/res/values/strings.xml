@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Module: design-system -->
+    
+    <!-- Menu Components -->
+    <string name="design_menu_blockchain_title">Blockchain</string>
+    <string name="design_menu_blockchain_fee_type">Fee type: %1$s</string>
+    <string name="design_menu_blockchain_fee_regular">Regular</string>
+    
+    <string name="design_menu_currency_title">Currency</string>
+    <string name="design_menu_currency_default">USD</string>
+    
+    <string name="design_menu_games_title">Games</string>
+    <string name="design_menu_games_description">Entertainment features</string>
+    
+    <string name="design_menu_language_title">Language</string>
+    <string name="design_menu_language_default">English</string>
+    
+    <string name="design_menu_lock_title">Lock</string>
+    <string name="design_menu_lock_description">App security lock</string>
+    
+    <string name="design_menu_security_title">Security</string>
+    <string name="design_menu_security_analytics_enabled">Analytics sharing enabled</string>
+    <string name="design_menu_security_analytics_disabled">Analytics sharing disabled</string>
+    
+    <string name="design_menu_social_media_title">Social Media</string>
+    <string name="design_menu_social_media_link" translatable="false">linktr.ee/brainwallet</string>
+    
+    <string name="design_menu_support_title">Support</string>
+    <string name="design_menu_support_link" translatable="false">brainwallet.co/support.html</string>
+    
+    <string name="design_menu_sync_metadata_title">Sync Metadata</string>
+    <string name="design_menu_sync_metadata_no_data">No sync metadata</string>
+    <string name="design_menu_sync_metadata_last_sync">Last sync: %1$s</string>
+    
+    <!-- Rail Components -->
+    <string name="design_rail_learning_banner_text">Learning Banner</string>
+    
+    <!-- Bottom Navigation -->
+    <string name="design_bottom_nav_send">Send</string>
+    <string name="design_bottom_nav_buy_receive">Buy/Receive</string>
+    <string name="design_bottom_nav_game_hub">Game Hub</string>
+    <string name="design_bottom_nav_history">History</string>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Module: tutorial -->
+    
+    <!-- Grid Components -->
+    <string name="tutorial_grid_chip_label">チュートリアル</string>
+    <string name="tutorial_grid_default_title">あなただけが意味を知っています！</string>
+    <string name="tutorial_grid_default_body">シードフレーズを覚えて自分を訓練しましょう</string>
+</resources>

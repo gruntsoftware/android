@@ -3,7 +3,9 @@ package com.brainwallet.design.presentation.component.menu
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import com.brainwallet.design.R
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 /**
@@ -17,8 +19,12 @@ fun SecurityMenuBento(
     onClick: () -> Unit = {}
 ) {
     BentoMenuBase(
-        title = "Security",
-        description = if (shareAnalyticsEnabled) "Analytics sharing enabled" else "Analytics sharing disabled",
+        title = stringResource(R.string.design_menu_security_title),
+        description = if (shareAnalyticsEnabled) {
+            stringResource(R.string.design_menu_security_analytics_enabled)
+        } else {
+            stringResource(R.string.design_menu_security_analytics_disabled)
+        },
         modifier = modifier,
         onClick = onClick
     )

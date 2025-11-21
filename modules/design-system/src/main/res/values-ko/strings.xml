@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Module: design-system -->
+    
+    <!-- Menu Components -->
+    <string name="design_menu_blockchain_title">블록체인</string>
+    <string name="design_menu_blockchain_fee_type">수수료 유형: %1$s</string>
+    <string name="design_menu_blockchain_fee_regular">일반</string>
+    <string name="design_menu_currency_title">통화</string>
+    <string name="design_menu_currency_default">USD</string>
+    <string name="design_menu_games_title">게임</string>
+    <string name="design_menu_games_description">엔터테인먼트 기능</string>
+    <string name="design_menu_language_title">언어</string>
+    <string name="design_menu_language_default">영어</string>
+    <string name="design_menu_lock_title">잠금</string>
+    <string name="design_menu_lock_description">앱 보안 잠금</string>
+    <string name="design_menu_security_title">보안</string>
+    <string name="design_menu_security_analytics_enabled">분석 공유 활성화됨</string>
+    <string name="design_menu_security_analytics_disabled">분석 공유 비활성화됨</string>
+    <string name="design_menu_social_media_title">소셜 미디어</string>
+    <string name="design_menu_social_media_link" translatable="false">linktr.ee/brainwallet</string>
+    <string name="design_menu_support_title">지원</string>
+    <string name="design_menu_support_link" translatable="false">brainwallet.co/support.html</string>
+    <string name="design_menu_sync_metadata_title">동기화 메타데이터</string>
+    <string name="design_menu_sync_metadata_no_data">동기화 메타데이터 없음</string>
+    <string name="design_menu_sync_metadata_last_sync">마지막 동기화: %1$s</string>
+    
+    <!-- Rail Components -->
+    <string name="design_rail_learning_banner_text">학습 배너</string>
+    
+    <!-- Bottom Navigation -->
+    <string name="design_bottom_nav_send">보내기</string>
+    <string name="design_bottom_nav_buy_receive">구매/받기</string>
+    <string name="design_bottom_nav_game_hub">게임 허브</string>
+    <string name="design_bottom_nav_history">기록</string>
+</resources>

@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -77,7 +78,7 @@ fun TransactionHistoryGrid(
             ) {
                 Icon(
                     painter = painterResource(R.drawable.launch),
-                    contentDescription = "Export",
+                    contentDescription = stringResource(R.string.ltc_transaction_export_content_description),
                     modifier = Modifier
                         .size(32.dp)
                         .padding(6.dp),
@@ -91,7 +92,7 @@ fun TransactionHistoryGrid(
                 .padding(vertical = 20.dp),
         ) {
             Text(
-                text = "TRANSACTION HISTORY",
+                text = stringResource(R.string.ltc_transaction_history_title),
                 style = BrainwalletTheme.typography.titleMedium.copy(
                     color = BrainwalletTheme.colors.content,
                     fontWeight = FontWeight.Bold
@@ -103,7 +104,7 @@ fun TransactionHistoryGrid(
 
             if (transactions.isEmpty()) {
                 Text(
-                    text = "No transactions yet",
+                    text = stringResource(R.string.ltc_transaction_history_empty),
                     style = BrainwalletTheme.typography.bodyMedium.copy(
                         color = BrainwalletTheme.colors.content.copy(alpha = 0.6f),
                         fontWeight = FontWeight.Normal
@@ -176,10 +177,10 @@ private fun TransactionItem(
     }
 
     val addressText = transaction.from.firstOrNull { it.isNotEmpty() }?.let { address ->
-        "from ${address.take(12)}...${address.takeLast(8)}"
+        stringResource(R.string.ltc_transaction_from_address, "${address.take(12)}...${address.takeLast(8)}")
     } ?: transaction.to.firstOrNull { it.isNotEmpty() }?.let { address ->
-        "to ${address.take(12)}...${address.takeLast(8)}"
-    } ?: "unknown"
+        stringResource(R.string.ltc_transaction_to_address, "${address.take(12)}...${address.takeLast(8)}")
+    } ?: stringResource(R.string.ltc_transaction_unknown_address)
 
     Row(
         modifier = modifier
@@ -215,7 +216,11 @@ private fun TransactionItem(
                             DesignR.drawable.mtrl_ic_arrow_drop_down
                         }
                     ),
-                    contentDescription = if (isReceived) "Received" else "Sent",
+                    contentDescription = if (isReceived) {
+                        stringResource(R.string.ltc_transaction_received_content_description)
+                    } else {
+                        stringResource(R.string.ltc_transaction_sent_content_description)
+                    },
                     tint = if (isReceived) {
                         BrainwalletTheme.colors.affirm
                     } else {

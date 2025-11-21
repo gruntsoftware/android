@@ -23,6 +23,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -46,7 +47,7 @@ fun BalanceBentoSyncDetails(
         AnimatedVisibility(syncingState != null) {
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text(
-                    text = "Syncing...",
+                    text = stringResource(R.string.ltc_sync_syncing_status),
                     modifier = Modifier.fillMaxWidth(),
                     style = BrainwalletTheme.typography.bodyMedium.copy(
                         color = Color.White,
@@ -55,7 +56,7 @@ fun BalanceBentoSyncDetails(
                     )
                 )
                 Text(
-                    "Last block: ${uiState.lastBlock}",
+                    stringResource(R.string.ltc_sync_last_block, uiState.lastBlock),
                     modifier = Modifier.fillMaxWidth(),
                     style = BrainwalletTheme.typography.bodyMedium.copy(
                         color = Color.White.copy(alpha = 0.6f),
@@ -64,7 +65,7 @@ fun BalanceBentoSyncDetails(
                     )
                 )
                 Text(
-                    "Date: ${syncingState?.timeStamp}",
+                    stringResource(R.string.ltc_sync_date, syncingState?.timeStamp ?: ""),
                     modifier = Modifier.fillMaxWidth(),
                     style = BrainwalletTheme.typography.bodyMedium.copy(
                         color = Color.White.copy(alpha = 0.6f),
@@ -82,7 +83,10 @@ fun BalanceBentoSyncDetails(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "${((syncingState?.progress ?: 0.0) * 100).toInt()}%",
+                        text = stringResource(
+                            R.string.ltc_sync_progress_percentage,
+                            ((syncingState?.progress ?: 0.0) * 100).toInt()
+                        ),
                         style = BrainwalletTheme.typography.titleLarge.copy(
                             color = Color.White,
                             fontWeight = FontWeight.Bold
@@ -91,7 +95,10 @@ fun BalanceBentoSyncDetails(
 
                     if ((syncingState?.currentBlockHeight ?: 0) > 0) {
                         Text(
-                            text = "Block: ${syncingState?.currentBlockHeight}",
+                            text = stringResource(
+                                R.string.ltc_sync_block_height,
+                                syncingState?.currentBlockHeight ?: 0
+                            ),
                             style = BrainwalletTheme.typography.bodyMedium.copy(
                                 color = Color.White.copy(alpha = 0.6f)
                             )
@@ -128,7 +135,7 @@ private fun ActionButtonsSection(
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         ActionButton(
-            text = "Send",
+            text = stringResource(R.string.ltc_sync_action_send),
             iconRes = R.drawable.ic_send,
             iconTint = chili,
             onClick = onSendClick
@@ -137,7 +144,7 @@ private fun ActionButtonsSection(
         VerticalDivider()
 
         ActionButton(
-            text = "Receive",
+            text = stringResource(R.string.ltc_sync_action_receive),
             iconRes = R.drawable.ic_receive,
             iconTint = pesto,
             onClick = onReceiveClick

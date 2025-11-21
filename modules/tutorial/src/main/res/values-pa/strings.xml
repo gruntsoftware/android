@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Module: tutorial -->
+    
+    <!-- Grid Components -->
+    <string name="tutorial_grid_chip_label">ਟਿਊਟੋਰੀਅਲ</string>
+    <string name="tutorial_grid_default_title">ਸਿਰਫ਼ ਤੁਸੀਂ ਅਰਥ ਜਾਣਦੇ ਹੋ!</string>
+    <string name="tutorial_grid_default_body">ਆਪਣੇ ਸੀਡ ਵਾਕੰਸ਼ ਨੂੰ ਯਾਦ ਰੱਖੋ ਅਤੇ ਆਪਣੇ ਆਪ ਨੂੰ ਸਿਖਲਾਈ ਦਿਓ</string>
+</resources>
