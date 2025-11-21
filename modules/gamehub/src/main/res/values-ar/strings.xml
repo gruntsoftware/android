@@ -5,4 +5,8 @@
     <!-- Grid Components -->
     <string name="gamehub_grid_chip_label">مركز الألعاب</string>
     <string name="gamehub_grid_banner_content_description">لافتة اللعبة</string>
+    
+    <!-- FallingMoji Banner -->
+    <string name="gamehub_fallingmoji_title">FALLINMOJI</string>
+    <string name="gamehub_fallingmoji_subtitle">هل أنت جيد بما فيه الكفاية؟</string>
 </resources>

@@ -5,4 +5,8 @@
     <!-- Grid Components -->
     <string name="gamehub_grid_chip_label">游戏中心</string>
     <string name="gamehub_grid_banner_content_description">游戏横幅</string>
+    
+    <!-- FallingMoji Banner -->
+    <string name="gamehub_fallingmoji_title">FALLINMOJI</string>
+    <string name="gamehub_fallingmoji_subtitle">你够好吗？</string>
 </resources>

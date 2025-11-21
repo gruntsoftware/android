@@ -407,5 +407,18 @@ public class BRSharedPrefs {
         editor.putFloat(PREFERRED_FPRATE, preferredRate);
         editor.apply();
     }
+
+    public static long getLastPriceSyncTimestamp(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
+        return prefs.getLong("lastPriceSyncTime", 0);
+    }
+
+    public static void putLastPriceSyncTimestamp(Context context, long timestamp) {
+        if (context == null) return;
+        SharedPreferences prefs = context.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putLong("lastPriceSyncTime", timestamp);
+        editor.apply();
+    }
 }
 

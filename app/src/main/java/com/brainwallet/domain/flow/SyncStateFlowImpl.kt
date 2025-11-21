@@ -55,11 +55,15 @@ class SyncStateFlowImpl(
         currentBlockHeight: Int
     ) {
         upstream.update {
-            SyncState.Syncing(
-                progress = progress,
-                timeStamp = formattedTimestamp,
-                currentBlockHeight = currentBlockHeight
-            )
+            if (progress == 1.0) {
+                SyncState.Synced
+            } else {
+                SyncState.Syncing(
+                    progress = progress,
+                    timeStamp = formattedTimestamp,
+                    currentBlockHeight = currentBlockHeight
+                )
+            }
         }
         BRPeerManager.txStatusUpdate()
         promptStateFlow.onSyncProgress(progress)

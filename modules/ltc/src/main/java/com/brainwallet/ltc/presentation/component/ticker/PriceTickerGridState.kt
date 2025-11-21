@@ -12,19 +12,23 @@ import com.brainwallet.ltc.domain.model.TradingPairData
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 import org.koin.compose.koinInject
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @Composable
 fun rememberPriceTickerGridState(
     priceTickerStateFlow: PriceTickerStateFlow = koinInject(),
     currentCurrencyStateFlow: CurrentCurrencyStateFlow = koinInject()
 ): PriceTickerGridUiState {
-    val tradingPairs by priceTickerStateFlow.collectAsStateWithLifecycle()
+    val priceTickerState by priceTickerStateFlow.collectAsStateWithLifecycle()
     val currentCurrency by currentCurrencyStateFlow.collectAsStateWithLifecycle()
 
-    return remember(tradingPairs, currentCurrency) {
+    return remember(priceTickerState, currentCurrency) {
         PriceTickerGridUiState(
-            tradingPairs = tradingPairs,
-            currentCurrency = currentCurrency
+            tradingPairs = priceTickerState.tradingPairs,
+            currentCurrency = currentCurrency,
+            lastSyncTimestamp = priceTickerState.lastSyncTimestamp
         )
     }
 }
@@ -32,11 +36,21 @@ fun rememberPriceTickerGridState(
 @Stable
 class PriceTickerGridUiState(
     private val tradingPairs: PersistentList<TradingPairData> = persistentListOf(),
-    private val currentCurrency: String = ""
+    private val currentCurrency: String = "",
+    private val lastSyncTimestamp: Long = 0
 ) {
     val currentTradingPair: TradingPairData? by derivedStateOf {
         tradingPairs.firstOrNull { pair ->
             pair.pairSymbol.contains(currentCurrency, ignoreCase = true)
+        }
+    }
+
+    val formattedLastSyncTime: String by derivedStateOf {
+        if (lastSyncTimestamp == 0L) {
+            ""
+        } else {
+            val dateFormat = SimpleDateFormat("MMM dd 'at' hh:mma", Locale.getDefault())
+            dateFormat.format(Date(lastSyncTimestamp))
         }
     }
 }

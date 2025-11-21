@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import java.util.Locale
 
 private const val GRID_ALPHA = 0.4f
 
@@ -24,7 +25,7 @@ fun GridChip(text: String, modifier: Modifier = Modifier) {
         )
     ) {
         Text(
-            text,
+            text.uppercase(Locale.getDefault()),
             style = BrainwalletTheme.typography.labelMedium,
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
         )

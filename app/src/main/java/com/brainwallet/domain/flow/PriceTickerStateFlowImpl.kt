@@ -4,7 +4,9 @@ import android.content.Context
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.ltc.domain.flow.PriceTickerStateFlow
+import com.brainwallet.ltc.domain.model.PriceTickerState
 import com.brainwallet.ltc.domain.model.TradingPairData
+import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.util.BRCurrency
 import com.brainwallet.tools.util.BRExchange
 import kotlinx.collections.immutable.PersistentList
@@ -16,6 +18,7 @@ import kotlinx.coroutines.ExperimentalForInheritanceCoroutinesApi
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.annotation.Single
 import java.math.BigDecimal
@@ -26,11 +29,13 @@ import kotlin.collections.map
 class PriceTickerStateFlowImpl(
     private val context: Context,
     private val ltcRepository: LtcRepository,
-    // Using a default value here to avoid blocking the constructor, will refresh immediately in init
-    private val upstream: MutableStateFlow<PersistentList<TradingPairData>> = MutableStateFlow(
-        defaultTradingPairs
+    private val upstream: MutableStateFlow<PriceTickerState> = MutableStateFlow(
+        PriceTickerState(
+            tradingPairs = defaultTradingPairs,
+            lastSyncTimestamp = 0L
+        )
     )
-) : PriceTickerStateFlow, StateFlow<PersistentList<TradingPairData>> by upstream {
+) : PriceTickerStateFlow, StateFlow<PriceTickerState> by upstream {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     init {
@@ -39,15 +44,17 @@ class PriceTickerStateFlowImpl(
 
     override fun refreshPrices() {
         scope.launch {
-            // 1. Fetch fresh rates from the repository (this also updates the local DB internally)
             val rates = ltcRepository.fetchRates()
-
-            // 2. Map the results using legacy helpers to ensure consistency with existing math
             val tradingPairs = mapRatesToTradingPairs(rates)
+            val lastSyncTimestamp = BRSharedPrefs.getLastPriceSyncTimestamp(context)
 
-            // 3. Update the state flow
             if (tradingPairs.isNotEmpty()) {
-                upstream.value = tradingPairs
+                upstream.update {
+                    PriceTickerState(
+                        tradingPairs = tradingPairs,
+                        lastSyncTimestamp = lastSyncTimestamp
+                    )
+                }
             }
         }
     }

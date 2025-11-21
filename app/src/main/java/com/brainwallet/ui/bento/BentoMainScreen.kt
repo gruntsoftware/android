@@ -1,8 +1,8 @@
 package com.brainwallet.ui.bento
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.CubicBezierEasing
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -26,7 +26,9 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -39,23 +41,21 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.fragment.compose.AndroidFragment
 import androidx.fragment.compose.rememberFragmentState
 import com.brainwallet.design.presentation.component.effect.AnimatedLightBleedBackground
 import com.brainwallet.design.presentation.component.effect.DrawerOpacityContainer
 import com.brainwallet.design.presentation.component.effect.LightOpacityContainer
 import com.brainwallet.design.presentation.component.widget.BentoBottomNavBar
-import com.brainwallet.ltc.presentation.component.balance.BalanceBentoGrid
-import com.brainwallet.ltc.presentation.component.FavoriteGrid
-import com.brainwallet.ltc.presentation.component.ticker.PriceTickerGrid
-import com.brainwallet.ltc.presentation.component.transactionhistory.TransactionHistoryGrid
-import com.brainwallet.design.presentation.component.widget.BentoRailButton
 import com.brainwallet.design.presentation.component.widget.BentoDarkModeToggle
+import com.brainwallet.design.presentation.component.widget.BentoRailButton
 import com.brainwallet.design.presentation.state.DarkModeState
 import com.brainwallet.design.presentation.state.rememberDarkModeState
-import com.brainwallet.gamehub.presentation.component.GameHubGrid
+import com.brainwallet.gamehub.presentation.component.FallingMojiBanner
+import com.brainwallet.ltc.presentation.component.FavoriteGrid
+import com.brainwallet.ltc.presentation.component.balance.BalanceBentoGrid
+import com.brainwallet.ltc.presentation.component.ticker.PriceTickerGrid
+import com.brainwallet.ltc.presentation.component.transactionhistory.TransactionHistoryGrid
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.presenter.fragments.FragmentSend
 import com.brainwallet.tutorial.presentation.component.TutorialGrid
@@ -202,7 +202,7 @@ private fun BentoMainScreen(
                         }
                     }
                     item(span = { GridItemSpan(2) }) {
-                        GameHubGrid(modifier = Modifier.height(120.dp))
+                        FallingMojiBanner()
                     }
                 }
             }

@@ -5,4 +5,8 @@
     <!-- Grid Components -->
     <string name="gamehub_grid_chip_label">ਗੇਮ ਹੱਬ</string>
     <string name="gamehub_grid_banner_content_description">ਗੇਮ ਬੈਨਰ</string>
+    
+    <!-- FallingMoji Banner -->
+    <string name="gamehub_fallingmoji_title">FALLINMOJI</string>
+    <string name="gamehub_fallingmoji_subtitle">ਕੀ ਤੁਸੀਂ ਕਾਫ਼ੀ ਚੰਗੇ ਹੋ?</string>
 </resources>

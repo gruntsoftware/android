@@ -5,4 +5,8 @@
     <!-- Grid Components -->
     <string name="gamehub_grid_chip_label">Centre de Jeux</string>
     <string name="gamehub_grid_banner_content_description">Bannière de Jeu</string>
+    
+    <!-- FallingMoji Banner -->
+    <string name="gamehub_fallingmoji_title">FALLINMOJI</string>
+    <string name="gamehub_fallingmoji_subtitle">ÊTES-VOUS ASSEZ BON?</string>
 </resources>

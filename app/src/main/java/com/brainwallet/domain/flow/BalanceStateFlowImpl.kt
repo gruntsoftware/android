@@ -24,7 +24,8 @@ class BalanceStateFlowImpl(
         ).let { value ->
             BalanceState(
                 getFormattedLTC(context, value),
-                getFormattedLTCAsCurrency(context, value)
+                getFormattedLTCAsCurrency(context, value),
+                value
             )
         }
     )
@@ -48,7 +49,8 @@ class BalanceStateFlowImpl(
             balance.let { value ->
                 BalanceState(
                     getFormattedLTC(context, value),
-                    getFormattedLTCAsCurrency(context, value)
+                    getFormattedLTCAsCurrency(context, value),
+                    value
                 )
             }
         }
