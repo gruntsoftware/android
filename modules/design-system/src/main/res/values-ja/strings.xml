@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Module: design-system -->
+    
+    <!-- Menu Components -->
+    <string name="design_menu_blockchain_title">ブロックチェーン</string>
+    <string name="design_menu_blockchain_fee_type">手数料タイプ: %1$s</string>
+    <string name="design_menu_blockchain_fee_regular">通常</string>
+    <string name="design_menu_currency_title">通貨</string>
+    <string name="design_menu_currency_default">USD</string>
+    <string name="design_menu_games_title">ゲーム</string>
+    <string name="design_menu_games_description">エンターテイメント機能</string>
+    <string name="design_menu_language_title">言語</string>
+    <string name="design_menu_language_default">英語</string>
+    <string name="design_menu_lock_title">ロック</string>
+    <string name="design_menu_lock_description">アプリセキュリティロック</string>
+    <string name="design_menu_security_title">セキュリティ</string>
+    <string name="design_menu_security_analytics_enabled">分析共有が有効</string>
+    <string name="design_menu_security_analytics_disabled">分析共有が無効</string>
+    <string name="design_menu_social_media_title">ソーシャルメディア</string>
+    <string name="design_menu_social_media_link" translatable="false">linktr.ee/brainwallet</string>
+    <string name="design_menu_support_title">サポート</string>
+    <string name="design_menu_support_link" translatable="false">brainwallet.co/support.html</string>
+    <string name="design_menu_sync_metadata_title">同期メタデータ</string>
+    <string name="design_menu_sync_metadata_no_data">同期メタデータなし</string>
+    <string name="design_menu_sync_metadata_last_sync">最終同期: %1$s</string>
+    
+    <!-- Rail Components -->
+    <string name="design_rail_learning_banner_text">学習バナー</string>
+    
+    <!-- Bottom Navigation -->
+    <string name="design_bottom_nav_send">送信</string>
+    <string name="design_bottom_nav_buy_receive">購入/受信</string>
+    <string name="design_bottom_nav_game_hub">ゲームハブ</string>
+    <string name="design_bottom_nav_history">履歴</string>
+</resources>

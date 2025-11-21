@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Module: design-system -->
+    
+    <!-- Menu Components -->
+    <string name="design_menu_blockchain_title">Blockchain</string>
+    <string name="design_menu_blockchain_fee_type">Tipo di commissione: %1$s</string>
+    <string name="design_menu_blockchain_fee_regular">Regolare</string>
+    <string name="design_menu_currency_title">Valuta</string>
+    <string name="design_menu_currency_default">USD</string>
+    <string name="design_menu_games_title">Giochi</string>
+    <string name="design_menu_games_description">Funzionalità di intrattenimento</string>
+    <string name="design_menu_language_title">Lingua</string>
+    <string name="design_menu_language_default">Inglese</string>
+    <string name="design_menu_lock_title">Blocco</string>
+    <string name="design_menu_lock_description">Blocco di sicurezza dell\'app</string>
+    <string name="design_menu_security_title">Sicurezza</string>
+    <string name="design_menu_security_analytics_enabled">Condivisione analisi abilitata</string>
+    <string name="design_menu_security_analytics_disabled">Condivisione analisi disabilitata</string>
+    <string name="design_menu_social_media_title">Social Media</string>
+    <string name="design_menu_social_media_link" translatable="false">linktr.ee/brainwallet</string>
+    <string name="design_menu_support_title">Supporto</string>
+    <string name="design_menu_support_link" translatable="false">brainwallet.co/support.html</string>
+    <string name="design_menu_sync_metadata_title">Metadati di Sincronizzazione</string>
+    <string name="design_menu_sync_metadata_no_data">Nessun metadato di sincronizzazione</string>
+    <string name="design_menu_sync_metadata_last_sync">Ultima sincronizzazione: %1$s</string>
+    
+    <!-- Rail Components -->
+    <string name="design_rail_learning_banner_text">Banner di Apprendimento</string>
+    
+    <!-- Bottom Navigation -->
+    <string name="design_bottom_nav_send">Invia</string>
+    <string name="design_bottom_nav_buy_receive">Acquista/Ricevi</string>
+    <string name="design_bottom_nav_game_hub">Hub Giochi</string>
+    <string name="design_bottom_nav_history">Cronologia</string>
+</resources>

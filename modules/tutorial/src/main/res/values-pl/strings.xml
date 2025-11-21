@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Module: tutorial -->
+    
+    <!-- Grid Components -->
+    <string name="tutorial_grid_chip_label">SAMOUCZKI</string>
+    <string name="tutorial_grid_default_title">Tylko ty znasz znaczenie!</string>
+    <string name="tutorial_grid_default_body">Zapamiętaj swoją frazę seed i trenuj się</string>
+</resources>

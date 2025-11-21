@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Module: ltc -->
+    
+    <!-- Balance Components -->
+    <string name="ltc_balance_header_title">ВАШ БАЛАНС</string>
+    <string name="ltc_balance_hide_content_description">Приховати баланс</string>
+    <string name="ltc_balance_show_content_description">Показати баланс</string>
+    <string name="ltc_balance_litecoin_content_description">Лайткоїн</string>
+    
+    <!-- Sync Components -->
+    <string name="ltc_sync_syncing_status">Синхронізація…</string>
+    <string name="ltc_sync_progress_percentage">%1$d%%</string>
+    <string name="ltc_sync_block_height">Блок: %1$d</string>
+    <string name="ltc_sync_last_block">Останній блок: %1$s</string>
+    <string name="ltc_sync_date">Дата: %1$s</string>
+    <string name="ltc_sync_action_send">Надіслати</string>
+    <string name="ltc_sync_action_receive">Отримати</string>
+    
+    <!-- Transaction History Components -->
+    <string name="ltc_transaction_history_title">ІСТОРІЯ ТРАНЗАКЦІЙ</string>
+    <string name="ltc_transaction_history_empty">Поки немає транзакцій</string>
+    <string name="ltc_transaction_export_content_description">Експорт</string>
+    <string name="ltc_transaction_received_content_description">Отримано</string>
+    <string name="ltc_transaction_sent_content_description">Надіслано</string>
+    <string name="ltc_transaction_from_address">від %1$s</string>
+    <string name="ltc_transaction_to_address">до %1$s</string>
+    <string name="ltc_transaction_unknown_address">невідомо</string>
+    
+    <!-- Favorite Contacts Components -->
+    <string name="ltc_favorite_chip_label">ЦІЛКОМ ТАЄМНО</string>
+    <string name="ltc_favorite_add_contact_description">Додати улюблений контакт</string>
+</resources>

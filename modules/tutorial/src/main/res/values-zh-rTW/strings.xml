@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Module: tutorial -->
+    
+    <!-- Grid Components -->
+    <string name="tutorial_grid_chip_label">教學</string>
+    <string name="tutorial_grid_default_title">只有你知道含義！</string>
+    <string name="tutorial_grid_default_body">記住你的助記詞並訓練自己</string>
+</resources>

@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -28,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brainwallet.design.presentation.component.effect.CardOpacityContainer
 import com.brainwallet.design.presentation.component.widget.GridChip
+import com.brainwallet.ltc.R
 import com.brainwallet.design.R as DesignR
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import com.grunt.brainwallet.core.presentation.theme.blue
@@ -55,7 +57,7 @@ fun FavoriteGrid(
                 .padding(20.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            GridChip("TOP SECRET", modifier = Modifier.padding(bottom = 3.dp))
+            GridChip(stringResource(R.string.ltc_favorite_chip_label), modifier = Modifier.padding(bottom = 3.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(-16.dp),
@@ -119,7 +121,7 @@ private fun AddContactButton(
     ) {
         Icon(
             painter = painterResource(id = DesignR.drawable.ic_plus),
-            contentDescription = "Add favorite contact",
+            contentDescription = stringResource(R.string.ltc_favorite_add_contact_description),
             tint = BrainwalletTheme.colors.content.copy(alpha = 0.7f),
             modifier = Modifier.size(16.dp)
         )

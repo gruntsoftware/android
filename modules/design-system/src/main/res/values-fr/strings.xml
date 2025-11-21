@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Module: design-system -->
+    
+    <!-- Menu Components -->
+    <string name="design_menu_blockchain_title">Blockchain</string>
+    <string name="design_menu_blockchain_fee_type">Type de frais : %1$s</string>
+    <string name="design_menu_blockchain_fee_regular">Régulier</string>
+    <string name="design_menu_currency_title">Devise</string>
+    <string name="design_menu_currency_default">USD</string>
+    <string name="design_menu_games_title">Jeux</string>
+    <string name="design_menu_games_description">Fonctionnalités de divertissement</string>
+    <string name="design_menu_language_title">Langue</string>
+    <string name="design_menu_language_default">Anglais</string>
+    <string name="design_menu_lock_title">Verrouillage</string>
+    <string name="design_menu_lock_description">Verrouillage de sécurité de l\'application</string>
+    <string name="design_menu_security_title">Sécurité</string>
+    <string name="design_menu_security_analytics_enabled">Partage des analyses activé</string>
+    <string name="design_menu_security_analytics_disabled">Partage des analyses désactivé</string>
+    <string name="design_menu_social_media_title">Réseaux Sociaux</string>
+    <string name="design_menu_social_media_link" translatable="false">linktr.ee/brainwallet</string>
+    <string name="design_menu_support_title">Support</string>
+    <string name="design_menu_support_link" translatable="false">brainwallet.co/support.html</string>
+    <string name="design_menu_sync_metadata_title">Métadonnées de Synchronisation</string>
+    <string name="design_menu_sync_metadata_no_data">Aucune métadonnée de synchronisation</string>
+    <string name="design_menu_sync_metadata_last_sync">Dernière synchronisation : %1$s</string>
+    
+    <!-- Rail Components -->
+    <string name="design_rail_learning_banner_text">Bannière d\'Apprentissage</string>
+    
+    <!-- Bottom Navigation -->
+    <string name="design_bottom_nav_send">Envoyer</string>
+    <string name="design_bottom_nav_buy_receive">Acheter/Recevoir</string>
+    <string name="design_bottom_nav_game_hub">Centre de Jeux</string>
+    <string name="design_bottom_nav_history">Historique</string>
+</resources>

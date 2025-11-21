@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Module: design-system -->
+    
+    <!-- Menu Components -->
+    <string name="design_menu_blockchain_title">Blockchain</string>
+    <string name="design_menu_blockchain_fee_type">Jenis biaya: %1$s</string>
+    <string name="design_menu_blockchain_fee_regular">Reguler</string>
+    <string name="design_menu_currency_title">Mata Uang</string>
+    <string name="design_menu_currency_default">USD</string>
+    <string name="design_menu_games_title">Permainan</string>
+    <string name="design_menu_games_description">Fitur hiburan</string>
+    <string name="design_menu_language_title">Bahasa</string>
+    <string name="design_menu_language_default">Inggris</string>
+    <string name="design_menu_lock_title">Kunci</string>
+    <string name="design_menu_lock_description">Kunci keamanan aplikasi</string>
+    <string name="design_menu_security_title">Keamanan</string>
+    <string name="design_menu_security_analytics_enabled">Berbagi analitik diaktifkan</string>
+    <string name="design_menu_security_analytics_disabled">Berbagi analitik dinonaktifkan</string>
+    <string name="design_menu_social_media_title">Media Sosial</string>
+    <string name="design_menu_social_media_link" translatable="false">linktr.ee/brainwallet</string>
+    <string name="design_menu_support_title">Dukungan</string>
+    <string name="design_menu_support_link" translatable="false">brainwallet.co/support.html</string>
+    <string name="design_menu_sync_metadata_title">Metadata Sinkronisasi</string>
+    <string name="design_menu_sync_metadata_no_data">Tidak ada metadata sinkronisasi</string>
+    <string name="design_menu_sync_metadata_last_sync">Sinkronisasi terakhir: %1$s</string>
+    
+    <!-- Rail Components -->
+    <string name="design_rail_learning_banner_text">Banner Pembelajaran</string>
+    
+    <!-- Bottom Navigation -->
+    <string name="design_bottom_nav_send">Kirim</string>
+    <string name="design_bottom_nav_buy_receive">Beli/Terima</string>
+    <string name="design_bottom_nav_game_hub">Pusat Game</string>
+    <string name="design_bottom_nav_history">Riwayat</string>
+</resources>

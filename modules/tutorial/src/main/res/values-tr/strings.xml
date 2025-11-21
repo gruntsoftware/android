@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Module: tutorial -->
+    
+    <!-- Grid Components -->
+    <string name="tutorial_grid_chip_label">EĞİTİMLER</string>
+    <string name="tutorial_grid_default_title">Sadece sen anlamı biliyorsun!</string>
+    <string name="tutorial_grid_default_body">Tohum ifadenizi hatırlayın ve kendinizi eğitin</string>
+</resources>

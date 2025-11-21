@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Module: design-system -->
+    
+    <!-- Menu Components -->
+    <string name="design_menu_blockchain_title">البلوكشين</string>
+    <string name="design_menu_blockchain_fee_type">نوع الرسوم: %1$s</string>
+    <string name="design_menu_blockchain_fee_regular">عادي</string>
+    <string name="design_menu_currency_title">العملة</string>
+    <string name="design_menu_currency_default">دولار أمريكي</string>
+    <string name="design_menu_games_title">الألعاب</string>
+    <string name="design_menu_games_description">ميزات الترفيه</string>
+    <string name="design_menu_language_title">اللغة</string>
+    <string name="design_menu_language_default">الإنجليزية</string>
+    <string name="design_menu_lock_title">القفل</string>
+    <string name="design_menu_lock_description">قفل أمان التطبيق</string>
+    <string name="design_menu_security_title">الأمان</string>
+    <string name="design_menu_security_analytics_enabled">مشاركة التحليلات مفعلة</string>
+    <string name="design_menu_security_analytics_disabled">مشاركة التحليلات معطلة</string>
+    <string name="design_menu_social_media_title">وسائل التواصل الاجتماعي</string>
+    <string name="design_menu_social_media_link" translatable="false">linktr.ee/brainwallet</string>
+    <string name="design_menu_support_title">الدعم</string>
+    <string name="design_menu_support_link" translatable="false">brainwallet.co/support.html</string>
+    <string name="design_menu_sync_metadata_title">بيانات المزامنة</string>
+    <string name="design_menu_sync_metadata_no_data">لا توجد بيانات مزامنة</string>
+    <string name="design_menu_sync_metadata_last_sync">آخر مزامنة: %1$s</string>
+    
+    <!-- Rail Components -->
+    <string name="design_rail_learning_banner_text">لافتة التعلم</string>
+    
+    <!-- Bottom Navigation -->
+    <string name="design_bottom_nav_send">إرسال</string>
+    <string name="design_bottom_nav_buy_receive">شراء/استقبال</string>
+    <string name="design_bottom_nav_game_hub">مركز الألعاب</string>
+    <string name="design_bottom_nav_history">السجل</string>
+</resources>

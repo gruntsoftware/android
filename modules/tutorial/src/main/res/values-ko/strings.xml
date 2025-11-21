@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Module: tutorial -->
+    
+    <!-- Grid Components -->
+    <string name="tutorial_grid_chip_label">튜토리얼</string>
+    <string name="tutorial_grid_default_title">당신만이 의미를 알고 있습니다!</string>
+    <string name="tutorial_grid_default_body">시드 문구를 기억하고 스스로 훈련하세요</string>
+</resources>

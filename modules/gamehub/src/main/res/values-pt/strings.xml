@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Module: gamehub -->
+    
+    <!-- Grid Components -->
+    <string name="gamehub_grid_chip_label">Centro de Jogos</string>
+    <string name="gamehub_grid_banner_content_description">Banner do Jogo</string>
+</resources>

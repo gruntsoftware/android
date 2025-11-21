@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Module: tutorial -->
+    
+    <!-- Grid Components -->
+    <string name="tutorial_grid_chip_label">HANDLEDNINGAR</string>
+    <string name="tutorial_grid_default_title">Bara du känner till betydelsen!</string>
+    <string name="tutorial_grid_default_body">Kom ihåg din seed-fras och träna dig själv</string>
+</resources>
