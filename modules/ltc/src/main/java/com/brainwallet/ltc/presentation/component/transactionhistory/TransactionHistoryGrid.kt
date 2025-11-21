@@ -22,10 +22,11 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,7 +44,7 @@ import com.brainwallet.ltc.domain.flow.TransactionFlow
 import com.brainwallet.ltc.domain.model.TxItem
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import com.grunt.brainwallet.core.presentation.util.toLtcStringFormatted
-import com.grunt.brainwallet.iap.presentation.screen.ExportTrxSheet
+import kotlinx.collections.immutable.PersistentList
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.text.SimpleDateFormat
@@ -56,16 +57,23 @@ import com.brainwallet.design.R as DesignR
 @Composable
 fun TransactionHistoryGrid(
     modifier: Modifier = Modifier,
+    shouldShowExport: Boolean = true,
     uiState: TransactionHistoryGridUiState = rememberTransactionHistoryGridState(),
-    onTransactionClick: (TxItem) -> Unit = {}
+    onTransactionChange: (PersistentList<TxItem>) -> Unit = {},
+    onTransactionClick: (TxItem) -> Unit = {},
+    onExportClick: () -> Unit = {},
+    onSnappedTransactionChanged: (TxItem?) -> Unit = {}
 ) {
     val transactions = uiState.transactions
+    LaunchedEffect(transactions) {
+        onTransactionChange(transactions)
+    }
 
     CardOpacityContainer(
         modifier = modifier.fillMaxWidth()
     ) {
         AnimatedVisibility(
-            uiState.transactions.isNotEmpty(),
+            uiState.transactions.isNotEmpty() && shouldShowExport,
             modifier = Modifier
                 .align(Alignment.TopEnd)
                 .padding(16.dp)
@@ -73,7 +81,7 @@ fun TransactionHistoryGrid(
             OpacityContainer(
                 shape = CircleShape,
                 modifier = Modifier.clickable {
-                    uiState.toggleShowExport()
+                    onExportClick()
                 }
             ) {
                 Icon(
@@ -115,6 +123,24 @@ fun TransactionHistoryGrid(
                 val lazyListState = rememberLazyListState()
                 val snapFlingBehavior = rememberSnapFlingBehavior(lazyListState = lazyListState)
 
+                val snappedTransaction by remember {
+                    derivedStateOf {
+                        val layoutInfo = lazyListState.layoutInfo
+                        val visibleItems = layoutInfo.visibleItemsInfo
+                        if (visibleItems.isEmpty()) return@derivedStateOf null
+
+                        val viewportCenter = layoutInfo.viewportStartOffset + layoutInfo.viewportSize.height / 2
+                        visibleItems.minByOrNull { item ->
+                            val itemCenter = item.offset + item.size / 2
+                            kotlin.math.abs(itemCenter - viewportCenter)
+                        }?.index?.let { transactions.getOrNull(it) }
+                    }
+                }
+
+                LaunchedEffect(snappedTransaction) {
+                    onSnappedTransactionChanged(snappedTransaction)
+                }
+
                 LazyColumn(
                     state = lazyListState,
                     flingBehavior = snapFlingBehavior,
@@ -130,22 +156,6 @@ fun TransactionHistoryGrid(
                     }
                 }
             }
-        }
-    }
-
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-
-    if (uiState.showExportDialog) {
-        ModalBottomSheet(
-            sheetState = sheetState,
-            containerColor = BrainwalletTheme.colors.surface,
-            contentColor = BrainwalletTheme.colors.content,
-            onDismissRequest = { uiState.toggleShowExport() }
-        ) {
-            ExportTrxSheet(
-                transactions = uiState.exportedTransaction,
-                modifier = Modifier.fillMaxWidth()
-            )
         }
     }
 }
