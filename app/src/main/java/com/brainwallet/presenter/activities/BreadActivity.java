@@ -84,33 +84,33 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     public static final Point screenParametersPoint = new Point();
     private static final float PRIMARY_TEXT_SIZE = 24f;
     private static final float SECONDARY_TEXT_SIZE = 12.8f;
-    private int mSelectedBottomNavItem = -1;
+    protected int mSelectedBottomNavItem = -1;
 
-    private InternetManager mConnectionReceiver;
-    private Button primaryPrice;
-    private Button secondaryPrice;
-    private TextView equals;
-    private ImageButton menuBut;
-    private TextView balanceTxtV;
+    protected InternetManager mConnectionReceiver;
+    protected Button primaryPrice;
+    protected Button secondaryPrice;
+    protected TextView equals;
+    protected ImageButton menuBut;
+    protected TextView balanceTxtV;
 
     public static boolean appVisible = false;
     public ViewFlipper barFlipper;
-    private ConstraintLayout toolBarConstraintLayout;
-    private boolean uiIsDone;
+    protected ConstraintLayout toolBarConstraintLayout;
+    protected boolean uiIsDone;
 
     private static BreadActivity app;
-    private BottomNavigationView bottomNav;
+    protected BottomNavigationView bottomNav;
 
-    private Handler mHandler = new Handler();
-    private NavigationView navigationDrawer;
-    private DrawerLayout drawerLayout;
-    private HomeSettingDrawerComposeView homeSettingDrawerComposeView;
+    protected Handler mHandler = new Handler();
+    protected NavigationView navigationDrawer;
+    protected DrawerLayout drawerLayout;
+    protected HomeSettingDrawerComposeView homeSettingDrawerComposeView;
 
     public static BreadActivity getApp() {
         return app;
     }
 
-    private final ActivityResultLauncher<String> requestNotificationPermissionLauncher =
+    protected final ActivityResultLauncher<String> requestNotificationPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
                 if (isGranted) {
                     Toast.makeText(app, R.string.permission_notification_granted, Toast.LENGTH_SHORT).show();
@@ -120,7 +120,15 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupContentView();
+        onCreateAfterSetContent(savedInstanceState);
+    }
+
+    protected void setupContentView() {
         setContentView(R.layout.activity_bread);
+    }
+
+    protected void onCreateAfterSetContent(Bundle savedInstanceState) {
         AnalyticsManager.logCustomEvent(BRConstants._HOME_OPEN);
 
         app = this;
@@ -132,21 +140,28 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         setUpBarFlipper();
         checkTransactionDatabase();
 
-        primaryPrice.setTextSize(PRIMARY_TEXT_SIZE);
-        secondaryPrice.setTextSize(SECONDARY_TEXT_SIZE);
+        if (primaryPrice != null) {
+            primaryPrice.setTextSize(PRIMARY_TEXT_SIZE);
+        }
+        if (secondaryPrice != null) {
+            secondaryPrice.setTextSize(SECONDARY_TEXT_SIZE);
+        }
 
         finishActivities(SetPinActivity.introSetPitActivity, ReEnterPinActivity.reEnterPinActivity);
 
         onConnectionChanged(InternetManager.getInstance().isConnected(this));
 
         updateUI();
-        bottomNav.setSelectedItemId(R.id.nav_history);
+        
+        if (bottomNav != null) {
+            bottomNav.setSelectedItemId(R.id.nav_history);
+        }
 
         setupNotificationPermission();
         showInAppReviewDialogIfNeeded();
     }
 
-    private void setupNotificationPermission() {
+    protected void setupNotificationPermission() {
         //https://developer.android.com/develop/ui/views/notifications/notification-permission
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
             return;
@@ -170,13 +185,13 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         }
     }
 
-    private void finishActivities(BRActivity... activities) {
+    protected void finishActivities(BRActivity... activities) {
         for (BRActivity activity : activities) {
             if (activity != null) activity.finish();
         }
     }
 
-    private void showInAppReviewDialogIfNeeded() {
+    protected void showInAppReviewDialogIfNeeded() {
         if (!BRSharedPrefs.isInAppReviewDone(this) && BRSharedPrefs.getSendTransactionCount(this) > 2) {
             ReviewManager manager = ReviewManagerFactory.create(this);
             Task<ReviewInfo> request = manager.requestReviewFlow();
@@ -202,17 +217,17 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         }
     }
 
-    private void addObservers() {
+    protected void addObservers() {
         BRWalletManager.getInstance().addBalanceChangedListener(this);
         BRSharedPrefs.addIsoChangedListener(this);
     }
 
-    private void removeObservers() {
+    protected void removeObservers() {
         BRWalletManager.getInstance().removeListener(this);
         BRSharedPrefs.removeListener(this);
     }
 
-    private void setUrlHandler(Intent intent) {
+    protected void setUrlHandler(Intent intent) {
         Uri data = intent.getData();
         if (data == null) return;
         String scheme = data.getScheme();
@@ -228,7 +243,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         setUrlHandler(intent);
     }
 
-    private void setListeners() {
+    protected void setListeners() {
+        if (bottomNav == null) return;
+        
         bottomNav.setOnNavigationItemSelectedListener(item -> handleNavigationItemSelected(item.getItemId()));
 
         primaryPrice.setOnClickListener(v -> swap());
@@ -240,7 +257,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         });
     }
 
-    public boolean handleNavigationItemSelected(int menuItemId) {
+    protected boolean handleNavigationItemSelected(int menuItemId) {
         if (mSelectedBottomNavItem == menuItemId) return true;
         mSelectedBottomNavItem = menuItemId;
 
@@ -274,7 +291,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         return true;
     }
 
-    private void swap() {
+    protected void swap() {
         if (!BRAnimator.isClickAllowed()) return;
         boolean b = !BRSharedPrefs.getPreferredLTC(this);
         setPriceTags(b, true);
@@ -282,7 +299,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         BRSharedPrefs.notifyIsoChanged("");
     }
 
-    private void setPriceTags(boolean ltcPreferred, boolean animate) {
+    protected void setPriceTags(boolean ltcPreferred, boolean animate) {
+        if (toolBarConstraintLayout == null) return;
+        
         ConstraintSet set = new ConstraintSet();
         set.clone(toolBarConstraintLayout);
 
@@ -338,11 +357,13 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         mHandler.postDelayed(() -> updateUI(), toolBarConstraintLayout.getLayoutTransition().getDuration(LayoutTransition.CHANGING));
     }
 
-    private void checkTransactionDatabase() {
+    protected void checkTransactionDatabase() {
 
     }
 
-    private void setUpBarFlipper() {
+    protected void setUpBarFlipper() {
+        if (barFlipper == null) return;
+        
         barFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.flipper_enter));
         barFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.flipper_exit));
     }
@@ -370,7 +391,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         BRWalletManager.getInstance().refreshBalance(this);
     }
 
-    private void setupNetworking() {
+    protected void setupNetworking() {
         if (mConnectionReceiver == null) mConnectionReceiver = InternetManager.getInstance();
         IntentFilter mNetworkStateFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(mConnectionReceiver, mNetworkStateFilter);
@@ -390,8 +411,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         unregisterReceiver(mConnectionReceiver);
     }
 
-    private void initializeViews() {
+    protected void initializeViews() {
         menuBut = findViewById(R.id.menuBut);
+        if (menuBut == null) return;
 
         navigationDrawer = findViewById(R.id.navigationDrawer);
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -453,6 +475,8 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     }
 
     public void updateUI() {
+        if (primaryPrice == null || secondaryPrice == null) return;
+        
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
             Thread.currentThread().setName(Thread.currentThread().getName() + ":updateUI");
             //sleep a little in order to make sure all the commits are finished (like SharePreferences commits)
@@ -468,8 +492,10 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
             final BigDecimal curAmount = BRExchange.getAmountFromLitoshis(BreadActivity.this, iso, amount);
             final String formattedCurAmount = BRCurrency.getFormattedCurrencyString(BreadActivity.this, iso, curAmount);
             runOnUiThread(() -> {
-                primaryPrice.setText(formattedBTCAmount);
-                secondaryPrice.setText(String.format("%s", formattedCurAmount));
+                if (primaryPrice != null && secondaryPrice != null) {
+                    primaryPrice.setText(formattedBTCAmount);
+                    secondaryPrice.setText(String.format("%s", formattedCurAmount));
+                }
             });
         });
     }

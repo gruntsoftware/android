@@ -28,10 +28,14 @@ class BalanceStateFlowImpl(
             )
         }
     )
-) : BalanceStateFlow, StateFlow<BalanceState> by upstream, BRWalletManager.OnBalanceChanged {
+) : BalanceStateFlow,
+    StateFlow<BalanceState> by upstream,
+    BRWalletManager.OnBalanceChanged,
+    BRSharedPrefs.OnIsoChangedListener {
 
     init {
         BRWalletManager.getInstance().addBalanceChangedListener(this)
+        BRSharedPrefs.addIsoChangedListener(this)
         refreshBalance()
     }
 
@@ -48,6 +52,10 @@ class BalanceStateFlowImpl(
                 )
             }
         }
+    }
+
+    override fun onIsoChanged(iso: String?) {
+        refreshBalance()
     }
 }
 
