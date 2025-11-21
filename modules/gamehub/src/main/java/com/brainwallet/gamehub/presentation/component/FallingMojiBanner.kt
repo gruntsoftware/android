@@ -1,7 +1,9 @@
 package com.brainwallet.gamehub.presentation.component
 
+import android.content.Intent
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -25,6 +27,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -36,6 +39,7 @@ import com.brainwallet.design.presentation.component.effect.MediumOpacityContain
 import com.brainwallet.design.presentation.component.widget.GridChip
 import com.brainwallet.gamehub.R
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.grunt.brainwallet.games.GamesActivity
 import kotlin.random.Random
 
 @Composable
@@ -44,9 +48,15 @@ fun FallingMojiBanner(
 ) {
     val DeepPurple = Color(0xFF120524)
     val BrightPurple = Color(0xFF2A0E55)
-
+    val context = LocalContext.current
     MediumOpacityContainer(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable {
+                context.startActivity(
+                    Intent(context, GamesActivity::class.java)
+                )
+            }
     ) {
         Box(
             modifier = Modifier
@@ -64,25 +74,33 @@ fun FallingMojiBanner(
             Box(modifier = Modifier.fillMaxSize()) {
                 FallingItem(
                     emoji = "🍊",
-                    modifier = Modifier.align(Alignment.TopCenter).offset(x = 60.dp, y = 40.dp),
+                    modifier = Modifier
+                        .align(Alignment.TopCenter)
+                        .offset(x = 60.dp, y = 40.dp),
                     trailHeight = 80.dp
                 )
 
                 FallingItem(
                     emoji = "🍌",
-                    modifier = Modifier.align(Alignment.BottomCenter).offset(x = 30.dp, y = (-10).dp),
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .offset(x = 30.dp, y = (-10).dp),
                     trailHeight = 60.dp
                 )
 
                 FallingItem(
                     emoji = "🍍",
-                    modifier = Modifier.align(Alignment.TopEnd).offset(x = (-20).dp, y = 25.dp),
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .offset(x = (-20).dp, y = 25.dp),
                     trailHeight = 100.dp
                 )
 
                 FallingItem(
                     emoji = "🍎",
-                    modifier = Modifier.align(Alignment.BottomEnd).offset(x = (-40).dp, y = (-10).dp),
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .offset(x = (-40).dp, y = (-10).dp),
                     trailHeight = 70.dp
                 )
             }
@@ -199,7 +217,11 @@ private fun StarryBackground() {
 @Preview(widthDp = 400)
 private fun FallingMojiBannerPreview() {
     BrainwalletTheme(isSystemInDarkTheme()) {
-        Box(Modifier.background(Color(0xFF121212)).padding(16.dp)) {
+        Box(
+            Modifier
+                .background(Color(0xFF121212))
+                .padding(16.dp)
+        ) {
             FallingMojiBanner()
         }
     }

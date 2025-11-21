@@ -58,6 +58,7 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":iap"))
     implementation(project(":modules:design-system"))
+    implementation(project(":games"))
     implementation(platform(grunt.androidx.compose.bom))
     implementation(grunt.bundles.androidx.compose)
     implementation(grunt.androidx.core.ktx)

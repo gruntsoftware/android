@@ -5,4 +5,5 @@ import androidx.compose.runtime.Stable
 @Stable
 interface LtcNavigation {
     fun navigateToBuyLiteCoinScreen()
+    fun navigateToGames()
 }
