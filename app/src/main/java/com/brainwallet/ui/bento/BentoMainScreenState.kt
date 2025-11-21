@@ -6,6 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import com.brainwallet.ltc.presentation.navigation.LtcNavigation
 import com.brainwallet.navigation.OnNavigate
 import org.koin.compose.koinInject
@@ -13,7 +14,10 @@ import org.koin.core.parameter.parametersOf
 
 @Composable
 fun rememberBentoMainScreenState(onNavigate: OnNavigate): BentoMainScreenState {
-    val ltcNavigation: LtcNavigation = koinInject { parametersOf(onNavigate) }
+    val context = LocalContext.current
+    val ltcNavigation: LtcNavigation = koinInject {
+        parametersOf(context, onNavigate)
+    }
     return remember {
         BentoMainScreenState(
             ltcNavigation = ltcNavigation
@@ -49,6 +53,9 @@ class BentoMainScreenState(
         }
         if (route == "send") {
             sheetType = SheetType.SEND
+        }
+        if (route == "game_hub") {
+            ltcNavigation?.navigateToGames()
         }
     }
 
