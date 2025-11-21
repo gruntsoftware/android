@@ -4,8 +4,6 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.animation.core.tween
-import android.net.Uri
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -48,8 +46,6 @@ import androidx.fragment.compose.rememberFragmentState
 import com.brainwallet.design.presentation.component.effect.AnimatedLightBleedBackground
 import com.brainwallet.design.presentation.component.effect.DrawerOpacityContainer
 import com.brainwallet.design.presentation.component.effect.LightOpacityContainer
-import com.brainwallet.design.presentation.component.rail.BentoRail
-import com.brainwallet.design.presentation.component.rail.rememberBentoRailStateWithProvider
 import com.brainwallet.design.presentation.component.widget.BentoBottomNavBar
 import com.brainwallet.ltc.presentation.component.balance.BalanceBentoGrid
 import com.brainwallet.ltc.presentation.component.FavoriteGrid
@@ -62,10 +58,9 @@ import com.brainwallet.design.presentation.state.rememberDarkModeState
 import com.brainwallet.gamehub.presentation.component.GameHubGrid
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.presenter.fragments.FragmentSend
-import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.tutorial.presentation.component.TutorialGrid
-import com.brainwallet.ui.screens.home.SettingsEvent
 import com.brainwallet.ui.screens.home.SettingsViewModel
+import com.brainwallet.ui.screens.home.composable.HomeSettingDrawerSheet
 import com.brainwallet.ui.screens.home.receive.ReceiveDialog
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import org.koin.compose.viewmodel.koinViewModel
@@ -223,40 +218,7 @@ private fun BentoMainScreen(
             DrawerOpacityContainer(
                 modifier = Modifier.fillMaxSize()
             ) {
-                BentoRail(
-                    uiState = rememberBentoRailStateWithProvider(),
-                    modifier = Modifier
-                        .statusBarsPadding()
-                        .navigationBarsPadding(),
-                    onSecurityClick = {
-                        settingsViewModel.onEvent(SettingsEvent.OnSecuritySeedPhraseClick)
-                    },
-                    onLanguageClick = {
-                        settingsViewModel.onEvent(SettingsEvent.OnLanguageSelectorButtonClick)
-                    },
-                    onCurrencyClick = {
-                        settingsViewModel.onEvent(SettingsEvent.OnFiatButtonClick)
-                    },
-                    onGamesClick = {
-                    },
-                    onBlockchainClick = {
-                        settingsViewModel.onEvent(SettingsEvent.OnBlockchainSyncClick)
-                    },
-                    onSupportClick = {
-                        val builder = CustomTabsIntent.Builder()
-                        val customTabsIntent = builder.build()
-                        customTabsIntent.launchUrl(context, Uri.parse(BRConstants.SUPPORT_WEB_LINK))
-                    },
-                    onSocialMediaClick = {
-                        val builder = CustomTabsIntent.Builder()
-                        val customTabsIntent = builder.build()
-                        customTabsIntent.launchUrl(context, Uri.parse(BRConstants.LINKTREE_URL))
-                    },
-                    onLockClick = {
-                        settingsViewModel.onEvent(SettingsEvent.OnToggleLock)
-                    },
-                    onSyncMetadataClick = null
-                )
+                HomeSettingDrawerSheet(darkModeState = darkModeState)
             }
         }
 

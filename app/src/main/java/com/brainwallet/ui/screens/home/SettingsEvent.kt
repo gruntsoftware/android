@@ -13,7 +13,6 @@ sealed class SettingsEvent {
     object OnSecurityUpdatePinClick : SettingsEvent()
     object OnSecuritySeedPhraseClick : SettingsEvent()
     object OnSecurityShareAnalyticsDataClick : SettingsEvent()
-    object OnToggleDarkMode : SettingsEvent()
     object OnToggleLock : SettingsEvent()
     object OnLanguageSelectorButtonClick : SettingsEvent()
     object OnLanguageSelectorDismiss : SettingsEvent()

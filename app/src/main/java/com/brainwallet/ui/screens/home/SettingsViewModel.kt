@@ -32,7 +32,9 @@ class SettingsViewModel(
     private val ltcRepository: LtcRepository
 ) : BrainwalletViewModel<SettingsEvent>() {
 
-    private val _state = MutableStateFlow(SettingsState())
+    private val _state = MutableStateFlow(
+        SettingsState()
+    )
     val state: StateFlow<SettingsState> = _state.asStateFlow()
 
     val appSetting = settingRepository.settings
@@ -40,7 +42,6 @@ class SettingsViewModel(
         .onEach { setting ->
             _state.update {
                 it.copy(
-                    darkMode = setting.isDarkMode,
                     selectedLanguage = Language.find(setting.languageCode),
                     selectedCurrency = setting.currency,
                 )
@@ -81,21 +82,6 @@ class SettingsViewModel(
                         selectedFeeType = settingRepository.getSelectedFeeType()
                     )
                 }
-            }
-
-            SettingsEvent.OnToggleDarkMode -> viewModelScope.launch {
-                _state.update {
-                    val toggled = it.darkMode.not()
-
-                    settingRepository.save(
-                        appSetting.value.copy(
-                            isDarkMode = toggled
-                        )
-                    )
-
-                    it.copy(darkMode = toggled)
-                }
-                EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_TOGGLE_DARK_MODE))
             }
 
             SettingsEvent.OnToggleLock -> viewModelScope.launch {

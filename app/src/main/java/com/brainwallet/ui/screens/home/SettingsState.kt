@@ -10,7 +10,6 @@ import com.brainwallet.tools.manager.FeeManager
 import com.brainwallet.data.repository.SyncAnalyticsRepository
 
 data class SettingsState(
-    val darkMode: Boolean = true,
     val selectedLanguage: Language = Language.ENGLISH,
     val selectedCurrency: CurrencyEntity = CurrencyEntity(
         "USD",
