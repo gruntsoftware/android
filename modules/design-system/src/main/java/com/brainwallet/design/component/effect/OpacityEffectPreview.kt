@@ -25,7 +25,7 @@ fun OpacityEffectShowcase(
     modifier: Modifier = Modifier
 ) {
     Box(modifier = modifier.fillMaxSize()) {
-        AnimatedLightBleedBackground(
+        AnimatedShaderView(
             modifier = Modifier.fillMaxSize(),
             bleedIntensity = 0.12f
         )

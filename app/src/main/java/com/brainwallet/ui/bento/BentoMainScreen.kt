@@ -38,7 +38,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.brainwallet.design.component.effect.AnimatedLightBleedBackground
+import com.brainwallet.design.component.effect.AnimatedShaderView
 import com.brainwallet.design.component.effect.DrawerOpacityContainer
 import com.brainwallet.design.component.effect.LightOpacityContainer
 import com.brainwallet.design.component.rail.BentoRail
@@ -98,7 +98,7 @@ fun BentoMainScreen(
             .statusBarsPadding()
             .navigationBarsPadding()
     ) {
-        AnimatedLightBleedBackground(
+        AnimatedShaderView(
             modifier = Modifier.fillMaxSize(),
             animationDurationMs = 12000,
             bleedIntensity = 0.12f

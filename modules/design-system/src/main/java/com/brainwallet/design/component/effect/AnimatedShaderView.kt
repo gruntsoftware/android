@@ -32,7 +32,7 @@ import kotlin.math.sin
  * Creates realistic lighting from the top-right corner with smooth theme transitions.
  */
 @Composable
-fun AnimatedLightBleedBackground(
+fun AnimatedShaderView(
     modifier: Modifier = Modifier,
     animationDurationMs: Int = 8000,
     bleedIntensity: Float = 0.15f
