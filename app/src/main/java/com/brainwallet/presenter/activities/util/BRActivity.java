@@ -35,13 +35,7 @@ import timber.log.Timber;
 public class BRActivity extends AppCompatActivity {
 
     static {
-        try {
-            System.loadLibrary(BRConstants.NATIVE_LIB_NAME);
-            timber.log.Timber.d("Successfully loaded %s", BRConstants.NATIVE_LIB_NAME);
-        } catch (UnsatisfiedLinkError e) {
-            timber.log.Timber.e(e, "Failed to load %s on ABI: %s", BRConstants.NATIVE_LIB_NAME, android.os.Build.SUPPORTED_ABIS[0]);
-            throw e;
-        }
+        System.loadLibrary(BRConstants.NATIVE_LIB_NAME);
     }
 
     private SettingRepository settingRepository = (SettingRepository) KoinJavaComponent.inject(SettingRepository.class).getValue();

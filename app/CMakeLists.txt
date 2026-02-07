@@ -4,9 +4,6 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
-# Define the project
-project(brainwallet-core)
-
 # Specifies a library name, specifies whether the library is STATIC or
 # SHARED, and provides relative paths to the source code. You can
 # define multiple libraries by adding multiple add_library() commands,
@@ -87,37 +84,11 @@ include_directories(src/main/secp/secp256k1/src/)
 include_directories(src/main/secp/secp256k1/)
 include_directories(src/main/secp/)
 
-# Build secp256k1 as a static library first
-add_library(secp256k1 STATIC
-    src/main/secp/secp256k1/src/secp256k1.c)
-
-target_include_directories(secp256k1 PRIVATE
-    src/main/secp/secp256k1/
-    src/main/secp/secp256k1/src/
-    src/main/secp/secp256k1/include/)
-
-target_compile_definitions(secp256k1 PRIVATE
-    USE_NUM_NONE=1
-    USE_FIELD_INV_BUILTIN=1
-    USE_SCALAR_INV_BUILTIN=1
-    HAVE___INT128=1
-    USE_FIELD_5X52=1
-    USE_SCALAR_4X64=1
-    ENABLE_MODULE_RECOVERY=1
-    ENABLE_MODULE_ECDH=1)
-
 # support compiling 16 KB-aligned: https://developer.android.com/guide/practices/page-sizes#cmake
 target_link_options(core-lib PRIVATE "-Wl,-z,max-page-size=16384")
-
-# Architecture-specific optimizations
-if(${ANDROID_ABI} STREQUAL "arm64-v8a")
-    target_compile_options(core-lib PRIVATE -O3 -ffast-math)
-    target_compile_options(secp256k1 PRIVATE -O3 -ffast-math)
-endif()
 
 # add lib dependencies
 target_link_libraries(
     core-lib
-    secp256k1
     android
     log)

@@ -156,9 +156,6 @@ android {
         language {
             enableSplit = false
         }
-        abi {
-            enableSplit = true
-        }
     }
 
     buildFeatures {
