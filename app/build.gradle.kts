@@ -53,12 +53,12 @@ android {
             keyAlias = localProperties.getProperty("DEBUG_KEY_ALIAS")
             keyPassword = localProperties.getProperty("DEBUG_KEY_PASSWORD")
         }
-        val release by creating {
-            storeFile = file(localProperties.getProperty("RELEASE_STORE_FILE"))
-            storePassword = localProperties.getProperty("RELEASE_STORE_PASSWORD")
-            keyAlias = localProperties.getProperty("RELEASE_KEY_ALIAS")
-            keyPassword = localProperties.getProperty("RELEASE_KEY_PASSWORD")
-        }
+//        val release by creating {
+//            storeFile = file(localProperties.getProperty("RELEASE_STORE_FILE"))
+//            storePassword = localProperties.getProperty("RELEASE_STORE_PASSWORD")
+//            keyAlias = localProperties.getProperty("RELEASE_KEY_ALIAS")
+//            keyPassword = localProperties.getProperty("RELEASE_KEY_PASSWORD")
+//        }
     }
 
     buildTypes {
@@ -83,21 +83,21 @@ android {
             )
         }
 
-        val release by getting {
-            signingConfig = signingConfigs.getByName("release")
-            isDebuggable = false
-            isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-
-            ndk {
-                isDebuggable = false
-                isMinifyEnabled = true
-            }
-
-            firebaseCrashlytics {
-                nativeSymbolUploadEnabled = true
-            }
-        }
+//        val release by getting {
+//            signingConfig = signingConfigs.getByName("release")
+//            isDebuggable = false
+//            isMinifyEnabled = true
+//            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+//
+//            ndk {
+//                isDebuggable = false
+//                isMinifyEnabled = true
+//            }
+//
+//            firebaseCrashlytics {
+//                nativeSymbolUploadEnabled = true
+//            }
+//        }
 
     }
 
