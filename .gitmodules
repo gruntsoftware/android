@@ -8,5 +8,5 @@
 	path = modules/private-general-purpose
 	url = https://github.com/gruntsoftware/android-private-general-purpose.git
 [submodule "gruntsoftware-build-logic"]
-	path = android-build-logic
+	path = gruntsoftware-build-logic
 	url = https://github.com/gruntsoftware/android-build-logic.git
