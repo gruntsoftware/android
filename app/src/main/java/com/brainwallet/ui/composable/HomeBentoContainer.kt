@@ -1,4 +1,4 @@
-package com.brainwallet.ui.screens.settings
+package com.brainwallet.ui.composable
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box

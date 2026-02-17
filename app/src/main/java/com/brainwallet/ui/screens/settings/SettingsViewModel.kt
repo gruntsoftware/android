@@ -1,4 +1,4 @@
-package com.brainwallet.ui.screens.home
+package com.brainwallet.ui.screens.settings
 
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat

@@ -31,7 +31,7 @@ import com.brainwallet.ui.composable.BentoBottomNavBar
 import com.brainwallet.ui.screens.settings.BentoRail
 import com.brainwallet.ui.screens.settings.BentoSettingsButton
 import com.brainwallet.ui.screens.settings.BentoThemeButton
-import com.brainwallet.ui.screens.settings.HomeBentoContainer
+import com.brainwallet.ui.composable.HomeBentoContainer
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import kotlinx.coroutines.launch
 
@@ -44,7 +44,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BentoMainScreen(
+fun MainScreen(
     modifier: Modifier = Modifier
 ) {
     var currentRoute by remember { mutableStateOf("send") }
@@ -148,8 +148,8 @@ fun BentoMainScreen(
 
 @Composable
 @PreviewLightDark
-fun BentoMainScreenPreview() {
+fun MainScreenPreview() {
     BrainwalletTheme(isSystemInDarkTheme()) {
-        BentoMainScreen()
+        MainScreen()
     }
 }
