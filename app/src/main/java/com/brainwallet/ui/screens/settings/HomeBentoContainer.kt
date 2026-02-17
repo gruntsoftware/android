@@ -1,4 +1,4 @@
-package com.brainwallet.design.component.widget
+package com.brainwallet.ui.screens.settings
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 @Composable
-fun BentoHomeGrid(
+fun HomeBentoContainer(
     name: String,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
@@ -54,6 +54,6 @@ fun BentoHomeGrid(
 @PreviewLightDark
 fun BentoHomeGridPreview() {
     BrainwalletTheme(isSystemInDarkTheme()) {
-        BentoHomeGrid("Test")
+        HomeBentoContainer("Test")
     }
 }

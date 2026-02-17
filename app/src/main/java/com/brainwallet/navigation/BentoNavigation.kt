@@ -1,7 +1,7 @@
-package com.brainwallet.design.navigation
+package com.brainwallet.navigation
 
 import android.content.Context
-import com.brainwallet.design.BentoActivity
+import com.brainwallet.ui.BentoActivity
 import org.koin.core.annotation.Factory
 
 @Factory

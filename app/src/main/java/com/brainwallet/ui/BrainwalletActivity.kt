@@ -12,7 +12,7 @@ import com.brainwallet.BrainwalletApp
 import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.repository.SettingRepository
-import com.brainwallet.design.navigation.BentoNavigation
+import com.brainwallet.navigation.BentoNavigation
 import com.brainwallet.navigation.LegacyNavigation
 import com.brainwallet.navigation.MainNavHost
 import com.brainwallet.navigation.Route

@@ -1,4 +1,4 @@
-package com.brainwallet.design.screen
+package com.brainwallet.ui.screens.home
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -27,11 +27,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.brainwallet.design.component.rail.BentoRail
-import com.brainwallet.design.component.widget.BentoBottomNavBar
-import com.brainwallet.design.component.widget.BentoHomeGrid
-import com.brainwallet.design.component.widget.BentoRailButton
-import com.brainwallet.design.component.widget.BentoTopBarActions
+import com.brainwallet.ui.composable.BentoBottomNavBar
+import com.brainwallet.ui.screens.settings.BentoRail
+import com.brainwallet.ui.screens.settings.BentoSettingsButton
+import com.brainwallet.ui.screens.settings.BentoThemeButton
+import com.brainwallet.ui.screens.settings.HomeBentoContainer
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import kotlinx.coroutines.launch
 
@@ -41,6 +41,7 @@ import kotlinx.coroutines.launch
  *
  * @param modifier The modifier to be applied to the component.
  */
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BentoMainScreen(
@@ -55,7 +56,6 @@ fun BentoMainScreen(
         drawerContent = {
             ModalDrawerSheet {
                 BentoRail(
-                    userName = "Joseph Sanjaya",
                     appVersion = "v.X.X.X (XXXXXXXXXXXX)"
                 )
             }
@@ -71,7 +71,7 @@ fun BentoMainScreen(
                         .padding(horizontal = 16.dp, vertical = 8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    BentoRailButton {
+                    BentoSettingsButton {
                         scope.launch {
                             drawerState.apply {
                                 if (isClosed) open() else close()
@@ -79,7 +79,25 @@ fun BentoMainScreen(
                         }
                     }
                     Spacer(modifier = Modifier.weight(1f))
-                    BentoTopBarActions(onSettingsClick = {}, onNotificationsClick = {})
+
+                    BentoThemeButton {
+                        scope.launch {
+                            print("Theme button clicked")
+// In your legacy Activity/Fragment
+//                            viewLifecycleOwner.lifecycleScope.launch {
+//                                EventBus.events.collect { event ->
+//                                    when (event) {
+//                                        is EventBus.Event.Message -> {
+//                                            if (event.message == SettingsViewModel.LEGACY_EFFECT_ON_TOGGLE_DARK_MODE) {
+//                                                // React to dark mode toggle if needed
+//                                                // The theme will already be updated via Compose
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                            }
+                        }
+                    }
                 }
             },
             bottomBar = {
@@ -106,22 +124,22 @@ fun BentoMainScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 item(span = { GridItemSpan(2) }) {
-                    BentoHomeGrid(name = gridItems[0], modifier = Modifier.height(150.dp))
+                    HomeBentoContainer(name = gridItems[0], modifier = Modifier.height(150.dp))
                 }
                 item(span = { GridItemSpan(2) }) {
-                    BentoHomeGrid(name = gridItems[1], modifier = Modifier.height(100.dp))
+                    HomeBentoContainer(name = gridItems[1], modifier = Modifier.height(100.dp))
                 }
                 item(span = { GridItemSpan(1) }) {
-                    BentoHomeGrid(name = gridItems[2], modifier = Modifier.height(220.dp))
+                    HomeBentoContainer(name = gridItems[2], modifier = Modifier.height(220.dp))
                 }
                 item(span = { GridItemSpan(1) }) {
                     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                        BentoHomeGrid(name = gridItems[3], modifier = Modifier.height(100.dp))
-                        BentoHomeGrid(name = gridItems[4], modifier = Modifier.height(100.dp))
+                        HomeBentoContainer(name = gridItems[3], modifier = Modifier.height(100.dp))
+                        HomeBentoContainer(name = gridItems[4], modifier = Modifier.height(100.dp))
                     }
                 }
                 item(span = { GridItemSpan(2) }) {
-                    BentoHomeGrid(name = gridItems[5], modifier = Modifier.height(120.dp))
+                    HomeBentoContainer(name = gridItems[5], modifier = Modifier.height(120.dp))
                 }
             }
         }

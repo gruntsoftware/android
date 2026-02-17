@@ -4,7 +4,7 @@
 
     <application>
         <activity
-            android:name=".BentoActivity"
+            android:name="com.brainwallet.ui.BentoActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

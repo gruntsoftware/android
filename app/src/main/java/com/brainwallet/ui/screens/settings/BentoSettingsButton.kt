@@ -1,4 +1,4 @@
-package com.brainwallet.design.component.widget
+package com.brainwallet.ui.screens.settings
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -19,7 +19,7 @@ import com.brainwallet.design.R
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 @Composable
-fun BentoRailButton(
+fun BentoSettingsButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
@@ -46,8 +46,8 @@ fun BentoRailButton(
 
 @Composable
 @PreviewLightDark
-fun BentoRailButtonPreview() {
+fun BentoSettingsButtonPreview() {
     BrainwalletTheme(isSystemInDarkTheme()) {
-        BentoRailButton {}
+        BentoSettingsButton {}
     }
 }
