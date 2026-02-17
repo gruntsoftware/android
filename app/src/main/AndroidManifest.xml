@@ -64,7 +64,6 @@
         <activity
             android:name=".ui.BrainwalletActivity"
             android:exported="true"
-            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -204,6 +203,11 @@
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.BentoActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="fullSensor" />
         <activity
             android:name=".presenter.activities.settings.TestActivity"
             android:exported="true"

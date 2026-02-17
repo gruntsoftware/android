@@ -42,10 +42,10 @@ fun BentoBottomNavBar(
 ) {
     val items = remember {
         listOf(
-            BentoBottomNavItem("Send", R.drawable.ic_nav_send, "send"),
-            BentoBottomNavItem("Buy/Receive", R.drawable.ic_nav_receive, "buy_receive"),
-            BentoBottomNavItem("Game Hub", R.drawable.ic_nav_buy, "game_hub"),
-            BentoBottomNavItem("History", R.drawable.ic_nav_history, "history")
+            BentoBottomNavItem("Send", R.drawable.ic_send, "send"),
+            BentoBottomNavItem("Buy/Receive", R.drawable.ic_buy_receive, "buy_receive"),
+            BentoBottomNavItem("Game Hub", R.drawable.ic_game_hub, "game_hub"),
+            BentoBottomNavItem("History", R.drawable.ic_history, "history")
         )
     }
 
