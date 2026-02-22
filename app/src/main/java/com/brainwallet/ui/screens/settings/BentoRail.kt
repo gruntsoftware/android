@@ -1,4 +1,4 @@
-package com.brainwallet.design.component.rail
+package com.brainwallet.ui.screens.settings
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,13 +22,11 @@ import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
  * This view is meant to be used as the content for a navigation drawer.
  *
  * @param modifier The modifier to be applied to the component.
- * @param userName The name of the user to display.
  * @param appVersion The version of the app to display.
  */
 @Composable
 fun BentoRail(
     modifier: Modifier = Modifier,
-    userName: String = "Joseph Sanjaya",
     appVersion: String = "v.X.X.X (XXXXXXXXXXXX)"
 ) {
     // ModalDrawerSheet provides the correct styling for content within a ModalNavigationDrawer
@@ -46,7 +44,6 @@ fun BentoRail(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            BentoRailAccount("Joseph Sanjaya", modifier = Modifier.weight(1f))
             BentoRailSettings(modifier = Modifier.weight(2f))
             BentoRailLearningBanner(modifier = Modifier.weight(0.5f))
             Spacer(Modifier.weight(0.25f))

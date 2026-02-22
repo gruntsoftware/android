@@ -24,8 +24,8 @@ android {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 36
-        versionCode = 202506296
-        versionName = "v4.7.2"
+        versionCode = 202506297
+        versionName = "v4.7.3"
 
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
@@ -188,7 +188,6 @@ android {
 
 dependencies {
     implementation(project(":games"))
-    implementation(project(":modules:design-system"))
     implementation(project(":iap"))
     implementation(project(":core"))
     implementation("androidx.webkit:webkit:1.9.0")

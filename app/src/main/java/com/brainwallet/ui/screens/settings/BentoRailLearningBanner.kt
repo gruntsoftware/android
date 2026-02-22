@@ -1,4 +1,4 @@
-package com.brainwallet.design.component.widget
+package com.brainwallet.ui.screens.settings
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
@@ -17,8 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 @Composable
-fun BentoHomeGrid(
-    name: String,
+fun BentoRailLearningBanner(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
@@ -38,8 +37,8 @@ fun BentoHomeGrid(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                name,
-                style = BrainwalletTheme.typography.bodySmall.copy(
+                "Learning Banner",
+                style = BrainwalletTheme.typography.bodyLarge.copy(
                     color = BrainwalletTheme.colors.content,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Bold
@@ -52,8 +51,8 @@ fun BentoHomeGrid(
 
 @Composable
 @PreviewLightDark
-fun BentoHomeGridPreview() {
+fun BentoRailLearningBannerPreview() {
     BrainwalletTheme(isSystemInDarkTheme()) {
-        BentoHomeGrid("Test")
+        BentoRailLearningBanner()
     }
 }

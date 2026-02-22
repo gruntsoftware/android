@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.brainwallet.R
-import com.brainwallet.ui.screens.home.SettingsEvent
+import com.brainwallet.ui.screens.settings.SettingsEvent
 
 // TODO
 @Composable

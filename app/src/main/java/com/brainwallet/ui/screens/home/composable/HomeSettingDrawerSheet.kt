@@ -31,8 +31,8 @@ import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.repository.SyncAnalyticsRepository
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.util.BRConstants
-import com.brainwallet.ui.screens.home.SettingsEvent
-import com.brainwallet.ui.screens.home.SettingsViewModel
+import com.brainwallet.ui.screens.settings.SettingsEvent
+import com.brainwallet.ui.screens.settings.SettingsViewModel
 import com.brainwallet.ui.screens.home.composable.settingsrows.CurrencyDetail
 import com.brainwallet.ui.screens.home.composable.settingsrows.GamesDetail
 import com.brainwallet.ui.screens.home.composable.settingsrows.LanguageDetail

@@ -1,4 +1,4 @@
-package com.brainwallet.design.component.widget
+package com.brainwallet.ui.screens.settings
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -15,12 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.brainwallet.design.R
+import com.brainwallet.R
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 @Composable
-fun BentoRailButton(
+fun BentoThemeButton(
     modifier: Modifier = Modifier,
+    isDarkMode: Boolean = false,
     onClick: () -> Unit
 ) {
     Card(
@@ -28,16 +29,15 @@ fun BentoRailButton(
         shape = CircleShape,
         colors = CardDefaults.cardColors(containerColor = BrainwalletTheme.colors.surface),
         border = BorderStroke(1.dp, BrainwalletTheme.colors.content.copy(alpha = 0.2f)),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-        onClick = onClick
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_burger_menu),
-                contentDescription = "Menu",
+                painter = painterResource(id = if (isDarkMode) R.drawable.ic_moon_stars else R.drawable.ic_sunny),
+                contentDescription = "Mode",
                 tint = BrainwalletTheme.colors.content
             )
         }
@@ -46,8 +46,8 @@ fun BentoRailButton(
 
 @Composable
 @PreviewLightDark
-fun BentoRailButtonPreview() {
+fun BentoThemeButtonPreview() {
     BrainwalletTheme(isSystemInDarkTheme()) {
-        BentoRailButton {}
+        BentoThemeButton {}
     }
 }

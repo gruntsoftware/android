@@ -1,4 +1,4 @@
-package com.brainwallet.design
+package com.brainwallet.ui
 
 import android.content.Context
 import android.content.Intent
@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
-import com.brainwallet.design.screen.BentoMainScreen
+import com.brainwallet.ui.screens.home.MainScreen
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 class BentoActivity : ComponentActivity() {
@@ -15,7 +15,7 @@ class BentoActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BrainwalletTheme(isSystemInDarkTheme()) {
-                BentoMainScreen()
+                MainScreen()
             }
         }
     }

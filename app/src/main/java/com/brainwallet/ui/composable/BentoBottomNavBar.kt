@@ -1,4 +1,4 @@
-package com.brainwallet.design.component.widget
+package com.brainwallet.ui.composable
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.Icon
@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import com.brainwallet.design.R
+import com.brainwallet.R
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 /**
@@ -42,8 +42,8 @@ fun BentoBottomNavBar(
 ) {
     val items = remember {
         listOf(
-            BentoBottomNavItem("Send", R.drawable.ic_sent, "send"),
-            BentoBottomNavItem("Buy/Receive", R.drawable.ic_buy, "buy_receive"),
+            BentoBottomNavItem("Send", R.drawable.ic_send, "send"),
+            BentoBottomNavItem("Buy/Receive", R.drawable.ic_buy_receive, "buy_receive"),
             BentoBottomNavItem("Game Hub", R.drawable.ic_game_hub, "game_hub"),
             BentoBottomNavItem("History", R.drawable.ic_history, "history")
         )

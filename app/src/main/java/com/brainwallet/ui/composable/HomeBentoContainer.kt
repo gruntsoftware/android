@@ -1,4 +1,4 @@
-package com.brainwallet.design.component.rail
+package com.brainwallet.ui.composable
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
@@ -17,7 +17,8 @@ import androidx.compose.ui.unit.dp
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 @Composable
-fun BentoRailSettings(
+fun HomeBentoContainer(
+    name: String,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
@@ -37,8 +38,8 @@ fun BentoRailSettings(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                "Settings",
-                style = BrainwalletTheme.typography.bodyLarge.copy(
+                name,
+                style = BrainwalletTheme.typography.bodySmall.copy(
                     color = BrainwalletTheme.colors.content,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Bold
@@ -51,8 +52,8 @@ fun BentoRailSettings(
 
 @Composable
 @PreviewLightDark
-fun BentoRailSettingsPreview() {
+fun BentoHomeGridPreview() {
     BrainwalletTheme(isSystemInDarkTheme()) {
-        BentoRailSettings()
+        HomeBentoContainer("Test")
     }
 }

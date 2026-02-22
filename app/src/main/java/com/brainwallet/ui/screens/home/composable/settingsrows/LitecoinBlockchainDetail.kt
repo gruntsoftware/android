@@ -25,7 +25,7 @@ import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.FeeOption
 import com.brainwallet.data.model.getFiatFormatted
 import com.brainwallet.data.model.getSelectedIndex
-import com.brainwallet.ui.screens.home.SettingsEvent
+import com.brainwallet.ui.screens.settings.SettingsEvent
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 // TODO
