@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import androidx.activity.ComponentActivity;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -32,6 +33,9 @@ import java.util.Locale;
 
 import timber.log.Timber;
 
+/// Need to update to ComponentActivity
+/// This will help migrate fully to Jetpack Compose
+/// TBD
 public class BRActivity extends AppCompatActivity {
 
     static {

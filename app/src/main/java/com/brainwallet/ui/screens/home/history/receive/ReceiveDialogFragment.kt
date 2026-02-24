@@ -1,5 +1,6 @@
-package com.brainwallet.ui.screens.home.receive
+package com.brainwallet.ui.screens.home.history.receive
 
+import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -52,7 +53,7 @@ class ReceiveDialogFragment : DialogFragment() {
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog?.window?.setBackgroundDrawableResource(R.color.transparent)
         isCancelable = false
     }
 

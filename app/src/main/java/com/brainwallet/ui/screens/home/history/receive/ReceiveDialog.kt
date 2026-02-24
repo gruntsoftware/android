@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class, FlowPreview::class)
 
-package com.brainwallet.ui.screens.home.receive
+package com.brainwallet.ui.screens.home.history.receive
 
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
@@ -50,6 +50,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -282,7 +283,7 @@ private fun ReceiveDialog(
                                 ),
                             ) {
                                 Icon(
-                                    painter = androidx.compose.ui.res.painterResource(id = R.drawable.ic_copy),
+                                    painter = painterResource(id = R.drawable.ic_copy),
                                     contentDescription = stringResource(R.string.URLHandling_copy),
                                     tint = BrainwalletTheme.colors.surface
                                 )

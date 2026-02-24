@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="send_tab_description">Paper plane icon to represent the Send action</string>
+    <string name="buy_receive_tab_description">Two arrows representing buying and receiving Litecoin</string>
+    <string name="game_hub_tab_description">gaming controller</string>
+    <string name="history_tab_description">circular arrow rotating counter clockwise</string>
+    <string name="send_title">Send Litecoin</string>
+    <string name="game_hub_title">Game Hub</string>
+    <string name="history_title">History</string>
+</resources>

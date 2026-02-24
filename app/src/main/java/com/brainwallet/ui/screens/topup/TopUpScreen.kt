@@ -107,7 +107,7 @@ fun TopUpScreen(
                 modifier = Modifier.fillMaxWidth()
             )
             BorderedLargeButton(
-                onClick = { onNavigate.invoke(UiEffect.Navigate(destinationRoute = Route.BuyLitecoin)) },
+                onClick = { onNavigate.invoke(UiEffect.Navigate(destinationRoute = Route.BuyReceive)) },
                 modifier = Modifier.fillMaxWidth()
 
             ) {

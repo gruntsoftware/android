@@ -37,13 +37,21 @@ sealed class Route : JavaSerializable {
     @Serializable
     data class YourSeedProveIt(val seedWords: List<String>) : Route()
 
-//    for now, still using old activity & fragment
-//    @Serializable
-//    object Home : Route()
+    @Serializable
+    object Main : Route()
 
     @Serializable
     data class UnLock(val isUpdatePin: Boolean = false) : Route()
 
     @Serializable
-    object BuyLitecoin : Route()
+    object BuyReceive : Route()
+
+    @Serializable
+    object History : Route()
+
+    @Serializable
+    object Send : Route()
+
+    @Serializable
+    object GameHub : Route()
 }

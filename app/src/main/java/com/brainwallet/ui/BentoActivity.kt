@@ -15,7 +15,7 @@ class BentoActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BrainwalletTheme(isSystemInDarkTheme()) {
-                MainScreen()
+                MainScreen(onNavigate = {})
             }
         }
     }
