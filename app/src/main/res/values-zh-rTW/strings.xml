@@ -715,7 +715,6 @@
     <string name="Login.currentLtcPrice">當前的LTC值 %1$s</string>
     <string name="Settings.languages">語言能力</string>
     <string name="Settings.ChangeLanguage.alertMessage">您確定要將語言改為中文嗎？</string>
-    <string name="BuyCenter.bitrefill.Title">Bitrefill</string>
     <string name="BuyCenter.bitrefill.FinancialDetails">購買禮品卡\n• 為預付費手機充值\n• Steam、亞馬遜、Hotels.com\n• 適用於 170 個國家/地區</string>
     <string name="show_seed_label">展示</string>
     <string name="settings_show_seed">顯示我的助記詞</string>
@@ -822,4 +821,6 @@
     <string name="send_title">Send Litecoin</string>
     <string name="game_hub_title">Game Hub</string>
     <string name="history_title">History</string>
+    <string name="game_hub_tagline">ARE YOU GOOD ENOUGH TO BE #1?</string>
+    <string name="game_hub_label">GAME HUB</string>
 </resources>

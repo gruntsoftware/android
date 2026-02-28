@@ -718,8 +718,7 @@
   <string name="BuyCenter.moonpay.FinancialDetails">«• خرید LTC با جفت‌های متعدد ارز فیات
 • پرداخت با روش‌های متنوع
 • ارائه‌دهنده پرداخت جهانی»</string>
-  <string name="BuyCenter.bitrefill.Title" tools:ignore="MissingTranslation" translatable="false">بیت‌ریفیل</string>
-  <string name="BuyCenter.bitrefill.FinancialDetails">«• خرید کارت‌های هدیه
+    <string name="BuyCenter.bitrefill.FinancialDetails">«• خرید کارت‌های هدیه
 • شارژ تلفن‌های پیش‌پرداخت
 • استیم، آمازون، Hotels.com
 • در ۱۷۰ کشور قابل استفاده است»</string>
@@ -857,4 +856,6 @@
     <string name="send_title">Send Litecoin</string>
     <string name="game_hub_title">Game Hub</string>
   <string name="history_title">History</string>
+    <string name="game_hub_tagline">ARE YOU GOOD ENOUGH TO BE #1?</string>
+    <string name="game_hub_label">GAME HUB</string>
 </resources>

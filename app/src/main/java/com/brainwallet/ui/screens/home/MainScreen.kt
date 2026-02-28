@@ -1,12 +1,18 @@
 package com.brainwallet.ui.screens.home
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -41,16 +47,22 @@ import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import com.brainwallet.data.model.AppSetting
 import com.brainwallet.ui.bentosections.gamehubbento.GameHubBentoScreen
 import com.brainwallet.ui.composable.HomeBentoContainer
+import com.brainwallet.ui.layoutconstants.balanceGameBentoHeight
+import com.brainwallet.ui.layoutconstants.bottomNavHeight
+import com.brainwallet.ui.layoutconstants.mainHeightComponentsFactor
+import com.brainwallet.ui.layoutconstants.transRowHeight
 import com.brainwallet.ui.screens.buyreceive.BuyReceiveScreen
 import com.brainwallet.ui.screens.gamehub.GameHubScreen
 import com.brainwallet.ui.screens.home.history.HistoryScreen
+import com.brainwallet.ui.theme.BrainwalletAppTheme
 
 /**
  * The main screen of the application, featuring a bento-style grid layout.
  * It integrates the top bar, bottom navigation, and content grid.
- *
  * @param modifier The modifier to be applied to the component.
  */
 
@@ -79,7 +91,7 @@ fun MainScreen(
         drawerContent = {
             ModalDrawerSheet {
                 BentoRail(
-                    appVersion = "v.X.X.X (XXXXXXXXXXXX)"
+                    appVersion = "vX.X.X (XXXXXXXXXXXX)"
                 )
             }
         }
@@ -87,48 +99,23 @@ fun MainScreen(
         Scaffold(
             modifier = modifier,
             containerColor = BrainwalletTheme.colors.surface,
-            topBar = {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    BentoSettingsButton {
-                        scope.launch {
-                            drawerState.apply {
-                                if (isClosed) open() else close()
-                            }
-                        }
-                    }
-                    Spacer(modifier = Modifier.weight(1f))
-
-                    BentoThemeButton {
-                        scope.launch {
-                            print("Theme button clicked")
-                        }
-                    }
-                }
-            },
+            contentWindowInsets = WindowInsets.systemBars,
             bottomBar = {
                 BentoBottomNavBar(
                     currentRoute = currentRoute,
                     onItemClick = { route: Route ->
-                        currentRoute = route // Keep this to highlight the correct icon
+                        currentRoute = route
 
                         if (route == Route.Main) {
-                            // If Home is clicked, just ensure the sheet is closed
                             scope.launch { sheetState.hide() }.invokeOnCompletion {
                                 if (!sheetState.isVisible) {
                                     isSheetOpen = false
                                 }
                             }
                         } else {
-                            // For any other route, set the content and open the sheet
                             modalContentRoute = route
                             isSheetOpen = true
                         }
-                        // The onNavigate call might still be needed depending on your navigation architecture
                         onNavigate.invoke(UiEffect.Navigate(route))
                     }
                 )
@@ -141,35 +128,71 @@ fun MainScreen(
                     "Transaction History View",
                     "Tutorials Bento View",
                     "LTC Price Bento View",
-                    "Favourites Bento View",
-                    "Game Hub Bento View"
+                    "Favourites Bento View"
                 )
             }
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
+            BoxWithConstraints(
                 modifier = Modifier
-                    .padding(paddingValues)
-                    .padding(16.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
+                    .fillMaxSize()
             ) {
-                item(span = { GridItemSpan(2) }) {
-                    HomeBentoContainer(name = gridItems[0], modifier = Modifier.height(150.dp))
-                }
-                item(span = { GridItemSpan(2) }) {
-                    HomeBentoContainer(name = gridItems[1], modifier = Modifier.height(100.dp))
-                }
-                item(span = { GridItemSpan(1) }) {
-                    HomeBentoContainer(name = gridItems[2], modifier = Modifier.height(220.dp))
-                }
-                item(span = { GridItemSpan(1) }) {
-                    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                        HomeBentoContainer(name = gridItems[3], modifier = Modifier.height(100.dp))
-                        HomeBentoContainer(name = gridItems[4], modifier = Modifier.height(100.dp))
+                val verticalSpacing = 16.dp
+                val fixedElementsHeight = mainHeightComponentsFactor + (verticalSpacing * 3)
+                val gridContentAreaHeight = this.maxHeight
+                -paddingValues.calculateTopPadding()
+                -paddingValues.calculateBottomPadding()
+                val availableHeight = gridContentAreaHeight - fixedElementsHeight - bottomNavHeight
+                val bentoBox4Height = (availableHeight / 2) - (verticalSpacing / 2)
+                val bentoBox5Height = (availableHeight / 2) - (verticalSpacing / 2)
+                Column {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 16.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        BentoSettingsButton {
+                            scope.launch {
+                                drawerState.apply {
+                                    if (isClosed) open() else close()
+                                }
+                            }
+                        }
+                        Spacer(modifier = Modifier.weight(1f))
+
+                        BentoThemeButton {
+                            scope.launch {
+                                print("Theme button clicked")
+                            }
+                        }
                     }
-                }
-                item(span = { GridItemSpan(2) }) {
-                    GameHubBentoScreen(modifier = Modifier.height(120.dp))
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 1.dp),
+                        horizontalArrangement = Arrangement.spacedBy(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp),
+                        userScrollEnabled = false
+                    ) {
+                        item(span = { GridItemSpan(2) }) {
+                            HomeBentoContainer(name = gridItems[0], modifier = Modifier.height(balanceGameBentoHeight))
+                        }
+                        item(span = { GridItemSpan(2) }) {
+                            HomeBentoContainer(name = gridItems[1], modifier = Modifier.height(transRowHeight))
+                        }
+                        item(span = { GridItemSpan(1) }) {
+                            HomeBentoContainer(name = gridItems[2], modifier = Modifier.height(availableHeight))
+                        }
+                        item(span = { GridItemSpan(1) }) {
+                            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                                HomeBentoContainer(name = gridItems[3], modifier = Modifier.height(bentoBox4Height))
+                                HomeBentoContainer(name = gridItems[4], modifier = Modifier.height(bentoBox5Height))
+                            }
+                        }
+                        item(span = { GridItemSpan(2) }) {
+                            Box(modifier = Modifier.height(balanceGameBentoHeight)) {
+                                GameHubBentoScreen()
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -181,7 +204,6 @@ fun MainScreen(
                 dragHandle = null,
                 shape = RoundedCornerShape(24.dp)
             ) {
-                // Content of the bottom sheet
                 when (modalContentRoute) {
                     Route.Send -> {
                         SendScreen(
@@ -204,11 +226,17 @@ fun MainScreen(
                             modifier = Modifier.padding(bottom = 32.dp)
                         )
                     }
-                    else -> {
-                        // Render nothing or a placeholder if the route is unexpected
-                    }
+                    else -> { }
                 }
             }
         }
+    }
+}
+
+@Composable
+@PreviewLightDark
+fun MainScreenPreview() {
+    BrainwalletAppTheme(appSetting = AppSetting(isDarkMode = isSystemInDarkTheme())) {
+        MainScreen(onNavigate = {})
     }
 }
