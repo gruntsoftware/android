@@ -35,7 +35,6 @@ import com.brainwallet.ui.composable.LargeButton
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import org.koin.compose.viewmodel.koinViewModel
 
-// TODO: wip
 @Composable
 fun BuyReceiveScreen(
     onNavigate: OnNavigate,

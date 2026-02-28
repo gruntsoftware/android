@@ -41,6 +41,7 @@ import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.ModalBottomSheet
+import com.brainwallet.ui.bentosections.gamehubbento.GameHubBentoScreen
 import com.brainwallet.ui.composable.HomeBentoContainer
 import com.brainwallet.ui.screens.buyreceive.BuyReceiveScreen
 import com.brainwallet.ui.screens.gamehub.GameHubScreen
@@ -168,7 +169,7 @@ fun MainScreen(
                     }
                 }
                 item(span = { GridItemSpan(2) }) {
-                    HomeBentoContainer(name = gridItems[5], modifier = Modifier.height(120.dp))
+                    GameHubBentoScreen(modifier = Modifier.height(120.dp))
                 }
             }
         }
