@@ -10,6 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.layout.height
 import com.brainwallet.R
 import com.brainwallet.navigation.Route
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
@@ -28,9 +30,9 @@ fun BentoBottomNavBar(
     modifier: Modifier = Modifier,
 ) {
     NavigationBar(
-        modifier = modifier,
         containerColor = BrainwalletTheme.colors.surface,
-        contentColor = BrainwalletTheme.colors.content
+        contentColor = BrainwalletTheme.colors.content,
+        modifier = modifier.height(56.dp)
     ) {
         NavigationBarItem(
             selected = currentRoute is Route.Send,

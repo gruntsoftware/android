@@ -1,6 +1,8 @@
 package com.brainwallet.ui.screens.home
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -141,35 +143,49 @@ fun MainScreen(
                     "Transaction History View",
                     "Tutorials Bento View",
                     "LTC Price Bento View",
-                    "Favourites Bento View",
-                    "Game Hub Bento View"
+                    "Favourites Bento View"
                 )
             }
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
+            BoxWithConstraints(
                 modifier = Modifier
                     .padding(paddingValues)
-                    .padding(16.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                item(span = { GridItemSpan(2) }) {
-                    HomeBentoContainer(name = gridItems[0], modifier = Modifier.height(150.dp))
-                }
-                item(span = { GridItemSpan(2) }) {
-                    HomeBentoContainer(name = gridItems[1], modifier = Modifier.height(100.dp))
-                }
-                item(span = { GridItemSpan(1) }) {
-                    HomeBentoContainer(name = gridItems[2], modifier = Modifier.height(220.dp))
-                }
-                item(span = { GridItemSpan(1) }) {
-                    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                        HomeBentoContainer(name = gridItems[3], modifier = Modifier.height(100.dp))
-                        HomeBentoContainer(name = gridItems[4], modifier = Modifier.height(100.dp))
+                val balanceHeight = 105.dp
+                val gameHubHeight = 120.dp
+                val transRowHeight = 60.dp
+                val availableHeight = this.maxHeight - balanceHeight - gameHubHeight - transRowHeight
+                val tutorialsBentoHeight = availableHeight * 0.80f
+                val bentoBox4Height = (tutorialsBentoHeight / 2) - 8.dp // Half of box 3, minus half the spacing
+                val bentoBox5Height = (tutorialsBentoHeight / 2) - 8.dp // Half of box 3, minus half the spacing
+
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    modifier = Modifier.padding(16.dp), // Apply your grid-specific padding here
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                ) {
+                    item(span = { GridItemSpan(2) }) {
+                        HomeBentoContainer(name = gridItems[0], modifier = Modifier.height(balanceHeight))
                     }
-                }
-                item(span = { GridItemSpan(2) }) {
-                    GameHubBentoScreen(modifier = Modifier.height(120.dp))
+                    item(span = { GridItemSpan(2) }) {
+                        HomeBentoContainer(name = gridItems[1], modifier = Modifier.height(transRowHeight))
+                    }
+                    item(span = { GridItemSpan(1) }) {
+                        HomeBentoContainer(name = gridItems[2], modifier = Modifier.height(tutorialsBentoHeight))
+                    }
+                    item(span = { GridItemSpan(1) }) {
+                        Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                            HomeBentoContainer(name = gridItems[3], modifier = Modifier.height(bentoBox4Height))
+                            HomeBentoContainer(name = gridItems[4], modifier = Modifier.height(bentoBox5Height))
+                        }
+                    }
+                    item(span = { GridItemSpan(2) }) {
+                        // GameHubBentoScreen already has its own internal height logic,
+                        // so we just need to place it in a container with a defined height.
+                        Box(modifier = Modifier.height(gameHubHeight)) {
+                            GameHubBentoScreen()
+                        }
+                    }
                 }
             }
         }
