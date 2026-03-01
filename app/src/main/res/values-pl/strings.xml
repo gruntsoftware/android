@@ -711,8 +711,7 @@
   <!--Buy center - partners-->
   <string name="BuyCenter.moonpay.Title" translatable="false" tools:ignore="MissingTranslation">Moonpay</string>
   <string name="BuyCenter.moonpay.FinancialDetails">"- Kup LTC za pomocą wielu par walutowych - Płać wieloma metodami - Globalny dostawca płatności"</string>
-  <string name="BuyCenter.bitrefill.Title" tools:ignore="MissingTranslation" translatable="false">Bitrefill</string>
-  <string name="BuyCenter.bitrefill.FinancialDetails">"- Kupuj karty podarunkowe \n- Doładuj telefony przedpłacone \n- Steam, Amazon, Hotels.com \n- Działa w 170 krajach"</string>
+    <string name="BuyCenter.bitrefill.FinancialDetails">"- Kupuj karty podarunkowe \n- Doładuj telefony przedpłacone \n- Steam, Amazon, Hotels.com \n- Działa w 170 krajach"</string>
   <string name="aud_currency_code" translatable="false">AUD</string>
   <string name="gbp_currency_code" translatable="false">GBP</string>
   <string name="hkd_currency_code" translatable="false">HKD</string>
@@ -847,4 +846,5 @@
     <string name="game_hub_title">Game Hub</string>
   <string name="history_title">History</string>
     <string name="game_hub_tagline">ARE YOU GOOD ENOUGH TO BE #1?</string>
+    <string name="game_hub_label">GAME HUB</string>
 </resources>

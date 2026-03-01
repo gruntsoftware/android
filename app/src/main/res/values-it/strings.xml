@@ -716,7 +716,6 @@
     <string name="Login.currentLtcPrice">Valore LTC corrente in %1$s</string>
     <string name="Settings.languages">Le lingue</string>
     <string name="Settings.ChangeLanguage.alertMessage">Sei sicuro di voler cambiare la lingua in italiano?</string>
-    <string name="BuyCenter.bitrefill.Title">Bitrefill</string>
     <string name="BuyCenter.bitrefill.FinancialDetails">Acquista buoni regalo\n• Ricarica telefoni prepagati\n• Steam, Amazon, Hotels.com\n• Funziona in 170 paesi</string>
     <string name="show_seed_label">Spettacolo</string>
     <string name="settings_show_seed">Mostra la mia frase seme</string>
@@ -823,4 +822,5 @@
     <string name="game_hub_title">Game Hub</string>
     <string name="history_title">History</string>
     <string name="game_hub_tagline">ARE YOU GOOD ENOUGH TO BE #1?</string>
+    <string name="game_hub_label">GAME HUB</string>
 </resources>

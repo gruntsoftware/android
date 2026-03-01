@@ -722,7 +722,6 @@
     <string name="Receive.copied">Скопійовано в буфер обміну.</string>
     <string name="URLHandling.copy">Копія</string>
     <string name="URLHandling.addressListAlertTitle">Копіювати адреси гаманця</string>
-    <string name="BuyCenter.bitrefill.Title">Bitrefill</string>
     <string name="BuyCenter.bitrefill.FinancialDetails">Купуйте подарункові картки\n• Поповнюйте передплачені телефони\n• Steam, Amazon, Hotels.com\n• Працює в 170 країнах</string>
     <string name="show_seed_label">Показати</string>
     <string name="settings_show_seed">Покажи мою початкову фразу</string>
@@ -830,4 +829,5 @@
     <string name="game_hub_title">Game Hub</string>
     <string name="history_title">History</string>
     <string name="game_hub_tagline">ARE YOU GOOD ENOUGH TO BE #1?</string>
+    <string name="game_hub_label">GAME HUB</string>
 </resources>

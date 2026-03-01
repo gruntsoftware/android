@@ -7,5 +7,6 @@
     <string name="send_title">Send Litecoin</string>
     <string name="game_hub_title">Game Hub</string>
     <string name="history_title">History</string>
-    <string name="game_hub_tagline">\"ARE YOU GOOD ENOUGH TO BE #1?\"</string>
+    <string name="game_hub_tagline">ARE YOU GOOD ENOUGH TO BE #1?</string>
+    <string name="game_hub_label">GAME HUB</string>
 </resources>

@@ -738,7 +738,6 @@
     <string name="Login.currentLtcPrice">%1$s cinsinden geçerli LTC değeri</string>
     <string name="Settings.languages">Diller</string>
     <string name="Settings.ChangeLanguage.alertMessage">Dili Türkçe olarak değiştirmek istediğinizden emin misiniz?</string>
-    <string name="BuyCenter.bitrefill.Title">Bitrefill</string>
     <string name="BuyCenter.bitrefill.FinancialDetails">Hediye kartları satın alın\n• Ön ödemeli telefonları yeniden doldurun\n• Steam, Amazon, Hotels.com\n• 170 ülkede çalışıyor</string>
     <string name="show_seed_label">Göstermek</string>
     <string name="settings_show_seed">" Tohum ifademi göster"</string>
@@ -847,4 +846,5 @@
     <string name="game_hub_title">Game Hub</string>
     <string name="history_title">History</string>
     <string name="game_hub_tagline">ARE YOU GOOD ENOUGH TO BE #1?</string>
+    <string name="game_hub_label">GAME HUB</string>
 </resources>

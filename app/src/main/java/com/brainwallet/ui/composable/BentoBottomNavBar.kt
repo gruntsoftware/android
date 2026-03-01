@@ -10,10 +10,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.height
+import androidx.compose.ui.graphics.Color
 import com.brainwallet.R
 import com.brainwallet.navigation.Route
+import com.brainwallet.ui.layoutconstants.bottomNavHeight
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 /**
@@ -32,7 +33,7 @@ fun BentoBottomNavBar(
     NavigationBar(
         containerColor = BrainwalletTheme.colors.surface,
         contentColor = BrainwalletTheme.colors.content,
-        modifier = modifier.height(56.dp)
+        modifier = modifier.height(bottomNavHeight)
     ) {
         NavigationBarItem(
             selected = currentRoute is Route.Send,
@@ -43,7 +44,14 @@ fun BentoBottomNavBar(
                     contentDescription = stringResource(id = R.string.send_tab_description)
                 )
             },
-            label = { Text("Send") }
+            label = { Text("Send") },
+            colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
+                selectedIconColor = BrainwalletTheme.colors.content,
+                selectedTextColor = BrainwalletTheme.colors.content,
+                indicatorColor = Color.Transparent,
+                unselectedIconColor = BrainwalletTheme.colors.content.copy(0.8f),
+                unselectedTextColor = BrainwalletTheme.colors.content.copy(0.8f)
+            )
         )
         NavigationBarItem(
             selected = currentRoute is Route.BuyReceive,
@@ -54,7 +62,14 @@ fun BentoBottomNavBar(
                     contentDescription = stringResource(id = R.string.buy_receive_tab_description)
                 )
             },
-            label = { Text("Buy/Receive") }
+            label = { Text("Buy/Receive") },
+            colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
+                selectedIconColor = BrainwalletTheme.colors.content,
+                selectedTextColor = BrainwalletTheme.colors.content,
+                indicatorColor = Color.Transparent,
+                unselectedIconColor = BrainwalletTheme.colors.content.copy(0.8f),
+                unselectedTextColor = BrainwalletTheme.colors.content.copy(0.8f)
+            )
         )
         NavigationBarItem(
             selected = currentRoute is Route.GameHub,
@@ -65,7 +80,14 @@ fun BentoBottomNavBar(
                     contentDescription = stringResource(id = R.string.game_hub_tab_description)
                 )
             },
-            label = { Text("Game Hub") }
+            label = { Text("Game Hub") },
+            colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
+                selectedIconColor = BrainwalletTheme.colors.content,
+                selectedTextColor = BrainwalletTheme.colors.content,
+                indicatorColor = Color.Transparent,
+                unselectedIconColor = BrainwalletTheme.colors.content.copy(0.8f),
+                unselectedTextColor = BrainwalletTheme.colors.content.copy(0.8f)
+            )
         )
         NavigationBarItem(
             selected = currentRoute is Route.History,
@@ -76,7 +98,14 @@ fun BentoBottomNavBar(
                     contentDescription = stringResource(id = R.string.history_tab_description)
                 )
             },
-            label = { Text("History") }
+            label = { Text("History") },
+            colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
+                selectedIconColor = BrainwalletTheme.colors.content,
+                selectedTextColor = BrainwalletTheme.colors.content,
+                indicatorColor = Color.Transparent,
+                unselectedIconColor = BrainwalletTheme.colors.content.copy(0.8f),
+                unselectedTextColor = BrainwalletTheme.colors.content.copy(0.8f)
+            )
         )
     }
 }

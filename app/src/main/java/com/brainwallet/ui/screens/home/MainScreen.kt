@@ -1,5 +1,6 @@
 package com.brainwallet.ui.screens.home
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -43,11 +44,16 @@ import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import com.brainwallet.data.model.AppSetting
 import com.brainwallet.ui.bentosections.gamehubbento.GameHubBentoScreen
 import com.brainwallet.ui.composable.HomeBentoContainer
+import com.brainwallet.ui.layoutconstants.balanceGameBentoHeight
+import com.brainwallet.ui.layoutconstants.bottomNavHeight
 import com.brainwallet.ui.screens.buyreceive.BuyReceiveScreen
 import com.brainwallet.ui.screens.gamehub.GameHubScreen
 import com.brainwallet.ui.screens.home.history.HistoryScreen
+import com.brainwallet.ui.theme.BrainwalletAppTheme
 
 /**
  * The main screen of the application, featuring a bento-style grid layout.
@@ -150,28 +156,31 @@ fun MainScreen(
                 modifier = Modifier
                     .padding(paddingValues)
             ) {
-                val balanceHeight = 105.dp
                 val gameHubHeight = 120.dp
                 val transRowHeight = 60.dp
-                val availableHeight = this.maxHeight - balanceHeight - gameHubHeight - transRowHeight
-                val tutorialsBentoHeight = availableHeight * 0.80f
-                val bentoBox4Height = (tutorialsBentoHeight / 2) - 8.dp // Half of box 3, minus half the spacing
-                val bentoBox5Height = (tutorialsBentoHeight / 2) - 8.dp // Half of box 3, minus half the spacing
+                val availableHeight = (
+                    this.maxHeight -
+                        bottomNavHeight - balanceGameBentoHeight
+                    ) * 0.8f
+                -gameHubHeight - transRowHeight
+                val bentoBox4Height = (availableHeight / 2) - 8.dp
+                val bentoBox5Height = (availableHeight / 2) - 8.dp
 
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2),
-                    modifier = Modifier.padding(16.dp), // Apply your grid-specific padding here
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 1.dp),
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                     verticalArrangement = Arrangement.spacedBy(16.dp),
+                    userScrollEnabled = false
                 ) {
                     item(span = { GridItemSpan(2) }) {
-                        HomeBentoContainer(name = gridItems[0], modifier = Modifier.height(balanceHeight))
+                        HomeBentoContainer(name = gridItems[0], modifier = Modifier.height(balanceGameBentoHeight))
                     }
                     item(span = { GridItemSpan(2) }) {
                         HomeBentoContainer(name = gridItems[1], modifier = Modifier.height(transRowHeight))
                     }
                     item(span = { GridItemSpan(1) }) {
-                        HomeBentoContainer(name = gridItems[2], modifier = Modifier.height(tutorialsBentoHeight))
+                        HomeBentoContainer(name = gridItems[2], modifier = Modifier.height(availableHeight))
                     }
                     item(span = { GridItemSpan(1) }) {
                         Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -180,9 +189,7 @@ fun MainScreen(
                         }
                     }
                     item(span = { GridItemSpan(2) }) {
-                        // GameHubBentoScreen already has its own internal height logic,
-                        // so we just need to place it in a container with a defined height.
-                        Box(modifier = Modifier.height(gameHubHeight)) {
+                        Box(modifier = Modifier.height(balanceGameBentoHeight)) {
                             GameHubBentoScreen()
                         }
                     }
@@ -220,11 +227,17 @@ fun MainScreen(
                             modifier = Modifier.padding(bottom = 32.dp)
                         )
                     }
-                    else -> {
-                        // Render nothing or a placeholder if the route is unexpected
-                    }
+                    else -> { }
                 }
             }
         }
+    }
+}
+
+@Composable
+@PreviewLightDark
+fun MainScreenPreview() {
+    BrainwalletAppTheme(appSetting = AppSetting(isDarkMode = isSystemInDarkTheme())) {
+        MainScreen(onNavigate = {})
     }
 }

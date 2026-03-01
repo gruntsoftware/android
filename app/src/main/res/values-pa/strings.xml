@@ -713,8 +713,7 @@
   <!--Buy center - partners-->
   <string name="BuyCenter.moonpay.Title" translatable="false" tools:ignore="MissingTranslation">مون پے</string>
   <string name="BuyCenter.moonpay.FinancialDetails">"• ایل ٹی سی کو کئی فیاٹ جوڑوں کے ساتھ خریدیں\n• متعدد طریقوں سے ادائیگی کریں\n• عالمی ادائیگی فراہم کنندہ"</string>
-  <string name="BuyCenter.bitrefill.Title" tools:ignore="MissingTranslation" translatable="false">بِٹریفِل</string>
-  <string name="BuyCenter.bitrefill.FinancialDetails">"• تحفے کے کارڈ خریدیں\n• پری پیڈ فونز کو ریفل کریں\n• سٹیم، ایمیزون، ہوٹلز ڈاٹ کام\n• 170 ممالک میں کام کرتا ہے"</string>
+    <string name="BuyCenter.bitrefill.FinancialDetails">"• تحفے کے کارڈ خریدیں\n• پری پیڈ فونز کو ریفل کریں\n• سٹیم، ایمیزون، ہوٹلز ڈاٹ کام\n• 170 ممالک میں کام کرتا ہے"</string>
   <string name="aud_currency_code" translatable="false">اے یو ڈی</string>
   <string name="gbp_currency_code" translatable="false">پاؤنڈ سٹرلنگ</string>
   <string name="hkd_currency_code" translatable="false">ایچ کے ڈی</string>
@@ -852,4 +851,5 @@
     <string name="game_hub_title">Game Hub</string>
   <string name="history_title">History</string>
     <string name="game_hub_tagline">ARE YOU GOOD ENOUGH TO BE #1?</string>
+    <string name="game_hub_label">GAME HUB</string>
 </resources>
