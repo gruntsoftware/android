@@ -105,21 +105,18 @@ fun MainScreen(
                 BentoBottomNavBar(
                     currentRoute = currentRoute,
                     onItemClick = { route: Route ->
-                        currentRoute = route // Keep this to highlight the correct icon
+                        currentRoute = route
 
                         if (route == Route.Main) {
-                            // If Home is clicked, just ensure the sheet is closed
                             scope.launch { sheetState.hide() }.invokeOnCompletion {
                                 if (!sheetState.isVisible) {
                                     isSheetOpen = false
                                 }
                             }
                         } else {
-                            // For any other route, set the content and open the sheet
                             modalContentRoute = route
                             isSheetOpen = true
                         }
-                        // The onNavigate call might still be needed depending on your navigation architecture
                         onNavigate.invoke(UiEffect.Navigate(route))
                     }
                 )
@@ -208,7 +205,6 @@ fun MainScreen(
                 dragHandle = null,
                 shape = RoundedCornerShape(24.dp)
             ) {
-                // Content of the bottom sheet
                 when (modalContentRoute) {
                     Route.Send -> {
                         SendScreen(
