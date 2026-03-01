@@ -70,7 +70,7 @@ fun GameHubBentoScreen(
             val textWidthRatio = 0.85f
             Column(
                 modifier = Modifier
-                    .padding(start = 16.dp, end = 16.dp)
+                    .padding(start = 16.dp)
                     .fillMaxHeight(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.Start

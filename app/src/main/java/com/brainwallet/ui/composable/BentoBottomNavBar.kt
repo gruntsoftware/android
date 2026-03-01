@@ -1,6 +1,8 @@
 package com.brainwallet.ui.composable
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -10,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import androidx.compose.foundation.layout.height
 import androidx.compose.ui.graphics.Color
 import com.brainwallet.R
 import com.brainwallet.navigation.Route
@@ -33,7 +34,9 @@ fun BentoBottomNavBar(
     NavigationBar(
         containerColor = BrainwalletTheme.colors.surface,
         contentColor = BrainwalletTheme.colors.content,
-        modifier = modifier.height(bottomNavHeight)
+        modifier = modifier
+            .navigationBarsPadding()
+            .height(bottomNavHeight)
     ) {
         NavigationBarItem(
             selected = currentRoute is Route.Send,

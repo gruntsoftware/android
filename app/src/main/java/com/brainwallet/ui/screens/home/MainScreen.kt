@@ -7,9 +7,12 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -50,6 +53,8 @@ import com.brainwallet.ui.bentosections.gamehubbento.GameHubBentoScreen
 import com.brainwallet.ui.composable.HomeBentoContainer
 import com.brainwallet.ui.layoutconstants.balanceGameBentoHeight
 import com.brainwallet.ui.layoutconstants.bottomNavHeight
+import com.brainwallet.ui.layoutconstants.mainHeightComponentsFactor
+import com.brainwallet.ui.layoutconstants.transRowHeight
 import com.brainwallet.ui.screens.buyreceive.BuyReceiveScreen
 import com.brainwallet.ui.screens.gamehub.GameHubScreen
 import com.brainwallet.ui.screens.home.history.HistoryScreen
@@ -95,29 +100,7 @@ fun MainScreen(
         Scaffold(
             modifier = modifier,
             containerColor = BrainwalletTheme.colors.surface,
-            topBar = {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    BentoSettingsButton {
-                        scope.launch {
-                            drawerState.apply {
-                                if (isClosed) open() else close()
-                            }
-                        }
-                    }
-                    Spacer(modifier = Modifier.weight(1f))
-
-                    BentoThemeButton {
-                        scope.launch {
-                            print("Theme button clicked")
-                        }
-                    }
-                }
-            },
+            contentWindowInsets = WindowInsets.systemBars,
             bottomBar = {
                 BentoBottomNavBar(
                     currentRoute = currentRoute,
@@ -154,43 +137,64 @@ fun MainScreen(
             }
             BoxWithConstraints(
                 modifier = Modifier
-                    .padding(paddingValues)
+                    .fillMaxSize()
             ) {
-                val gameHubHeight = 120.dp
-                val transRowHeight = 60.dp
-                val availableHeight = (
-                    this.maxHeight -
-                        bottomNavHeight - balanceGameBentoHeight
-                    ) * 0.8f
-                -gameHubHeight - transRowHeight
-                val bentoBox4Height = (availableHeight / 2) - 8.dp
-                val bentoBox5Height = (availableHeight / 2) - 8.dp
+                val verticalSpacing = 16.dp
+                val fixedElementsHeight = mainHeightComponentsFactor + (verticalSpacing * 3)
+                val gridContentAreaHeight = this.maxHeight
+                -paddingValues.calculateTopPadding()
+                -paddingValues.calculateBottomPadding()
+                val availableHeight = gridContentAreaHeight - fixedElementsHeight - bottomNavHeight
+                val bentoBox4Height = (availableHeight / 2) - (verticalSpacing / 2)
+                val bentoBox5Height = (availableHeight / 2) - (verticalSpacing / 2)
+                Column {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 16.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        BentoSettingsButton {
+                            scope.launch {
+                                drawerState.apply {
+                                    if (isClosed) open() else close()
+                                }
+                            }
+                        }
+                        Spacer(modifier = Modifier.weight(1f))
 
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 1.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp),
-                    userScrollEnabled = false
-                ) {
-                    item(span = { GridItemSpan(2) }) {
-                        HomeBentoContainer(name = gridItems[0], modifier = Modifier.height(balanceGameBentoHeight))
-                    }
-                    item(span = { GridItemSpan(2) }) {
-                        HomeBentoContainer(name = gridItems[1], modifier = Modifier.height(transRowHeight))
-                    }
-                    item(span = { GridItemSpan(1) }) {
-                        HomeBentoContainer(name = gridItems[2], modifier = Modifier.height(availableHeight))
-                    }
-                    item(span = { GridItemSpan(1) }) {
-                        Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                            HomeBentoContainer(name = gridItems[3], modifier = Modifier.height(bentoBox4Height))
-                            HomeBentoContainer(name = gridItems[4], modifier = Modifier.height(bentoBox5Height))
+                        BentoThemeButton {
+                            scope.launch {
+                                print("Theme button clicked")
+                            }
                         }
                     }
-                    item(span = { GridItemSpan(2) }) {
-                        Box(modifier = Modifier.height(balanceGameBentoHeight)) {
-                            GameHubBentoScreen()
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 1.dp),
+                        horizontalArrangement = Arrangement.spacedBy(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp),
+                        userScrollEnabled = false
+                    ) {
+                        item(span = { GridItemSpan(2) }) {
+                            HomeBentoContainer(name = gridItems[0], modifier = Modifier.height(balanceGameBentoHeight))
+                        }
+                        item(span = { GridItemSpan(2) }) {
+                            HomeBentoContainer(name = gridItems[1], modifier = Modifier.height(transRowHeight))
+                        }
+                        item(span = { GridItemSpan(1) }) {
+                            HomeBentoContainer(name = gridItems[2], modifier = Modifier.height(availableHeight))
+                        }
+                        item(span = { GridItemSpan(1) }) {
+                            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                                HomeBentoContainer(name = gridItems[3], modifier = Modifier.height(bentoBox4Height))
+                                HomeBentoContainer(name = gridItems[4], modifier = Modifier.height(bentoBox5Height))
+                            }
+                        }
+                        item(span = { GridItemSpan(2) }) {
+                            Box(modifier = Modifier.height(balanceGameBentoHeight)) {
+                                GameHubBentoScreen()
+                            }
                         }
                     }
                 }
