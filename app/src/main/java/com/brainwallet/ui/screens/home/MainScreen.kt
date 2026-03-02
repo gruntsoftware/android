@@ -50,6 +50,7 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.ui.bentosections.gamehubbento.GameHubBentoScreen
+import com.brainwallet.ui.bentosections.ltcpickerbento.LTCPickerBentoScreen
 import com.brainwallet.ui.composable.HomeBentoContainer
 import com.brainwallet.ui.layoutconstants.balanceGameBentoHeight
 import com.brainwallet.ui.layoutconstants.bottomNavHeight
@@ -127,7 +128,6 @@ fun MainScreen(
                     "Balance Bento View",
                     "Transaction History View",
                     "Tutorials Bento View",
-                    "LTC Price Bento View",
                     "Favourites Bento View"
                 )
             }
@@ -141,8 +141,8 @@ fun MainScreen(
                 -paddingValues.calculateTopPadding()
                 -paddingValues.calculateBottomPadding()
                 val availableHeight = gridContentAreaHeight - fixedElementsHeight - bottomNavHeight
-                val bentoBox4Height = (availableHeight / 2) - (verticalSpacing / 2)
-                val bentoBox5Height = (availableHeight / 2) - (verticalSpacing / 2)
+                val ltcPickerBentoHeight = (availableHeight * 0.78f) - (verticalSpacing / 2)
+                val favoritesBentoHeight = (availableHeight * 0.22f) - (verticalSpacing / 2)
                 Column {
                     Row(
                         modifier = Modifier
@@ -183,8 +183,13 @@ fun MainScreen(
                         }
                         item(span = { GridItemSpan(1) }) {
                             Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                                HomeBentoContainer(name = gridItems[3], modifier = Modifier.height(bentoBox4Height))
-                                HomeBentoContainer(name = gridItems[4], modifier = Modifier.height(bentoBox5Height))
+                                Box(modifier = Modifier.height(ltcPickerBentoHeight)) {
+                                    LTCPickerBentoScreen()
+                                }
+                                HomeBentoContainer(
+                                    name = gridItems[3],
+                                    modifier = Modifier.height(favoritesBentoHeight)
+                                )
                             }
                         }
                         item(span = { GridItemSpan(2) }) {
