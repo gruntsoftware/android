@@ -24,8 +24,8 @@ android {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 36
-        versionCode = 202506297
-        versionName = "v4.7.3"
+        versionCode = 202506300
+        versionName = "v4.8.1"
 
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
@@ -224,8 +224,9 @@ dependencies {
     implementation(grunt.bundles.koin)
     implementation(platform(grunt.koin.annotation.bom))
     implementation(grunt.koin.annotation)
+    implementation(libs.androidx.material3)
+    implementation("androidx.compose.material:material-icons-extended:1.7.8")
     ksp(grunt.koin.annotation.compiler)
-
     implementation(platform(libs.squareup.okhttp.bom))
     implementation(libs.bundles.squareup.okhttp)
     implementation(libs.bundles.squareup.retrofit)

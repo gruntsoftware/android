@@ -58,7 +58,7 @@ import com.brainwallet.tools.util.Utils;
 import com.brainwallet.ui.BrainwalletActivity;
 import com.brainwallet.ui.screens.settings.SettingsViewModel;
 import com.brainwallet.ui.screens.home.composable.HomeSettingDrawerComposeView;
-import com.brainwallet.ui.screens.home.receive.ReceiveDialogFragment;
+import com.brainwallet.ui.screens.home.history.receive.ReceiveDialogFragment;
 import com.brainwallet.util.PermissionUtil;
 import com.brainwallet.wallet.BRPeerManager;
 import com.brainwallet.wallet.BRWalletManager;

@@ -1,4 +1,4 @@
-package com.brainwallet.ui.screens.buylitecoin
+package com.brainwallet.ui.screens.buyreceive
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
@@ -37,9 +37,9 @@ import org.koin.compose.viewmodel.koinViewModel
 
 // TODO: wip
 @Composable
-fun BuyLitecoinScreen(
+fun BuyReceiveScreen(
     onNavigate: OnNavigate,
-    viewModel: BuyLitecoinViewModel = koinViewModel(),
+    viewModel: BuyReceiveViewModel = koinViewModel(),
     moonPayWidgetLauncherViewModel: MoonPayWidgetLauncherViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsState()
@@ -47,7 +47,7 @@ fun BuyLitecoinScreen(
     val appSetting by viewModel.appSetting.collectAsState()
     val context = LocalContext.current
     LaunchedEffect(Unit) {
-        viewModel.onEvent(BuyLitecoinEvent.OnLoad(context))
+        viewModel.onEvent(BuyReceiveEvent.OnLoad(context))
         viewModel.uiEffect.collect { effect ->
             when (effect) {
                 is UiEffect.ShowMessage ->
@@ -105,7 +105,7 @@ fun BuyLitecoinScreen(
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     onValueChange = { input ->
                         val amount = input.toFloatOrNull() ?: 0f
-                        viewModel.onEvent(BuyLitecoinEvent.OnFiatAmountChange(amount, false))
+                        viewModel.onEvent(BuyReceiveEvent.OnFiatAmountChange(amount, false))
                     },
                     shape = BrainwalletTheme.shapes.extraLarge,
                     isError = state.isValid().not(),

@@ -21,7 +21,7 @@ import com.brainwallet.data.model.AppSetting
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.composable.BrainwalletScaffold
-import com.brainwallet.ui.screens.home.receive.ReceiveDialogFragment
+import com.brainwallet.ui.screens.home.history.receive.ReceiveDialogFragment
 import com.brainwallet.ui.screens.unlock.components.UnLockScreenBody
 import com.brainwallet.ui.screens.unlock.components.UnLockScreenFooter
 import com.brainwallet.ui.screens.unlock.components.UnLockScreenHeader

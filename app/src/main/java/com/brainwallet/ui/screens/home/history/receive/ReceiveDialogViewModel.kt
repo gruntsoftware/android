@@ -1,4 +1,4 @@
-package com.brainwallet.ui.screens.home.receive
+package com.brainwallet.ui.screens.home.history.receive
 
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.R

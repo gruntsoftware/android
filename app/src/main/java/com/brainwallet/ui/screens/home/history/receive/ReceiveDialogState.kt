@@ -1,4 +1,4 @@
-package com.brainwallet.ui.screens.home.receive
+package com.brainwallet.ui.screens.home.history.receive
 
 import android.graphics.Bitmap
 import com.brainwallet.data.model.CurrencyEntity

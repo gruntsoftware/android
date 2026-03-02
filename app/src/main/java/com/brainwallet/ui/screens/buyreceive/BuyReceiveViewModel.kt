@@ -1,4 +1,4 @@
-package com.brainwallet.ui.screens.buylitecoin
+package com.brainwallet.ui.screens.buyreceive
 
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.R
@@ -23,13 +23,13 @@ import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
 @KoinViewModel
-class BuyLitecoinViewModel(
+class BuyReceiveViewModel(
     private val settingRepository: SettingRepository,
     private val ltcRepository: LtcRepository
-) : BrainwalletViewModel<BuyLitecoinEvent>() {
+) : BrainwalletViewModel<BuyReceiveEvent>() {
 
-    private val _state = MutableStateFlow(BuyLitecoinState())
-    val state: StateFlow<BuyLitecoinState> = _state.asStateFlow()
+    private val _state = MutableStateFlow(BuyReceiveState())
+    val state: StateFlow<BuyReceiveState> = _state.asStateFlow()
 
     val appSetting = settingRepository.settings
         .distinctUntilChanged()
@@ -49,14 +49,14 @@ class BuyLitecoinViewModel(
                     it in min..max
                 }
                 .collect {
-                    onEvent(BuyLitecoinEvent.OnFiatAmountChange(it))
+                    onEvent(BuyReceiveEvent.OnFiatAmountChange(it))
                 }
         }
     }
 
-    override fun onEvent(event: BuyLitecoinEvent) {
+    override fun onEvent(event: BuyReceiveEvent) {
         when (event) {
-            is BuyLitecoinEvent.OnLoad -> viewModelScope.launch {
+            is BuyReceiveEvent.OnLoad -> viewModelScope.launch {
                 delay(500)
                 _state.update { it.copy(address = BRSharedPrefs.getReceiveAddress(event.context)) }
                 try {
@@ -79,7 +79,7 @@ class BuyLitecoinViewModel(
                 }
             }
 
-            is BuyLitecoinEvent.OnFiatAmountChange -> viewModelScope.launch {
+            is BuyReceiveEvent.OnFiatAmountChange -> viewModelScope.launch {
                 // do validation
                 val (_, min, max) = state.value.moonpayCurrencyLimit.data.baseCurrency
                 val errorStringId = when {

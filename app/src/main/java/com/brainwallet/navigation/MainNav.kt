@@ -7,9 +7,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.brainwallet.ui.screens.buylitecoin.BuyLitecoinScreen
+import com.brainwallet.ui.screens.buyreceive.BuyReceiveScreen
+import com.brainwallet.ui.screens.gamehub.GameHubScreen
+import com.brainwallet.ui.screens.home.MainScreen
+import com.brainwallet.ui.screens.home.history.HistoryScreen
 import com.brainwallet.ui.screens.inputwords.InputWordsScreen
 import com.brainwallet.ui.screens.ready.ReadyScreen
+import com.brainwallet.ui.screens.send.SendScreen
 import com.brainwallet.ui.screens.setpasscode.SetPasscodeScreen
 import com.brainwallet.ui.screens.topup.TopUpScreen
 import com.brainwallet.ui.screens.unlock.UnLockScreen
@@ -25,6 +29,7 @@ import com.brainwallet.ui.screens.yourseedwords.YourSeedWordsScreen
  * maybe we have back stack activity from the old
  *
  */
+// / Route.Welcome,
 @Composable
 fun MainNavHost(
     startDestination: Any = Route.Welcome,
@@ -102,20 +107,34 @@ fun NavGraphBuilder.mainNavGraph(
         )
     }
 
-    /**
-     * for now, still using old activity & fragment [com.brainwallet.presenter.activities.BreadActivity]
-     */
-//    composable<Route.Home> {
-//        HomeScreen(onNavigate = onNavigate)
-//    }
+    composable<Route.Main> { navBackStackEntry ->
+        val route: Route.Main = navBackStackEntry.toRoute()
+        MainScreen(onNavigate = onNavigate)
+    }
 
     composable<Route.UnLock> { navBackStackEntry ->
         val route: Route.UnLock = navBackStackEntry.toRoute()
         UnLockScreen(onNavigate = onNavigate, isUpdatePin = route.isUpdatePin)
     }
 
-    composable<Route.BuyLitecoin> { navBackStackEntry ->
-        BuyLitecoinScreen(onNavigate = onNavigate)
+    composable<Route.BuyReceive> { navBackStackEntry ->
+        val route: Route.BuyReceive = navBackStackEntry.toRoute()
+        BuyReceiveScreen(onNavigate = onNavigate)
+    }
+
+    composable<Route.History> { navBackStackEntry ->
+        val route: Route.History = navBackStackEntry.toRoute()
+        HistoryScreen(onNavigate = onNavigate)
+    }
+
+    composable<Route.Send> { navBackStackEntry ->
+        val route: Route.Send = navBackStackEntry.toRoute()
+        SendScreen(onNavigate = onNavigate)
+    }
+
+    composable<Route.GameHub> { navBackStackEntry ->
+        val route: Route.GameHub = navBackStackEntry.toRoute()
+        GameHubScreen(onNavigate = onNavigate)
     }
 
     // todo add more composable screens

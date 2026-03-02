@@ -113,8 +113,8 @@
     <ID>CommentSpacing:BrainwalletActivity.kt$BrainwalletActivity$//for now just toast</ID>
     <ID>CommentSpacing:BrainwalletApp.kt$BrainwalletApp.Companion$//call onStop on evert activity so</ID>
     <ID>CommentSpacing:BrainwalletViewModel.kt$BrainwalletViewModel$//todo more error handler</ID>
-    <ID>CommentSpacing:BuyLitecoinScreen.kt$//TODO: wip</ID>
-    <ID>CommentSpacing:BuyLitecoinViewModel.kt$BuyLitecoinViewModel$//do validation</ID>
+    <ID>CommentSpacing:BuyReceiveScreen.kt$//TODO: wip</ID>
+    <ID>CommentSpacing:BuyReceiveViewModel.kt$BuyReceiveViewModel$//do validation</ID>
     <ID>CommentSpacing:ChangeLanguageBottomSheet.kt$ChangeLanguageBottomSheet$//for now, need to provide [getLocale]</ID>
     <ID>CommentSpacing:CipherStorage.kt$CipherStorageFile$//no-op</ID>
     <ID>CommentSpacing:Color.kt$//to make color darken, since we are not providing all colors for specific case</ID>
@@ -289,9 +289,9 @@
     <ID>FinalNewline:BrainwalletActivity.kt$com.brainwallet.ui.BrainwalletActivity.kt</ID>
     <ID>FinalNewline:BrainwalletMessagingService.kt$com.brainwallet.notification.BrainwalletMessagingService.kt</ID>
     <ID>FinalNewline:BrainwalletViewModel.kt$com.brainwallet.ui.BrainwalletViewModel.kt</ID>
-    <ID>FinalNewline:BuyLitecoinEvent.kt$com.brainwallet.ui.screens.buylitecoin.BuyLitecoinEvent.kt</ID>
-    <ID>FinalNewline:BuyLitecoinScreen.kt$com.brainwallet.ui.screens.buylitecoin.BuyLitecoinScreen.kt</ID>
-    <ID>FinalNewline:BuyLitecoinViewModel.kt$com.brainwallet.ui.screens.buylitecoin.BuyLitecoinViewModel.kt</ID>
+    <ID>FinalNewline:BuyReceiveEvent.kt$com.brainwallet.ui.screens.buyreceive.BuyReceiveEvent.kt</ID>
+    <ID>FinalNewline:BuyReceiveScreen.kt$com.brainwallet.ui.screens.buyreceive.BuyReceiveScreen.kt</ID>
+    <ID>FinalNewline:BuyReceiveViewModel.kt$com.brainwallet.ui.screens.buyreceive.BuyReceiveViewModel.kt</ID>
     <ID>FinalNewline:CipherBox.kt$com.brainwallet.util.cryptography.CipherBox.kt</ID>
     <ID>FinalNewline:CipherStorage.kt$com.brainwallet.util.cryptography.CipherStorage.kt</ID>
     <ID>FinalNewline:CircleButton.kt$com.brainwallet.ui.composable.CircleButton.kt</ID>
@@ -391,7 +391,7 @@
     <ID>MaximumLineLength:KeyStoreManager.kt$KeyStoreManager$ </ID>
     <ID>MaximumLineLength:ReceiveDialogViewModel.kt$ReceiveDialogViewModel$ </ID>
     <ID>MaximumLineLength:YourSeedProveItViewModel.kt$YourSeedProveItViewModel$ </ID>
-    <ID>ModifierMissing:BuyLitecoinScreen.kt$BuyLitecoinScreen</ID>
+    <ID>ModifierMissing:BuyReceiveScreen.kt$BuyReceiveScreen</ID>
     <ID>ModifierMissing:FiatSelectorBottomSheet.kt$FiatSelectorBottomSheet</ID>
     <ID>ModifierMissing:HistoryScreen.kt$HistoryScreen</ID>
     <ID>ModifierMissing:HomeScreen.kt$HomeBottomNavBar</ID>
@@ -426,8 +426,8 @@
     <ID>MultiLineIfElse:ReceiveDialogViewModel.kt$ReceiveDialogViewModel$event.quickFiatAmountOption.value</ID>
     <ID>MultiLineIfElse:ReceiveDialogViewModel.kt$ReceiveDialogViewModel$it.fiatAmount</ID>
     <ID>NoBlankLineBeforeRbrace:BrainwalletActivity.kt$BrainwalletActivity$ </ID>
-    <ID>NoBlankLineBeforeRbrace:BuyLitecoinScreen.kt$ </ID>
-    <ID>NoBlankLineBeforeRbrace:BuyLitecoinViewModel.kt$BuyLitecoinViewModel$ </ID>
+    <ID>NoBlankLineBeforeRbrace:BuyReceiveScreen.kt$ </ID>
+    <ID>NoBlankLineBeforeRbrace:BuyReceiveViewModel.kt$BuyReceiveViewModel$ </ID>
     <ID>NoBlankLineBeforeRbrace:CipherBox.kt$CipherBox.Impl$ </ID>
     <ID>NoBlankLineBeforeRbrace:CipherStorage.kt$CipherStorageFile$ </ID>
     <ID>NoBlankLineBeforeRbrace:CurrencyDetail.kt$ </ID>
@@ -467,7 +467,7 @@
     <ID>NoConsecutiveBlankLines:BaseURLTests.kt$ </ID>
     <ID>NoConsecutiveBlankLines:BrainwalletActivity.kt$ </ID>
     <ID>NoConsecutiveBlankLines:BrainwalletActivity.kt$BrainwalletActivity$ </ID>
-    <ID>NoConsecutiveBlankLines:BuyLitecoinScreen.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:BuyReceiveScreen.kt$ </ID>
     <ID>NoConsecutiveBlankLines:CertificateChainNotFound.kt$ </ID>
     <ID>NoConsecutiveBlankLines:CipherBox.kt$ </ID>
     <ID>NoConsecutiveBlankLines:CountryLanguageAdapter.kt$CountryLanguageAdapter$ </ID>
@@ -511,7 +511,7 @@
     <ID>NoEmptyClassBody:NewKeyStoreTests.kt$NewKeyStoreTests${ }</ID>
     <ID>NoEmptyClassBody:SeedWordTests.kt$SeedWordTests${ }</ID>
     <ID>NoEmptyClassBody:TransactionDataSourceTest.kt$TransactionDataSourceTest${}</ID>
-    <ID>NoEmptyFirstLineInMethodBlock:BuyLitecoinScreen.kt$ </ID>
+    <ID>NoEmptyFirstLineInMethodBlock:BuyReceiveScreen.kt$ </ID>
     <ID>NoEmptyFirstLineInMethodBlock:CurrencyTests.kt$CurrencyTests$ </ID>
     <ID>NoEmptyFirstLineInMethodBlock:FirebaseRemoteConfigRepositoryTest.kt$FirebaseRemoteConfigRepositoryTest$ </ID>
     <ID>NoEmptyFirstLineInMethodBlock:GamesDetail.kt$ </ID>
@@ -598,9 +598,12 @@
     <ID>UnusedPrivateMember:PaperKeyActivity.kt$PaperKeyActivity$private fun onSavedItClick()</ID>
     <ID>UnusedPrivateMember:ReceiveDialog.kt$@PreviewLightDark @Composable private fun ReceiveDialogPreview()</ID>
     <ID>UnusedPrivateMember:UnLockScreen.kt$@PreviewLightDark @Composable private fun UnLockScreenPreview()</ID>
+    <ID>UnusedPrivateMember:SendScreen.kt$@PreviewLightDark @Composable private fun SendScreenPreview()</ID>
     <ID>UnusedPrivateMember:UnLockScreenBody.kt$@PreviewLightDark @Composable private fun UnLockScreenBodyPreview()</ID>
     <ID>UnusedPrivateMember:UnLockScreenFooter.kt$@PreviewLightDark @Composable private fun UnLockScreenFooterPreview()</ID>
     <ID>UnusedPrivateMember:UnLockScreenHeader.kt$@PreviewLightDark @Composable private fun UnLockScreenHeaderPreview()</ID>
+    <ID>UnusedPrivateMember:GameHubScreen.kt$@PreviewLightDark @Composable private fun GameHubScreenPreview()</ID>
+    <ID>UnusedPrivateMember:HistoryScreen.kt$@PreviewLightDark @Composable private fun HistoryScreenPreview()</ID>
     <ID>WildcardImport:FragmentBalanceSeedReminder.kt$import android.widget.*</ID>
     <ID>Wrapping:AppModule.kt$AppModule$(</ID>
     <ID>Wrapping:CurrencyDetail.kt$(</ID>
@@ -616,5 +619,6 @@
     <ID>Wrapping:UnLockScreen.kt$(</ID>
     <ID>Wrapping:UnLockViewModelTest.kt$UnLockViewModelTest$(</ID>
     <ID>Wrapping:YourSeedWordsScreen.kt$(</ID>
+
   </CurrentIssues>
 </SmellBaseline>

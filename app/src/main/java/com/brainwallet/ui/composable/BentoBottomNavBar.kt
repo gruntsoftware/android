@@ -4,28 +4,15 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.brainwallet.R
+import com.brainwallet.navigation.Route
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
-
-/**
- * Data class representing an item in the bottom navigation bar.
- * @param label The text label for the item.
- * @param icon The icon for the item.
- * @param route The navigation route associated with the item.
- */
-private data class BentoBottomNavItem(
-    val label: String,
-    val icon: Int,
-    val route: String
-)
 
 /**
  * A custom bottom navigation bar component based on the provided design.
@@ -36,45 +23,59 @@ private data class BentoBottomNavItem(
  */
 @Composable
 fun BentoBottomNavBar(
-    currentRoute: String?,
-    onItemClick: (String) -> Unit,
+    currentRoute: Route?,
+    onItemClick: (Route) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val items = remember {
-        listOf(
-            BentoBottomNavItem("Send", R.drawable.ic_send, "send"),
-            BentoBottomNavItem("Buy/Receive", R.drawable.ic_buy_receive, "buy_receive"),
-            BentoBottomNavItem("Game Hub", R.drawable.ic_game_hub, "game_hub"),
-            BentoBottomNavItem("History", R.drawable.ic_history, "history")
-        )
-    }
-
     NavigationBar(
         modifier = modifier,
         containerColor = BrainwalletTheme.colors.surface,
         contentColor = BrainwalletTheme.colors.content
     ) {
-        items.forEach { item ->
-            val isSelected = item.route == currentRoute
-            NavigationBarItem(
-                selected = isSelected,
-                onClick = { onItemClick(item.route) },
-                icon = {
-                    Icon(
-                        painter = painterResource(item.icon),
-                        contentDescription = item.label
-                    )
-                },
-                label = { Text(text = item.label) },
-                colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = BrainwalletTheme.colors.content,
-                    selectedTextColor = BrainwalletTheme.colors.content,
-                    unselectedIconColor = BrainwalletTheme.colors.content.copy(alpha = 0.6f),
-                    unselectedTextColor = BrainwalletTheme.colors.content.copy(alpha = 0.6f),
-                    indicatorColor = Color.Transparent
+        NavigationBarItem(
+            selected = currentRoute is Route.Send,
+            onClick = { onItemClick(Route.Send) },
+            icon = {
+                Icon(
+                    painter = painterResource(R.drawable.ic_send),
+                    contentDescription = stringResource(id = R.string.send_tab_description)
                 )
-            )
-        }
+            },
+            label = { Text("Send") }
+        )
+        NavigationBarItem(
+            selected = currentRoute is Route.BuyReceive,
+            onClick = { onItemClick(Route.BuyReceive) },
+            icon = {
+                Icon(
+                    painter = painterResource(R.drawable.ic_buy_receive),
+                    contentDescription = stringResource(id = R.string.buy_receive_tab_description)
+                )
+            },
+            label = { Text("Buy/Receive") }
+        )
+        NavigationBarItem(
+            selected = currentRoute is Route.GameHub,
+            onClick = { onItemClick(Route.GameHub) },
+            icon = {
+                Icon(
+                    painter = painterResource(R.drawable.ic_game_hub),
+                    contentDescription = stringResource(id = R.string.game_hub_tab_description)
+                )
+            },
+            label = { Text("Game Hub") }
+        )
+        NavigationBarItem(
+            selected = currentRoute is Route.History,
+            onClick = { onItemClick(Route.History) },
+            icon = {
+                Icon(
+                    painter = painterResource(R.drawable.ic_history),
+                    contentDescription = stringResource(id = R.string.history_tab_description)
+                )
+            },
+            label = { Text("History") }
+        )
     }
 }
 
@@ -82,6 +83,6 @@ fun BentoBottomNavBar(
 @PreviewLightDark
 fun BentoBottomNavBarPreview() {
     BrainwalletTheme(isSystemInDarkTheme()) {
-        BentoBottomNavBar(currentRoute = "send", {})
+        BentoBottomNavBar(currentRoute = Route.Send, {})
     }
 }

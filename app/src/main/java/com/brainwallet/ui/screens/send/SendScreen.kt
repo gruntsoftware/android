@@ -1,5 +1,6 @@
-package com.brainwallet.ui.screens.home.history
+package com.brainwallet.ui.screens.send
 
+import com.brainwallet.R
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,7 +18,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.UiEffect
@@ -27,15 +27,15 @@ import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun HistoryScreen(
+fun SendScreen(
     onNavigate: OnNavigate,
     modifier: Modifier = Modifier,
-    viewModel: HistoryViewModel = koinViewModel()
+    viewModel: SendViewModel = koinViewModel()
 ) {
     val uiState by viewModel.state.collectAsState()
     val context = LocalContext.current
     LaunchedEffect(Unit) {
-        viewModel.onEvent(HistoryEvent.OnLoad(context))
+        viewModel.onEvent(SendEvent.OnLoad(context))
         viewModel.uiEffect.collect { effect ->
             when (effect) {
                 is UiEffect.Navigate -> onNavigate.invoke(effect)
@@ -43,15 +43,15 @@ fun HistoryScreen(
             }
         }
     }
-    HistoryScreen(uiState = uiState, modifier = modifier, onEvent = viewModel::onEvent)
+    SendScreen(uiState = uiState, modifier = modifier, onEvent = viewModel::onEvent)
 }
 
 @Composable
-private fun HistoryScreen(
-    uiState: HistoryState,
+private fun SendScreen(
+    uiState: SendState,
     modifier: Modifier = Modifier,
-    onEvent: (HistoryEvent) -> Unit = {},
-    viewModel: HistoryViewModel = koinViewModel()
+    onEvent: (SendEvent) -> Unit = {},
+    viewModel: SendViewModel = koinViewModel()
 ) {
     val horizontalVerticalSpacing = 8
     val state by viewModel.state.collectAsState()
@@ -70,7 +70,7 @@ private fun HistoryScreen(
                 verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
                 Text(
-                    text = stringResource(R.string.history_title),
+                    text = stringResource(R.string.send_title),
                     style = BrainwalletTheme.typography.titleLarge,
                 )
             }
@@ -80,10 +80,10 @@ private fun HistoryScreen(
 
 @PreviewLightDark
 @Composable
-private fun HistoryScreenPreview() {
+private fun SendScreenPreview() {
     BrainwalletAppTheme(appSetting = AppSetting(isDarkMode = isSystemInDarkTheme())) {
-        HistoryScreen(
-            uiState = HistoryState()
+        SendScreen(
+            uiState = SendState()
         )
     }
 }

@@ -1,9 +1,9 @@
-package com.brainwallet.ui.screens.buylitecoin
+package com.brainwallet.ui.screens.buyreceive
 
 import com.brainwallet.data.model.MoonpayCurrencyLimit
 import timber.log.Timber
 
-data class BuyLitecoinState(
+data class BuyReceiveState(
     val moonpayCurrencyLimit: MoonpayCurrencyLimit = MoonpayCurrencyLimit(),
     val fiatAmount: Float = moonpayCurrencyLimit.data.baseCurrency.min,
     val ltcAmount: Float = 0f,
@@ -11,9 +11,9 @@ data class BuyLitecoinState(
     val errorFiatAmountStringId: Int? = null
 )
 
-fun BuyLitecoinState.isValid(): Boolean = errorFiatAmountStringId == null
+fun BuyReceiveState.isValid(): Boolean = errorFiatAmountStringId == null
 
-fun BuyLitecoinState.getLtcAmountFormatted(isLoading: Boolean): String =
+fun BuyReceiveState.getLtcAmountFormatted(isLoading: Boolean): String =
     (if (isLoading || ltcAmount < 0f) "x.xxxŁ" else "%.3fŁ".format(ltcAmount)).also {
         Timber.d("TImber:  ltcamount $ltcAmount")
     }
