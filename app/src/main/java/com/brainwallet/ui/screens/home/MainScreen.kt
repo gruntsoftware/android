@@ -63,7 +63,6 @@ import com.brainwallet.ui.theme.BrainwalletAppTheme
 /**
  * The main screen of the application, featuring a bento-style grid layout.
  * It integrates the top bar, bottom navigation, and content grid.
- *
  * @param modifier The modifier to be applied to the component.
  */
 
@@ -92,7 +91,7 @@ fun MainScreen(
         drawerContent = {
             ModalDrawerSheet {
                 BentoRail(
-                    appVersion = "v.X.X.X (XXXXXXXXXXXX)"
+                    appVersion = "vX.X.X (XXXXXXXXXXXX)"
                 )
             }
         }
