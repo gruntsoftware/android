@@ -239,12 +239,14 @@ dependencies {
     implementation(libs.razir.progressbutton)
     implementation(libs.appsflyer)
     implementation(libs.android.installreferrer)
-
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
     testImplementation(libs.turbine)
     testImplementation(libs.slf4j.android)
     testImplementation(libs.kotlinx.coroutines.tests)
+    testImplementation("io.mockk:mockk:1.13.5")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation("app.cash.turbine:turbine:1.0.0")
 
     androidTestImplementation(platform(grunt.androidx.compose.bom))
     androidTestImplementation("androidx.test:core-ktx:1.5.0")

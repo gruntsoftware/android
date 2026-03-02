@@ -67,7 +67,6 @@ import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.LoadingState
 import com.brainwallet.ui.composable.MoonpayBuyButton
 import com.brainwallet.ui.composable.VerticalWheelPicker
-import com.brainwallet.ui.composable.WheelPickerFocusVertical
 import com.brainwallet.ui.composable.WheelPickerState
 import com.brainwallet.ui.composable.rememberWheelPickerState
 import com.brainwallet.ui.theme.BrainwalletAppTheme
@@ -79,6 +78,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import org.koin.compose.viewmodel.koinViewModel
 import timber.log.Timber
+import com.brainwallet.ui.composable.WheelPickerFocusVertical
 
 @Composable
 fun ReceiveDialog(
@@ -106,12 +106,12 @@ fun ReceiveDialog(
             }
         }
     }
-
+    // Set the initial index to the selected fiat currency
     LaunchedEffect(Unit) {
         delay(500)
         wheelPickerFiatCurrencyState.scrollToIndex(state.getSelectedFiatCurrencyIndex())
     }
-
+    // Listen for changes in the selected fiat currency index
     LaunchedEffect(wheelPickerFiatCurrencyState) {
         snapshotFlow { wheelPickerFiatCurrencyState.currentIndex }
             .filter { it > -1 }

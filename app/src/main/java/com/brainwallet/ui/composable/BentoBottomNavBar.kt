@@ -15,8 +15,9 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.graphics.Color
 import com.brainwallet.R
 import com.brainwallet.navigation.Route
-import com.brainwallet.ui.layoutconstants.bottomNavHeight
+import com.brainwallet.ui.layoutconstants.bottomNavHt
 import com.brainwallet.ui.theme.DesignTheme
+import com.brainwallet.ui.theme.colorMidnite
 
 /**
  * A custom bottom navigation bar component based on the provided design.
@@ -30,13 +31,17 @@ fun BentoBottomNavBar(
     currentRoute: Route?,
     onItemClick: (Route) -> Unit,
     modifier: Modifier = Modifier,
+    isDarkMode: Boolean = isSystemInDarkTheme()
 ) {
+    var surfaceColor = if (isDarkMode) Color.Black else Color.White
+    var contentsColor = if (isDarkMode) Color.White else colorMidnite
+
     NavigationBar(
-        containerColor = DesignTheme.colors.surface,
-        contentColor = DesignTheme.colors.content,
+        containerColor = surfaceColor,
+        contentColor = contentsColor,
         modifier = modifier
             .navigationBarsPadding()
-            .height(bottomNavHeight)
+            .height(bottomNavHt)
     ) {
         NavigationBarItem(
             selected = currentRoute is Route.Send,
@@ -49,11 +54,11 @@ fun BentoBottomNavBar(
             },
             label = { Text("Send") },
             colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
-                selectedIconColor = DesignTheme.colors.content,
-                selectedTextColor = DesignTheme.colors.content,
+                selectedIconColor = contentsColor,
+                selectedTextColor = contentsColor,
                 indicatorColor = Color.Transparent,
-                unselectedIconColor = DesignTheme.colors.content.copy(0.8f),
-                unselectedTextColor = DesignTheme.colors.content.copy(0.8f)
+                unselectedIconColor = contentsColor.copy(0.8f),
+                unselectedTextColor = contentsColor.copy(0.8f)
             )
         )
         NavigationBarItem(
@@ -67,11 +72,11 @@ fun BentoBottomNavBar(
             },
             label = { Text("Buy/Receive") },
             colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
-                selectedIconColor = DesignTheme.colors.content,
-                selectedTextColor = DesignTheme.colors.content,
+                selectedIconColor = contentsColor,
+                selectedTextColor = contentsColor,
                 indicatorColor = Color.Transparent,
-                unselectedIconColor = DesignTheme.colors.content.copy(0.8f),
-                unselectedTextColor = DesignTheme.colors.content.copy(0.8f)
+                unselectedIconColor = contentsColor.copy(0.8f),
+                unselectedTextColor = contentsColor.copy(0.8f)
             )
         )
         NavigationBarItem(
@@ -85,11 +90,11 @@ fun BentoBottomNavBar(
             },
             label = { Text("Game Hub") },
             colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
-                selectedIconColor = DesignTheme.colors.content,
-                selectedTextColor = DesignTheme.colors.content,
+                selectedIconColor = contentsColor,
+                selectedTextColor = contentsColor,
                 indicatorColor = Color.Transparent,
-                unselectedIconColor = DesignTheme.colors.content.copy(0.8f),
-                unselectedTextColor = DesignTheme.colors.content.copy(0.8f)
+                unselectedIconColor = contentsColor.copy(0.8f),
+                unselectedTextColor = contentsColor.copy(0.8f)
             )
         )
         NavigationBarItem(
@@ -103,11 +108,11 @@ fun BentoBottomNavBar(
             },
             label = { Text("History") },
             colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
-                selectedIconColor = DesignTheme.colors.content,
-                selectedTextColor = DesignTheme.colors.content,
+                selectedIconColor = contentsColor,
+                selectedTextColor = contentsColor,
                 indicatorColor = Color.Transparent,
-                unselectedIconColor = DesignTheme.colors.content.copy(0.8f),
-                unselectedTextColor = DesignTheme.colors.content.copy(0.8f)
+                unselectedIconColor = contentsColor.copy(0.8f),
+                unselectedTextColor = contentsColor.copy(0.8f)
             )
         )
     }

@@ -605,7 +605,7 @@
     <ID>UnusedPrivateMember:GameHubScreen.kt$@PreviewLightDark @Composable private fun GameHubScreenPreview()</ID>
     <ID>UnusedPrivateMember:HistoryScreen.kt$@PreviewLightDark @Composable private fun HistoryScreenPreview()</ID>
     <ID>UnusedPrivateMember:GameHubBentoScreen.kt$@PreviewLightDark @Composable private fun GameHubBentoScreenPreview()</ID>
-    <ID>UnusedPrivateMember:BrainwalletLogo.kt$@PreviewLightDark @Composable private fun BrainwalletLogoPreview()</ID>
+    <ID>UnusedPrivateMember:LTCPickerBentoScreen.kt$@PreviewLightDark @Composable private fun LTCPickerBentoScreenPreview()</ID>
     <ID>WildcardImport:FragmentBalanceSeedReminder.kt$import android.widget.*</ID>
     <ID>Wrapping:AppModule.kt$AppModule$(</ID>
     <ID>Wrapping:CurrencyDetail.kt$(</ID>
