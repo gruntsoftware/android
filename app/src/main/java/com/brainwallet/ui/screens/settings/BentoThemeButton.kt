@@ -25,6 +25,7 @@ fun BentoThemeButton(
     onClick: () -> Unit
 ) {
     Card(
+        onClick = onClick,
         modifier = modifier.size(48.dp),
         shape = CircleShape,
         colors = CardDefaults.cardColors(containerColor = BrainwalletTheme.colors.surface),
