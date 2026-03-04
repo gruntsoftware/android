@@ -27,7 +27,7 @@ import com.brainwallet.ui.composable.DarkModeToggleButton
 import com.brainwallet.ui.screens.unlock.UnLockEvent
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.ui.theme.DesignTheme
-import com.grunt.brainwallet.core.presentation.theme.LocalDarkModeFlag
+import com.brainwallet.ui.theme.LocalIsDarkModeFlag
 
 @Composable
 fun UnLockScreenFooter(
@@ -45,7 +45,7 @@ fun UnLockScreenFooter(
                 .padding(horizontal = 85.dp)
         ) {
             DarkModeToggleButton(
-                checked = LocalDarkModeFlag.current,
+                checked = LocalIsDarkModeFlag.current,
                 onCheckedChange = {
                     onEvent(UnLockEvent.OnToggleDarkMode)
                 },

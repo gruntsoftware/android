@@ -12,11 +12,11 @@ import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.ui.theme.DesignTheme
-import com.brainwallet.ui.theme.LocalisDarkModeFlag
+import com.brainwallet.ui.theme.LocalIsDarkModeFlag
 
 @Composable
 fun BrainWalletLogo(modifier: Modifier = Modifier) {
-    val iconLogo = if (LocalisDarkModeFlag.current) {
+    val iconLogo = if (LocalIsDarkModeFlag.current) {
         R.drawable.brainwallet_logotype_white
     } else {
         R.drawable.brainwallet_logotype_color

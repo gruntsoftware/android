@@ -226,6 +226,7 @@ dependencies {
     implementation(grunt.koin.annotation)
     implementation(libs.androidx.material3)
     implementation("androidx.compose.material:material-icons-extended:1.7.8")
+    implementation(libs.androidx.ui.test.junit4)
     ksp(grunt.koin.annotation.compiler)
     implementation(platform(libs.squareup.okhttp.bom))
     implementation(libs.bundles.squareup.okhttp)

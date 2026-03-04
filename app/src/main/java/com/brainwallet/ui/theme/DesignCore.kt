@@ -17,9 +17,10 @@ import androidx.core.view.WindowCompat
 val LocalLanguageISOCode = staticCompositionLocalOf {
     "en"
 }
-val LocalisDarkModeFlag = staticCompositionLocalOf {
+val LocalIsDarkModeFlag = staticCompositionLocalOf {
     false
 }
+
 val LocalBWColors = staticCompositionLocalOf {
     BWColors()
 }
@@ -44,7 +45,7 @@ fun DesignTheme(
     CompositionLocalProvider(
         LocalBWColors provides colors,
         LocalLanguageISOCode provides languageCode,
-        LocalisDarkModeFlag provides isDarkMode,
+        LocalIsDarkModeFlag provides isDarkMode,
     ) {
         MaterialTheme(
             typography = BWTypography,
