@@ -8,4 +8,5 @@ sealed class MainScreenEvent {
         val fiatAmount: Float,
         val needFetch: Boolean = true
     ) : MainScreenEvent()
+    data object OnToggleDarkMode : MainScreenEvent()
 }

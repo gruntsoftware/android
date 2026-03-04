@@ -118,6 +118,12 @@ class MainViewModel(
                     onLoading(false)
                 }
             }
+            is MainScreenEvent.OnToggleDarkMode -> viewModelScope.launch {
+                val currentSettings = appSetting.value
+                settingRepository.save(
+                    currentSettings.copy(isDarkMode = !currentSettings.isDarkMode)
+                )
+            }
         }
     }
 }
