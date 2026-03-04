@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import com.brainwallet.R
 import com.brainwallet.navigation.Route
 import com.brainwallet.ui.layoutconstants.bottomNavHeight
+import com.brainwallet.ui.theme.colorMidnite
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 /**
@@ -30,10 +31,14 @@ fun BentoBottomNavBar(
     currentRoute: Route?,
     onItemClick: (Route) -> Unit,
     modifier: Modifier = Modifier,
+    isDarkMode: Boolean = isSystemInDarkTheme()
 ) {
+    var surfaceColor = if (isDarkMode) Color.Black else Color.White
+    var contentsColor = if (isDarkMode) Color.White else colorMidnite
+
     NavigationBar(
-        containerColor = BrainwalletTheme.colors.surface,
-        contentColor = BrainwalletTheme.colors.content,
+        containerColor = surfaceColor,
+        contentColor = contentsColor,
         modifier = modifier
             .navigationBarsPadding()
             .height(bottomNavHeight)
@@ -49,11 +54,11 @@ fun BentoBottomNavBar(
             },
             label = { Text("Send") },
             colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
-                selectedIconColor = BrainwalletTheme.colors.content,
-                selectedTextColor = BrainwalletTheme.colors.content,
+                selectedIconColor = contentsColor,
+                selectedTextColor = contentsColor,
                 indicatorColor = Color.Transparent,
-                unselectedIconColor = BrainwalletTheme.colors.content.copy(0.8f),
-                unselectedTextColor = BrainwalletTheme.colors.content.copy(0.8f)
+                unselectedIconColor = contentsColor.copy(0.8f),
+                unselectedTextColor = contentsColor.copy(0.8f)
             )
         )
         NavigationBarItem(
@@ -67,11 +72,11 @@ fun BentoBottomNavBar(
             },
             label = { Text("Buy/Receive") },
             colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
-                selectedIconColor = BrainwalletTheme.colors.content,
-                selectedTextColor = BrainwalletTheme.colors.content,
+                selectedIconColor = contentsColor,
+                selectedTextColor = contentsColor,
                 indicatorColor = Color.Transparent,
-                unselectedIconColor = BrainwalletTheme.colors.content.copy(0.8f),
-                unselectedTextColor = BrainwalletTheme.colors.content.copy(0.8f)
+                unselectedIconColor = contentsColor.copy(0.8f),
+                unselectedTextColor = contentsColor.copy(0.8f)
             )
         )
         NavigationBarItem(
@@ -85,11 +90,11 @@ fun BentoBottomNavBar(
             },
             label = { Text("Game Hub") },
             colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
-                selectedIconColor = BrainwalletTheme.colors.content,
-                selectedTextColor = BrainwalletTheme.colors.content,
+                selectedIconColor = contentsColor,
+                selectedTextColor = contentsColor,
                 indicatorColor = Color.Transparent,
-                unselectedIconColor = BrainwalletTheme.colors.content.copy(0.8f),
-                unselectedTextColor = BrainwalletTheme.colors.content.copy(0.8f)
+                unselectedIconColor = contentsColor.copy(0.8f),
+                unselectedTextColor = contentsColor.copy(0.8f)
             )
         )
         NavigationBarItem(
@@ -103,11 +108,11 @@ fun BentoBottomNavBar(
             },
             label = { Text("History") },
             colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
-                selectedIconColor = BrainwalletTheme.colors.content,
-                selectedTextColor = BrainwalletTheme.colors.content,
+                selectedIconColor = contentsColor,
+                selectedTextColor = contentsColor,
                 indicatorColor = Color.Transparent,
-                unselectedIconColor = BrainwalletTheme.colors.content.copy(0.8f),
-                unselectedTextColor = BrainwalletTheme.colors.content.copy(0.8f)
+                unselectedIconColor = contentsColor.copy(0.8f),
+                unselectedTextColor = contentsColor.copy(0.8f)
             )
         )
     }
