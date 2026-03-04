@@ -26,7 +26,7 @@ import com.brainwallet.data.model.FeeOption
 import com.brainwallet.data.model.getFiatFormatted
 import com.brainwallet.data.model.getSelectedIndex
 import com.brainwallet.ui.screens.settings.SettingsEvent
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.DesignTheme
 
 // TODO
 @Composable
@@ -67,7 +67,7 @@ fun LitecoinBlockchainDetail(
                 }
             }
 
-            HorizontalDivider(color = BrainwalletTheme.colors.content)
+            HorizontalDivider(color = DesignTheme.colors.content)
 
             NetworkFeeSelector(
                 selectedCurrency = selectedCurrency,

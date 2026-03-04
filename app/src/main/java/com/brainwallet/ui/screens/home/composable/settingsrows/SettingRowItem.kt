@@ -22,8 +22,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletColors
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.BWColors
+import com.brainwallet.ui.theme.DesignTheme
 
 /**
  * main composable for [SettingRowItem] and [SettingRowItemExpandable]
@@ -56,10 +56,10 @@ fun SettingRowItemExpandable(
     trailingIcon: @Composable (() -> Unit)? = null,
     onClick: (() -> Unit)? = null,
     colors: ListItemColors = ListItemDefaults.colors(
-        containerColor = BrainwalletTheme.colors.surface,
-        headlineColor = BrainwalletTheme.colors.content,
-        supportingColor = BrainwalletTheme.colors.content.copy(0.6f),
-        trailingIconColor = BrainwalletTheme.colors.content,
+        containerColor = DesignTheme.colors.surface,
+        headlineColor = DesignTheme.colors.content,
+        supportingColor = DesignTheme.colors.content.copy(0.6f),
+        trailingIconColor = DesignTheme.colors.content,
     ),
     content: @Composable () -> Unit,
 ) {
@@ -72,9 +72,9 @@ fun SettingRowItemExpandable(
     val horizontalPadding = 14
 
     Column(
-        modifier = modifier.background(BrainwalletTheme.colors.settingRowItemBackground(expanded))
+        modifier = modifier.background(DesignTheme.colors.settingRowItemBackground(expanded))
     ) {
-        HorizontalDivider(thickness = dividerThickness.dp, color = BrainwalletTheme.colors.content)
+        HorizontalDivider(thickness = dividerThickness.dp, color = DesignTheme.colors.content)
         ListItem(
             colors = colors,
             modifier = Modifier.clickable {
@@ -87,7 +87,7 @@ fun SettingRowItemExpandable(
             headlineContent = {
                 Text(
                     text = title,
-                    style = BrainwalletTheme.typography.labelLarge
+                    style = DesignTheme.typography.labelLarge
                         .copy(textAlign = TextAlign.Left)
                 )
             },
@@ -115,6 +115,6 @@ fun SettingRowItemExpandable(
     }
 }
 
-fun BrainwalletColors.settingRowItemBackground(
+fun BWColors.settingRowItemBackground(
     expanded: Boolean = false
 ) = if (expanded) background else surface

@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import com.brainwallet.R
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.tools.sqlite.CurrencyDataSource
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.DesignTheme
 
 @Composable
 fun CurrencyDetail(
@@ -58,8 +58,8 @@ fun CurrencyDetail(
             ) { currency ->
                 ListItem(
                     colors = ListItemDefaults.colors(
-                        containerColor = BrainwalletTheme.colors.background,
-                        headlineColor = BrainwalletTheme.colors.content,
+                        containerColor = DesignTheme.colors.background,
+                        headlineColor = DesignTheme.colors.content,
                     ),
                     modifier = Modifier.clickable {
                         onFiatSelect.invoke(currency)
@@ -86,7 +86,7 @@ fun CurrencyDetail(
                             Icon(
                                 Icons.Default.CheckCircle,
                                 contentDescription = null,
-                                tint = BrainwalletTheme.colors.affirm
+                                tint = DesignTheme.colors.affirm
                             )
                         } else {
                             Box(
@@ -94,7 +94,7 @@ fun CurrencyDetail(
                                     .size(unselectedCircleSize.dp)
                                     .alpha(0.1f)
                                     .clip(CircleShape)
-                                    .background(BrainwalletTheme.colors.content)
+                                    .background(DesignTheme.colors.content)
                             )
                         }
                     }

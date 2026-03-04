@@ -59,7 +59,7 @@ import com.brainwallet.ui.composable.BorderedLargeButton
 import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
 import com.brainwallet.ui.composable.SeedWordItemTextField
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.DesignTheme
 import org.koin.compose.koinInject
 
 @Composable
@@ -79,7 +79,7 @@ fun InputWordsScreen(
     var mainBoxFactor = 0.5
     val thirdOfScreenHeight = (screenHeight * mainBoxFactor).toInt()
 
-    // todo: the following sizing can be move to BrainwalletTheme
+    // todo: the following sizing can be move to DesignTheme
 
     val leadTrailPadding = 24
     val halfLeadTrailPadding = leadTrailPadding / 2
@@ -116,7 +116,7 @@ fun InputWordsScreen(
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            tint = BrainwalletTheme.colors.content,
+                            tint = DesignTheme.colors.content,
                             contentDescription = stringResource(R.string.back),
                         )
                     }
@@ -193,8 +193,8 @@ fun InputWordsScreen(
 
             FilledTonalButton(
                 colors = ButtonDefaults.filledTonalButtonColors(
-                    containerColor = BrainwalletTheme.colors.surface,
-                    contentColor = BrainwalletTheme.colors.content
+                    containerColor = DesignTheme.colors.surface,
+                    contentColor = DesignTheme.colors.content
                 ),
                 onClick = {
                     viewModel.onEvent(InputWordsEvent.OnClearSeedWords)

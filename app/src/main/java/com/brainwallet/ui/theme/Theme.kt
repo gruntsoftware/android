@@ -28,3 +28,5 @@ fun ComposeView.setContentWithTheme(content: @Composable () -> Unit) {
         BrainwalletAppTheme { content.invoke() }
     }
 }
+
+// BWTypography

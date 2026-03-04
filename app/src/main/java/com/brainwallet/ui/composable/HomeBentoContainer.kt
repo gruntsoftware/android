@@ -14,7 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.DesignTheme
 
 @Composable
 fun HomeBentoContainer(
@@ -27,7 +27,7 @@ fun HomeBentoContainer(
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
         colors = CardDefaults.cardColors(
-            containerColor = BrainwalletTheme.colors.background.copy(alpha = 0.2f)
+            containerColor = DesignTheme.colors.background.copy(alpha = 0.2f)
         ),
         onClick = onClick
     ) {
@@ -39,8 +39,8 @@ fun HomeBentoContainer(
         ) {
             Text(
                 name,
-                style = BrainwalletTheme.typography.bodySmall.copy(
-                    color = BrainwalletTheme.colors.content,
+                style = DesignTheme.typography.bodySmall.copy(
+                    color = DesignTheme.colors.content,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Bold
                 ),
@@ -53,7 +53,7 @@ fun HomeBentoContainer(
 @Composable
 @PreviewLightDark
 fun BentoHomeGridPreview() {
-    BrainwalletTheme(isSystemInDarkTheme()) {
+    DesignTheme(isSystemInDarkTheme()) {
         HomeBentoContainer("Test")
     }
 }

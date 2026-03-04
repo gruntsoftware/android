@@ -11,12 +11,12 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.ui.theme.BrainwalletAppTheme
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
-import com.grunt.brainwallet.core.presentation.theme.LocalDarkModeFlag
+import com.brainwallet.ui.theme.DesignTheme
+import com.brainwallet.ui.theme.LocalisDarkModeFlag
 
 @Composable
 fun BrainWalletLogo(modifier: Modifier = Modifier) {
-    val iconLogo = if (LocalDarkModeFlag.current) {
+    val iconLogo = if (LocalisDarkModeFlag.current) {
         R.drawable.brainwallet_logotype_white
     } else {
         R.drawable.brainwallet_logotype_color
@@ -32,7 +32,7 @@ fun BrainWalletLogo(modifier: Modifier = Modifier) {
 @Composable
 private fun BrainWalletLogoPreview() {
     BrainwalletAppTheme(appSetting = AppSetting(isDarkMode = isSystemInDarkTheme())) {
-        Box(modifier = Modifier.background(BrainwalletTheme.colors.background)) {
+        Box(modifier = Modifier.background(DesignTheme.colors.background)) {
             BrainWalletLogo()
         }
     }

@@ -36,7 +36,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.DesignTheme
 import com.grunt.brainwallet.core.presentation.theme.chili
 
 @Composable
@@ -53,7 +53,7 @@ fun SeedWordItem(
                 .weight(1f),
             text = label,
             style = MaterialTheme.typography.bodyMedium,
-            color = if (isError) chili else BrainwalletTheme.colors.content,
+            color = if (isError) chili else DesignTheme.colors.content,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1
         )
@@ -73,7 +73,7 @@ fun SeedWordItemBox(
         Row(
             modifier = modifier
                 .background(
-                    color = BrainwalletTheme.colors.background.copy(alpha = 0.3f),
+                    color = DesignTheme.colors.background.copy(alpha = 0.3f),
                     shape = MaterialTheme.shapes.extraLarge
                 )
                 .padding(horizontal = 16.dp),
@@ -91,12 +91,12 @@ fun SeedWordItemTextField(
     suggestions: List<String> = emptyList(),
     modifier: Modifier = Modifier,
     textStyle: TextStyle = TextStyle.Default.copy(
-        color = BrainwalletTheme.colors.content
+        color = DesignTheme.colors.content
     ),
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     cursorBrush: Brush = SolidColor(
-        BrainwalletTheme.colors.content
+        DesignTheme.colors.content
     ), // todo: change with materialtheme so it will be adapt automatically when switch darkmode
     prefix: @Composable (() -> Unit)? = null,
 ) {
@@ -146,7 +146,7 @@ fun SeedWordItemTextField(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .background(
-                    color = BrainwalletTheme.colors.background.copy(alpha = 0.3f),
+                    color = DesignTheme.colors.background.copy(alpha = 0.3f),
                     shape = MaterialTheme.shapes.medium
                 )
                 .heightIn(max = 250.dp),

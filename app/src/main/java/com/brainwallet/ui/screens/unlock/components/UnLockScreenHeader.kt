@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.ui.composable.BrainWalletLogo
 import com.brainwallet.ui.theme.BrainwalletAppTheme
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.DesignTheme
 
 @Composable
 fun UnLockScreenHeader(
@@ -34,7 +34,7 @@ fun UnLockScreenHeader(
                 .fillMaxWidth(),
             text = formattedLtcPrice,
             textAlign = TextAlign.End,
-            color = BrainwalletTheme.colors.border
+            color = DesignTheme.colors.border
         )
         BrainWalletLogo(modifier = Modifier.width(268.dp))
     }
@@ -44,7 +44,7 @@ fun UnLockScreenHeader(
 @Composable
 private fun UnLockScreenHeaderPreview() {
     BrainwalletAppTheme(appSetting = AppSetting(isDarkMode = isSystemInDarkTheme())) {
-        Box(modifier = Modifier.background(BrainwalletTheme.colors.background)) {
+        Box(modifier = Modifier.background(DesignTheme.colors.background)) {
             UnLockScreenHeader(formattedLtcPrice = "100")
         }
     }

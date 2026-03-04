@@ -3,7 +3,7 @@
   <ManuallySuppressedIssues/>
   <CurrentIssues>
     <ID>AnnotationOnSeparateLine:Theme.kt$@Composable()</ID>
-    <ID>AnnotationOnSeparateLine:Theme.kt$BrainwalletTheme$@Composable @ReadOnlyComposable</ID>
+    <ID>AnnotationOnSeparateLine:Theme.kt$DesignTheme$@Composable @ReadOnlyComposable</ID>
     <ID>ArgumentListWrapping:CountryLanguageAdapter.kt$CountryLanguageAdapter$( mContext!!, Uri.parse("android.resource://" + mContext?.packageName + "/" + selectedAudio()))</ID>
     <ID>ArgumentListWrapping:CountryLanguageAdapter.kt$CountryLanguageAdapter$(mContext!!, Uri.parse("android.resource://" + mContext?.packageName + "/" + selectedAudio()))</ID>
     <ID>ArgumentListWrapping:GoogleServicesTests.kt$GoogleServicesTest$( "\"{\\n \\\"project_info\\\": {\\n \\\"project_number\\\": \\\"837833052833\\\",\\n \\\"project_id\\\": \\\"brainwallet-mobile\\\"\\n }\\n}\"")</ID>
@@ -16,11 +16,11 @@
     <ID>ArgumentListWrapping:KeyStoreManager.kt$KeyStoreManager$("timber: KeyStoreManager.getData new key in prefs not exists | ${aliasObject.alias}, ${aliasObject.datafileName}, ${aliasObject.ivFileName}")</ID>
     <ID>ArgumentListWrapping:MessagingTopicDataSourceTest.kt$MessagingTopicDataSourceTest$( "initial_$expectedBase", "news_$expectedBase", "promo_$expectedBase", "warn_$expectedBase")</ID>
     <ID>ArgumentListWrapping:MessagingTopicDataSourceTest.kt$MessagingTopicDataSourceTest$("initial_$expectedBase", "news_$expectedBase", "promo_$expectedBase", "warn_$expectedBase")</ID>
-    <ID>ArgumentListWrapping:ReceiveDialog.kt$( color = BrainwalletTheme.colors.surface)</ID>
-    <ID>ArgumentListWrapping:ReceiveDialog.kt$(color = BrainwalletTheme.colors.surface)</ID>
-    <ID>ArgumentListWrapping:SeedWordItem.kt$( BrainwalletTheme.colors.content)</ID>
-    <ID>ArgumentListWrapping:SeedWordItem.kt$( modifier = modifier .background( color = BrainwalletTheme.colors.background.copy(alpha = 0.3f), shape = MaterialTheme.shapes.extraLarge ) .padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically )</ID>
-    <ID>ArgumentListWrapping:SeedWordItem.kt$(BrainwalletTheme.colors.content)</ID>
+    <ID>ArgumentListWrapping:ReceiveDialog.kt$( color = DesignTheme.colors.surface)</ID>
+    <ID>ArgumentListWrapping:ReceiveDialog.kt$(color = DesignTheme.colors.surface)</ID>
+    <ID>ArgumentListWrapping:SeedWordItem.kt$( DesignTheme.colors.content)</ID>
+    <ID>ArgumentListWrapping:SeedWordItem.kt$( modifier = modifier .background( color = DesignTheme.colors.background.copy(alpha = 0.3f), shape = MaterialTheme.shapes.extraLarge ) .padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically )</ID>
+    <ID>ArgumentListWrapping:SeedWordItem.kt$(DesignTheme.colors.content)</ID>
     <ID>ArgumentListWrapping:UnLockScreenFooter.kt$( modifier = Modifier .padding(bottom = 24.dp) .padding(horizontal = 85.dp))</ID>
     <ID>ArgumentListWrapping:UnLockScreenFooter.kt$(modifier = Modifier .padding(bottom = 24.dp) .padding(horizontal = 85.dp))</ID>
     <ID>ArgumentListWrapping:YourSeedProveItScreen.kt$( ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class, ExperimentalFoundationApi::class )</ID>
@@ -155,7 +155,7 @@
     <ID>CommentSpacing:HomeSettingDrawerSheet.kt$//currently just load sync metadata here</ID>
     <ID>CommentSpacing:InputWordsScreen.kt$/// Layout values</ID>
     <ID>CommentSpacing:InputWordsScreen.kt$//12 seed words</ID>
-    <ID>CommentSpacing:InputWordsScreen.kt$//todo: the following sizing can be move to BrainwalletTheme</ID>
+    <ID>CommentSpacing:InputWordsScreen.kt$//todo: the following sizing can be move to DesignTheme</ID>
     <ID>CommentSpacing:InputWordsState.kt$InputWordsState$//12 seed words</ID>
     <ID>CommentSpacing:InputWordsViewModel.kt$InputWordsViewModel$//TODO: revisit later, please move to repository, for now just reuse the existing</ID>
     <ID>CommentSpacing:KeyStoreManager.kt$KeyStoreManager$//TODO: need auth?</ID>
@@ -248,7 +248,7 @@
     <ID>CommentSpacing:SyncBlockWorker.kt$SyncBlockWorker$//todo: maybe need ongoing notification?</ID>
     <ID>CommentSpacing:Theme.kt$//default</ID>
     <ID>CommentSpacing:Theme.kt$//provide compose theme wrapper for transition</ID>
-    <ID>CommentSpacing:Theme.kt$BrainwalletTheme$//todo: add typography, shape? for the design system</ID>
+    <ID>CommentSpacing:Theme.kt$DesignTheme$//todo: add typography, shape? for the design system</ID>
     <ID>CommentSpacing:TopUpScreen.kt$/// Layout values</ID>
     <ID>CommentSpacing:TransactionDataItem.kt$TransactionDataItem$///Refactored Transaction data item. Replaces TxItem</ID>
     <ID>CommentSpacing:UnLockEvent.kt$//todo</ID>
@@ -259,7 +259,7 @@
     <ID>CommentSpacing:UnLockViewModel.kt$UnLockViewModel$//if update pin from drawer</ID>
     <ID>CommentSpacing:WelcomeScreen.kt$//fiat/currency selector</ID>
     <ID>CommentSpacing:WelcomeScreen.kt$//language selector</ID>
-    <ID>CommentSpacing:WelcomeScreen.kt$//todo: the following sizing can be move to BrainwalletTheme</ID>
+    <ID>CommentSpacing:WelcomeScreen.kt$//todo: the following sizing can be move to DesignTheme</ID>
     <ID>CommentSpacing:WelcomeState.kt$WelcomeState$//-1 = need to fetch</ID>
     <ID>CommentSpacing:WelcomeViewModel.kt$WelcomeViewModel$//TODO: revisit this later</ID>
     <ID>CommentSpacing:WheelPicker.kt$//default</ID>
@@ -409,8 +409,8 @@
     <ID>ModifierMissing:WheelPicker.kt$DefaultWheelPickerDisplay</ID>
     <ID>ModifierMissing:YourSeedProveItScreen.kt$YourSeedProveItScreen</ID>
     <ID>ModifierMissing:YourSeedWordsScreen.kt$YourSeedWordsScreen</ID>
-    <ID>ModifierReused:SeedWordItem.kt$Box(modifier = modifier) { Row( modifier = modifier .background( color = BrainwalletTheme.colors.background.copy(alpha = 0.3f), shape = MaterialTheme.shapes.extraLarge ) .padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically ) { content.invoke(this) } }</ID>
-    <ID>ModifierReused:SeedWordItem.kt$Row( modifier = modifier .background( color = BrainwalletTheme.colors.background.copy(alpha = 0.3f), shape = MaterialTheme.shapes.extraLarge ) .padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically ) { content.invoke(this) }</ID>
+    <ID>ModifierReused:SeedWordItem.kt$Box(modifier = modifier) { Row( modifier = modifier .background( color = DesignTheme.colors.background.copy(alpha = 0.3f), shape = MaterialTheme.shapes.extraLarge ) .padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically ) { content.invoke(this) } }</ID>
+    <ID>ModifierReused:SeedWordItem.kt$Row( modifier = modifier .background( color = DesignTheme.colors.background.copy(alpha = 0.3f), shape = MaterialTheme.shapes.extraLarge ) .padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically ) { content.invoke(this) }</ID>
     <ID>ModifierWithoutDefault:WheelPicker.kt$modifier</ID>
     <ID>MultiLineIfElse:CipherBox.kt$CipherBox.Impl$GCMParameterSpec(128, iv)</ID>
     <ID>MultiLineIfElse:CipherBox.kt$CipherBox.Impl$IvParameterSpec(iv)</ID>
@@ -609,9 +609,9 @@
     <ID>WildcardImport:FragmentBalanceSeedReminder.kt$import android.widget.*</ID>
     <ID>Wrapping:AppModule.kt$AppModule$(</ID>
     <ID>Wrapping:CurrencyDetail.kt$(</ID>
-    <ID>Wrapping:CurrencyDetail.kt$(colors = ListItemDefaults.colors( containerColor = BrainwalletTheme.colors.background, headlineColor = BrainwalletTheme.colors.content, ), modifier = Modifier.clickable { onFiatSelect.invoke(currency) }, headlineContent = { Row { Text( modifier = Modifier.padding(tinyPad.dp), text = currency.name, style = MaterialTheme.typography.labelMedium .copy(textAlign = TextAlign.Left) ) Spacer(modifier = Modifier.weight(1f)) Text( modifier = Modifier.padding(tinyPad.dp), text = "${currency.code} (${currency.symbol})", style = MaterialTheme.typography.labelMedium .copy(textAlign = TextAlign.Left) ) } }, trailingContent = { if (selectedCurrency.code == currency.code) { Icon( Icons.Default.CheckCircle, contentDescription = null, tint = BrainwalletTheme.colors.affirm ) } else { Box( modifier = Modifier .size(unselectedCircleSize.dp) .alpha(0.1f) .clip(CircleShape) .background(BrainwalletTheme.colors.content) ) } })</ID>
+    <ID>Wrapping:CurrencyDetail.kt$(colors = ListItemDefaults.colors( containerColor = DesignTheme.colors.background, headlineColor = DesignTheme.colors.content, ), modifier = Modifier.clickable { onFiatSelect.invoke(currency) }, headlineContent = { Row { Text( modifier = Modifier.padding(tinyPad.dp), text = currency.name, style = MaterialTheme.typography.labelMedium .copy(textAlign = TextAlign.Left) ) Spacer(modifier = Modifier.weight(1f)) Text( modifier = Modifier.padding(tinyPad.dp), text = "${currency.code} (${currency.symbol})", style = MaterialTheme.typography.labelMedium .copy(textAlign = TextAlign.Left) ) } }, trailingContent = { if (selectedCurrency.code == currency.code) { Icon( Icons.Default.CheckCircle, contentDescription = null, tint = DesignTheme.colors.affirm ) } else { Box( modifier = Modifier .size(unselectedCircleSize.dp) .alpha(0.1f) .clip(CircleShape) .background(DesignTheme.colors.content) ) } })</ID>
     <ID>Wrapping:FiatSelectorBottomSheet.kt$(</ID>
-    <ID>Wrapping:FiatSelectorBottomSheet.kt$(colors = ListItemDefaults.colors( containerColor = BrainwalletTheme.colors.background, headlineColor = BrainwalletTheme.colors.content, ), modifier = Modifier.clickable { onFiatSelect.invoke(currency) }, headlineContent = { Row { Text( modifier = Modifier.padding(tinyPad.dp), text = currency.name, style = BrainwalletTheme.typography.labelLarge .copy(textAlign = TextAlign.Left) ) Spacer(modifier = Modifier.weight(1f)) Text( modifier = Modifier.padding(tinyPad.dp), text = "${currency.code} (${currency.symbol})", style = BrainwalletTheme.typography.labelLarge .copy(textAlign = TextAlign.Left) ) } }, trailingContent = { if (selectedCurrency.code == currency.code) { Icon( Icons.Default.CheckCircle, contentDescription = null, tint = BrainwalletTheme.colors.affirm ) } else { Box( modifier = Modifier .size(unselectedCircleSize.dp) .alpha(0.1f) .clip(CircleShape) .background(BrainwalletTheme.colors.content) ) } })</ID>
+    <ID>Wrapping:FiatSelectorBottomSheet.kt$(colors = ListItemDefaults.colors( containerColor = DesignTheme.colors.background, headlineColor = DesignTheme.colors.content, ), modifier = Modifier.clickable { onFiatSelect.invoke(currency) }, headlineContent = { Row { Text( modifier = Modifier.padding(tinyPad.dp), text = currency.name, style = DesignTheme.typography.labelLarge .copy(textAlign = TextAlign.Left) ) Spacer(modifier = Modifier.weight(1f)) Text( modifier = Modifier.padding(tinyPad.dp), text = "${currency.code} (${currency.symbol})", style = DesignTheme.typography.labelLarge .copy(textAlign = TextAlign.Left) ) } }, trailingContent = { if (selectedCurrency.code == currency.code) { Icon( Icons.Default.CheckCircle, contentDescription = null, tint = DesignTheme.colors.affirm ) } else { Box( modifier = Modifier .size(unselectedCircleSize.dp) .alpha(0.1f) .clip(CircleShape) .background(DesignTheme.colors.content) ) } })</ID>
     <ID>Wrapping:FirebaseRemoteConfigRepositoryTest.kt$FirebaseRemoteConfigRepositoryTest$firebaseRemoteConfig.getString(any())</ID>
     <ID>Wrapping:HomeSettingDrawerSheet.kt$(</ID>
     <ID>Wrapping:MoonPayWidgeLauncher.kt$MoonPayWidgetLauncherViewModel$(</ID>

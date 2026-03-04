@@ -16,7 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.brainwallet.R
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.DesignTheme
 
 @Composable
 fun BentoThemeButton(
@@ -28,8 +28,8 @@ fun BentoThemeButton(
         onClick = onClick,
         modifier = modifier.size(48.dp),
         shape = CircleShape,
-        colors = CardDefaults.cardColors(containerColor = BrainwalletTheme.colors.surface),
-        border = BorderStroke(1.dp, BrainwalletTheme.colors.content.copy(alpha = 0.2f)),
+        colors = CardDefaults.cardColors(containerColor = DesignTheme.colors.surface),
+        border = BorderStroke(1.dp, DesignTheme.colors.content.copy(alpha = 0.2f)),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Box(
@@ -39,7 +39,7 @@ fun BentoThemeButton(
             Icon(
                 painter = painterResource(id = if (isDarkMode) R.drawable.ic_moon_stars else R.drawable.ic_sunny),
                 contentDescription = "Mode",
-                tint = BrainwalletTheme.colors.content
+                tint = DesignTheme.colors.content
             )
         }
     }
@@ -48,7 +48,7 @@ fun BentoThemeButton(
 @Composable
 @PreviewLightDark
 fun BentoThemeButtonPreview() {
-    BrainwalletTheme(isSystemInDarkTheme()) {
+    DesignTheme(isSystemInDarkTheme()) {
         BentoThemeButton {}
     }
 }

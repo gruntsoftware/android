@@ -24,7 +24,7 @@ import com.brainwallet.ui.composable.BorderedLargeButton
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.DesignTheme
 import com.grunt.brainwallet.core.presentation.util.BaseViewModel
 import com.grunt.brainwallet.iap.presentation.model.ExportedTransaction
 import com.grunt.brainwallet.iap.presentation.screen.ExportTrxSheet
@@ -86,8 +86,8 @@ fun HistoryFooter(
     if (showSheet) {
         ModalBottomSheet(
             sheetState = sheetState,
-            containerColor = BrainwalletTheme.colors.surface,
-            contentColor = BrainwalletTheme.colors.content,
+            containerColor = DesignTheme.colors.surface,
+            contentColor = DesignTheme.colors.content,
             onDismissRequest = onClick
         ) {
             ExportTrxSheet(

@@ -6,7 +6,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.grunt.brainwallet.core.presentation.theme.openSauceOneFamily
 
-val BrainwalletTypography = Typography(
+val BWTypography = Typography(
     displayLarge = TextStyle(
         fontFamily = openSauceOneFamily,
         fontWeight = FontWeight.SemiBold,

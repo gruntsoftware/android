@@ -14,7 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.DesignTheme
 
 @Composable
 fun BentoRailLearningBanner(
@@ -26,7 +26,7 @@ fun BentoRailLearningBanner(
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
         colors = CardDefaults.cardColors(
-            containerColor = BrainwalletTheme.colors.background.copy(alpha = 0.2f)
+            containerColor = DesignTheme.colors.background.copy(alpha = 0.2f)
         ),
         onClick = onClick
     ) {
@@ -38,8 +38,8 @@ fun BentoRailLearningBanner(
         ) {
             Text(
                 "Learning Banner",
-                style = BrainwalletTheme.typography.bodyLarge.copy(
-                    color = BrainwalletTheme.colors.content,
+                style = DesignTheme.typography.bodyLarge.copy(
+                    color = DesignTheme.colors.content,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Bold
                 ),
@@ -52,7 +52,7 @@ fun BentoRailLearningBanner(
 @Composable
 @PreviewLightDark
 fun BentoRailLearningBannerPreview() {
-    BrainwalletTheme(isSystemInDarkTheme()) {
+    DesignTheme(isSystemInDarkTheme()) {
         BentoRailLearningBanner()
     }
 }

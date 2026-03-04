@@ -16,8 +16,8 @@ import androidx.compose.ui.graphics.Color
 import com.brainwallet.R
 import com.brainwallet.navigation.Route
 import com.brainwallet.ui.layoutconstants.bottomNavHeight
+import com.brainwallet.ui.theme.DesignTheme
 import com.brainwallet.ui.theme.colorMidnite
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 /**
  * A custom bottom navigation bar component based on the provided design.
@@ -121,7 +121,7 @@ fun BentoBottomNavBar(
 @Composable
 @PreviewLightDark
 fun BentoBottomNavBarPreview() {
-    BrainwalletTheme(isSystemInDarkTheme()) {
+    DesignTheme(isSystemInDarkTheme()) {
         BentoBottomNavBar(currentRoute = Route.Send, {})
     }
 }

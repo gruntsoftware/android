@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.brainwallet.data.model.Language
 import com.brainwallet.ui.composable.BrainwalletBottomSheet
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.DesignTheme
 
 @Composable
 fun LanguageSelectorBottomSheet(
@@ -35,8 +35,8 @@ fun LanguageSelectorBottomSheet(
             ) { language ->
                 ListItem(
                     colors = ListItemDefaults.colors(
-                        containerColor = BrainwalletTheme.colors.background,
-                        headlineColor = BrainwalletTheme.colors.content,
+                        containerColor = DesignTheme.colors.background,
+                        headlineColor = DesignTheme.colors.content,
                     ),
                     modifier = Modifier.clickable {
                         if (language.code.isNotBlank()) {
@@ -51,7 +51,7 @@ fun LanguageSelectorBottomSheet(
                             Icon(
                                 Icons.Default.CheckCircle,
                                 contentDescription = null,
-                                tint = BrainwalletTheme.colors.affirm
+                                tint = DesignTheme.colors.affirm
                             )
                         }
                     }
