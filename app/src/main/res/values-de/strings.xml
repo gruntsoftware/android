@@ -716,7 +716,6 @@
     <string name="Login.currentLtcPrice">Aktueller LTC-Wert in %1$s</string>
     <string name="Settings.languages">Sprachen</string>
     <string name="Settings.ChangeLanguage.alertMessage">Sind Sie sicher, dass Sie die Sprache auf Deutsch ändern möchten?</string>
-    <string name="BuyCenter.bitrefill.Title">Bitrefill</string>
     <string name="BuyCenter.bitrefill.FinancialDetails">Geschenkkarten kaufen\n• Prepaid-Telefone aufladen\n• Steam, Amazon, Hotels.com\n• Funktioniert in 170 Ländern</string>
     <string name="show_seed_label">Zeigen</string>
     <string name="settings_show_seed">Meine Seed-Phrase anzeigen</string>
@@ -822,4 +821,6 @@
     <string name="send_title">Send Litecoin</string>
     <string name="game_hub_title">Game Hub</string>
     <string name="history_title">History</string>
+    <string name="game_hub_tagline">ARE YOU GOOD ENOUGH TO BE #1?</string>
+    <string name="game_hub_label">GAME HUB</string>
 </resources>

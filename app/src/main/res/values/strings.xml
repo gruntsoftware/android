@@ -720,7 +720,6 @@
     <string name="BuyCenter.moonpay.Title" translatable="false" tools:ignore="MissingTranslation">Moonpay</string>
     <string name="BuyCenter.moonpay.FinancialDetails">"• Buy LTC with many fiat pairs\n• Pay with multiple methods\n• Global payment provider"</string>
 
-    <string name="BuyCenter.bitrefill.Title" tools:ignore="MissingTranslation" translatable="false">Bitrefill</string>
     <string name="BuyCenter.bitrefill.FinancialDetails">"• Buy gift cards\n• Refill prepaid phones\n• Steam, Amazon, Hotels.com\n• Works in 170 countries"</string>
 
     <string name="aud_currency_code" translatable="false">AUD</string>
@@ -816,7 +815,7 @@
     <string name="down_left_arrow">down-left-arrow</string>
     <string name="logo">logo</string>
     <string name="toggle_dark_mode">toggle-dark-mode</string>
-    <string name="toggle_lock_mode" translatable="false">toggle-lock-mode</string>
+    <string name="toggle_lock_mode">toggle-lock-mode</string>
     <string name="settings_title_security">Security</string>
     <string name="settings_title_language">Language</string>
     <string name="settings_title_currency">Currency</string>
@@ -854,7 +853,6 @@
     <string name="buy_litecoin_desc">Do be deposited to your LTC Address:</string>
     <string name="buy_litecoin_button_moonpay">Buy with Moonpay</string>
     <string name="new_address">New Address</string>
-
     <string name="bottom_nav_item_buy_receive_title">Buy / Receive</string>
     <string name="custom">Custom</string>
     <string name="reset_start_over">Reset / Start Over</string>
@@ -866,4 +864,6 @@
     <string name="send_title">Send Litecoin</string>
     <string name="game_hub_title">Game Hub</string>
     <string name="history_title">History</string>
+    <string name="game_hub_tagline">ARE YOU GOOD ENOUGH TO BE #1?</string>
+    <string name="game_hub_label">GAME HUB</string>
 </resources>

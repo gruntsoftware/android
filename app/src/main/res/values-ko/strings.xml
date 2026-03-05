@@ -716,7 +716,6 @@
     <string name="Login.currentLtcPrice">현재 LTC 값 %1$s</string>
     <string name="Settings.languages">언어</string>
     <string name="Settings.ChangeLanguage.alertMessage">언어를 한국어로 변경하시겠습니까?</string>
-    <string name="BuyCenter.bitrefill.Title">Bitrefill</string>
     <string name="BuyCenter.bitrefill.FinancialDetails">기프트 카드 구매\n• 선불 전화 충전\n• Steam, Amazon, Hotels.com\n• 170개국에서 작동</string>
     <string name="show_seed_label">보여주다</string>
     <string name="settings_show_seed">내 시드 문구 표시</string>
@@ -822,4 +821,6 @@
     <string name="send_title">Send Litecoin</string>
     <string name="game_hub_title">Game Hub</string>
     <string name="history_title">History</string>
+    <string name="game_hub_tagline">ARE YOU GOOD ENOUGH TO BE #1?</string>
+    <string name="game_hub_label">GAME HUB</string>
 </resources>

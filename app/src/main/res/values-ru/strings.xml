@@ -716,7 +716,6 @@
     <string name="Login.currentLtcPrice">Текущее значение LTC в %1$s</string>
     <string name="Settings.languages">Языки</string>
     <string name="Settings.ChangeLanguage.alertMessage">Вы уверены, что хотите сменить язык на русский?</string>
-    <string name="BuyCenter.bitrefill.Title">Bitrefill</string>
     <string name="BuyCenter.bitrefill.FinancialDetails">Покупайте подарочные карты\n• Пополняйте предоплаченные телефоны\n• Steam, Amazon, Hotels.com\n• Работает в 170 странах</string>
     <string name="show_seed_label">Показывать</string>
     <string name="settings_show_seed">" Покажи мою початкову фразу"</string>
@@ -822,4 +821,6 @@
     <string name="send_title">Send Litecoin</string>
     <string name="game_hub_title">Game Hub</string>
     <string name="history_title">History</string>
+    <string name="game_hub_tagline">ARE YOU GOOD ENOUGH TO BE #1?</string>
+    <string name="game_hub_label">GAME HUB</string>
 </resources>

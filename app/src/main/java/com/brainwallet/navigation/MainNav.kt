@@ -136,6 +136,4 @@ fun NavGraphBuilder.mainNavGraph(
         val route: Route.GameHub = navBackStackEntry.toRoute()
         GameHubScreen(onNavigate = onNavigate)
     }
-
-    // todo add more composable screens
 }

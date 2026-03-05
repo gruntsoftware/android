@@ -23,5 +23,6 @@ data class SettingsState(
     val shareAnalyticsDataEnabled: Boolean = false,
     val lastSyncMetadata: SyncAnalyticsRepository.SyncMetadata? = null,
     val currentFeeOptions: List<FeeOption> = Fee.Default.toFeeOptions(),
-    val selectedFeeType: String = FeeManager.LUXURY
+    val selectedFeeType: String = FeeManager.LUXURY,
+    val formattedVersion: String = ""
 )

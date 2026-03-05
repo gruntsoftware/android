@@ -716,7 +716,6 @@
     <string name="Login.currentLtcPrice">現在のLTC値 %1$s</string>
     <string name="Settings.languages">言語</string>
     <string name="Settings.ChangeLanguage.alertMessage">言語を日本語に変更してもよろしいですか?</string>
-    <string name="BuyCenter.bitrefill.Title">Bitrefill</string>
     <string name="BuyCenter.bitrefill.FinancialDetails">ギフトカードの購入\n• プリペイド携帯電話の補充\n• Steam、Amazon、Hotels.com\n• 170 か国で利用可能</string>
     <string name="show_seed_label">見せる</string>
     <string name="settings_show_seed">私のシードフレーズを表示</string>
@@ -822,4 +821,6 @@
     <string name="send_title">Send Litecoin</string>
     <string name="game_hub_title">Game Hub</string>
     <string name="history_title">History</string>
+    <string name="game_hub_tagline">ARE YOU GOOD ENOUGH TO BE #1?</string>
+    <string name="game_hub_label">GAME HUB</string>
 </resources>

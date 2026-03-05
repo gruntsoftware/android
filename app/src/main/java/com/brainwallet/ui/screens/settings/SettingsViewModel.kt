@@ -12,6 +12,7 @@ import com.brainwallet.domain.LanguageSwitcherUseCase
 import com.brainwallet.tools.manager.FeeManager
 import com.brainwallet.ui.BrainwalletViewModel
 import com.brainwallet.util.EventBus
+import com.brainwallet.util.VersionCodeProvider
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -29,10 +30,11 @@ import org.koin.android.annotation.KoinViewModel
 class SettingsViewModel(
     private val settingRepository: SettingRepository,
     private val languageSwitcherUseCase: LanguageSwitcherUseCase,
-    private val ltcRepository: LtcRepository
+    private val ltcRepository: LtcRepository,
+    versionCodeProvider: VersionCodeProvider
 ) : BrainwalletViewModel<SettingsEvent>() {
 
-    private val _state = MutableStateFlow(SettingsState())
+    private val _state = MutableStateFlow(SettingsState(formattedVersion = versionCodeProvider.getFormatted()))
     val state: StateFlow<SettingsState> = _state.asStateFlow()
 
     val appSetting = settingRepository.settings
