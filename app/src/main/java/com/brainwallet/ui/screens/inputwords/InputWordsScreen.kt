@@ -101,10 +101,8 @@ fun InputWordsScreen(
     // / Layout values
     val columnPadding = 16
     val horizontalVerticalSpacing = 8
-    val spacerHeight = 48
     val mediumHeight = 24
     val maxItemsPerRow = 3
-    val buttonFontSize = 24
 
     BrainwalletScaffold(
         modifier = Modifier.semantics { testTagsAsResourceId = true },
@@ -133,14 +131,14 @@ fun InputWordsScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(horizontalVerticalSpacing.dp),
         ) {
-            Spacer(modifier = Modifier.height(mediumHeight.dp))
+            Spacer(modifier = Modifier.height(4.dp))
 
             Text(
                 text = stringResource(R.string.restore_your_power),
                 style = MaterialTheme.typography.headlineLarge,
             )
 
-            Spacer(modifier = Modifier.height(columnPadding.dp))
+            Spacer(modifier = Modifier.height(4.dp))
 
             Text(
                 modifier = Modifier
@@ -154,7 +152,7 @@ fun InputWordsScreen(
 
             )
 
-            Spacer(modifier = Modifier.height(mediumHeight.dp))
+            Spacer(modifier = Modifier.height(4.dp))
 
             FlowRow(
                 modifier = Modifier
@@ -189,7 +187,7 @@ fun InputWordsScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(4.dp))
 
             FilledTonalButton(
                 colors = ButtonDefaults.filledTonalButtonColors(
@@ -204,7 +202,7 @@ fun InputWordsScreen(
                 Text(stringResource(R.string.clear))
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(4.dp))
 
             Text(
                 modifier = Modifier
@@ -216,14 +214,14 @@ fun InputWordsScreen(
                     lineHeight = 1.6.em
                 )
             )
-            Spacer(modifier = Modifier.weight(0.5f))
+            Spacer(modifier = Modifier.weight(0.02f))
 
             Text(
                 text = stringResource(R.string.blockchain_litecoin),
                 style = MaterialTheme.typography.titleMedium.copy(textAlign = TextAlign.Center)
             )
 
-            Spacer(modifier = Modifier.weight(0.5f))
+            Spacer(modifier = Modifier.weight(0.02f))
 
             BorderedLargeButton(
                 modifier = Modifier

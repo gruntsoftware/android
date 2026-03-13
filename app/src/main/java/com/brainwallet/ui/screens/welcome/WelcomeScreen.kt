@@ -44,6 +44,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.brainwallet.BuildConfig
 import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
@@ -116,21 +117,24 @@ fun WelcomeScreen(
             )
 
             // Animation Placeholder
-            LottieAnimation(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(leadTrailPadding.dp)
-                    .background(
-                        BrainwalletTheme.colors.surface,
-                        BrainwalletTheme.shapes.large
-                    )
-                    .height(thirdOfScreenHeight.dp)
-                    .clip(BrainwalletTheme.shapes.large),
-                composition = composition,
-                contentScale = ContentScale.FillWidth,
-                alignment = Alignment.Center,
-                progress = { progress }
-            )
+            // Shows only during Prod
+            if (!BuildConfig.DEBUG) {
+                LottieAnimation(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(leadTrailPadding.dp)
+                        .background(
+                            BrainwalletTheme.colors.surface,
+                            BrainwalletTheme.shapes.large
+                        )
+                        .height(thirdOfScreenHeight.dp)
+                        .clip(BrainwalletTheme.shapes.large),
+                    composition = composition,
+                    contentScale = ContentScale.FillWidth,
+                    alignment = Alignment.Center,
+                    progress = { progress }
+                )
+            }
         }
 
         Column(
