@@ -49,6 +49,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
@@ -67,7 +68,7 @@ import javax.crypto.spec.IvParameterSpec;
 import timber.log.Timber;
 
 //TODO: [yuana] please migrate the caller using [KeyStoreManager]
-@Deprecated
+
 public class BRKeyStore {
 
     public static final String KEY_STORE_PREFS_NAME = "keyStorePrefs";
@@ -298,15 +299,67 @@ public class BRKeyStore {
         return result;
     }
 
+//    public synchronized static boolean putMasterPublicKey(byte[] masterPubKey, Context context) {
+//        AliasObject obj = aliasObjectMap.get(PUB_KEY_ALIAS);
+//        try {
+//            return masterPubKey != null && masterPubKey.length != 0 && _setData(context, masterPubKey, obj.alias, obj.datafileName, obj.ivFileName, 0, false);
+//        } catch (UserNotAuthenticatedException e) {
+//            Timber.e(e);
+//        }
+//        return false;
+//    }
+
     public synchronized static boolean putMasterPublicKey(byte[] masterPubKey, Context context) {
+        if (masterPubKey == null || masterPubKey.length == 0) {
+            Timber.e("putMasterPublicKey: called with null or empty key");
+            return false;
+        }
         AliasObject obj = aliasObjectMap.get(PUB_KEY_ALIAS);
         try {
-            return masterPubKey != null && masterPubKey.length != 0 && _setData(context, masterPubKey, obj.alias, obj.datafileName, obj.ivFileName, 0, false);
+            boolean wrote = _setData(context, masterPubKey, obj.alias, obj.datafileName, obj.ivFileName, 0, false);
+            if (!wrote) {
+                Timber.e("putMasterPublicKey: _setData returned false");
+                FirebaseCrashlytics.getInstance().recordException(
+                        new RuntimeException("putMasterPublicKey: _setData returned false")
+                );
+                return false;
+            }
+            // verify the write
+            byte[] readBack = _getData(context, obj.alias, obj.datafileName, obj.ivFileName, 0);
+            if (!Arrays.equals(masterPubKey, readBack)) {
+                Timber.e("putMasterPublicKey: read-back verification failed");
+                FirebaseCrashlytics.getInstance().recordException(
+                        new RuntimeException("putMasterPublicKey: read-back mismatch")
+                );
+                return false;
+            }
+            Timber.d("putMasterPublicKey: verified write OK (%d bytes)", masterPubKey.length);
+            return true;
         } catch (UserNotAuthenticatedException e) {
-            Timber.e(e);
+            Timber.e(e, "putMasterPublicKey: unexpected auth exception");
+            return false;
         }
+    }
+
+    public synchronized static boolean putMasterPublicKeyWithRetry(byte[] masterPubKey, Context context) {
+        final int MAX_ATTEMPTS = 3;
+        for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+            boolean success = putMasterPublicKey(masterPubKey, context);
+            if (success) {
+                Timber.d("putMasterPublicKey: succeeded on attempt %d", attempt);
+                return true;
+            }
+            Timber.w("putMasterPublicKey: attempt %d failed, retrying...", attempt);
+            try { Thread.sleep(80L * attempt); } catch (InterruptedException ignored) {}
+        }
+        Timber.e("putMasterPublicKey: all %d attempts failed", MAX_ATTEMPTS);
+        FirebaseCrashlytics.getInstance().recordException(
+                new RuntimeException("putMasterPublicKey: failed after " + MAX_ATTEMPTS + " attempts")
+        );
         return false;
     }
+
+
 
     public synchronized static byte[] getMasterPublicKey(final Context context) {
         AliasObject obj = aliasObjectMap.get(PUB_KEY_ALIAS);

@@ -165,7 +165,7 @@ public class BRWalletManager {
 
         byte[] strBytes = TypesConverter.getNullTerminatedPhrase(strPhrase);
         byte[] pubKey = BRWalletManager.getInstance().getMasterPubKey(strBytes);
-        BRKeyStore.putMasterPublicKey(pubKey, ctx);
+        BRKeyStore.putMasterPublicKeyWithRetry(pubKey, ctx);
 
         return true;
     }

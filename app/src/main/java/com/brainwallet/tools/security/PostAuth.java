@@ -143,7 +143,7 @@ public class PostAuth {
                     byte[] authKey = BRWalletManager.getAuthPrivKeyForAPI(seed);
                     BRKeyStore.putAuthKey(authKey, app);
                     byte[] pubKey = BRWalletManager.getInstance().getMasterPubKey(bytePhrase);
-                    BRKeyStore.putMasterPublicKey(pubKey, app);
+                    BRKeyStore.putMasterPublicKeyWithRetry(pubKey, app);
                     app.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
 
                     //using setpasscode from
