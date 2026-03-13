@@ -190,14 +190,13 @@ class BrainwalletActivity : BRActivity() {
             return
         }
 
-        // NEW: ensure masterPubKey is present; re-derive from phrase if not
+        // Ensure masterPubKey is present; re-derive from phrase if not
         val pubKey = BRKeyStore.getMasterPublicKey(this)
         if (pubKey == null || pubKey.isEmpty()) {
             Timber.w("onCheckPin: masterPubKey missing — attempting recovery from phrase")
             val recovered = tryRecoverMasterPubKey(this)
             if (!recovered) {
                 Timber.e("onCheckPin: could not recover masterPubKey")
-                // log to Crashlytics but continue — wallet load will fail gracefully downstream
                 FirebaseCrashlytics.getInstance().recordException(
                     RuntimeException("onCheckPin: masterPubKey missing and unrecoverable")
                 )
@@ -221,6 +220,9 @@ class BrainwalletActivity : BRActivity() {
             saved
         } catch (e: Exception) {
             Timber.e(e, "timber: tryRecoverMasterPubKey failed")
+            FirebaseCrashlytics.getInstance().recordException(
+                RuntimeException("tryRecoverMasterPubKey failed")
+            )
             false
         }
     }
