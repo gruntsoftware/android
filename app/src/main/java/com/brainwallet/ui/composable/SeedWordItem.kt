@@ -71,7 +71,7 @@ fun SeedWordItemBox(
 ) {
     Box(modifier = modifier) {
         Row(
-            modifier = modifier
+            modifier = Modifier
                 .background(
                     color = DesignTheme.colors.background.copy(alpha = 0.3f),
                     shape = MaterialTheme.shapes.extraLarge

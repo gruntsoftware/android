@@ -35,7 +35,7 @@ android {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 35
-        versionCode = 202506303
+        versionCode = 202506304
         versionName = "v4.8.2"
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
@@ -74,6 +74,9 @@ android {
             keyAlias = localProperties.getProperty("RELEASE_KEY_ALIAS")
             keyPassword = localProperties.getProperty("RELEASE_KEY_PASSWORD")
         }
+    }
+    tasks.named("preBuild") {
+        dependsOn("detekt")
     }
 
     buildTypes {

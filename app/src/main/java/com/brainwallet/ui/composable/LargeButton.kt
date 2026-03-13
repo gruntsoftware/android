@@ -20,7 +20,7 @@ fun LargeButton(
     enabled: Boolean = true,
     onClick: () -> Unit,
     colors: ButtonColors = ButtonDefaults.buttonColors(
-        containerColor = DesignTheme.colors.background,
+        containerColor = DesignTheme.colors.surface,
         contentColor = DesignTheme.colors.content
     ),
     shape: Shape = ButtonDefaults.shape,

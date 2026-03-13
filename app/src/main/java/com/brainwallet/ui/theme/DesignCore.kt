@@ -37,7 +37,14 @@ fun DesignTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
+
+            // Sets the color to transparent
             window.statusBarColor = Color.Transparent.toArgb()
+
+            // Adjusts the icon colors (dark icons for light theme, light icons for dark theme)
+            val insetsController = WindowCompat.getInsetsController(window, view)
+            insetsController.isAppearanceLightStatusBars = !isDarkMode
+            insetsController.isAppearanceLightNavigationBars = !isDarkMode
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !isDarkMode
         }
     }

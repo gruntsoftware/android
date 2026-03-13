@@ -100,7 +100,7 @@ private fun UnLockScreenBodyPreview() {
     BrainwalletAppTheme(AppSetting(isDarkMode = isSystemInDarkTheme())) {
         Box(
             modifier = Modifier
-                .background(DesignTheme.colors.background)
+                .background(DesignTheme.colors.surface)
                 .fillMaxWidth()
         ) {
             UnLockScreenBody(isUpdatePin = true, passcode = ImmutableList.of(1, 2))

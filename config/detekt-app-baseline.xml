@@ -594,6 +594,7 @@
     <ID>UnstableCollections:YourSeedProveItScreen.kt$List&lt;String&gt;</ID>
     <ID>UnstableCollections:YourSeedWordsScreen.kt$List&lt;String&gt;</ID>
     <ID>UnusedPrivateMember:BrainWalletLogo.kt$@PreviewLightDark @Composable private fun BrainWalletLogoPreview()</ID>
+    <ID>UnusedPrivateMember:LTCPickerBentoScreen.kt$@PreviewLightDark @Composable private fun LTCPickerBentoScreenPreview()</ID>
     <ID>UnusedPrivateMember:DarkModeToggleButton.kt$@PreviewLightDark @Composable private fun DarkModeToggleButtonPreview()</ID>
     <ID>UnusedPrivateMember:PaperKeyActivity.kt$PaperKeyActivity$private fun onSavedItClick()</ID>
     <ID>UnusedPrivateMember:ReceiveDialog.kt$@PreviewLightDark @Composable private fun ReceiveDialogPreview()</ID>

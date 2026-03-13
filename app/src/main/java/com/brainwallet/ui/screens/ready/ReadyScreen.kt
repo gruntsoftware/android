@@ -54,10 +54,8 @@ fun ReadyScreen(
 
     // / Layout values
     val leadingCopyPadding = 18
-
     val horizontalVerticalSpacing = 8
     val spacerHeight = 40
-
     val activeRowHeight = 70
 
     BrainwalletScaffold(
