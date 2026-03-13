@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
@@ -21,8 +22,10 @@ import com.brainwallet.R;
 import com.brainwallet.exceptions.BRKeystoreErrorException;
 import com.brainwallet.presenter.customviews.BRDialogView;
 import com.brainwallet.tools.animation.BRDialog;
+import com.brainwallet.tools.manager.AnalyticsManager;
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.threads.BRExecutor;
+import com.brainwallet.tools.util.BRConstants;
 import com.brainwallet.tools.util.BytesUtil;
 import com.brainwallet.tools.util.TypesConverter;
 import com.brainwallet.tools.util.Utils;
@@ -49,6 +52,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
@@ -67,7 +71,7 @@ import javax.crypto.spec.IvParameterSpec;
 import timber.log.Timber;
 
 //TODO: [yuana] please migrate the caller using [KeyStoreManager]
-@Deprecated
+
 public class BRKeyStore {
 
     public static final String KEY_STORE_PREFS_NAME = "keyStorePrefs";
@@ -167,22 +171,6 @@ public class BRKeyStore {
 
     }
 
-    private static SecretKey createKeys(String alias, boolean auth_required) throws InvalidAlgorithmParameterException, KeyStoreException, NoSuchProviderException, NoSuchAlgorithmException {
-        KeyGenerator keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, ANDROID_KEY_STORE);
-
-        // Set the alias of the entry in Android KeyStore where the key will appear
-        // and the constrains (purposes) in the constructor of the Builder
-        keyGenerator.init(new KeyGenParameterSpec.Builder(alias,
-                KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT)
-                .setBlockModes(NEW_BLOCK_MODE)
-                .setUserAuthenticationRequired(auth_required)
-                .setUserAuthenticationValidityDurationSeconds(AUTH_DURATION_SEC)
-                .setRandomizedEncryptionRequired(false)
-                .setEncryptionPaddings(NEW_PADDING)
-                .build());
-        return keyGenerator.generateKey();
-    }
-
     private synchronized static byte[] _getData(final Context context, String alias, String alias_file, String alias_iv, int request_code)
             throws UserNotAuthenticatedException {
         validateGet(alias, alias_file, alias_iv);//validate entries
@@ -226,34 +214,79 @@ public class BRKeyStore {
                 throw new IllegalArgumentException("keystore auth_required is true but alias is: " + alias);
     }
 
-    public static void showKeyInvalidated(final Context app) {
-        BRDialog.showCustomDialog(app, app.getString(R.string.Alert_keystore_title_android), app.getString(R.string.Alert_keystore_invalidated_android), app.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
-            @Override
-            public void onClick(BRDialogView brDialogView) {
-                brDialogView.dismissWithAnimation();
-            }
-        }, null, new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                BRWalletManager.getInstance().wipeWalletButKeystore(app);
-                BRWalletManager.getInstance().wipeKeyStore(app);
-                dialog.dismiss();
-            }
-        }, 0);
-    }
-
     public synchronized static String getFilePath(String fileName, Context context) {
         String filesDirectory = context.getFilesDir().getAbsolutePath();
         return filesDirectory + File.separator + fileName;
     }
 
-    public synchronized static boolean putPhrase(byte[] strToStore, Context context, int requestCode) throws UserNotAuthenticatedException {
+    public synchronized static boolean putPhrase(byte[] strToStore, Context context, int requestCode)
+            throws UserNotAuthenticatedException {
+
         if (PostAuth.isStuckWithAuthLoop) {
             showLoopBugMessage(context);
             throw new UserNotAuthenticatedException();
         }
+
+        if (strToStore == null || strToStore.length == 0) {
+            Timber.e("putPhrase: called with null or empty phrase");
+            FirebaseCrashlytics.getInstance().recordException(
+                    new IllegalArgumentException("putPhrase: null or empty phrase")
+            );
+            return false;
+        }
+
         AliasObject obj = aliasObjectMap.get(PHRASE_ALIAS);
-        return !(strToStore == null || strToStore.length == 0) && _setData(context, strToStore, obj.alias, obj.datafileName, obj.ivFileName, requestCode, true);
+
+        final int MAX_ATTEMPTS = 3;
+        for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+            try {
+                boolean wrote = _setData(context, strToStore, obj.alias, obj.datafileName,
+                        obj.ivFileName, requestCode, true);
+
+
+                if (!wrote) {
+                    Timber.w("putPhrase: _setData returned false on attempt %d", attempt);
+                    if (attempt < MAX_ATTEMPTS) {
+                        Thread.sleep(80L * attempt);
+                        continue;
+                    }
+                    FirebaseCrashlytics.getInstance().recordException(
+                            new RuntimeException("putPhrase: _setData failed after " + MAX_ATTEMPTS + " attempts")
+                    );
+                    return false;
+                }
+
+                boolean fileExists = new File(getFilePath(obj.datafileName, context)).exists();
+                boolean ivExists   = new File(getFilePath(obj.ivFileName, context)).exists();
+
+                if (!fileExists || !ivExists) {
+                    if (attempt < MAX_ATTEMPTS) {
+                        Thread.sleep(80L * attempt);
+                        continue;
+                    }
+                    FirebaseCrashlytics.getInstance().recordException(
+                            new RuntimeException("putPhrase: file presence check failed after all attempts")
+                    );
+                    return false;
+                }
+
+                String successfulLog = String.format("putPhrase: verified write OK on attempt %d", attempt);
+                Bundle params = new Bundle();
+                params.putString("phrase_status", successfulLog);
+                AnalyticsManager.logQuickEvent("brkeystore_put_phrase_successful", params);
+                return true;
+            } catch (UserNotAuthenticatedException e) {
+                throw e;
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return false;
+            } catch (Exception e) {
+                Timber.e(e, "putPhrase: unexpected exception on attempt %d", attempt);
+                FirebaseCrashlytics.getInstance().recordException(e);
+                if (attempt == MAX_ATTEMPTS) return false;
+            }
+        }
+        return false;
     }
 
     public synchronized static byte[] getPhrase(final Context context, int requestCode) throws UserNotAuthenticatedException {
@@ -299,14 +332,56 @@ public class BRKeyStore {
     }
 
     public synchronized static boolean putMasterPublicKey(byte[] masterPubKey, Context context) {
+        if (masterPubKey == null || masterPubKey.length == 0) {
+            Timber.e("putMasterPublicKey: called with null or empty key");
+            return false;
+        }
         AliasObject obj = aliasObjectMap.get(PUB_KEY_ALIAS);
         try {
-            return masterPubKey != null && masterPubKey.length != 0 && _setData(context, masterPubKey, obj.alias, obj.datafileName, obj.ivFileName, 0, false);
+            boolean wrote = _setData(context, masterPubKey, obj.alias, obj.datafileName, obj.ivFileName, 0, false);
+            if (!wrote) {
+                Timber.e("putMasterPublicKey: _setData returned false");
+                FirebaseCrashlytics.getInstance().recordException(
+                        new RuntimeException("putMasterPublicKey: _setData returned false")
+                );
+                return false;
+            }
+            // verify the write
+            byte[] readBack = _getData(context, obj.alias, obj.datafileName, obj.ivFileName, 0);
+            if (!Arrays.equals(masterPubKey, readBack)) {
+                Timber.e("putMasterPublicKey: read-back verification failed");
+                FirebaseCrashlytics.getInstance().recordException(
+                        new RuntimeException("putMasterPublicKey: read-back mismatch")
+                );
+                return false;
+            }
+            Timber.d("putMasterPublicKey: verified write OK (%d bytes)", masterPubKey.length);
+            return true;
         } catch (UserNotAuthenticatedException e) {
-            Timber.e(e);
+            Timber.e(e, "putMasterPublicKey: unexpected auth exception");
+            return false;
         }
+    }
+
+    public synchronized static boolean putMasterPublicKeyWithRetry(byte[] masterPubKey, Context context) {
+        final int MAX_ATTEMPTS = 3;
+        for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+            boolean success = putMasterPublicKey(masterPubKey, context);
+            if (success) {
+                Timber.d("putMasterPublicKey: succeeded on attempt %d", attempt);
+                return true;
+            }
+            Timber.w("putMasterPublicKey: attempt %d failed, retrying...", attempt);
+            try { Thread.sleep(80L * attempt); } catch (InterruptedException ignored) {}
+        }
+        Timber.e("putMasterPublicKey: all %d attempts failed", MAX_ATTEMPTS);
+        FirebaseCrashlytics.getInstance().recordException(
+                new RuntimeException("putMasterPublicKey: failed after " + MAX_ATTEMPTS + " attempts")
+        );
         return false;
     }
+
+
 
     public synchronized static byte[] getMasterPublicKey(final Context context) {
         AliasObject obj = aliasObjectMap.get(PUB_KEY_ALIAS);

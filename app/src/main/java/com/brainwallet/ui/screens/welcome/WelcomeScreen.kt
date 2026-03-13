@@ -44,6 +44,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.brainwallet.BuildConfig
 import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
@@ -54,7 +55,7 @@ import com.brainwallet.ui.composable.BrainwalletButton
 import com.brainwallet.ui.composable.DarkModeToggleButton
 import com.brainwallet.ui.composable.bottomsheet.FiatSelectorBottomSheet
 import com.brainwallet.ui.composable.bottomsheet.LanguageSelectorBottomSheet
-import com.brainwallet.ui.theme.DesignTheme
+import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import org.koin.compose.koinInject
 
 @Composable
@@ -75,7 +76,7 @@ fun WelcomeScreen(
         viewModel.onEvent(WelcomeEvent.OnLoad(context))
     }
 
-    // todo: the following sizing can be move to DesignTheme
+    // todo: the following sizing can be move to BrainwalletTheme
     // Global layout
     val buttonFontSize = 24
     val thinButtonFontSize = 22
@@ -94,7 +95,7 @@ fun WelcomeScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(DesignTheme.colors.surface)
+            .background(BrainwalletTheme.colors.surface)
             .verticalScroll(rememberScrollState())
             .padding(WindowInsets.systemBars.asPaddingValues()),
     ) {
@@ -108,7 +109,7 @@ fun WelcomeScreen(
                 contentDescription = "brainwallet_logotype_white",
                 contentScale = ContentScale.Fit,
                 colorFilter = ColorFilter.tint(
-                    DesignTheme.colors.content,
+                    BrainwalletTheme.colors.content,
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -116,21 +117,24 @@ fun WelcomeScreen(
             )
 
             // Animation Placeholder
-            LottieAnimation(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(leadTrailPadding.dp)
-                    .background(
-                        DesignTheme.colors.surface,
-                        DesignTheme.shapes.large
-                    )
-                    .height(thirdOfScreenHeight.dp)
-                    .clip(DesignTheme.shapes.large),
-                composition = composition,
-                contentScale = ContentScale.FillWidth,
-                alignment = Alignment.Center,
-                progress = { progress }
-            )
+            // Shows only during Prod
+            if (!BuildConfig.DEBUG) {
+                LottieAnimation(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(leadTrailPadding.dp)
+                        .background(
+                            BrainwalletTheme.colors.surface,
+                            BrainwalletTheme.shapes.large
+                        )
+                        .height(thirdOfScreenHeight.dp)
+                        .clip(BrainwalletTheme.shapes.large),
+                    composition = composition,
+                    contentScale = ContentScale.FillWidth,
+                    alignment = Alignment.Center,
+                    progress = { progress }
+                )
+            }
         }
 
         Column(
@@ -158,7 +162,7 @@ fun WelcomeScreen(
                     Text(
                         text = state.selectedLanguage.title,
                         fontSize = 14.sp,
-                        color = DesignTheme.colors.content
+                        color = BrainwalletTheme.colors.content
                     )
                 }
 
@@ -185,7 +189,7 @@ fun WelcomeScreen(
                     Text(
                         text = state.selectedCurrency.name,
                         fontSize = 14.sp,
-                        color = DesignTheme.colors.content
+                        color = BrainwalletTheme.colors.content
                     )
                 }
             }
@@ -230,7 +234,7 @@ fun WelcomeScreen(
                 modifier = Modifier.padding(vertical = versionPadding.dp),
                 text = BRConstants.APP_VERSION_NAME_CODE,
                 fontSize = 13.sp,
-                color = DesignTheme.colors.content
+                color = BrainwalletTheme.colors.content
             )
         }
     }

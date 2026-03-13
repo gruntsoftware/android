@@ -16,8 +16,7 @@ import androidx.compose.ui.graphics.Color
 import com.brainwallet.R
 import com.brainwallet.navigation.Route
 import com.brainwallet.ui.layoutconstants.bottomNavHeight
-import com.brainwallet.ui.theme.DesignTheme
-import com.brainwallet.ui.theme.colorMidnite
+import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 /**
  * A custom bottom navigation bar component based on the provided design.
@@ -31,14 +30,10 @@ fun BentoBottomNavBar(
     currentRoute: Route?,
     onItemClick: (Route) -> Unit,
     modifier: Modifier = Modifier,
-    isDarkMode: Boolean = isSystemInDarkTheme()
 ) {
-    var surfaceColor = if (isDarkMode) Color.Black else Color.White
-    var contentsColor = if (isDarkMode) Color.White else colorMidnite
-
     NavigationBar(
-        containerColor = surfaceColor,
-        contentColor = contentsColor,
+        containerColor = BrainwalletTheme.colors.surface,
+        contentColor = BrainwalletTheme.colors.content,
         modifier = modifier
             .navigationBarsPadding()
             .height(bottomNavHeight)
@@ -54,11 +49,11 @@ fun BentoBottomNavBar(
             },
             label = { Text("Send") },
             colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
-                selectedIconColor = contentsColor,
-                selectedTextColor = contentsColor,
+                selectedIconColor = BrainwalletTheme.colors.content,
+                selectedTextColor = BrainwalletTheme.colors.content,
                 indicatorColor = Color.Transparent,
-                unselectedIconColor = contentsColor.copy(0.8f),
-                unselectedTextColor = contentsColor.copy(0.8f)
+                unselectedIconColor = BrainwalletTheme.colors.content.copy(0.8f),
+                unselectedTextColor = BrainwalletTheme.colors.content.copy(0.8f)
             )
         )
         NavigationBarItem(
@@ -72,11 +67,11 @@ fun BentoBottomNavBar(
             },
             label = { Text("Buy/Receive") },
             colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
-                selectedIconColor = contentsColor,
-                selectedTextColor = contentsColor,
+                selectedIconColor = BrainwalletTheme.colors.content,
+                selectedTextColor = BrainwalletTheme.colors.content,
                 indicatorColor = Color.Transparent,
-                unselectedIconColor = contentsColor.copy(0.8f),
-                unselectedTextColor = contentsColor.copy(0.8f)
+                unselectedIconColor = BrainwalletTheme.colors.content.copy(0.8f),
+                unselectedTextColor = BrainwalletTheme.colors.content.copy(0.8f)
             )
         )
         NavigationBarItem(
@@ -90,11 +85,11 @@ fun BentoBottomNavBar(
             },
             label = { Text("Game Hub") },
             colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
-                selectedIconColor = contentsColor,
-                selectedTextColor = contentsColor,
+                selectedIconColor = BrainwalletTheme.colors.content,
+                selectedTextColor = BrainwalletTheme.colors.content,
                 indicatorColor = Color.Transparent,
-                unselectedIconColor = contentsColor.copy(0.8f),
-                unselectedTextColor = contentsColor.copy(0.8f)
+                unselectedIconColor = BrainwalletTheme.colors.content.copy(0.8f),
+                unselectedTextColor = BrainwalletTheme.colors.content.copy(0.8f)
             )
         )
         NavigationBarItem(
@@ -108,11 +103,11 @@ fun BentoBottomNavBar(
             },
             label = { Text("History") },
             colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
-                selectedIconColor = contentsColor,
-                selectedTextColor = contentsColor,
+                selectedIconColor = BrainwalletTheme.colors.content,
+                selectedTextColor = BrainwalletTheme.colors.content,
                 indicatorColor = Color.Transparent,
-                unselectedIconColor = contentsColor.copy(0.8f),
-                unselectedTextColor = contentsColor.copy(0.8f)
+                unselectedIconColor = BrainwalletTheme.colors.content.copy(0.8f),
+                unselectedTextColor = BrainwalletTheme.colors.content.copy(0.8f)
             )
         )
     }
@@ -121,7 +116,7 @@ fun BentoBottomNavBar(
 @Composable
 @PreviewLightDark
 fun BentoBottomNavBarPreview() {
-    DesignTheme(isSystemInDarkTheme()) {
+    BrainwalletTheme(isSystemInDarkTheme()) {
         BentoBottomNavBar(currentRoute = Route.Send, {})
     }
 }

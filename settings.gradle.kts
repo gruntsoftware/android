@@ -1,5 +1,5 @@
 pluginManagement {
-    includeBuild("gruntsoftware-build-logic")
+    includeBuild("android-build-logic")
     repositories {
         google {
             content {
@@ -21,7 +21,7 @@ dependencyResolutionManagement {
     }
     versionCatalogs {
         create("grunt") {
-            from(files("gruntsoftware-build-logic/gradle/libs.versions.toml"))
+            from(files("android-build-logic/gradle/libs.versions.toml"))
         }
     }
 }

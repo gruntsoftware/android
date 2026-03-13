@@ -1,6 +1,5 @@
 package com.brainwallet.ui.screens.home
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -43,27 +42,23 @@ import com.brainwallet.ui.screens.settings.BentoRail
 import com.brainwallet.ui.screens.settings.BentoSettingsButton
 import com.brainwallet.ui.screens.settings.BentoThemeButton
 import com.brainwallet.ui.screens.send.SendScreen
+import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.ui.bentosections.gamehubbento.GameHubBentoScreen
-import com.brainwallet.ui.bentosections.ltcpickerbento.LTCPickerBentoScreen
 import com.brainwallet.ui.composable.HomeBentoContainer
 import com.brainwallet.ui.layoutconstants.balanceGameBentoHeight
 import com.brainwallet.ui.layoutconstants.bottomNavHeight
-import com.brainwallet.ui.layoutconstants.gameHubHeight
 import com.brainwallet.ui.layoutconstants.mainHeightComponentsFactor
 import com.brainwallet.ui.layoutconstants.transRowHeight
 import com.brainwallet.ui.screens.buyreceive.BuyReceiveScreen
 import com.brainwallet.ui.screens.gamehub.GameHubScreen
 import com.brainwallet.ui.screens.home.history.HistoryScreen
 import com.brainwallet.ui.theme.BrainwalletAppTheme
-import com.brainwallet.ui.theme.mainScreenDarkSurfaceGradient
-import com.brainwallet.ui.theme.mainScreenLightSurfaceGradient
 
 /**
  * The main screen of the application, featuring a bento-style grid layout.
@@ -90,7 +85,6 @@ fun MainScreen(
     val loadingState by viewModel.loadingState.collectAsState()
     val appSetting by viewModel.appSetting.collectAsState()
     val context = LocalContext.current
-    val isDarkMode = appSetting.isDarkMode
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -103,14 +97,11 @@ fun MainScreen(
         }
     ) {
         Scaffold(
-            modifier = modifier.background(
-                if (isDarkMode) mainScreenDarkSurfaceGradient else mainScreenLightSurfaceGradient
-            ),
-            containerColor = Color.Transparent,
+            modifier = modifier,
+            containerColor = BrainwalletTheme.colors.surface,
             contentWindowInsets = WindowInsets.systemBars,
             bottomBar = {
                 BentoBottomNavBar(
-                    isDarkMode = appSetting.isDarkMode,
                     currentRoute = currentRoute,
                     onItemClick = { route: Route ->
                         currentRoute = route
@@ -136,6 +127,7 @@ fun MainScreen(
                     "Balance Bento View",
                     "Transaction History View",
                     "Tutorials Bento View",
+                    "LTC Price Bento View",
                     "Favourites Bento View"
                 )
             }
@@ -143,19 +135,19 @@ fun MainScreen(
                 modifier = Modifier
                     .fillMaxSize()
             ) {
-                val verticalSpacing = 12.dp
+                val verticalSpacing = 16.dp
                 val fixedElementsHeight = mainHeightComponentsFactor + (verticalSpacing * 3)
                 val gridContentAreaHeight = this.maxHeight
                 -paddingValues.calculateTopPadding()
                 -paddingValues.calculateBottomPadding()
                 val availableHeight = gridContentAreaHeight - fixedElementsHeight - bottomNavHeight
-                val ltcPickerBentoHeight = (availableHeight * 0.78f) - (verticalSpacing / 2)
-                val favoritesBentoHeight = (availableHeight * 0.22f) - (verticalSpacing / 2)
+                val bentoBox4Height = (availableHeight / 2) - (verticalSpacing / 2)
+                val bentoBox5Height = (availableHeight / 2) - (verticalSpacing / 2)
                 Column {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 12.dp, vertical = 12.dp),
+                            .padding(horizontal = 16.dp, vertical = 16.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         BentoSettingsButton {
@@ -167,18 +159,17 @@ fun MainScreen(
                         }
                         Spacer(modifier = Modifier.weight(1f))
 
-                        BentoThemeButton(
-                            isDarkMode = isDarkMode,
-                            onClick = {
-                                viewModel.onEvent(MainScreenEvent.OnToggleDarkMode)
+                        BentoThemeButton {
+                            scope.launch {
+                                print("Theme button clicked")
                             }
-                        )
+                        }
                     }
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(2),
-                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 1.dp),
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                        verticalArrangement = Arrangement.spacedBy(12.dp),
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 1.dp),
+                        horizontalArrangement = Arrangement.spacedBy(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp),
                         userScrollEnabled = false
                     ) {
                         item(span = { GridItemSpan(2) }) {
@@ -191,18 +182,13 @@ fun MainScreen(
                             HomeBentoContainer(name = gridItems[2], modifier = Modifier.height(availableHeight))
                         }
                         item(span = { GridItemSpan(1) }) {
-                            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                                Box(modifier = Modifier.height(ltcPickerBentoHeight)) {
-                                    LTCPickerBentoScreen()
-                                }
-                                HomeBentoContainer(
-                                    name = gridItems[3],
-                                    modifier = Modifier.height(favoritesBentoHeight)
-                                )
+                            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                                HomeBentoContainer(name = gridItems[3], modifier = Modifier.height(bentoBox4Height))
+                                HomeBentoContainer(name = gridItems[4], modifier = Modifier.height(bentoBox5Height))
                             }
                         }
                         item(span = { GridItemSpan(2) }) {
-                            Box(modifier = Modifier.height(gameHubHeight)) {
+                            Box(modifier = Modifier.height(balanceGameBentoHeight)) {
                                 GameHubBentoScreen()
                             }
                         }

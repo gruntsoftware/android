@@ -15,6 +15,7 @@ import com.brainwallet.presenter.activities.intro.WriteDownActivity;
 import com.brainwallet.presenter.activities.util.ActivityUTILS;
 import com.brainwallet.presenter.entities.PaymentRequestWrapper;
 import com.brainwallet.presenter.entities.TransactionItem;
+import com.brainwallet.tools.animation.BRDialog;
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.util.BRConstants;
 import com.brainwallet.tools.util.TypesConverter;
@@ -143,7 +144,22 @@ public class PostAuth {
                     byte[] authKey = BRWalletManager.getAuthPrivKeyForAPI(seed);
                     BRKeyStore.putAuthKey(authKey, app);
                     byte[] pubKey = BRWalletManager.getInstance().getMasterPubKey(bytePhrase);
-                    BRKeyStore.putMasterPublicKey(pubKey, app);
+
+                    boolean pubKeySaved = BRKeyStore.putMasterPublicKeyWithRetry(pubKey, app);
+                    if (!pubKeySaved) {
+                        Timber.e("onRecoverWalletAuth: masterPubKey could not be saved — aborting");
+                        BRDialog.showCustomDialog(
+                                app,
+                                app.getString(R.string.Alert_keystore_title_android),
+                                "Failed to save wallet key. Please try again.",
+                                app.getString(R.string.Button_ok),
+                                null,
+                                brDialogView -> brDialogView.dismissWithAnimation(),
+                                null, null, 0
+                        );
+                        return; // do not navigate to SetPasscode
+                    }
+
                     app.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
 
                     //using setpasscode from
@@ -151,7 +167,7 @@ public class PostAuth {
                             app, new Route.SetPasscode()
                     );
                     intent.putExtra("noPin", true);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     app.startActivity(intent);
 
                     if (!app.isDestroyed()) app.finish();

@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.sp
 import com.brainwallet.R
 import com.brainwallet.ui.theme.BoldenVan
 import com.brainwallet.ui.theme.IBMPlexSans
-import com.brainwallet.ui.theme.bentoDarkBorderGradient
+import com.brainwallet.ui.theme.bentoBorderGradient
 import com.brainwallet.ui.theme.gameHubBackgroundGradient
 import com.brainwallet.ui.theme.gameTaglineGradient
 import com.brainwallet.ui.theme.gameTitleGradient
@@ -57,7 +57,7 @@ fun GameHubBentoScreen(
                 .background(brush = gameHubBackgroundGradient)
                 .border(
                     width = 0.7.dp,
-                    brush = bentoDarkBorderGradient,
+                    brush = bentoBorderGradient,
                     shape = RoundedCornerShape(16.dp)
                 )
         ) {
