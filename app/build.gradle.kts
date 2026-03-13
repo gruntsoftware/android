@@ -25,7 +25,7 @@ android {
     }
 
     /// For screengrab testing
-    val screengrabPaperkey = localProperties
+    val screengrabPaperKey = localProperties
         .getProperty("SCREENGRAB_PAPERKEY", "")
         .split(" ")
         .filter { it.isNotBlank() }
@@ -55,7 +55,7 @@ android {
         buildConfigField(
             "String[]",
             "SCREENGRAB_PAPERKEY",
-            "new String[] {$screengrabPaperkey}"
+            "new String[] {$screengrabPaperKey}"
         )
     }
 

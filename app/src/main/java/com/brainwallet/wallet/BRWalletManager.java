@@ -165,7 +165,13 @@ public class BRWalletManager {
 
         byte[] strBytes = TypesConverter.getNullTerminatedPhrase(strPhrase);
         byte[] pubKey = BRWalletManager.getInstance().getMasterPubKey(strBytes);
-        BRKeyStore.putMasterPublicKeyWithRetry(pubKey, ctx);
+
+        // Inside generateRandomSeed, after key derivation:
+        boolean saved = BRKeyStore.putMasterPublicKeyWithRetry(pubKey, ctx);
+        if (!saved) {
+            Timber.e("generateRandomSeed: could not persist masterPubKey — aborting seed generation");
+            return false; // onCreateWalletAuth already checks this boolean
+        }
 
         return true;
     }
