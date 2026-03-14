@@ -298,17 +298,6 @@ public class BRKeyStore {
         }
         return result;
     }
-
-//    public synchronized static boolean putMasterPublicKey(byte[] masterPubKey, Context context) {
-//        AliasObject obj = aliasObjectMap.get(PUB_KEY_ALIAS);
-//        try {
-//            return masterPubKey != null && masterPubKey.length != 0 && _setData(context, masterPubKey, obj.alias, obj.datafileName, obj.ivFileName, 0, false);
-//        } catch (UserNotAuthenticatedException e) {
-//            Timber.e(e);
-//        }
-//        return false;
-//    }
-
     public synchronized static boolean putMasterPublicKey(byte[] masterPubKey, Context context) {
         if (masterPubKey == null || masterPubKey.length == 0) {
             Timber.e("putMasterPublicKey: called with null or empty key");
