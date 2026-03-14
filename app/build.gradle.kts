@@ -224,6 +224,7 @@ dependencies {
     implementation(platform(grunt.koin.annotation.bom))
     implementation(grunt.koin.annotation)
     implementation("androidx.compose.material:material-icons-extended:1.7.8")
+    implementation(libs.androidx.junit.ktx)
     ksp(grunt.koin.annotation.compiler)
     implementation(platform(libs.squareup.okhttp.bom))
     implementation(libs.bundles.squareup.okhttp)
@@ -246,6 +247,7 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.tests)
 
     androidTestImplementation(platform(grunt.androidx.compose.bom))
+    androidTestImplementation("androidx.test:core-ktx:1.5.0")
     androidTestImplementation(grunt.bundles.androidx.compose.ui.test)
     androidTestImplementation(libs.bundles.android.test)
     androidTestImplementation(libs.fastlane.screengrab)
