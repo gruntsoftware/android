@@ -33,8 +33,8 @@ fun BrainwalletScaffold(
 ) {
     Scaffold(
         modifier = modifier,
-        containerColor = BrainwalletTheme.colors.surface,
-        contentColor = BrainwalletTheme.colors.content,
+        containerColor = DesignTheme.colors.surface,
+        contentColor = DesignTheme.colors.content,
         topBar = topBar,
         bottomBar = bottomBar,
         floatingActionButton = floatingActionButton,
