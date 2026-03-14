@@ -21,7 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.DesignTheme
 
 @Composable
 fun BrainwalletScaffold(
@@ -51,8 +51,8 @@ fun BrainwalletTopAppBar(
     TopAppBar(
         modifier = modifier,
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = BrainwalletTheme.colors.surface,
-            navigationIconContentColor = BrainwalletTheme.colors.content
+            containerColor = DesignTheme.colors.surface,
+            navigationIconContentColor = DesignTheme.colors.content
         ),
         title = title,
         navigationIcon = navigationIcon
@@ -65,10 +65,10 @@ fun BrainwalletBottomSheet(
     content: @Composable ColumnScope.() -> Unit,
 ) {
     ModalBottomSheet(
-        containerColor = BrainwalletTheme.colors.background,
-        contentColor = BrainwalletTheme.colors.content,
+        containerColor = DesignTheme.colors.background,
+        contentColor = DesignTheme.colors.content,
         dragHandle = {
-            BottomSheetDefaults.DragHandle(color = BrainwalletTheme.colors.content)
+            BottomSheetDefaults.DragHandle(color = DesignTheme.colors.content)
         },
         onDismissRequest = onDismissRequest,
         content = content
@@ -82,8 +82,8 @@ fun BrainwalletButton(
     enabled: Boolean = true,
     shape: Shape = CircleShape,
     colors: ButtonColors = ButtonDefaults.buttonColors(
-        containerColor = BrainwalletTheme.colors.surface,
-        contentColor = BrainwalletTheme.colors.content
+        containerColor = DesignTheme.colors.surface,
+        contentColor = DesignTheme.colors.content
     ),
     content: @Composable RowScope.() -> Unit
 ) {
@@ -93,7 +93,7 @@ fun BrainwalletButton(
         shape = shape,
         colors = colors,
         modifier = modifier
-            .border(1.dp, BrainwalletTheme.colors.border, shape)
+            .border(1.dp, DesignTheme.colors.border, shape)
             .height(50.dp),
         content = content
     )

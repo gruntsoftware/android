@@ -26,7 +26,6 @@ import com.brainwallet.data.model.AppSetting
 import com.brainwallet.ui.composable.DarkModeToggleButton
 import com.brainwallet.ui.screens.unlock.UnLockEvent
 import com.brainwallet.ui.theme.BrainwalletAppTheme
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import com.grunt.brainwallet.core.presentation.theme.LocalDarkModeFlag
 
 @Composable

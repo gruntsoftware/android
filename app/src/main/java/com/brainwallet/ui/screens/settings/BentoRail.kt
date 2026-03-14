@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.DesignTheme
 
 /**
  * A custom navigation rail component based on the provided design.
@@ -34,8 +34,8 @@ fun BentoRail(
         modifier = modifier
             .fillMaxHeight()
             .width(300.dp), // A standard width for a navigation drawer
-        drawerContainerColor = BrainwalletTheme.colors.surface,
-        drawerContentColor = BrainwalletTheme.colors.content
+        drawerContainerColor = DesignTheme.colors.surface,
+        drawerContentColor = DesignTheme.colors.content
     ) {
         Column(
             modifier = Modifier
@@ -50,7 +50,7 @@ fun BentoRail(
             Text(
                 text = "App version:\n$appVersion",
                 style = BrainwalletTheme.typography.bodySmall,
-                color = BrainwalletTheme.colors.content.copy(alpha = 0.7f),
+                color = DesignTheme.colors.content.copy(alpha = 0.7f),
                 textAlign = TextAlign.Start,
                 modifier = Modifier.fillMaxWidth().padding(
                     horizontal = 16.dp,

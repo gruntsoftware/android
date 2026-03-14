@@ -55,7 +55,7 @@ import com.brainwallet.ui.composable.BrainwalletButton
 import com.brainwallet.ui.composable.DarkModeToggleButton
 import com.brainwallet.ui.composable.bottomsheet.FiatSelectorBottomSheet
 import com.brainwallet.ui.composable.bottomsheet.LanguageSelectorBottomSheet
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.DesignTheme
 import org.koin.compose.koinInject
 
 @Composable
@@ -95,7 +95,7 @@ fun WelcomeScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(BrainwalletTheme.colors.surface)
+            .background(DesignTheme.colors.surface)
             .verticalScroll(rememberScrollState())
             .padding(WindowInsets.systemBars.asPaddingValues()),
     ) {
@@ -109,7 +109,7 @@ fun WelcomeScreen(
                 contentDescription = "brainwallet_logotype_white",
                 contentScale = ContentScale.Fit,
                 colorFilter = ColorFilter.tint(
-                    BrainwalletTheme.colors.content,
+                    DesignTheme.colors.content,
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -124,7 +124,7 @@ fun WelcomeScreen(
                         .fillMaxWidth()
                         .padding(leadTrailPadding.dp)
                         .background(
-                            BrainwalletTheme.colors.surface,
+                            DesignTheme.colors.surface,
                             BrainwalletTheme.shapes.large
                         )
                         .height(thirdOfScreenHeight.dp)
@@ -162,7 +162,7 @@ fun WelcomeScreen(
                     Text(
                         text = state.selectedLanguage.title,
                         fontSize = 14.sp,
-                        color = BrainwalletTheme.colors.content
+                        color = DesignTheme.colors.content
                     )
                 }
 
@@ -189,7 +189,7 @@ fun WelcomeScreen(
                     Text(
                         text = state.selectedCurrency.name,
                         fontSize = 14.sp,
-                        color = BrainwalletTheme.colors.content
+                        color = DesignTheme.colors.content
                     )
                 }
             }
@@ -234,7 +234,7 @@ fun WelcomeScreen(
                 modifier = Modifier.padding(vertical = versionPadding.dp),
                 text = BRConstants.APP_VERSION_NAME_CODE,
                 fontSize = 13.sp,
-                color = BrainwalletTheme.colors.content
+                color = DesignTheme.colors.content
             )
         }
     }

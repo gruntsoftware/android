@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.ui.composable.BrainWalletLogo
 import com.brainwallet.ui.theme.BrainwalletAppTheme
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 @Composable
 fun UnLockScreenHeader(

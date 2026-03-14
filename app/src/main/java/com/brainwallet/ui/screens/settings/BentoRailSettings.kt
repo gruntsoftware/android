@@ -14,7 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.DesignTheme
 
 @Composable
 fun BentoRailSettings(
@@ -39,7 +39,7 @@ fun BentoRailSettings(
             Text(
                 "Settings",
                 style = BrainwalletTheme.typography.bodyLarge.copy(
-                    color = BrainwalletTheme.colors.content,
+                    color = DesignTheme.colors.content,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Bold
                 ),

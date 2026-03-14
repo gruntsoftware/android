@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletColors
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.DesignTheme
 
 /**
  * main composable for [SettingRowItem] and [SettingRowItemExpandable]
@@ -56,10 +56,10 @@ fun SettingRowItemExpandable(
     trailingIcon: @Composable (() -> Unit)? = null,
     onClick: (() -> Unit)? = null,
     colors: ListItemColors = ListItemDefaults.colors(
-        containerColor = BrainwalletTheme.colors.surface,
-        headlineColor = BrainwalletTheme.colors.content,
-        supportingColor = BrainwalletTheme.colors.content.copy(0.6f),
-        trailingIconColor = BrainwalletTheme.colors.content,
+        containerColor = DesignTheme.colors.surface,
+        headlineColor = DesignTheme.colors.content,
+        supportingColor = DesignTheme.colors.content.copy(0.6f),
+        trailingIconColor = DesignTheme.colors.content,
     ),
     content: @Composable () -> Unit,
 ) {
@@ -74,7 +74,7 @@ fun SettingRowItemExpandable(
     Column(
         modifier = modifier.background(BrainwalletTheme.colors.settingRowItemBackground(expanded))
     ) {
-        HorizontalDivider(thickness = dividerThickness.dp, color = BrainwalletTheme.colors.content)
+        HorizontalDivider(thickness = dividerThickness.dp, color = DesignTheme.colors.content)
         ListItem(
             colors = colors,
             modifier = Modifier.clickable {

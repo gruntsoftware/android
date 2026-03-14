@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.brainwallet.R
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 @Composable
 fun LoadingDialog(

@@ -23,7 +23,6 @@ import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.theme.BrainwalletAppTheme
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable

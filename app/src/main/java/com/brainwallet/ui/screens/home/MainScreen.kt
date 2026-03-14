@@ -42,7 +42,6 @@ import com.brainwallet.ui.screens.settings.BentoRail
 import com.brainwallet.ui.screens.settings.BentoSettingsButton
 import com.brainwallet.ui.screens.settings.BentoThemeButton
 import com.brainwallet.ui.screens.send.SendScreen
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -98,7 +97,7 @@ fun MainScreen(
     ) {
         Scaffold(
             modifier = modifier,
-            containerColor = BrainwalletTheme.colors.surface,
+            containerColor = DesignTheme.colors.surface,
             contentWindowInsets = WindowInsets.systemBars,
             bottomBar = {
                 BentoBottomNavBar(

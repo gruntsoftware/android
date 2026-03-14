@@ -14,7 +14,7 @@ fun BrainwalletAppTheme(
     ).value,
     content:
     @Composable()
-        () -> Unit
+    () -> Unit
 ) {
     DesignTheme(
         isDarkMode = appSetting.isDarkMode,

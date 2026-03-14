@@ -7,7 +7,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
 import com.brainwallet.ui.screens.home.MainScreen
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 
 class BentoActivity : ComponentActivity() {
 

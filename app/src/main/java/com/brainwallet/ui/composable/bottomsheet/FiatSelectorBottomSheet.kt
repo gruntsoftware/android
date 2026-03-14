@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.tools.sqlite.CurrencyDataSource
 import com.brainwallet.ui.composable.BrainwalletBottomSheet
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.DesignTheme
 import androidx.compose.foundation.layout.size
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
@@ -52,7 +52,7 @@ fun FiatSelectorBottomSheet(
                 ListItem(
                     colors = ListItemDefaults.colors(
                         containerColor = BrainwalletTheme.colors.background,
-                        headlineColor = BrainwalletTheme.colors.content,
+                        headlineColor = DesignTheme.colors.content,
                     ),
                     modifier = Modifier.clickable {
                         onFiatSelect.invoke(currency)
@@ -87,7 +87,7 @@ fun FiatSelectorBottomSheet(
                                     .size(unselectedCircleSize.dp)
                                     .alpha(0.1f)
                                     .clip(CircleShape)
-                                    .background(BrainwalletTheme.colors.content)
+                                    .background(DesignTheme.colors.content)
                             )
                         }
                     }

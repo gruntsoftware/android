@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.DesignTheme
 
 @Composable
 fun LargeButton(
@@ -21,7 +21,7 @@ fun LargeButton(
     onClick: () -> Unit,
     colors: ButtonColors = ButtonDefaults.buttonColors(
         containerColor = BrainwalletTheme.colors.background,
-        contentColor = BrainwalletTheme.colors.content
+        contentColor = DesignTheme.colors.content
     ),
     shape: Shape = ButtonDefaults.shape,
     content: @Composable RowScope.() -> Unit
@@ -43,8 +43,8 @@ fun BorderedLargeButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     colors: ButtonColors = ButtonDefaults.buttonColors(
-        containerColor = BrainwalletTheme.colors.surface,
-        contentColor = BrainwalletTheme.colors.content
+        containerColor = DesignTheme.colors.surface,
+        contentColor = DesignTheme.colors.content
     ),
     shape: Shape = RoundedCornerShape(50),
     content: @Composable RowScope.() -> Unit
