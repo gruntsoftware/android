@@ -125,10 +125,10 @@ fun WelcomeScreen(
                         .padding(leadTrailPadding.dp)
                         .background(
                             DesignTheme.colors.surface,
-                            BrainwalletTheme.shapes.large
+                            DesignTheme.shapes.large
                         )
                         .height(thirdOfScreenHeight.dp)
-                        .clip(BrainwalletTheme.shapes.large),
+                        .clip(DesignTheme.shapes.large),
                     composition = composition,
                     contentScale = ContentScale.FillWidth,
                     alignment = Alignment.Center,

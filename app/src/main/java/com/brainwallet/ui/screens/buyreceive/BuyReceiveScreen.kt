@@ -95,10 +95,10 @@ fun BuyReceiveScreen(
                     prefix = {
                         Text(
                             text = appSetting.currency.symbol,
-                            style = BrainwalletTheme.typography.titleLarge.copy(color = DesignTheme.colors.content)
+                            style = DesignTheme.typography.titleLarge.copy(color = DesignTheme.colors.content)
                         )
                     },
-                    textStyle = BrainwalletTheme.typography.titleLarge.copy(color = DesignTheme.colors.content),
+                    textStyle = DesignTheme.typography.titleLarge.copy(color = DesignTheme.colors.content),
                     value = "${if (state.fiatAmount < 1) "" else state.fiatAmount.toInt()}",
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -106,7 +106,7 @@ fun BuyReceiveScreen(
                         val amount = input.toFloatOrNull() ?: 0f
                         viewModel.onEvent(BuyReceiveEvent.OnFiatAmountChange(amount, false))
                     },
-                    shape = BrainwalletTheme.shapes.extraLarge,
+                    shape = DesignTheme.shapes.extraLarge,
                     isError = state.isValid().not(),
                     supportingText = {
                         state.errorFiatAmountStringId?.let {

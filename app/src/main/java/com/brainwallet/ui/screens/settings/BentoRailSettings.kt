@@ -26,7 +26,7 @@ fun BentoRailSettings(
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
         colors = CardDefaults.cardColors(
-            containerColor = BrainwalletTheme.colors.background.copy(alpha = 0.2f)
+            containerColor = DesignTheme.colors.background.copy(alpha = 0.2f)
         ),
         onClick = onClick
     ) {
@@ -38,7 +38,7 @@ fun BentoRailSettings(
         ) {
             Text(
                 "Settings",
-                style = BrainwalletTheme.typography.bodyLarge.copy(
+                style = DesignTheme.typography.bodyLarge.copy(
                     color = DesignTheme.colors.content,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Bold
@@ -52,7 +52,7 @@ fun BentoRailSettings(
 @Composable
 @PreviewLightDark
 fun BentoRailSettingsPreview() {
-    BrainwalletTheme(isSystemInDarkTheme()) {
+    DesignTheme(isSystemInDarkTheme()) {
         BentoRailSettings()
     }
 }

@@ -17,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brainwallet.R
+import com.brainwallet.ui.theme.DesignTheme
 import com.grunt.brainwallet.core.presentation.theme.lavender
 import com.grunt.brainwallet.core.presentation.theme.nearBlack
 
@@ -28,7 +29,7 @@ fun MoonpayBuyButton(
 ) {
     Button(
         modifier = modifier,
-        shape = BrainwalletTheme.shapes.large,
+        shape = DesignTheme.shapes.large,
         colors = ButtonDefaults.buttonColors(
             containerColor = lavender,
             contentColor = nearBlack
@@ -42,7 +43,7 @@ fun MoonpayBuyButton(
         ) {
             Text(
                 text = stringResource(R.string.buy_ltc).uppercase(),
-                style = BrainwalletTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
+                style = DesignTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
             )
             Row(
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
@@ -50,7 +51,7 @@ fun MoonpayBuyButton(
             ) {
                 Text(
                     text = stringResource(R.string.powered_by_moonpay).uppercase(),
-                    style = BrainwalletTheme.typography.labelSmall.copy(fontSize = 8.sp)
+                    style = DesignTheme.typography.labelSmall.copy(fontSize = 8.sp)
                 )
                 Image(
                     modifier = Modifier.size(16.dp),

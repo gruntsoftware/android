@@ -47,7 +47,7 @@ fun BentoSettingsButton(
 @Composable
 @PreviewLightDark
 fun BentoSettingsButtonPreview() {
-    BrainwalletTheme(isSystemInDarkTheme()) {
+    DesignTheme(isSystemInDarkTheme()) {
         BentoSettingsButton {}
     }
 }

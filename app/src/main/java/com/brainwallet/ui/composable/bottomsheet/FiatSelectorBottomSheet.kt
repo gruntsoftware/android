@@ -51,7 +51,7 @@ fun FiatSelectorBottomSheet(
             ) { currency ->
                 ListItem(
                     colors = ListItemDefaults.colors(
-                        containerColor = BrainwalletTheme.colors.background,
+                        containerColor = DesignTheme.colors.background,
                         headlineColor = DesignTheme.colors.content,
                     ),
                     modifier = Modifier.clickable {
@@ -62,14 +62,14 @@ fun FiatSelectorBottomSheet(
                             Text(
                                 modifier = Modifier.padding(tinyPad.dp),
                                 text = currency.name,
-                                style = BrainwalletTheme.typography.labelLarge
+                                style = DesignTheme.typography.labelLarge
                                     .copy(textAlign = TextAlign.Left)
                             )
                             Spacer(modifier = Modifier.weight(1f))
                             Text(
                                 modifier = Modifier.padding(tinyPad.dp),
                                 text = "${currency.code} (${currency.symbol})",
-                                style = BrainwalletTheme.typography.labelLarge
+                                style = DesignTheme.typography.labelLarge
                                     .copy(textAlign = TextAlign.Left)
                             )
                         }
@@ -79,7 +79,7 @@ fun FiatSelectorBottomSheet(
                             Icon(
                                 Icons.Default.CheckCircle,
                                 contentDescription = null,
-                                tint = BrainwalletTheme.colors.affirm
+                                tint = DesignTheme.colors.affirm
                             )
                         } else {
                             Box(

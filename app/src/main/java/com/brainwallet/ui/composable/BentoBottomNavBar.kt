@@ -116,7 +116,7 @@ fun BentoBottomNavBar(
 @Composable
 @PreviewLightDark
 fun BentoBottomNavBarPreview() {
-    BrainwalletTheme(isSystemInDarkTheme()) {
+    DesignTheme(isSystemInDarkTheme()) {
         BentoBottomNavBar(currentRoute = Route.Send, {})
     }
 }

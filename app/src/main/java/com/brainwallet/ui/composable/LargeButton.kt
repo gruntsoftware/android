@@ -20,7 +20,7 @@ fun LargeButton(
     enabled: Boolean = true,
     onClick: () -> Unit,
     colors: ButtonColors = ButtonDefaults.buttonColors(
-        containerColor = BrainwalletTheme.colors.background,
+        containerColor = DesignTheme.colors.background,
         contentColor = DesignTheme.colors.content
     ),
     shape: Shape = ButtonDefaults.shape,

@@ -31,6 +31,7 @@ import com.brainwallet.ui.composable.PasscodeKeypad
 import com.brainwallet.ui.composable.PasscodeKeypadEvent
 import com.brainwallet.ui.screens.unlock.UnLockEvent
 import com.brainwallet.ui.theme.BrainwalletAppTheme
+import com.brainwallet.ui.theme.DesignTheme
 import com.google.common.collect.ImmutableList
 
 @Composable
@@ -99,7 +100,7 @@ private fun UnLockScreenBodyPreview() {
     BrainwalletAppTheme(AppSetting(isDarkMode = isSystemInDarkTheme())) {
         Box(
             modifier = Modifier
-                .background(BrainwalletTheme.colors.background)
+                .background(DesignTheme.colors.background)
                 .fillMaxWidth()
         ) {
             UnLockScreenBody(isUpdatePin = true, passcode = ImmutableList.of(1, 2))

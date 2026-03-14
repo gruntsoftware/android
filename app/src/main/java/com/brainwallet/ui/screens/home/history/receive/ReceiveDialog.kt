@@ -155,12 +155,12 @@ private fun ReceiveDialog(
         modifier = modifier
             .background(
                 DesignTheme.colors.content,
-                shape = BrainwalletTheme.shapes.large
+                shape = DesignTheme.shapes.large
             )
             .border(
                 width = 1.dp,
                 color = DesignTheme.colors.surface,
-                shape = BrainwalletTheme.shapes.large
+                shape = DesignTheme.shapes.large
             ),
     ) {
         Column(
@@ -178,7 +178,7 @@ private fun ReceiveDialog(
                 title = {
                     Text(
                         text = stringResource(R.string.bottom_nav_item_buy_receive_title).uppercase(),
-                        style = BrainwalletTheme.typography.titleSmall.copy(
+                        style = DesignTheme.typography.titleSmall.copy(
                             color = DesignTheme.colors.surface
                         )
                     )
@@ -249,7 +249,7 @@ private fun ReceiveDialog(
                     ) {
                         Text(
                             text = state.address,
-                            style = BrainwalletTheme.typography.bodyLarge.copy(
+                            style = DesignTheme.typography.bodyLarge.copy(
                                 fontWeight = FontWeight.Bold,
                                 color = DesignTheme.colors.surface
                             ),
@@ -262,7 +262,7 @@ private fun ReceiveDialog(
                         ) {
                             Text(
                                 text = stringResource(R.string.new_address).uppercase(),
-                                style = BrainwalletTheme.typography.bodySmall.copy(
+                                style = DesignTheme.typography.bodySmall.copy(
                                     color = DesignTheme.colors.surface,
                                 ),
                                 modifier = Modifier.weight(1f)
@@ -325,14 +325,14 @@ private fun ReceiveDialog(
                     ) {
                         Text(
                             text = state.getLtcAmountFormatted(loadingState.visible),
-                            style = BrainwalletTheme.typography.titleLarge.copy(
+                            style = DesignTheme.typography.titleLarge.copy(
                                 fontWeight = FontWeight.Bold,
                                 color = DesignTheme.colors.surface
                             )
                         )
                         Text(
                             text = state.getRatesUpdatedAtFormatted(),
-                            style = BrainwalletTheme.typography.bodySmall.copy(
+                            style = DesignTheme.typography.bodySmall.copy(
                                 color = DesignTheme.colors.surface
                             )
                         )
@@ -361,7 +361,7 @@ private fun ReceiveDialog(
                                     } else {
                                         quickFiatAmountOption.getFormattedText()
                                     },
-                                    style = BrainwalletTheme.typography.bodyMedium.copy(
+                                    style = DesignTheme.typography.bodyMedium.copy(
                                         color = DesignTheme.colors.surface
                                     )
                                 )
@@ -381,7 +381,7 @@ private fun ReceiveDialog(
                         prefix = {
                             Text(
                                 text = state.selectedFiatCurrency.symbol,
-                                style = BrainwalletTheme.typography.bodyMedium.copy(
+                                style = DesignTheme.typography.bodyMedium.copy(
                                     color = DesignTheme.colors.surface
                                 )
                             )
@@ -393,7 +393,7 @@ private fun ReceiveDialog(
                                 Icon(Icons.Default.Done, contentDescription = null)
                             }
                         },
-                        textStyle = BrainwalletTheme.typography.bodyMedium.copy(
+                        textStyle = DesignTheme.typography.bodyMedium.copy(
                             color = DesignTheme.colors.surface
                         ),
                         value = "${if (state.fiatAmount < 1) "" else state.fiatAmount}",
@@ -403,7 +403,7 @@ private fun ReceiveDialog(
                             val amount = input.toFloatOrNull() ?: 0f
                             onEvent(ReceiveDialogEvent.OnFiatAmountChange(amount, false))
                         },
-                        shape = BrainwalletTheme.shapes.large,
+                        shape = DesignTheme.shapes.large,
                         isError = state.errorFiatAmountStringId != null,
                         supportingText = {
                             state.errorFiatAmountStringId?.let {

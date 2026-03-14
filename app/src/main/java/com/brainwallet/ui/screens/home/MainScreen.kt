@@ -58,6 +58,7 @@ import com.brainwallet.ui.screens.buyreceive.BuyReceiveScreen
 import com.brainwallet.ui.screens.gamehub.GameHubScreen
 import com.brainwallet.ui.screens.home.history.HistoryScreen
 import com.brainwallet.ui.theme.BrainwalletAppTheme
+import com.brainwallet.ui.theme.DesignTheme
 
 /**
  * The main screen of the application, featuring a bento-style grid layout.

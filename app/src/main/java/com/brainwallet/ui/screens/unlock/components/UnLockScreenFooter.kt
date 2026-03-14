@@ -26,6 +26,7 @@ import com.brainwallet.data.model.AppSetting
 import com.brainwallet.ui.composable.DarkModeToggleButton
 import com.brainwallet.ui.screens.unlock.UnLockEvent
 import com.brainwallet.ui.theme.BrainwalletAppTheme
+import com.brainwallet.ui.theme.DesignTheme
 import com.grunt.brainwallet.core.presentation.theme.LocalDarkModeFlag
 
 @Composable
@@ -58,7 +59,7 @@ fun UnLockScreenFooter(
                     onEvent(UnLockEvent.OnQrClicked)
                 },
                 colorFilter = ColorFilter.tint(
-                    BrainwalletTheme.colors.border
+                    DesignTheme.colors.border
                 )
             )
         }
@@ -69,7 +70,7 @@ fun UnLockScreenFooter(
                 .bodyMedium
                 .copy(
                     textAlign = TextAlign.Center,
-                    color = BrainwalletTheme.colors.border
+                    color = DesignTheme.colors.border
                 )
         )
     }
@@ -81,7 +82,7 @@ private fun UnLockScreenFooterPreview() {
     BrainwalletAppTheme(AppSetting(isDarkMode = isSystemInDarkTheme())) {
         Box(
             modifier = Modifier
-                .background(BrainwalletTheme.colors.background)
+                .background(DesignTheme.colors.background)
                 .fillMaxWidth()
         ) {
             UnLockScreenFooter(version = "v4.0.0 (202501201)")

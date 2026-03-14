@@ -49,7 +49,7 @@ fun BentoRail(
             Spacer(Modifier.weight(0.25f))
             Text(
                 text = "App version:\n$appVersion",
-                style = BrainwalletTheme.typography.bodySmall,
+                style = DesignTheme.typography.bodySmall,
                 color = DesignTheme.colors.content.copy(alpha = 0.7f),
                 textAlign = TextAlign.Start,
                 modifier = Modifier.fillMaxWidth().padding(
@@ -64,7 +64,7 @@ fun BentoRail(
 @Composable
 @PreviewLightDark
 fun BrainwalletRailPreview() {
-    BrainwalletTheme(isSystemInDarkTheme()) {
+    DesignTheme(isSystemInDarkTheme()) {
         BentoRail()
     }
 }

@@ -22,8 +22,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletColors
 import com.brainwallet.ui.theme.DesignTheme
+import com.grunt.brainwallet.core.presentation.theme.BrainwalletColors
 
 /**
  * main composable for [SettingRowItem] and [SettingRowItemExpandable]
@@ -72,7 +72,14 @@ fun SettingRowItemExpandable(
     val horizontalPadding = 14
 
     Column(
-        modifier = modifier.background(BrainwalletTheme.colors.settingRowItemBackground(expanded))
+        modifier = Modifier
+            .background(
+                if (expanded) {
+                    DesignTheme.colors.surface
+                } else {
+                    DesignTheme.colors.background
+                }
+            )
     ) {
         HorizontalDivider(thickness = dividerThickness.dp, color = DesignTheme.colors.content)
         ListItem(
@@ -87,7 +94,7 @@ fun SettingRowItemExpandable(
             headlineContent = {
                 Text(
                     text = title,
-                    style = BrainwalletTheme.typography.labelLarge
+                    style = DesignTheme.typography.labelLarge
                         .copy(textAlign = TextAlign.Left)
                 )
             },

@@ -24,6 +24,7 @@ import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import org.koin.compose.viewmodel.koinViewModel
+import com.brainwallet.ui.theme.DesignTheme
 
 @Composable
 fun SendScreen(
@@ -70,7 +71,7 @@ private fun SendScreen(
             ) {
                 Text(
                     text = stringResource(R.string.send_title),
-                    style = BrainwalletTheme.typography.titleLarge,
+                    style = DesignTheme.typography.titleLarge,
                 )
             }
         }

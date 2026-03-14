@@ -1,5 +1,7 @@
 package com.brainwallet.ui.screens.unlock.components
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
@@ -11,12 +13,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.brainwallet.data.model.AppSetting
-import com.brainwallet.ui.composable.BrainWalletLogo
 import com.brainwallet.ui.theme.BrainwalletAppTheme
+import com.brainwallet.ui.theme.DesignTheme
+import com.brainwallet.R.drawable
+import com.brainwallet.ui.theme.LocalIsDarkModeFlag
 
 @Composable
 fun UnLockScreenHeader(
@@ -27,15 +32,27 @@ fun UnLockScreenHeader(
         modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        val iconLogo = if (LocalIsDarkModeFlag.current) {
+            com.brainwallet.R.drawable.brainwallet_logotype_white
+        } else {
+            com.brainwallet.R.drawable.brainwallet_logotype_color
+        }
+
         Text(
             modifier = Modifier
                 .padding(bottom = 52.dp)
                 .fillMaxWidth(),
             text = formattedLtcPrice,
             textAlign = TextAlign.End,
-            color = BrainwalletTheme.colors.border
+            color = DesignTheme.colors.border
         )
-        BrainWalletLogo(modifier = Modifier.width(268.dp))
+        Image(
+            painterResource(
+                iconLogo
+            ),
+            contentDescription = "brainwallet_logo",
+            modifier = Modifier.width(268.dp)
+        )
     }
 }
 
@@ -43,7 +60,7 @@ fun UnLockScreenHeader(
 @Composable
 private fun UnLockScreenHeaderPreview() {
     BrainwalletAppTheme(appSetting = AppSetting(isDarkMode = isSystemInDarkTheme())) {
-        Box(modifier = Modifier.background(BrainwalletTheme.colors.background)) {
+        Box(modifier = Modifier.background(DesignTheme.colors.background)) {
             UnLockScreenHeader(formattedLtcPrice = "100")
         }
     }

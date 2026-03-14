@@ -58,7 +58,7 @@ fun CurrencyDetail(
             ) { currency ->
                 ListItem(
                     colors = ListItemDefaults.colors(
-                        containerColor = BrainwalletTheme.colors.background,
+                        containerColor = DesignTheme.colors.background,
                         headlineColor = DesignTheme.colors.content,
                     ),
                     modifier = Modifier.clickable {
@@ -86,7 +86,7 @@ fun CurrencyDetail(
                             Icon(
                                 Icons.Default.CheckCircle,
                                 contentDescription = null,
-                                tint = BrainwalletTheme.colors.affirm
+                                tint = DesignTheme.colors.affirm
                             )
                         } else {
                             Box(

@@ -71,9 +71,9 @@ fun SeedWordItemBox(
 ) {
     Box(modifier = modifier) {
         Row(
-            modifier = modifier
+            modifier = Modifier
                 .background(
-                    color = BrainwalletTheme.colors.background.copy(alpha = 0.3f),
+                    color = DesignTheme.colors.background.copy(alpha = 0.3f),
                     shape = MaterialTheme.shapes.extraLarge
                 )
                 .padding(horizontal = 16.dp),
@@ -146,7 +146,7 @@ fun SeedWordItemTextField(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .background(
-                    color = BrainwalletTheme.colors.background.copy(alpha = 0.3f),
+                    color = DesignTheme.colors.background.copy(alpha = 0.3f),
                     shape = MaterialTheme.shapes.medium
                 )
                 .heightIn(max = 250.dp),

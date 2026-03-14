@@ -43,7 +43,7 @@ fun DarkModeToggleButton(
                 .clip(CircleShape)
                 .border(
                     1.dp,
-                    if (checked) BrainwalletTheme.colors.warn else DesignTheme.colors.surface,
+                    if (checked) DesignTheme.colors.warn else DesignTheme.colors.surface,
                     CircleShape
                 )
                 .background(if (checked) DesignTheme.colors.surface else DesignTheme.colors.content)
@@ -52,7 +52,7 @@ fun DarkModeToggleButton(
                 modifier = Modifier
                     .align(Alignment.Center)
                     .size((iconButtonSizeInDp * 0.6).dp),
-                tint = if (checked) BrainwalletTheme.colors.warn else DesignTheme.colors.surface,
+                tint = if (checked) DesignTheme.colors.warn else DesignTheme.colors.surface,
                 painter = painterResource(if (checked) R.drawable.ic_light_mode else R.drawable.ic_dark_mode),
                 contentDescription = stringResource(R.string.toggle_dark_mode),
             )

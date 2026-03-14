@@ -14,7 +14,7 @@ fun CircleButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: IconButtonColors = IconButtonDefaults.filledIconButtonColors(
-        containerColor = BrainwalletTheme.colors.background.copy(0.2f),
+        containerColor = DesignTheme.colors.background.copy(0.2f),
         contentColor = DesignTheme.colors.content
     ),
     content: @Composable () -> Unit
