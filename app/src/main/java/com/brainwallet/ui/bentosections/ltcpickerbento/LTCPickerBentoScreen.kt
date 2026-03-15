@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -97,125 +95,119 @@ fun LTCPickerBentoScreen(
             }
     }
 
-    Card(
-        modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(
+                brush = if (state.darkMode) bentoDarkSurfaceGradient else bentoLightSurfaceGradient,
+                shape = RoundedCornerShape(16.dp)
+            )
+            .border(
+                width = 1.dp,
+                brush = if (state.darkMode) bentoDarkBorderGradient else bentoLightBorderGradient,
+                shape = RoundedCornerShape(16.dp)
+            )
     ) {
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f)
-                .background(
-                    brush = if (state.darkMode) bentoDarkSurfaceGradient else bentoLightSurfaceGradient,
-                )
-                .border(
-                    width = 0.7.dp,
-                    brush = if (state.darkMode) bentoDarkBorderGradient else bentoLightBorderGradient,
-                    shape = RoundedCornerShape(16.dp)
-                )
+                .padding(horizontal = 16.dp, vertical = 16.dp),
+            verticalArrangement = Arrangement.Center
         ) {
-            Column(
+            Spacer(modifier = Modifier.weight(0.5f))
+            VerticalWheelPicker(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 16.dp),
-                verticalArrangement = Arrangement.Center
-            ) {
-                Spacer(modifier = Modifier.weight(0.5f))
-                VerticalWheelPicker(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Color.Transparent)
-                        .pointerInput(Unit) {
-                            detectHorizontalDragGestures { change, _ ->
-                                change.consume()
-                            }
-                        },
-                    count = currenciesWithFlags.size,
-                    state = wheelPickerState,
-                    unfocusedCount = 1,
-                    itemHeight = 30.dp,
-                    focus = {
-                        WheelPickerFocusVertical(
-                            dividerColor = if (state.darkMode) {
-                                Color.White.copy(0.3f)
-                            } else {
-                                Color.Black.copy(alpha = 0.3f)
-                            }
-                        )
-                    }
-                ) { index ->
-                    Text(
-                        text = currenciesWithFlags[index],
-                        style = TextStyle(
-                            fontFamily = IBMPlexSans,
-                            fontWeight = FontWeight.Normal,
-                            fontSize = 16.sp,
-                            color = if (state.darkMode) Color.White else Color.Black
-                        )
+                    .background(Color.Transparent)
+                    .pointerInput(Unit) {
+                        detectHorizontalDragGestures { change, _ ->
+                            change.consume()
+                        }
+                    },
+                count = currenciesWithFlags.size,
+                state = wheelPickerState,
+                unfocusedCount = 1,
+                itemHeight = 30.dp,
+                focus = {
+                    WheelPickerFocusVertical(
+                        dividerColor = if (state.darkMode) {
+                            Color.White.copy(0.3f)
+                        } else {
+                            Color.Black.copy(alpha = 0.3f)
+                        }
                     )
                 }
-                Spacer(modifier = Modifier.weight(0.5f))
+            ) { index ->
                 Text(
-                    text = "${state.selectedCurrency.name}",
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    onTextLayout = { textLayoutResult ->
-                        if (textLayoutResult.hasVisualOverflow) {
-                            resizedLocalizedPriceFontSize *= 0.95f
-                        }
-                    },
+                    text = currenciesWithFlags[index],
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
-                        fontWeight = FontWeight.Light,
-                        fontSize = resizedLocalizedPriceFontSize,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 16.sp,
                         color = if (state.darkMode) Color.White else Color.Black
-                    ),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Text(
-                    text = "${state.selectedCurrency.symbol} ${"%6.2f".format(state.selectedCurrency.rate)}",
-                    modifier = Modifier.fillMaxWidth()
-                        .padding(top = 1.dp, bottom = 1.dp),
-                    onTextLayout = { textLayoutResult ->
-                        if (textLayoutResult.hasVisualOverflow) {
-                            resizedLTCFiatFontSize *= 0.95f
-                        }
-                    },
-                    style = TextStyle(
-                        fontFamily = IBMPlexSans,
-                        fontWeight = FontWeight.SemiBold,
-                        fontSize = resizedLTCFiatFontSize,
-                        color = if (state.darkMode) Color.White else Color.Black
-                    ),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Text(
-                    text = stringResource(
-                        com.brainwallet.R.string.ltc_ticker_as_of_timestamp,
-                        state.formattedTimeStamp
-                    ),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 4.dp, bottom = 4.dp),
-                    onTextLayout = { textLayoutResult ->
-                        if (textLayoutResult.hasVisualOverflow) {
-                            resizedAsOfFontSize *= 0.95f
-                        }
-                    },
-                    style = TextStyle(
-                        fontFamily = IBMPlexSans,
-                        fontWeight = FontWeight.Light,
-                        fontSize = resizedAsOfFontSize,
-                        color = if (state.darkMode) Color.White else Color.Black,
-                        textAlign = TextAlign.Start
-                    ),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    )
                 )
             }
+            Spacer(modifier = Modifier.weight(0.5f))
+            Text(
+                text = "${state.selectedCurrency.name}",
+                modifier = Modifier
+                    .fillMaxWidth(),
+                onTextLayout = { textLayoutResult ->
+                    if (textLayoutResult.hasVisualOverflow) {
+                        resizedLocalizedPriceFontSize *= 0.95f
+                    }
+                },
+                style = TextStyle(
+                    fontFamily = IBMPlexSans,
+                    fontWeight = FontWeight.Light,
+                    fontSize = resizedLocalizedPriceFontSize,
+                    color = if (state.darkMode) Color.White else Color.Black
+                ),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+            Text(
+                text = "${state.selectedCurrency.symbol} ${"%6.2f".format(state.selectedCurrency.rate)}",
+                modifier = Modifier.fillMaxWidth()
+                    .padding(top = 1.dp, bottom = 1.dp),
+                onTextLayout = { textLayoutResult ->
+                    if (textLayoutResult.hasVisualOverflow) {
+                        resizedLTCFiatFontSize *= 0.95f
+                    }
+                },
+                style = TextStyle(
+                    fontFamily = IBMPlexSans,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = resizedLTCFiatFontSize,
+                    color = if (state.darkMode) Color.White else Color.Black
+                ),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+            Text(
+                text = stringResource(
+                    com.brainwallet.R.string.ltc_ticker_as_of_timestamp,
+                    state.formattedTimeStamp
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 4.dp, bottom = 4.dp),
+                onTextLayout = { textLayoutResult ->
+                    if (textLayoutResult.hasVisualOverflow) {
+                        resizedAsOfFontSize *= 0.95f
+                    }
+                },
+                style = TextStyle(
+                    fontFamily = IBMPlexSans,
+                    fontWeight = FontWeight.Light,
+                    fontSize = resizedAsOfFontSize,
+                    color = if (state.darkMode) Color.White else Color.Black,
+                    textAlign = TextAlign.Start
+                ),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
         }
     }
 }

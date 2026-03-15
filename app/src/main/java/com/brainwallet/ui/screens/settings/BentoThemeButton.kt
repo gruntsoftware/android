@@ -1,22 +1,26 @@
 package com.brainwallet.ui.screens.settings
 
-import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.brainwallet.R
 import com.brainwallet.ui.theme.DesignTheme
+import com.brainwallet.ui.theme.bentoDarkBorderGradient
+import com.brainwallet.ui.theme.bentoDarkSurfaceGradient
+import com.brainwallet.ui.theme.bentoLightBorderGradient
+import com.brainwallet.ui.theme.bentoLightSurfaceGradient
 
 @Composable
 fun BentoThemeButton(
@@ -24,24 +28,26 @@ fun BentoThemeButton(
     isDarkMode: Boolean = false,
     onClick: () -> Unit
 ) {
-    Card(
-        onClick = onClick,
-        modifier = modifier.size(48.dp),
-        shape = CircleShape,
-        colors = CardDefaults.cardColors(containerColor = DesignTheme.colors.surface),
-        border = BorderStroke(1.dp, DesignTheme.colors.content.copy(alpha = 0.2f)),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
-    ) {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Icon(
-                painter = painterResource(id = if (isDarkMode) R.drawable.ic_moon_stars else R.drawable.ic_sunny),
-                contentDescription = "Mode",
-                tint = DesignTheme.colors.content
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.size(48.dp)
+            .clip(CircleShape)
+            .background(
+                brush = if (isSystemInDarkTheme()) bentoDarkSurfaceGradient else bentoLightSurfaceGradient,
+                shape = CircleShape
             )
-        }
+            .border(
+                width = 1.dp,
+                brush = if (isSystemInDarkTheme()) bentoDarkBorderGradient else bentoLightBorderGradient,
+                shape = CircleShape
+            )
+            .clickable(onClick = onClick)
+    ) {
+        Icon(
+            painter = painterResource(id = if (isDarkMode) R.drawable.ic_moon_stars else R.drawable.ic_sunny),
+            contentDescription = "Mode",
+            tint = DesignTheme.colors.content
+        )
     }
 }
 

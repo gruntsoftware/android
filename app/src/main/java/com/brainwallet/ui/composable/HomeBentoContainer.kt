@@ -27,7 +27,7 @@ fun HomeBentoContainer(
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
         colors = CardDefaults.cardColors(
-            containerColor = DesignTheme.colors.background.copy(alpha = 0.2f)
+            containerColor = DesignTheme.colors.warn.copy(alpha = 0.2f),
         ),
         onClick = onClick
     ) {

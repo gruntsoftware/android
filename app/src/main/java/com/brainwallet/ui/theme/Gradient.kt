@@ -6,18 +6,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TileMode
 
 val colorWhite = Color(0xFFFFFFFF)
-val colorBlack = Color(0xFF000000)
 val colorBlue = Color(0xFF114CD4)
-val colorLightMidnite = Color(0x1A114CD4)
-val color20PercentMidnite = Color(0x330F0853) // 20%
-val color10PercentMidnite = Color(0x260F0853) // 10%
-
-val color20PercentPurple = Color(0x33402DAE)
-val colorLavender = Color(0xFF9074FF)
-val colorGrayLight = Color(0xFFD9D9D9)
+val color80PercentMidnite = Color(0x800F0853) // 80%
 val colorMidnite = Color(0xFF0F0853)
 val colorSemiWhite = Color(0x80FFFFFF)
 val colorLightWhite = Color(0x08FFFFFF)
+
+// / Main Screen Background Colors
+val colorMainScreenBackground1 = Color(0xFF0F0853)
+val colorMainScreenBackground2 = Color(0xFF121348)
+val colorMainScreenBackground3 = Color(0xFF491FA3)
+val colorMainScreenBackground4 = Color(0xFF000000)
+val colorMainScreenBackground5 = Color(0xFF000000)
 
 /**
  * A reusable vertical gradient brush for text and backgrounds.33
@@ -77,11 +77,11 @@ val bentoLightSurfaceGradient: Brush
 val mainScreenDarkSurfaceGradient: Brush
     @Composable
     get() = Brush.verticalGradient(
-        0.0f to colorMidnite,
-        0.35f to color20PercentMidnite,
-        0.70f to color20PercentPurple,
-        0.85f to color10PercentMidnite,
-        1.0f to Color.Black,
+        0.0f to colorMainScreenBackground1,
+        0.35f to colorMainScreenBackground2,
+        0.70f to colorMainScreenBackground3,
+        0.8f to colorMainScreenBackground4,
+        1.0f to colorMainScreenBackground5,
         startY = 0f,
         endY = Float.POSITIVE_INFINITY
     )
