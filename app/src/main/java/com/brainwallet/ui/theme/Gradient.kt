@@ -7,9 +7,9 @@ import androidx.compose.ui.graphics.TileMode
 
 val colorWhite = Color(0xFFFFFFFF)
 val colorBlue = Color(0xFF114CD4)
-val color80PercentMidnite = Color(0x800F0853) // 80%
+val color80PercentMidnite = Color(0xFF0F0853).copy(alpha = 0.8f)
 val colorMidnite = Color(0xFF0F0853)
-val colorSemiWhite = Color(0x80FFFFFF)
+val colorSemiWhite = Color(0xFFFFFFFF).copy(alpha = 0.8f)
 val colorLightWhite = Color(0x08FFFFFF)
 
 // / Main Screen Background Colors
@@ -99,25 +99,25 @@ val mainScreenLightSurfaceGradient: Brush
 val bentoLightBorderGradient: Brush
 
     @Composable
-    get() = Brush.verticalGradient(
+    get() = Brush.linearGradient(
         colors = listOf(
             Color(0xFFD9D9D9),
-            Color(0xFFD9D9D9),
+            Color(0xFFDfDfDf),
         ),
-        startY = 0f,
-        endY = 100f
+        start = Offset.Zero,
+        end = Offset(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY)
     )
 val bentoDarkBorderGradient: Brush
 
     @Composable
-    get() = Brush.verticalGradient(
+    get() = Brush.linearGradient(
         colors = listOf(
-            Color(0x80FFFFFF),
-            Color(0xCC9074FF),
-            Color(0xFF020148),
-            Color(0xCC2B193B),
-            Color(0xCC6944BE)
+            Color(0xFFFFFFFF).copy(alpha = 0.2f),
+            Color(0xFF9074FF).copy(alpha = 0.8f),
+            Color(0xFF020148).copy(alpha = 1f),
+            Color(0xFF2B193B).copy(alpha = 1f),
+            Color(0xFF6944BE).copy(alpha = 0.2f)
         ),
-        startY = 0f,
-        endY = 100f
+        start = Offset.Zero,
+        end = Offset(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY),
     )

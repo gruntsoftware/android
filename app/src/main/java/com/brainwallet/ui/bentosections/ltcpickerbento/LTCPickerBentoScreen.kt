@@ -103,7 +103,7 @@ fun LTCPickerBentoScreen(
                 shape = RoundedCornerShape(16.dp)
             )
             .border(
-                width = 1.dp,
+                width = 1.5.dp,
                 brush = if (state.darkMode) bentoDarkBorderGradient else bentoLightBorderGradient,
                 shape = RoundedCornerShape(16.dp)
             )

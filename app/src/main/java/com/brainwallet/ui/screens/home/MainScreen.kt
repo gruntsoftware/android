@@ -153,13 +153,17 @@ fun MainScreen(
                             .padding(horizontal = 12.dp, vertical = 12.dp),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        BentoSettingsButton {
-                            scope.launch {
-                                drawerState.apply {
-                                    if (isClosed) open() else close()
+                        BentoSettingsButton(
+                            isDarkMode = isDarkMode,
+                            onClick = {
+                                scope.launch {
+                                    drawerState.apply {
+                                        if (isClosed) open() else close()
+                                    }
                                 }
                             }
-                        }
+                        )
+
                         Spacer(modifier = Modifier.weight(1f))
 
                         BentoThemeButton(
