@@ -1,0 +1,249 @@
+package com.brainwallet.ui.bentosections.balancebento
+
+import android.R.attr.contentDescription
+import android.R.attr.tint
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.brainwallet.R
+import com.brainwallet.ui.theme.DesignTheme
+import com.brainwallet.ui.theme.IBMPlexSans
+import com.brainwallet.ui.theme.balanceBackgroundGradient
+import com.brainwallet.ui.theme.bentoDarkBorderGradient
+import com.brainwallet.ui.theme.bentoLightBorderGradient
+import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
+
+@Composable
+fun BalanceBentoScreen(
+    modifier: Modifier = Modifier,
+    viewModel: BalanceBentoViewModel = koinInject()
+) {
+    val state by viewModel.state.collectAsState()
+    BalanceBentoScreen(
+        state = state,
+        modifier = modifier
+    )
+}
+
+@Composable
+fun BalanceBentoScreen(
+    state: BalanceBentoState,
+    modifier: Modifier = Modifier,
+    viewModel: BalanceBentoViewModel = koinViewModel()
+) {
+    var resizedLTCFiatFontSize by remember { mutableStateOf(44.sp) }
+    var resizedAsOfFontSize by remember { mutableStateOf(10.sp) }
+    var resizedLocalizedPriceFontSize by remember { mutableStateOf(20.sp) }
+    val context = LocalContext.current
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .background(
+                brush = balanceBackgroundGradient,
+                shape = RoundedCornerShape(16.dp)
+            )
+            .border(
+                width = 1.5.dp,
+                brush = if (state.darkMode) bentoDarkBorderGradient else bentoLightBorderGradient,
+                shape = RoundedCornerShape(16.dp)
+            )
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Column {
+                Text(
+                    text = stringResource(R.string.my_balance),
+                    style = TextStyle(
+                        fontFamily = IBMPlexSans,
+                        fontWeight = FontWeight.Light,
+                        fontSize = 10.sp,
+                        color = Color.White
+                    ),
+                    maxLines = 1
+                )
+
+                Text(
+                    text =  if (state.balanceHidden) " " else "Ł${state.ltcBalance}",
+                    style = TextStyle(
+                        fontFamily = IBMPlexSans,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 24.sp,
+                        color = Color.White
+                    ),
+                    maxLines = 1
+                )
+
+                Text(
+                    text = if (state.balanceHidden) " " else " ${state.symbol} ${state.fiatBalance}",
+                    style = TextStyle(
+                        fontFamily = IBMPlexSans,
+                        fontWeight = FontWeight.Light,
+                        fontSize = 14.sp,
+                        color = Color.White
+                    ),
+                    maxLines = 1
+                )
+            }
+            Spacer(modifier = Modifier.weight(0.5f))
+
+            Column {
+                IconButton(
+                    onClick = { viewModel.onEvent(BalanceBentoEvent.OnToggleBalanceVisibility) },
+                    modifier = Modifier.align(Alignment.End)
+                        .height(28.dp)
+                        .padding(bottom = 4.dp)
+                ) {
+                    Icon(
+                        modifier = Modifier.size(28.dp),
+                        painter = if (state.balanceHidden) {
+                            painterResource(R.drawable.visibility_off)
+                        } else {
+                            painterResource(
+                                R.drawable.visibility_svg
+                            )
+                        },
+                        contentDescription = "Toggle Balance Show",
+                        tint = Color.White
+                    )
+                }
+
+                Text(
+                    modifier = Modifier.align(Alignment.End),
+                    text = state.topMessage,
+                    style = TextStyle(
+                        fontFamily = IBMPlexSans,
+                        fontWeight = FontWeight.Light,
+                        fontSize = 12.sp,
+                        color = Color.White
+                    ),
+                    maxLines = 1
+                )
+                Text(
+                    modifier = Modifier.align(Alignment.End),
+                    text = "${state.lastBlock}",
+                    style = TextStyle(
+                        fontFamily = IBMPlexSans,
+                        fontWeight = FontWeight.Light,
+                        fontSize = 10.sp,
+                        color = Color.White
+                    ),
+                    maxLines = 1
+                )
+
+                Text(
+                    modifier = Modifier.align(Alignment.End),
+                    text = state.formattedTimeStamp,
+                    style = TextStyle(
+                        fontFamily = IBMPlexSans,
+                        fontWeight = FontWeight.Light,
+                        fontSize = 10.sp,
+                        color = Color.White
+                    ),
+                    maxLines = 1
+                )
+            }
+        }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .padding(horizontal = 12.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Column {
+                Spacer(modifier = Modifier.weight(0.5f))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+
+                ) {
+                    Text(
+                        modifier = Modifier.padding(end = 10.dp, bottom = 3.dp),
+                        text = "99.00 %",
+                        style = TextStyle(
+                            fontFamily = IBMPlexSans,
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 12.sp,
+                            color = Color.White
+                        ),
+                        maxLines = 1
+
+                    )
+
+                    Text(
+                        modifier = Modifier.padding(5.dp, bottom = 3.dp),
+                        text = "Block: 30222221",
+                        style = TextStyle(
+                            fontFamily = IBMPlexSans,
+                            fontWeight = FontWeight.Light,
+                            fontSize = 11.sp,
+                            color = Color.White
+                        ),
+                        maxLines = 1
+
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    SyncStatusSubScreen()
+                }
+                LinearProgressIndicator(
+                    progress = { state.syncProgress },
+                    modifier = Modifier.fillMaxWidth(),
+                    color = DesignTheme.colors.affirm,
+                    trackColor = Color.White.copy(0.5f),
+                    strokeCap = StrokeCap.Round,
+                    gapSize = (-15).dp,
+                    drawStopIndicator = {}
+                )
+            }
+        }
+    }
+}
+
+@PreviewLightDark
+@Composable
+private fun BalanceBentoScreenPreview() {
+    Box(modifier = Modifier.fillMaxHeight(0.7f).padding(16.dp)) {
+        BalanceBentoScreen(state = BalanceBentoState())
+    }
+}
