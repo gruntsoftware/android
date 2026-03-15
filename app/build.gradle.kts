@@ -80,7 +80,8 @@ android {
         val debug by getting {
             isDebuggable = true
             isMinifyEnabled = false
-
+            enableUnitTestCoverage = true
+            enableAndroidTestCoverage = true
             ndk {
                 isDebuggable = true
                 isMinifyEnabled = false
