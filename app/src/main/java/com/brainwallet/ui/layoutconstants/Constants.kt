@@ -1,7 +1,7 @@
 package com.brainwallet.ui.layoutconstants
 
 import androidx.compose.ui.unit.dp
-val balanceGameBentoHt = 105.dp
+val balanceGameBentoHt = 125.dp
 val bottomNavHt = 80.dp
 val gameHubHt = 120.dp
 val transRowHt = 60.dp
