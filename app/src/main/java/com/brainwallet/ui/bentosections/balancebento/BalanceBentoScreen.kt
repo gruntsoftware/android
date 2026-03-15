@@ -19,6 +19,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,7 +34,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brainwallet.R
@@ -42,17 +42,17 @@ import com.brainwallet.ui.theme.IBMPlexSans
 import com.brainwallet.ui.theme.balanceBackgroundGradient
 import com.brainwallet.ui.theme.bentoDarkBorderGradient
 import com.brainwallet.ui.theme.bentoLightBorderGradient
-import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun BalanceBentoScreen(
     modifier: Modifier = Modifier,
-    viewModel: BalanceBentoViewModel = koinInject()
+    viewModel: BalanceBentoViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsState()
     BalanceBentoScreen(
         state = state,
+        onEvent = viewModel::onEvent,
         modifier = modifier
     )
 }
@@ -60,13 +60,16 @@ fun BalanceBentoScreen(
 @Composable
 fun BalanceBentoScreen(
     state: BalanceBentoState,
-    modifier: Modifier = Modifier,
-    viewModel: BalanceBentoViewModel = koinViewModel()
+    onEvent: (BalanceBentoEvent) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     var resizedLTCFiatFontSize by remember { mutableStateOf(44.sp) }
     var resizedAsOfFontSize by remember { mutableStateOf(10.sp) }
     var resizedLocalizedPriceFontSize by remember { mutableStateOf(20.sp) }
     val context = LocalContext.current
+
+    LaunchedEffect(state) {
+    }
 
     Box(
         modifier = Modifier
@@ -93,30 +96,30 @@ fun BalanceBentoScreen(
                     text = stringResource(R.string.my_balance),
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
-                        fontWeight = FontWeight.Light,
-                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 12.sp,
                         color = Color.White
                     ),
                     maxLines = 1
                 )
 
                 Text(
-                    text =  if (state.balanceHidden) " " else "Ł${state.ltcBalance}",
+                    text = if (state.balanceHidden) "" else "Ł${state.ltcBalance}",
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 24.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 34.sp,
                         color = Color.White
                     ),
                     maxLines = 1
                 )
 
                 Text(
-                    text = if (state.balanceHidden) " " else " ${state.symbol} ${state.fiatBalance}",
+                    text = if (state.balanceHidden) "" else " ${state.symbol} ${state.fiatBalance}",
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
                         fontWeight = FontWeight.Light,
-                        fontSize = 14.sp,
+                        fontSize = 13.sp,
                         color = Color.White
                     ),
                     maxLines = 1
@@ -126,7 +129,7 @@ fun BalanceBentoScreen(
 
             Column {
                 IconButton(
-                    onClick = { viewModel.onEvent(BalanceBentoEvent.OnToggleBalanceVisibility) },
+                    onClick = { onEvent(BalanceBentoEvent.OnToggleBalanceVisibility) },
                     modifier = Modifier.align(Alignment.End)
                         .height(28.dp)
                         .padding(bottom = 4.dp)
@@ -134,11 +137,11 @@ fun BalanceBentoScreen(
                     Icon(
                         modifier = Modifier.size(28.dp),
                         painter = if (state.balanceHidden) {
-                            painterResource(R.drawable.visibility_off)
-                        } else {
                             painterResource(
                                 R.drawable.visibility_svg
                             )
+                        } else {
+                            painterResource(R.drawable.visibility_off)
                         },
                         contentDescription = "Toggle Balance Show",
                         tint = Color.White
@@ -150,7 +153,7 @@ fun BalanceBentoScreen(
                     text = state.topMessage,
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
-                        fontWeight = FontWeight.Light,
+                        fontWeight = FontWeight.Normal,
                         fontSize = 12.sp,
                         color = Color.White
                     ),
@@ -158,11 +161,11 @@ fun BalanceBentoScreen(
                 )
                 Text(
                     modifier = Modifier.align(Alignment.End),
-                    text = "${state.lastBlock}",
+                    text = state.lastBlockLabel,
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
-                        fontWeight = FontWeight.Light,
-                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 12.sp,
                         color = Color.White
                     ),
                     maxLines = 1
@@ -173,8 +176,8 @@ fun BalanceBentoScreen(
                     text = state.formattedTimeStamp,
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
-                        fontWeight = FontWeight.Light,
-                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 12.sp,
                         color = Color.White
                     ),
                     maxLines = 1
@@ -212,11 +215,11 @@ fun BalanceBentoScreen(
 
                     Text(
                         modifier = Modifier.padding(5.dp, bottom = 3.dp),
-                        text = "Block: 30222221",
+                        text = "Block: 3071920",
                         style = TextStyle(
                             fontFamily = IBMPlexSans,
-                            fontWeight = FontWeight.Light,
-                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 13.sp,
                             color = Color.White
                         ),
                         maxLines = 1
@@ -237,13 +240,5 @@ fun BalanceBentoScreen(
                 )
             }
         }
-    }
-}
-
-@PreviewLightDark
-@Composable
-private fun BalanceBentoScreenPreview() {
-    Box(modifier = Modifier.fillMaxHeight(0.7f).padding(16.dp)) {
-        BalanceBentoScreen(state = BalanceBentoState())
     }
 }

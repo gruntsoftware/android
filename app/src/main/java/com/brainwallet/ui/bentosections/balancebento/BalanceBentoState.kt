@@ -1,5 +1,7 @@
 package com.brainwallet.ui.bentosections.balancebento
 
+import android.icu.math.BigDecimal
+
 data class BalanceBentoState(
     val darkMode: Boolean = true,
     val fiatCode: String = "USD",
@@ -9,8 +11,9 @@ data class BalanceBentoState(
     val syncProgress: Float = 0.5f,
     val currentBlockHeight: Int = 5,
     val lastBlock: Int = 5,
+    val lastBlockLabel: String = "Last Block: %d",
     val fiatBalance: Float = 0.0f,
-    val ltcBalance: Float = 0.0f,
+    val ltcBalance: BigDecimal = BigDecimal.ZERO,
     val balanceHidden: Boolean = true,
     val brainwalletIsSyncing: Boolean = true
 )

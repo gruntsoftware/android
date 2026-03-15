@@ -2,10 +2,9 @@ package com.brainwallet.ui.bentosections.balancebento
 
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.data.model.AppSetting
-import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.data.repository.SettingRepository
-import com.brainwallet.tools.sqlite.CurrencyDataSource
 import com.brainwallet.ui.BrainwalletViewModel
+import com.brainwallet.worker.CurrencyUpdateWorker
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -19,7 +18,7 @@ import org.koin.android.annotation.KoinViewModel
 @KoinViewModel
 class BalanceBentoViewModel(
     private val settingRepository: SettingRepository,
-    private val ltcRepository: LtcRepository
+    private val currencyUpdateWorker: CurrencyUpdateWorker
 ) : BrainwalletViewModel<BalanceBentoEvent>() {
 
     private val _state = MutableStateFlow(BalanceBentoState())

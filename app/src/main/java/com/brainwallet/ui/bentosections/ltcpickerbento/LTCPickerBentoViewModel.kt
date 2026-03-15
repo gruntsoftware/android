@@ -29,6 +29,7 @@ class LTCPickerBentoViewModel(
         "MMMM dd, yyyy h:mm:ss a",
         java.util.Locale.getDefault()
     )
+
     private val appSetting = settingRepository.settings
         .distinctUntilChanged()
         .onEach { setting ->
@@ -72,6 +73,15 @@ class LTCPickerBentoViewModel(
                 _state.update { currentState ->
                     currentState.copy(
                         formattedTimeStamp = formatter.format(java.util.Date())
+                    )
+                }
+            }
+            is LTCPickerBentoEvent.OnLiveCurrencyUpdate -> {
+                _state.update { currentState ->
+                    currentState.copy(
+                        formattedTimeStamp = formatter.format(java.util.Date())
+                            .replace("AM", "am")
+                            .replace("PM", "pm")
                     )
                 }
             }
