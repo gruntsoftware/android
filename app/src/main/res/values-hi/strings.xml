@@ -463,4 +463,5 @@
     <string name="game_hub_tagline">ARE YOU GOOD ENOUGH TO BE #1?</string>
     <string name="game_hub_label">GAME HUB</string>
     <string name="ltc_ticker_as_of_timestamp">as of %s</string>
+  <string name="my_balance">MY BALANCE</string>
 </resources>
