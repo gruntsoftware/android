@@ -49,6 +49,7 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.ui.bentosections.balancebento.BalanceBentoScreen
 import com.brainwallet.ui.bentosections.gamehubbento.GameHubBentoScreen
@@ -63,6 +64,7 @@ import com.brainwallet.ui.screens.gamehub.GameHubScreen
 import com.brainwallet.ui.screens.home.history.HistoryScreen
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.ui.theme.mainScreenDarkSurfaceGradient
+import org.koin.android.compat.ScopeCompat.viewModel
 
 /**
  * The main screen of the application, featuring a bento-style grid layout.
@@ -85,6 +87,7 @@ fun MainScreen(
     var modalContentRoute by remember { mutableStateOf<Route?>(null) }
     val appSetting by viewModel.appSetting.collectAsState()
     val isDarkMode = appSetting.isDarkMode
+    val currencies by viewModel.currencies.collectAsStateWithLifecycle()
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -128,7 +131,7 @@ fun MainScreen(
         ) { padding ->
             val gridItems = remember {
                 listOf(
-                    "Transaction History View",
+                    "Transaction History View ${currencies.size}",
                     "Tutorials Bento View",
                     "Favourites Bento View"
                 )

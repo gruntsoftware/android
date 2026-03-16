@@ -16,6 +16,9 @@ import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.manager.FeeManager
 import com.brainwallet.tools.sqlite.CurrencyDataSource
 import com.brainwallet.tools.util.Utils
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import org.koin.core.annotation.Single
 
 @Single(binds = [LtcRepository::class])
@@ -25,6 +28,9 @@ class LtcRepositoryImpl(
     private val currencyDataSource: CurrencyDataSource,
     private val sharedPreferences: SharedPreferences,
 ) : LtcRepository {
+
+    private val _rates = MutableStateFlow<List<CurrencyEntity>>(emptyList())
+    override val rates: StateFlow<List<CurrencyEntity>> = _rates.asStateFlow()
 
     // todo: make it offline first here later, currently just using CurrencyDataSource.getAllCurrencies
     override suspend fun fetchRates(): List<CurrencyEntity> {
@@ -43,8 +49,11 @@ class LtcRepositoryImpl(
 
             // save to local
             currencyDataSource.putCurrencies(rates)
-            return rates
+            rates
         }.getOrElse { currencyDataSource.getAllCurrencies(true) }
+            .also { result ->
+                _rates.value = result
+            }
     }
 
     /**

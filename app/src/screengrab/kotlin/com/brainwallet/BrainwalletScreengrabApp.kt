@@ -22,7 +22,7 @@ class BrainwalletScreengrabApp : BrainwalletApp() {
         startKoin {
             androidLogger(if (BuildConfig.DEBUG) Level.DEBUG else Level.ERROR)
             androidContext(this@BrainwalletScreengrabApp)
-            modules(AppModule.dataModule, AppModule.module)
+            modules(AppModule.dataModule, AppModule.module, mainViewModelModule)
         }
     }
 }

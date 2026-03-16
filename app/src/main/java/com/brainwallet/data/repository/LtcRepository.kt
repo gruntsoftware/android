@@ -4,8 +4,12 @@ import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.Fee
 import com.brainwallet.data.model.MoonpayCurrencyLimit
 import com.brainwallet.data.source.response.GetMoonpayBuyQuoteResponse
+import kotlinx.coroutines.flow.StateFlow
 
 interface LtcRepository {
+
+    val rates: StateFlow<List<CurrencyEntity>>
+
     suspend fun fetchRates(): List<CurrencyEntity>
 
     suspend fun fetchFeePerKb(): Fee

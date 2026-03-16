@@ -2,10 +2,12 @@ package com.brainwallet.ui.screens.home
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
+import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.ui.BrainwalletViewModel
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -20,6 +22,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
+import timber.log.Timber
+
 @KoinViewModel
 class MainViewModel(
     private val settingRepository: SettingRepository,
@@ -28,6 +32,12 @@ class MainViewModel(
 
     private val _state = MutableStateFlow(MainScreenState())
     val state: StateFlow<MainScreenState> = _state.asStateFlow()
+    val currencies: StateFlow<List<CurrencyEntity>> = ltcRepository.rates
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = emptyList()
+        )
 
     val appSetting = settingRepository.settings
         .distinctUntilChanged()
@@ -50,12 +60,20 @@ class MainViewModel(
                     onEvent(MainScreenEvent.OnFiatAmountChange(it))
                 }
         }
+        viewModelScope.launch {
+            currencies.collect { updatedCurrencies ->
+                val msg = "timber: currencies updated: count=${updatedCurrencies.size}"
+                Timber.d(msg)
+                FirebaseCrashlytics.getInstance().log(msg)
+            }
+        }
     }
 
     override fun onEvent(event: MainScreenEvent) {
         when (event) {
             is MainScreenEvent.OnLoad -> viewModelScope.launch {
                 delay(500)
+
                 _state.update { it.copy(address = BRSharedPrefs.getReceiveAddress(event.context)) }
                 try {
                     onLoading(true)
