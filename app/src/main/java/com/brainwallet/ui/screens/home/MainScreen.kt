@@ -58,7 +58,7 @@ import com.brainwallet.ui.layoutconstants.bottomNavHt
 import com.brainwallet.ui.layoutconstants.gameHubHt
 import com.brainwallet.ui.layoutconstants.mainHeightComponentsFactor
 import com.brainwallet.ui.layoutconstants.statusBarPadding
-import com.brainwallet.ui.layoutconstants.transRowHt
+import com.brainwallet.ui.layoutconstants.transactionRowHt
 import com.brainwallet.ui.screens.buyreceive.BuyReceiveScreen
 import com.brainwallet.ui.screens.gamehub.GameHubScreen
 import com.brainwallet.ui.screens.home.history.HistoryScreen
@@ -186,7 +186,7 @@ fun MainScreen(
                             }
                         }
                         item(span = { GridItemSpan(2) }) {
-                            HomeBentoContainer(name = gridItems[0], modifier = Modifier.height(transRowHt))
+                            HomeBentoContainer(name = gridItems[0], modifier = Modifier.height(transactionRowHt))
                         }
                         item(span = { GridItemSpan(1) }) {
                             HomeBentoContainer(name = gridItems[1], modifier = Modifier.height(availableHeight))
