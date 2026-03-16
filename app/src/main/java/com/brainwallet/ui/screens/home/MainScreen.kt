@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
@@ -54,9 +55,7 @@ import com.brainwallet.ui.bentosections.gamehubbento.GameHubBentoScreen
 import com.brainwallet.ui.bentosections.ltcpickerbento.LTCPickerBentoScreen
 import com.brainwallet.ui.composable.HomeBentoContainer
 import com.brainwallet.ui.layoutconstants.balanceGameBentoHt
-import com.brainwallet.ui.layoutconstants.bottomNavHt
 import com.brainwallet.ui.layoutconstants.gameHubHt
-import com.brainwallet.ui.layoutconstants.mainHeightComponentsFactor
 import com.brainwallet.ui.layoutconstants.statusBarPadding
 import com.brainwallet.ui.layoutconstants.transactionRowHt
 import com.brainwallet.ui.screens.buyreceive.BuyReceiveScreen
@@ -126,7 +125,7 @@ fun MainScreen(
                 )
             }
 
-        ) { paddingValues ->
+        ) { padding ->
             val gridItems = remember {
                 listOf(
                     "Transaction History View",
@@ -137,13 +136,19 @@ fun MainScreen(
             BoxWithConstraints(
                 modifier = Modifier
                     .fillMaxSize()
+                    .navigationBarsPadding()
             ) {
                 val verticalSpacing = 12.dp
-                val fixedElementsHeight = mainHeightComponentsFactor + (verticalSpacing * 3)
-                val gridContentAreaHeight = this.maxHeight
-                -paddingValues.calculateTopPadding()
-                -paddingValues.calculateBottomPadding()
-                val availableHeight = gridContentAreaHeight - fixedElementsHeight - bottomNavHt
+                val topPadding = padding.calculateTopPadding()
+                val bottomPadding = padding.calculateBottomPadding()
+                val availableHeight = maxHeight -
+                    (verticalSpacing * 5) -
+                    topPadding -
+                    balanceGameBentoHt -
+                    transactionRowHt -
+                    gameHubHt -
+                    bottomPadding
+
                 val ltcPickerBentoHeight = (availableHeight * 0.78f) - (verticalSpacing / 2)
                 val favoritesBentoHeight = (availableHeight * 0.22f) - (verticalSpacing / 2)
                 Column {
@@ -175,7 +180,12 @@ fun MainScreen(
                     }
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(2),
-                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 1.dp),
+                        modifier = Modifier
+                            .padding(
+                                horizontal = 12.dp,
+                                vertical = 1.dp
+                            )
+                            .weight(1f),
                         horizontalArrangement = Arrangement.spacedBy(12.dp),
                         verticalArrangement = Arrangement.spacedBy(12.dp),
                         userScrollEnabled = false

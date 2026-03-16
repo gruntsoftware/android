@@ -13,9 +13,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import com.brainwallet.R
 import com.brainwallet.navigation.Route
+import com.brainwallet.ui.layoutconstants.bentoBottomNavBarHt
 import com.brainwallet.ui.theme.DesignTheme
 import com.brainwallet.ui.theme.colorMidnite
 
@@ -33,7 +33,7 @@ fun BentoBottomNavBar(
     modifier: Modifier = Modifier,
     isDarkMode: Boolean = isSystemInDarkTheme()
 ) {
-    var surfaceColor = if (isDarkMode) Color.Red else Color.White
+    var surfaceColor = if (isDarkMode) Color.Black else Color.White
     var contentsColor = if (isDarkMode) Color.White else colorMidnite
 
     NavigationBar(
@@ -41,7 +41,7 @@ fun BentoBottomNavBar(
         contentColor = contentsColor,
         modifier = modifier
             .navigationBarsPadding()
-            .height(60.dp)
+            .height(bentoBottomNavBarHt)
     ) {
         NavigationBarItem(
             selected = currentRoute is Route.Send,

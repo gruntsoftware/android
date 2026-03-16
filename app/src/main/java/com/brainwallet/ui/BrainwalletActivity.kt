@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.lifecycleScope
@@ -73,6 +74,7 @@ class BrainwalletActivity : BRActivity() {
                 AppSetting()
             )
 
+            enableEdgeToEdge()
             BrainwalletAppTheme(appSetting = appSetting) {
                 MainNavHost(
                     startDestination = startDestination,
