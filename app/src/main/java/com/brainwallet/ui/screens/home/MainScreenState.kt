@@ -8,7 +8,11 @@ data class MainScreenState(
     val fiatAmount: Float = moonpayCurrencyLimit.data.baseCurrency.min,
     val ltcAmount: Float = 0f,
     val address: String = "",
-    val errorFiatAmountStringId: Int? = null
+    val errorFiatAmountStringId: Int? = null,
+    val fiatSymbol: String = "",
+    val fiatIso: String = "",
+    val fiatRate: Float = 0f,
+
 )
 
 fun MainScreenState.isValid(): Boolean = errorFiatAmountStringId == null

@@ -13,6 +13,7 @@ data class LTCPickerBentoState(
         "$"
     ),
     val iso: String = "USD",
+    val formattedFiat: String = "",
     val formattedTimeStamp: String = "",
     var globalCurrencies: List<GlobalCurrency> = GlobalCurrency.entries,
     var selectedGlobalCurrency: GlobalCurrency = GlobalCurrency.USD

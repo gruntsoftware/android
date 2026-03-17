@@ -7,12 +7,12 @@ import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.ui.BrainwalletViewModel
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
@@ -32,7 +32,7 @@ class MainViewModel(
 
     private val _state = MutableStateFlow(MainScreenState())
     val state: StateFlow<MainScreenState> = _state.asStateFlow()
-    val currencies: StateFlow<List<CurrencyEntity>> = ltcRepository.rates
+    val currencyRates: StateFlow<List<CurrencyEntity>> = ltcRepository.rates
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
@@ -61,10 +61,25 @@ class MainViewModel(
                 }
         }
         viewModelScope.launch {
-            currencies.collect { updatedCurrencies ->
-                val msg = "timber: currencies updated: count=${updatedCurrencies.size}"
-                Timber.d(msg)
-                FirebaseCrashlytics.getInstance().log(msg)
+            currencyRates.collect { updatedCurrencies ->
+                val selectedCurrency = updatedCurrencies.find { it.code == appSetting.value.currency.code }
+                Timber.d("selectedCurrency: $selectedCurrency")
+            }
+        }
+
+        viewModelScope.launch {
+            currencyRates.combine(appSetting) { currencies, setting ->
+                currencies.find { it.code == setting.currency.code }
+            }.collect { selectedCurrency ->
+                val msg = String.format("selectedCurrency — Name: %s", selectedCurrency?.name ?: "none")
+
+                _state.update {
+                    it.copy(
+                        fiatSymbol = selectedCurrency?.symbol.orEmpty(),
+                        fiatIso = selectedCurrency?.code.orEmpty(),
+                        fiatRate = selectedCurrency?.rate ?: 0f,
+                    )
+                }
             }
         }
     }

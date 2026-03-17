@@ -87,7 +87,7 @@ fun MainScreen(
     var modalContentRoute by remember { mutableStateOf<Route?>(null) }
     val appSetting by viewModel.appSetting.collectAsState()
     val isDarkMode = appSetting.isDarkMode
-    val currencies by viewModel.currencies.collectAsStateWithLifecycle()
+    val currencyRates by viewModel.currencyRates.collectAsStateWithLifecycle()
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -131,7 +131,7 @@ fun MainScreen(
         ) { padding ->
             val gridItems = remember {
                 listOf(
-                    "Transaction History View ${currencies.size}",
+                    "Transaction History View ${currencyRates.size}",
                     "Tutorials Bento View",
                     "Favourites Bento View"
                 )
