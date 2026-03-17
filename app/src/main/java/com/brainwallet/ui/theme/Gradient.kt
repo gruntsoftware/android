@@ -1,10 +1,23 @@
 package com.brainwallet.ui.theme
-
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TileMode
+
+val colorWhite = Color(0xFFFFFFFF)
+val colorBlue = Color(0xFF114CD4)
+val color80PercentMidnite = Color(0xFF0F0853).copy(alpha = 0.8f)
+val colorMidnite = Color(0xFF0F0853)
+val colorSemiWhite = Color(0xFFFFFFFF).copy(alpha = 0.8f)
+val colorLightWhite = Color(0x08FFFFFF)
+
+// / Main Screen Background Colors
+val colorMainScreenBackground1 = Color(0xFF0F0853)
+val colorMainScreenBackground2 = Color(0xFF121348)
+val colorMainScreenBackground3 = Color(0xFF491FA3)
+val colorMainScreenBackground4 = Color(0xFF000000)
+val colorMainScreenBackground5 = Color(0xFF000000)
 
 /**
  * A reusable vertical gradient brush for text and backgrounds.33
@@ -13,19 +26,19 @@ val gameTitleGradient: Brush
     @Composable
     get() = Brush.verticalGradient(
         colors = listOf(
-            Color(0xFFFFFFFF),
-            Color(0xFFFFFFFF),
-            Color(0xFF114CD4),
+            colorWhite,
+            colorWhite,
+            colorBlue,
         )
     )
 val gameTaglineGradient: Brush
     @Composable
     get() = Brush.verticalGradient(
         colors = listOf(
-            Color(0xFFFFFFFF),
-            Color(0xFFFFFFFF),
-            Color(0xFFFFFFFF),
-            Color(0x1A114CD4),
+            colorWhite,
+            colorWhite,
+            colorWhite,
+            colorBlue,
         )
     )
 val gameHubBackgroundGradient: Brush
@@ -40,32 +53,71 @@ val gameHubBackgroundGradient: Brush
         radius = 100 / 2.0f,
         tileMode = TileMode.Clamp
     )
-val bentoBorderGradient: Brush
-
+val bentoDarkSurfaceGradient: Brush
     @Composable
     get() = Brush.verticalGradient(
         colors = listOf(
-            Color(0x80FFFFFF),
-            Color(0xCC9074FF),
-            Color(0xFF020148),
-            Color(0xCC2B193B),
-            Color(0xCC6944BE)
+            colorLightWhite,
+            colorLightWhite
         ),
         startY = 0f,
         endY = 100f
     )
 
-/**
- * Another example of a global gradient you could create.
- */
-val primarySurfaceGradient: Brush
+val bentoLightSurfaceGradient: Brush
     @Composable
-    get() = Brush.horizontalGradient(
+    get() = Brush.verticalGradient(
         colors = listOf(
-            // Example colors from a hypothetical theme
-            // MaterialTheme.colorScheme.primary,
-            // MaterialTheme.colorScheme.primaryContainer
-            Color.Blue,
-            Color.Cyan
-        )
+            colorWhite,
+            colorWhite
+        ),
+        startY = 0f,
+        endY = 100f
+    )
+val mainScreenDarkSurfaceGradient: Brush
+    @Composable
+    get() = Brush.verticalGradient(
+        0.0f to colorMainScreenBackground1,
+        0.35f to colorMainScreenBackground2,
+        0.70f to colorMainScreenBackground3,
+        0.8f to colorMainScreenBackground4,
+        1.0f to colorMainScreenBackground5,
+        startY = 0f,
+        endY = Float.POSITIVE_INFINITY
+    )
+
+val mainScreenLightSurfaceGradient: Brush
+    @Composable
+    get() = Brush.verticalGradient(
+        colors = listOf(
+            colorWhite,
+            colorWhite
+        ),
+        startY = 0f,
+        endY = 100f
+    )
+val bentoLightBorderGradient: Brush
+
+    @Composable
+    get() = Brush.linearGradient(
+        colors = listOf(
+            Color(0xFFD9D9D9),
+            Color(0xFFDfDfDf),
+        ),
+        start = Offset.Zero,
+        end = Offset(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY)
+    )
+val bentoDarkBorderGradient: Brush
+
+    @Composable
+    get() = Brush.linearGradient(
+        colors = listOf(
+            Color(0xFFFFFFFF).copy(alpha = 0.2f),
+            Color(0xFF9074FF).copy(alpha = 0.8f),
+            Color(0xFF020148).copy(alpha = 1f),
+            Color(0xFF2B193B).copy(alpha = 1f),
+            Color(0xFF6944BE).copy(alpha = 0.2f)
+        ),
+        start = Offset.Zero,
+        end = Offset(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY),
     )

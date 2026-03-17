@@ -42,7 +42,7 @@ import com.brainwallet.ui.screens.home.composable.settingsrows.SecurityDetail
 import com.brainwallet.ui.screens.home.composable.settingsrows.SettingRowItem
 import com.brainwallet.ui.screens.home.composable.settingsrows.ThemeSettingRowItem
 import com.brainwallet.ui.theme.BrainwalletAppTheme
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.DesignTheme
 import com.brainwallet.util.EventBus
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
@@ -79,8 +79,8 @@ fun HomeSettingDrawerSheet(
         modifier = modifier
             .fillMaxWidth()
             .verticalScroll(rememberScrollState()),
-        drawerContainerColor = BrainwalletTheme.colors.surface,
-        drawerContentColor = BrainwalletTheme.colors.content
+        drawerContainerColor = DesignTheme.colors.surface,
+        drawerContentColor = DesignTheme.colors.content
     ) {
         LazyColumn(
             modifier = Modifier

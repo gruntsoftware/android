@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.brainwallet.R
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.DesignTheme
 
 @Composable
 fun LoadingDialog(
@@ -31,7 +31,7 @@ fun LoadingDialog(
         )
     ) {
         Card(
-            shape = BrainwalletTheme.shapes.medium,
+            shape = DesignTheme.shapes.medium,
             modifier = Modifier
                 .fillMaxWidth(0.8f)
                 .wrapContentHeight(),
@@ -46,7 +46,7 @@ fun LoadingDialog(
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center,
                     text = text,
-                    style = BrainwalletTheme.typography.bodyLarge
+                    style = DesignTheme.typography.bodyLarge
                 )
             }
         }

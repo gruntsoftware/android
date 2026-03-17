@@ -11,22 +11,25 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.ui.composable.DarkModeToggleButton
 import com.brainwallet.ui.screens.unlock.UnLockEvent
 import com.brainwallet.ui.theme.BrainwalletAppTheme
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.DesignTheme
+import com.brainwallet.ui.theme.IBMPlexSans
 import com.grunt.brainwallet.core.presentation.theme.LocalDarkModeFlag
 
 @Composable
@@ -59,19 +62,24 @@ fun UnLockScreenFooter(
                     onEvent(UnLockEvent.OnQrClicked)
                 },
                 colorFilter = ColorFilter.tint(
-                    BrainwalletTheme.colors.border
+                    DesignTheme.colors.border
                 )
             )
         }
         Text(
             version,
-            modifier = Modifier.fillMaxWidth(),
-            style = MaterialTheme.typography
-                .bodyMedium
-                .copy(
-                    textAlign = TextAlign.Center,
-                    color = BrainwalletTheme.colors.border
-                )
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    top = 10.dp,
+                    bottom = 30.dp
+                ),
+            style = TextStyle(
+                fontFamily = IBMPlexSans,
+                fontWeight = FontWeight.Light,
+                fontSize = 11.sp
+            ),
+            textAlign = TextAlign.Center
         )
     }
 }
@@ -82,7 +90,7 @@ private fun UnLockScreenFooterPreview() {
     BrainwalletAppTheme(AppSetting(isDarkMode = isSystemInDarkTheme())) {
         Box(
             modifier = Modifier
-                .background(BrainwalletTheme.colors.background)
+                .background(DesignTheme.colors.background)
                 .fillMaxWidth()
         ) {
             UnLockScreenFooter(version = "v4.0.0 (202501201)")

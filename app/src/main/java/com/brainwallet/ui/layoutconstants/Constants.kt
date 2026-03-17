@@ -1,11 +1,13 @@
 package com.brainwallet.ui.layoutconstants
 
 import androidx.compose.ui.unit.dp
+val balanceGameBentoHt = 105.dp
+val bottomNavHt = 80.dp
+val gameHubHt = 120.dp
+val transRowHt = 60.dp
 
-val topAppBarHtPlus = 64.dp + 16.dp
-val balanceGameBentoHeight = 105.dp
-val bottomNavHeight = 85.dp
-val gameHubHeight = 120.dp
-val transRowHeight = 60.dp
+// System OS Padding
+val statusBarPadding = 44.dp
+val navBarPadding = 44.dp
 
-val mainHeightComponentsFactor = balanceGameBentoHeight + gameHubHeight + transRowHeight + bottomNavHeight
+val mainHeightComponentsFactor = balanceGameBentoHt + gameHubHt + transRowHt + bottomNavHt + statusBarPadding

@@ -32,7 +32,7 @@ import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
 import com.brainwallet.ui.composable.LargeButton
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.DesignTheme
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -95,10 +95,10 @@ fun BuyReceiveScreen(
                     prefix = {
                         Text(
                             text = appSetting.currency.symbol,
-                            style = BrainwalletTheme.typography.titleLarge.copy(color = BrainwalletTheme.colors.content)
+                            style = DesignTheme.typography.titleLarge.copy(color = DesignTheme.colors.content)
                         )
                     },
-                    textStyle = BrainwalletTheme.typography.titleLarge.copy(color = BrainwalletTheme.colors.content),
+                    textStyle = DesignTheme.typography.titleLarge.copy(color = DesignTheme.colors.content),
                     value = "${if (state.fiatAmount < 1) "" else state.fiatAmount.toInt()}",
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -106,7 +106,7 @@ fun BuyReceiveScreen(
                         val amount = input.toFloatOrNull() ?: 0f
                         viewModel.onEvent(BuyReceiveEvent.OnFiatAmountChange(amount, false))
                     },
-                    shape = BrainwalletTheme.shapes.extraLarge,
+                    shape = DesignTheme.shapes.extraLarge,
                     isError = state.isValid().not(),
                     supportingText = {
                         state.errorFiatAmountStringId?.let {
@@ -118,7 +118,7 @@ fun BuyReceiveScreen(
                 Text(
                     text = state.getLtcAmountFormatted(loadingState.visible),
                     style = MaterialTheme.typography.titleLarge.copy(
-                        color = BrainwalletTheme.colors.content.copy(
+                        color = DesignTheme.colors.content.copy(
                             0.7f
                         )
                     ),
@@ -132,7 +132,7 @@ fun BuyReceiveScreen(
                 Text(
                     text = state.address,
                     style = MaterialTheme.typography.titleMedium.copy(
-                        color = BrainwalletTheme.colors.content.copy(
+                        color = DesignTheme.colors.content.copy(
                             0.7f
                         )
                     )
