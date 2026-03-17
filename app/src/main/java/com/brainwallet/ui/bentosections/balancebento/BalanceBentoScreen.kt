@@ -38,6 +38,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brainwallet.R
+import com.brainwallet.ui.screens.home.MainScreenEvent
+import com.brainwallet.ui.screens.home.MainScreenState
+import com.brainwallet.ui.screens.home.MainViewModel
 import com.brainwallet.ui.theme.DesignTheme
 import com.brainwallet.ui.theme.IBMPlexSans
 import com.brainwallet.ui.theme.balanceBackgroundGradient
@@ -48,12 +51,17 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun BalanceBentoScreen(
     modifier: Modifier = Modifier,
-    viewModel: BalanceBentoViewModel = koinViewModel()
+    viewModel: BalanceBentoViewModel = koinViewModel(),
+    mainViewModel: MainViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsState()
+    val mainState by mainViewModel.state.collectAsState()
+
     BalanceBentoScreen(
         state = state,
+        mainState = mainState,
         onEvent = viewModel::onEvent,
+        onMainEvent = mainViewModel::onEvent,
         modifier = modifier
     )
 }
@@ -61,7 +69,9 @@ fun BalanceBentoScreen(
 @Composable
 fun BalanceBentoScreen(
     state: BalanceBentoState,
+    mainState: MainScreenState,
     onEvent: (BalanceBentoEvent) -> Unit,
+    onMainEvent: (MainScreenEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var resizedLTCFiatFontSize by remember { mutableStateOf(44.sp) }
@@ -75,9 +85,6 @@ fun BalanceBentoScreen(
         iconImage = painterResource(id = R.drawable.visibility_svg)
     } else {
         iconImage = painterResource(id = R.drawable.visibility_off)
-    }
-
-    LaunchedEffect(state) {
     }
 
     Box(
