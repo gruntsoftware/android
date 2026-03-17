@@ -27,7 +27,7 @@ import com.brainwallet.tools.security.PostAuth
 import com.brainwallet.tools.security.SmartValidator
 import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.tools.util.BRConstants.BW_PIN_LENGTH
-import com.brainwallet.tools.util.Utils
+import com.brainwallet.tools.util.TypesConverter
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.EFFECT_LEGACY_RECOVER_WALLET_AUTH
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGACY_DIALOG_INVALID
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGACY_DIALOG_WIPE_ALERT
@@ -37,6 +37,7 @@ import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItViewModel.Compa
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.util.EventBus
 import com.brainwallet.wallet.BRWalletManager
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -186,8 +187,43 @@ class BrainwalletActivity : BRActivity() {
                     )
                 )
             }
-        } else if (BRSharedPrefs.getPhraseWroteDown(this).not()) {
+            return
+        }
+
+        // Ensure masterPubKey is present; re-derive from phrase if not
+        val pubKey = BRKeyStore.getMasterPublicKey(this)
+        if (pubKey == null || pubKey.isEmpty()) {
+            Timber.w("onCheckPin: masterPubKey missing — attempting recovery from phrase")
+            val recovered = tryRecoverMasterPubKey(this)
+            if (!recovered) {
+                Timber.e("onCheckPin: could not recover masterPubKey")
+                FirebaseCrashlytics.getInstance().recordException(
+                    RuntimeException("onCheckPin: masterPubKey missing and unrecoverable")
+                )
+            }
+        }
+
+        if (BRSharedPrefs.getPhraseWroteDown(this).not()) {
             PostAuth.getInstance().onPhraseCheckAuth(this, false)
+        }
+    }
+
+    private fun tryRecoverMasterPubKey(context: Context): Boolean {
+        return try {
+            val phraseBytes = BRKeyStore.getPhrase(context, 0) ?: return false
+            if (phraseBytes.isEmpty()) return false
+            val nullTerminated = TypesConverter.getNullTerminatedPhrase(phraseBytes)
+            val pubKey = BRWalletManager.getInstance().getMasterPubKey(nullTerminated)
+            if (pubKey == null || pubKey.isEmpty()) return false
+            val saved = BRKeyStore.putMasterPublicKey(pubKey, context)
+            Timber.d("timber: tryRecoverMasterPubKey: saved=$saved")
+            saved
+        } catch (e: Exception) {
+            Timber.e(e, "timber: tryRecoverMasterPubKey failed")
+            FirebaseCrashlytics.getInstance().recordException(
+                RuntimeException("tryRecoverMasterPubKey failed")
+            )
+            false
         }
     }
 
@@ -238,23 +274,22 @@ class BrainwalletActivity : BRActivity() {
      * this will be using the old logic from the IntroActivity (already gone)
      */
     private fun onLegacyLogic() {
-        if (Utils.isEmulatorOrDebug(this)) Utils.printPhoneSpecs()
-
         val masterPubKey = BRKeyStore.getMasterPublicKey(this)
         var isFirstAddressCorrect = false
-        if (masterPubKey != null && masterPubKey.isNotEmpty()) {
-            Timber.d("timber: masterPubkey exists")
 
+        if (masterPubKey != null && masterPubKey.isNotEmpty()) {
             isFirstAddressCorrect = SmartValidator.checkFirstAddress(this, masterPubKey)
         }
+
         if (!isFirstAddressCorrect) {
-            Timber.d("timber: Calling wipeWalletButKeyStore")
-            BRWalletManager.getInstance().wipeWalletButKeystore(this)
+            // NEW: attempt to re-derive masterPubKey from phrase before wiping
+            val recovered = tryRecoverMasterPubKey(this)
+            if (!recovered) {
+                Timber.d("timber: no recovery possible — wiping wallet")
+                BRWalletManager.getInstance().wipeWalletButKeystore(this)
+            }
         }
 
-        /**
-         * inside the following it will handle navigate to old activity [com.brainwallet.presenter.activities.BreadActivity]
-         */
         PostAuth.getInstance().onCanaryCheck(this, false)
     }
 

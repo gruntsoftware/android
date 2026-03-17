@@ -23,6 +23,11 @@ public final class AnalyticsManager {
         return null;
     }
 
+    public static Object logQuickEvent(String quickEvent, Bundle params) {
+        instance.logEvent(quickEvent, params);
+        return null;
+    }
+
     public static void logCustomEventWithParams(@BRConstants.Event String customEvent, Bundle params) {
         instance.logEvent(customEvent, params);
     }

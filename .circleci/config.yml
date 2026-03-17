@@ -72,7 +72,7 @@ jobs:
     steps:
       - setup_environment
       - run:
-          name: "Execute Unit Test"
+          name: "Execute Unit Tests"
           command: ./gradlew testBrainwalletDebugUnitTest
       - android/save_gradle_cache
       - run:

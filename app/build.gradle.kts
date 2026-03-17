@@ -18,18 +18,27 @@ val localProperties = gradleLocalProperties(rootDir, providers)
 
 android {
     namespace = "com.brainwallet"
-    compileSdk = 36
+    compileSdk = 35
+
+    firebaseCrashlytics {
+        nativeSymbolUploadEnabled = true
+    }
+
+    /// For screengrab testing
+    val screengrabPaperKey = localProperties
+        .getProperty("SCREENGRAB_PAPERKEY", "")
+        .split(" ")
+        .filter { it.isNotBlank() }
+        .joinToString(separator = ", ") { "\"$it\"" }
 
     defaultConfig {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
-        targetSdk = 36
-        versionCode = 202506300
-        versionName = "v4.8.1"
-
+        targetSdk = 35
+        versionCode = 202506304
+        versionName = "v4.8.2"
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -42,6 +51,12 @@ android {
                 arguments("-DANDROID_TOOLCHAIN=clang")
             }
         }
+
+        buildConfigField(
+            "String[]",
+            "SCREENGRAB_PAPERKEY",
+            "new String[] {$screengrabPaperKey}"
+        )
     }
 
     assetPacks.addAll(setOf(":install_time_asset_pack"))
@@ -70,17 +85,6 @@ android {
                 isDebuggable = true
                 isMinifyEnabled = false
             }
-
-            firebaseCrashlytics {
-                nativeSymbolUploadEnabled = true
-            }
-            buildConfigField("String[]", "SCREENGRAB_PAPERKEY",
-                "new String[] {${
-                    localProperties.getProperty("SCREENGRAB_PAPERKEY", "")
-                        .split(" ")
-                        .joinToString { "\"$it\"" }
-                }}"
-            )
         }
 
         val release by getting {
@@ -93,12 +97,7 @@ android {
                 isDebuggable = false
                 isMinifyEnabled = true
             }
-
-            firebaseCrashlytics {
-                nativeSymbolUploadEnabled = true
-            }
         }
-
     }
 
     externalNativeBuild {
@@ -224,8 +223,8 @@ dependencies {
     implementation(grunt.bundles.koin)
     implementation(platform(grunt.koin.annotation.bom))
     implementation(grunt.koin.annotation)
-    implementation(libs.androidx.material3)
     implementation("androidx.compose.material:material-icons-extended:1.7.8")
+    implementation(libs.androidx.junit.ktx)
     ksp(grunt.koin.annotation.compiler)
     implementation(platform(libs.squareup.okhttp.bom))
     implementation(libs.bundles.squareup.okhttp)
@@ -248,6 +247,7 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.tests)
 
     androidTestImplementation(platform(grunt.androidx.compose.bom))
+    androidTestImplementation("androidx.test:core-ktx:1.5.0")
     androidTestImplementation(grunt.bundles.androidx.compose.ui.test)
     androidTestImplementation(libs.bundles.android.test)
     androidTestImplementation(libs.fastlane.screengrab)
