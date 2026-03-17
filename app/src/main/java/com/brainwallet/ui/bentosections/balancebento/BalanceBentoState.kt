@@ -1,6 +1,7 @@
 package com.brainwallet.ui.bentosections.balancebento
 
 import android.icu.math.BigDecimal
+import com.brainwallet.presenter.entities.TxItem
 
 data class BalanceBentoState(
     val darkMode: Boolean = true,
@@ -15,5 +16,6 @@ data class BalanceBentoState(
     val fiatBalance: Float = 0.0f,
     val ltcBalance: BigDecimal = BigDecimal.ZERO,
     val balanceHidden: Boolean = true,
-    val brainwalletIsSyncing: Boolean = true
+    val brainwalletIsSyncing: Boolean = true,
+    val transactions: List<TxItem> = emptyList()
 )
