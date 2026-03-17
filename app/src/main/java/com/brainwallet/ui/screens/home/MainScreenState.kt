@@ -12,7 +12,7 @@ data class MainScreenState(
     val fiatSymbol: String = "",
     val fiatIso: String = "",
     val fiatRate: Float = 0f,
-
+    val versionLabel: String = ""
 )
 
 fun MainScreenState.isValid(): Boolean = errorFiatAmountStringId == null

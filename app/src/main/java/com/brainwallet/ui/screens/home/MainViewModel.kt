@@ -7,6 +7,7 @@ import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.ui.BrainwalletViewModel
+import com.brainwallet.util.VersionCodeProvider
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -27,10 +28,17 @@ import timber.log.Timber
 @KoinViewModel
 class MainViewModel(
     private val settingRepository: SettingRepository,
-    private val ltcRepository: LtcRepository
+    private val ltcRepository: LtcRepository,
+    versionCodeProvider: VersionCodeProvider,
 ) : BrainwalletViewModel<MainScreenEvent>() {
 
-    private val _state = MutableStateFlow(MainScreenState())
+    private val _state =
+        MutableStateFlow(
+            MainScreenState(
+                versionLabel = versionCodeProvider
+                    .getFormatted()
+            )
+        )
     val state: StateFlow<MainScreenState> = _state.asStateFlow()
     val currencyRates: StateFlow<List<CurrencyEntity>> = ltcRepository.rates
         .stateIn(
@@ -46,6 +54,8 @@ class MainViewModel(
             SharingStarted.Eagerly,
             AppSetting()
         )
+
+    val versionLabel = versionCodeProvider.getFormatted()
 
     init {
         viewModelScope.launch {

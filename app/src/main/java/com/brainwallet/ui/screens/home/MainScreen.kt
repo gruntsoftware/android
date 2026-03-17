@@ -94,7 +94,7 @@ fun MainScreen(
         drawerContent = {
             ModalDrawerSheet {
                 BentoRail(
-                    appVersion = "vX.X.X (XXXXXXXXXXXX)"
+                    appVersion = viewModel.versionLabel
                 )
             }
         }
