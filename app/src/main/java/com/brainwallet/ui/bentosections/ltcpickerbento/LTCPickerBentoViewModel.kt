@@ -59,12 +59,11 @@ class LTCPickerBentoViewModel(
             }
         }
     }
-
-    private suspend fun fetchAndUpdateRates() {
+    private suspend fun fetchAndUpdateRates(currencyCode: String = appSetting.value.currency.code) {
         val rates = ltcRepository.fetchRates()
-        val selectedFiat = rates.find { it.code == appSetting.value.currency.code }
+        val selectedFiat = rates.find { it.code == currencyCode } // ← uses passed code
 
-        val msg = "fetchRates —lookingFor: ${appSetting.value.currency.code} }"
+        val msg = "fetchRates ${selectedFiat?.rate}"
         Timber.d(msg)
         FirebaseCrashlytics.getInstance().log(msg)
 
@@ -83,7 +82,7 @@ class LTCPickerBentoViewModel(
                 if (newCurrency != null) {
                     viewModelScope.launch {
                         settingRepository.save(appSetting.value.copy(currency = newCurrency))
-                        fetchAndUpdateRates()
+                        fetchAndUpdateRates(newCurrency.code) // ← pass code directly, don't wait for StateFlow
                     }
                 } else {
                     Timber.w("Currency not found for code: ${event.globalCurrency.code}")
