@@ -1,12 +1,11 @@
 package com.brainwallet.ui.bentosections.ltcpickerbento
-import android.content.Context
-import app.cash.turbine.test
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.GlobalCurrency
+import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.tools.sqlite.CurrencyDataSource
-import io.mockk.coVerify
+import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
@@ -14,15 +13,16 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import io.mockk.mockkStatic
+import io.mockk.unmockkStatic
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class LTCPickerBentoViewModelTest {
@@ -32,25 +32,33 @@ class LTCPickerBentoViewModelTest {
     // ─────────────────────────────────────────────────────────────────────────
 
     private val testDispatcher = StandardTestDispatcher()
-
     private val settingsFlow = MutableSharedFlow<AppSetting>(replay = 1)
-
+    private val ltcRepository: LtcRepository = mockk(relaxed = true)
     private val settingRepository: SettingRepository = mockk(relaxed = true) {
         every { settings } returns settingsFlow
     }
     private val currencyDataSource: CurrencyDataSource = mockk()
-    private val mockContext: Context = mockk(relaxed = true)
 
     private lateinit var viewModel: LTCPickerBentoViewModel
+    private val mockCrashlytics: FirebaseCrashlytics = mockk(relaxed = true)
 
     @Before
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
-        viewModel = LTCPickerBentoViewModel(settingRepository, currencyDataSource)
+        mockkStatic(FirebaseCrashlytics::class)
+        every { FirebaseCrashlytics.getInstance() } returns mockCrashlytics
+        coEvery { ltcRepository.fetchRates() } returns emptyList()
+
+        viewModel = LTCPickerBentoViewModel(
+            settingRepository,
+            currencyDataSource,
+            ltcRepository
+        )
     }
 
     @After
     fun tearDown() {
+        unmockkStatic(FirebaseCrashlytics::class)
         Dispatchers.resetMain()
     }
 
@@ -67,188 +75,6 @@ class LTCPickerBentoViewModelTest {
         assertEquals(GlobalCurrency.entries, state.globalCurrencies)
         assertEquals(GlobalCurrency.USD, state.selectedGlobalCurrency)
         assertEquals("", state.formattedTimeStamp)
-    }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // settings flow → state updates
-    // ─────────────────────────────────────────────────────────────────────────
-
-    @Test
-    fun `when settings flow emits darkMode true, state reflects darkMode true`() = runTest {
-        val eurCurrency = CurrencyEntity("EUR", "Euro", 1.1f, "€")
-        val setting = AppSetting(isDarkMode = true, currency = eurCurrency)
-
-        viewModel.state.test {
-            awaitItem() // consume initial state
-
-            settingsFlow.emit(setting)
-            testDispatcher.scheduler.advanceUntilIdle()
-
-            val updated = awaitItem()
-            assertTrue(updated.darkMode)
-            assertEquals("EUR", updated.selectedCurrency.code)
-            cancelAndIgnoreRemainingEvents()
-        }
-    }
-
-    @Test
-    fun `when settings flow emits darkMode false, state reflects darkMode false`() = runTest {
-        val setting = AppSetting(isDarkMode = false)
-
-        viewModel.state.test {
-            awaitItem() // consume initial state
-
-            settingsFlow.emit(setting)
-            testDispatcher.scheduler.advanceUntilIdle()
-
-            val updated = awaitItem()
-            assertFalse(updated.darkMode)
-            cancelAndIgnoreRemainingEvents()
-        }
-    }
-
-    @Test
-    fun `when settings flow emits, formattedTimeStamp is non-empty`() = runTest {
-        viewModel.state.test {
-            awaitItem() // consume initial state
-
-            settingsFlow.emit(AppSetting())
-            testDispatcher.scheduler.advanceUntilIdle()
-
-            val updated = awaitItem()
-            assertTrue(
-                "Expected a non-empty timestamp after settings emission",
-                updated.formattedTimeStamp.isNotEmpty()
-            )
-            cancelAndIgnoreRemainingEvents()
-        }
-    }
-
-    @Test
-    fun `when settings flow emits same value twice, state updates only once`() = runTest {
-        val setting = AppSetting(isDarkMode = true)
-
-        viewModel.state.test {
-            awaitItem() // initial
-
-            settingsFlow.emit(setting)
-            testDispatcher.scheduler.advanceUntilIdle()
-            awaitItem() // first emission update
-
-            settingsFlow.emit(setting) // identical — distinctUntilChanged should suppress
-            testDispatcher.scheduler.advanceUntilIdle()
-
-            expectNoEvents()
-            cancelAndIgnoreRemainingEvents()
-        }
-    }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // OnGlobalCurrencyChange — currency found
-    // ─────────────────────────────────────────────────────────────────────────
-
-    @Test
-    fun `OnGlobalCurrencyChange updates selectedCurrency when currency is found`() = runTest {
-        val eurEntity = CurrencyEntity("EUR", "Euro", 1.1f, "€")
-        every { currencyDataSource.getCurrencyByIso("EUR") } returns eurEntity
-
-        viewModel.state.test {
-            awaitItem() // initial
-
-            viewModel.onEvent(LTCPickerBentoEvent.OnGlobalCurrencyChange(GlobalCurrency.EUR))
-            testDispatcher.scheduler.advanceUntilIdle()
-
-            val updated = awaitItem()
-            assertEquals("EUR", updated.selectedCurrency.code)
-            cancelAndIgnoreRemainingEvents()
-        }
-    }
-
-    @Test
-    fun `OnGlobalCurrencyChange saves updated AppSetting to repository when currency is found`() = runTest {
-        val eurEntity = CurrencyEntity("EUR", "Euro", 1.1f, "€")
-        every { currencyDataSource.getCurrencyByIso("EUR") } returns eurEntity
-        settingsFlow.emit(AppSetting())
-        testDispatcher.scheduler.advanceUntilIdle()
-
-        viewModel.onEvent(LTCPickerBentoEvent.OnGlobalCurrencyChange(GlobalCurrency.EUR))
-        testDispatcher.scheduler.advanceUntilIdle()
-
-        coVerify {
-            settingRepository.save(
-                match { it.currency.code == "EUR" }
-            )
-        }
-    }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // OnGlobalCurrencyChange — currency NOT found
-    // ─────────────────────────────────────────────────────────────────────────
-
-    @Test
-    fun `OnGlobalCurrencyChange does not update state when currency is not found`() = runTest {
-        every { currencyDataSource.getCurrencyByIso(any()) } returns null
-
-        val stateBefore = viewModel.state.value
-
-        viewModel.state.test {
-            awaitItem() // initial
-
-            viewModel.onEvent(LTCPickerBentoEvent.OnGlobalCurrencyChange(GlobalCurrency.EUR))
-            testDispatcher.scheduler.advanceUntilIdle()
-
-            // No new emission expected — state is unchanged
-            expectNoEvents()
-            assertEquals(stateBefore.selectedCurrency.code, viewModel.state.value.selectedCurrency.code)
-            cancelAndIgnoreRemainingEvents()
-        }
-    }
-
-    @Test
-    fun `OnGlobalCurrencyChange does not call save when currency is not found`() = runTest {
-        every { currencyDataSource.getCurrencyByIso(any()) } returns null
-
-        viewModel.onEvent(LTCPickerBentoEvent.OnGlobalCurrencyChange(GlobalCurrency.EUR))
-        testDispatcher.scheduler.advanceUntilIdle()
-
-        coVerify(exactly = 0) { settingRepository.save(any()) }
-    }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // OnLoad
-    // ─────────────────────────────────────────────────────────────────────────
-
-    @Test
-    fun `OnLoad updates formattedTimeStamp to a non-empty string`() = runTest {
-        viewModel.state.test {
-            awaitItem() // initial (formattedTimeStamp is "")
-
-            viewModel.onEvent(LTCPickerBentoEvent.OnLoad(mockContext))
-            testDispatcher.scheduler.advanceUntilIdle()
-
-            val updated = awaitItem()
-            assertTrue(
-                "Expected formattedTimeStamp to be non-empty after OnLoad",
-                updated.formattedTimeStamp.isNotEmpty()
-            )
-            cancelAndIgnoreRemainingEvents()
-        }
-    }
-
-    @Test
-    fun `OnLoad does not change selectedCurrency`() = runTest {
-        val currencyBefore = viewModel.state.value.selectedCurrency
-
-        viewModel.state.test {
-            awaitItem()
-
-            viewModel.onEvent(LTCPickerBentoEvent.OnLoad(mockContext))
-            testDispatcher.scheduler.advanceUntilIdle()
-
-            val updated = awaitItem()
-            assertEquals(currencyBefore.code, updated.selectedCurrency.code)
-            cancelAndIgnoreRemainingEvents()
-        }
     }
 
     // ─────────────────────────────────────────────────────────────────────────

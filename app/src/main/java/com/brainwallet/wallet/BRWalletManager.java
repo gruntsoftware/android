@@ -26,7 +26,6 @@ import com.brainwallet.BrainwalletApp;
 import com.brainwallet.R;
 import com.brainwallet.presenter.activities.BreadActivity;
 import com.brainwallet.presenter.activities.util.ActivityUTILS;
-import com.brainwallet.presenter.customviews.BRDialogView;
 import com.brainwallet.presenter.customviews.BRToast;
 import com.brainwallet.presenter.entities.BRMerkleBlockEntity;
 import com.brainwallet.presenter.entities.BRPeerEntity;
@@ -35,7 +34,6 @@ import com.brainwallet.presenter.entities.ImportPrivKeyEntity;
 import com.brainwallet.presenter.entities.TxItem;
 import com.brainwallet.presenter.interfaces.BROnSignalCompletion;
 import com.brainwallet.tools.animation.BRAnimator;
-import com.brainwallet.tools.animation.BRDialog;
 import com.brainwallet.tools.animation.SpringAnimator;
 import com.brainwallet.tools.manager.AnalyticsManager;
 import com.brainwallet.tools.manager.BRNotificationManager;
@@ -73,7 +71,7 @@ public class BRWalletManager {
             Timber.i("timber: setBalance: FAILED TO SET THE BALANCE NULL context");
             return;
         }
-        BRSharedPrefs.putCatchedBalance(context, balance);
+        BRSharedPrefs.putCachedBalance(context, balance);
         refreshAddress(context);
 
         for (OnBalanceChanged listener : balanceListeners) {
@@ -91,7 +89,7 @@ public class BRWalletManager {
     }
 
     public long getBalance(Context context) {
-        return BRSharedPrefs.getCatchedBalance(context);
+        return BRSharedPrefs.getCachedBalance(context);
     }
 
     private BRWalletManager() {
@@ -466,7 +464,6 @@ public class BRWalletManager {
         if (!m.noWallet(app) && BRSharedPrefs.getPhraseWroteDown(app)) {
             BRAnimator.startBreadActivity(app, true);
         }
-        //else just sit in the intro screen
     }
 
     @WorkerThread

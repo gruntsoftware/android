@@ -76,8 +76,7 @@ fun UnLockScreenBody(
                                         AnalyticsManager.logCustomEvent(BRConstants._20200217_DUWB)
                                         AnalyticsManager.logCustomEvent(BRConstants._20200217_DUWB)
                                     } else {
-                                        AuthManager.getInstance().authFail(context)
-                                        // for now just toast
+                                        // Auth Fail toast
                                         Toast.makeText(
                                             context,
                                             R.string.incorrect_passcode,

@@ -194,7 +194,6 @@ public class FragmentPin extends Fragment {
                 updateDots();
             }
         }, 500);
-        AuthManager.getInstance().authFail(getActivity());
     }
 
     @Override

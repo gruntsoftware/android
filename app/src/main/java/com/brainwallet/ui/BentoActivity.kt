@@ -7,8 +7,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
+import com.brainwallet.tools.security.BRKeyStore
+import com.brainwallet.tools.threads.BRExecutor
 import com.brainwallet.ui.screens.home.MainScreen
 import com.brainwallet.ui.theme.DesignTheme
+import com.brainwallet.wallet.BRWalletManager
+import timber.log.Timber
 
 class BentoActivity : ComponentActivity() {
 
@@ -23,12 +27,31 @@ class BentoActivity : ComponentActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        initializeSyncIfReady()
+    }
+
+    private fun initializeSyncIfReady() {
+        val masterPubKey = BRKeyStore.getMasterPublicKey(this)
+        if (masterPubKey == null || masterPubKey.isEmpty()) {
+            Timber.w("timber: initializeSyncIfReady: masterPubKey not set, skipping sync init")
+            return
+        }
+
+        if (!BRWalletManager.getInstance().isCreated()) {
+            BRExecutor.getInstance().forBackgroundTasks().execute {
+                BRWalletManager.getInstance().initWallet(this@BentoActivity)
+            }
+        }
+
+        BRWalletManager.getInstance().refreshBalance(this)
+    }
+
     companion object {
         fun start(context: Context, vararg flags: Int) {
             val intent = Intent(context, BentoActivity::class.java)
-            flags.forEach {
-                intent.addFlags(it)
-            }
+            flags.forEach { intent.addFlags(it) }
             context.startActivity(intent)
         }
     }

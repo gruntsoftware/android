@@ -454,7 +454,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
             String iso = BRSharedPrefs.getIsoSymbol(BreadActivity.this);
 
             //current amount in litoshis
-            final BigDecimal amount = new BigDecimal(BRSharedPrefs.getCatchedBalance(BreadActivity.this));
+            final BigDecimal amount = new BigDecimal(BRSharedPrefs.getCachedBalance(BreadActivity.this));
 
             //amount in LTC units
             BigDecimal btcAmount = BRExchange.getLitecoinForLitoshis(BreadActivity.this, amount);

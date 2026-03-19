@@ -26,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.painter.Painter
@@ -78,6 +79,9 @@ fun BalanceBentoScreen(
     var resizedLocalizedPriceFontSize by remember { mutableStateOf(20.sp) }
     val context = LocalContext.current
 
+    val progressLabel = "%.2f".format(state.syncProgress * 100) + "%"
+    val currentBlockLabel = stringResource(R.string.balance_bento_current_block_label) +
+        " ${state.currentBlockHeight}"
     val iconImage: Painter
 
     if (state.balanceHidden) {
@@ -155,7 +159,8 @@ fun BalanceBentoScreen(
                 )
 
                 Text(
-                    modifier = Modifier.align(Alignment.End),
+                    modifier = Modifier.align(Alignment.End)
+                        .alpha(if (state.brainwalletIsSyncing) 1f else 0f),
                     text = state.topMessage,
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
@@ -166,7 +171,8 @@ fun BalanceBentoScreen(
                     maxLines = 1
                 )
                 Text(
-                    modifier = Modifier.align(Alignment.End),
+                    modifier = Modifier.align(Alignment.End)
+                        .alpha(if (state.brainwalletIsSyncing) 1f else 0f),
                     text = state.lastBlockLabel,
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
@@ -178,7 +184,8 @@ fun BalanceBentoScreen(
                 )
 
                 Text(
-                    modifier = Modifier.align(Alignment.End),
+                    modifier = Modifier.align(Alignment.End)
+                        .alpha(if (state.brainwalletIsSyncing) 1f else 0f),
                     text = state.formattedTimeStamp,
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
@@ -199,16 +206,19 @@ fun BalanceBentoScreen(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Column {
-                Spacer(modifier = Modifier.weight(0.5f))
+                Spacer(
+                    modifier = Modifier.weight(0.5f)
+                )
                 Row(
                     modifier = Modifier
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .alpha(if (state.brainwalletIsSyncing) 1f else 0f),
                     verticalAlignment = Alignment.CenterVertically,
 
                 ) {
                     Text(
                         modifier = Modifier.padding(end = 10.dp, bottom = 3.dp),
-                        text = "99.00 %",
+                        text = progressLabel,
                         style = TextStyle(
                             fontFamily = IBMPlexSans,
                             fontWeight = FontWeight.SemiBold,
@@ -221,7 +231,7 @@ fun BalanceBentoScreen(
 
                     Text(
                         modifier = Modifier.padding(5.dp, bottom = 3.dp),
-                        text = "Block: 3071920",
+                        text = if (state.currentBlockHeight > 1) currentBlockLabel else "",
                         style = TextStyle(
                             fontFamily = IBMPlexSans,
                             fontWeight = FontWeight.Normal,
@@ -237,7 +247,8 @@ fun BalanceBentoScreen(
                 }
                 LinearProgressIndicator(
                     progress = { state.syncProgress },
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth()
+                        .alpha(if (state.brainwalletIsSyncing) 1f else 0f),
                     color = DesignTheme.colors.affirm,
                     trackColor = Color.White.copy(0.5f),
                     strokeCap = StrokeCap.Round,

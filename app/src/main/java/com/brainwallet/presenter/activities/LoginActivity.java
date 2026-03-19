@@ -258,10 +258,8 @@ public class LoginActivity extends BRActivity {
                         AuthManager.getInstance().authSuccess(LoginActivity.this);
                         unlockWallet();
                         AnalyticsManager.logCustomEvent(BRConstants._20200217_DUWB);
-                        AnalyticsManager.logCustomEvent(BRConstants._20200217_DUWB);
 
                     } else {
-                        AuthManager.getInstance().authFail(LoginActivity.this);
                         showFailedToUnlock();
                     }
                 });
