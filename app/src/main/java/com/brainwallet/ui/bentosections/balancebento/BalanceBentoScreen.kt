@@ -4,6 +4,7 @@ import android.R.attr.contentDescription
 import android.R.attr.tint
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
@@ -18,6 +19,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,6 +29,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -85,6 +88,25 @@ fun BalanceBentoScreen(
         targetValue = 1f,
         animationSpec = infiniteRepeatable(tween(1000), RepeatMode.Reverse)
     )
+
+    // ── swap animation ────────────────────────────────────────────────────
+    var isSwapped by remember { mutableStateOf(false) }
+    val primarySize by animateFloatAsState(
+        targetValue = if (isSwapped) 13f else 34f,
+        animationSpec = tween(300),
+        label = "primarySize"
+    )
+    val secondarySize by animateFloatAsState(
+        targetValue = if (isSwapped) 34f else 13f,
+        animationSpec = tween(300),
+        label = "secondarySize"
+    )
+    val primaryWeight = if (isSwapped) FontWeight.Light else FontWeight.Bold
+    val secondaryWeight = if (isSwapped) FontWeight.Bold else FontWeight.Light
+
+    val primaryVerticalOffset = if (isSwapped) 0.dp else -20.dp
+    val secondaryVerticalOffset = if (isSwapped) -20.dp else 0.dp
+
     val progressLabel = "%.2f".format(state.syncProgress * 100) + "%"
     val currentBlockLabel = stringResource(R.string.balance_bento_current_block_label) +
         " ${state.currentBlockHeight}"
@@ -122,7 +144,12 @@ fun BalanceBentoScreen(
                 .padding(horizontal = 12.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Column {
+            Column(
+                modifier = Modifier.clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null
+                ) { isSwapped = !isSwapped }
+            ) {
                 Text(
                     text = stringResource(R.string.my_balance),
                     style = TextStyle(
@@ -135,22 +162,26 @@ fun BalanceBentoScreen(
                 )
 
                 Text(
+                    modifier = Modifier.offset(y = primaryVerticalOffset)
+                        .align(Alignment.Start),
                     text = if (state.balanceHidden) "" else "Ł${state.ltcBalance}",
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
-                        fontWeight = FontWeight.SemiBold,
-                        fontSize = 34.sp,
+                        fontWeight = primaryWeight,
+                        fontSize = primarySize.sp,
                         color = Color.White
                     ),
                     maxLines = 1
                 )
 
                 Text(
+                    modifier = Modifier.offset(y = secondaryVerticalOffset + 20.dp)
+                        .align(Alignment.Start),
                     text = if (state.balanceHidden) "" else " ${state.symbol} ${state.fiatBalance}",
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
-                        fontWeight = FontWeight.Light,
-                        fontSize = 13.sp,
+                        fontWeight = secondaryWeight,
+                        fontSize = secondarySize.sp,
                         color = Color.White
                     ),
                     maxLines = 1

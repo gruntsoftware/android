@@ -39,13 +39,12 @@ class BentoActivity : ComponentActivity() {
             return
         }
 
-        if (!BRWalletManager.getInstance().isCreated()) {
-            BRExecutor.getInstance().forBackgroundTasks().execute {
+        BRExecutor.getInstance().forBackgroundTasks().execute {
+            if (!BRWalletManager.getInstance().isCreated()) {
                 BRWalletManager.getInstance().initWallet(this@BentoActivity)
             }
+            BRWalletManager.getInstance().refreshBalance(this@BentoActivity)
         }
-
-        BRWalletManager.getInstance().refreshBalance(this)
     }
 
     companion object {

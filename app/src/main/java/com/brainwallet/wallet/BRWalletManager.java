@@ -1,5 +1,4 @@
 package com.brainwallet.wallet;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.KeyguardManager;
@@ -51,6 +50,8 @@ import com.brainwallet.tools.util.BRExchange;
 import com.brainwallet.tools.util.Bip39Reader;
 import com.brainwallet.tools.util.TypesConverter;
 import com.brainwallet.tools.util.Utils;
+import com.brainwallet.ui.layoutconstants.BWConstants;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.platform.entities.WalletInfo;
 
 import java.math.BigDecimal;
@@ -505,6 +506,15 @@ public class BRWalletManager {
                     Timber.i("timber: initWallet: pubkey is missing");
                     return;
                 }
+                // BIP32 extended public key is 78 bytes before encoding
+                if (pubkeyEncoded.length < BWConstants.MIN_MASTERPUBKEY_LENGTH) {
+                    Timber.e("timber: initWallet: pubkey is too short (%d bytes) — aborting", pubkeyEncoded.length);
+                    FirebaseCrashlytics.getInstance().recordException(
+                            new RuntimeException("initWallet: corrupt pubkey, length=" + pubkeyEncoded.length)
+                    );
+                    return;
+                }
+
                 //Save the first address for future check
                 m.createWallet(transactionsCount, pubkeyEncoded);
                 String firstAddress = BRWalletManager.getFirstAddress(pubkeyEncoded);

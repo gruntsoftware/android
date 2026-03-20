@@ -122,7 +122,6 @@ class BrainwalletActivity : BRActivity() {
                             EFFECT_LEGACY_RECOVER_WALLET_AUTH -> {
                                 PostAuth.getInstance()
                                     .onRecoverWalletAuth(this@BrainwalletActivity, false)
-                                initializeSyncIfReady()
                             }
 
                             LEGACY_EFFECT_RESET_PIN -> {
@@ -145,7 +144,6 @@ class BrainwalletActivity : BRActivity() {
 
                             LEGACY_EFFECT_ON_PAPERKEY_PROVED -> {
                                 BRSharedPrefs.putPhraseWroteDown(this@BrainwalletActivity, true)
-                                initializeSyncIfReady()
                             }
 
                             LEGACY_NAVIGATE_TO_HOME -> {
@@ -232,22 +230,6 @@ class BrainwalletActivity : BRActivity() {
                 }
             )
         }
-    }
-
-    private fun initializeSyncIfReady() {
-        val masterPubKey = BRKeyStore.getMasterPublicKey(this)
-        if (masterPubKey == null || masterPubKey.isEmpty()) {
-            Timber.w("timber: initializeSyncIfReady: masterPubKey not set, skipping sync init")
-            return
-        }
-
-        if (!BRWalletManager.getInstance().isCreated()) {
-            BRExecutor.getInstance().forBackgroundTasks().execute {
-                BRWalletManager.getInstance().initWallet(this@BrainwalletActivity)
-            }
-        }
-
-        BRWalletManager.getInstance().refreshBalance(this)
     }
 
     fun onConnectionChanged(isConnected: Boolean) {
@@ -415,7 +397,6 @@ class BrainwalletActivity : BRActivity() {
         appVisible = true
         setupNetworking()
         onConnectionChanged(InternetManager.getInstance().isConnected(this))
-        initializeSyncIfReady()
     }
 
     companion object {
