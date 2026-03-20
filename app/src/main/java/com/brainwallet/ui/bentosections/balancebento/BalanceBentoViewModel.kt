@@ -4,6 +4,7 @@ import android.app.Application
 import android.icu.math.BigDecimal
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.data.model.AppSetting
+import com.brainwallet.data.repository.ConnectivityRepository
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.repository.SyncAnalyticsRepository
 import com.brainwallet.data.repository.TxRepository
@@ -34,7 +35,8 @@ class BalanceBentoViewModel(
     private val txRepository: TxRepository,
     private val settingRepository: SettingRepository,
     private val syncRepository: SyncAnalyticsRepository,
-    private val peerManagerSource: PeerManagerSource
+    private val peerManagerSource: PeerManagerSource,
+    private val connectivityRepository: ConnectivityRepository,
 ) : BrainwalletViewModel<BalanceBentoEvent>(),
     BRWalletManager.OnBalanceChanged,
     BRPeerManager.OnTxStatusUpdate,
@@ -70,6 +72,13 @@ class BalanceBentoViewModel(
         BRSharedPrefs.addIsoChangedListener(this)
         TransactionDataSource.getInstance(app).addTxAddedListener(this)
         viewModelScope.launch {
+            connectivityRepository.isConnected.collect { isInternetReachable ->
+                _state.update { it.copy(isInternetReachable = isInternetReachable) }
+                if (isInternetReachable) {
+                    val progress = syncProgress(BRSharedPrefs.getStartHeight(app)).toFloat()
+                    onEvent(BalanceBentoEvent.OnUpdatedSyncProgress(progress))
+                }
+            }
             refreshBalance()
             // Read initial sync progress immediately
             val progress = BRPeerManager.syncProgress(

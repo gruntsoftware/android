@@ -2,6 +2,11 @@ package com.brainwallet.ui.bentosections.balancebento
 
 import android.R.attr.contentDescription
 import android.R.attr.tint
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -11,6 +16,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -21,7 +27,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -29,8 +34,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -74,11 +79,12 @@ fun BalanceBentoScreen(
     onMainEvent: (MainScreenEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var resizedLTCFiatFontSize by remember { mutableStateOf(44.sp) }
-    var resizedAsOfFontSize by remember { mutableStateOf(10.sp) }
-    var resizedLocalizedPriceFontSize by remember { mutableStateOf(20.sp) }
-    val context = LocalContext.current
-
+    val infiniteTransition = rememberInfiniteTransition()
+    val throbOpacity by infiniteTransition.animateFloat(
+        initialValue = 0.5f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(tween(1000), RepeatMode.Reverse)
+    )
     val progressLabel = "%.2f".format(state.syncProgress * 100) + "%"
     val currentBlockLabel = stringResource(R.string.balance_bento_current_block_label) +
         " ${state.currentBlockHeight}"
@@ -223,7 +229,10 @@ fun BalanceBentoScreen(
 
                 ) {
                     Text(
-                        modifier = Modifier.padding(end = 10.dp, bottom = 3.dp),
+                        modifier = Modifier.padding(end = 10.dp, bottom = 3.dp)
+                            .graphicsLayer {
+                                alpha = throbOpacity
+                            },
                         text = progressLabel,
                         style = TextStyle(
                             fontFamily = IBMPlexSans,
@@ -262,6 +271,14 @@ fun BalanceBentoScreen(
                     drawStopIndicator = {}
                 )
             }
+        }
+
+        Row(
+            modifier = Modifier.fillMaxSize()
+                .alpha(if (state.isInternetReachable) 0f else 1f)
+                .background(Color.Red),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
         }
     }
 }

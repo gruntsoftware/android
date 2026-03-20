@@ -23,5 +23,6 @@ data class BalanceBentoState(
         "US Dollar",
         -1f,
         "$"
-    )
+    ),
+    val isInternetReachable: Boolean = true
 )
