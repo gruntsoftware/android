@@ -82,6 +82,12 @@ fun BalanceBentoScreen(
     val progressLabel = "%.2f".format(state.syncProgress * 100) + "%"
     val currentBlockLabel = stringResource(R.string.balance_bento_current_block_label) +
         " ${state.currentBlockHeight}"
+    val lastBlockLabel = if (state.lastBlock == 0) {
+        ""
+    } else {
+        stringResource(R.string.balance_bento_last_block_label) +
+            "${state.lastBlock}"
+    }
     val iconImage: Painter
 
     if (state.balanceHidden) {
@@ -173,7 +179,7 @@ fun BalanceBentoScreen(
                 Text(
                     modifier = Modifier.align(Alignment.End)
                         .alpha(if (state.brainwalletIsSyncing) 1f else 0f),
-                    text = state.lastBlockLabel,
+                    text = lastBlockLabel,
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
                         fontWeight = FontWeight.Normal,
@@ -186,7 +192,7 @@ fun BalanceBentoScreen(
                 Text(
                     modifier = Modifier.align(Alignment.End)
                         .alpha(if (state.brainwalletIsSyncing) 1f else 0f),
-                    text = state.formattedTimeStamp,
+                    text = if (lastBlockLabel == "") "" else state.lastTimeStamp,
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
                         fontWeight = FontWeight.Normal,

@@ -93,7 +93,16 @@ class BalanceBentoViewModel(
                 _state.update {
                     it.copy(
                         transactions = transactions,
-                        lastBlock = transactions.firstOrNull()?.blockHeight ?: it.lastBlock
+                        lastBlock = transactions.firstOrNull()?.let { tx ->
+                            if (tx.blockHeight > it.currentBlockHeight) {
+                                tx.blockHeight
+                            } else {
+                                0
+                            }
+                        } ?: it.lastBlock,
+                        lastTimeStamp = transactions.firstOrNull()?.let { tx ->
+                            formatter.format(Date(tx.timeStamp * 1000))
+                        } ?: it.lastTimeStamp
                     )
                 }
             }
@@ -118,7 +127,7 @@ class BalanceBentoViewModel(
         _state.update {
             it.copy(
                 currentBlockHeight = peerManagerSource.getCurrentBlockHeight(),
-                formattedTimeStamp = formatter.format(
+                lastTimeStamp = formatter.format(
                     Date(peerManagerSource.getLastBlockTimestamp() * 1000)
                 ),
             )
@@ -146,7 +155,7 @@ class BalanceBentoViewModel(
                 val progress = BRPeerManager.syncProgress(startHeight).toFloat()
                 _state.update {
                     it.copy(
-                        formattedTimeStamp = formatter.format(java.util.Date()),
+                        lastTimeStamp = formatter.format(java.util.Date()),
                         selectedCurrency = appSetting.value.currency,
                         fiatCode = appSetting.value.currency.code,
                         symbol = appSetting.value.currency.symbol,
@@ -162,7 +171,7 @@ class BalanceBentoViewModel(
             is BalanceBentoEvent.OnUpdatedSyncProgress -> {
                 _state.update {
                     it.copy(
-                        formattedTimeStamp = formatter.format(java.util.Date()),
+                        lastTimeStamp = formatter.format(java.util.Date()),
                         syncProgress = event.syncProgress,
                         brainwalletIsSyncing = event.syncProgress <= 0.999f
                     )
