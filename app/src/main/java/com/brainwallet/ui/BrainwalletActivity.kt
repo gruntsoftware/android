@@ -15,7 +15,6 @@ import com.brainwallet.BrainwalletApp
 import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.repository.SettingRepository
-import com.brainwallet.navigation.BentoNavigation
 import com.brainwallet.navigation.LegacyNavigation
 import com.brainwallet.navigation.MainNavHost
 import com.brainwallet.navigation.Route
@@ -39,7 +38,6 @@ import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGAC
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGACY_DIALOG_WIPE_ALERT
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGACY_EFFECT_RESET_PIN
 import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItViewModel.Companion.LEGACY_EFFECT_ON_PAPERKEY_PROVED
-import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItViewModel.Companion.LEGACY_NAVIGATE_TO_HOME
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.util.EventBus
 import com.brainwallet.wallet.BRPeerManager
@@ -62,7 +60,6 @@ import timber.log.Timber
 class BrainwalletActivity : BRActivity() {
 
     private val settingRepository by inject<SettingRepository>()
-    private val bentoNavigation: BentoNavigation by inject()
     private var mConnectionReceiver: InternetManager? = null
 
     var appVisible: Boolean = false
@@ -81,7 +78,6 @@ class BrainwalletActivity : BRActivity() {
 
             BRKeyStore.getMasterPublicKey(this)?.isNotEmpty() == true ->
                 Route.UnLock()
-
             else -> Route.Welcome
         }
 
@@ -97,7 +93,6 @@ class BrainwalletActivity : BRActivity() {
             val appSetting by settingRepository.settings.collectAsState(
                 AppSetting()
             )
-
             enableEdgeToEdge()
             BrainwalletAppTheme(appSetting = appSetting) {
                 MainNavHost(
@@ -144,11 +139,6 @@ class BrainwalletActivity : BRActivity() {
 
                             LEGACY_EFFECT_ON_PAPERKEY_PROVED -> {
                                 BRSharedPrefs.putPhraseWroteDown(this@BrainwalletActivity, true)
-                            }
-
-                            LEGACY_NAVIGATE_TO_HOME -> {
-                                bentoNavigation.navigateToBento(this)
-                                finishAffinity()
                             }
 
                             LEGACY_DIALOG_INVALID -> BRDialog.showCustomDialog(
