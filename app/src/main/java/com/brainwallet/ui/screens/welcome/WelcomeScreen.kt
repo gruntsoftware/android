@@ -54,7 +54,7 @@ import com.brainwallet.ui.composable.BrainwalletButton
 import com.brainwallet.ui.composable.DarkModeToggleButton
 import com.brainwallet.ui.composable.bottomsheet.FiatSelectorBottomSheet
 import com.brainwallet.ui.composable.bottomsheet.LanguageSelectorBottomSheet
-import com.brainwallet.ui.layoutconstants.BWConstants
+import com.brainwallet.constants.BWConstants
 import com.brainwallet.ui.theme.DesignTheme
 import org.koin.compose.koinInject
 

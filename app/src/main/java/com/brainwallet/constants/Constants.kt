@@ -1,4 +1,4 @@
-package com.brainwallet.ui.layoutconstants
+package com.brainwallet.constants
 
 import androidx.compose.ui.unit.dp
 val balanceGameBentoHt = 125.dp

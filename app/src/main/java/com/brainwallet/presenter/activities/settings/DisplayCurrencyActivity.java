@@ -21,7 +21,7 @@ import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.data.model.CurrencyEntity;
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.sqlite.CurrencyDataSource;
-import com.brainwallet.ui.layoutconstants.BWConstants;
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.tools.util.BRCurrency;
 
 import java.math.BigDecimal;

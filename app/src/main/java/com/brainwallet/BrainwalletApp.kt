@@ -12,7 +12,7 @@ import com.brainwallet.presenter.entities.ServiceItems
 import com.brainwallet.tools.listeners.SyncReceiver
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.util.Utils
-import com.brainwallet.ui.layoutconstants.BWConstants
+import com.brainwallet.constants.BWConstants
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 import timber.log.Timber.DebugTree

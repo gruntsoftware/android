@@ -6,7 +6,7 @@ import com.brainwallet.BuildConfig
 import com.brainwallet.data.repository.TxRepository
 import com.brainwallet.data.source.RemoteApiSource
 import com.brainwallet.tools.sqlite.CurrencyDataSource
-import com.brainwallet.ui.layoutconstants.BWConstants
+import com.brainwallet.constants.BWConstants
 import com.google.firebase.Firebase
 import com.google.firebase.remoteconfig.remoteConfig
 import kotlinx.serialization.json.Json

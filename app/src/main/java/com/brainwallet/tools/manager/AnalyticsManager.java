@@ -3,7 +3,7 @@ package com.brainwallet.tools.manager;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.brainwallet.ui.layoutconstants.BWConstants;
+import com.brainwallet.constants.BWConstants;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 public final class AnalyticsManager {

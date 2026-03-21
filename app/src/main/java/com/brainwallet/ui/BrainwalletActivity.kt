@@ -30,9 +30,9 @@ import com.brainwallet.tools.security.BRKeyStore
 import com.brainwallet.tools.security.PostAuth
 import com.brainwallet.tools.security.SmartValidator
 import com.brainwallet.tools.threads.BRExecutor
-import com.brainwallet.ui.layoutconstants.BWConstants.BW_PIN_LENGTH
+import com.brainwallet.constants.BWConstants.BW_PIN_LENGTH
 import com.brainwallet.tools.util.TypesConverter
-import com.brainwallet.ui.layoutconstants.BWConstants
+import com.brainwallet.constants.BWConstants
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.EFFECT_LEGACY_RECOVER_WALLET_AUTH
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGACY_DIALOG_INVALID
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGACY_DIALOG_WIPE_ALERT

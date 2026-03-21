@@ -5,7 +5,7 @@ import android.content.Context;
 import com.brainwallet.tools.crypto.CryptoHelper;
 import com.brainwallet.tools.manager.AnalyticsManager;
 import com.brainwallet.tools.util.BRCompressor;
-import com.brainwallet.ui.layoutconstants.BWConstants;
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.tools.util.Utils;
 import com.platform.APIClient;
 import com.platform.entities.TxMetaData;

@@ -4,7 +4,7 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 
-import com.brainwallet.ui.layoutconstants.BWConstants;
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.wallet.BRWalletManager;
 
 public class SyncReceiver extends IntentService {

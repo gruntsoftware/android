@@ -17,7 +17,7 @@ import com.brainwallet.presenter.entities.PaymentRequestWrapper;
 import com.brainwallet.presenter.entities.TransactionItem;
 import com.brainwallet.tools.animation.BRDialog;
 import com.brainwallet.tools.manager.BRSharedPrefs;
-import com.brainwallet.ui.layoutconstants.BWConstants;
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.tools.util.TypesConverter;
 import com.brainwallet.tools.util.Utils;
 import com.brainwallet.ui.BrainwalletActivity;

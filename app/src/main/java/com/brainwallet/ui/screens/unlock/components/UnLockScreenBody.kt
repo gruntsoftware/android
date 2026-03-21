@@ -28,7 +28,7 @@ import com.brainwallet.tools.security.AuthManager
 import com.brainwallet.ui.composable.PasscodeIndicator
 import com.brainwallet.ui.composable.PasscodeKeypad
 import com.brainwallet.ui.composable.PasscodeKeypadEvent
-import com.brainwallet.ui.layoutconstants.BWConstants
+import com.brainwallet.constants.BWConstants
 import com.brainwallet.ui.screens.unlock.UnLockEvent
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.ui.theme.DesignTheme

@@ -1,19 +1,16 @@
 package com.brainwallet.tools.sqlite;
 
-import static kotlinx.coroutines.flow.FlowKt.collect;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.brainwallet.data.model.CurrencyEntity;
-import com.brainwallet.ui.layoutconstants.BWConstants;
+import com.brainwallet.constants.BWConstants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;

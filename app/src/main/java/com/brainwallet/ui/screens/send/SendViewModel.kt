@@ -2,7 +2,7 @@ package com.brainwallet.ui.screens.send
 
 import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.ui.BrainwalletViewModel
-import com.brainwallet.ui.layoutconstants.BWConstants
+import com.brainwallet.constants.BWConstants
 import com.brainwallet.util.CurrencyDataGetter
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

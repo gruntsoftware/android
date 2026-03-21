@@ -44,13 +44,12 @@ import com.brainwallet.tools.sqlite.PeerDataSource;
 import com.brainwallet.tools.sqlite.TransactionDataSource;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.threads.ImportPrivKeyTask;
-import com.brainwallet.ui.layoutconstants.BWConstants;
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.tools.util.BRCurrency;
 import com.brainwallet.tools.util.BRExchange;
 import com.brainwallet.tools.util.Bip39Reader;
 import com.brainwallet.tools.util.TypesConverter;
 import com.brainwallet.tools.util.Utils;
-import com.brainwallet.ui.layoutconstants.BWConstants;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.platform.entities.WalletInfo;
 

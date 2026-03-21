@@ -1,6 +1,6 @@
 package com.brainwallet.presenter.activities;
 
-import static com.brainwallet.ui.layoutconstants.BWConstants.BW_PIN_LENGTH;
+import static com.brainwallet.constants.BWConstants.BW_PIN_LENGTH;
 
 import android.os.Bundle;
 import android.os.Handler;

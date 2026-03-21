@@ -24,7 +24,6 @@ import androidx.annotation.Nullable;
 import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.brainwallet.BrainwalletApp;
 import com.brainwallet.R;
 import com.brainwallet.presenter.activities.settings.SecurityCenterActivity;
 import com.brainwallet.presenter.activities.settings.SettingsActivity;
@@ -32,7 +31,7 @@ import com.brainwallet.presenter.entities.BRMenuItem;
 import com.brainwallet.tools.animation.BRAnimator;
 import com.brainwallet.tools.animation.SlideDetector;
 import com.brainwallet.tools.manager.AnalyticsManager;
-import com.brainwallet.ui.layoutconstants.BWConstants;
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.data.source.RemoteConfigSource;
 
 import org.json.JSONObject;

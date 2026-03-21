@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.brainwallet.BrainwalletApp;
 import com.brainwallet.tools.security.BRKeyStore;
 import com.brainwallet.tools.threads.BRExecutor;
-import com.brainwallet.ui.layoutconstants.BWConstants;
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.tools.util.Utils;
 import com.jniwrappers.BRKey;
 import com.platform.interfaces.KVStoreAdaptor;

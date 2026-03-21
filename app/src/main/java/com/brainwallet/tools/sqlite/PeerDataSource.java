@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.NetworkOnMainThreadException;
 
-import com.brainwallet.ui.layoutconstants.BWConstants;
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.presenter.activities.util.ActivityUTILS;
 import com.brainwallet.presenter.entities.BRPeerEntity;
 import com.brainwallet.presenter.entities.PeerEntity;

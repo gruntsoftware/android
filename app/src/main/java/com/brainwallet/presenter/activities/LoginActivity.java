@@ -28,7 +28,7 @@ import com.brainwallet.tools.security.AuthManager;
 import com.brainwallet.tools.security.BRKeyStore;
 import com.brainwallet.tools.sqlite.CurrencyDataSource;
 import com.brainwallet.tools.threads.BRExecutor;
-import com.brainwallet.ui.layoutconstants.BWConstants;
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.tools.util.BRCurrency;
 import com.brainwallet.ui.BrainwalletActivity;
 import com.brainwallet.wallet.BRWalletManager;

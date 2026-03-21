@@ -36,7 +36,7 @@ import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.ui.composable.BorderedLargeButton
 import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
-import com.brainwallet.ui.layoutconstants.BWConstants
+import com.brainwallet.constants.BWConstants
 import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItEvent
 import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItViewModel
 

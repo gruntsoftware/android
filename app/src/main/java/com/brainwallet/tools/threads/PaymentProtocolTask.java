@@ -7,7 +7,7 @@ import com.brainwallet.tools.animation.BRDialog;
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.security.BitcoinUrlHandler;
 import com.brainwallet.tools.security.X509CertificateValidator;
-import com.brainwallet.ui.layoutconstants.BWConstants;
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.tools.util.BRCurrency;
 import com.brainwallet.tools.util.BRExchange;
 import com.brainwallet.tools.util.BytesUtil;

@@ -5,7 +5,7 @@ import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.BrainwalletViewModel
-import com.brainwallet.ui.layoutconstants.BWConstants
+import com.brainwallet.constants.BWConstants
 import com.brainwallet.util.CurrencyDataGetter
 import com.brainwallet.util.EventBus
 import com.brainwallet.util.VersionCodeProvider

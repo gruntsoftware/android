@@ -11,7 +11,7 @@ import com.brainwallet.tools.manager.AnalyticsManager;
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.manager.FeeManager;
 import com.brainwallet.tools.threads.BRExecutor;
-import com.brainwallet.ui.layoutconstants.BWConstants;
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.tools.util.BRCurrency;
 import com.brainwallet.tools.util.BRExchange;
 import com.brainwallet.tools.util.Utils;

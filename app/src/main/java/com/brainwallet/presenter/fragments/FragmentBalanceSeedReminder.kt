@@ -11,9 +11,8 @@ import com.brainwallet.R
 import com.brainwallet.tools.animation.BRAnimator
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.security.BRKeyStore
-import com.brainwallet.ui.layoutconstants.BWConstants
+import com.brainwallet.constants.BWConstants
 import timber.log.Timber
-import java.util.*
 
 class FragmentBalanceSeedReminder : Fragment() {
     private lateinit var backgroundLayout: ScrollView

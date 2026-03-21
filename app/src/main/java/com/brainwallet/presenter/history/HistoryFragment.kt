@@ -14,7 +14,7 @@ import com.brainwallet.tools.manager.BRSharedPrefs.OnIsoChangedListener
 import com.brainwallet.tools.manager.TxManager
 import com.brainwallet.tools.sqlite.TransactionDataSource.OnTxAddedListener
 import com.brainwallet.tools.threads.BRExecutor
-import com.brainwallet.ui.layoutconstants.BWConstants
+import com.brainwallet.constants.BWConstants
 import com.brainwallet.ui.theme.setContentWithTheme
 import com.brainwallet.wallet.BRPeerManager
 import com.brainwallet.wallet.BRPeerManager.OnTxStatusUpdate

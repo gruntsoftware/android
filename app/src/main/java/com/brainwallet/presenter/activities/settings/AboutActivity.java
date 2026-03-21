@@ -12,7 +12,7 @@ import com.brainwallet.R;
 import com.brainwallet.presenter.activities.util.ActivityUTILS;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.tools.animation.BRAnimator;
-import com.brainwallet.ui.layoutconstants.BWConstants;
+import com.brainwallet.constants.BWConstants;
 
 public class AboutActivity extends BRActivity {
     private static final String TAG = AboutActivity.class.getName();

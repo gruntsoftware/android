@@ -14,7 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.brainwallet.tools.manager.AnalyticsManager;
 import com.brainwallet.presenter.entities.ServiceItems;
-import com.brainwallet.ui.layoutconstants.BWConstants;
+import com.brainwallet.constants.BWConstants;
 
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
@@ -50,7 +50,6 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
-import kotlin.uuid.Uuid;
 import timber.log.Timber;
 public class Utils {
 
@@ -156,7 +155,9 @@ public class Utils {
         if (address != null && !address.isEmpty())
             builder = builder.appendPath(address);
         if (satoshiAmount != 0)
-            builder = builder.appendQueryParameter("amount", new BigDecimal(satoshiAmount).divide(new BigDecimal(100000000), 8, BWConstants.ROUNDING_MODE).toPlainString());
+            builder = builder.appendQueryParameter("amount",
+                    new BigDecimal(satoshiAmount).divide(new BigDecimal(100000000), 8, BWConstants.ROUNDING_MODE)
+                            .toPlainString());
         if (label != null && !label.isEmpty())
             builder = builder.appendQueryParameter("label", label);
         if (message != null && !message.isEmpty())

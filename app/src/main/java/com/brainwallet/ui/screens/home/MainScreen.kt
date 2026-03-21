@@ -1,6 +1,5 @@
 package com.brainwallet.ui.screens.home
 
-import android.R.attr.onClick
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -55,16 +54,15 @@ import com.brainwallet.ui.bentosections.balancebento.BalanceBentoScreen
 import com.brainwallet.ui.bentosections.gamehubbento.GameHubBentoScreen
 import com.brainwallet.ui.bentosections.ltcpickerbento.LTCPickerBentoScreen
 import com.brainwallet.ui.composable.HomeBentoContainer
-import com.brainwallet.ui.layoutconstants.balanceGameBentoHt
-import com.brainwallet.ui.layoutconstants.gameHubHt
-import com.brainwallet.ui.layoutconstants.statusBarPadding
-import com.brainwallet.ui.layoutconstants.transactionRowHt
+import com.brainwallet.constants.balanceGameBentoHt
+import com.brainwallet.constants.gameHubHt
+import com.brainwallet.constants.statusBarPadding
+import com.brainwallet.constants.transactionRowHt
 import com.brainwallet.ui.screens.buyreceive.BuyReceiveScreen
 import com.brainwallet.ui.screens.gamehub.GameHubScreen
 import com.brainwallet.ui.screens.home.history.HistoryScreen
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.ui.theme.mainScreenDarkSurfaceGradient
-import org.koin.android.compat.ScopeCompat.viewModel
 
 /**
  * The main screen of the application, featuring a bento-style grid layout.

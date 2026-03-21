@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.brainwallet.data.repository.SettingRepository;
-import com.brainwallet.ui.layoutconstants.BWConstants;
+import com.brainwallet.constants.BWConstants;
 
 import org.koin.java.KoinJavaComponent;
 

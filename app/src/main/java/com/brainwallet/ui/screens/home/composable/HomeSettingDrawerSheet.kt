@@ -30,7 +30,7 @@ import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.repository.SyncAnalyticsRepository
 import com.brainwallet.tools.manager.BRSharedPrefs
-import com.brainwallet.ui.layoutconstants.BWConstants
+import com.brainwallet.constants.BWConstants
 import com.brainwallet.ui.screens.settings.SettingsEvent
 import com.brainwallet.ui.screens.settings.SettingsViewModel
 import com.brainwallet.ui.screens.home.composable.settingsrows.CurrencyDetail

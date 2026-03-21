@@ -41,7 +41,7 @@ import com.brainwallet.tools.threads.BRExecutor
 import com.brainwallet.tools.util.BRCurrency
 import com.brainwallet.tools.util.BRExchange
 import com.brainwallet.tools.util.Utils
-import com.brainwallet.ui.layoutconstants.BWConstants
+import com.brainwallet.constants.BWConstants
 import com.brainwallet.wallet.BRWalletManager
 import timber.log.Timber
 import java.math.BigDecimal

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import androidx.activity.ComponentActivity;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -23,7 +22,7 @@ import com.brainwallet.tools.security.BRKeyStore;
 import com.brainwallet.tools.security.BitcoinUrlHandler;
 import com.brainwallet.tools.security.PostAuth;
 import com.brainwallet.tools.threads.BRExecutor;
-import com.brainwallet.ui.layoutconstants.BWConstants;
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.wallet.BRWalletManager;
 import com.brainwallet.worker.CurrencyUpdateWorker;
 

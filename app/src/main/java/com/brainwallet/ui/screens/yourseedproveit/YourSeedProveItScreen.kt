@@ -59,7 +59,7 @@ import com.brainwallet.ui.composable.BrainwalletTopAppBar
 import com.brainwallet.ui.composable.LargeButton
 import com.brainwallet.ui.composable.SeedWordItem
 import com.brainwallet.ui.composable.SeedWordsLayout
-import com.brainwallet.ui.layoutconstants.BWConstants
+import com.brainwallet.constants.BWConstants
 import org.koin.compose.koinInject
 
 @Composable

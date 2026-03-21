@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.graphics.Color
 import com.brainwallet.R
 import com.brainwallet.navigation.Route
-import com.brainwallet.ui.layoutconstants.bentoBottomNavBarHt
+import com.brainwallet.constants.bentoBottomNavBarHt
 import com.brainwallet.ui.theme.DesignTheme
 import com.brainwallet.ui.theme.colorMidnite
 

@@ -1,14 +1,14 @@
 package com.brainwallet.tools.util;
 
-import static com.brainwallet.ui.layoutconstants.BWConstants.CURRENT_UNIT_PHOTONS;
-import static com.brainwallet.ui.layoutconstants.BWConstants.ROUNDING_MODE;
+import static com.brainwallet.constants.BWConstants.CURRENT_UNIT_PHOTONS;
+import static com.brainwallet.constants.BWConstants.ROUNDING_MODE;
 
 import android.content.Context;
 
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.sqlite.CurrencyDataSource;
 import com.brainwallet.data.model.CurrencyEntity;
-import com.brainwallet.ui.layoutconstants.BWConstants;
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.wallet.BRWalletManager;
 
 import java.math.BigDecimal;

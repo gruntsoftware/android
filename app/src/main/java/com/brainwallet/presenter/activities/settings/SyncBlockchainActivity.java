@@ -16,7 +16,7 @@ import com.brainwallet.tools.animation.BRDialog;
 import com.brainwallet.tools.manager.AnalyticsManager;
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.threads.BRExecutor;
-import com.brainwallet.ui.layoutconstants.BWConstants;
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.wallet.BRPeerManager;
 
 

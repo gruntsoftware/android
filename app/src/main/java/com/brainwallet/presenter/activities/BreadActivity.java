@@ -50,7 +50,7 @@ import com.brainwallet.tools.security.BitcoinUrlHandler;
 import com.brainwallet.tools.security.PostAuth;
 import com.brainwallet.tools.sqlite.TransactionDataSource;
 import com.brainwallet.tools.threads.BRExecutor;
-import com.brainwallet.ui.layoutconstants.BWConstants;
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.tools.util.BRCurrency;
 import com.brainwallet.tools.util.BRExchange;
 import com.brainwallet.tools.util.ExtensionKt;

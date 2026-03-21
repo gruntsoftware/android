@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.brainwallet.R;
 import com.brainwallet.tools.manager.AnalyticsManager;
-import com.brainwallet.ui.layoutconstants.BWConstants;
+import com.brainwallet.constants.BWConstants;
 
 public class BuyTabFragment extends Fragment {
 
