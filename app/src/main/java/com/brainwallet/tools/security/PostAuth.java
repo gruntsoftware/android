@@ -32,11 +32,8 @@ import timber.log.Timber;
 public class PostAuth {
     private String phraseForKeyStore;
     public TransactionItem transactionItem;
-    private PaymentRequestWrapper paymentRequest;
     public static boolean isStuckWithAuthLoop;
-
     private static PostAuth instance;
-
     private PostAuth() {
     }
 
@@ -144,30 +141,14 @@ public class PostAuth {
                     byte[] authKey = BRWalletManager.getAuthPrivKeyForAPI(seed);
                     BRKeyStore.putAuthKey(authKey, app);
                     byte[] pubKey = BRWalletManager.getInstance().getMasterPubKey(bytePhrase);
-
-                    boolean pubKeySaved = BRKeyStore.putMasterPublicKeyWithRetry(pubKey, app);
-                    if (!pubKeySaved) {
-                        Timber.e("onRecoverWalletAuth: masterPubKey could not be saved — aborting");
-                        BRDialog.showCustomDialog(
-                                app,
-                                app.getString(R.string.Alert_keystore_title_android),
-                                "Failed to save wallet key. Please try again.",
-                                app.getString(R.string.Button_ok),
-                                null,
-                                brDialogView -> brDialogView.dismissWithAnimation(),
-                                null, null, 0
-                        );
-                        return; // do not navigate to SetPasscode
-                    }
-
+                    BRKeyStore.putMasterPublicKey(pubKey, app);
                     app.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-
                     //using setpasscode from
                     Intent intent = BrainwalletActivity.createIntent(
                             app, new Route.SetPasscode()
                     );
                     intent.putExtra("noPin", true);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     app.startActivity(intent);
 
                     if (!app.isDestroyed()) app.finish();
@@ -223,19 +204,12 @@ public class PostAuth {
             Arrays.fill(seed, (byte) 0);
         }
     }
-
     public void setPhraseForKeyStore(String phraseForKeyStore) {
         this.phraseForKeyStore = phraseForKeyStore;
     }
-
     public void setTransactionItem(TransactionItem item) {
         this.transactionItem = item;
     }
-
-    public void setTmpPaymentRequest(PaymentRequestWrapper paymentRequest) {
-        this.paymentRequest = paymentRequest;
-    }
-
     public void onCanaryCheck(final Activity app, boolean authAsked) {
         String canary;
         try {

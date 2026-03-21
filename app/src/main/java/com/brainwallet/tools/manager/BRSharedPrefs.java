@@ -5,9 +5,11 @@ import android.content.SharedPreferences;
 
 import android.util.Log;
 
+import com.brainwallet.data.model.LtcStats;
 import com.brainwallet.data.repository.SettingRepository;
 import com.brainwallet.constants.BWConstants;
 
+import org.koin.core.annotation.Single;
 import org.koin.java.KoinJavaComponent;
 
 import java.text.SimpleDateFormat;
@@ -18,7 +20,7 @@ import java.util.List;
 import java.util.Locale;
 
 import timber.log.Timber;
-
+@Single
 public class BRSharedPrefs {
 
     private static final List<OnIsoChangedListener> isoChangedListeners = new ArrayList<>();
@@ -64,75 +66,53 @@ public class BRSharedPrefs {
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(SettingRepository.KEY_FIAT_CURRENCY_CODE, code); //using new shared prefs used by setting repository
         editor.apply();
-
-        notifyIsoChanged(code);
     }
 
-    public static void notifyIsoChanged(String iso) {
-        for (OnIsoChangedListener listener : isoChangedListeners) {
-            if (listener != null) listener.onIsoChanged(iso);
-        }
-    }
 
     /// ///////////////////////////////////////////////////////////////////////////
     /// ///////////////// Active Shared Preferences ///////////////////////////////
 
-    public static void putStartSyncTimestamp(Context context, long time) {
-        if (context == null) {
-            Log.e("BRSharedPrefs", "Context is null in putStartSyncTimestamp!");
-            return;
-        }
-        SharedPreferences prefs = context.getSharedPreferences(BWConstants.PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putLong("startSyncTime", time);
-        editor.apply();
+    ////// Start Sync Timestamp ///////////
+    public static void putStartSyncTimestamp(long time) {
+        SharedPreferences prefs = KoinJavaComponent.get(SharedPreferences.class);
+        prefs.edit().putLong("startSyncTime", time).apply();
+    }
+    public static long getStartSyncTimestamp() {
+        SharedPreferences prefs = KoinJavaComponent.get(SharedPreferences.class);
+        return prefs.getLong("startSyncTime", System.currentTimeMillis());
     }
 
-    public static long getStartSyncTimestamp(Context context) {
-        if (context == null) {
-            Log.e("BRSharedPrefs", "Context is null in getStartSyncTimestamp!");
-        }
-        SharedPreferences startSyncTime = context.getSharedPreferences(BWConstants.PREFS_NAME, Context.MODE_PRIVATE);
-        return startSyncTime.getLong("startSyncTime", System.currentTimeMillis());
+    ////// End Sync Timestamp ///////////
+    public static void putEndSyncTimestamp(long time) {
+        SharedPreferences prefs = KoinJavaComponent.get(SharedPreferences.class);
+        prefs.edit().putLong("endSyncTime", time).apply();
+    }
+    public static long getEndSyncTimestamp() {
+        SharedPreferences prefs = KoinJavaComponent.get(SharedPreferences.class);
+        return prefs.getLong("endSyncTime", System.currentTimeMillis());
     }
 
-    public static void putEndSyncTimestamp(Context context, long time) {
+    ////// Sync Metadata ///////////
+    public static void putSyncMetadata(long startSyncTime, long endSyncTime) {
+        SharedPreferences prefs = KoinJavaComponent.get(SharedPreferences.class);
+        double syncDuration = (double) (endSyncTime - startSyncTime) / 1_000.0 / 60.0;
 
-        if (context == null) {
-            Log.e("BRSharedPrefs", "Context is null in putEndSyncTimestamp!");
-            return;
-        }
-
-        SharedPreferences prefs = context.getSharedPreferences(BWConstants.PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putLong("endSyncTime", time);
-        editor.apply();
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd HH:mm",
+                Locale.getDefault());
+        Date startDate = new Date(startSyncTime);
+        Date endDate = new Date(endSyncTime);
+        String formattedMetadata = String.format(Locale.getDefault(),
+                "Duration: %3.2f mins\nStarted: %d (%s)\nEnded: %d (%s)",
+                syncDuration,
+                startSyncTime, sdf.format(startDate),
+                endSyncTime, sdf.format(endDate));
+        prefs.edit().putString("syncMetadata", formattedMetadata).apply();
     }
-
     public static String getSyncMetadata(Context context) {
         SharedPreferences syncMetadata = context.getSharedPreferences(BWConstants.PREFS_NAME, Context.MODE_PRIVATE);
         return syncMetadata.getString("syncMetadata", " No Sync Duration metadata");
     }
 
-    public static void putSyncMetadata(Context activity, long startSyncTime, long endSyncTime) {
-        SharedPreferences prefs = activity.getSharedPreferences(BWConstants.PREFS_NAME, 0);
-        SharedPreferences.Editor editor = prefs.edit();
-
-        double syncDuration = (double) (endSyncTime - startSyncTime) / 1_000.0 / 60.0;
-
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd HH:mm");
-        Date startDate = new Date(startSyncTime);
-        Date endDate = new Date(endSyncTime);
-
-        String formattedMetadata = String.format("Duration: %3.2f mins\nStarted: %d (%s)\nEnded: %d (%s)", syncDuration, startSyncTime, sdf.format(startDate), endSyncTime, sdf.format(endDate));
-        editor.putString("syncMetadata", formattedMetadata);
-        editor.apply();
-    }
-
-    public static long getEndSyncTimestamp(Context context) {
-        SharedPreferences endSyncTime = context.getSharedPreferences(BWConstants.PREFS_NAME, Context.MODE_PRIVATE);
-        return endSyncTime.getLong("endSyncTime", System.currentTimeMillis());
-    }
 
     public static boolean getPhraseWroteDown(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(BWConstants.PREFS_NAME, Context.MODE_PRIVATE);
@@ -186,10 +166,10 @@ public class BRSharedPrefs {
         return prefs.getLong("balance", 0);
     }
 
-    public static void putCachedBalance(Context context, long fee) {
+    public static void putCachedBalance(Context context, long amount) {
         SharedPreferences prefs = context.getSharedPreferences(BWConstants.PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putLong("balance", fee);
+        editor.putLong("balance", amount);
         editor.apply();
     }
 
@@ -271,12 +251,33 @@ public class BRSharedPrefs {
         editor.putInt(BWConstants.START_HEIGHT, startHeight);
         editor.apply();
     }
-
     public static int getLastBlockHeight(Context context) {
         SharedPreferences settingsToGet = context.getSharedPreferences(BWConstants.PREFS_NAME, 0);
         return settingsToGet.getInt(BWConstants.LAST_BLOCK_HEIGHT, 0);
     }
-
+    public static void putLiveLtcStats(Context context,
+                                       int ltcBlockHeight,
+                                       int mempoolTransactions,
+                                       int mempoolSize,
+                                       int transactionsOver24H) {
+        SharedPreferences.Editor editor = context
+                .getSharedPreferences(BWConstants.PREFS_NAME, 0)
+                .edit();
+        editor.putInt(BWConstants.LTC_STATS_BLOCK_HEIGHT, ltcBlockHeight);
+        editor.putInt(BWConstants.LTC_STATS_MEMPOOL_TRANSACTIONS, mempoolTransactions);
+        editor.putInt(BWConstants.LTC_STATS_MEMPOOL_SIZE, mempoolSize);
+        editor.putInt(BWConstants.LTC_STATS_TRANSACTIONS_OVER_24H, transactionsOver24H);
+        editor.apply();
+    }
+    public static LtcStats getLiveLtcStats(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(BWConstants.PREFS_NAME, 0);
+        return new LtcStats(
+                prefs.getInt(BWConstants.LTC_STATS_BLOCK_HEIGHT, 0),
+                prefs.getInt(BWConstants.LTC_STATS_MEMPOOL_TRANSACTIONS, 0),
+                prefs.getInt(BWConstants.LTC_STATS_MEMPOOL_SIZE, 0),
+                prefs.getInt(BWConstants.LTC_STATS_TRANSACTIONS_OVER_24H, 0)
+        );
+    }
     public static void putLastBlockHeight(Context context, int lastHeight) {
         if (context == null) return;
         SharedPreferences settings = context.getSharedPreferences(BWConstants.PREFS_NAME, 0);

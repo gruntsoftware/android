@@ -2,6 +2,7 @@ package com.brainwallet.data.repository
 
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.Fee
+import com.brainwallet.data.model.LtcStats
 import com.brainwallet.data.model.MoonpayCurrencyLimit
 import com.brainwallet.data.source.response.GetMoonpayBuyQuoteResponse
 import kotlinx.coroutines.flow.StateFlow
@@ -13,6 +14,8 @@ interface LtcRepository {
     suspend fun fetchRates(): List<CurrencyEntity>
 
     suspend fun fetchFeePerKb(): Fee
+
+    suspend fun fetchLtcStats(): LtcStats
 
     suspend fun fetchLimits(baseCurrencyCode: String): MoonpayCurrencyLimit
 

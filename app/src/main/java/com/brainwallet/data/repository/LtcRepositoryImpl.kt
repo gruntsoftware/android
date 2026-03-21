@@ -6,6 +6,7 @@ import androidx.core.net.toUri
 import com.brainwallet.BuildConfig
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.Fee
+import com.brainwallet.data.model.LtcStats
 import com.brainwallet.data.model.MoonpayCurrencyLimit
 import com.brainwallet.data.repository.LtcRepository.Companion.PREF_KEY_BUY_LIMITS_PREFIX
 import com.brainwallet.data.repository.LtcRepository.Companion.PREF_KEY_BUY_LIMITS_PREFIX_CACHED_AT
@@ -46,6 +47,16 @@ class LtcRepositoryImpl(
                     BRSharedPrefs.putCurrencyListPosition(context, index - 1)
                 }
             }
+            // update ltcRates
+            val liveLtcStats = remoteApiSource.getLtcStats()
+
+            BRSharedPrefs.putLiveLtcStats(
+                context,
+                liveLtcStats.currentBlockHeight,
+                liveLtcStats.mempoolTransactions,
+                liveLtcStats.mempoolSize,
+                liveLtcStats.transactionsOver24H
+            )
 
             // save to local
             currencyDataSource.putCurrencies(rates)
@@ -63,6 +74,10 @@ class LtcRepositoryImpl(
      * maybe need updaete core if we need to use dynamic fee?
      */
     override suspend fun fetchFeePerKb(): Fee = Fee.Default // using static fee
+
+    override suspend fun fetchLtcStats(): LtcStats {
+        return remoteApiSource.getLtcStats()
+    }
 
     override suspend fun fetchLimits(baseCurrencyCode: String): MoonpayCurrencyLimit {
         return sharedPreferences.fetchWithCache(

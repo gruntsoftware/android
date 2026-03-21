@@ -1,6 +1,7 @@
 package com.brainwallet.ui.theme
 
 import android.app.Activity
+import android.os.Build
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.Typography
@@ -10,10 +11,15 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.BlurEffect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.TileMode
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+
 val LocalLanguageISOCode = staticCompositionLocalOf {
     "en"
 }
@@ -109,4 +115,18 @@ object DesignTheme {
     val shapes: Shapes
         @Composable @ReadOnlyComposable
         get() = MaterialTheme.shapes
+}
+
+fun Modifier.blurWhen(condition: Boolean): Modifier = this.graphicsLayer {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        renderEffect = if (condition) {
+            BlurEffect(
+                radiusX = 40f,
+                radiusY = 40f,
+                edgeTreatment = TileMode.Decal
+            )
+        } else {
+            null
+        }
+    }
 }

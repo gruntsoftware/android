@@ -10,7 +10,7 @@ import com.brainwallet.data.source.RemoteConfigSource;
 import com.brainwallet.presenter.entities.BlockEntity;
 import com.brainwallet.presenter.entities.PeerEntity;
 import com.brainwallet.tools.manager.BRSharedPrefs;
-import com.brainwallet.tools.manager.SyncManager;
+import com.brainwallet.tools.manager.SyncThreadManager;
 import com.brainwallet.tools.sqlite.MerkleBlockDataSource;
 import com.brainwallet.tools.sqlite.PeerDataSource;
 import com.brainwallet.tools.threads.BRExecutor;
@@ -25,6 +25,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+import kotlin.Suppress;
 import kotlin.coroutines.EmptyCoroutineContext;
 import kotlinx.coroutines.CoroutineScopeKt;
 import kotlinx.coroutines.CoroutineStart;
@@ -60,21 +61,19 @@ public class BRPeerManager {
      * void (*savePeers)(void *info, const BRPeer peers[], size_t count),
      * int (*networkIsReachable)(void *info))
      */
-
+    @Suppress(names = "unused") // called via BRPeerManager callback
     public static void syncStarted() {
         Context ctx = BrainwalletApp.getBreadContext();
         int startHeight = BRSharedPrefs.getStartHeight(ctx);
         int lastHeight = BRSharedPrefs.getLastBlockHeight(ctx);
         if (startHeight > lastHeight) BRSharedPrefs.putStartHeight(ctx, lastHeight);
-        SyncManager.getInstance().startSyncingProgressThread(ctx);
+        SyncThreadManager.getInstance().startSyncing(startHeight);
     }
-
+    @Suppress(names = "unused") // called via BRPeerManager callback
     public static void syncSucceeded() {
         Context ctx = BrainwalletApp.getBreadContext();
         if (ctx == null) return;
-        SyncManager.getInstance().updateAlarms(ctx);
-        BRSharedPrefs.putAllowSpend(ctx, true);
-        SyncManager.getInstance().stopSyncingProgressThread(ctx);
+        SyncThreadManager.getInstance().stopSyncing();
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
             @Override
             public void run() {
@@ -83,18 +82,13 @@ public class BRPeerManager {
         });
         if (onSyncFinished != null) onSyncFinished.onFinished();
     }
-
+    @Suppress(names = "unused") // called via BRPeerManager callback
     public static void syncFailed() {
-        Context ctx = BrainwalletApp.getBreadContext();
-        SyncManager.getInstance().stopSyncingProgressThread(ctx);
-
-        if (ctx == null) return;
-        Timber.d("timber: Network Not Available, showing not connected bar");
-
-        SyncManager.getInstance().stopSyncingProgressThread(ctx);
+        SyncThreadManager.getInstance().stopSyncing();
         if (onSyncFinished != null) onSyncFinished.onFinished();
     }
 
+    @Suppress(names = "unused") // called via BRPeerManager callback
     public static void txStatusUpdate() {
         Timber.d("timber: txStatusUpdate");
 
@@ -111,7 +105,7 @@ public class BRPeerManager {
             }
         });
     }
-
+    @Suppress(names = "unused") // called via BRPeerManager callback
     public static void saveBlocks(final BlockEntity[] blockEntities, final boolean replace) {
         Timber.d("timber: saveBlocks: %s", blockEntities.length);
 
@@ -126,7 +120,7 @@ public class BRPeerManager {
         });
 
     }
-
+    @Suppress(names = "unused") // called via BRPeerManager callback
     public static void savePeers(final PeerEntity[] peerEntities, final boolean replace) {
         Timber.d("timber: savePeers: %s", peerEntities.length);
         final Context ctx = BrainwalletApp.getBreadContext();
@@ -139,12 +133,12 @@ public class BRPeerManager {
             }
         });
     }
-
+    @Suppress(names = "unused") // called via BRPeerManager callback
     public static boolean networkIsReachable() {
         Timber.d("timber: networkIsReachable");
         return BRWalletManager.getInstance().isNetworkAvailable(BrainwalletApp.getBreadContext());
     }
-
+    @Suppress(names = "unused") // called via BRPeerManager callback
     public static void deleteBlocks() {
         Timber.d("timber: deleteBlocks");
         final Context ctx = BrainwalletApp.getBreadContext();
@@ -156,7 +150,7 @@ public class BRPeerManager {
             }
         });
     }
-
+    @Suppress(names = "unused") // called via BRPeerManager callback
     public static void deletePeers() {
         Timber.d("timber: deletePeers");
         final Context ctx = BrainwalletApp.getBreadContext();

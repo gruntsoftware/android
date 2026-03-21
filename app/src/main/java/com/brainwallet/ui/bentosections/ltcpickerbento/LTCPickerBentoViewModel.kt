@@ -61,9 +61,10 @@ class LTCPickerBentoViewModel(
     }
     private suspend fun fetchAndUpdateRates(currencyCode: String = appSetting.value.currency.code) {
         val rates = ltcRepository.fetchRates()
+        val ltcStats = ltcRepository.fetchLtcStats()
         val selectedFiat = rates.find { it.code == currencyCode } // ← uses passed code
 
-        val msg = "fetchRates ${selectedFiat?.rate}"
+        val msg = "||fetchRates ${selectedFiat?.rate} fetch ltc stats: $ltcStats"
         Timber.d(msg)
         FirebaseCrashlytics.getInstance().log(msg)
 

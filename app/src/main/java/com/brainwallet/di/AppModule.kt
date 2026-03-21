@@ -7,6 +7,8 @@ import com.brainwallet.data.repository.TxRepository
 import com.brainwallet.data.source.RemoteApiSource
 import com.brainwallet.tools.sqlite.CurrencyDataSource
 import com.brainwallet.constants.BWConstants
+import com.brainwallet.data.repository.TxRepositoryImpl
+import com.brainwallet.tools.manager.SyncThreadManager
 import com.google.firebase.Firebase
 import com.google.firebase.remoteconfig.remoteConfig
 import kotlinx.serialization.json.Json
@@ -18,9 +20,11 @@ import org.koin.core.annotation.ComponentScan
 import org.koin.core.annotation.Module
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import org.koin.core.scope.get
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
+import kotlin.coroutines.EmptyCoroutineContext.get
 import kotlin.getValue
 
 @Module
@@ -41,7 +45,8 @@ object AppModule {
         single { provideApi<RemoteApiSource>(get()) }
         single { CurrencyDataSource.getInstance(get()) }
         single<SharedPreferences> { provideSharedPreferences(context = androidApplication()) }
-        single { TxRepository(get()) }
+        single<TxRepository> { TxRepositoryImpl(get()) }
+        single { SyncThreadManager(get(), get()) }
     }
 
     private fun provideSharedPreferences(

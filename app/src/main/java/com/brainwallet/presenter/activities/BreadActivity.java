@@ -57,8 +57,8 @@ import com.brainwallet.tools.util.ExtensionKt;
 import com.brainwallet.tools.util.Utils;
 import com.brainwallet.ui.BrainwalletActivity;
 import com.brainwallet.ui.screens.settings.SettingsViewModel;
-import com.brainwallet.ui.screens.home.composable.HomeSettingDrawerComposeView;
-import com.brainwallet.ui.screens.home.history.receive.ReceiveDialogFragment;
+import com.brainwallet.ui.screens.main.composable.HomeSettingDrawerComposeView;
+import com.brainwallet.ui.screens.main.history.receive.ReceiveDialogFragment;
 import com.brainwallet.util.PermissionUtil;
 import com.brainwallet.wallet.BRPeerManager;
 import com.brainwallet.wallet.BRWalletManager;
@@ -274,7 +274,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         boolean b = !BRSharedPrefs.getPreferredLTC(this);
         setPriceTags(b, true);
         BRSharedPrefs.putPreferredLTC(this, b);
-        BRSharedPrefs.notifyIsoChanged("");
     }
 
     private void setPriceTags(boolean ltcPreferred, boolean animate) {

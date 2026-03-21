@@ -51,7 +51,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
-import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.ui.composable.BrainwalletScaffold
@@ -83,12 +82,17 @@ fun YourSeedProveItScreen(
 
     LaunchedEffect(Unit) {
         viewModel.onEvent(YourSeedProveItEvent.OnLoad(seedWords))
+        viewModel.uiEffect.collect { effect ->
+            when (effect) {
+                is UiEffect.Navigate -> onNavigate.invoke(effect)
+                else -> Unit
+            }
+        }
     }
 
     LaunchedEffect(state.orderCorrected) {
         if (state.orderCorrected) {
             coinAudioPlayer.start()
-            viewModel.onEvent(YourSeedProveItEvent.OnCompletedPaperKey)
             AnalyticsManager.logCustomEvent(BWConstants._20250303_DSTU)
         }
     }
@@ -228,7 +232,7 @@ fun YourSeedProveItScreen(
             LargeButton(
                 onClick = {
                     if (state.orderCorrected) {
-                        onNavigate.invoke(UiEffect.Navigate(Route.TopUp))
+                        viewModel.onEvent(YourSeedProveItEvent.OnCompletedPaperKey)
                     } else {
                         viewModel.onEvent(YourSeedProveItEvent.OnClear)
                     }

@@ -125,7 +125,10 @@ public class TransactionDataSource implements BRDataSourceInterface {
     }
 
     private BRTransactionEntity cursorToTransaction(Cursor cursor) {
-        return new BRTransactionEntity(cursor.getBlob(1), cursor.getInt(2), cursor.getLong(3), cursor.getString(0));
+        return new BRTransactionEntity(cursor.getBlob(1),
+                cursor.getInt(2),
+                cursor.getLong(3),
+                cursor.getString(0));
     }
 
     public void updateTxBlockHeight(String hash, int blockHeight, int timeStamp) {

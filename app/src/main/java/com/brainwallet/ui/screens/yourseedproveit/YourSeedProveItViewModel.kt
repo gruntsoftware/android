@@ -1,8 +1,11 @@
 package com.brainwallet.ui.screens.yourseedproveit
 
+import android.app.Application
 import androidx.lifecycle.viewModelScope
+import com.brainwallet.navigation.Route
+import com.brainwallet.navigation.UiEffect
+import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.ui.BrainwalletViewModel
-import com.brainwallet.util.EventBus
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -11,7 +14,9 @@ import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
 @KoinViewModel
-class YourSeedProveItViewModel : BrainwalletViewModel<YourSeedProveItEvent>() {
+class YourSeedProveItViewModel(
+    private val application: Application
+) : BrainwalletViewModel<YourSeedProveItEvent>() {
 
     private val _state = MutableStateFlow(YourSeedProveItState())
     val state: StateFlow<YourSeedProveItState> = _state.asStateFlow()
@@ -50,18 +55,22 @@ class YourSeedProveItViewModel : BrainwalletViewModel<YourSeedProveItEvent>() {
                 )
             }
 
-            YourSeedProveItEvent.OnGameAndSync -> viewModelScope.launch {
-                EventBus.emit(EventBus.Event.Message(LEGACY_NAVIGATE_TO_HOME))
-            }
+            YourSeedProveItEvent.OnGameAndSync -> sendUiEffect(
+                UiEffect.Navigate(
+                    destinationRoute = Route.Main,
+                    forcePopBackStack = true
+                )
+            )
 
             YourSeedProveItEvent.OnCompletedPaperKey -> viewModelScope.launch {
-                EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_PAPERKEY_PROVED))
+                BRSharedPrefs.putPhraseWroteDown(application, true)
+                sendUiEffect(
+                    UiEffect.Navigate(
+                        destinationRoute = Route.TopUp(),
+                        forcePopBackStack = true
+                    )
+                )
             }
         }
-    }
-
-    companion object {
-        const val LEGACY_EFFECT_ON_PAPERKEY_PROVED = "onPaperKeyProved"
-        const val LEGACY_NAVIGATE_TO_HOME = "navigateToHome"
     }
 }

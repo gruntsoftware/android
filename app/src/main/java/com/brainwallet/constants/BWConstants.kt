@@ -5,6 +5,7 @@ import java.math.RoundingMode
 import java.util.Locale
 
 object BWConstants {
+
     const val MIN_MASTERPUBKEY_LENGTH = 33
 
     /**
@@ -22,6 +23,8 @@ object BWConstants {
      * Native library name
      */
     const val NATIVE_LIB_NAME: String = "core-lib"
+
+    const val _BW_MAIN_OPEN: String = "bw_main_open"
 
     /**
      * Permissions
@@ -55,6 +58,10 @@ object BWConstants {
     const val RECEIVE_ADDRESS: String = "receive_address"
     const val START_HEIGHT: String = "startHeight"
     const val LAST_BLOCK_HEIGHT: String = "lastBlockHeight"
+    const val LTC_STATS_BLOCK_HEIGHT: String = "ltcStatsBlockHeight"
+    const val LTC_STATS_MEMPOOL_TRANSACTIONS: String = "ltcStatsMempoolTransactions"
+    const val LTC_STATS_MEMPOOL_SIZE: String = "ltcStatsMempoolSize"
+    const val LTC_STATS_TRANSACTIONS_OVER_24H: String = "ltcStatsTransactionsOver24H"
     const val CURRENT_UNIT: String = "currencyUnit"
     const val POSITION: String = "position"
     const val PHRASE_WRITTEN: String = "phraseWritten"

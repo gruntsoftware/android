@@ -26,12 +26,13 @@ import com.brainwallet.ui.theme.colorMidnite
  * @param currentRoute The currently selected navigation route.
  * @param onItemClick Callback invoked when a navigation item is clicked.
  */
+
 @Composable
 fun BentoBottomNavBar(
+    isDarkMode: Boolean,
     currentRoute: Route?,
     onItemClick: (Route) -> Unit,
     modifier: Modifier = Modifier,
-    isDarkMode: Boolean = isSystemInDarkTheme()
 ) {
     var surfaceColor = if (isDarkMode) Color.Black else Color.White
     var contentsColor = if (isDarkMode) Color.White else colorMidnite
@@ -122,6 +123,10 @@ fun BentoBottomNavBar(
 @PreviewLightDark
 fun BentoBottomNavBarPreview() {
     DesignTheme(isSystemInDarkTheme()) {
-        BentoBottomNavBar(currentRoute = Route.Send, {})
+        BentoBottomNavBar(
+            currentRoute = Route.Send,
+            onItemClick = {},
+            isDarkMode = isSystemInDarkTheme()
+        )
     }
 }

@@ -35,7 +35,7 @@ android {
         minSdk = 29
         targetSdk = 35
         versionCode = 202506304
-        versionName = "v4.8.2"
+        versionName = "v4.8.3"
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -225,6 +225,7 @@ dependencies {
     implementation(grunt.koin.annotation)
     implementation("androidx.compose.material:material-icons-extended:1.7.8")
     implementation(libs.androidx.junit.ktx)
+    implementation(libs.androidx.espresso.core)
     ksp(grunt.koin.annotation.compiler)
     implementation(platform(libs.squareup.okhttp.bom))
     implementation(libs.bundles.squareup.okhttp)
@@ -239,6 +240,7 @@ dependencies {
     implementation(libs.razir.progressbutton)
     implementation(libs.appsflyer)
     implementation(libs.android.installreferrer)
+    implementation("androidx.compose.animation:animation:1.5.0")
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
     testImplementation(libs.turbine)

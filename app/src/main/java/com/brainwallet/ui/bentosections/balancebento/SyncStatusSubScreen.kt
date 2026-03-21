@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -24,9 +25,11 @@ import com.brainwallet.ui.theme.IBMPlexSans
 @Composable
 fun SyncStatusSubScreen(
     modifier: Modifier = Modifier,
+    isInternetReachable: Boolean = true
 ) {
     Row(
         modifier = Modifier
+            .alpha(if (isInternetReachable) 0f else 1f)
             .fillMaxWidth()
             .height(20.dp)
             .padding(bottom = 4.dp)
@@ -43,7 +46,6 @@ fun SyncStatusSubScreen(
                 color = Color.White
             ),
             maxLines = 1
-
         )
         Icon(
             modifier = Modifier.padding(start = 4.dp, end = 4.dp)
@@ -52,7 +54,6 @@ fun SyncStatusSubScreen(
             contentDescription = "Cancel",
             tint = DesignTheme.colors.error
         )
-
         Text(
             modifier = Modifier.padding(start = 4.dp, end = 2.dp)
                 .align(Alignment.CenterVertically),
@@ -64,9 +65,7 @@ fun SyncStatusSubScreen(
                 color = Color.White
             ),
             maxLines = 1
-
         )
-
         Icon(
             modifier = Modifier.padding(start = 4.dp)
                 .align(Alignment.CenterVertically),

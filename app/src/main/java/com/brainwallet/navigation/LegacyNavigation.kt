@@ -18,7 +18,7 @@ object LegacyNavigation {
         from: Activity,
         auth: Boolean
     ) {
-        Timber.i("timber: startBreadActivity: %s", from.javaClass.name)
+        Timber.i("timber: startBrainwalletActivity: %s", from.javaClass.name)
 
         val destination = if (auth) Route.UnLock() else Route.Main
         BrainwalletActivity.createIntent(from, destination).apply {

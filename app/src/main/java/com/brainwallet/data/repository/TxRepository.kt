@@ -1,13 +1,9 @@
 package com.brainwallet.data.repository
 
-import android.app.Application
 import com.brainwallet.presenter.entities.TxItem
-import com.brainwallet.tools.manager.TxManager
-import org.koin.core.annotation.Single
+import kotlinx.coroutines.flow.StateFlow
 
-@Single
-class TxRepository(private val app: Application) {
-    fun updateTransactions(onResult: (List<TxItem>) -> Unit) {
-        TxManager.getInstance().updateTxList(app) { onResult(it.orEmpty()) }
-    }
+interface TxRepository {
+    val transactionItems: StateFlow<List<TxItem>>
+    suspend fun refresh()
 }

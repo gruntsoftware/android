@@ -26,8 +26,6 @@ open class BrainwalletApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
-        /** DEV:  Top placement requirement. **/
         val enableCrashlytics = !Utils.isEmulatorOrDebug(this)
         notificationHandler.setupNotificationChannels(this)
 
@@ -51,21 +49,16 @@ open class BrainwalletApp : Application() {
         //                        Timber.d(e, "timber: fcm getToken failure");
         //                    }
         //                });
-        if (BuildConfig.DEBUG) Timber.plant(DebugTree())
         DISPLAY_HEIGHT_PX = Resources.getSystem().displayMetrics.heightPixels
 
-        val afID = Utils.fetchServiceItem(this, ServiceItems.AFDEVID)
-        val appsFlyerLib = AppsFlyerLib.getInstance()
-        appsFlyerLib.init(afID, null, this)
-        appsFlyerLib.setDebugLog(BuildConfig.DEBUG)
-        appsFlyerLib.setCollectAndroidID(true)
-        appsFlyerLib.start(this)
+        if (!BuildConfig.DEBUG) {
+            val afID = Utils.fetchServiceItem(this, ServiceItems.AFDEVID)
+            val appsFlyerLib = AppsFlyerLib.getInstance()
+            appsFlyerLib.init(afID, null, this)
+            appsFlyerLib.setCollectAndroidID(true)
+            appsFlyerLib.start(this)
+        }
     }
-
-//    override fun attachBaseContext(base: Context) {
-//        init(base)
-//        super.attachBaseContext(instance.setLocale(base))
-//    }
 
     interface OnAppBackgrounded {
         fun onBackgrounded()

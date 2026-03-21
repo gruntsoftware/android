@@ -6,3 +6,6 @@ val gameHubHt = 120.dp
 val transactionRowHt = 70.dp
 val statusBarPadding = 44.dp
 val bentoBottomNavBarHt = 60.dp
+
+val iconBorderSize = 40.dp
+val iconSize = 26.dp

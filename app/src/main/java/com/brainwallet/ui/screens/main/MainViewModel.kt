@@ -1,0 +1,191 @@
+package com.brainwallet.ui.screens.main
+import androidx.lifecycle.viewModelScope
+import com.brainwallet.R
+import com.brainwallet.data.model.AppSetting
+import com.brainwallet.data.model.CurrencyEntity
+import com.brainwallet.data.repository.LtcRepository
+import com.brainwallet.data.repository.SettingRepository
+import com.brainwallet.data.repository.TxRepository
+import com.brainwallet.presenter.entities.TxItem
+import com.brainwallet.tools.manager.BRSharedPrefs
+import com.brainwallet.ui.BrainwalletViewModel
+import com.brainwallet.util.VersionCodeProvider
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.getAndUpdate
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import org.koin.android.annotation.KoinViewModel
+import timber.log.Timber
+
+@KoinViewModel
+class MainViewModel(
+    private val settingRepository: SettingRepository,
+    private val ltcRepository: LtcRepository,
+    private val txRepository: TxRepository,
+    versionCodeProvider: VersionCodeProvider,
+) : BrainwalletViewModel<MainScreenEvent>() {
+
+    private val _state =
+        MutableStateFlow(
+            MainScreenState(
+                versionLabel = versionCodeProvider
+                    .getFormatted()
+            )
+        )
+    val state: StateFlow<MainScreenState> = _state.asStateFlow()
+    val currencyRates: StateFlow<List<CurrencyEntity>> = ltcRepository.rates
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = emptyList()
+        )
+
+    val transactionItems: StateFlow<List<TxItem>> = txRepository.transactionItems
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = emptyList()
+        )
+
+    val appSetting = settingRepository.settings
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5_000),
+            AppSetting()
+        )
+
+    val versionLabel = versionCodeProvider.getFormatted()
+
+    init {
+        viewModelScope.launch {
+            state.map { it.fiatAmount }
+                .debounce(1000)
+                .distinctUntilChanged()
+                .filter {
+                    val baseCurrency = state.value.moonpayCurrencyLimit.data.baseCurrency
+                    if (baseCurrency.min == 0f && baseCurrency.max == 0f) return@filter false
+                    it in baseCurrency.min..baseCurrency.max
+                }
+                .collect {
+                    onEvent(MainScreenEvent.OnFiatAmountChange(it))
+                }
+        }
+
+        viewModelScope.launch {
+            currencyRates.combine(appSetting) { currencies, setting ->
+                currencies.firstOrNull { it.code == setting.currency.code }
+            }.filterNotNull()
+                .collect { selectedCurrency ->
+                    val msg = String.format("selectedCurrency — Name: %s", selectedCurrency.name)
+                    Timber.d("ISO: %s", msg)
+                    FirebaseCrashlytics.getInstance().log(msg)
+                    _state.update {
+                        it.copy(
+                            fiatSymbol = selectedCurrency.symbol,
+                            fiatIso = selectedCurrency.code,
+                            fiatRate = selectedCurrency.rate,
+                        )
+                    }
+                }
+        }
+
+        viewModelScope.launch {
+            transactionItems.collect { transactionItems ->
+                Timber.d("transactions updated: ${transactionItems.size}")
+                _state.update {
+                    it.copy(
+                        transactionItems = transactionItems
+                    )
+                }
+            }
+        }
+    }
+
+    override fun onEvent(event: MainScreenEvent) {
+        when (event) {
+            is MainScreenEvent.OnLoad -> viewModelScope.launch {
+                delay(500)
+
+                _state.update { it.copy(address = BRSharedPrefs.getReceiveAddress(event.context)) }
+                try {
+                    onLoading(true)
+                    txRepository.refresh()
+                    _state.getAndUpdate {
+                        val limitResult = ltcRepository.fetchLimits(
+                            baseCurrencyCode = appSetting.value.currency.code
+                        )
+
+                        it.copy(
+                            moonpayCurrencyLimit = limitResult,
+                            fiatAmount = limitResult.data.baseCurrency.min,
+                        )
+                    }
+                } catch (e: Exception) {
+                    handleError(e)
+                } finally {
+                    onLoading(false)
+                }
+            }
+
+            is MainScreenEvent.OnFiatAmountChange -> viewModelScope.launch {
+                // do validation
+                val (_, min, max) = state.value.moonpayCurrencyLimit.data.baseCurrency
+                val errorStringId = when {
+                    event.fiatAmount < min -> R.string.buy_litecoin_fiat_amount_validation_min
+                    event.fiatAmount > max -> R.string.buy_litecoin_fiat_amount_validation_max
+                    else -> null
+                }
+                _state.update {
+                    it.copy(
+                        errorFiatAmountStringId = errorStringId,
+                        fiatAmount = event.fiatAmount
+                    )
+                }
+
+                if (event.needFetch.not()) {
+                    return@launch
+                }
+
+                try {
+                    onLoading(true)
+
+                    _state.update {
+                        val result = ltcRepository.fetchBuyQuote(
+                            mapOf(
+                                "currencyCode" to "ltc",
+                                "baseCurrencyCode" to appSetting.value.currency.code,
+                                "baseCurrencyAmount" to event.fiatAmount.toString(),
+                            )
+                        )
+
+                        it.copy(
+                            ltcAmount = result.data.quoteCurrencyAmount,
+                        )
+                    }
+                } catch (e: Exception) {
+                    handleError(e)
+                } finally {
+                    onLoading(false)
+                }
+            }
+            is MainScreenEvent.OnToggleDarkMode -> viewModelScope.launch {
+                val currentSettings = appSetting.value
+                settingRepository.save(
+                    currentSettings.copy(isDarkMode = !currentSettings.isDarkMode)
+                )
+            }
+        }
+    }
+}
