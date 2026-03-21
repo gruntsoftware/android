@@ -5,7 +5,6 @@ plugins {
     alias(grunt.plugins.android.application)
     alias(grunt.plugins.jetbrains.kotlin.android)
     alias(grunt.plugins.jetbrains.kotlin.compose)
-    alias(libs.plugins.jetbrains.kotlin.kapt)
     alias(grunt.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)

@@ -48,14 +48,14 @@ class BackupRateFetchTests {
 //        every {
 //            apiManager invoke "createGETRequestURL" withArguments (listOf(
 //                activity as Context,
-//                BRConstants.BW_API_DEV_HOST
+//                BWConstants.BW_API_DEV_HOST
 //            ))
 //        } returns responseString
 //        every { ActivityUTILS.isMainThread() } returns false
 //        every { APIClient.getInstance(activity).getCurrentLocale(activity) } returns "en"
 //
 //        val request = Request.Builder()
-//            .url(BRConstants.BW_API_DEV_HOST)
+//            .url(BWConstants.BW_API_DEV_HOST)
 //            .header("Content-Type", "application/json")
 //            .header("Accept", "application/json")
 //            .header("User-agent", Utils.getAgentString(activity, "android/HttpURLConnection"))

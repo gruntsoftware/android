@@ -30,9 +30,9 @@ import com.brainwallet.tools.security.BRKeyStore
 import com.brainwallet.tools.security.PostAuth
 import com.brainwallet.tools.security.SmartValidator
 import com.brainwallet.tools.threads.BRExecutor
-import com.brainwallet.tools.util.BRConstants
-import com.brainwallet.tools.util.BRConstants.BW_PIN_LENGTH
+import com.brainwallet.ui.layoutconstants.BWConstants.BW_PIN_LENGTH
 import com.brainwallet.tools.util.TypesConverter
+import com.brainwallet.ui.layoutconstants.BWConstants
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.EFFECT_LEGACY_RECOVER_WALLET_AUTH
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGACY_DIALOG_INVALID
 import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGACY_DIALOG_WIPE_ALERT
@@ -68,7 +68,7 @@ class BrainwalletActivity : BRActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AnalyticsManager.logCustomEvent(BRConstants._HOME_OPEN)
+        AnalyticsManager.logCustomEvent(BWConstants._HOME_OPEN)
         showInAppReviewDialogIfNeeded()
         onConnectionChanged(InternetManager.getInstance().isConnected(this))
 
@@ -195,7 +195,7 @@ class BrainwalletActivity : BRActivity() {
             val request = manager.requestReviewFlow()
             request.addOnCompleteListener(
                 OnCompleteListener { task: Task<ReviewInfo>? ->
-                    AnalyticsManager.logCustomEvent(BRConstants._20241006_DRR)
+                    AnalyticsManager.logCustomEvent(BWConstants._20241006_DRR)
                     if (task!!.isSuccessful()) {
                         val reviewInfo = task.getResult()
                         val flow = manager.launchReviewFlow(this@BrainwalletActivity, reviewInfo)
@@ -210,7 +210,7 @@ class BrainwalletActivity : BRActivity() {
                                 )
                                 if (task1.isSuccessful()) {
                                     BRSharedPrefs.inAppReviewDone(this@BrainwalletActivity)
-                                    AnalyticsManager.logCustomEvent(BRConstants._20241006_UCR)
+                                    AnalyticsManager.logCustomEvent(BWConstants._20241006_UCR)
                                 }
                             }
                         )
@@ -299,7 +299,7 @@ class BrainwalletActivity : BRActivity() {
     private fun onUnlock(passcode: List<Int>) {
         if (AuthManager.getInstance().checkAuth(passcode.joinToString(""), this)) {
             AuthManager.getInstance().authSuccess(this)
-            AnalyticsManager.logCustomEvent(BRConstants._20200217_DUWB)
+            AnalyticsManager.logCustomEvent(BWConstants._20200217_DUWB)
             LegacyNavigation.startBreadActivity(this, false)
         } else {
             // Auth fail toast

@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.brainwallet.R;
 import com.brainwallet.tools.manager.AnalyticsManager;
-import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.ui.layoutconstants.BWConstants;
 
 public class BuyTabFragment extends Fragment {
 
@@ -36,6 +36,6 @@ public class BuyTabFragment extends Fragment {
         DividerItemDecoration itemDecor = new DividerItemDecoration(mRecyclerView.getContext(), DividerItemDecoration.VERTICAL);
         itemDecor.setDrawable(ContextCompat.getDrawable(mRecyclerView.getContext(), R.drawable.divider_white_shape));
         mRecyclerView.addItemDecoration(itemDecor);
-        AnalyticsManager.logCustomEvent(BRConstants._20191105_DTBT);
+        AnalyticsManager.logCustomEvent(BWConstants._20191105_DTBT);
     }
 }

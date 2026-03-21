@@ -8,12 +8,10 @@ androidx-cardview = "1.0.0"
 androidx-preference = "1.2.1"
 androidx-browser = "1.7.0"
 androidx-navigation = "2.8.7"
-#androidx-test-ext = "1.2.1"
 androidx-lifecycle = "2.7.0"
 androidx-work = "2.9.1"
 google-material = "1.11.0"
 google-zxing = "3.5.2"
-#google-dagger = "2.50"
 google-play-asset-delivery = "2.2.2"
 google-play-feature-delivery = "2.1.0"
 google-play-review = "2.0.1"
@@ -111,6 +109,5 @@ squareup-retrofit = ["squareup-retrofit", "squareup-retrofit-kotlinx-serializati
 squareup-okhttp = ["squareup-okhttp", "squareup-okhttp-logging-interceptor"]
 
 [plugins]
-jetbrains-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version = "2.1.0" }
 google-services = { id = "com.google.gms.google-services", version = "4.4.2" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.2" }

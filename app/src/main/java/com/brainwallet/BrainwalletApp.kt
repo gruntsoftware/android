@@ -11,8 +11,8 @@ import com.brainwallet.presenter.activities.util.BRActivity
 import com.brainwallet.presenter.entities.ServiceItems
 import com.brainwallet.tools.listeners.SyncReceiver
 import com.brainwallet.tools.manager.AnalyticsManager
-import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.tools.util.Utils
+import com.brainwallet.ui.layoutconstants.BWConstants
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 import timber.log.Timber.DebugTree
@@ -32,7 +32,7 @@ open class BrainwalletApp : Application() {
         notificationHandler.setupNotificationChannels(this)
 
         AnalyticsManager.init(this)
-        AnalyticsManager.logCustomEvent(BRConstants._20191105_AL)
+        AnalyticsManager.logCustomEvent(BWConstants._20191105_AL)
 
         if (BuildConfig.DEBUG) Timber.plant(DebugTree())
 

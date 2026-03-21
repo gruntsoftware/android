@@ -17,6 +17,6 @@ class BaseURLTests {
 //
 //        val actual = apiManager.baseUrlProd
 //
-//        assertEquals(BRConstants.BW_API_PROD_HOST, actual)
+//        assertEquals(BWConstants.BW_API_PROD_HOST, actual)
 //    }
 }

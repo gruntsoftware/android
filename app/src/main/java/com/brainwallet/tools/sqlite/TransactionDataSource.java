@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.NetworkOnMainThreadException;
 
-import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.ui.layoutconstants.BWConstants;
 import com.brainwallet.presenter.activities.util.ActivityUTILS;
 import com.brainwallet.presenter.entities.BRTransactionEntity;
 
@@ -160,7 +160,7 @@ public class TransactionDataSource implements BRDataSourceInterface {
         // Opening new database
         if (database == null || !database.isOpen())
             database = dbHelper.getWritableDatabase();
-        dbHelper.setWriteAheadLoggingEnabled(BRConstants.WAL);
+        dbHelper.setWriteAheadLoggingEnabled(BWConstants.WAL);
         return database;
     }
 

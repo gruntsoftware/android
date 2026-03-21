@@ -6,7 +6,7 @@ import com.brainwallet.BuildConfig
 import com.brainwallet.data.repository.TxRepository
 import com.brainwallet.data.source.RemoteApiSource
 import com.brainwallet.tools.sqlite.CurrencyDataSource
-import com.brainwallet.tools.util.BRConstants
+import com.brainwallet.ui.layoutconstants.BWConstants
 import com.google.firebase.Firebase
 import com.google.firebase.remoteconfig.remoteConfig
 import kotlinx.serialization.json.Json
@@ -37,7 +37,7 @@ object AppModule {
         single { Firebase.remoteConfig }
         single { json }
         factory { provideOkHttpClient() }
-        single { provideRetrofit(get(), get(), BRConstants.BW_API_PROD_HOST) }
+        single { provideRetrofit(get(), get(), BWConstants.BW_API_PROD_HOST) }
         single { provideApi<RemoteApiSource>(get()) }
         single { CurrencyDataSource.getInstance(get()) }
         single<SharedPreferences> { provideSharedPreferences(context = androidApplication()) }
@@ -76,7 +76,7 @@ object AppModule {
     internal fun provideRetrofit(
         json: Json,
         okHttpClient: OkHttpClient,
-        baseUrl: String = BRConstants.BW_API_PROD_HOST,
+        baseUrl: String = BWConstants.BW_API_PROD_HOST,
     ): Retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(okHttpClient)

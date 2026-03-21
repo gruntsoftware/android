@@ -21,7 +21,7 @@ import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.data.model.CurrencyEntity;
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.sqlite.CurrencyDataSource;
-import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.ui.layoutconstants.BWConstants;
 import com.brainwallet.tools.util.BRCurrency;
 
 import java.math.BigDecimal;
@@ -83,7 +83,7 @@ public class DisplayCurrencyActivity extends BRActivity {
         });
 
         int unit = BRSharedPrefs.getCurrencyUnit(this);
-        if (unit == BRConstants.CURRENT_UNIT_LITES) {
+        if (unit == BWConstants.CURRENT_UNIT_LITES) {
             setButton(true);
         } else {
             setButton(false);
@@ -121,7 +121,7 @@ public class DisplayCurrencyActivity extends BRActivity {
         CurrencyEntity entity = CurrencyDataSource.getInstance(this).getCurrencyByIso(iso);
         if (entity != null) {
             String finalExchangeRate = BRCurrency.getFormattedCurrencyString(DisplayCurrencyActivity.this, BRSharedPrefs.getIsoSymbol(this), new BigDecimal(entity.rate));
-            boolean bits = BRSharedPrefs.getCurrencyUnit(this) == BRConstants.CURRENT_UNIT_LITES;
+            boolean bits = BRSharedPrefs.getCurrencyUnit(this) == BWConstants.CURRENT_UNIT_LITES;
             exchangeText.setText(BRCurrency.getFormattedCurrencyString(this, "LTC", new BigDecimal(bits ? 1000 : 1)) + " = " + finalExchangeRate);
         }
         adapter.notifyDataSetChanged();
@@ -129,13 +129,13 @@ public class DisplayCurrencyActivity extends BRActivity {
 
     private void setButton(boolean left) {
         if (left) {
-            BRSharedPrefs.putCurrencyUnit(this, BRConstants.CURRENT_UNIT_LITES);
+            BRSharedPrefs.putCurrencyUnit(this, BWConstants.CURRENT_UNIT_LITES);
             leftButton.setTextColor(getColor(R.color.grape));
             leftButton.setBackground(getDrawable(R.drawable.b_half_left_blue));
             rightButton.setTextColor(getColor(R.color.cheddar));
             rightButton.setBackground(getDrawable(R.drawable.b_half_right_blue_stroke));
         } else {
-            BRSharedPrefs.putCurrencyUnit(this, BRConstants.CURRENT_UNIT_LITECOINS);
+            BRSharedPrefs.putCurrencyUnit(this, BWConstants.CURRENT_UNIT_LITECOINS);
             leftButton.setTextColor(getColor(R.color.cheddar));
             leftButton.setBackground(getDrawable(R.drawable.b_half_left_blue_stroke));
             rightButton.setTextColor(getColor(R.color.grape));

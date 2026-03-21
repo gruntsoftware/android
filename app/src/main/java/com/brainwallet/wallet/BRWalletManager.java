@@ -44,7 +44,7 @@ import com.brainwallet.tools.sqlite.PeerDataSource;
 import com.brainwallet.tools.sqlite.TransactionDataSource;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.threads.ImportPrivKeyTask;
-import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.ui.layoutconstants.BWConstants;
 import com.brainwallet.tools.util.BRCurrency;
 import com.brainwallet.tools.util.BRExchange;
 import com.brainwallet.tools.util.Bip39Reader;
@@ -133,7 +133,7 @@ public class BRWalletManager {
 
         boolean success;
         try {
-            success = BRKeyStore.putPhrase(strPhrase, ctx, BRConstants.PUT_PHRASE_NEW_WALLET_REQUEST_CODE);
+            success = BRKeyStore.putPhrase(strPhrase, ctx, BWConstants.PUT_PHRASE_NEW_WALLET_REQUEST_CODE);
         } catch (UserNotAuthenticatedException e) {
             return false;
         }
@@ -346,7 +346,7 @@ public class BRWalletManager {
         params.putString("message", message);
         params.putInt("error", error);
         params.putString("txHash", Arrays.toString(txHash));
-        AnalyticsManager.logCustomEventWithParams(BRConstants._20250517_WCINFO, params);
+        AnalyticsManager.logCustomEventWithParams(BWConstants._20250517_WCINFO, params);
 
         final Context app = BrainwalletApp.getBreadContext();
         BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable() {
@@ -471,7 +471,7 @@ public class BRWalletManager {
     public void initWallet(final Context ctx) {
         if (ActivityUTILS.isMainThread()) throw new NetworkOnMainThreadException();
         if (itInitiatingWallet) {
-            AnalyticsManager.logCustomEvent(BRConstants._20200111_WNI);
+            AnalyticsManager.logCustomEvent(BWConstants._20200111_WNI);
             return;
         }
 
@@ -576,7 +576,7 @@ public class BRWalletManager {
     public String getSeedPhrase(Context context) {
         byte[] phraseBytes;
         try {
-            phraseBytes = BRKeyStore.getPhrase(context, BRConstants.PUT_PHRASE_NEW_WALLET_REQUEST_CODE);
+            phraseBytes = BRKeyStore.getPhrase(context, BWConstants.PUT_PHRASE_NEW_WALLET_REQUEST_CODE);
         } catch (UserNotAuthenticatedException e) {
             phraseBytes = new byte[0];
         }

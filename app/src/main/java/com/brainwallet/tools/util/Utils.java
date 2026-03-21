@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.brainwallet.tools.manager.AnalyticsManager;
 import com.brainwallet.presenter.entities.ServiceItems;
+import com.brainwallet.ui.layoutconstants.BWConstants;
 
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
@@ -155,7 +156,7 @@ public class Utils {
         if (address != null && !address.isEmpty())
             builder = builder.appendPath(address);
         if (satoshiAmount != 0)
-            builder = builder.appendQueryParameter("amount", new BigDecimal(satoshiAmount).divide(new BigDecimal(100000000), 8, BRConstants.ROUNDING_MODE).toPlainString());
+            builder = builder.appendQueryParameter("amount", new BigDecimal(satoshiAmount).divide(new BigDecimal(100000000), 8, BWConstants.ROUNDING_MODE).toPlainString());
         if (label != null && !label.isEmpty())
             builder = builder.appendQueryParameter("label", label);
         if (message != null && !message.isEmpty())
@@ -181,7 +182,7 @@ public class Utils {
     public static String getAgentString(Context app, String cfnetwork) {
 
         String deviceCode = Build.MANUFACTURER + "-|-" + Build.MODEL;
-        String appVersion = BRConstants.APP_VERSION_NAME_CODE;
+        String appVersion = BWConstants.APP_VERSION_NAME_CODE;
         return String.format(Locale.ENGLISH, "%s/%d %s Android/%s Device/%s", "Brainwallet",
                 appVersion, cfnetwork, Build.VERSION.RELEASE, deviceCode);
     }
@@ -190,7 +191,7 @@ public class Utils {
         String deviceType = Build.DEVICE;
         String deviceModel = Build.MODEL;
         String udidString = String.valueOf(UUID.randomUUID());
-        String appVersion = BRConstants.APP_VERSION_NAME_CODE;
+        String appVersion = BWConstants.APP_VERSION_NAME_CODE;
         String formattedAgentString = String.format(Locale.ENGLISH, "brainwallet-android,%s,%s-%s-%s,%s",
                 appVersion, deviceCode,deviceType,deviceModel,udidString);
 
@@ -355,7 +356,7 @@ public class Utils {
         }
         Bundle   params = new Bundle();
         params.putString("lwa_error_message: %s Key not found", name.getKey());
-        AnalyticsManager.logCustomEventWithParams(BRConstants._20200112_ERR,params);
+        AnalyticsManager.logCustomEventWithParams(BWConstants._20200112_ERR,params);
         Timber.d("timber: fetchServiceItem lwa_error_message");
         return "";
     }

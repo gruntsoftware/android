@@ -1,8 +1,8 @@
 package com.brainwallet.ui.screens.send
 
 import com.brainwallet.data.repository.LtcRepository
-import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.BrainwalletViewModel
+import com.brainwallet.ui.layoutconstants.BWConstants
 import com.brainwallet.util.CurrencyDataGetter
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -32,7 +32,7 @@ class SendViewModel(
                 if (currency != null) {
                     val roundedPriceAmount: BigDecimal =
                         BigDecimal(currency.rate.toDouble()).multiply(BigDecimal(100))
-                            .divide(BigDecimal(100), 2, BRConstants.ROUNDING_MODE)
+                            .divide(BigDecimal(100), 2, BWConstants.ROUNDING_MODE)
                     formattedCurrency =
                         currencyDataGetter.getFormattedCurrencyString(
                             iso,

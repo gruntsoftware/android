@@ -3,7 +3,7 @@ package com.brainwallet.tools.manager;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.ui.layoutconstants.BWConstants;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 public final class AnalyticsManager {
@@ -18,7 +18,7 @@ public final class AnalyticsManager {
         instance = FirebaseAnalytics.getInstance(context);
     }
 
-    public static Object logCustomEvent(@BRConstants.Event String customEvent) {
+    public static Object logCustomEvent(@BWConstants.Event String customEvent) {
         instance.logEvent(customEvent, null);
         return null;
     }
@@ -28,7 +28,7 @@ public final class AnalyticsManager {
         return null;
     }
 
-    public static void logCustomEventWithParams(@BRConstants.Event String customEvent, Bundle params) {
+    public static void logCustomEventWithParams(@BWConstants.Event String customEvent, Bundle params) {
         instance.logEvent(customEvent, params);
     }
 }

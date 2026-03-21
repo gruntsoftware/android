@@ -35,7 +35,7 @@ import com.brainwallet.tools.animation.SlideDetector;
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.manager.TxManager;
 import com.brainwallet.tools.threads.BRExecutor;
-import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.ui.layoutconstants.BWConstants;
 import com.brainwallet.tools.util.BRCurrency;
 import com.brainwallet.tools.util.BRExchange;
 import com.brainwallet.tools.util.Utils;
@@ -187,7 +187,7 @@ public class FragmentTransactionItem extends Fragment {
 
         mTxHashLink.setOnClickListener(view -> {
             close();
-            String txUrl = BRConstants.BLOCK_EXPLORER_BASE_URL + item.getTxHashHexReversed();
+            String txUrl = BWConstants.BLOCK_EXPLORER_BASE_URL + item.getTxHashHexReversed();
             Timber.d("timber: txUrl = %s", txUrl);
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(txUrl));
             startActivity(browserIntent);

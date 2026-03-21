@@ -2,7 +2,7 @@ package com.brainwallet.tools.manager;
 
 import static com.brainwallet.tools.manager.PromptManager.PromptItem.RECOMMEND_RESCAN;
 import static com.brainwallet.tools.manager.PromptManager.PromptItem.UPGRADE_PIN;
-import static com.brainwallet.tools.util.BRConstants.BW_PIN_LENGTH;
+import static com.brainwallet.ui.layoutconstants.BWConstants.BW_PIN_LENGTH;
 
 import android.app.Activity;
 import android.content.Context;

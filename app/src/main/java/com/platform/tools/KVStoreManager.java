@@ -5,7 +5,7 @@ import android.content.Context;
 import com.brainwallet.tools.crypto.CryptoHelper;
 import com.brainwallet.tools.manager.AnalyticsManager;
 import com.brainwallet.tools.util.BRCompressor;
-import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.ui.layoutconstants.BWConstants;
 import com.brainwallet.tools.util.Utils;
 import com.platform.APIClient;
 import com.platform.entities.TxMetaData;
@@ -80,7 +80,7 @@ public class KVStoreManager {
         JSONObject json;
         if (value == null) {
             Timber.d("timber: valueToMetaData: value is null!");
-            AnalyticsManager.logCustomEvent(BRConstants._20200111_TNI);
+            AnalyticsManager.logCustomEvent(BWConstants._20200111_TNI);
             return null;
         }
         try {

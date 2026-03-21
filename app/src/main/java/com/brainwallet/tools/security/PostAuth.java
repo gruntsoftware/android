@@ -17,7 +17,7 @@ import com.brainwallet.presenter.entities.PaymentRequestWrapper;
 import com.brainwallet.presenter.entities.TransactionItem;
 import com.brainwallet.tools.animation.BRDialog;
 import com.brainwallet.tools.manager.BRSharedPrefs;
-import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.ui.layoutconstants.BWConstants;
 import com.brainwallet.tools.util.TypesConverter;
 import com.brainwallet.tools.util.Utils;
 import com.brainwallet.ui.BrainwalletActivity;
@@ -66,7 +66,7 @@ public class PostAuth {
     public void onPhraseCheckAuth(Activity app, boolean authAsked) {
         String cleanPhrase;
         try {
-            byte[] raw = BRKeyStore.getPhrase(app, BRConstants.SHOW_PHRASE_REQUEST_CODE);
+            byte[] raw = BRKeyStore.getPhrase(app, BWConstants.SHOW_PHRASE_REQUEST_CODE);
             if (raw == null) {
                 NullPointerException ex = new NullPointerException("onPhraseCheckAuth: getPhrase = null");
                 Timber.e(ex);
@@ -93,7 +93,7 @@ public class PostAuth {
     public void onPhraseProveAuth(Activity app, boolean authAsked) {
         String cleanPhrase;
         try {
-            cleanPhrase = new String(BRKeyStore.getPhrase(app, BRConstants.PROVE_PHRASE_REQUEST));
+            cleanPhrase = new String(BRKeyStore.getPhrase(app, BWConstants.PROVE_PHRASE_REQUEST));
         } catch (UserNotAuthenticatedException e) {
             if (authAsked) {
                 Timber.d("timber: %s: WARNING!!!! LOOP", new Object() {
@@ -121,7 +121,7 @@ public class PostAuth {
             boolean success;
             try {
                 success = BRKeyStore.putPhrase(phraseForKeyStore.getBytes(),
-                        app, BRConstants.PUT_PHRASE_RECOVERY_WALLET_REQUEST_CODE);
+                        app, BWConstants.PUT_PHRASE_RECOVERY_WALLET_REQUEST_CODE);
             } catch (UserNotAuthenticatedException e) {
                 if (authAsked) {
                     Timber.e("timber:%s: WARNING!!!! LOOP", new Object() {
@@ -188,7 +188,7 @@ public class PostAuth {
         final BRWalletManager walletManager = BRWalletManager.getInstance();
         byte[] rawSeed;
         try {
-            rawSeed = BRKeyStore.getPhrase(app, BRConstants.PAY_REQUEST_CODE);
+            rawSeed = BRKeyStore.getPhrase(app, BWConstants.PAY_REQUEST_CODE);
         } catch (UserNotAuthenticatedException e) {
             if (authAsked) {
                 Timber.d("timber: %s: WARNING!!!! LOOP", new Object() {
@@ -239,7 +239,7 @@ public class PostAuth {
     public void onCanaryCheck(final Activity app, boolean authAsked) {
         String canary;
         try {
-            canary = BRKeyStore.getCanary(app, BRConstants.CANARY_REQUEST_CODE);
+            canary = BRKeyStore.getCanary(app, BWConstants.CANARY_REQUEST_CODE);
         } catch (UserNotAuthenticatedException e) {
             if (authAsked) {
                 Timber.d("timber: %s: WARNING!!!! LOOP", new Object() {
@@ -248,10 +248,10 @@ public class PostAuth {
             }
             return;
         }
-        if (canary == null || !canary.equalsIgnoreCase(BRConstants.CANARY_STRING)) {
+        if (canary == null || !canary.equalsIgnoreCase(BWConstants.CANARY_STRING)) {
             byte[] phrase;
             try {
-                phrase = BRKeyStore.getPhrase(app, BRConstants.CANARY_REQUEST_CODE);
+                phrase = BRKeyStore.getPhrase(app, BWConstants.CANARY_REQUEST_CODE);
             } catch (UserNotAuthenticatedException e) {
                 if (authAsked) {
                     Timber.d("timber: %s: WARNING!!!! LOOP", new Object() {
@@ -269,7 +269,7 @@ public class PostAuth {
             } else {
                 Timber.d("timber: onCanaryCheck: Canary wasn't there, but the phrase persists, adding canary to keystore.");
                 try {
-                    BRKeyStore.putCanary(BRConstants.CANARY_STRING, app, 0);
+                    BRKeyStore.putCanary(BWConstants.CANARY_STRING, app, 0);
                 } catch (UserNotAuthenticatedException e) {
                     if (authAsked) {
                         Timber.d("timber: %s: WARNING!!!! LOOP", new Object() {

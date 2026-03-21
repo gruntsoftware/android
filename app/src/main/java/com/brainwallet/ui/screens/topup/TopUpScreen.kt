@@ -33,10 +33,10 @@ import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
 import com.brainwallet.tools.manager.AnalyticsManager
-import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.composable.BorderedLargeButton
 import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
+import com.brainwallet.ui.layoutconstants.BWConstants
 import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItEvent
 import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItViewModel
 
@@ -119,7 +119,7 @@ fun TopUpScreen(
             BorderedLargeButton(
                 onClick = {
                     viewModel.onEvent(YourSeedProveItEvent.OnGameAndSync)
-                    AnalyticsManager.logCustomEvent(BRConstants._20250303_DSTU)
+                    AnalyticsManager.logCustomEvent(BWConstants._20250303_DSTU)
                 },
                 modifier = Modifier.fillMaxWidth()
 

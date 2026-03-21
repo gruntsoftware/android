@@ -13,7 +13,7 @@ import android.os.Bundle;
 import com.brainwallet.data.repository.SyncAnalyticsRepository;
 import com.brainwallet.data.source.RemoteConfigSource;
 import com.brainwallet.tools.listeners.SyncReceiver;
-import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.ui.layoutconstants.BWConstants;
 import com.brainwallet.tools.util.Utils;
 import com.brainwallet.R;
 import com.brainwallet.presenter.activities.BreadActivity;

@@ -30,7 +30,7 @@ import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.repository.SyncAnalyticsRepository
 import com.brainwallet.tools.manager.BRSharedPrefs
-import com.brainwallet.tools.util.BRConstants
+import com.brainwallet.ui.layoutconstants.BWConstants
 import com.brainwallet.ui.screens.settings.SettingsEvent
 import com.brainwallet.ui.screens.settings.SettingsViewModel
 import com.brainwallet.ui.screens.home.composable.settingsrows.CurrencyDetail
@@ -163,7 +163,7 @@ fun HomeSettingDrawerSheet(
                     onClick = {
                         val builder = CustomTabsIntent.Builder()
                         val customTabsIntent = builder.build()
-                        customTabsIntent.launchUrl(context, Uri.parse(BRConstants.SUPPORT_WEB_LINK))
+                        customTabsIntent.launchUrl(context, Uri.parse(BWConstants.SUPPORT_WEB_LINK))
                     }
                 )
             }
@@ -175,7 +175,7 @@ fun HomeSettingDrawerSheet(
                     onClick = {
                         val builder = CustomTabsIntent.Builder()
                         val customTabsIntent = builder.build()
-                        customTabsIntent.launchUrl(context, Uri.parse(BRConstants.LINKTREE_URL))
+                        customTabsIntent.launchUrl(context, Uri.parse(BWConstants.LINKTREE_URL))
                     }
                 )
             }
@@ -213,7 +213,7 @@ fun HomeSettingDrawerSheet(
             item {
                 SettingRowItem(
                     title = stringResource(R.string.settings_title_app_version),
-                    description = BRConstants.APP_VERSION_NAME_CODE
+                    description = BWConstants.APP_VERSION_NAME_CODE
                 )
             }
         }

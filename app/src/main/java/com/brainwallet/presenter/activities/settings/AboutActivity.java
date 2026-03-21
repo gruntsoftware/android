@@ -12,7 +12,7 @@ import com.brainwallet.R;
 import com.brainwallet.presenter.activities.util.ActivityUTILS;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.tools.animation.BRAnimator;
-import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.ui.layoutconstants.BWConstants;
 
 public class AboutActivity extends BRActivity {
     private static final String TAG = AboutActivity.class.getName();
@@ -47,14 +47,14 @@ public class AboutActivity extends BRActivity {
         instagramShare = (ImageView) findViewById(R.id.instagram_share_button);
         twitterShare = (ImageView) findViewById(R.id.twitter_share_button);
         blogShare = (ImageView) findViewById(R.id.blog_share_button);
-        versionText.setText(BRConstants.APP_VERSION_NAME_CODE);
+        versionText.setText(BWConstants.APP_VERSION_NAME_CODE);
 
-        versionText.setText(BRConstants.APP_VERSION_NAME_CODE);
+        versionText.setText(BWConstants.APP_VERSION_NAME_CODE);
 
         instagramShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(BRConstants.INSTAGRAM_LINK));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(BWConstants.INSTAGRAM_LINK));
                 startActivity(browserIntent);
                 app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
             }
@@ -63,7 +63,7 @@ public class AboutActivity extends BRActivity {
         twitterShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(BRConstants.TWITTER_LINK));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(BWConstants.TWITTER_LINK));
                 startActivity(browserIntent);
                 app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
             }
@@ -71,7 +71,7 @@ public class AboutActivity extends BRActivity {
         blogShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(BRConstants.WEB_LINK));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(BWConstants.WEB_LINK));
                 startActivity(browserIntent);
                 app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
             }
@@ -79,7 +79,7 @@ public class AboutActivity extends BRActivity {
         policyText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(BRConstants.TOS_LINK));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(BWConstants.TOS_LINK));
                 startActivity(browserIntent);
                 app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
             }

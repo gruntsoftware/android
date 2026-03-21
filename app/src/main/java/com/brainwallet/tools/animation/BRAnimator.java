@@ -32,7 +32,7 @@ import com.brainwallet.navigation.LegacyNavigation;
 import com.brainwallet.presenter.fragments.FragmentMoonpay;
 import com.brainwallet.tools.manager.AnalyticsManager;
 import com.brainwallet.tools.threads.BRExecutor;
-import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.ui.layoutconstants.BWConstants;
 import com.brainwallet.R;
 import com.brainwallet.presenter.activities.BreadActivity;
 import com.brainwallet.presenter.activities.camera.ScanQRActivity;
@@ -86,7 +86,7 @@ public class BRAnimator {
             transaction.commit();
         } catch (IllegalStateException e) {
             transaction.commitAllowingStateLoss();
-            AnalyticsManager.logCustomEvent(BRConstants._20200112_ERR);
+            AnalyticsManager.logCustomEvent(BWConstants._20200112_ERR);
         }
     }
 
@@ -184,7 +184,7 @@ public class BRAnimator {
                     // No explanation needed, we can request the permission.
                     ActivityCompat.requestPermissions(app,
                             new String[]{Manifest.permission.CAMERA},
-                            BRConstants.CAMERA_REQUEST_ID);
+                            BWConstants.CAMERA_REQUEST_ID);
                 }
             } else {
                 // Permission is granted, open camera

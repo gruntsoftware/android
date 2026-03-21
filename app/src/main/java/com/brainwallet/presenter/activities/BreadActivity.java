@@ -50,7 +50,7 @@ import com.brainwallet.tools.security.BitcoinUrlHandler;
 import com.brainwallet.tools.security.PostAuth;
 import com.brainwallet.tools.sqlite.TransactionDataSource;
 import com.brainwallet.tools.threads.BRExecutor;
-import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.ui.layoutconstants.BWConstants;
 import com.brainwallet.tools.util.BRCurrency;
 import com.brainwallet.tools.util.BRExchange;
 import com.brainwallet.tools.util.ExtensionKt;
@@ -116,7 +116,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bread);
-        AnalyticsManager.logCustomEvent(BRConstants._HOME_OPEN);
+        AnalyticsManager.logCustomEvent(BWConstants._HOME_OPEN);
 
         app = this;
         getWindowManager().getDefaultDisplay().getSize(screenParametersPoint);
@@ -176,7 +176,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
             ReviewManager manager = ReviewManagerFactory.create(this);
             Task<ReviewInfo> request = manager.requestReviewFlow();
             request.addOnCompleteListener(task -> {
-                AnalyticsManager.logCustomEvent(BRConstants._20241006_DRR);
+                AnalyticsManager.logCustomEvent(BWConstants._20241006_DRR);
                 if (task.isSuccessful()) {
                     ReviewInfo reviewInfo = task.getResult();
                     Task<Void> flow = manager.launchReviewFlow(BreadActivity.this, reviewInfo);
@@ -187,7 +187,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                         Timber.i("timber: In-app LaunchReviewFlow completed successful (%s)", task1.isSuccessful());
                         if (task1.isSuccessful()) {
                             BRSharedPrefs.inAppReviewDone(BreadActivity.this);
-                            AnalyticsManager.logCustomEvent(BRConstants._20241006_UCR);
+                            AnalyticsManager.logCustomEvent(BWConstants._20241006_UCR);
                         }
                     });
                 } else {
@@ -484,11 +484,11 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         switch (requestCode) {
-            case BRConstants.CAMERA_REQUEST_ID: {
+            case BWConstants.CAMERA_REQUEST_ID: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    BRAnimator.openScanner(this, BRConstants.SCANNER_REQUEST);
+                    BRAnimator.openScanner(this, BWConstants.SCANNER_REQUEST);
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
                 } else {

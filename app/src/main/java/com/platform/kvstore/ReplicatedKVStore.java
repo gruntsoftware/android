@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.brainwallet.BrainwalletApp;
 import com.brainwallet.tools.security.BRKeyStore;
 import com.brainwallet.tools.threads.BRExecutor;
-import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.ui.layoutconstants.BWConstants;
 import com.brainwallet.tools.util.Utils;
 import com.jniwrappers.BRKey;
 import com.platform.interfaces.KVStoreAdaptor;
@@ -76,7 +76,7 @@ public class ReplicatedKVStore {
 //        if (ActivityUTILS.isMainThread()) throw new NetworkOnMainThreadException();
         if (mDatabase == null || !mDatabase.isOpen())
             mDatabase = dbHelper.getWritableDatabase();
-        dbHelper.setWriteAheadLoggingEnabled(BRConstants.WAL);
+        dbHelper.setWriteAheadLoggingEnabled(BWConstants.WAL);
 //        }
         return mDatabase;
     }

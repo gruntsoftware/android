@@ -25,10 +25,10 @@ import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.security.AuthManager
-import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.composable.PasscodeIndicator
 import com.brainwallet.ui.composable.PasscodeKeypad
 import com.brainwallet.ui.composable.PasscodeKeypadEvent
+import com.brainwallet.ui.layoutconstants.BWConstants
 import com.brainwallet.ui.screens.unlock.UnLockEvent
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.ui.theme.DesignTheme
@@ -73,8 +73,7 @@ fun UnLockScreenBody(
                                 .checkAuth(pin, context).also { isValid ->
                                     if (isValid) {
                                         AuthManager.getInstance().authSuccess(context)
-                                        AnalyticsManager.logCustomEvent(BRConstants._20200217_DUWB)
-                                        AnalyticsManager.logCustomEvent(BRConstants._20200217_DUWB)
+                                        AnalyticsManager.logCustomEvent(BWConstants._20200217_DUWB)
                                     } else {
                                         // Auth Fail toast
                                         Toast.makeText(

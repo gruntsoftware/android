@@ -8,7 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.brainwallet.data.model.CurrencyEntity;
-import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.ui.layoutconstants.BWConstants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -189,7 +189,7 @@ public class CurrencyDataSource implements BRDataSourceInterface {
     public SQLiteDatabase openDatabase() {
         if (database == null || !database.isOpen())
             database = dbHelper.getWritableDatabase();
-        dbHelper.setWriteAheadLoggingEnabled(BRConstants.WAL);
+        dbHelper.setWriteAheadLoggingEnabled(BWConstants.WAL);
         return database;
     }
 
