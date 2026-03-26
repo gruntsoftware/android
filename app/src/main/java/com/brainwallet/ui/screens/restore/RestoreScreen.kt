@@ -4,7 +4,7 @@
     ExperimentalComposeUiApi::class
 )
 
-package com.brainwallet.ui.screens.inputwords
+package com.brainwallet.ui.screens.restore
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -63,10 +63,10 @@ import com.brainwallet.ui.theme.DesignTheme
 import org.koin.compose.koinInject
 
 @Composable
-fun InputWordsScreen(
+fun RestoreScreen(
     onNavigate: OnNavigate,
-    source: Route.InputWords.Source? = null,
-    viewModel: InputWordsViewModel = koinInject()
+    source: Route.Restore.Source? = null,
+    viewModel: RestoreViewModel = koinInject()
 ) {
     val state by viewModel.state.collectAsState()
     val focusRequesters = List(12) { FocusRequester() } // 12 seed words
@@ -89,7 +89,10 @@ fun InputWordsScreen(
     val activeRowHeight = 70
 
     LaunchedEffect(Unit) {
-        viewModel.onEvent(InputWordsEvent.OnLoad(source))
+        viewModel.onEvent(RestoreEvent.OnLoad(source))
+    }
+
+    LaunchedEffect(Unit) {
         viewModel.uiEffect.collect { effect ->
             when (effect) {
                 is UiEffect.Navigate -> onNavigate.invoke(effect)
@@ -98,7 +101,7 @@ fun InputWordsScreen(
         }
     }
 
-    // / Layout values
+    // Layout values
     val columnPadding = 16
     val horizontalVerticalSpacing = 8
     val mediumHeight = 24
@@ -171,7 +174,7 @@ fun InputWordsScreen(
                         suggestions = state.suggestionsSeedWords,
                         onValueChange = {
                             viewModel.onEvent(
-                                InputWordsEvent.OnSeedWordItemChange(
+                                RestoreEvent.OnSeedWordItemChange(
                                     index = index,
                                     text = it,
                                 )
@@ -195,7 +198,7 @@ fun InputWordsScreen(
                     contentColor = DesignTheme.colors.content
                 ),
                 onClick = {
-                    viewModel.onEvent(InputWordsEvent.OnClearSeedWords)
+                    viewModel.onEvent(RestoreEvent.OnClearSeedWords)
                     focusRequesters.first().requestFocus()
                 },
             ) {
@@ -230,7 +233,7 @@ fun InputWordsScreen(
                     .padding(vertical = rowPadding.dp)
                     .height(activeRowHeight.dp),
                 onClick = {
-                    viewModel.onEvent(InputWordsEvent.OnRestoreClick(context = context))
+                    viewModel.onEvent(RestoreEvent.OnRestoreClick(context = context))
                     focusManager.clearFocus()
                 },
             ) {

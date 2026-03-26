@@ -9,6 +9,7 @@ import com.brainwallet.data.model.LtcStats;
 import com.brainwallet.data.repository.SettingRepository;
 import com.brainwallet.constants.BWConstants;
 
+import org.jetbrains.annotations.NotNull;
 import org.koin.core.annotation.Single;
 import org.koin.java.KoinJavaComponent;
 

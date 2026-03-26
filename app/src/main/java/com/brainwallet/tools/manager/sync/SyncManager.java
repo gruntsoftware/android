@@ -1,4 +1,4 @@
-package com.brainwallet.tools.manager;
+package com.brainwallet.tools.manager.sync;
 
 import static com.brainwallet.tools.manager.BRSharedPrefs.putSyncMetadata;
 
@@ -10,6 +10,9 @@ import android.os.Build;
 
 import com.brainwallet.data.repository.SyncAnalyticsRepository;
 import com.brainwallet.tools.listeners.SyncReceiver;
+import com.brainwallet.tools.manager.BRSharedPrefs;
+import com.brainwallet.tools.manager.PromptManager;
+import com.brainwallet.tools.manager.TxManager;
 import com.brainwallet.tools.util.Utils;
 import com.brainwallet.R;
 import com.brainwallet.presenter.activities.BreadActivity;
@@ -138,37 +141,9 @@ public class SyncManager {
 
                 while (running) {
                     if (app != null) {
-                        int startHeight = BRSharedPrefs.getStartHeight(app);
-                        progressStatus = BRPeerManager.syncProgress(startHeight);
-                        if (progressStatus == 1) {
-                            running = false;
-                            /// Record sync time
-                            long startTimeStamp = BRSharedPrefs.getStartSyncTimestamp();
-                            long endSyncTimeStamp = System.currentTimeMillis();
-                            BRSharedPrefs.putEndSyncTimestamp(endSyncTimeStamp);
-
-                            double syncDuration = (double) (endSyncTimeStamp - startTimeStamp) / 1_000.0 / 60.0;
-                            /// only update if the sync duration is longer than 2 mins
-                           if (syncDuration > 2.0) {
-                                putSyncMetadata(startTimeStamp, endSyncTimeStamp);
-                           }
-                            continue;
-                        }
-                        final long lastBlockTimeStamp = BRPeerManager.getInstance().getLastBlockTimestamp() * 1000;
-                        final int currentBlockHeight = BRPeerManager.getCurrentBlockHeight();
                         app.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (TxManager.getInstance().currentPrompt != PromptManager.PromptItem.SYNCING) {
-                                    Timber.d("timber: run: currentPrompt != SYNCING, showPrompt(SYNCING) ....");
-                                    TxManager.getInstance().showPrompt(app, PromptManager.PromptItem.SYNCING);
-                                }
-                                if (TxManager.getInstance().syncingProgressViewHolder != null) {
-                                    TxManager.getInstance().syncingProgressViewHolder.progress.setProgress((int) (progressStatus * 100));
-                                    TxManager.getInstance().syncingProgressViewHolder.date.setText(Utils.formatTimeStamp(lastBlockTimeStamp, "MMM. dd, yyyy  ha"));
-                                    String progressString = String.format("%3.2f%%", progressStatus * 100);
-                                    TxManager.getInstance().syncingProgressViewHolder.label.setText(String.format("%s %s - %d",BreadActivity.getApp().getString(R.string.SyncingView_header),progressString, currentBlockHeight));
-                                }
                             }
                         });
 
@@ -176,11 +151,6 @@ public class SyncManager {
                         app = BreadActivity.getApp();
                     }
 
-                    ///DEV: kcw-grunt 26-10-24
-                    /// DUMB sleep was slowing sync dramatically
-                    /// Why is this here?
-                    /// Reduced it from 500msec to 100msec until refactor
-                    /// Poor control flow, loop should continue for the next task
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
@@ -195,7 +165,7 @@ public class SyncManager {
                     app.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                         TxManager.getInstance().hidePrompt(app, PromptManager.PromptItem.SYNCING);
+                            //Old Message: TxManager.getInstance().hidePrompt(app, PromptManager.PromptItem.SYNCING);
                         }
                     });
             }

@@ -10,7 +10,7 @@ import com.brainwallet.data.source.RemoteConfigSource;
 import com.brainwallet.presenter.entities.BlockEntity;
 import com.brainwallet.presenter.entities.PeerEntity;
 import com.brainwallet.tools.manager.BRSharedPrefs;
-import com.brainwallet.tools.manager.SyncThreadManager;
+import com.brainwallet.tools.manager.sync.SyncThreadManager;
 import com.brainwallet.tools.sqlite.MerkleBlockDataSource;
 import com.brainwallet.tools.sqlite.PeerDataSource;
 import com.brainwallet.tools.threads.BRExecutor;

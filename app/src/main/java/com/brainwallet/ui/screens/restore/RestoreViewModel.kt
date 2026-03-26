@@ -1,4 +1,4 @@
-package com.brainwallet.ui.screens.inputwords
+package com.brainwallet.ui.screens.restore
 
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.BrainwalletApp
@@ -19,10 +19,10 @@ import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
 @KoinViewModel
-class InputWordsViewModel : BrainwalletViewModel<InputWordsEvent>() {
+class RestoreViewModel : BrainwalletViewModel<RestoreEvent>() {
 
-    private val _state = MutableStateFlow(InputWordsState())
-    val state: StateFlow<InputWordsState> = _state.asStateFlow()
+    private val _state = MutableStateFlow(RestoreState())
+    val state: StateFlow<RestoreState> = _state.asStateFlow()
 
     init {
         // TODO: revisit later, please move to repository, for now just reuse the existing
@@ -32,9 +32,9 @@ class InputWordsViewModel : BrainwalletViewModel<InputWordsEvent>() {
             }
     }
 
-    override fun onEvent(event: InputWordsEvent) {
+    override fun onEvent(event: RestoreEvent) {
         when (event) {
-            is InputWordsEvent.OnSeedWordItemChange -> _state.update {
+            is RestoreEvent.OnSeedWordItemChange -> _state.update {
                 it.copy(
                     seedWords = it.seedWords.toMutableMap().apply {
                         put(event.index, Bip39Reader.cleanWord(event.text.lowercase()))
@@ -45,15 +45,14 @@ class InputWordsViewModel : BrainwalletViewModel<InputWordsEvent>() {
                 )
             }
 
-            InputWordsEvent.OnClearSeedWords -> _state.update {
-                InputWordsState(bip39Words = it.bip39Words)
+            RestoreEvent.OnClearSeedWords -> _state.update {
+                RestoreState(bip39Words = it.bip39Words)
             }
 
-            is InputWordsEvent.OnLoad -> _state.update { it.copy(source = event.source) }
-            is InputWordsEvent.OnRestoreClick -> {
+            is RestoreEvent.OnLoad -> _state.update { it.copy(source = event.source) }
+            is RestoreEvent.OnRestoreClick -> {
                 val currentState = state.value
                 val paperKey = currentState.seedWords.asPaperKey()
-
                 val cleanPhrase = SmartValidator.cleanPaperKey(event.context, paperKey)
 
                 if (currentState.isFromWelcome() &&
@@ -82,14 +81,14 @@ class InputWordsViewModel : BrainwalletViewModel<InputWordsEvent>() {
                     return
                 }
 
-                if (currentState.isFrom(Route.InputWords.Source.RESET_PIN)) {
+                if (currentState.isFrom(Route.Restore.Source.RESET_PIN)) {
                     viewModelScope.launch {
                         EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_RESET_PIN))
                     }
                     return
                 }
 
-                if (currentState.isFrom(Route.InputWords.Source.SETTING_WIPE)) {
+                if (currentState.isFrom(Route.Restore.Source.SETTING_WIPE)) {
                     viewModelScope.launch {
                         EventBus.emit(EventBus.Event.Message(LEGACY_DIALOG_WIPE_ALERT))
                     }
@@ -97,10 +96,8 @@ class InputWordsViewModel : BrainwalletViewModel<InputWordsEvent>() {
                 }
 
                 BRWalletManager.getInstance().wipeAll(event.context)
-
                 BRSharedPrefs.putAllowSpend(event.context, false)
                 BRSharedPrefs.putStartHeight(event.context, 0)
-
                 PostAuth.getInstance().setPhraseForKeyStore(cleanPhrase)
 
                 viewModelScope.launch {
@@ -113,7 +110,6 @@ class InputWordsViewModel : BrainwalletViewModel<InputWordsEvent>() {
     companion object {
         const val LEGACY_DIALOG_INVALID = "dialog_invalid"
         const val LEGACY_DIALOG_WIPE_ALERT = "dialog_wipe_alert"
-
         const val EFFECT_LEGACY_RECOVER_WALLET_AUTH = "onRecoverWalletAuth"
         const val LEGACY_EFFECT_RESET_PIN = "onResetPin"
     }

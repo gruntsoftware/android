@@ -11,7 +11,7 @@ import com.brainwallet.ui.screens.buyreceive.BuyReceiveScreen
 import com.brainwallet.ui.screens.gamehub.GameHubScreen
 import com.brainwallet.ui.screens.home.MainScreen
 import com.brainwallet.ui.screens.main.history.HistoryScreen
-import com.brainwallet.ui.screens.inputwords.InputWordsScreen
+import com.brainwallet.ui.screens.restore.RestoreScreen
 import com.brainwallet.ui.screens.ready.ReadyScreen
 import com.brainwallet.ui.screens.send.SendScreen
 import com.brainwallet.ui.screens.setpasscode.SetPasscodeScreen
@@ -85,9 +85,9 @@ fun NavGraphBuilder.mainNavGraph(
             passcode = route.passcode,
         )
     }
-    composable<Route.InputWords> { navBackStackEntry ->
-        val route: Route.InputWords = navBackStackEntry.toRoute()
-        InputWordsScreen(
+    composable<Route.Restore> { navBackStackEntry ->
+        val route: Route.Restore = navBackStackEntry.toRoute()
+        RestoreScreen(
             onNavigate = onNavigate,
             source = route.source,
         )

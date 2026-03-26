@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
-import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.ui.BrainwalletViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,6 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
+import com.brainwallet.util.EventBus
 
 @KoinViewModel
 class YourSeedProveItViewModel(
@@ -63,14 +63,12 @@ class YourSeedProveItViewModel(
             )
 
             YourSeedProveItEvent.OnCompletedPaperKey -> viewModelScope.launch {
-                BRSharedPrefs.putPhraseWroteDown(application, true)
-                sendUiEffect(
-                    UiEffect.Navigate(
-                        destinationRoute = Route.TopUp(),
-                        forcePopBackStack = true
-                    )
-                )
+                EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_PAPERKEY_PROVED))
             }
         }
+    }
+
+    companion object {
+        const val LEGACY_EFFECT_ON_PAPERKEY_PROVED = "onPaperKeyProved"
     }
 }

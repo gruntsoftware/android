@@ -107,7 +107,6 @@ public class BRWalletManager {
         }
         return instance;
     }
-
     public synchronized boolean generateRandomSeed(final Context ctx) {
         SecureRandom sr = new SecureRandom();
         final String[] words;
@@ -169,28 +168,7 @@ public class BRWalletManager {
 
         byte[] strBytes = TypesConverter.getNullTerminatedPhrase(strPhrase);
         byte[] pubKey = BRWalletManager.getInstance().getMasterPubKey(strBytes);
-
-        // Inside generateRandomSeed, after key derivation:
-        boolean saved = BRKeyStore.putMasterPublicKeyWithRetry(pubKey, ctx);
-        if (!saved) {
-            Timber.e("generateRandomSeed: could not persist masterPubKey — aborting seed generation");
-            return false; // onCreateWalletAuth already checks this boolean
-        }
-        // If a previous wallet's transactions are still in the DB, they won't match
-        // this new pubKey and will cause BRWalletNew to return NULL in initWallet.
-        // Wipe all chain data now so initWallet starts clean.
-        String newFirstAddress = BRWalletManager.getFirstAddress(pubKey);
-        String storedFirstAddress = BRSharedPrefs.getFirstAddress(ctx);
-
-        if (!Utils.isNullOrEmpty(storedFirstAddress)
-                && !storedFirstAddress.equals(newFirstAddress)) {
-            Timber.w("generateRandomSeed: pubKey changed, clearing stale chain data");
-            FirebaseCrashlytics.getInstance().log(
-                    String.format("generateRandomSeed: first address mismatch, wiping chain data"));
-            TransactionDataSource.getInstance(ctx).deleteAllTransactions();
-            MerkleBlockDataSource.getInstance(ctx).deleteAllBlocks();
-            PeerDataSource.getInstance(ctx).deleteAllPeers();
-        }
+        BRKeyStore.putMasterPublicKey(pubKey, ctx);
 
         return true;
     }

@@ -1,6 +1,7 @@
-package com.brainwallet.tools.manager
+package com.brainwallet.tools.manager.sync
 
 import com.brainwallet.data.repository.SyncAnalyticsRepository
+import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.manager.BRSharedPrefs.putEndSyncTimestamp
 import com.brainwallet.tools.manager.BRSharedPrefs.putStartSyncTimestamp
 import com.brainwallet.tools.manager.BRSharedPrefs.putSyncMetadata

@@ -10,8 +10,8 @@
     <ID>ArgumentListWrapping:GoogleServicesTests.kt$GoogleServicesTest$("\"{\\n \\\"project_info\\\": {\\n \\\"project_number\\\": \\\"837833052833\\\",\\n \\\"project_id\\\": \\\"brainwallet-mobile\\\"\\n }\\n}\"")</ID>
     <ID>ArgumentListWrapping:HomeSettingDrawerSheet.kt$( context)</ID>
     <ID>ArgumentListWrapping:HomeSettingDrawerSheet.kt$(context)</ID>
-    <ID>ArgumentListWrapping:InputWordsScreen.kt$( ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class, ExperimentalComposeUiApi::class )</ID>
-    <ID>ArgumentListWrapping:InputWordsScreen.kt$( index = index, text = it, )</ID>
+    <ID>ArgumentListWrapping:RestoreScreen.kt$( ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class, ExperimentalComposeUiApi::class )</ID>
+    <ID>ArgumentListWrapping:RestoreScreen.kt$( index = index, text = it, )</ID>
     <ID>ArgumentListWrapping:KeyStoreManager.kt$KeyStoreManager$( "timber: KeyStoreManager.getData new key in prefs not exists | ${aliasObject.alias}, ${aliasObject.datafileName}, ${aliasObject.ivFileName}")</ID>
     <ID>ArgumentListWrapping:KeyStoreManager.kt$KeyStoreManager$("timber: KeyStoreManager.getData new key in prefs not exists | ${aliasObject.alias}, ${aliasObject.datafileName}, ${aliasObject.ivFileName}")</ID>
     <ID>ArgumentListWrapping:MessagingTopicDataSourceTest.kt$MessagingTopicDataSourceTest$( "initial_$expectedBase", "news_$expectedBase", "promo_$expectedBase", "warn_$expectedBase")</ID>
@@ -153,11 +153,11 @@
     <ID>CommentSpacing:HomeSettingDrawerSheet.kt$/// Layout values</ID>
     <ID>CommentSpacing:HomeSettingDrawerSheet.kt$//currently just load analytics share data here</ID>
     <ID>CommentSpacing:HomeSettingDrawerSheet.kt$//currently just load sync metadata here</ID>
-    <ID>CommentSpacing:InputWordsScreen.kt$/// Layout values</ID>
-    <ID>CommentSpacing:InputWordsScreen.kt$//12 seed words</ID>
-    <ID>CommentSpacing:InputWordsScreen.kt$//todo: the following sizing can be move to BrainwalletTheme</ID>
-    <ID>CommentSpacing:InputWordsState.kt$InputWordsState$//12 seed words</ID>
-    <ID>CommentSpacing:InputWordsViewModel.kt$InputWordsViewModel$//TODO: revisit later, please move to repository, for now just reuse the existing</ID>
+    <ID>CommentSpacing:RestoreScreen.kt$/// Layout values</ID>
+    <ID>CommentSpacing:RestoreScreen.kt$//12 seed words</ID>
+    <ID>CommentSpacing:RestoreScreen.kt$//todo: the following sizing can be move to BrainwalletTheme</ID>
+    <ID>CommentSpacing:RestoreState.kt$RestoreState$//12 seed words</ID>
+    <ID>CommentSpacing:RestoreViewModel.kt$RestoreViewModel$//TODO: revisit later, please move to repository, for now just reuse the existing</ID>
     <ID>CommentSpacing:KeyStoreManager.kt$KeyStoreManager$//TODO: need auth?</ID>
     <ID>CommentSpacing:KeyStoreManager.kt$KeyStoreManager$//if true need device auth</ID>
     <ID>CommentSpacing:LanguageDetail.kt$/// Layout values</ID>
@@ -307,8 +307,8 @@
     <ID>FinalNewline:GoogleServicesTests.kt$com.brainwallet.tools.util.GoogleServicesTests.kt</ID>
     <ID>FinalNewline:HistoryScreen.kt$com.brainwallet.ui.screens.main.history.HistoryScreen.kt</ID>
     <ID>FinalNewline:HomeSettingDrawerSheet.kt$com.brainwallet.ui.screens.main.composable.HomeSettingDrawerSheet.kt</ID>
-    <ID>FinalNewline:InputWordsEvent.kt$com.brainwallet.ui.screens.inputwords.InputWordsEvent.kt</ID>
-    <ID>FinalNewline:InputWordsState.kt$com.brainwallet.ui.screens.inputwords.InputWordsState.kt</ID>
+    <ID>FinalNewline:RestoreEvent.kt$com.brainwallet.ui.screens.restore.RestoreEvent.kt</ID>
+    <ID>FinalNewline:RestoreState.kt$com.brainwallet.ui.screens.restore.RestoreState.kt</ID>
     <ID>FinalNewline:KeyStoreKeyGenerator.kt$com.brainwallet.util.cryptography.KeyStoreKeyGenerator.kt</ID>
     <ID>FinalNewline:KeyStoreManager.kt$com.brainwallet.util.cryptography.KeyStoreManager.kt</ID>
     <ID>FinalNewline:LanguageDetail.kt$com.brainwallet.ui.screens.main.composable.settingsrows.LanguageDetail.kt</ID>
@@ -397,7 +397,7 @@
     <ID>ModifierMissing:HomeScreen.kt$HomeBottomNavBar</ID>
     <ID>ModifierMissing:HomeScreen.kt$HomeScreen</ID>
     <ID>ModifierMissing:HomeScreen.kt$HomeTopBar</ID>
-    <ID>ModifierMissing:InputWordsScreen.kt$InputWordsScreen</ID>
+    <ID>ModifierMissing:RestoreScreen.kt$RestoreScreen</ID>
     <ID>ModifierMissing:LanguageSelectorBottomSheet.kt$LanguageSelectorBottomSheet</ID>
     <ID>ModifierMissing:LoadingDialog.kt$LoadingDialog</ID>
     <ID>ModifierMissing:PasscodeKeypad.kt$PasscodeKeypad</ID>
@@ -437,8 +437,8 @@
     <ID>NoBlankLineBeforeRbrace:GamesDetail.kt$ </ID>
     <ID>NoBlankLineBeforeRbrace:HomeScreen.kt$ </ID>
     <ID>NoBlankLineBeforeRbrace:HomeSettingDrawerSheet.kt$ </ID>
-    <ID>NoBlankLineBeforeRbrace:InputWordsScreen.kt$ </ID>
-    <ID>NoBlankLineBeforeRbrace:InputWordsViewModel.kt$InputWordsViewModel$ </ID>
+    <ID>NoBlankLineBeforeRbrace:RestoreScreen.kt$ </ID>
+    <ID>NoBlankLineBeforeRbrace:RestoreViewModel.kt$RestoreViewModel$ </ID>
     <ID>NoBlankLineBeforeRbrace:KeyStoreManager.kt$KeyStoreManager$ </ID>
     <ID>NoBlankLineBeforeRbrace:LitecoinBlockchainDetail.kt$ </ID>
     <ID>NoBlankLineBeforeRbrace:LocaleHelperTest.kt$LocaleHelperTest$ </ID>
@@ -479,7 +479,7 @@
     <ID>NoConsecutiveBlankLines:FiatSelectorBottomSheet.kt$ </ID>
     <ID>NoConsecutiveBlankLines:FragmentSend.kt$ </ID>
     <ID>NoConsecutiveBlankLines:GoogleServicesTests.kt$ </ID>
-    <ID>NoConsecutiveBlankLines:InputWordsScreen.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:RestoreScreen.kt$ </ID>
     <ID>NoConsecutiveBlankLines:KeyStoreManager.kt$KeyStoreManager$ </ID>
     <ID>NoConsecutiveBlankLines:Language.kt$ </ID>
     <ID>NoConsecutiveBlankLines:LanguageAdapter.kt$ </ID>
@@ -516,7 +516,7 @@
     <ID>NoEmptyFirstLineInMethodBlock:FirebaseRemoteConfigRepositoryTest.kt$FirebaseRemoteConfigRepositoryTest$ </ID>
     <ID>NoEmptyFirstLineInMethodBlock:GamesDetail.kt$ </ID>
     <ID>NoEmptyFirstLineInMethodBlock:GoogleServicesTests.kt$GoogleServicesTest$ </ID>
-    <ID>NoEmptyFirstLineInMethodBlock:InputWordsScreen.kt$ </ID>
+    <ID>NoEmptyFirstLineInMethodBlock:RestoreScreen.kt$ </ID>
     <ID>NoEmptyFirstLineInMethodBlock:LitecoinBlockchainDetail.kt$ </ID>
     <ID>NoEmptyFirstLineInMethodBlock:NotificationHandlerTest.kt$NotificationHandlerTest$ </ID>
     <ID>NoEmptyFirstLineInMethodBlock:ReceiveDialog.kt$ </ID>

@@ -214,7 +214,7 @@ fun WelcomeScreen(
             // Restore Button
             BorderedLargeButton(
                 onClick = {
-                    onNavigate.invoke(UiEffect.Navigate(Route.InputWords()))
+                    onNavigate.invoke(UiEffect.Navigate(Route.Restore()))
                 },
                 shape = RoundedCornerShape(50),
                 modifier = Modifier

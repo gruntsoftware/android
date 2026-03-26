@@ -13,6 +13,7 @@ import com.brainwallet.tools.listeners.SyncReceiver
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.util.Utils
 import com.brainwallet.constants.BWConstants
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 import timber.log.Timber.DebugTree
@@ -30,25 +31,29 @@ open class BrainwalletApp : Application() {
         notificationHandler.setupNotificationChannels(this)
 
         AnalyticsManager.init(this)
+        if (BuildConfig.DEBUG) {
+            FirebaseCrashlytics.getInstance().setCustomKey("build_type", "debug")
+            FirebaseCrashlytics.getInstance().setUserId("debug_bw_devices")
+        }
         AnalyticsManager.logCustomEvent(BWConstants._20191105_AL)
 
         if (BuildConfig.DEBUG) Timber.plant(DebugTree())
 
-        //  DEV: uncomment for debugging
-        //        FirebaseMessaging.getInstance()
-        //                .getToken()
-        //                .addOnSuccessListener(new OnSuccessListener<String>() {
-        //                    @Override
-        //                    public void onSuccess(String s) {
-        //                        Timber.d("timber: fcm getToken= %s", s);
-        //                    }
-        //                })
-        //                .addOnFailureListener(new OnFailureListener() {
-        //                    @Override
-        //                    public void onFailure(@NonNull Exception e) {
-        //                        Timber.d(e, "timber: fcm getToken failure");
-        //                    }
-        //                });
+        //  DEV: uncomment for debugging FirebaseMessaging
+//                FirebaseMessaging.getInstance()
+//                        .getToken()
+//                        .addOnSuccessListener(new OnSuccessListener<String>() {
+//                            @Override
+//                            public void onSuccess(String s) {
+//                                Timber.d("timber: fcm getToken= %s", s);
+//                            }
+//                        })
+//                        .addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                Timber.d(e, "timber: fcm getToken failure");
+//                            }
+//                        });
         DISPLAY_HEIGHT_PX = Resources.getSystem().displayMetrics.heightPixels
 
         if (!BuildConfig.DEBUG) {

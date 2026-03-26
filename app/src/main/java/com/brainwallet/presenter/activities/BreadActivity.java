@@ -45,7 +45,7 @@ import com.brainwallet.tools.animation.TextSizeTransition;
 import com.brainwallet.tools.manager.AnalyticsManager;
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.manager.InternetManager;
-import com.brainwallet.tools.manager.SyncManager;
+import com.brainwallet.tools.manager.sync.SyncManager;
 import com.brainwallet.tools.security.BitcoinUrlHandler;
 import com.brainwallet.tools.security.PostAuth;
 import com.brainwallet.tools.sqlite.TransactionDataSource;
