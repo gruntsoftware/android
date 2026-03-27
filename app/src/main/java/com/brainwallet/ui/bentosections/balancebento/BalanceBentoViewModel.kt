@@ -173,7 +173,6 @@ class BalanceBentoViewModel(
 
     override fun onStatusUpdate() {
         viewModelScope.launch(Dispatchers.IO) {
-            txRepository.refresh()
             val progress = peerManagerSource.getCurrentBlockHeight() / latestLTCBlockHeight.toFloat()
             _state.update {
                 it.copy(
@@ -185,9 +184,7 @@ class BalanceBentoViewModel(
     }
 
     override fun onIsoChanged(iso: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            txRepository.refresh()
-        }
+        Timber.d("timber: BalanceBentoViewModel subscribed onIsoChanged $iso")
     }
 
     override fun onTxAdded() {

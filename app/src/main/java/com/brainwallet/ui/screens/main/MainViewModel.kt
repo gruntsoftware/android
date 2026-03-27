@@ -1,15 +1,19 @@
 package com.brainwallet.ui.screens.main
+import android.app.Application
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
-import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.repository.TxRepository
 import com.brainwallet.tools.manager.BRSharedPrefs
+import com.brainwallet.tools.sqlite.TransactionDataSource
 import com.brainwallet.ui.BrainwalletViewModel
 import com.brainwallet.util.VersionCodeProvider
+import com.brainwallet.wallet.BRPeerManager
+import com.brainwallet.wallet.BRWalletManager
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,11 +36,16 @@ import timber.log.Timber
 @OptIn(FlowPreview::class)
 @KoinViewModel
 class MainViewModel(
+    private val app: Application,
     private val settingRepository: SettingRepository,
     private val ltcRepository: LtcRepository,
     private val txRepository: TxRepository,
     versionCodeProvider: VersionCodeProvider,
-) : BrainwalletViewModel<MainScreenEvent>() {
+) : BrainwalletViewModel<MainScreenEvent>(),
+    BRWalletManager.OnBalanceChanged,
+    BRPeerManager.OnTxStatusUpdate,
+    BRSharedPrefs.OnIsoChangedListener,
+    TransactionDataSource.OnTxAddedListener {
 
     private val _state =
         MutableStateFlow(
@@ -46,12 +55,6 @@ class MainViewModel(
             )
         )
     val state: StateFlow<MainScreenState> = _state.asStateFlow()
-    val currencyRates: StateFlow<List<CurrencyEntity>> = ltcRepository.rates
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = emptyList()
-        )
 
     val appSetting = settingRepository.settings
         .stateIn(
@@ -106,6 +109,69 @@ class MainViewModel(
                     onEvent(MainScreenEvent.OnFiatAmountChange(it))
                 }
         }
+    }
+
+    fun onResume() {
+        viewModelScope.launch(Dispatchers.IO) {
+            var attempts = 0
+            while (!BRWalletManager.getInstance().isCreated() && attempts < 20) {
+                delay(250)
+                attempts++
+            }
+            if (BRWalletManager.getInstance().isCreated()) {
+                addObservers()
+                txRepository.refresh()
+            } else {
+                Timber.d("MainViewModel: wallet not ready after waiting")
+            }
+        }
+    }
+
+    fun onPause() {
+        removeObservers()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        BRWalletManager.getInstance().removeListener(this)
+        BRPeerManager.getInstance().removeListener(this)
+        BRSharedPrefs.removeListener(this)
+        TransactionDataSource.getInstance(app).removeListener(this)
+    }
+    private fun addObservers() {
+        BRWalletManager.getInstance().addBalanceChangedListener(this)
+        BRPeerManager.getInstance().addStatusUpdateListener(this)
+        BRSharedPrefs.addIsoChangedListener(this)
+        TransactionDataSource.getInstance(app).addTxAddedListener(this)
+    }
+    private fun removeObservers() {
+        BRWalletManager.getInstance().removeListener(this)
+        BRPeerManager.getInstance().removeListener(this)
+        BRSharedPrefs.removeListener(this)
+        TransactionDataSource.getInstance(app).removeListener(this)
+    }
+
+    // /Callbacks fron BRWalletManager, TransactionDataSource, BRSharedPrefs
+    override fun onBalanceChanged(balance: Long) {
+        Timber.d("timber: MainViewModel subscribed onBalanceChanged $balance")
+        viewModelScope.launch(Dispatchers.IO) {
+            txRepository.refresh()
+
+            Timber.d("MainViewModel: TxRepository refreshing ")
+        }
+    }
+
+    override fun onStatusUpdate() {
+        Timber.d("timber: MainViewModel subscribed onStatusUpdate: : BRPeerManager")
+    }
+
+    override fun onIsoChanged(iso: String?) {
+        val isoString = iso ?: ""
+        Timber.d("timber: MainViewModel subscribed onIsoChanged $isoString")
+    }
+
+    override fun onTxAdded() {
+        Timber.d("timber: MainViewModel subscribed onTxAdded: TransactionDataSource")
     }
 
     override fun onEvent(event: MainScreenEvent) {
