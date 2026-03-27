@@ -193,19 +193,6 @@ class BalanceBentoViewModel(
     override fun onTxAdded() {
         viewModelScope.launch(Dispatchers.IO) {
             txRepository.refresh()
-            val currentTransaction = txRepository.transactionItems.value.last()
-
-            _state.update {
-                it.copy(
-                    lastBlock = currentTransaction.let { tx ->
-                        if (tx.blockHeight > it.currentBlockHeight) {
-                            tx.blockHeight
-                        } else {
-                            0
-                        }
-                    } ?: it.lastBlock
-                )
-            }
         }
     }
 

@@ -18,7 +18,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.WorkerThread;
 import androidx.fragment.app.FragmentActivity;
 
 import com.brainwallet.BrainwalletApp;
@@ -28,7 +27,7 @@ import com.brainwallet.presenter.activities.util.ActivityUTILS;
 import com.brainwallet.presenter.customviews.BRToast;
 import com.brainwallet.presenter.entities.BRMerkleBlockEntity;
 import com.brainwallet.presenter.entities.BRPeerEntity;
-import com.brainwallet.presenter.entities.BRTransactionEntity;
+import com.brainwallet.presenter.entities.BWDatabaseTransactionEntity;
 import com.brainwallet.presenter.entities.ImportPrivKeyEntity;
 import com.brainwallet.presenter.entities.TxItem;
 import com.brainwallet.presenter.interfaces.BROnSignalCompletion;
@@ -50,16 +49,13 @@ import com.brainwallet.tools.util.BRExchange;
 import com.brainwallet.tools.util.Bip39Reader;
 import com.brainwallet.tools.util.TypesConverter;
 import com.brainwallet.tools.util.Utils;
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.platform.entities.WalletInfo;
 
 import java.math.BigDecimal;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import kotlin.Suppress;
 import timber.log.Timber;
@@ -397,7 +393,7 @@ public class BRWalletManager {
             });
         }
         if (ctx != null)
-            TransactionDataSource.getInstance(ctx).putTransaction(new BRTransactionEntity(tx, blockHeight, timestamp, hash));
+            TransactionDataSource.getInstance(ctx).putTransaction(new BWDatabaseTransactionEntity(tx, blockHeight, timestamp, hash));
         else
             Timber.i("timber: onTxAdded: ctx is null!");
     }
@@ -489,13 +485,13 @@ public class BRWalletManager {
             Timber.d("timber: Showing seed fragment");
 
             if (!m.isCreated()) {
-                List<BRTransactionEntity> transactions = TransactionDataSource.getInstance(ctx).getAllTransactions();
+                List<BWDatabaseTransactionEntity> transactions = TransactionDataSource.getInstance(ctx).getAllTransactions();
                 Timber.d("timber: All transactions : %d", transactions.size());
 
                 int transactionsCount = transactions.size();
                 if (transactionsCount > 0) {
                     m.createTxArrayWithCount(transactionsCount);
-                    for (BRTransactionEntity entity : transactions) {
+                    for (BWDatabaseTransactionEntity entity : transactions) {
                         m.putTransaction(entity.getBuff(), entity.getBlockheight(), entity.getTimestamp());
                     }
                 }

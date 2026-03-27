@@ -8,7 +8,7 @@ import android.os.NetworkOnMainThreadException;
 
 import com.brainwallet.constants.BWConstants;
 import com.brainwallet.presenter.activities.util.ActivityUTILS;
-import com.brainwallet.presenter.entities.BRTransactionEntity;
+import com.brainwallet.presenter.entities.BWDatabaseTransactionEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +60,7 @@ public class TransactionDataSource implements BRDataSourceInterface {
         dbHelper = BRSQLiteHelper.getInstance(context);
     }
 
-    public BRTransactionEntity putTransaction(BRTransactionEntity transactionEntity) {
+    public BWDatabaseTransactionEntity putTransaction(BWDatabaseTransactionEntity transactionEntity) {
         Cursor cursor = null;
         try {
             database = openDatabase();
@@ -75,7 +75,7 @@ public class TransactionDataSource implements BRDataSourceInterface {
             cursor = database.query(BRSQLiteHelper.TX_TABLE_NAME,
                     allColumns, null, null, null, null, null);
             cursor.moveToFirst();
-            BRTransactionEntity transactionEntity1 = cursorToTransaction(cursor);
+            BWDatabaseTransactionEntity transactionEntity1 = cursorToTransaction(cursor);
 
             database.setTransactionSuccessful();
             for (OnTxAddedListener listener : listeners) {
@@ -101,8 +101,8 @@ public class TransactionDataSource implements BRDataSourceInterface {
         }
     }
 
-    public List<BRTransactionEntity> getAllTransactions() {
-        List<BRTransactionEntity> transactions = new ArrayList<>();
+    public List<BWDatabaseTransactionEntity> getAllTransactions() {
+        List<BWDatabaseTransactionEntity> transactions = new ArrayList<>();
         Cursor cursor = null;
         try {
             database = openDatabase();
@@ -112,7 +112,7 @@ public class TransactionDataSource implements BRDataSourceInterface {
 
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
-                BRTransactionEntity transactionEntity = cursorToTransaction(cursor);
+                BWDatabaseTransactionEntity transactionEntity = cursorToTransaction(cursor);
                 transactions.add(transactionEntity);
                 cursor.moveToNext();
             }
@@ -124,8 +124,8 @@ public class TransactionDataSource implements BRDataSourceInterface {
         return transactions;
     }
 
-    private BRTransactionEntity cursorToTransaction(Cursor cursor) {
-        return new BRTransactionEntity(cursor.getBlob(1),
+    private BWDatabaseTransactionEntity cursorToTransaction(Cursor cursor) {
+        return new BWDatabaseTransactionEntity(cursor.getBlob(1),
                 cursor.getInt(2),
                 cursor.getLong(3),
                 cursor.getString(0));

@@ -1,6 +1,6 @@
 package com.brainwallet.presenter.entities;
 
-public class BRTransactionEntity {
+public class BWDatabaseTransactionEntity {
     private byte[] buff;
     private int blockheight;
     private long timestamp;
@@ -30,7 +30,7 @@ public class BRTransactionEntity {
         this.txHash = txHash;
     }
 
-    public BRTransactionEntity(byte[] txBuff, int blockheight, long timestamp, String txHash) {
+    public BWDatabaseTransactionEntity(byte[] txBuff, int blockheight, long timestamp, String txHash) {
         this.blockheight = blockheight;
         this.timestamp = timestamp;
         this.buff = txBuff;

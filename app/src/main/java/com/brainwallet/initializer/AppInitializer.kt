@@ -2,10 +2,8 @@ package com.brainwallet.initializer
 
 import android.content.Context
 import androidx.startup.Initializer
-import com.brainwallet.BuildConfig
 import com.brainwallet.data.source.RemoteConfigSource
 import com.brainwallet.di.AppModule
-import com.brainwallet.di.debugModule
 import com.brainwallet.domain.MessagingTopicUseCase
 import com.grunt.brainwallet.core.presentation.KoinInitializer
 import org.koin.core.component.KoinComponent
@@ -23,7 +21,6 @@ class AppInitializer(
                 AppModule.dataModule,
                 AppModule.module
             )
-            if (BuildConfig.DEBUG) modules.add(debugModule)
             loadKoinModules(modules)
         }
     }
