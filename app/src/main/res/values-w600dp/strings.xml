@@ -15,4 +15,7 @@
     <string name="no_internet_dialog_title">Sync not possible without internet!</string>
     <string name="no_internet_dialog_subtitle">Please, reconnect to complete sync.</string>
     <string name="current_transaction_count">Wallet tx count:</string>
+    <string name="home_tab_description">simple home drawing</string>
+    <string name="home_icon_label">" Home "</string>
+    <string name="history_icon_label">History</string>
 </resources>

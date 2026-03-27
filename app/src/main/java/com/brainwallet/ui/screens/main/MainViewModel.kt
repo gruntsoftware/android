@@ -247,6 +247,10 @@ class MainViewModel(
                     currentSettings.copy(isDarkMode = !currentSettings.isDarkMode)
                 )
             }
+
+            is MainScreenEvent.OnToggleTransactionsDetail -> viewModelScope.launch {
+                _state.update { it.copy(showTransactionDetail = !it.showTransactionDetail) }
+            }
         }
     }
 }

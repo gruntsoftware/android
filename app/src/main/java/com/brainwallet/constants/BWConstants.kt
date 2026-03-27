@@ -32,6 +32,14 @@ object BWConstants {
     const val CAMERA_REQUEST_ID: Int = 34
 
     /**
+     * Animation values
+     */
+    const val FADE_IN_DURATION: Int = 400
+    const val FADE_OUT_DURATION: Int = 400
+    const val SHRINK_DURATION: Int = 700
+    const val EXPAND_DURATION: Int = 700
+
+    /**
      * Request codes for auth
      */
     const val SHOW_PHRASE_REQUEST_CODE: Int = 111

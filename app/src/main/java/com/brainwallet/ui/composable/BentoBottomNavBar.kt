@@ -30,6 +30,7 @@ import com.brainwallet.ui.theme.colorMidnite
 @Composable
 fun BentoBottomNavBar(
     isDarkMode: Boolean,
+    isShowingTransactionDetail: Boolean,
     currentRoute: Route?,
     onItemClick: (Route) -> Unit,
     modifier: Modifier = Modifier,
@@ -103,11 +104,31 @@ fun BentoBottomNavBar(
             onClick = { onItemClick(Route.History) },
             icon = {
                 Icon(
-                    painter = painterResource(R.drawable.ic_history),
-                    contentDescription = stringResource(id = R.string.history_tab_description)
+                    painter = if (isShowingTransactionDetail) {
+                        painterResource(
+                            R.drawable.home_24px
+                        )
+                    } else {
+                        painterResource(R.drawable.ic_history)
+                    },
+                    contentDescription = if (isShowingTransactionDetail) {
+                        stringResource(
+                            id = R.string.home_tab_description
+                        )
+                    } else {
+                        stringResource(id = R.string.history_tab_description)
+                    }
                 )
             },
-            label = { Text("History") },
+            label = {
+                Text(
+                    if (isShowingTransactionDetail) {
+                        stringResource(R.string.home_icon_label)
+                    } else {
+                        stringResource(R.string.history_icon_label)
+                    }
+                )
+            },
             colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
                 selectedIconColor = contentsColor,
                 selectedTextColor = contentsColor,
@@ -126,7 +147,8 @@ fun BentoBottomNavBarPreview() {
         BentoBottomNavBar(
             currentRoute = Route.Send,
             onItemClick = {},
-            isDarkMode = isSystemInDarkTheme()
+            isDarkMode = isSystemInDarkTheme(),
+            isShowingTransactionDetail = false
         )
     }
 }

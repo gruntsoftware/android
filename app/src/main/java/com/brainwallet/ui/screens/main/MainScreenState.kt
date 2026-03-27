@@ -14,7 +14,8 @@ data class MainScreenState(
     val fiatIso: String = "",
     val fiatRate: Float = 0f,
     val versionLabel: String = "",
-    val transactionItems: List<TxItem> = emptyList()
+    val transactionItems: List<TxItem> = emptyList(),
+    val showTransactionDetail: Boolean = false
 )
 
 fun MainScreenState.isValid(): Boolean = errorFiatAmountStringId == null
