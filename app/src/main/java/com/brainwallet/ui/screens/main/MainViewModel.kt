@@ -9,6 +9,7 @@ import com.brainwallet.data.repository.TxRepository
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.sqlite.TransactionDataSource
 import com.brainwallet.ui.BrainwalletViewModel
+import com.brainwallet.ui.bentosections.transactionbento.TransactionFilterState
 import com.brainwallet.util.VersionCodeProvider
 import com.brainwallet.wallet.BRPeerManager
 import com.brainwallet.wallet.BRWalletManager
@@ -87,7 +88,6 @@ class MainViewModel(
                 }
         }
 
-        // Transactions → _state directly, no intermediate StateFlow copy
         viewModelScope.launch {
             txRepository.transactionItems.collect { items ->
                 Timber.d("timber: transactions updated: ${items.size}")
@@ -95,7 +95,6 @@ class MainViewModel(
             }
         }
 
-        // Fiat amount debounce validation (unchanged)
         viewModelScope.launch {
             state.map { it.fiatAmount }
                 .debounce(1000)
@@ -246,6 +245,19 @@ class MainViewModel(
                 settingRepository.save(
                     currentSettings.copy(isDarkMode = !currentSettings.isDarkMode)
                 )
+            }
+
+            is MainScreenEvent.OnToggleTransactionsDetail -> viewModelScope.launch {
+                _state.update { it.copy(showTransactionDetail = !it.showTransactionDetail) }
+            }
+
+            is MainScreenEvent.OnToggleTransactionsFilter -> viewModelScope.launch {
+                _state.update {
+                    val nextFilter = TransactionFilterState.entries[
+                        (it.filterState.ordinal + 1) % TransactionFilterState.entries.size
+                    ]
+                    it.copy(filterState = nextFilter)
+                }
             }
         }
     }

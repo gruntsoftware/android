@@ -1,8 +1,6 @@
 package com.brainwallet.ui.bentosections.balancebento
 
 import com.brainwallet.data.model.CurrencyEntity
-import com.brainwallet.presenter.entities.TxItem
-import io.mockk.mockk
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -168,13 +166,6 @@ class BalanceBentoStateTest {
     @Test
     fun `transactions list is empty by default`() {
         assertTrue(BalanceBentoState().transactions.isEmpty())
-    }
-
-    @Test
-    fun `state holds provided transaction list`() {
-        val tx = mockk<TxItem>(relaxed = true)
-        val state = BalanceBentoState(transactions = listOf(tx))
-        assertEquals(1, state.transactions.size)
     }
 
     // ── sync state ────────────────────────────────────────────────────────

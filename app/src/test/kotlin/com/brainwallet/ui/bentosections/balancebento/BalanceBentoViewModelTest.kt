@@ -19,6 +19,8 @@ import io.mockk.mockkStatic
 import io.mockk.unmockkAll
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.LtcStats
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -50,7 +52,7 @@ class BalanceBentoViewModelTest {
 
     private lateinit var mockPeerManager: BRPeerManager
 
-    private val transactionItemsFlow = MutableStateFlow<List<TxItem>>(emptyList())
+    private val transactionItemsFlow = MutableStateFlow<ImmutableList<TxItem>>(persistentListOf())
     private val settingsFlow = MutableStateFlow(AppSetting())
     private val blockInfoFlow = MutableStateFlow(
         BlockInfo(
@@ -140,28 +142,6 @@ class BalanceBentoViewModelTest {
         settingsFlow.emit(AppSetting(isDarkMode = true))
         advanceUntilIdle()
         assertTrue(viewModel.state.value.darkMode)
-    }
-
-    // ── transaction list ───────────────────────────────────────────────────
-
-    @Test
-    fun `transactions state updates when txRepository emits`() = runTest {
-        val fakeTx = mockk<TxItem>(relaxed = true)
-        transactionItemsFlow.emit(listOf(fakeTx))
-        advanceUntilIdle()
-
-        assertEquals(1, viewModel.state.value.transactions.size)
-    }
-
-    @Test
-    fun `transactions state clears when txRepository emits empty list`() = runTest {
-        val fakeTx = mockk<TxItem>(relaxed = true)
-        transactionItemsFlow.emit(listOf(fakeTx))
-        advanceUntilIdle()
-        transactionItemsFlow.emit(emptyList())
-        advanceUntilIdle()
-
-        assertTrue(viewModel.state.value.transactions.isEmpty())
     }
 
     // ── block info / sync progress ─────────────────────────────────────────

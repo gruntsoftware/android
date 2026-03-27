@@ -2,6 +2,8 @@ package com.brainwallet.ui.bentosections.balancebento
 
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.presenter.entities.TxItem
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import java.math.BigDecimal
 
 data class BalanceBentoState(
@@ -16,7 +18,7 @@ data class BalanceBentoState(
     val litoshiBalance: BigDecimal = BigDecimal(0),
     val balanceHidden: Boolean = true,
     val brainwalletIsSyncing: Boolean = true,
-    val transactions: List<TxItem> = emptyList(),
+    val transactions: ImmutableList<TxItem> = persistentListOf(),
     val selectedCurrency: CurrencyEntity = CurrencyEntity(
         "USD",
         "US Dollar",

@@ -1,10 +1,12 @@
 package com.brainwallet.ui.bentosections.balancebento
 
 import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -44,9 +46,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import com.brainwallet.R
+import com.brainwallet.presenter.entities.TxItem
 import com.brainwallet.ui.screens.main.MainScreenEvent
 import com.brainwallet.ui.screens.main.MainScreenState
 import com.brainwallet.ui.screens.main.MainViewModel
@@ -56,11 +60,12 @@ import com.brainwallet.ui.theme.balanceBackgroundGradient
 import com.brainwallet.ui.theme.bentoDarkBorderGradient
 import com.brainwallet.ui.theme.bentoLightBorderGradient
 import com.brainwallet.ui.theme.blurWhen
-import org.koin.android.compat.ScopeCompat.viewModel
+import kotlinx.collections.immutable.ImmutableList
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun BalanceBentoScreen(
+    transactions: ImmutableList<TxItem>,
     modifier: Modifier = Modifier,
     viewModel: BalanceBentoViewModel = koinViewModel(),
     mainViewModel: MainViewModel = koinViewModel()
@@ -79,6 +84,7 @@ fun BalanceBentoScreen(
 
     BalanceBentoScreen(
         state = state,
+        transactions = transactions,
         mainState = mainState,
         onEvent = viewModel::onEvent,
         onMainEvent = mainViewModel::onEvent,
@@ -92,6 +98,7 @@ fun BalanceBentoScreen(
 @Composable
 fun BalanceBentoScreen(
     state: BalanceBentoState,
+    transactions: ImmutableList<TxItem>,
     mainState: MainScreenState,
     onEvent: (BalanceBentoEvent) -> Unit,
     onMainEvent: (MainScreenEvent) -> Unit,
@@ -109,26 +116,28 @@ fun BalanceBentoScreen(
 
     // ── swap animation ────────────────────────────────────────────────────
     var isSwapped by remember { mutableStateOf(false) }
-    val primarySize by animateFloatAsState(
-        targetValue = if (isSwapped) 13f else 32f,
-        animationSpec = tween(300),
-        label = "primarySize"
+    val primaryOffset by animateDpAsState(
+        targetValue = if (isSwapped) 10.dp else 30.dp,
+        animationSpec = spring(
+            dampingRatio = 0.5f,
+            stiffness = Spring.StiffnessLow,
+        ),
+        label = "primaryOffset",
     )
-    val secondarySize by animateFloatAsState(
-        targetValue = if (isSwapped) 32f else 13f,
-        animationSpec = tween(300),
-        label = "secondarySize"
+    val secondaryOffset by animateDpAsState(
+        targetValue = if (isSwapped) 30.dp else 10.dp,
+        animationSpec = spring(
+            dampingRatio = 0.5f,
+            stiffness = Spring.StiffnessLow,
+        ),
+        label = "secondaryOffset",
     )
-    val primaryWeight = if (isSwapped) FontWeight.Light else FontWeight.Bold
-    val secondaryWeight = if (isSwapped) FontWeight.Bold else FontWeight.Light
-
-    val primaryVerticalOffset = if (isSwapped) 0.dp else -2.dp
-    val secondaryVerticalOffset = if (isSwapped) -2.dp else 0.dp
 
     val progressLabel = "%.2f".format(state.syncProgress * 100) + "%"
-    val currentBlockLabel = stringResource(R.string.balance_bento_current_block_label) +
+    val currentBlockLabel = stringResource(R.string.memo_metadata_label) +
         " ${state.currentBlockHeight}"
-    val currentTxsLabel = stringResource(R.string.current_transaction_count) + " %d".format(state.transactions.size)
+    val currentTxsLabel =
+        stringResource(R.string.current_transaction_count) + " %d".format(transactions.size)
     val iconImage: Painter
 
     if (state.balanceHidden) {
@@ -163,6 +172,7 @@ fun BalanceBentoScreen(
                     indication = null
                 ) { isSwapped = !isSwapped }
             ) {
+                // / MY BALANCE LABEL
                 Text(
                     modifier = Modifier
                         .blurWhen(!state.isInternetReachable),
@@ -175,38 +185,46 @@ fun BalanceBentoScreen(
                     ),
                     maxLines = 1
                 )
+
+                // / TOP CURRENCY
                 Text(
-                    modifier = Modifier.offset(y = primaryVerticalOffset)
-                        .align(Alignment.Start)
-                        .blurWhen(!state.isInternetReachable),
                     text = if (state.balanceHidden) "" else "Ł${state.litoshiBalance}",
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
-                        fontWeight = primaryWeight,
-                        fontSize = primarySize.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 30.sp,
                         color = Color.White
                     ),
-                    maxLines = 1
-                )
-                Text(
-                    modifier = Modifier.offset(y = secondaryVerticalOffset)
+                    maxLines = 1,
+                    modifier = Modifier
+                        .blurWhen(!state.isInternetReachable)
+                        .offset(y = primaryOffset)
+                        .padding(top = 10.dp, bottom = 5.dp)
+                        .zIndex(if (isSwapped) 1f else 0f)
                         .align(Alignment.Start)
-                        .blurWhen(!state.isInternetReachable),
+                )
+                // / BOTTOM CURRENCY
+                Text(
                     text = if (state.balanceHidden) "" else " ${state.symbol} ${state.fiatBalanceFormatted}",
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
-                        fontWeight = secondaryWeight,
-                        fontSize = secondarySize.sp,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 12.sp,
                         color = Color.White
                     ),
-                    maxLines = 1
+                    maxLines = 1,
+                    modifier = Modifier
+                        .blurWhen(!state.isInternetReachable)
+                        .offset(y = secondaryOffset)
+                        .zIndex(if (isSwapped) 1f else 0f)
+                        .align(Alignment.Start)
                 )
             }
-            Spacer(modifier = Modifier.weight(0.5f))
-
+            Spacer(modifier = Modifier.weight(1f))
             Column {
                 Icon(
                     modifier = Modifier.align(Alignment.End)
+                        .padding(bottom = 10.dp)
                         .size(30.dp)
                         .clickable(
                             interactionSource = remember { MutableInteractionSource() },
