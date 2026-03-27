@@ -1,6 +1,8 @@
 package com.brainwallet.ui.screens.unlock
 
 import app.cash.turbine.test
+import app.cash.turbine.testIn
+import app.cash.turbine.turbineScope
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.repository.SettingRepository
@@ -161,11 +163,14 @@ class UnLockViewModelTest {
         runTest {
             mockkObject(EventBus)
 
-            viewModel.state.test {
-                awaitItem()
+            turbineScope {
+                val state = viewModel.state.testIn(backgroundScope)
+                val effect = viewModel.uiEffect.testIn(backgroundScope)
+
+                state.awaitItem() // initial state
 
                 viewModel.onEvent(UnLockEvent.OnLoad(isUpdatePin = true))
-                awaitItem()
+                state.awaitItem()
 
                 repeat(3) { index ->
                     viewModel.onEvent(
@@ -174,7 +179,7 @@ class UnLockViewModelTest {
                             isValidPin = { true }
                         )
                     )
-                    awaitItem()
+                    state.awaitItem()
                 }
 
                 viewModel.onEvent(
@@ -183,19 +188,14 @@ class UnLockViewModelTest {
                         isValidPin = { true }
                     )
                 )
-                awaitItem()
-            }
+                state.awaitItem()
 
-            viewModel.uiEffect.test {
-                val effect = awaitItem()
-                assert(effect is UiEffect.Navigate) {
-                    "Expected Navigate effect but was '${effect::class.simpleName}'"
+                val navigateEffect = effect.awaitItem()
+                assert(navigateEffect is UiEffect.Navigate) {
+                    "Expected Navigate effect but was '${navigateEffect::class.simpleName}'"
                 }
-                val navigateEffect = effect as UiEffect.Navigate
-                assert(navigateEffect.destinationRoute is Route.SetPasscode) {
-                    "Expected navigation to SetPasscode but was '${
-                        navigateEffect.destinationRoute!!::class.simpleName
-                    }'"
+                assert((navigateEffect as UiEffect.Navigate).destinationRoute is Route.SetPasscode) {
+                    "Expected SetPasscode but was '${navigateEffect.destinationRoute!!::class.simpleName}'"
                 }
             }
         }
@@ -336,12 +336,14 @@ class UnLockViewModelTest {
 
     @Test
     fun `given OnQrClicked event when processed then sends ShowMoonPayDialog effect`() = runTest {
-        viewModel.onEvent(UnLockEvent.OnQrClicked)
+        turbineScope {
+            val effect = viewModel.uiEffect.testIn(backgroundScope)
 
-        viewModel.uiEffect.test {
-            val effect = awaitItem()
-            assert(effect is UiEffect.ShowMoonPayDialog) {
-                "Expected ShowMoonPayDialog effect but was '${effect::class.simpleName}'"
+            viewModel.onEvent(UnLockEvent.OnQrClicked)
+
+            val item = effect.awaitItem()
+            assert(item is UiEffect.ShowMoonPayDialog) {
+                "Expected ShowMoonPayDialog effect but was '${item::class.simpleName}'"
             }
         }
     }
