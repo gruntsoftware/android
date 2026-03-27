@@ -110,20 +110,20 @@ fun BalanceBentoScreen(
     // ── swap animation ────────────────────────────────────────────────────
     var isSwapped by remember { mutableStateOf(false) }
     val primarySize by animateFloatAsState(
-        targetValue = if (isSwapped) 13f else 34f,
+        targetValue = if (isSwapped) 13f else 32f,
         animationSpec = tween(300),
         label = "primarySize"
     )
     val secondarySize by animateFloatAsState(
-        targetValue = if (isSwapped) 34f else 13f,
+        targetValue = if (isSwapped) 32f else 13f,
         animationSpec = tween(300),
         label = "secondarySize"
     )
     val primaryWeight = if (isSwapped) FontWeight.Light else FontWeight.Bold
     val secondaryWeight = if (isSwapped) FontWeight.Bold else FontWeight.Light
 
-    val primaryVerticalOffset = if (isSwapped) 0.dp else -20.dp
-    val secondaryVerticalOffset = if (isSwapped) -20.dp else 0.dp
+    val primaryVerticalOffset = if (isSwapped) 0.dp else -2.dp
+    val secondaryVerticalOffset = if (isSwapped) -2.dp else 0.dp
 
     val progressLabel = "%.2f".format(state.syncProgress * 100) + "%"
     val currentBlockLabel = stringResource(R.string.balance_bento_current_block_label) +
@@ -183,8 +183,8 @@ fun BalanceBentoScreen(
                 Text(
                     modifier = Modifier.offset(y = primaryVerticalOffset)
                         .align(Alignment.Start)
-                        .blurWhen(state.isInternetReachable),
-                    text = if (state.balanceHidden) "" else "Ł${state.ltcBalance}",
+                        .blurWhen(!state.isInternetReachable),
+                    text = if (state.balanceHidden) "" else "Ł${state.litoshiBalance}",
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
                         fontWeight = primaryWeight,
@@ -194,10 +194,10 @@ fun BalanceBentoScreen(
                     maxLines = 1
                 )
                 Text(
-                    modifier = Modifier.offset(y = secondaryVerticalOffset + 20.dp)
+                    modifier = Modifier.offset(y = secondaryVerticalOffset)
                         .align(Alignment.Start)
-                        .blurWhen(state.isInternetReachable),
-                    text = if (state.balanceHidden) "" else " ${state.symbol} ${state.fiatBalance}",
+                        .blurWhen(!state.isInternetReachable),
+                    text = if (state.balanceHidden) "" else " ${state.symbol} ${state.fiatBalanceFormatted}",
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
                         fontWeight = secondaryWeight,

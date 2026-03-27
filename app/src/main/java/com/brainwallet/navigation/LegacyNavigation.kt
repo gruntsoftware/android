@@ -14,7 +14,7 @@ object LegacyNavigation {
      * to BrainwalletActivity with Route.Main (auth=false) or Route.UnLock (auth=true).
      */
     @JvmStatic
-    fun startBreadActivity(
+    fun startBrainwalletActivity(
         from: Activity,
         auth: Boolean
     ) {

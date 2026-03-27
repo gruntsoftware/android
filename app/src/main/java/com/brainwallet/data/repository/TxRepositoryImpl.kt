@@ -20,6 +20,13 @@ class TxRepositoryImpl(
     private val _transactionItems = MutableStateFlow<List<TxItem>>(emptyList())
     override val transactionItems: StateFlow<List<TxItem>> = _transactionItems.asStateFlow()
 
+    init {
+        BRWalletManager.getInstance().addBalanceChangedListener { _ ->
+            val items = BRWalletManager.getInstance().getTransactions()?.toList().orEmpty()
+            _transactionItems.update { items }
+        }
+    }
+
     override suspend fun refresh() = withContext(Dispatchers.IO) {
         val items = BRWalletManager.getInstance().getTransactions()?.toList().orEmpty()
         _transactionItems.update { items }

@@ -338,7 +338,7 @@ class BrainwalletActivity :
         if (AuthManager.getInstance().checkAuth(passcode.joinToString(""), this)) {
             AuthManager.getInstance().authSuccess(this)
             AnalyticsManager.logCustomEvent(BWConstants._20200217_DUWB)
-            LegacyNavigation.startBreadActivity(this, false)
+            LegacyNavigation.startBrainwalletActivity(this, false)
         } else {
             // Auth fail toast
             Toast.makeText(this, R.string.incorrect_passcode, Toast.LENGTH_SHORT).show()
@@ -349,7 +349,7 @@ class BrainwalletActivity :
         AuthManager.getInstance().authSuccess(this)
         AuthManager.getInstance().setPinCode(passcode.joinToString(separator = ""), this)
         if (intent.getBooleanExtra("noPin", false)) {
-            LegacyNavigation.startBreadActivity(this, false)
+            LegacyNavigation.startBrainwalletActivity(this, false)
         } else {
             BRAnimator.showBreadSignal(
                 this,

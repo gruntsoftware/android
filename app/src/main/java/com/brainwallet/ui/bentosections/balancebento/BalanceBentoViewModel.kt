@@ -10,6 +10,7 @@ import com.brainwallet.data.repository.TxRepository
 import com.brainwallet.data.source.PeerManagerSource
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.sqlite.TransactionDataSource
+import com.brainwallet.tools.util.BRExchange.ONE_LITECOIN_OF_LITOSHIS
 import com.brainwallet.ui.BrainwalletViewModel
 import com.brainwallet.wallet.BRPeerManager
 import com.brainwallet.wallet.BRPeerManager.syncProgress
@@ -28,6 +29,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import timber.log.Timber
+import java.math.BigDecimal
 import java.util.Date
 
 @KoinViewModel
@@ -44,7 +46,6 @@ class BalanceBentoViewModel(
     TransactionDataSource.OnTxAddedListener {
     private val _state = MutableStateFlow(BalanceBentoState())
     val state: StateFlow<BalanceBentoState> = _state.asStateFlow()
-
     val formatter = java.text.SimpleDateFormat(
         "MMM dd, yyyy hh:mm a",
         java.util.Locale.getDefault()
@@ -69,7 +70,6 @@ class BalanceBentoViewModel(
             SharingStarted.Eagerly,
             AppSetting()
         )
-
     init {
         viewModelScope.launch {
             // Runs immediately on launch
@@ -121,11 +121,15 @@ class BalanceBentoViewModel(
             }
             if (BRWalletManager.getInstance().isCreated()) {
                 addObservers()
-                // Safe to read transactions now — wallet is fully initialised
-                txRepository.refresh()
+                val balance = BRSharedPrefs.getCachedBalance(app)
                 _state.update {
-                    it.copy(transactions = txRepository.transactionItems.value)
+                    it.copy(
+                        ltcBalance = balance,
+                        litoshiBalance = BigDecimal(balance)
+                            .divide(BigDecimal(ONE_LITECOIN_OF_LITOSHIS)),
+                    )
                 }
+                txRepository.refresh()
             } else {
                 Timber.d("BalanceBentoViewModel: wallet not ready after waiting")
             }
@@ -157,6 +161,11 @@ class BalanceBentoViewModel(
     }
 
     override fun onBalanceChanged(balance: Long) {
+        _state.update {
+            it.copy(
+                ltcBalance = balance
+            )
+        }
         viewModelScope.launch(Dispatchers.IO) {
             txRepository.refresh()
         }

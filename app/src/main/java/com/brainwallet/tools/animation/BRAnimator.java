@@ -290,7 +290,7 @@ public class BRAnimator {
      * wrap using [com.brainwallet.navigation.LegacyNavigation.startBreadActivity]
      */
     public static void startBreadActivity(Activity from, boolean auth) {
-        LegacyNavigation.startBreadActivity(from, auth);
+        LegacyNavigation.startBrainwalletActivity(from, auth);
     }
 
     public static void animateSignalSlide(ViewGroup signalLayout, final boolean reverse, @Nullable final OnSlideAnimationEnd listener) {

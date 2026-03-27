@@ -46,7 +46,9 @@ import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.brainwallet.data.model.AppSetting
@@ -87,8 +89,13 @@ fun MainScreen(
     var modalContentRoute by remember { mutableStateOf<Route?>(null) }
     val appSetting by viewModel.appSetting.collectAsState()
     val isDarkMode = appSetting.isDarkMode
-    val currencyRates by viewModel.currencyRates.collectAsStateWithLifecycle()
-    val transactionItems by viewModel.transactionItems.collectAsStateWithLifecycle()
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+
+    LaunchedEffect(Unit) {
+        viewModel.onEvent(MainScreenEvent.OnLoad(context))
+    }
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
@@ -129,9 +136,9 @@ fun MainScreen(
             }
 
         ) { padding ->
-            val gridItems = remember {
+            val gridItems = remember(state.transactionItems) {
                 listOf(
-                    "Transaction History Rows: ${transactionItems.size}",
+                    "Transaction History Rows: ${state.transactionItems.size}",
                     "Tutorials Bento View",
                     "Favourites Bento View"
                 )

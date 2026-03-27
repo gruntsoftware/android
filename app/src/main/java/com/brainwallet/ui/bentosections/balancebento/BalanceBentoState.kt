@@ -1,8 +1,10 @@
 package com.brainwallet.ui.bentosections.balancebento
 
-import android.icu.math.BigDecimal
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.presenter.entities.TxItem
+import java.math.BigDecimal
+import kotlin.text.toDouble
+import kotlin.text.toFloat
 
 data class BalanceBentoState(
     val darkMode: Boolean = true,
@@ -13,8 +15,8 @@ data class BalanceBentoState(
     val syncProgress: Float = 0.5f,
     val currentBlockHeight: Int = 0,
     val lastBlock: Int = 0,
-    val fiatBalance: Float = 0.0f,
-    val ltcBalance: BigDecimal = BigDecimal.ZERO,
+    val ltcBalance: Long = 0L,
+    val litoshiBalance: BigDecimal = BigDecimal(0),
     val balanceHidden: Boolean = true,
     val brainwalletIsSyncing: Boolean = true,
     val transactions: List<TxItem> = emptyList(),
@@ -25,4 +27,11 @@ data class BalanceBentoState(
         "$"
     ),
     val isInternetReachable: Boolean = true
-)
+) {
+    val fiatBalance: Float
+        get() = litoshiBalance
+            .multiply(BigDecimal(selectedCurrency.rate.toDouble()))
+            .toFloat()
+    val fiatBalanceFormatted: String
+        get() = "%.2f".format(fiatBalance)
+}

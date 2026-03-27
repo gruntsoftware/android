@@ -393,7 +393,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         homeSettingDrawerComposeView.observeBus(message -> {
             drawerLayout.close();
             if (SettingsViewModel.LEGACY_EFFECT_ON_LOCK.equals(message.getMessage())) {
-                LegacyNavigation.startBreadActivity(this, true);
+                LegacyNavigation.startBrainwalletActivity(this, true);
             } else if (SettingsViewModel.LEGACY_EFFECT_ON_TOGGLE_DARK_MODE.equals(message.getMessage())) {
                 LegacyNavigation.restartBreadActivity(this);
             } else if (SettingsViewModel.LEGACY_EFFECT_ON_SEC_UPDATE_PIN.equals(message.getMessage())) {
