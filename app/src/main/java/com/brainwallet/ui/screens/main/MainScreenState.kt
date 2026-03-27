@@ -1,7 +1,7 @@
 package com.brainwallet.ui.screens.main
 
 import com.brainwallet.data.model.MoonpayCurrencyLimit
-import com.brainwallet.presenter.entities.TxItem
+import com.brainwallet.presenter.entities.BWDatabaseTransactionEntity
 import timber.log.Timber
 
 data class MainScreenState(
@@ -14,7 +14,7 @@ data class MainScreenState(
     val fiatIso: String = "",
     val fiatRate: Float = 0f,
     val versionLabel: String = "",
-    val transactionItems: List<TxItem> = emptyList()
+    val transactionItems: List<BWDatabaseTransactionEntity> = emptyList()
 )
 
 fun MainScreenState.isValid(): Boolean = errorFiatAmountStringId == null

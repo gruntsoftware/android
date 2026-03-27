@@ -1,7 +1,7 @@
 package com.brainwallet.ui.bentosections.balancebento
 
 import com.brainwallet.data.model.CurrencyEntity
-import com.brainwallet.presenter.entities.TxItem
+import com.brainwallet.presenter.entities.BWDatabaseTransactionEntity
 import java.math.BigDecimal
 
 data class BalanceBentoState(
@@ -16,7 +16,7 @@ data class BalanceBentoState(
     val litoshiBalance: BigDecimal = BigDecimal(0),
     val balanceHidden: Boolean = true,
     val brainwalletIsSyncing: Boolean = true,
-    val transactions: List<TxItem> = emptyList(),
+    val transactions: List<BWDatabaseTransactionEntity> = emptyList(),
     val selectedCurrency: CurrencyEntity = CurrencyEntity(
         "USD",
         "US Dollar",
