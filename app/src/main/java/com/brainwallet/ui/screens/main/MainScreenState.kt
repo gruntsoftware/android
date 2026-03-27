@@ -18,10 +18,8 @@ data class MainScreenState(
     val fiatRate: Float = 0f,
     val versionLabel: String = "",
     val showTransactionDetail: Boolean = false,
-    val shouldShowFiatValues: Boolean = false,
     val transactionItems: ImmutableList<TxItem> = persistentListOf(),
     val filterState: TransactionFilterState = TransactionFilterState.ALL,
-    val allTransactionItems: ImmutableList<TxItem> = persistentListOf(),
 )
 
 fun MainScreenState.isValid(): Boolean = errorFiatAmountStringId == null

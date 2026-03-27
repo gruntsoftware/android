@@ -1,6 +1,5 @@
 package com.brainwallet.ui.bentosections.balancebento
 
-import android.R.attr.bottom
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
@@ -118,7 +117,7 @@ fun BalanceBentoScreen(
     // ── swap animation ────────────────────────────────────────────────────
     var isSwapped by remember { mutableStateOf(false) }
     val primaryOffset by animateDpAsState(
-        targetValue = if (isSwapped) 40.dp else 0.dp,
+        targetValue = if (isSwapped) 10.dp else 30.dp,
         animationSpec = spring(
             dampingRatio = 0.5f,
             stiffness = Spring.StiffnessLow,
@@ -126,7 +125,7 @@ fun BalanceBentoScreen(
         label = "primaryOffset",
     )
     val secondaryOffset by animateDpAsState(
-        targetValue = if (isSwapped) 0.dp else 40.dp,
+        targetValue = if (isSwapped) 30.dp else 10.dp,
         animationSpec = spring(
             dampingRatio = 0.5f,
             stiffness = Spring.StiffnessLow,
@@ -135,7 +134,7 @@ fun BalanceBentoScreen(
     )
 
     val progressLabel = "%.2f".format(state.syncProgress * 100) + "%"
-    val currentBlockLabel = stringResource(R.string.memo_label) +
+    val currentBlockLabel = stringResource(R.string.memo_metadata_label) +
         " ${state.currentBlockHeight}"
     val currentTxsLabel =
         stringResource(R.string.current_transaction_count) + " %d".format(transactions.size)
@@ -164,18 +163,16 @@ fun BalanceBentoScreen(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 12.dp, end = 12.dp, top = 6.dp, bottom = 28.dp),
+                .padding(horizontal = 12.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Column(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = null
-                    ) { isSwapped = !isSwapped }
+                modifier = Modifier.clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null
+                ) { isSwapped = !isSwapped }
             ) {
-                // ── MY BALANCE LABEL ────────────────────────────────────────────────────
+                // / MY BALANCE LABEL
                 Text(
                     modifier = Modifier
                         .blurWhen(!state.isInternetReachable),
@@ -188,55 +185,46 @@ fun BalanceBentoScreen(
                     ),
                     maxLines = 1
                 )
-                Box(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .fillMaxWidth(0.5f)
-                ) {
-                    // ── TOP CURRENCY  ────────────────────────────────────────────────────
-                    Text(
-                        text = if (state.balanceHidden) "" else "Ł${state.litoshiBalance}",
-                        style = TextStyle(
-                            fontFamily = IBMPlexSans,
-                            fontWeight = if (isSwapped) FontWeight.Light else FontWeight.SemiBold,
-                            fontSize = if (isSwapped) 13.sp else 30.sp,
-                            color = Color.White,
-                        ),
-                        maxLines = 1,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .blurWhen(!state.isInternetReachable)
-                            .offset(y = primaryOffset)
-                            .zIndex(if (isSwapped) 1f else 0f)
 
-                    )
-                    // ── BOTTOM CURRENCY  ────────────────────────────────────────────────────
-                    Text(
-                        text = if (state.balanceHidden) "" else " ${state.symbol} ${state.fiatBalanceFormatted}",
-                        style = TextStyle(
-                            fontFamily = IBMPlexSans,
-                            fontWeight = if (isSwapped) FontWeight.SemiBold else FontWeight.Light,
-                            fontSize = if (isSwapped) 30.sp else 13.sp,
-                            color = Color.White,
-                        ),
-                        maxLines = 1,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .blurWhen(!state.isInternetReachable)
-                            .offset(y = secondaryOffset)
-                            .zIndex(if (isSwapped) 0f else 1f)
-                    )
-                }
-                Spacer(modifier = Modifier.weight(1f))
+                // / TOP CURRENCY
+                Text(
+                    text = if (state.balanceHidden) "" else "Ł${state.litoshiBalance}",
+                    style = TextStyle(
+                        fontFamily = IBMPlexSans,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 30.sp,
+                        color = Color.White
+                    ),
+                    maxLines = 1,
+                    modifier = Modifier
+                        .blurWhen(!state.isInternetReachable)
+                        .offset(y = primaryOffset)
+                        .padding(top = 10.dp, bottom = 5.dp)
+                        .zIndex(if (isSwapped) 1f else 0f)
+                        .align(Alignment.Start)
+                )
+                // / BOTTOM CURRENCY
+                Text(
+                    text = if (state.balanceHidden) "" else " ${state.symbol} ${state.fiatBalanceFormatted}",
+                    style = TextStyle(
+                        fontFamily = IBMPlexSans,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 12.sp,
+                        color = Color.White
+                    ),
+                    maxLines = 1,
+                    modifier = Modifier
+                        .blurWhen(!state.isInternetReachable)
+                        .offset(y = secondaryOffset)
+                        .zIndex(if (isSwapped) 1f else 0f)
+                        .align(Alignment.Start)
+                )
             }
             Spacer(modifier = Modifier.weight(1f))
-            Column(
-                modifier = Modifier
-                    .fillMaxHeight()
-            ) {
+            Column {
                 Icon(
                     modifier = Modifier.align(Alignment.End)
-                        .padding(bottom = 5.dp)
+                        .padding(bottom = 10.dp)
                         .size(30.dp)
                         .clickable(
                             interactionSource = remember { MutableInteractionSource() },
@@ -284,7 +272,6 @@ fun BalanceBentoScreen(
                         color = Color.White
                     )
                 )
-                Spacer(modifier = Modifier.weight(1f))
             }
         }
 

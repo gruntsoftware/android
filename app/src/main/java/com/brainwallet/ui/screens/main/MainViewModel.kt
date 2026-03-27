@@ -14,7 +14,6 @@ import com.brainwallet.util.VersionCodeProvider
 import com.brainwallet.wallet.BRPeerManager
 import com.brainwallet.wallet.BRWalletManager
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.delay
@@ -91,12 +90,8 @@ class MainViewModel(
 
         viewModelScope.launch {
             txRepository.transactionItems.collect { items ->
-                _state.update {
-                    it.copy(
-                        transactionItems = items,
-                        allTransactionItems = items
-                    )
-                }
+                Timber.d("timber: transactions updated: ${items.size}")
+                _state.update { it.copy(transactionItems = items) }
             }
         }
 
@@ -261,24 +256,7 @@ class MainViewModel(
                     val nextFilter = TransactionFilterState.entries[
                         (it.filterState.ordinal + 1) % TransactionFilterState.entries.size
                     ]
-
-                    val filteredTransactions = when (nextFilter) {
-                        TransactionFilterState.ALL -> it.allTransactionItems
-                        TransactionFilterState.RECEIVED -> it.allTransactionItems.filter {
-                                txItem ->
-                            (txItem.received - txItem.sent > 0)
-                        }.toImmutableList()
-                        TransactionFilterState.SENT -> it.allTransactionItems.filter {
-                                txItem ->
-                            (txItem.received - txItem.sent < 0)
-                        }.toImmutableList()
-                    }
-                    Timber.d("timber: filtered state: $nextFilter and transactions: ${filteredTransactions.size}")
-
-                    it.copy(
-                        filterState = nextFilter,
-                        transactionItems = filteredTransactions
-                    )
+                    it.copy(filterState = nextFilter)
                 }
             }
         }

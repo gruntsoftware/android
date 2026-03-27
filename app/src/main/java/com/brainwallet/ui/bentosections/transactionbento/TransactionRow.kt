@@ -1,5 +1,4 @@
 package com.brainwallet.ui.bentosections.transactionbento
-import com.brainwallet.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -20,19 +19,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.brainwallet.constants.BWConstants
+import com.brainwallet.R
 import com.brainwallet.constants.transactionRowHt
-import com.brainwallet.presenter.entities.ServiceItems
 import com.brainwallet.presenter.entities.TxItem
-import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.util.BRExchange.ONE_LITECOIN_OF_LITOSHIS
-import com.brainwallet.tools.util.Utils
 import com.brainwallet.ui.composable.rememberWheelPickerState
 import com.brainwallet.ui.theme.DesignTheme
 import com.brainwallet.ui.theme.IBMPlexSans
@@ -40,10 +35,8 @@ import com.brainwallet.ui.theme.bentoDarkBorderGradient
 import com.brainwallet.ui.theme.bentoDarkSurfaceGradient
 import com.brainwallet.ui.theme.bentoLightBorderGradient
 import com.brainwallet.ui.theme.bentoLightSurfaceGradient
-import com.brainwallet.wallet.BRPeerManager
 import java.math.BigDecimal
 import java.util.Date
-import java.util.Locale.filter
 
 @Composable
 fun TransactionRow(
@@ -63,79 +56,17 @@ fun TransactionRow(
         java.util.Locale.getDefault()
     )
     val dateTimestamp = formatter.format(Date(txItem.timeStamp * 1000L))
+    val wasReceived = txItem.getSent() == 0L
+
+    val ltcAddressString = if (wasReceived) {
+        String.format("from ${txItem.from.firstOrNull()}" ?: "")
+    } else {
+        String.format("to ${txItem.to.firstOrNull()}" ?: "")
+    }
 
     val amountReceived = BigDecimal(txItem.received).divide(BigDecimal(ONE_LITECOIN_OF_LITOSHIS))
-
-    // ────────────────From working Develop branch─────────────────────
-
-    // the current iso / fiat code
-    val preferredCurrencyCode = BRSharedPrefs.getIsoSymbol(context)
-
-    // the services amount
-    val opsAmount: Long = run {
-        if (txItem.outAmounts?.size != 3) return@run 0L
-        txItem.outAmounts.minOrNull() ?: 0L
-    }
-
-    // the transactions amount
-    val txAmount = BigDecimal(txItem.getReceived() - txItem.getSent())
-        .abs().divide(BigDecimal(ONE_LITECOIN_OF_LITOSHIS))
-
-    // determine sent vs received state
-    val wasSentVsReceived = txItem.received - txItem.sent < 0
-
-    // formatted transaction amount
-    val amountString = if (wasSentVsReceived) String.format("-Ł $txAmount") else String.format("+Ł $txAmount")
-
-    // LTC address to recipient or Brainwallet user
-    val ltcAddress: String?
-
-    // Output addresses
-    val outputAddressSet = txItem.to.toHashSet()
-    val opsSet = Utils.fetchServiceItem(context, ServiceItems.OPSALL)
-        .split(",")
-        .toHashSet()
-
-    ltcAddress = outputAddressSet
-        .filter { it !in opsSet }
-        .filterNotNull()
-        .firstOrNull() ?: "ERROR-ADDRESS"
-
-    val toFromAddressFormatting: String = if (wasSentVsReceived) {
-        String.format(stringResource(R.string.TransactionDetails_to), ltcAddress)
-    } else {
-        String.format(stringResource(R.string.TransactionDetails_from), ltcAddress)
-    }
-
-    val confirmationLevel: Int = run {
-        val txBlockHeight = txItem.blockHeight
-        val numberOfConfirmations = if (txBlockHeight == Integer.MAX_VALUE) {
-            0
-        } else {
-            BRSharedPrefs.getLastBlockHeight(context) - txBlockHeight + 1
-        }
-        var level = 0
-        if (numberOfConfirmations <= 0) {
-            when (BRPeerManager.getRelayCount(txItem.txHash)) {
-                0 -> 0
-                1 -> 1
-                else -> 2
-            }
-        } else {
-            when {
-                numberOfConfirmations == 1 -> 3
-                numberOfConfirmations == 2 -> 4
-                numberOfConfirmations == 3 -> 5
-                else -> 6
-            }
-        }
-    }
-
-    val txIDBrowserURL: String = run {
-        "${BWConstants.BLOCKCHAIR_EXPLORER_BASE_URL}${txItem.txHashHexReversed ?: ""}"
-    }
-
-    // ───────────────────────────From working Develop branch───────────────────────────
+    val amountSent = BigDecimal(txItem.received).divide(BigDecimal(ONE_LITECOIN_OF_LITOSHIS))
+    val amountString = if (wasReceived) String.format("+Ł $amountReceived") else String.format("-Ł $amountSent")
 
     Box(
         modifier = Modifier
@@ -177,7 +108,7 @@ fun TransactionRow(
                         fontFamily = IBMPlexSans,
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 14.sp,
-                        color = if (wasSentVsReceived) DesignTheme.colors.error else DesignTheme.colors.affirm
+                        color = if (wasReceived) DesignTheme.colors.affirm else DesignTheme.colors.error
                     ),
                     maxLines = 1
                 )
@@ -193,7 +124,7 @@ fun TransactionRow(
                 Text(
                     modifier = Modifier
                         .fillMaxWidth(0.5f),
-                    text = toFromAddressFormatting,
+                    text = ltcAddressString,
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
                         fontWeight = FontWeight.Light,

@@ -20,7 +20,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -72,10 +71,10 @@ import com.brainwallet.constants.gameHubHt
 import com.brainwallet.constants.statusBarPadding
 import com.brainwallet.constants.transactionRowHt
 import com.brainwallet.ui.bentosections.transactionbento.TransactionsBentoScreen
+import com.brainwallet.ui.screens.buyreceive.BuyReceiveScreen
 import com.brainwallet.ui.screens.gamehub.GameHubScreen
 import com.brainwallet.ui.screens.main.MainScreenEvent
 import com.brainwallet.ui.screens.main.MainViewModel
-import com.brainwallet.ui.bentosections.buyreceivebento.receive.ReceiveDialog
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.ui.theme.mainScreenDarkSurfaceGradient
 import kotlinx.collections.immutable.toImmutableList
@@ -98,7 +97,6 @@ fun MainScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     val showTransactionDetail = state.showTransactionDetail
     val context = LocalContext.current
-    val noTxItemsPresent = state.transactionItems.isEmpty()
 
     LaunchedEffect(Unit) {
         viewModel.onEvent(MainScreenEvent.OnLoad(context))
@@ -126,7 +124,6 @@ fun MainScreen(
                     isDarkMode = appSetting.isDarkMode,
                     currentRoute = currentRoute,
                     isShowingTransactionDetail = showTransactionDetail,
-                    noTxItemsPresent = noTxItemsPresent,
                     onItemClick = { route: Route ->
                         currentRoute = route
 
@@ -229,21 +226,12 @@ fun MainScreen(
                                     .clickable(
                                         indication = null,
                                         interactionSource = remember { MutableInteractionSource() }
-                                    ) {
-                                        if (noTxItemsPresent) {
-                                            onNavigate.invoke(UiEffect.Navigate(Route.MoonPayWeb))
-                                        } else {
-                                            viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail)
-                                        }
-                                    }
+                                    ) { viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail) }
                             ) {
                                 TransactionsBentoScreen(
                                     transactions = state.transactionItems.toImmutableList(),
                                     toggleState = state.filterState,
-                                    onEvent = viewModel::onEvent,
-                                    isDarkMode = isDarkMode,
                                     showTransactionDetail = state.showTransactionDetail,
-                                    shouldShowFiatValues = state.shouldShowFiatValues,
                                     modifier = Modifier.fillMaxSize()
                                 )
                             }
@@ -299,33 +287,18 @@ fun MainScreen(
                 onDismissRequest = { isSheetOpen = false },
                 sheetState = sheetState,
                 dragHandle = null,
-                containerColor = Color.Transparent,
-                scrimColor = if (isDarkMode) {
-                    Color.White.copy(0.6f)
-                } else {
-                    Color.Black.copy(0.6f)
-                },
                 shape = RoundedCornerShape(24.dp)
             ) {
                 Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(400.dp)
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth(if (modalContentRoute == Route.BuyReceive) 0.9f else 1f)
-                            .wrapContentWidth()
-                            .height(if (modalContentRoute == Route.BuyReceive) 700.dp else 400.dp)
-                    ) {
-                        when (modalContentRoute) {
-                            Route.Send -> SendScreen(onNavigate = onNavigate)
-                            Route.BuyReceive -> ReceiveDialog(
-                                onDismissRequest = { isSheetOpen = false }
-                            )
-
-                            Route.GameHub -> GameHubScreen(onNavigate = onNavigate)
-                            else -> {}
-                        }
+                    when (modalContentRoute) {
+                        Route.Send -> SendScreen(onNavigate = onNavigate)
+                        Route.BuyReceive -> BuyReceiveScreen(onNavigate = onNavigate)
+                        Route.GameHub -> GameHubScreen(onNavigate = onNavigate)
+                        else -> {}
                     }
                 }
             }

@@ -9,7 +9,6 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -31,7 +30,6 @@ import com.brainwallet.ui.theme.colorMidnite
 @Composable
 fun BentoBottomNavBar(
     isDarkMode: Boolean,
-    noTxItemsPresent: Boolean,
     isShowingTransactionDetail: Boolean,
     currentRoute: Route?,
     onItemClick: (Route) -> Unit,
@@ -102,11 +100,8 @@ fun BentoBottomNavBar(
             )
         )
         NavigationBarItem(
-            modifier = Modifier.then(
-                if (noTxItemsPresent) Modifier.alpha(0.4f) else Modifier
-            ),
             selected = currentRoute is Route.History,
-            onClick = { if (!noTxItemsPresent) onItemClick(Route.History) },
+            onClick = { onItemClick(Route.History) },
             icon = {
                 Icon(
                     painter = if (isShowingTransactionDetail) {
@@ -149,8 +144,7 @@ fun BentoBottomNavBarPreview() {
             currentRoute = Route.Send,
             onItemClick = {},
             isDarkMode = isSystemInDarkTheme(),
-            isShowingTransactionDetail = false,
-            noTxItemsPresent = false
+            isShowingTransactionDetail = false
         )
     }
 }
