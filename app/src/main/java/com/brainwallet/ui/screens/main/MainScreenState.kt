@@ -2,6 +2,9 @@ package com.brainwallet.ui.screens.main
 
 import com.brainwallet.data.model.MoonpayCurrencyLimit
 import com.brainwallet.presenter.entities.TxItem
+import com.brainwallet.ui.bentosections.transactionbento.TransactionFilterState
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import timber.log.Timber
 
 data class MainScreenState(
@@ -14,8 +17,9 @@ data class MainScreenState(
     val fiatIso: String = "",
     val fiatRate: Float = 0f,
     val versionLabel: String = "",
-    val transactionItems: List<TxItem> = emptyList(),
-    val showTransactionDetail: Boolean = false
+    val showTransactionDetail: Boolean = false,
+    val transactionItems: ImmutableList<TxItem> = persistentListOf(),
+    val filterState: TransactionFilterState = TransactionFilterState.ALL,
 )
 
 fun MainScreenState.isValid(): Boolean = errorFiatAmountStringId == null

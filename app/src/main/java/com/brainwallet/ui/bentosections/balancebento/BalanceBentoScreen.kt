@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import com.brainwallet.R
+import com.brainwallet.presenter.entities.TxItem
 import com.brainwallet.ui.screens.main.MainScreenEvent
 import com.brainwallet.ui.screens.main.MainScreenState
 import com.brainwallet.ui.screens.main.MainViewModel
@@ -56,11 +57,12 @@ import com.brainwallet.ui.theme.balanceBackgroundGradient
 import com.brainwallet.ui.theme.bentoDarkBorderGradient
 import com.brainwallet.ui.theme.bentoLightBorderGradient
 import com.brainwallet.ui.theme.blurWhen
-import org.koin.android.compat.ScopeCompat.viewModel
+import kotlinx.collections.immutable.ImmutableList
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun BalanceBentoScreen(
+    transactions: ImmutableList<TxItem>,
     modifier: Modifier = Modifier,
     viewModel: BalanceBentoViewModel = koinViewModel(),
     mainViewModel: MainViewModel = koinViewModel()
@@ -79,6 +81,7 @@ fun BalanceBentoScreen(
 
     BalanceBentoScreen(
         state = state,
+        transactions = transactions,
         mainState = mainState,
         onEvent = viewModel::onEvent,
         onMainEvent = mainViewModel::onEvent,
@@ -92,6 +95,7 @@ fun BalanceBentoScreen(
 @Composable
 fun BalanceBentoScreen(
     state: BalanceBentoState,
+    transactions: ImmutableList<TxItem>,
     mainState: MainScreenState,
     onEvent: (BalanceBentoEvent) -> Unit,
     onMainEvent: (MainScreenEvent) -> Unit,
@@ -126,9 +130,9 @@ fun BalanceBentoScreen(
     val secondaryVerticalOffset = if (isSwapped) -2.dp else 0.dp
 
     val progressLabel = "%.2f".format(state.syncProgress * 100) + "%"
-    val currentBlockLabel = stringResource(R.string.balance_bento_current_block_label) +
+    val currentBlockLabel = stringResource(R.string.memo_metadata_label) +
         " ${state.currentBlockHeight}"
-    val currentTxsLabel = stringResource(R.string.current_transaction_count) + " %d".format(state.transactions.size)
+    val currentTxsLabel = stringResource(R.string.current_transaction_count) + " %d".format(transactions.size)
     val iconImage: Painter
 
     if (state.balanceHidden) {

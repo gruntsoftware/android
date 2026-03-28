@@ -10,4 +10,6 @@ sealed class MainScreenEvent {
     ) : MainScreenEvent()
     data object OnToggleDarkMode : MainScreenEvent()
     data object OnToggleTransactionsDetail : MainScreenEvent()
+
+    data object OnToggleTransactionsFilter : MainScreenEvent()
 }

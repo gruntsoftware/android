@@ -6,7 +6,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -77,11 +76,9 @@ import com.brainwallet.ui.screens.gamehub.GameHubScreen
 import com.brainwallet.ui.screens.main.MainScreenEvent
 import com.brainwallet.ui.screens.main.MainViewModel
 import com.brainwallet.ui.theme.BrainwalletAppTheme
-import com.brainwallet.ui.theme.bentoDarkBorderGradient
-import com.brainwallet.ui.theme.bentoDarkSurfaceGradient
-import com.brainwallet.ui.theme.bentoLightBorderGradient
-import com.brainwallet.ui.theme.bentoLightSurfaceGradient
 import com.brainwallet.ui.theme.mainScreenDarkSurfaceGradient
+import kotlinx.collections.immutable.toImmutableList
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
@@ -218,30 +215,13 @@ fun MainScreen(
                     ) {
                         item(span = { GridItemSpan(2) }) {
                             Box(modifier = Modifier.height(balanceGameBentoHt)) {
-                                BalanceBentoScreen()
+                                BalanceBentoScreen(transactions = state.transactionItems.toImmutableList())
                             }
                         }
                         item(span = { GridItemSpan(2) }) {
                             Box(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .background(
-                                        brush = if (isDarkMode) {
-                                            bentoDarkSurfaceGradient
-                                        } else {
-                                            bentoLightSurfaceGradient
-                                        },
-                                        shape = RoundedCornerShape(16.dp)
-                                    )
-                                    .border(
-                                        width = 1.5.dp,
-                                        brush = if (isDarkMode) {
-                                            bentoDarkBorderGradient
-                                        } else {
-                                            bentoLightBorderGradient
-                                        },
-                                        shape = RoundedCornerShape(16.dp)
-                                    )
                                     .height(transactionBentoHeight)
                                     .clickable(
                                         indication = null,
@@ -249,8 +229,10 @@ fun MainScreen(
                                     ) { viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail) }
                             ) {
                                 TransactionsBentoScreen(
-                                    modifier = Modifier.fillMaxSize(),
-                                    showTransactionDetail = state.showTransactionDetail
+                                    transactions = state.transactionItems.toImmutableList(),
+                                    toggleState = state.filterState,
+                                    showTransactionDetail = state.showTransactionDetail,
+                                    modifier = Modifier.fillMaxSize()
                                 )
                             }
                         }

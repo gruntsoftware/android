@@ -97,16 +97,6 @@ class BalanceBentoViewModel(
                 }
             }
         }
-
-        viewModelScope.launch {
-            txRepository.transactionItems.collect { currentTransactions ->
-                _state.update {
-                    it.copy(
-                        transactions = currentTransactions
-                    )
-                }
-            }
-        }
     }
 
     fun onResume(

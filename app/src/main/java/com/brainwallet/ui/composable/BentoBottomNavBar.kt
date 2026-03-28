@@ -105,16 +105,12 @@ fun BentoBottomNavBar(
             icon = {
                 Icon(
                     painter = if (isShowingTransactionDetail) {
-                        painterResource(
-                            R.drawable.home_24px
-                        )
+                        painterResource(R.drawable.home_24px)
                     } else {
                         painterResource(R.drawable.ic_history)
                     },
                     contentDescription = if (isShowingTransactionDetail) {
-                        stringResource(
-                            id = R.string.home_tab_description
-                        )
+                        stringResource(id = R.string.home_tab_description)
                     } else {
                         stringResource(id = R.string.history_tab_description)
                     }
