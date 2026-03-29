@@ -1,43 +1,59 @@
 package com.brainwallet.ui
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.lifecycleScope
 import com.brainwallet.BrainwalletApp
 import com.brainwallet.R
+import com.brainwallet.constants.BWConstants
+import com.brainwallet.constants.BWConstants.BW_PIN_LENGTH
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.repository.SettingRepository
-import com.brainwallet.navigation.BentoNavigation
 import com.brainwallet.navigation.LegacyNavigation
-import com.brainwallet.navigation.MainNavHost
+import com.brainwallet.navigation.MainNavigationHost
 import com.brainwallet.navigation.Route
 import com.brainwallet.presenter.activities.util.BRActivity
 import com.brainwallet.tools.animation.BRAnimator
 import com.brainwallet.tools.animation.BRDialog
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.manager.BRSharedPrefs
+import com.brainwallet.tools.manager.InternetManager
+import com.brainwallet.tools.manager.sync.SyncThreadManager
 import com.brainwallet.tools.security.AuthManager
 import com.brainwallet.tools.security.BRKeyStore
 import com.brainwallet.tools.security.PostAuth
 import com.brainwallet.tools.security.SmartValidator
-import com.brainwallet.tools.util.BRConstants
-import com.brainwallet.tools.util.BRConstants.BW_PIN_LENGTH
-import com.brainwallet.tools.util.TypesConverter
-import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.EFFECT_LEGACY_RECOVER_WALLET_AUTH
-import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGACY_DIALOG_INVALID
-import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGACY_DIALOG_WIPE_ALERT
-import com.brainwallet.ui.screens.inputwords.InputWordsViewModel.Companion.LEGACY_EFFECT_RESET_PIN
+import com.brainwallet.tools.sqlite.TransactionDataSource
+import com.brainwallet.tools.threads.BRExecutor
+import com.brainwallet.tools.util.Utils
+import com.brainwallet.ui.screens.restore.RestoreViewModel.Companion.EFFECT_LEGACY_RECOVER_WALLET_AUTH
+import com.brainwallet.ui.screens.restore.RestoreViewModel.Companion.LEGACY_DIALOG_INVALID
+import com.brainwallet.ui.screens.restore.RestoreViewModel.Companion.LEGACY_DIALOG_WIPE_ALERT
+import com.brainwallet.ui.screens.restore.RestoreViewModel.Companion.LEGACY_EFFECT_RESET_PIN
 import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItViewModel.Companion.LEGACY_EFFECT_ON_PAPERKEY_PROVED
-import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItViewModel.Companion.LEGACY_NAVIGATE_TO_HOME
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.util.EventBus
+import com.brainwallet.util.PermissionUtil.hasPermission
+import com.brainwallet.util.PermissionUtil.requestPermission
+import com.brainwallet.wallet.BRPeerManager
 import com.brainwallet.wallet.BRWalletManager
-import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
+import com.google.android.play.core.review.ReviewInfo
+import com.google.android.play.core.review.ReviewManagerFactory
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -48,15 +64,40 @@ import timber.log.Timber
 /**
  * Compose entry point here
  */
-class BrainwalletActivity : BRActivity() {
-
+class BrainwalletActivity :
+    BRActivity(),
+    BRWalletManager.OnBalanceChanged,
+    BRPeerManager.OnTxStatusUpdate,
+    BRSharedPrefs.OnIsoChangedListener,
+    TransactionDataSource.OnTxAddedListener,
+    InternetManager.ConnectionReceiverListener {
     private val settingRepository by inject<SettingRepository>()
-    private val bentoNavigation: BentoNavigation by inject()
+    private var mConnectionReceiver: InternetManager? = null
+    var appVisible: Boolean = false
+
+    private val requestNotificationPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                Toast.makeText(
+                    this,
+                    R.string.permission_notification_granted,
+                    Toast.LENGTH_SHORT,
+                ).show()
+
+                Timber.d("Notification permission granted")
+            } else {
+                Timber.d("Notification permission denied")
+                // Optionally show a message explaining reduced functionality
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // /DEV: Test / Dev Composable Shortcut swap to launch
-        // / Ergo; Route.TopUp
+        AnalyticsManager.logCustomEvent(BWConstants._BW_MAIN_OPEN)
+
+        onConnectionChanged(InternetManager.getInstance().isConnected(this))
+        BRSharedPrefs.getPreferredLTC(application)
+        showInAppReviewDialogIfNeeded()
         val startDestination =
             intent.getSerializableExtra(EXTRA_START_DESTINATION) ?: Route.Welcome
 
@@ -72,15 +113,14 @@ class BrainwalletActivity : BRActivity() {
             val appSetting by settingRepository.settings.collectAsState(
                 AppSetting()
             )
-
+            enableEdgeToEdge()
             BrainwalletAppTheme(appSetting = appSetting) {
-                MainNavHost(
+                MainNavigationHost(
                     startDestination = startDestination,
                     onFinish = { finish() }
                 )
             }
         }
-
         /**
          * Communication between compose and legacy logic using the following event bus
          * why we are using this event bus?
@@ -91,86 +131,157 @@ class BrainwalletActivity : BRActivity() {
             .onEach { event ->
                 delay(70)
                 when (event) {
-                    is EventBus.Event.Message -> {
-                        when (event.message) {
-                            EFFECT_LEGACY_RECOVER_WALLET_AUTH -> {
-                                PostAuth.getInstance()
-                                    .onRecoverWalletAuth(this@BrainwalletActivity, false)
-                            }
-
-                            LEGACY_EFFECT_RESET_PIN -> {
-                                /**
-                                 * when the wallet disabled after wrong passcode/pin
-                                 * we can enable by reset the pin
-                                 */
-                                AuthManager.getInstance().setPinCode("", this)
-                                createIntent(
-                                    context = this,
-                                    startDestination = Route.SetPasscode()
-                                ).apply {
-                                    putExtra("noPin", true)
-                                    flags =
-                                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                                }.also {
-                                    startActivity(it)
-                                }
-                            }
-
-                            LEGACY_EFFECT_ON_PAPERKEY_PROVED -> {
-                                BRSharedPrefs.putPhraseWroteDown(this@BrainwalletActivity, true)
-                            }
-
-                            LEGACY_NAVIGATE_TO_HOME -> {
-                                bentoNavigation.navigateToBento(this)
-                                finishAffinity()
-                            }
-
-                            LEGACY_DIALOG_INVALID -> BRDialog.showCustomDialog(
-                                BrainwalletApp.breadContext,
-                                "",
-                                getString(R.string.RecoverWallet_invalid),
-                                getString(R.string.AccessibilityLabels_close),
-                                null,
-                                { brDialogView ->
-                                    brDialogView.dismissWithAnimation()
-                                    BRDialog.hideDialog()
-                                },
-                                null,
-                                null,
-                                0
-                            )
-
-                            LEGACY_DIALOG_WIPE_ALERT -> BRDialog.showCustomDialog(
-                                this,
-                                getString(R.string.WipeWallet_alertTitle),
-                                getString(R.string.WipeWallet_alertMessage),
-                                getString(R.string.WipeWallet_wipe),
-                                getString(R.string.Button_cancel),
-                                { brDialogView ->
-                                    brDialogView.dismissWithAnimation()
-                                    val m = BRWalletManager.getInstance()
-                                    m.wipeWalletButKeystore(this@BrainwalletActivity)
-                                    m.wipeKeyStore(this@BrainwalletActivity)
-
-                                    createIntent(this@BrainwalletActivity).apply {
-                                        flags =
-                                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                                    }.also { startActivity(it) }
-                                },
-                                { brDialogView -> brDialogView.dismissWithAnimation() },
-                                null,
-                                0
-                            )
-
-                            else -> Unit
-                        }
-                    }
-
+                    is EventBus.Event.Message -> handleLegacyMessage(event.message)
                     is EventBus.Event.LegacyPasscodeVerified -> onPasscodeVerified(event.passcode)
                     is EventBus.Event.LegacyUnLock -> onUnlock(event.passcode)
                 }
             }
             .launchIn(lifecycleScope)
+    }
+    private fun handleLegacyMessage(message: String) {
+        when (message) {
+            EFFECT_LEGACY_RECOVER_WALLET_AUTH -> {
+                PostAuth.getInstance().onRecoverWalletAuth(this@BrainwalletActivity, false)
+            }
+            LEGACY_EFFECT_RESET_PIN -> {
+                AuthManager.getInstance().setPinCode("", this)
+                createIntent(
+                    context = this,
+                    startDestination = Route.SetPasscode()
+                ).apply {
+                    putExtra("noPin", true)
+                    flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                }.also { startActivity(it) }
+            }
+            LEGACY_EFFECT_ON_PAPERKEY_PROVED -> {
+                BRSharedPrefs.putPhraseWroteDown(this@BrainwalletActivity, true)
+            }
+            LEGACY_DIALOG_INVALID -> BRDialog.showCustomDialog(
+                BrainwalletApp.breadContext,
+                "",
+                getString(R.string.RecoverWallet_invalid),
+                getString(R.string.AccessibilityLabels_close),
+                null,
+                { brDialogView ->
+                    brDialogView.dismissWithAnimation()
+                    BRDialog.hideDialog()
+                },
+                null, null, 0
+            )
+
+            LEGACY_DIALOG_WIPE_ALERT -> BRDialog.showCustomDialog(
+                this,
+                getString(R.string.WipeWallet_alertTitle),
+                getString(R.string.WipeWallet_alertMessage),
+                getString(R.string.WipeWallet_wipe),
+                getString(R.string.Button_cancel),
+                { brDialogView ->
+                    brDialogView.dismissWithAnimation()
+                    val m = BRWalletManager.getInstance()
+                    m.wipeWalletButKeystore(this)
+                    m.wipeKeyStore(this)
+                    createIntent(this).apply {
+                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    }.also { startActivity(it) }
+                },
+                { brDialogView -> brDialogView.dismissWithAnimation() },
+                null, 0
+            )
+
+            else -> Unit
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun setupNotificationPermission() {
+        if (hasPermission(this, Manifest.permission.POST_NOTIFICATIONS)) return
+
+        if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
+            showNotificationRationaleDialog()
+        } else {
+            requestPermission(requestNotificationPermissionLauncher, Manifest.permission.POST_NOTIFICATIONS)
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun showNotificationRationaleDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.permission_info)
+            .setMessage(R.string.please_grant_notification_permission)
+            .setNegativeButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
+            .setPositiveButton(R.string.ok) { _, _ ->
+                requestPermission(requestNotificationPermissionLauncher, Manifest.permission.POST_NOTIFICATIONS)
+            }
+            .show()
+    }
+
+    private fun showInAppReviewDialogIfNeeded() {
+        if (!BRSharedPrefs.isInAppReviewDone(this) && BRSharedPrefs.getSendTransactionCount(this) > 2) {
+            val manager = ReviewManagerFactory.create(this)
+            val request = manager.requestReviewFlow()
+            request.addOnCompleteListener(
+                OnCompleteListener { task: Task<ReviewInfo>? ->
+                    AnalyticsManager.logCustomEvent(BWConstants._20241006_DRR)
+                    if (task!!.isSuccessful()) {
+                        val reviewInfo = task.getResult()
+                        val flow = manager.launchReviewFlow(this@BrainwalletActivity, reviewInfo)
+                        flow.addOnCompleteListener(
+                            OnCompleteListener { task1: Task<Void?>? ->
+                                // The flow has finished. The API does not indicate whether the user
+                                // reviewed or not, or even whether the review dialog was shown. Thus, no
+                                // matter the result, we continue our app flow.
+                                Timber.i(
+                                    "timber: In-app LaunchReviewFlow completed successful (%s)",
+                                    task1!!.isSuccessful()
+                                )
+                                if (task1.isSuccessful()) {
+                                    BRSharedPrefs.inAppReviewDone(this@BrainwalletActivity)
+                                    AnalyticsManager.logCustomEvent(BWConstants._20241006_UCR)
+                                }
+                            }
+                        )
+                    } else {
+                        Timber.e(task.getException(), "In-app request review flow failed")
+                    }
+                }
+            )
+        }
+    }
+
+    private fun setupNetworking() {
+        if (mConnectionReceiver == null) mConnectionReceiver = InternetManager.getInstance()
+        val mNetworkStateFilter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        registerReceiver(mConnectionReceiver, mNetworkStateFilter)
+        InternetManager.addConnectionListener(this)
+    }
+
+    private fun teardownNetworking() {
+        mConnectionReceiver?.let {
+            try {
+                unregisterReceiver(it)
+            } catch (e: IllegalArgumentException) {
+                Timber.w(e, "Connection receiver was not registered")
+            }
+            InternetManager.removeConnectionListener(this)
+            mConnectionReceiver = null
+        }
+    }
+
+    override fun onConnectionChanged(isConnected: Boolean) {
+        val thisContext: Context = this@BrainwalletActivity
+        val startHeight = BRSharedPrefs.getStartHeight(thisContext)
+        if (isConnected) {
+            BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
+                Runnable {
+                    val progress = BRPeerManager.syncProgress(startHeight)
+                    if (progress > 0 && progress < 1) {
+                        SyncThreadManager.getInstance().startSyncing(startHeight)
+                    }
+                }
+            )
+        } else {
+            SyncThreadManager.getInstance().stopSyncing()
+        }
     }
 
     /**
@@ -178,6 +289,9 @@ class BrainwalletActivity : BRActivity() {
      * then should go to setpasscode
      */
     private fun onCheckPin() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            setupNotificationPermission()
+        }
         val pin = BRKeyStore.getPinCode(this)
         if (pin.isEmpty() && pin.length != BW_PIN_LENGTH) {
             lifecycleScope.launch {
@@ -187,71 +301,55 @@ class BrainwalletActivity : BRActivity() {
                     )
                 )
             }
-            return
-        }
-
-        // Ensure masterPubKey is present; re-derive from phrase if not
-        val pubKey = BRKeyStore.getMasterPublicKey(this)
-        if (pubKey == null || pubKey.isEmpty()) {
-            Timber.w("onCheckPin: masterPubKey missing — attempting recovery from phrase")
-            val recovered = tryRecoverMasterPubKey(this)
-            if (!recovered) {
-                Timber.e("onCheckPin: could not recover masterPubKey")
-                FirebaseCrashlytics.getInstance().recordException(
-                    RuntimeException("onCheckPin: masterPubKey missing and unrecoverable")
-                )
-            }
-        }
-
-        if (BRSharedPrefs.getPhraseWroteDown(this).not()) {
+        } else if (BRSharedPrefs.getPhraseWroteDown(this).not()) {
             PostAuth.getInstance().onPhraseCheckAuth(this, false)
-        }
-    }
-
-    private fun tryRecoverMasterPubKey(context: Context): Boolean {
-        return try {
-            val phraseBytes = BRKeyStore.getPhrase(context, 0) ?: return false
-            if (phraseBytes.isEmpty()) return false
-            val nullTerminated = TypesConverter.getNullTerminatedPhrase(phraseBytes)
-            val pubKey = BRWalletManager.getInstance().getMasterPubKey(nullTerminated)
-            if (pubKey == null || pubKey.isEmpty()) return false
-            val saved = BRKeyStore.putMasterPublicKey(pubKey, context)
-            Timber.d("timber: tryRecoverMasterPubKey: saved=$saved")
-            saved
-        } catch (e: Exception) {
-            Timber.e(e, "timber: tryRecoverMasterPubKey failed")
-            FirebaseCrashlytics.getInstance().recordException(
-                RuntimeException("tryRecoverMasterPubKey failed")
-            )
-            false
+            Timber.d("initWallet: post auth onPhraseCheckAuth")
         }
     }
 
     /**
      * provide old logic to use compose unlock screen instead of LoginActivity
      */
+
+    private fun onLegacyLogic() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            setupNotificationPermission()
+        }
+        if (Utils.isEmulatorOrDebug(this)) Utils.printPhoneSpecs()
+
+        val masterPubKey = BRKeyStore.getMasterPublicKey(this)
+        var isFirstAddressCorrect = false
+        if (masterPubKey != null && masterPubKey.isNotEmpty()) {
+            Timber.d("timber: masterPubkey exists")
+
+            isFirstAddressCorrect = SmartValidator.checkFirstAddress(this, masterPubKey)
+        }
+        if (!isFirstAddressCorrect) {
+            Timber.d("timber: Calling wipeWalletButKeyStore")
+            BRWalletManager.getInstance().wipeWalletButKeystore(this)
+        }
+
+        /**
+         * inside the following it will handle navigate to old activity [com.brainwallet.presenter.activities.BreadActivity]
+         */
+        PostAuth.getInstance().onCanaryCheck(this, false)
+    }
     private fun onUnlock(passcode: List<Int>) {
         if (AuthManager.getInstance().checkAuth(passcode.joinToString(""), this)) {
             AuthManager.getInstance().authSuccess(this)
-            AnalyticsManager.logCustomEvent(BRConstants._20200217_DUWB)
-            AnalyticsManager.logCustomEvent(BRConstants._20200217_DUWB)
-
-            LegacyNavigation.startBreadActivity(this, false)
+            AnalyticsManager.logCustomEvent(BWConstants._20200217_DUWB)
+            LegacyNavigation.startBrainwalletActivity(this, false)
         } else {
-            AuthManager.getInstance().authFail(this)
-            // for now just toast
+            // Auth fail toast
             Toast.makeText(this, R.string.incorrect_passcode, Toast.LENGTH_SHORT).show()
         }
     }
 
-    /**
-     * this is old logic
-     */
     private fun onPasscodeVerified(passcode: List<Int>) {
         AuthManager.getInstance().authSuccess(this)
         AuthManager.getInstance().setPinCode(passcode.joinToString(separator = ""), this)
         if (intent.getBooleanExtra("noPin", false)) {
-            LegacyNavigation.startBreadActivity(this, false)
+            LegacyNavigation.startBrainwalletActivity(this, false)
         } else {
             BRAnimator.showBreadSignal(
                 this,
@@ -269,28 +367,61 @@ class BrainwalletActivity : BRActivity() {
         }
     }
 
-    /**
-     * describe [onLegacyLogic]
-     * this will be using the old logic from the IntroActivity (already gone)
-     */
-    private fun onLegacyLogic() {
-        val masterPubKey = BRKeyStore.getMasterPublicKey(this)
-        var isFirstAddressCorrect = false
+    override fun onPause() {
+        super.onPause()
+        appVisible = false
+        removeObservers()
+        teardownNetworking()
+    }
 
-        if (masterPubKey != null && masterPubKey.isNotEmpty()) {
-            isFirstAddressCorrect = SmartValidator.checkFirstAddress(this, masterPubKey)
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+    }
 
-        if (!isFirstAddressCorrect) {
-            // NEW: attempt to re-derive masterPubKey from phrase before wiping
-            val recovered = tryRecoverMasterPubKey(this)
-            if (!recovered) {
-                Timber.d("timber: no recovery possible — wiping wallet")
-                BRWalletManager.getInstance().wipeWalletButKeystore(this)
+    override fun onRestart() {
+        super.onRestart()
+    }
+
+    private fun addObservers() {
+        BRWalletManager.getInstance().addBalanceChangedListener(this)
+        BRSharedPrefs.addIsoChangedListener(this)
+    }
+
+    private fun removeObservers() {
+        BRWalletManager.getInstance().removeListener(this)
+        BRSharedPrefs.removeListener(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        appVisible = true
+        addObservers()
+        setupNetworking()
+
+        if (!BRWalletManager.getInstance().isCreated()) {
+            BRExecutor.getInstance().forBackgroundTasks().execute {
+                BRWalletManager.getInstance().initWallet(this)
             }
         }
+        BRWalletManager.getInstance().refreshBalance(this)
+    }
 
-        PostAuth.getInstance().onCanaryCheck(this, false)
+    override fun onBalanceChanged(balance: Long) {
+        Timber.d("timber: BrainwalletActivity subscribed onBalanceChanged $balance")
+    }
+
+    override fun onStatusUpdate() {
+        Timber.d("timber: BrainwalletActivity subscribed onStatusUpdate")
+    }
+
+    override fun onIsoChanged(iso: String?) {
+        val isoString = iso ?: ""
+        Timber.d("timber: BrainwalletActivity subscribed onIsoChanged $isoString")
+    }
+
+    override fun onTxAdded() {
+        BRWalletManager.getInstance().refreshBalance(this)
+        Timber.d("timber: BrainwalletActivity subscribed onTxAdded")
     }
 
     companion object {
