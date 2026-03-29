@@ -59,6 +59,7 @@ import com.brainwallet.ui.composable.LargeButton
 import com.brainwallet.ui.composable.SeedWordItem
 import com.brainwallet.ui.composable.SeedWordsLayout
 import com.brainwallet.constants.BWConstants
+import com.brainwallet.navigation.Route
 import org.koin.compose.koinInject
 
 @Composable
@@ -82,17 +83,12 @@ fun YourSeedProveItScreen(
 
     LaunchedEffect(Unit) {
         viewModel.onEvent(YourSeedProveItEvent.OnLoad(seedWords))
-        viewModel.uiEffect.collect { effect ->
-            when (effect) {
-                is UiEffect.Navigate -> onNavigate.invoke(effect)
-                else -> Unit
-            }
-        }
     }
 
     LaunchedEffect(state.orderCorrected) {
         if (state.orderCorrected) {
             coinAudioPlayer.start()
+            viewModel.onEvent(YourSeedProveItEvent.OnCompletedPaperKey)
             AnalyticsManager.logCustomEvent(BWConstants._20250303_DSTU)
         }
     }
@@ -232,7 +228,7 @@ fun YourSeedProveItScreen(
             LargeButton(
                 onClick = {
                     if (state.orderCorrected) {
-                        viewModel.onEvent(YourSeedProveItEvent.OnCompletedPaperKey)
+                        onNavigate.invoke(UiEffect.Navigate(Route.TopUp))
                     } else {
                         viewModel.onEvent(YourSeedProveItEvent.OnClear)
                     }

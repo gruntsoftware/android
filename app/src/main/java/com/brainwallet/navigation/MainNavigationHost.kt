@@ -76,8 +76,10 @@ fun NavGraphBuilder.mainNavGraph(
         ReadyScreen(onNavigate = onNavigate)
     }
     composable<Route.TopUp> { navBackStackEntry ->
+        val route: Route.TopUp = navBackStackEntry.toRoute()
         TopUpScreen(onNavigate = onNavigate)
     }
+
     composable<Route.SetPasscode> { navBackStackEntry ->
         val route: Route.SetPasscode = navBackStackEntry.toRoute()
         SetPasscodeScreen(

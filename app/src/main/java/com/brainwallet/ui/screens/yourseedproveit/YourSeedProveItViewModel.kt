@@ -1,6 +1,5 @@
 package com.brainwallet.ui.screens.yourseedproveit
 
-import android.app.Application
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
@@ -14,9 +13,7 @@ import org.koin.android.annotation.KoinViewModel
 import com.brainwallet.util.EventBus
 
 @KoinViewModel
-class YourSeedProveItViewModel(
-    private val application: Application
-) : BrainwalletViewModel<YourSeedProveItEvent>() {
+class YourSeedProveItViewModel() : BrainwalletViewModel<YourSeedProveItEvent>() {
 
     private val _state = MutableStateFlow(YourSeedProveItState())
     val state: StateFlow<YourSeedProveItState> = _state.asStateFlow()

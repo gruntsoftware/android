@@ -12,9 +12,7 @@ sealed class Route : JavaSerializable {
     object Ready : Route()
 
     @Serializable
-    data class TopUp(
-        val seedWords: List<String> = emptyList(),
-    ) : Route()
+    object TopUp : Route()
 
     @Serializable
     object Settings : Route()

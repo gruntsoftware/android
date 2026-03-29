@@ -36,10 +36,13 @@ import com.brainwallet.ui.composable.BorderedLargeButton
 import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
 import com.brainwallet.constants.BWConstants
+import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItViewModel
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun TopUpScreen(
-    onNavigate: OnNavigate
+    onNavigate: OnNavigate,
+    viewModel: YourSeedProveItViewModel = koinViewModel()
 ) {
     val context = LocalContext.current
 
