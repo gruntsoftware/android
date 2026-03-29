@@ -853,4 +853,9 @@
     <string name="game_hub_tagline">ARE YOU GOOD ENOUGH TO BE #1?</string>
     <string name="game_hub_label">GAME HUB</string>
     <string name="ltc_ticker_as_of_timestamp">as of %s</string>
+    <string name="my_balance">MY BALANCE</string>
+    <string name="balance_bento_last_block_label">Last block:</string>
+    <string name="no_internet_dialog_title">Sync not possible without internet!</string>
+  <string name="no_internet_dialog_subtitle">Please, reconnect to complete sync.</string>
+    <string name="current_transaction_count">Wallet tx count:</string>
 </resources>
