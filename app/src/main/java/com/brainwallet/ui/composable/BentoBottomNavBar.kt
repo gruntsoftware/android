@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.graphics.Color
 import com.brainwallet.R
 import com.brainwallet.navigation.Route
-import com.brainwallet.ui.layoutconstants.bottomNavHt
+import com.brainwallet.constants.bentoBottomNavBarHt
 import com.brainwallet.ui.theme.DesignTheme
 import com.brainwallet.ui.theme.colorMidnite
 
@@ -26,12 +26,13 @@ import com.brainwallet.ui.theme.colorMidnite
  * @param currentRoute The currently selected navigation route.
  * @param onItemClick Callback invoked when a navigation item is clicked.
  */
+
 @Composable
 fun BentoBottomNavBar(
+    isDarkMode: Boolean,
     currentRoute: Route?,
     onItemClick: (Route) -> Unit,
     modifier: Modifier = Modifier,
-    isDarkMode: Boolean = isSystemInDarkTheme()
 ) {
     var surfaceColor = if (isDarkMode) Color.Black else Color.White
     var contentsColor = if (isDarkMode) Color.White else colorMidnite
@@ -41,7 +42,7 @@ fun BentoBottomNavBar(
         contentColor = contentsColor,
         modifier = modifier
             .navigationBarsPadding()
-            .height(bottomNavHt)
+            .height(bentoBottomNavBarHt)
     ) {
         NavigationBarItem(
             selected = currentRoute is Route.Send,
@@ -122,6 +123,10 @@ fun BentoBottomNavBar(
 @PreviewLightDark
 fun BentoBottomNavBarPreview() {
     DesignTheme(isSystemInDarkTheme()) {
-        BentoBottomNavBar(currentRoute = Route.Send, {})
+        BentoBottomNavBar(
+            currentRoute = Route.Send,
+            onItemClick = {},
+            isDarkMode = isSystemInDarkTheme()
+        )
     }
 }

@@ -49,12 +49,12 @@ import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
-import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.composable.BorderedLargeButton
 import com.brainwallet.ui.composable.BrainwalletButton
 import com.brainwallet.ui.composable.DarkModeToggleButton
 import com.brainwallet.ui.composable.bottomsheet.FiatSelectorBottomSheet
 import com.brainwallet.ui.composable.bottomsheet.LanguageSelectorBottomSheet
+import com.brainwallet.constants.BWConstants
 import com.brainwallet.ui.theme.DesignTheme
 import org.koin.compose.koinInject
 
@@ -214,7 +214,7 @@ fun WelcomeScreen(
             // Restore Button
             BorderedLargeButton(
                 onClick = {
-                    onNavigate.invoke(UiEffect.Navigate(Route.InputWords()))
+                    onNavigate.invoke(UiEffect.Navigate(Route.Restore()))
                 },
                 shape = RoundedCornerShape(50),
                 modifier = Modifier
@@ -232,7 +232,7 @@ fun WelcomeScreen(
 
             Text(
                 modifier = Modifier.padding(vertical = versionPadding.dp),
-                text = BRConstants.APP_VERSION_NAME_CODE,
+                text = BWConstants.APP_VERSION_NAME_CODE,
                 fontSize = 13.sp,
                 color = DesignTheme.colors.content
             )

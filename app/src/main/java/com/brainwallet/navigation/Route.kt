@@ -12,7 +12,9 @@ sealed class Route : JavaSerializable {
     object Ready : Route()
 
     @Serializable
-    object TopUp : Route()
+    data class TopUp(
+        val seedWords: List<String> = emptyList(),
+    ) : Route()
 
     @Serializable
     object Settings : Route()
@@ -24,7 +26,7 @@ sealed class Route : JavaSerializable {
     ) : Route()
 
     @Serializable
-    data class InputWords(val source: Source? = null) : Route() {
+    data class Restore(val source: Source? = null) : Route() {
         enum class Source {
             RESET_PIN,
             SETTING_WIPE
