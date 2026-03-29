@@ -167,7 +167,7 @@ fun MainScreen(
                     transactionRowHt -
                     gameHubHt -
                     bottomPadding
-                val transactionsDetailHeight = availableHeight + gameHubHt
+                val transactionsDetailHeight = availableHeight + gameHubHt + balanceGameBentoHt
                 val ltcPickerBentoHeight = (availableHeight * 0.78f) - (verticalSpacing / 2)
                 val favoritesBentoHeight = (availableHeight * 0.22f) - (verticalSpacing / 2)
                 val transactionBentoHeight by animateDpAsState(

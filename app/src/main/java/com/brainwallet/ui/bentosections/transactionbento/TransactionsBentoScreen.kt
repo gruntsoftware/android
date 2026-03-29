@@ -92,6 +92,10 @@ fun TransactionsBentoScreen(
         transactions.getOrNull(listState.firstVisibleItemIndex)
     }
 
+    val areNoTxItemsPresent = remember(transactions) {
+        transactions.isEmpty()
+    }
+
     Box(
         modifier = modifier
     ) {
@@ -114,27 +118,43 @@ fun TransactionsBentoScreen(
                 )
             }
             Spacer(modifier = Modifier.weight(1f))
-            LazyColumn(
-                state = listState,
-                flingBehavior = snapFlingBehavior,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(if (showTransactionDetail) transactionRowDetailHt else transactionRowHt)
-                    .clip(RoundedCornerShape(16.dp))
-                    .clipToBounds(),
-                verticalArrangement = Arrangement.spacedBy(2.dp),
-            ) {
-                items(
-                    items = transactions,
-                    key = { it.id }
-                ) { transaction ->
-                    TransactionRow(
+
+            if (areNoTxItemsPresent) {
+                AnimatedVisibility(
+                    visible = showTransactionDetail,
+                    enter = expandVertically(tween(EXPAND_DURATION)),
+                    exit = shrinkVertically(animationSpec = tween(SHRINK_DURATION))
+                ) {
+                    NoTxRow(
                         isDarkMode = state.darkMode,
-                        txItem = transaction,
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(transactionRowHt)
                     )
+                }
+            } else {
+                LazyColumn(
+                    state = listState,
+                    flingBehavior = snapFlingBehavior,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(if (showTransactionDetail) transactionRowDetailHt else transactionRowHt)
+                        .clip(RoundedCornerShape(16.dp))
+                        .clipToBounds(),
+                    verticalArrangement = Arrangement.spacedBy(2.dp),
+                ) {
+                    items(
+                        items = transactions,
+                        key = { it.id }
+                    ) { transaction ->
+                        TransactionRow(
+                            isDarkMode = state.darkMode,
+                            txItem = transaction,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(transactionRowHt)
+                        )
+                    }
                 }
             }
         }
