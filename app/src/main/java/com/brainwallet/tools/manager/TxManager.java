@@ -44,6 +44,10 @@ public class TxManager {
         return instance;
     }
 
+    public void init(final BreadActivity app) {
+        init(app, null);
+    }
+
     public void init(final BreadActivity app, RecyclerView recyclerView) {
         txList = recyclerView;
         txList.setLayoutManager(new CustomLinearLayoutManager(app));
