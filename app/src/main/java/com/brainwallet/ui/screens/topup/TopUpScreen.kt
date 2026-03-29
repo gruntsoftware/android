@@ -27,23 +27,19 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
 import com.brainwallet.tools.manager.AnalyticsManager
-import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.composable.BorderedLargeButton
 import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
-import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItEvent
-import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItViewModel
+import com.brainwallet.constants.BWConstants
 
 @Composable
 fun TopUpScreen(
-    onNavigate: OnNavigate,
-    viewModel: YourSeedProveItViewModel = viewModel()
+    onNavigate: OnNavigate
 ) {
     val context = LocalContext.current
 
@@ -118,8 +114,13 @@ fun TopUpScreen(
             }
             BorderedLargeButton(
                 onClick = {
-                    viewModel.onEvent(YourSeedProveItEvent.OnGameAndSync)
-                    AnalyticsManager.logCustomEvent(BRConstants._20250303_DSTU)
+                    AnalyticsManager.logCustomEvent(BWConstants._20250303_DSTU)
+                    onNavigate.invoke(
+                        UiEffect.Navigate(
+                            destinationRoute = Route.Main,
+                            forcePopBackStack = true
+                        )
+                    )
                 },
                 modifier = Modifier.fillMaxWidth()
 

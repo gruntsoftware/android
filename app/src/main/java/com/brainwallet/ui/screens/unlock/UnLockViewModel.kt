@@ -4,8 +4,8 @@ import androidx.lifecycle.viewModelScope
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
-import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.ui.BrainwalletViewModel
+import com.brainwallet.constants.BWConstants
 import com.brainwallet.util.CurrencyDataGetter
 import com.brainwallet.util.EventBus
 import com.brainwallet.util.VersionCodeProvider
@@ -85,7 +85,7 @@ class UnLockViewModel(
                 if (currency != null) {
                     val roundedPriceAmount: BigDecimal =
                         BigDecimal(currency.rate.toDouble()).multiply(BigDecimal(100))
-                            .divide(BigDecimal(100), 2, BRConstants.ROUNDING_MODE)
+                            .divide(BigDecimal(100), 2, BWConstants.ROUNDING_MODE)
                     formattedCurrency =
                         currencyDataGetter.getFormattedCurrencyString(
                             iso,

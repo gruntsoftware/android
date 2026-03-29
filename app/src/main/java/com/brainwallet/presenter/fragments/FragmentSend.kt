@@ -38,10 +38,10 @@ import com.brainwallet.tools.manager.FeeManager
 import com.brainwallet.tools.security.BRSender
 import com.brainwallet.tools.security.BitcoinUrlHandler
 import com.brainwallet.tools.threads.BRExecutor
-import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.tools.util.BRCurrency
 import com.brainwallet.tools.util.BRExchange
 import com.brainwallet.tools.util.Utils
+import com.brainwallet.constants.BWConstants
 import com.brainwallet.wallet.BRWalletManager
 import timber.log.Timber
 import java.math.BigDecimal
@@ -124,7 +124,7 @@ class FragmentSend : Fragment() {
         feeText.text = ""
 
         signalLayout.setOnTouchListener(SlideDetector(signalLayout) { animateClose() })
-        AnalyticsManager.logCustomEvent(BRConstants._20191105_VSC)
+        AnalyticsManager.logCustomEvent(BWConstants._20191105_VSC)
 //        setupFeesSelector(rootView)
 //        showFeeSelectionButtons(feeButtonsShown)
 //        edit.setOnClickListener {
@@ -378,7 +378,7 @@ class FragmentSend : Fragment() {
             View.OnClickListener {
                 if (!BRAnimator.isClickAllowed()) return@OnClickListener
                 saveMetaData()
-                BRAnimator.openScanner(activity, BRConstants.SCANNER_REQUEST)
+                BRAnimator.openScanner(activity, BWConstants.SCANNER_REQUEST)
             },
         )
 
@@ -422,7 +422,7 @@ class FragmentSend : Fragment() {
                             comment
                         ),
                     )
-                    AnalyticsManager.logCustomEvent(BRConstants._20191105_DSL)
+                    AnalyticsManager.logCustomEvent(BWConstants._20191105_DSL)
                     BRSharedPrefs.incrementSendTransactionCount(context)
                 }
             },

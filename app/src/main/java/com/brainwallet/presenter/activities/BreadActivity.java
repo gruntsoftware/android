@@ -45,20 +45,20 @@ import com.brainwallet.tools.animation.TextSizeTransition;
 import com.brainwallet.tools.manager.AnalyticsManager;
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.manager.InternetManager;
-import com.brainwallet.tools.manager.SyncManager;
+import com.brainwallet.tools.manager.sync.SyncManager;
 import com.brainwallet.tools.security.BitcoinUrlHandler;
 import com.brainwallet.tools.security.PostAuth;
 import com.brainwallet.tools.sqlite.TransactionDataSource;
 import com.brainwallet.tools.threads.BRExecutor;
-import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.tools.util.BRCurrency;
 import com.brainwallet.tools.util.BRExchange;
 import com.brainwallet.tools.util.ExtensionKt;
 import com.brainwallet.tools.util.Utils;
 import com.brainwallet.ui.BrainwalletActivity;
 import com.brainwallet.ui.screens.settings.SettingsViewModel;
-import com.brainwallet.ui.screens.home.composable.HomeSettingDrawerComposeView;
-import com.brainwallet.ui.screens.home.history.receive.ReceiveDialogFragment;
+import com.brainwallet.ui.screens.main.composable.HomeSettingDrawerComposeView;
+import com.brainwallet.ui.screens.main.history.receive.ReceiveDialogFragment;
 import com.brainwallet.util.PermissionUtil;
 import com.brainwallet.wallet.BRPeerManager;
 import com.brainwallet.wallet.BRWalletManager;
@@ -116,7 +116,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bread);
-        AnalyticsManager.logCustomEvent(BRConstants._HOME_OPEN);
+        AnalyticsManager.logCustomEvent(BWConstants._HOME_OPEN);
 
         app = this;
         getWindowManager().getDefaultDisplay().getSize(screenParametersPoint);
@@ -176,7 +176,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
             ReviewManager manager = ReviewManagerFactory.create(this);
             Task<ReviewInfo> request = manager.requestReviewFlow();
             request.addOnCompleteListener(task -> {
-                AnalyticsManager.logCustomEvent(BRConstants._20241006_DRR);
+                AnalyticsManager.logCustomEvent(BWConstants._20241006_DRR);
                 if (task.isSuccessful()) {
                     ReviewInfo reviewInfo = task.getResult();
                     Task<Void> flow = manager.launchReviewFlow(BreadActivity.this, reviewInfo);
@@ -187,7 +187,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                         Timber.i("timber: In-app LaunchReviewFlow completed successful (%s)", task1.isSuccessful());
                         if (task1.isSuccessful()) {
                             BRSharedPrefs.inAppReviewDone(BreadActivity.this);
-                            AnalyticsManager.logCustomEvent(BRConstants._20241006_UCR);
+                            AnalyticsManager.logCustomEvent(BWConstants._20241006_UCR);
                         }
                     });
                 } else {
@@ -274,7 +274,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         boolean b = !BRSharedPrefs.getPreferredLTC(this);
         setPriceTags(b, true);
         BRSharedPrefs.putPreferredLTC(this, b);
-        BRSharedPrefs.notifyIsoChanged("");
     }
 
     private void setPriceTags(boolean ltcPreferred, boolean animate) {
@@ -394,7 +393,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         homeSettingDrawerComposeView.observeBus(message -> {
             drawerLayout.close();
             if (SettingsViewModel.LEGACY_EFFECT_ON_LOCK.equals(message.getMessage())) {
-                LegacyNavigation.startBreadActivity(this, true);
+                LegacyNavigation.startBrainwalletActivity(this, true);
             } else if (SettingsViewModel.LEGACY_EFFECT_ON_TOGGLE_DARK_MODE.equals(message.getMessage())) {
                 LegacyNavigation.restartBreadActivity(this);
             } else if (SettingsViewModel.LEGACY_EFFECT_ON_SEC_UPDATE_PIN.equals(message.getMessage())) {
@@ -454,7 +453,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
             String iso = BRSharedPrefs.getIsoSymbol(BreadActivity.this);
 
             //current amount in litoshis
-            final BigDecimal amount = new BigDecimal(BRSharedPrefs.getCatchedBalance(BreadActivity.this));
+            final BigDecimal amount = new BigDecimal(BRSharedPrefs.getCachedBalance(BreadActivity.this));
 
             //amount in LTC units
             BigDecimal btcAmount = BRExchange.getLitecoinForLitoshis(BreadActivity.this, amount);
@@ -484,11 +483,11 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         switch (requestCode) {
-            case BRConstants.CAMERA_REQUEST_ID: {
+            case BWConstants.CAMERA_REQUEST_ID: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    BRAnimator.openScanner(this, BRConstants.SCANNER_REQUEST);
+                    BRAnimator.openScanner(this, BWConstants.SCANNER_REQUEST);
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
                 } else {

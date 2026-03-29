@@ -11,9 +11,8 @@ import com.brainwallet.R
 import com.brainwallet.tools.animation.BRAnimator
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.security.BRKeyStore
-import com.brainwallet.tools.util.BRConstants
+import com.brainwallet.constants.BWConstants
 import timber.log.Timber
-import java.util.*
 
 class FragmentBalanceSeedReminder : Fragment() {
     private lateinit var backgroundLayout: ScrollView
@@ -72,7 +71,7 @@ class FragmentBalanceSeedReminder : Fragment() {
         Timber.d("Fragment Balance Seed: RegisterError : %s", errorString)
         val params = Bundle()
         params.putString("lwa_error_message", errorString)
-        AnalyticsManager.logCustomEventWithParams(BRConstants._20200112_ERR, params)
+        AnalyticsManager.logCustomEventWithParams(BWConstants._20200112_ERR, params)
     }
     fun fetchSeedPhrase() {
         seedPhraseTextView.text = "NO_PHRASE"

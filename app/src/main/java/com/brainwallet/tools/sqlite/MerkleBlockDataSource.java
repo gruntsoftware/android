@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.NetworkOnMainThreadException;
 
-import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.presenter.activities.util.ActivityUTILS;
 import com.brainwallet.presenter.entities.BRMerkleBlockEntity;
 import com.brainwallet.presenter.entities.BlockEntity;
@@ -120,7 +120,7 @@ public class MerkleBlockDataSource implements BRDataSourceInterface {
         if (ActivityUTILS.isMainThread()) throw new NetworkOnMainThreadException();
         if (database == null || !database.isOpen())
             database = dbHelper.getWritableDatabase();
-        dbHelper.setWriteAheadLoggingEnabled(BRConstants.WAL);
+        dbHelper.setWriteAheadLoggingEnabled(BWConstants.WAL);
 //        }
         return database;
     }

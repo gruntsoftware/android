@@ -1,6 +1,6 @@
 package com.brainwallet.presenter.activities.settings;
 
-import static com.brainwallet.tools.util.BRConstants.ONE_BITCOIN;
+import static com.brainwallet.constants.BWConstants.ONE_BITCOIN;
 
 import android.app.Activity;
 import android.content.Context;
