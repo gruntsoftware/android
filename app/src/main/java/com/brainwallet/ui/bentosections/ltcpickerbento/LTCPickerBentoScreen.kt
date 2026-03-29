@@ -46,13 +46,12 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
-import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun LTCPickerBentoScreen(
     modifier: Modifier = Modifier,
-    viewModel: LTCPickerBentoViewModel = koinInject()
+    viewModel: LTCPickerBentoViewModel = koinViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
     LTCPickerBentoScreen(
@@ -74,7 +73,7 @@ fun LTCPickerBentoScreen(
 
     val wheelPickerState = rememberWheelPickerState(initialIndex = 0)
     var resizedLTCFiatFontSize by remember { mutableStateOf(44.sp) }
-    var resizedAsOfFontSize by remember { mutableStateOf(10.sp) }
+    var resizedAsOfFontSize by remember { mutableStateOf(12.sp) }
     var resizedLocalizedPriceFontSize by remember { mutableStateOf(20.sp) }
     val context = LocalContext.current
 
@@ -168,7 +167,7 @@ fun LTCPickerBentoScreen(
                 overflow = TextOverflow.Ellipsis
             )
             Text(
-                text = "${state.selectedCurrency.symbol} ${"%6.2f".format(state.selectedCurrency.rate)}",
+                text = state.formattedFiat,
                 modifier = Modifier.fillMaxWidth()
                     .padding(top = 1.dp, bottom = 1.dp),
                 onTextLayout = { textLayoutResult ->
@@ -200,7 +199,7 @@ fun LTCPickerBentoScreen(
                 },
                 style = TextStyle(
                     fontFamily = IBMPlexSans,
-                    fontWeight = FontWeight.Light,
+                    fontWeight = FontWeight.Normal,
                     fontSize = resizedAsOfFontSize,
                     color = if (state.darkMode) Color.White else Color.Black,
                     textAlign = TextAlign.Start
