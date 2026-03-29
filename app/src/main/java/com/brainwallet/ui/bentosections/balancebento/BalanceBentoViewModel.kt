@@ -13,15 +13,14 @@ import com.brainwallet.tools.sqlite.TransactionDataSource
 import com.brainwallet.tools.util.BRExchange.ONE_LITECOIN_OF_LITOSHIS
 import com.brainwallet.ui.BrainwalletViewModel
 import com.brainwallet.wallet.BRPeerManager
-import com.brainwallet.wallet.BRPeerManager.syncProgress
 import com.brainwallet.wallet.BRWalletManager
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
@@ -73,9 +72,7 @@ class BalanceBentoViewModel(
     init {
         viewModelScope.launch {
             // Runs immediately on launch
-            val progress = BRPeerManager.syncProgress(
-                BRSharedPrefs.getStartHeight(app)
-            ).toFloat()
+            val progress = peerManagerSource.getCurrentBlockHeight() / latestLTCBlockHeight.toFloat()
             onEvent(BalanceBentoEvent.OnUpdatedSyncProgress(progress))
 
             // Then starts collecting (blocks here)
@@ -112,14 +109,18 @@ class BalanceBentoViewModel(
         }
     }
 
-    fun onResume() {
-        viewModelScope.launch(Dispatchers.IO) {
+    fun onResume(
+        isWalletCreated: () -> Boolean = { BRWalletManager.getInstance().isCreated() },
+        ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    ) {
+        viewModelScope.launch(ioDispatcher) {
             var attempts = 0
-            while (!BRWalletManager.getInstance().isCreated() && attempts < 20) {
+
+            while (!isWalletCreated() && attempts < 20) {
                 delay(250)
                 attempts++
             }
-            if (BRWalletManager.getInstance().isCreated()) {
+            if (isWalletCreated()) {
                 addObservers()
                 val balance = BRSharedPrefs.getCachedBalance(app)
                 _state.update {
