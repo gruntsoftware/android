@@ -163,7 +163,6 @@ public class ReEnterPinActivity extends BRActivity {
                 });
             }
         } else {
-            AuthManager.getInstance().authFail(this);
             Timber.d("timber: verifyPin: FAIL: firs: %s, reEnter: %s ", firstPIN, pin);
             SpringAnimator.failShakeAnimation(this, pinLayout);
             pin = new StringBuilder();

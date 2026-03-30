@@ -53,6 +53,17 @@ val gameHubBackgroundGradient: Brush
         radius = 100 / 2.0f,
         tileMode = TileMode.Clamp
     )
+
+val balanceBackgroundGradient: Brush
+
+    @Composable
+    get() = Brush.verticalGradient(
+        0.0f to colorMainScreenBackground5,
+        1.0f to colorMainScreenBackground1,
+        startY = 0f,
+        endY = Float.POSITIVE_INFINITY,
+        tileMode = TileMode.Clamp
+    )
 val bentoDarkSurfaceGradient: Brush
     @Composable
     get() = Brush.verticalGradient(

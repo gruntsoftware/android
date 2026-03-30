@@ -2,9 +2,12 @@ package com.brainwallet.ui.bentosections.ltcpickerbento
 
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.data.model.AppSetting
+import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.tools.sqlite.CurrencyDataSource
 import com.brainwallet.ui.BrainwalletViewModel
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -20,13 +23,14 @@ import timber.log.Timber
 @KoinViewModel
 class LTCPickerBentoViewModel(
     private val settingRepository: SettingRepository,
-    private val currencyDataSource: CurrencyDataSource
+    private val currencyDataSource: CurrencyDataSource,
+    private val ltcRepository: LtcRepository
 ) : BrainwalletViewModel<LTCPickerBentoEvent>() {
 
     private val _state = MutableStateFlow(LTCPickerBentoState())
     val state: StateFlow<LTCPickerBentoState> = _state.asStateFlow()
     val formatter = java.text.SimpleDateFormat(
-        "MMMM dd, yyyy h:mm:ss a",
+        "MMM dd, yyyy h:mm:ss a",
         java.util.Locale.getDefault()
     )
     private val appSetting = settingRepository.settings
@@ -34,9 +38,7 @@ class LTCPickerBentoViewModel(
         .onEach { setting ->
             _state.update {
                 it.copy(
-                    darkMode = setting.isDarkMode,
-                    selectedCurrency = setting.currency,
-                    formattedTimeStamp = formatter.format(java.util.Date())
+                    darkMode = setting.isDarkMode
                 )
             }
         }
@@ -46,23 +48,42 @@ class LTCPickerBentoViewModel(
             AppSetting()
         )
 
+    init {
+        viewModelScope.launch {
+            while (true) {
+                try { fetchAndUpdateRates() } catch (e: Exception) {
+                    Timber.e(e, "fetchRates failed")
+                    FirebaseCrashlytics.getInstance().recordException(e)
+                }
+                delay(5000L)
+            }
+        }
+    }
+    private suspend fun fetchAndUpdateRates(currencyCode: String = appSetting.value.currency.code) {
+        val rates = ltcRepository.fetchRates()
+        val ltcStats = ltcRepository.fetchLtcStats()
+        val selectedFiat = rates.find { it.code == currencyCode } // ← uses passed code
+
+        val msg = "||fetchRates ${selectedFiat?.rate} fetch ltc stats: $ltcStats"
+        Timber.d(msg)
+        FirebaseCrashlytics.getInstance().log(msg)
+
+        _state.update {
+            it.copy(
+                selectedCurrency = selectedFiat ?: return@update it,
+                formattedFiat = "${selectedFiat.symbol} ${"%6.2f".format(selectedFiat.rate)}",
+                formattedTimeStamp = formatter.format(java.util.Date())
+            )
+        }
+    }
     override fun onEvent(event: LTCPickerBentoEvent) {
         when (event) {
             is LTCPickerBentoEvent.OnGlobalCurrencyChange -> {
                 val newCurrency = currencyDataSource.getCurrencyByIso(event.globalCurrency.code)
                 if (newCurrency != null) {
-                    val dateString = formatter.format(java.util.Date())
-
-                    _state.update { currentState ->
-                        currentState.copy(
-                            selectedCurrency = newCurrency
-                        )
-                    }
-
                     viewModelScope.launch {
-                        settingRepository.save(
-                            appSetting.value.copy(currency = newCurrency)
-                        )
+                        settingRepository.save(appSetting.value.copy(currency = newCurrency))
+                        fetchAndUpdateRates(newCurrency.code) // ← pass code directly, don't wait for StateFlow
                     }
                 } else {
                     Timber.w("Currency not found for code: ${event.globalCurrency.code}")
@@ -72,6 +93,15 @@ class LTCPickerBentoViewModel(
                 _state.update { currentState ->
                     currentState.copy(
                         formattedTimeStamp = formatter.format(java.util.Date())
+                    )
+                }
+            }
+            is LTCPickerBentoEvent.OnLiveCurrencyUpdate -> {
+                _state.update { currentState ->
+                    currentState.copy(
+                        formattedTimeStamp = formatter.format(java.util.Date())
+                            .replace("AM", "am")
+                            .replace("PM", "pm")
                     )
                 }
             }

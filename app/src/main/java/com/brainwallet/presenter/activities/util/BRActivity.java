@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import androidx.activity.ComponentActivity;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -23,7 +22,7 @@ import com.brainwallet.tools.security.BRKeyStore;
 import com.brainwallet.tools.security.BitcoinUrlHandler;
 import com.brainwallet.tools.security.PostAuth;
 import com.brainwallet.tools.threads.BRExecutor;
-import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.wallet.BRWalletManager;
 import com.brainwallet.worker.CurrencyUpdateWorker;
 
@@ -39,7 +38,7 @@ import timber.log.Timber;
 public class BRActivity extends AppCompatActivity {
 
     static {
-        System.loadLibrary(BRConstants.NATIVE_LIB_NAME);
+        System.loadLibrary(BWConstants.NATIVE_LIB_NAME);
     }
 
     private SettingRepository settingRepository = (SettingRepository) KoinJavaComponent.inject(SettingRepository.class).getValue();
@@ -73,7 +72,7 @@ public class BRActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case BRConstants.PAY_REQUEST_CODE:
+            case BWConstants.PAY_REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
                     BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
                         @Override
@@ -84,7 +83,7 @@ public class BRActivity extends AppCompatActivity {
                 }
                 break;
 
-            case BRConstants.CANARY_REQUEST_CODE:
+            case BWConstants.CANARY_REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
                     PostAuth.getInstance().onCanaryCheck(this, true);
                 } else {
@@ -92,17 +91,17 @@ public class BRActivity extends AppCompatActivity {
                 }
                 break;
 
-            case BRConstants.SHOW_PHRASE_REQUEST_CODE:
+            case BWConstants.SHOW_PHRASE_REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
                     PostAuth.getInstance().onPhraseCheckAuth(this, true);
                 }
                 break;
-            case BRConstants.PROVE_PHRASE_REQUEST:
+            case BWConstants.PROVE_PHRASE_REQUEST:
                 if (resultCode == RESULT_OK) {
                     PostAuth.getInstance().onPhraseProveAuth(this, true);
                 }
                 break;
-            case BRConstants.PUT_PHRASE_RECOVERY_WALLET_REQUEST_CODE:
+            case BWConstants.PUT_PHRASE_RECOVERY_WALLET_REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
                     PostAuth.getInstance().onRecoverWalletAuth(this, true);
                 } else {
@@ -110,7 +109,7 @@ public class BRActivity extends AppCompatActivity {
                 }
                 break;
 
-            case BRConstants.SCANNER_REQUEST:
+            case BWConstants.SCANNER_REQUEST:
                 if (resultCode == Activity.RESULT_OK) {
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -126,7 +125,7 @@ public class BRActivity extends AppCompatActivity {
                 }
                 break;
 
-            case BRConstants.PUT_PHRASE_NEW_WALLET_REQUEST_CODE:
+            case BWConstants.PUT_PHRASE_NEW_WALLET_REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
                     PostAuth.getInstance().onCreateWalletAuth(this, true);
                 } else {

@@ -12,6 +12,7 @@ commands:
     description: "Sets up the basic environment for all jobs (checkout, credentials, submodules)"
     steps:
       - checkout
+      - android/restore_gradle_cache
       - run:
           name: "Setup environment..."
           command: "echo Setting up environment for brainwallet-android!"
@@ -59,7 +60,6 @@ commands:
             sed -i "s#https://github.com/#https://${GH_TOKEN}@github.com/#g" .gitmodules
             git submodule sync --recursive
             git submodule update --init --recursive
-      - android/restore_gradle_cache
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
@@ -73,7 +73,7 @@ jobs:
       - setup_environment
       - run:
           name: "Execute Unit Tests"
-          command: ./gradlew testBrainwalletDebugUnitTest
+          command: ./gradlew testBrainwalletDebugUnitTest --no-daemon --max-workers=2 -Dorg.gradle.jvmargs="-Xmx8g" -Dkotlin.compiler.execution.strategy=in-process
       - android/save_gradle_cache
       - run:
           name: Save test results

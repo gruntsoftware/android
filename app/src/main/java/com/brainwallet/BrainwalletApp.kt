@@ -11,8 +11,9 @@ import com.brainwallet.presenter.activities.util.BRActivity
 import com.brainwallet.presenter.entities.ServiceItems
 import com.brainwallet.tools.listeners.SyncReceiver
 import com.brainwallet.tools.manager.AnalyticsManager
-import com.brainwallet.tools.util.BRConstants
 import com.brainwallet.tools.util.Utils
+import com.brainwallet.constants.BWConstants
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 import timber.log.Timber.DebugTree
@@ -26,46 +27,43 @@ open class BrainwalletApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
-        /** DEV:  Top placement requirement. **/
         val enableCrashlytics = !Utils.isEmulatorOrDebug(this)
         notificationHandler.setupNotificationChannels(this)
 
         AnalyticsManager.init(this)
-        AnalyticsManager.logCustomEvent(BRConstants._20191105_AL)
+        if (BuildConfig.DEBUG) {
+            FirebaseCrashlytics.getInstance().setCustomKey("build_type", "debug")
+            FirebaseCrashlytics.getInstance().setUserId("debug_bw_devices")
+        }
+        AnalyticsManager.logCustomEvent(BWConstants._20191105_AL)
 
         if (BuildConfig.DEBUG) Timber.plant(DebugTree())
 
-        //  DEV: uncomment for debugging
-        //        FirebaseMessaging.getInstance()
-        //                .getToken()
-        //                .addOnSuccessListener(new OnSuccessListener<String>() {
-        //                    @Override
-        //                    public void onSuccess(String s) {
-        //                        Timber.d("timber: fcm getToken= %s", s);
-        //                    }
-        //                })
-        //                .addOnFailureListener(new OnFailureListener() {
-        //                    @Override
-        //                    public void onFailure(@NonNull Exception e) {
-        //                        Timber.d(e, "timber: fcm getToken failure");
-        //                    }
-        //                });
-        if (BuildConfig.DEBUG) Timber.plant(DebugTree())
+        //  DEV: uncomment for debugging FirebaseMessaging
+//                FirebaseMessaging.getInstance()
+//                        .getToken()
+//                        .addOnSuccessListener(new OnSuccessListener<String>() {
+//                            @Override
+//                            public void onSuccess(String s) {
+//                                Timber.d("timber: fcm getToken= %s", s);
+//                            }
+//                        })
+//                        .addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                Timber.d(e, "timber: fcm getToken failure");
+//                            }
+//                        });
         DISPLAY_HEIGHT_PX = Resources.getSystem().displayMetrics.heightPixels
 
-        val afID = Utils.fetchServiceItem(this, ServiceItems.AFDEVID)
-        val appsFlyerLib = AppsFlyerLib.getInstance()
-        appsFlyerLib.init(afID, null, this)
-        appsFlyerLib.setDebugLog(BuildConfig.DEBUG)
-        appsFlyerLib.setCollectAndroidID(true)
-        appsFlyerLib.start(this)
+        if (!BuildConfig.DEBUG) {
+            val afID = Utils.fetchServiceItem(this, ServiceItems.AFDEVID)
+            val appsFlyerLib = AppsFlyerLib.getInstance()
+            appsFlyerLib.init(afID, null, this)
+            appsFlyerLib.setCollectAndroidID(true)
+            appsFlyerLib.start(this)
+        }
     }
-
-//    override fun attachBaseContext(base: Context) {
-//        init(base)
-//        super.attachBaseContext(instance.setLocale(base))
-//    }
 
     interface OnAppBackgrounded {
         fun onBackgrounded()

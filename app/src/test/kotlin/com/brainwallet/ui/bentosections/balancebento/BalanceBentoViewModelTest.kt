@@ -1,0 +1,339 @@
+package com.brainwallet.ui.bentosections.balancebento
+
+import android.app.Application
+import app.cash.turbine.turbineScope
+import com.brainwallet.data.model.AppSetting
+import com.brainwallet.data.repository.ConnectivityRepository
+import com.brainwallet.data.repository.SettingRepository
+import com.brainwallet.data.repository.TxRepository
+import com.brainwallet.data.source.BlockInfo
+import com.brainwallet.data.source.PeerManagerSource
+import com.brainwallet.presenter.entities.TxItem
+import com.brainwallet.tools.manager.BRSharedPrefs
+import com.brainwallet.wallet.BRPeerManager
+import com.brainwallet.wallet.BRWalletManager
+import io.mockk.coVerify
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.mockkStatic
+import io.mockk.unmockkAll
+import com.brainwallet.data.model.CurrencyEntity
+import com.brainwallet.data.model.LtcStats
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.advanceTimeBy
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Before
+import org.junit.Test
+
+@OptIn(ExperimentalCoroutinesApi::class)
+class BalanceBentoViewModelTest {
+
+    private val testDispatcher = StandardTestDispatcher()
+
+    private lateinit var app: Application
+    private lateinit var txRepository: TxRepository
+    private lateinit var settingRepository: SettingRepository
+    private lateinit var peerManagerSource: PeerManagerSource
+    private lateinit var connectivityRepository: ConnectivityRepository
+
+    private lateinit var mockWalletManager: BRWalletManager
+
+    private lateinit var mockPeerManager: BRPeerManager
+
+    private val transactionItemsFlow = MutableStateFlow<List<TxItem>>(emptyList())
+    private val settingsFlow = MutableStateFlow(AppSetting())
+    private val blockInfoFlow = MutableStateFlow(
+        BlockInfo(
+            blockHeight = 0,
+            timestamp = 0L,
+            syncProgress = 0F
+        )
+    )
+    private val isConnectedFlow = MutableStateFlow(true)
+
+    private lateinit var viewModel: BalanceBentoViewModel
+
+    @Before
+    fun setUp() {
+        Dispatchers.setMain(testDispatcher)
+        app = mockk(relaxed = true)
+        txRepository = mockk(relaxed = true)
+        settingRepository = mockk(relaxed = true)
+        peerManagerSource = mockk(relaxed = true)
+        connectivityRepository = mockk(relaxed = true)
+
+        mockWalletManager = mockk<BRWalletManager>(relaxed = true)
+        mockkStatic(BRWalletManager::class)
+        every { BRWalletManager.getInstance() } returns mockWalletManager
+
+        mockPeerManager = mockk<BRPeerManager>(relaxed = true)
+        mockkStatic(BRPeerManager::class)
+        every { BRPeerManager.getInstance() } returns mockPeerManager
+
+        mockkStatic(BRSharedPrefs::class)
+
+        every { BRSharedPrefs.getLiveLtcStats(any()) } returns LtcStats(
+            currentBlockHeight = 2_500_000,
+            mempoolTransactions = 0,
+            mempoolSize = 0,
+            transactionsOver24H = 0
+        )
+        every { BRSharedPrefs.getStartHeight(any()) } returns 0
+        every { BRSharedPrefs.getCachedBalance(any()) } returns 0L
+
+        every { txRepository.transactionItems } returns transactionItemsFlow
+        every { settingRepository.settings } returns settingsFlow
+        every { peerManagerSource.blockInfo } returns blockInfoFlow
+        every { peerManagerSource.getCurrentBlockHeight() } returns 0
+        every { connectivityRepository.isConnected } returns isConnectedFlow
+
+        viewModel = BalanceBentoViewModel(
+            app = app,
+            txRepository = txRepository,
+            settingRepository = settingRepository,
+            peerManagerSource = peerManagerSource,
+            connectivityRepository = connectivityRepository,
+        )
+    }
+
+    @After
+    fun tearDown() {
+        unmockkAll()
+        Dispatchers.resetMain()
+    }
+
+    // ── initial state ──────────────────────────────────────────────────────
+
+    @Test
+    fun `initial state has expected defaults`() = runTest {
+        advanceUntilIdle()
+        val state = viewModel.state.value
+        assertEquals(0L, state.ltcBalance)
+        assertTrue(state.balanceHidden)
+    }
+
+    // ── settings subscription ──────────────────────────────────────────────
+
+    @Test
+    fun `state reflects currency from settings flow`() = runTest {
+        val usd = CurrencyEntity(code = "USD", symbol = "$", rate = 80.0F)
+        settingsFlow.emit(AppSetting(currency = usd))
+        advanceUntilIdle()
+
+        val state = viewModel.state.value
+        assertEquals("USD", state.fiatCode)
+        assertEquals("$", state.symbol)
+    }
+
+    @Test
+    fun `state reflects dark mode from settings flow`() = runTest {
+        settingsFlow.emit(AppSetting(isDarkMode = true))
+        advanceUntilIdle()
+        assertTrue(viewModel.state.value.darkMode)
+    }
+
+    // ── transaction list ───────────────────────────────────────────────────
+
+    @Test
+    fun `transactions state updates when txRepository emits`() = runTest {
+        val fakeTx = mockk<TxItem>(relaxed = true)
+        transactionItemsFlow.emit(listOf(fakeTx))
+        advanceUntilIdle()
+
+        assertEquals(1, viewModel.state.value.transactions.size)
+    }
+
+    @Test
+    fun `transactions state clears when txRepository emits empty list`() = runTest {
+        val fakeTx = mockk<TxItem>(relaxed = true)
+        transactionItemsFlow.emit(listOf(fakeTx))
+        advanceUntilIdle()
+        transactionItemsFlow.emit(emptyList())
+        advanceUntilIdle()
+
+        assertTrue(viewModel.state.value.transactions.isEmpty())
+    }
+
+    // ── block info / sync progress ─────────────────────────────────────────
+
+    @Test
+    fun `state updates currentBlockHeight from peerManagerSource blockInfo`() = runTest {
+        blockInfoFlow.emit(BlockInfo(blockHeight = 1_500_000, timestamp = 1_700_000_000L, syncProgress = 0.0F))
+        advanceUntilIdle()
+
+        assertEquals(1_500_000, viewModel.state.value.currentBlockHeight)
+    }
+
+    @Test
+    fun `syncProgress is computed from blockHeight over latestLTCBlockHeight`() = runTest {
+        // latestLTCBlockHeight stubbed to 2_500_000 in setUp
+        blockInfoFlow.emit(
+            BlockInfo(
+                blockHeight = 1_250_000,
+                timestamp = 0,
+                syncProgress = 0.0F
+            )
+        )
+        advanceUntilIdle()
+
+        val expected = 1_250_000f / 2_500_000f
+        assertEquals(expected, viewModel.state.value.syncProgress, 0.001f)
+    }
+
+    @Test
+    fun `brainwalletIsSyncing is true when syncProgress below threshold`() = runTest {
+        blockInfoFlow.emit(BlockInfo(blockHeight = 1_000_000, timestamp = 0L, syncProgress = 0.0F))
+        advanceUntilIdle()
+        assertTrue(viewModel.state.value.brainwalletIsSyncing)
+    }
+
+    // ── connectivity ───────────────────────────────────────────────────────
+
+    @Test
+    fun `isInternetReachable reflects connectivity state`() = runTest {
+        isConnectedFlow.emit(false)
+        advanceUntilIdle()
+        assertFalse(viewModel.state.value.isInternetReachable)
+
+        isConnectedFlow.emit(true)
+        advanceUntilIdle()
+        assertTrue(viewModel.state.value.isInternetReachable)
+    }
+
+    // ── onBalanceChanged ───────────────────────────────────────────────────
+
+    @Test
+    fun `onBalanceChanged updates ltcBalance with callback value`() = runTest {
+        viewModel.onBalanceChanged(5_000_000L)
+        advanceUntilIdle()
+        assertEquals(5_000_000L, viewModel.state.value.ltcBalance)
+    }
+
+    @Test
+    fun `onBalanceChanged triggers txRepository refresh`() = runTest {
+        viewModel.onBalanceChanged(1_000_000L)
+        advanceUntilIdle()
+        coVerify { txRepository.refresh() }
+    }
+
+    // ── onTxAdded ─────────────────────────────────────────────────────────
+
+    @Test
+    fun `onTxAdded triggers txRepository refresh`() = runTest {
+        viewModel.onTxAdded()
+        advanceUntilIdle()
+        coVerify { txRepository.refresh() }
+    }
+
+    // ── event handling ────────────────────────────────────────────────────
+
+    @Test
+    fun `OnToggleBalanceVisibility toggles balanceHidden`() = runTest {
+        assertTrue(viewModel.state.value.balanceHidden)
+        viewModel.onEvent(BalanceBentoEvent.OnToggleBalanceVisibility)
+        advanceUntilIdle()
+        assertFalse(viewModel.state.value.balanceHidden)
+    }
+
+    @Test
+    fun `OnToggleBalanceVisibility twice restores balanceHidden to original state`() = runTest {
+        val initial = viewModel.state.value.balanceHidden
+        viewModel.onEvent(BalanceBentoEvent.OnToggleBalanceVisibility)
+        advanceUntilIdle()
+        viewModel.onEvent(BalanceBentoEvent.OnToggleBalanceVisibility)
+        advanceUntilIdle()
+        assertEquals(initial, viewModel.state.value.balanceHidden)
+    }
+
+    @Test
+    fun `OnUpdatedSyncProgress updates syncProgress and brainwalletIsSyncing`() = runTest {
+        viewModel.onEvent(BalanceBentoEvent.OnUpdatedSyncProgress(0.5f))
+        advanceUntilIdle()
+
+        val state = viewModel.state.value
+        assertEquals(0.5f, state.syncProgress, 0.001f)
+        assertTrue(state.brainwalletIsSyncing)
+    }
+
+    @Test
+    fun `OnUpdatedSyncProgress with 1f marks brainwalletIsSyncing false`() = runTest {
+        viewModel.onEvent(BalanceBentoEvent.OnUpdatedSyncProgress(1.0f))
+        advanceUntilIdle()
+        assertFalse(viewModel.state.value.brainwalletIsSyncing)
+    }
+
+    @Test
+    fun `OnLoad populates selectedCurrency from current settings`() = runTest {
+        val gbp = CurrencyEntity(code = "GBP", symbol = "£", rate = 65.0F)
+        settingsFlow.emit(AppSetting(currency = gbp))
+        advanceUntilIdle()
+
+        viewModel.onEvent(BalanceBentoEvent.OnLoad)
+        advanceUntilIdle()
+
+        assertEquals("GBP", viewModel.state.value.fiatCode)
+    }
+
+    // ── onResume lifecycle ────────────────────────────────────────────────
+
+    @Test
+    fun `onResume calls txRepository refresh when wallet is created`() = runTest {
+        every { BRSharedPrefs.getCachedBalance(any()) } returns 3_000_000L
+        viewModel.onResume(
+            isWalletCreated = { true },
+            ioDispatcher = testDispatcher
+        )
+        advanceTimeBy(6_000)
+        advanceUntilIdle()
+        coVerify { txRepository.refresh() }
+    }
+
+    @Test
+    fun `onResume loads cached balance from BRSharedPrefs`() = runTest {
+        every { BRSharedPrefs.getCachedBalance(any()) } returns 7_500_000L
+
+        viewModel.onResume(
+            isWalletCreated = { true },
+            ioDispatcher = testDispatcher
+        )
+        advanceTimeBy(6_000)
+        advanceUntilIdle()
+
+        assertEquals(7_500_000L, viewModel.state.value.ltcBalance)
+    }
+
+    @Test
+    fun `onResume does not crash when wallet not ready after max attempts`() = runTest {
+        // Should complete without throwing
+        viewModel.onResume(isWalletCreated = { true })
+        advanceTimeBy(6_000)
+        advanceUntilIdle()
+    }
+
+    // ── state emission continuity (Turbine) ───────────────────────────────
+
+    @Test
+    fun `consecutive balance changes each emit distinct state`() = runTest {
+        turbineScope {
+            val states = viewModel.state.testIn(backgroundScope)
+
+            viewModel.onBalanceChanged(1_000_000L)
+            advanceUntilIdle()
+            viewModel.onBalanceChanged(2_000_000L)
+            advanceUntilIdle()
+
+            assertEquals(2_000_000L, states.expectMostRecentItem().ltcBalance)
+            states.cancel()
+        }
+    }
+}

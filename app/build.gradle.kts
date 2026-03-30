@@ -5,7 +5,6 @@ plugins {
     alias(grunt.plugins.android.application)
     alias(grunt.plugins.jetbrains.kotlin.android)
     alias(grunt.plugins.jetbrains.kotlin.compose)
-    alias(libs.plugins.jetbrains.kotlin.kapt)
     alias(grunt.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
@@ -35,8 +34,8 @@ android {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 35
-        versionCode = 202506304
-        versionName = "v4.8.2"
+        versionCode = 202506305
+        versionName = "v4.8.3"
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -226,6 +225,7 @@ dependencies {
     implementation(grunt.koin.annotation)
     implementation("androidx.compose.material:material-icons-extended:1.7.8")
     implementation(libs.androidx.junit.ktx)
+    implementation(libs.androidx.espresso.core)
     ksp(grunt.koin.annotation.compiler)
     implementation(platform(libs.squareup.okhttp.bom))
     implementation(libs.bundles.squareup.okhttp)
@@ -240,6 +240,7 @@ dependencies {
     implementation(libs.razir.progressbutton)
     implementation(libs.appsflyer)
     implementation(libs.android.installreferrer)
+    implementation("androidx.compose.animation:animation:1.5.0")
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
     testImplementation(libs.turbine)
@@ -248,7 +249,6 @@ dependencies {
     testImplementation("io.mockk:mockk:1.13.5")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
     testImplementation("app.cash.turbine:turbine:1.0.0")
-
     androidTestImplementation(platform(grunt.androidx.compose.bom))
     androidTestImplementation("androidx.test:core-ktx:1.5.0")
     androidTestImplementation(grunt.bundles.androidx.compose.ui.test)

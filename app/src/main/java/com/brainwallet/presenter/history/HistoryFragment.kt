@@ -14,7 +14,7 @@ import com.brainwallet.tools.manager.BRSharedPrefs.OnIsoChangedListener
 import com.brainwallet.tools.manager.TxManager
 import com.brainwallet.tools.sqlite.TransactionDataSource.OnTxAddedListener
 import com.brainwallet.tools.threads.BRExecutor
-import com.brainwallet.tools.util.BRConstants
+import com.brainwallet.constants.BWConstants
 import com.brainwallet.ui.theme.setContentWithTheme
 import com.brainwallet.wallet.BRPeerManager
 import com.brainwallet.wallet.BRPeerManager.OnTxStatusUpdate
@@ -67,7 +67,7 @@ class HistoryFragment :
     private fun registerAnalyticsError(errorString: String) {
         val params = Bundle()
         params.putString("lwa_error_message", errorString)
-        AnalyticsManager.logCustomEventWithParams(BRConstants._20200112_ERR, params)
+        AnalyticsManager.logCustomEventWithParams(BWConstants._20200112_ERR, params)
         Timber.d("History Fragment: RegisterError : %s", errorString)
     }
 

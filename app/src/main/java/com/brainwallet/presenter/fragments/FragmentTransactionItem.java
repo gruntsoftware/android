@@ -1,8 +1,6 @@
 package com.brainwallet.presenter.fragments;
 
 
-import static androidx.core.content.ContextCompat.getSystemService;
-
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -19,7 +17,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,13 +26,12 @@ import androidx.fragment.app.FragmentActivity;
 import com.brainwallet.R;
 import com.brainwallet.presenter.entities.ServiceItems;
 import com.brainwallet.presenter.entities.TxItem;
-import com.brainwallet.presenter.fragments.FragmentTransactionDetails;
 import com.brainwallet.tools.animation.BRAnimator;
 import com.brainwallet.tools.animation.SlideDetector;
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.manager.TxManager;
 import com.brainwallet.tools.threads.BRExecutor;
-import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.tools.util.BRCurrency;
 import com.brainwallet.tools.util.BRExchange;
 import com.brainwallet.tools.util.Utils;
@@ -187,7 +183,7 @@ public class FragmentTransactionItem extends Fragment {
 
         mTxHashLink.setOnClickListener(view -> {
             close();
-            String txUrl = BRConstants.BLOCK_EXPLORER_BASE_URL + item.getTxHashHexReversed();
+            String txUrl = BWConstants.BLOCK_EXPLORER_BASE_URL + item.getTxHashHexReversed();
             Timber.d("timber: txUrl = %s", txUrl);
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(txUrl));
             startActivity(browserIntent);
