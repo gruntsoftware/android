@@ -269,7 +269,8 @@ class BrainwalletActivity :
 
     override fun onConnectionChanged(isConnected: Boolean) {
         val thisContext: Context = this@BrainwalletActivity
-        val startHeight = BRSharedPrefs.getStartHeight(thisContext)
+        val ltcStats = BRSharedPrefs.getLiveLtcStats(thisContext)
+        val startHeight = ltcStats.currentBlockHeight
         if (isConnected) {
             BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
                 Runnable {
