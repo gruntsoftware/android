@@ -877,7 +877,6 @@
     <string name="history_icon_label">History</string>
     <string name="received_label">"Received: "</string>
     <string name="memo_label">"Memo: "</string>
-    <string name="memo_metadata_label">Memo:</string>
     <string name="block_height_label">"Block: "</string>
     <string name="date_label">"Date: "</string>
     <string name="amount_label">"Amount: "</string>
@@ -885,4 +884,5 @@
     <string name="tx_id_label">"TX ID: "</string>
     <string name="no_transaction_detail_row">Nothing yet. Top up now!</string>
     <string name="no_transaction_title_row">TRANSACTION HISTORY</string>
+    <string name="txns_label">txns</string>
 </resources>

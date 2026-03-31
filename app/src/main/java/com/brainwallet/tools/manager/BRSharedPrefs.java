@@ -3,13 +3,10 @@ package com.brainwallet.tools.manager;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import android.util.Log;
-
 import com.brainwallet.data.model.LtcStats;
 import com.brainwallet.data.repository.SettingRepository;
 import com.brainwallet.constants.BWConstants;
 
-import org.jetbrains.annotations.NotNull;
 import org.koin.core.annotation.Single;
 import org.koin.java.KoinJavaComponent;
 
@@ -211,14 +208,14 @@ public class BRSharedPrefs {
         editor.apply();
     }
 
-    //if the user prefers all in litecoin units, not other currencies
-    public static boolean getPreferredLTC(Context activity) {
+    //if the user prefers all in litecoin units, versus the preferred fiat currency
+    public static boolean getLTCViewingPreference(Context activity) {
         SharedPreferences prefs = activity.getSharedPreferences(BWConstants.PREFS_NAME, Context.MODE_PRIVATE);
         return prefs.getBoolean("priceSetToLitecoin", true);
     }
 
-    //if the user prefers all in litecoin units, not other currencies
-    public static void putPreferredLTC(Context activity, boolean b) {
+    //if the user prefers all in litecoin units, versus the preferred fiat currency
+    public static void putLTCViewingPreference(Context activity, boolean b) {
         Timber.d("timber: putPreferredLTC: %s", b);
         SharedPreferences prefs = activity.getSharedPreferences(BWConstants.PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
@@ -226,13 +223,13 @@ public class BRSharedPrefs {
         editor.apply();
     }
 
-    //if the user prefers all in litecoin units, not other currencies
+    //if the user prefers to authenticate with biometrics
     public static boolean getUseFingerprint(Context activity) {
         SharedPreferences prefs = activity.getSharedPreferences(BWConstants.PREFS_NAME, Context.MODE_PRIVATE);
         return prefs.getBoolean("useFingerprint", false);
     }
 
-    //if the user prefers all in litecoin units, not other currencies
+    //if the user prefers to authenticate with biometrics
     public static void putUseFingerprint(Context activity, boolean use) {
         SharedPreferences prefs = activity.getSharedPreferences(BWConstants.PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();

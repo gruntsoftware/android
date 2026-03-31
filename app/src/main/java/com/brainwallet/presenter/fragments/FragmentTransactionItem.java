@@ -125,7 +125,7 @@ public class FragmentTransactionItem extends Fragment {
         }
 
         //get the current iso
-        String iso = BRSharedPrefs.getPreferredLTC(getActivity()) ? "LTC" : BRSharedPrefs.getIsoSymbol(getContext());
+        String iso = BRSharedPrefs.getLTCViewingPreference(getActivity()) ? "LTC" : BRSharedPrefs.getIsoSymbol(getContext());
 
         long opsAmount = getOpsAmount();
 
@@ -183,7 +183,7 @@ public class FragmentTransactionItem extends Fragment {
 
         mTxHashLink.setOnClickListener(view -> {
             close();
-            String txUrl = BWConstants.BLOCK_EXPLORER_BASE_URL + item.getTxHashHexReversed();
+            String txUrl = BWConstants.BLOCKCHAIR_EXPLORER_BASE_URL + item.getTxHashHexReversed();
             Timber.d("timber: txUrl = %s", txUrl);
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(txUrl));
             startActivity(browserIntent);

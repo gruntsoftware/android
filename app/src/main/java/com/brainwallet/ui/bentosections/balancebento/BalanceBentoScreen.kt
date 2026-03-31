@@ -135,7 +135,7 @@ fun BalanceBentoScreen(
     )
 
     val progressLabel = "%.2f".format(state.syncProgress * 100) + "%"
-    val currentBlockLabel = stringResource(R.string.memo_metadata_label) +
+    val currentBlockLabel = stringResource(R.string.memo_label) +
         " ${state.currentBlockHeight}"
     val currentTxsLabel =
         stringResource(R.string.current_transaction_count) + " %d".format(transactions.size)

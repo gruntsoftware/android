@@ -96,7 +96,7 @@ class BrainwalletActivity :
         AnalyticsManager.logCustomEvent(BWConstants._BW_MAIN_OPEN)
 
         onConnectionChanged(InternetManager.getInstance().isConnected(this))
-        BRSharedPrefs.getPreferredLTC(application)
+        BRSharedPrefs.getLTCViewingPreference(application)
         showInAppReviewDialogIfNeeded()
         val startDestination =
             intent.getSerializableExtra(EXTRA_START_DESTINATION) ?: Route.Welcome

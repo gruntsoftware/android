@@ -112,7 +112,8 @@ object BWConstants {
      */
     const val BW_API_PROD_HOST: String = "https://api.grunt.ltd"
 
-    const val BLOCK_EXPLORER_BASE_URL: String = "https://blockchair.com/litecoin/transaction/"
+    const val BLOCKCHAIR_EXPLORER_BASE_URL: String = "https://blockchair.com/litecoin/transaction/"
+    const val BLOCKCYPHER_EXPLORER_BASE_URL: String = "https://live.blockcypher.com/ltc/"
 
     const val _20191105_AL: String = "app_launched"
     const val _20191105_VSC: String = "visit_send_controller"

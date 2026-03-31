@@ -29,4 +29,14 @@ class TxRepositoryImpl(
         Timber.d("TxRepositoryImpl refresh: count=${items.size}")
         _transactionItems.update { items }
     }
+
+    suspend fun allReceiveTransactions(): ImmutableList<TxItem> {
+        val receivedItems = _transactionItems.value.filter { it.received > 0 }
+        return receivedItems.toImmutableList()
+    }
+
+    suspend fun allSentTransactions(): ImmutableList<TxItem> {
+        val sentItems = _transactionItems.value.filter { it.sent > 0 }
+        return sentItems.toImmutableList()
+    }
 }
