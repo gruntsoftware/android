@@ -239,7 +239,10 @@ fun MainScreen(
                                 TransactionsBentoScreen(
                                     transactions = state.transactionItems.toImmutableList(),
                                     toggleState = state.filterState,
+                                    onEvent = viewModel::onEvent,
+                                    isDarkMode = isDarkMode,
                                     showTransactionDetail = state.showTransactionDetail,
+                                    shouldShowFiatValues = state.shouldShowFiatValues,
                                     modifier = Modifier.fillMaxSize()
                                 )
                             }
