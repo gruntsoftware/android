@@ -125,6 +125,7 @@ fun MainScreen(
                     isDarkMode = appSetting.isDarkMode,
                     currentRoute = currentRoute,
                     isShowingTransactionDetail = showTransactionDetail,
+                    noTxItemsPresent = noTxItemsPresent,
                     onItemClick = { route: Route ->
                         currentRoute = route
 
