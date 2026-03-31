@@ -97,6 +97,7 @@ fun MainScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     val showTransactionDetail = state.showTransactionDetail
     val context = LocalContext.current
+    val noTxItemsPresent = state.transactionItems.isEmpty()
 
     LaunchedEffect(Unit) {
         viewModel.onEvent(MainScreenEvent.OnLoad(context))
@@ -226,7 +227,13 @@ fun MainScreen(
                                     .clickable(
                                         indication = null,
                                         interactionSource = remember { MutableInteractionSource() }
-                                    ) { viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail) }
+                                    ) {
+                                        if (noTxItemsPresent) {
+                                            onNavigate.invoke(UiEffect.Navigate(Route.MoonPayWeb))
+                                        } else {
+                                            viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail)
+                                        }
+                                    }
                             ) {
                                 TransactionsBentoScreen(
                                     transactions = state.transactionItems.toImmutableList(),

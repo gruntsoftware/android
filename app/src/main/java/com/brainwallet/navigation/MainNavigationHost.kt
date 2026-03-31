@@ -79,7 +79,6 @@ fun NavGraphBuilder.mainNavGraph(
         val route: Route.TopUp = navBackStackEntry.toRoute()
         TopUpScreen(onNavigate = onNavigate)
     }
-
     composable<Route.SetPasscode> { navBackStackEntry ->
         val route: Route.SetPasscode = navBackStackEntry.toRoute()
         SetPasscodeScreen(
@@ -137,5 +136,9 @@ fun NavGraphBuilder.mainNavGraph(
     composable<Route.GameHub> { navBackStackEntry ->
         val route: Route.GameHub = navBackStackEntry.toRoute()
         GameHubScreen(onNavigate = onNavigate)
+    }
+    composable<Route.MoonPayWeb> { navBackStackEntry ->
+        val route: Route.GameHub = navBackStackEntry.toRoute()
+        BuyReceiveScreen(onNavigate = onNavigate)
     }
 }
