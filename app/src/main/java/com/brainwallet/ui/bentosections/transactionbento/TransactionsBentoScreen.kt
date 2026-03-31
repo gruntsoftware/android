@@ -4,10 +4,12 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.gestures.snapping.SnapLayoutInfoProvider
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -79,7 +81,9 @@ fun TransactionsBentoScreen(
     mainViewModel: MainViewModel = koinViewModel()
 ) {
     val listState = rememberLazyListState()
-    val snapFlingBehavior = rememberSnapFlingBehavior(lazyListState = listState)
+    val snappingLayout = remember(listState) { SnapLayoutInfoProvider(listState) }
+    val flingBehavior = rememberSnapFlingBehavior(snappingLayout)
+
     val toggleStateText = if (toggleState == TransactionFilterState.ALL) {
         "All: "
     } else if (toggleState == TransactionFilterState.RECEIVED) {
@@ -129,13 +133,20 @@ fun TransactionsBentoScreen(
             } else {
                 LazyColumn(
                     state = listState,
-                    flingBehavior = snapFlingBehavior,
+                    flingBehavior = flingBehavior,
+                    contentPadding = if (showTransactionDetail) {
+                        PaddingValues(
+                            bottom = transactionRowHt
+                        )
+                    } else {
+                        PaddingValues(bottom = 0.dp)
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(if (showTransactionDetail) transactionRowDetailHt else transactionRowHt)
                         .clip(RoundedCornerShape(16.dp))
                         .clipToBounds(),
-                    verticalArrangement = Arrangement.spacedBy(2.dp),
+                    verticalArrangement = Arrangement.spacedBy(3.dp),
                 ) {
                     items(
                         items = transactions,
