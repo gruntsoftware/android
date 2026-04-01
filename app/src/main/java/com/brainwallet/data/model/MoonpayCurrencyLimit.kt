@@ -18,7 +18,7 @@ data class MoonpayCurrencyLimit(
     @Serializable
     data class CurrencyLimit(
         val code: String = "usd",
-        @SerialName("minBuyAmount") val min: Float = 21f,
+        @SerialName("minBuyAmount") var min: Float = 21f,
         @SerialName("maxBuyAmount") val max: Float = 29849f
     )
 }
