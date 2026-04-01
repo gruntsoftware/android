@@ -1,4 +1,4 @@
-package com.brainwallet.ui.screens.main.history.receive
+package com.brainwallet.ui.bentosections.buyreceivebento.receive
 
 import android.R
 import android.os.Bundle

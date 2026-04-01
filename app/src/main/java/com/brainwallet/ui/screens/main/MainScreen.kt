@@ -75,7 +75,7 @@ import com.brainwallet.ui.bentosections.transactionbento.TransactionsBentoScreen
 import com.brainwallet.ui.screens.gamehub.GameHubScreen
 import com.brainwallet.ui.screens.main.MainScreenEvent
 import com.brainwallet.ui.screens.main.MainViewModel
-import com.brainwallet.ui.screens.main.history.receive.ReceiveDialog
+import com.brainwallet.ui.bentosections.buyreceivebento.receive.ReceiveDialog
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.ui.theme.mainScreenDarkSurfaceGradient
 import kotlinx.collections.immutable.toImmutableList
@@ -301,9 +301,9 @@ fun MainScreen(
                 dragHandle = null,
                 containerColor = Color.Transparent,
                 scrimColor = if (isDarkMode) {
-                    Color.White.copy(0.4f)
+                    Color.White.copy(0.6f)
                 } else {
-                    Color.Black.copy(0.4f)
+                    Color.Black.copy(0.6f)
                 },
                 shape = RoundedCornerShape(24.dp)
             ) {

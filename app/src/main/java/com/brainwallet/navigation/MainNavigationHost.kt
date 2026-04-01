@@ -11,7 +11,7 @@ import com.brainwallet.ui.screens.buyreceive.BuyReceiveScreen
 import com.brainwallet.ui.screens.gamehub.GameHubScreen
 import com.brainwallet.ui.screens.home.MainScreen
 import com.brainwallet.ui.screens.main.history.HistoryScreen
-import com.brainwallet.ui.screens.main.history.receive.ReceiveDialog
+import com.brainwallet.ui.bentosections.buyreceivebento.receive.ReceiveDialog
 import com.brainwallet.ui.screens.restore.RestoreScreen
 import com.brainwallet.ui.screens.ready.ReadyScreen
 import com.brainwallet.ui.screens.send.SendScreen
