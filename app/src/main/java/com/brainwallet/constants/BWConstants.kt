@@ -104,7 +104,7 @@ object BWConstants {
     const val INSTAGRAM_LINK: String = "https://www.instagram.com/brainwalletapp"
     const val WEB_LINK: String = "https://brainwallet.co"
     const val SUPPORT_WEB_LINK: String = "https://www.brainwallet.co/support"
-    const val TOS_LINK: String = "https://brainwallet.co/privacy-policy.html"
+    const val TOS_LINK: String = "https://www.brainwallet.co/privacypolicy"
     const val LINKTREE_URL: String = "https://linktr.ee/brainwallet"
 
     /**
