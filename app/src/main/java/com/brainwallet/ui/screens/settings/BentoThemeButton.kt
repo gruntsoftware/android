@@ -17,6 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.brainwallet.R
+import com.brainwallet.constants.topNavButtonSize
 import com.brainwallet.ui.theme.DesignTheme
 import com.brainwallet.ui.theme.bentoDarkBorderGradient
 import com.brainwallet.ui.theme.bentoDarkSurfaceGradient
@@ -33,7 +34,7 @@ fun BentoThemeButton(
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
-            .size(48.dp)
+            .size(topNavButtonSize)
             .clip(CircleShape)
             .background(
                 brush = if (isDarkMode) bentoDarkSurfaceGradient else bentoLightSurfaceGradient,

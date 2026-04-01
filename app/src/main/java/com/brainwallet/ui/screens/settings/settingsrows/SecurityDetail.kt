@@ -1,4 +1,4 @@
-package com.brainwallet.ui.screens.main.composable.settingsrows
+package com.brainwallet.ui.screens.settings.settingsrows
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,10 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.brainwallet.R
+import com.brainwallet.ui.screens.settings.SettingsEvent
 
+// TODO
 @Composable
-fun GamesDetail(
-    modifier: Modifier = Modifier
+fun SecurityDetail(
+    modifier: Modifier = Modifier,
+    shareAnalyticsDataEnabled: Boolean = false,
+    onEvent: (SettingsEvent) -> Unit
 ) {
     // / Layout values
     val contentHeight = 60
@@ -24,7 +28,7 @@ fun GamesDetail(
 
     SettingRowItemExpandable(
         modifier = modifier,
-        title = stringResource(R.string.settings_title_games)
+        title = stringResource(R.string.settings_title_security),
     ) {
         Column(
             modifier = Modifier.padding(horizontal = horizontalPadding.dp),
@@ -35,11 +39,12 @@ fun GamesDetail(
                     .height(contentHeight.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(stringResource(R.string.game_title, 1))
+                Text(stringResource(R.string.security_PIN_title))
                 Spacer(modifier = Modifier.weight(1f))
                 Button(onClick = {
+                    onEvent.invoke(SettingsEvent.OnSecurityUpdatePinClick)
                 }) {
-                    Text(stringResource(R.string.game_buy_price_1, "TBD"))
+                    Text(stringResource(R.string.security_PIN_button))
                 }
             }
 
@@ -48,36 +53,38 @@ fun GamesDetail(
                     .height(contentHeight.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(stringResource(R.string.game_title, 2))
+                Text(stringResource(R.string.security_seed_phrase_title))
                 Spacer(modifier = Modifier.weight(1f))
                 Button(onClick = {
+                    onEvent.invoke(SettingsEvent.OnSecuritySeedPhraseClick)
                 }) {
-                    Text(stringResource(R.string.game_buy_price_2, "TBD"))
+                    Text(stringResource(R.string.security_phrase_button))
                 }
             }
 
+//            Row(
+//                modifier = Modifier
+//                    .height(contentHeight.dp),
+//                verticalAlignment = Alignment.CenterVertically
+//            ) {
+//                Text(stringResource(R.string.security_brainwallet_phrase_title))
+//                Spacer(modifier = Modifier.weight(1f))
+//                Button(onClick = {
+//                }) {
+//                    Text(stringResource(R.string.security_phrase_button))
+//                }
+//            }
             Row(
                 modifier = Modifier
                     .height(contentHeight.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(stringResource(R.string.game_title, 3))
+                Text(stringResource(R.string.security_share_data_title))
                 Spacer(modifier = Modifier.weight(1f))
                 Button(onClick = {
+                    onEvent.invoke(SettingsEvent.OnSecurityShareAnalyticsDataClick)
                 }) {
-                    Text(stringResource(R.string.game_buy_price_3, "TBD"))
-                }
-            }
-            Row(
-                modifier = Modifier
-                    .height(contentHeight.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(stringResource(R.string.game_title, 4))
-                Spacer(modifier = Modifier.weight(1f))
-                Button(onClick = {
-                }) {
-                    Text(stringResource(R.string.game_buy_price_4, "TBD"))
+                    Text(stringResource(if (shareAnalyticsDataEnabled) R.string.Button_yes else R.string.Button_no))
                 }
             }
         }

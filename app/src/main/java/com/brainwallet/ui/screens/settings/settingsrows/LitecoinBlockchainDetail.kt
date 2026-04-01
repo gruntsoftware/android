@@ -1,4 +1,4 @@
-package com.brainwallet.ui.screens.main.composable.settingsrows
+package com.brainwallet.ui.screens.settings.settingsrows
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -27,7 +28,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.rememberDrawerState
@@ -46,9 +46,9 @@ import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.composable.BentoBottomNavBar
-import com.brainwallet.ui.screens.settings.BentoRail
 import com.brainwallet.ui.screens.settings.BentoSettingsButton
 import com.brainwallet.ui.screens.settings.BentoThemeButton
+
 import com.brainwallet.ui.screens.send.SendScreen
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
@@ -70,15 +70,21 @@ import com.brainwallet.ui.composable.HomeBentoContainer
 import com.brainwallet.constants.balanceGameBentoHt
 import com.brainwallet.constants.gameHubHt
 import com.brainwallet.constants.statusBarPadding
+import com.brainwallet.constants.topNavButtonSize
+import com.brainwallet.constants.topNavStartEndPadding
 import com.brainwallet.constants.transactionRowHt
 import com.brainwallet.ui.bentosections.transactionbento.TransactionsBentoScreen
 import com.brainwallet.ui.screens.gamehub.GameHubScreen
 import com.brainwallet.ui.screens.main.MainScreenEvent
 import com.brainwallet.ui.screens.main.MainViewModel
 import com.brainwallet.ui.bentosections.buyreceivebento.receive.ReceiveDialog
+import com.brainwallet.ui.screens.settings.settingsrows.HomeSettingDrawerSheet
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.ui.theme.mainScreenDarkSurfaceGradient
+import com.brainwallet.util.EventBus
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -104,14 +110,27 @@ fun MainScreen(
         viewModel.onEvent(MainScreenEvent.OnLoad(context))
     }
 
+    LaunchedEffect(Unit) {
+        EventBus.events
+            .filter { it is EventBus.Event.Message }
+            .map { it as EventBus.Event.Message }
+            .collect {
+                drawerState.close()
+            }
+    }
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
-            ModalDrawerSheet {
-                BentoRail(
-                    appVersion = viewModel.versionLabel
-                )
-            }
+            HomeSettingDrawerSheet(
+                modifier = Modifier.fillMaxHeight()
+                    .fillMaxWidth()
+                    .padding(
+                        end = topNavStartEndPadding +
+                            topNavStartEndPadding +
+                            topNavButtonSize
+                    ),
+            )
         }
     ) {
         Scaffold(
@@ -183,9 +202,19 @@ fun MainScreen(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 12.dp, vertical = 12.dp),
+                            .padding(
+                                horizontal = topNavStartEndPadding,
+                                vertical = topNavStartEndPadding
+                            ),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
+                        BentoThemeButton(
+                            isDarkMode = isDarkMode,
+                            onClick = {
+                                viewModel.onEvent(MainScreenEvent.OnToggleDarkMode)
+                            }
+                        )
+                        Spacer(modifier = Modifier.weight(1f))
                         BentoSettingsButton(
                             isDarkMode = isDarkMode,
                             onClick = {
@@ -194,13 +223,6 @@ fun MainScreen(
                                         if (isClosed) open() else close()
                                     }
                                 }
-                            }
-                        )
-                        Spacer(modifier = Modifier.weight(1f))
-                        BentoThemeButton(
-                            isDarkMode = isDarkMode,
-                            onClick = {
-                                viewModel.onEvent(MainScreenEvent.OnToggleDarkMode)
                             }
                         )
                     }

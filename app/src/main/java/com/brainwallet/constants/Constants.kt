@@ -15,3 +15,7 @@ val bentoBottomNavBarHt = 60.dp
 
 val iconBorderSize = 40.dp
 val iconSize = 26.dp
+
+val topNavButtonSize = 48.dp
+
+val topNavStartEndPadding = 12.dp

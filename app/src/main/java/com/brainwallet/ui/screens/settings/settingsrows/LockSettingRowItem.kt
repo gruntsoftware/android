@@ -1,7 +1,7 @@
-package com.brainwallet.ui.screens.main.composable.settingsrows
+package com.brainwallet.ui.screens.settings.settingsrows
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.LockOpen
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,6 +18,6 @@ fun LockSettingRowItem(
         title = stringResource(R.string.settings_title_lock),
         onClick = onClick
     ) {
-        Icon(Icons.Default.Lock, contentDescription = stringResource(R.string.settings_title_lock))
+        Icon(Icons.Default.LockOpen, contentDescription = stringResource(R.string.settings_title_unlock))
     }
 }
