@@ -149,13 +149,14 @@ class ReceiveDialogViewModel(
                     onLoading(true)
 
                     val currentState = state.value
+                    val currentSettings = settingRepository.currentSettings.value
                     val signedUrl = ltcRepository.fetchMoonpaySignedUrl(
                         mapOf(
                             "baseCurrencyCode" to currentState.selectedFiatCurrency.code,
                             "baseCurrencyAmount" to currentState.fiatAmount.toString(),
-                            "language" to appSetting.value.languageCode,
+                            "language" to currentSettings.languageCode,
                             "walletAddress" to currentState.address,
-                            "theme" to if (appSetting.value.isDarkMode) "dark" else "light"
+                            "theme" to if (currentSettings.isDarkMode) "dark" else "light"
                         )
                     )
 

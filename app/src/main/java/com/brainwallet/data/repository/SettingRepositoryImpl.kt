@@ -31,6 +31,8 @@ class SettingRepositoryImpl(
     override val settings: Flow<AppSetting>
         get() = state
 
+    override val currentSettings: StateFlow<AppSetting> = _state.asStateFlow()
+
     private fun load(): AppSetting {
         return AppSetting(
             isDarkMode = sharedPreferences.getBoolean(KEY_IS_DARK_MODE, true),

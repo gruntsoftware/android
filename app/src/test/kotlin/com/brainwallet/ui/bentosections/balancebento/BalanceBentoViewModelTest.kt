@@ -23,6 +23,7 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceTimeBy
@@ -53,7 +54,9 @@ class BalanceBentoViewModelTest {
     private lateinit var mockPeerManager: BRPeerManager
 
     private val transactionItemsFlow = MutableStateFlow<ImmutableList<TxItem>>(persistentListOf())
-    private val settingsFlow = MutableStateFlow(AppSetting())
+    private val settingsFlow = MutableSharedFlow<AppSetting>(replay = 1)
+
+    private val currentSettingsFlow = MutableStateFlow(AppSetting())
     private val blockInfoFlow = MutableStateFlow(
         BlockInfo(
             blockHeight = 0,
@@ -95,6 +98,7 @@ class BalanceBentoViewModelTest {
 
         every { txRepository.transactionItems } returns transactionItemsFlow
         every { settingRepository.settings } returns settingsFlow
+        every { settingRepository.currentSettings } returns currentSettingsFlow
         every { peerManagerSource.blockInfo } returns blockInfoFlow
         every { peerManagerSource.getCurrentBlockHeight() } returns 0
         every { connectivityRepository.isConnected } returns isConnectedFlow
@@ -255,7 +259,9 @@ class BalanceBentoViewModelTest {
     @Test
     fun `OnLoad populates selectedCurrency from current settings`() = runTest {
         val gbp = CurrencyEntity(code = "GBP", symbol = "£", rate = 65.0F)
-        settingsFlow.emit(AppSetting(currency = gbp))
+        val setting = AppSetting(currency = gbp)
+        settingsFlow.emit(setting)
+        currentSettingsFlow.value = setting
         advanceUntilIdle()
 
         viewModel.onEvent(BalanceBentoEvent.OnLoad)

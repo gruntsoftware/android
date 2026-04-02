@@ -3,10 +3,13 @@ package com.brainwallet.data.repository
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.model.Language
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
 interface SettingRepository {
 
     val settings: Flow<AppSetting>
+    val currentSettings: StateFlow<AppSetting>
+
     suspend fun save(setting: AppSetting)
 
     /**

@@ -24,6 +24,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.brainwallet.R
 import com.brainwallet.navigation.MoonPayWidgetLauncher
 import com.brainwallet.navigation.MoonPayWidgetLauncherViewModel
@@ -43,7 +44,7 @@ fun BuyReceiveScreen(
 ) {
     val state by viewModel.state.collectAsState()
     val loadingState by viewModel.loadingState.collectAsState()
-    val appSetting by viewModel.appSetting.collectAsState()
+    val appSetting by viewModel.appSetting.collectAsStateWithLifecycle()
     val context = LocalContext.current
     LaunchedEffect(Unit) {
         viewModel.onEvent(BuyReceiveEvent.OnLoad(context))

@@ -179,12 +179,13 @@ class BalanceBentoViewModel(
         when (event) {
             is BalanceBentoEvent.OnLoad -> {
                 val progress = peerManagerSource.getCurrentBlockHeight() / latestLTCBlockHeight.toFloat()
+                val currentSettings = settingRepository.currentSettings.value
                 _state.update {
                     it.copy(
                         lastTimeStamp = "",
-                        selectedCurrency = appSetting.value.currency,
-                        fiatCode = appSetting.value.currency.code,
-                        symbol = appSetting.value.currency.symbol,
+                        selectedCurrency = currentSettings.currency,
+                        fiatCode = currentSettings.currency.code,
+                        symbol = currentSettings.currency.symbol,
                         syncProgress = progress,
                         brainwalletIsSyncing = progress <= 0.999f
                     )

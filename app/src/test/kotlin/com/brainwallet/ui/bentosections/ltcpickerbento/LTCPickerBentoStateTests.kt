@@ -15,7 +15,6 @@ class LTCPickerBentoStateTests {
         val state = LTCPickerBentoState()
         assertTrue(state.darkMode)
         assertEquals("USD", state.selectedCurrency.code)
-        assertEquals("USD", state.iso)
         assertEquals("", state.formattedTimeStamp)
         assertEquals(GlobalCurrency.entries, state.globalCurrencies)
         assertEquals(GlobalCurrency.USD, state.selectedGlobalCurrency)
@@ -30,7 +29,6 @@ class LTCPickerBentoStateTests {
 
         assertFalse(updated.darkMode)
         assertEquals(original.selectedCurrency, updated.selectedCurrency)
-        assertEquals(original.iso, updated.iso)
         assertEquals(original.formattedTimeStamp, updated.formattedTimeStamp)
         assertEquals(original.globalCurrencies, updated.globalCurrencies)
         assertEquals(original.selectedGlobalCurrency, updated.selectedGlobalCurrency)
