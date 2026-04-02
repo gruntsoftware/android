@@ -1,4 +1,4 @@
-package com.brainwallet.ui.screens.settings
+package com.brainwallet.ui.screens.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -26,7 +26,7 @@ import com.brainwallet.ui.theme.bentoLightSurfaceGradient
 import com.brainwallet.ui.theme.midnight
 
 @Composable
-fun BentoSettingsButton(
+fun SettingsButton(
     modifier: Modifier = Modifier,
     isDarkMode: Boolean = false,
     onClick: () -> Unit
@@ -57,8 +57,8 @@ fun BentoSettingsButton(
 
 @Composable
 @PreviewLightDark
-fun BentoSettingsButtonPreview() {
+fun SettingsButtonPreview() {
     DesignTheme(isSystemInDarkTheme()) {
-        BentoSettingsButton {}
+        SettingsButton {}
     }
 }

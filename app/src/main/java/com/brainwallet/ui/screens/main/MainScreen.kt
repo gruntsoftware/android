@@ -46,8 +46,8 @@ import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.composable.BentoBottomNavBar
-import com.brainwallet.ui.screens.settings.BentoSettingsButton
-import com.brainwallet.ui.screens.settings.BentoThemeButton
+import com.brainwallet.ui.screens.main.SettingsButton
+import com.brainwallet.ui.screens.main.ThemeButton
 
 import com.brainwallet.ui.screens.send.SendScreen
 import kotlinx.coroutines.launch
@@ -208,14 +208,14 @@ fun MainScreen(
                             ),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        BentoThemeButton(
+                        ThemeButton(
                             isDarkMode = isDarkMode,
                             onClick = {
                                 viewModel.onEvent(MainScreenEvent.OnToggleDarkMode)
                             }
                         )
                         Spacer(modifier = Modifier.weight(1f))
-                        BentoSettingsButton(
+                        SettingsButton(
                             isDarkMode = isDarkMode,
                             onClick = {
                                 scope.launch {
