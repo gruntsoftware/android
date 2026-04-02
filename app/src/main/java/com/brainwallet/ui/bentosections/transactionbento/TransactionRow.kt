@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -157,7 +158,7 @@ fun TransactionRow(
                 modifier = Modifier
                     .align(Alignment.Start)
                     .fillMaxWidth()
-                    .padding(horizontal = 12.dp, vertical = 6.dp),
+                    .padding(horizontal = 12.dp, vertical = 4.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
@@ -171,6 +172,7 @@ fun TransactionRow(
                     maxLines = 1
                 )
                 Spacer(modifier = Modifier.weight(1f))
+
                 Text(
                     text = amountString,
                     style = TextStyle(
@@ -182,11 +184,25 @@ fun TransactionRow(
                     maxLines = 1
                 )
             }
-            Spacer(modifier = Modifier.weight(1f))
+            Row(
+                modifier = Modifier
+                    .align(Alignment.Start)
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Spacer(modifier = Modifier.weight(1f))
+                ConfirmationStatus(
+                    modifier = Modifier
+                        .height(18.dp)
+                        .width(18.dp)
+                        .padding(end = 20.dp),
+                    numberOfConfs = confirmationLevel
+                )
+            }
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 12.dp, vertical = 12.dp),
+                    .padding(horizontal = 12.dp, vertical = 4.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Spacer(modifier = Modifier.weight(1f))
