@@ -73,7 +73,7 @@ import java.math.BigDecimal;
 
 import timber.log.Timber;
 
-public class BreadActivity extends BRActivity implements BRWalletManager.OnBalanceChanged, BRSharedPrefs.OnIsoChangedListener,
+public class BreadActivity extends BRActivity implements BRWalletManager.OnBalanceChanged,
         TransactionDataSource.OnTxAddedListener, InternetManager.ConnectionReceiverListener {
 
     public static final Point screenParametersPoint = new Point();
@@ -199,12 +199,10 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     private void addObservers() {
         BRWalletManager.getInstance().addBalanceChangedListener(this);
-        BRSharedPrefs.addIsoChangedListener(this);
     }
 
     private void removeObservers() {
         BRWalletManager.getInstance().removeListener(this);
-        BRSharedPrefs.removeListener(this);
     }
 
     private void setUrlHandler(Intent intent) {
@@ -465,11 +463,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 secondaryPrice.setText(String.format("%s", formattedCurAmount));
             });
         });
-    }
-
-    @Override
-    public void onIsoChanged(String iso) {
-        updateUI();
     }
 
     @Override

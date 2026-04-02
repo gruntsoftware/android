@@ -41,7 +41,6 @@ class BalanceBentoViewModel(
 ) : BrainwalletViewModel<BalanceBentoEvent>(),
     BRWalletManager.OnBalanceChanged,
     BRPeerManager.OnTxStatusUpdate,
-    BRSharedPrefs.OnIsoChangedListener,
     TransactionDataSource.OnTxAddedListener {
     private val _state = MutableStateFlow(BalanceBentoState())
     val state: StateFlow<BalanceBentoState> = _state.asStateFlow()
@@ -135,19 +134,16 @@ class BalanceBentoViewModel(
         super.onCleared()
         BRWalletManager.getInstance().removeListener(this)
         BRPeerManager.getInstance().removeListener(this)
-        BRSharedPrefs.removeListener(this)
         TransactionDataSource.getInstance(app).removeListener(this)
     }
     private fun addObservers() {
         BRWalletManager.getInstance().addBalanceChangedListener(this)
         BRPeerManager.getInstance().addStatusUpdateListener(this)
-        BRSharedPrefs.addIsoChangedListener(this)
         TransactionDataSource.getInstance(app).addTxAddedListener(this)
     }
     private fun removeObservers() {
         BRWalletManager.getInstance().removeListener(this)
         BRPeerManager.getInstance().removeListener(this)
-        BRSharedPrefs.removeListener(this)
         TransactionDataSource.getInstance(app).removeListener(this)
     }
 
@@ -173,11 +169,6 @@ class BalanceBentoViewModel(
             onEvent(BalanceBentoEvent.OnUpdatedSyncProgress(progress))
         }
     }
-
-    override fun onIsoChanged(iso: String) {
-        Timber.d("timber: BalanceBentoViewModel subscribed onIsoChanged $iso")
-    }
-
     override fun onTxAdded() {
         viewModelScope.launch(Dispatchers.IO) {
             txRepository.refresh()

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
@@ -19,6 +20,8 @@ import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
@@ -39,23 +42,32 @@ fun CurrencyDetail(
 ) {
     val context = LocalContext.current
 
-    // / Layout values
-    val closedHeight = 60
-    val expandedHeight = 100
-    val dividerThickness = 1
+    // Layout values
+    val expandedHeight = 300
     val unselectedCircleSize = 20
     val tinyPad = 2
+
+    val currencies = remember { CurrencyDataSource.getInstance(context).getAllCurrencies(true) }
+    val listState = rememberLazyListState()
+    val selectedIndex = remember(selectedCurrency) {
+        currencies.indexOfFirst { it.code == selectedCurrency.code }
+    }
+
+    LaunchedEffect(selectedIndex) {
+        if (selectedIndex >= 0) {
+            listState.scrollToItem(selectedIndex)
+        }
+    }
 
     SettingRowItemExpandable(
         modifier = modifier,
         title = stringResource(R.string.settings_title_currency)
     ) {
         LazyColumn(
+            state = listState,
             modifier = Modifier.height(expandedHeight.dp)
         ) {
-            items(
-                items = CurrencyDataSource.getInstance(context).getAllCurrencies(true)
-            ) { currency ->
+            items(items = currencies) { currency ->
                 ListItem(
                     colors = ListItemDefaults.colors(
                         containerColor = DesignTheme.colors.background,

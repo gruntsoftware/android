@@ -1,5 +1,6 @@
 package com.brainwallet.ui.bentosections.ltcpickerbento
 
+import android.app.Application
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.repository.LtcRepository
@@ -22,6 +23,7 @@ import timber.log.Timber
 
 @KoinViewModel
 class LTCPickerBentoViewModel(
+    private val app: Application,
     private val settingRepository: SettingRepository,
     private val currencyDataSource: CurrencyDataSource,
     private val ltcRepository: LtcRepository
@@ -38,7 +40,8 @@ class LTCPickerBentoViewModel(
         .onEach { setting ->
             _state.update {
                 it.copy(
-                    darkMode = setting.isDarkMode
+                    darkMode = setting.isDarkMode,
+                    selectedCurrency = setting.currency
                 )
             }
         }
@@ -62,8 +65,8 @@ class LTCPickerBentoViewModel(
     private suspend fun fetchAndUpdateRates(currencyCode: String = appSetting.value.currency.code) {
         val rates = ltcRepository.fetchRates()
         val ltcStats = ltcRepository.fetchLtcStats()
-        val selectedFiat = rates.find { it.code == currencyCode } // ← uses passed code
-
+        val selectedFiat = rates.find { it.code == currencyCode }
+        var formattedFiat = ""
         val msg = "||fetchRates ${selectedFiat?.rate} fetch ltc stats: $ltcStats"
         Timber.d(msg)
         FirebaseCrashlytics.getInstance().log(msg)
@@ -83,7 +86,7 @@ class LTCPickerBentoViewModel(
                 if (newCurrency != null) {
                     viewModelScope.launch {
                         settingRepository.save(appSetting.value.copy(currency = newCurrency))
-                        fetchAndUpdateRates(newCurrency.code) // ← pass code directly, don't wait for StateFlow
+                        fetchAndUpdateRates(newCurrency.code)
                     }
                 } else {
                     Timber.w("Currency not found for code: ${event.globalCurrency.code}")

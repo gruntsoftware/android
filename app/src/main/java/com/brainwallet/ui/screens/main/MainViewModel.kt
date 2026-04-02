@@ -46,7 +46,6 @@ class MainViewModel(
 ) : BrainwalletViewModel<MainScreenEvent>(),
     BRWalletManager.OnBalanceChanged,
     BRPeerManager.OnTxStatusUpdate,
-    BRSharedPrefs.OnIsoChangedListener,
     TransactionDataSource.OnTxAddedListener {
 
     private val _state =
@@ -139,19 +138,16 @@ class MainViewModel(
         super.onCleared()
         BRWalletManager.getInstance().removeListener(this)
         BRPeerManager.getInstance().removeListener(this)
-        BRSharedPrefs.removeListener(this)
         TransactionDataSource.getInstance(app).removeListener(this)
     }
     private fun addObservers() {
         BRWalletManager.getInstance().addBalanceChangedListener(this)
         BRPeerManager.getInstance().addStatusUpdateListener(this)
-        BRSharedPrefs.addIsoChangedListener(this)
         TransactionDataSource.getInstance(app).addTxAddedListener(this)
     }
     private fun removeObservers() {
         BRWalletManager.getInstance().removeListener(this)
         BRPeerManager.getInstance().removeListener(this)
-        BRSharedPrefs.removeListener(this)
         TransactionDataSource.getInstance(app).removeListener(this)
     }
 
@@ -167,11 +163,6 @@ class MainViewModel(
 
     override fun onStatusUpdate() {
         Timber.d("timber: MainViewModel subscribed onStatusUpdate: : BRPeerManager")
-    }
-
-    override fun onIsoChanged(iso: String?) {
-        val isoString = iso ?: ""
-        Timber.d("timber: MainViewModel subscribed onIsoChanged $isoString")
     }
 
     override fun onTxAdded() {

@@ -58,6 +58,18 @@ class SettingsViewModel(
         )
 
     init {
+
+        viewModelScope.launch {
+            settingRepository.settings.collect { appSetting ->
+                _state.update {
+                    it.copy(
+                        darkMode = appSetting.isDarkMode,
+                        selectedLanguage = Language.find(appSetting.languageCode),
+                        selectedCurrency = appSetting.currency,
+                    )
+                }
+            }
+        }
         viewModelScope.launch(ioDispatcher) {
             while (true) {
                 /**
@@ -143,16 +155,14 @@ class SettingsViewModel(
                 }
             }
 
-            is SettingsEvent.OnFiatChange -> _state.updateAndGet {
-                it.copy(selectedCurrency = event.currency)
-            }.let {
-                viewModelScope.launch {
-                    settingRepository.save(
-                        appSetting.value.copy(
-                            currency = event.currency
-                        )
+            is SettingsEvent.OnFiatChange -> viewModelScope.launch {
+                settingRepository.save(
+                    AppSetting(
+                        isDarkMode = _state.value.darkMode,
+                        languageCode = _state.value.selectedLanguage.code,
+                        currency = event.currency
                     )
-                }
+                )
             }
 
             is SettingsEvent.OnBlockchainSyncClick -> viewModelScope.launch {

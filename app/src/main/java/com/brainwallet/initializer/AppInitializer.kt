@@ -17,11 +17,12 @@ class AppInitializer(
         override val messagingTopicHandler: MessagingTopicUseCase by inject()
         override val remoteConfigSource: RemoteConfigSource by inject()
         override fun loadKoinModules() {
-            val modules = mutableListOf(
-                AppModule.dataModule,
-                AppModule.module
+            loadKoinModules(
+                listOf(
+                    AppModule.dataModule,
+                    AppModule.module
+                )
             )
-            loadKoinModules(modules)
         }
     }
 ) : Initializer<Unit>, KoinComponent {

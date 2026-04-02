@@ -10,7 +10,6 @@ import androidx.navigation.toRoute
 import com.brainwallet.ui.screens.buyreceive.BuyReceiveScreen
 import com.brainwallet.ui.screens.gamehub.GameHubScreen
 import com.brainwallet.ui.screens.home.MainScreen
-import com.brainwallet.ui.screens.main.history.HistoryScreen
 import com.brainwallet.ui.bentosections.buyreceivebento.receive.ReceiveDialog
 import com.brainwallet.ui.screens.restore.RestoreScreen
 import com.brainwallet.ui.screens.ready.ReadyScreen
@@ -122,11 +121,6 @@ fun NavGraphBuilder.mainNavGraph(
     composable<Route.BuyReceive> { navBackStackEntry ->
         val route: Route.BuyReceive = navBackStackEntry.toRoute()
         ReceiveDialog(onDismissRequest = {})
-    }
-
-    composable<Route.History> { navBackStackEntry ->
-        val route: Route.History = navBackStackEntry.toRoute()
-        HistoryScreen(onNavigate = onNavigate)
     }
 
     composable<Route.Send> { navBackStackEntry ->

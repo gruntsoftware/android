@@ -146,6 +146,10 @@ fun MainScreen(
                     currentRoute = currentRoute,
                     isShowingTransactionDetail = showTransactionDetail,
                     noTxItemsPresent = noTxItemsPresent,
+                    onToggleTransactionDetail = {
+                        viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail)
+                        if (showTransactionDetail) currentRoute = Route.Main
+                    },
                     onItemClick = { route: Route ->
                         currentRoute = route
 
@@ -163,7 +167,8 @@ fun MainScreen(
                             modalContentRoute = route
                             isSheetOpen = true
                         }
-                    }
+                    },
+
                 )
             }
 

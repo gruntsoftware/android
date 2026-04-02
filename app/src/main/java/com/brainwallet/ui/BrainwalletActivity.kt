@@ -73,7 +73,6 @@ class BrainwalletActivity :
     BRActivity(),
     BRWalletManager.OnBalanceChanged,
     BRPeerManager.OnTxStatusUpdate,
-    BRSharedPrefs.OnIsoChangedListener,
     TransactionDataSource.OnTxAddedListener,
     InternetManager.ConnectionReceiverListener {
     private val settingRepository by inject<SettingRepository>()
@@ -409,12 +408,10 @@ class BrainwalletActivity :
 
     private fun addObservers() {
         BRWalletManager.getInstance().addBalanceChangedListener(this)
-        BRSharedPrefs.addIsoChangedListener(this)
     }
 
     private fun removeObservers() {
         BRWalletManager.getInstance().removeListener(this)
-        BRSharedPrefs.removeListener(this)
     }
 
     override fun onResume() {
@@ -437,11 +434,6 @@ class BrainwalletActivity :
 
     override fun onStatusUpdate() {
         Timber.d("timber: BrainwalletActivity subscribed onStatusUpdate")
-    }
-
-    override fun onIsoChanged(iso: String?) {
-        val isoString = iso ?: ""
-        Timber.d("timber: BrainwalletActivity subscribed onIsoChanged $isoString")
     }
 
     override fun onTxAdded() {

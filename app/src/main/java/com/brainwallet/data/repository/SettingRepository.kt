@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.Flow
 interface SettingRepository {
 
     val settings: Flow<AppSetting>
-
     suspend fun save(setting: AppSetting)
 
     /**
@@ -37,5 +36,8 @@ interface SettingRepository {
         const val KEY_LANGUAGE_CODE = "language_code"
         const val KEY_FIAT_CURRENCY_CODE = "fiat_currency_code"
         const val KEY_SELECTED_FEE_TYPE = "selected_fee_type"
+        const val KEY_FIAT_CURRENCY_NAME = "selected_currency_name"
+        const val KEY_FIAT_CURRENCY_RATE = "selected_currency_rate"
+        const val KEY_FIAT_CURRENCY_SYMBOL = "selected_currency_symbol"
     }
 }
