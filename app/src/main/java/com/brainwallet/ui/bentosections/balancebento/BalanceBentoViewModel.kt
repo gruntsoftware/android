@@ -1,10 +1,11 @@
 package com.brainwallet.ui.bentosections.balancebento
 
+import android.R.attr.progress
 import android.app.Application
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.BuildConfig
-import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.repository.ConnectivityRepository
+import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.repository.TxRepository
 import com.brainwallet.data.source.PeerManagerSource
@@ -18,12 +19,8 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
@@ -35,6 +32,7 @@ import java.util.Date
 class BalanceBentoViewModel(
     private val app: Application,
     private val txRepository: TxRepository,
+    private val ltcRepository: LtcRepository,
     private val settingRepository: SettingRepository,
     private val peerManagerSource: PeerManagerSource,
     private val connectivityRepository: ConnectivityRepository,
@@ -51,23 +49,6 @@ class BalanceBentoViewModel(
 
     val latestLTCBlockHeight = BRSharedPrefs.getLiveLtcStats(app).currentBlockHeight
 
-    private val appSetting = settingRepository.settings
-        .distinctUntilChanged()
-        .onEach { setting ->
-            _state.update {
-                it.copy(
-                    darkMode = setting.isDarkMode,
-                    selectedCurrency = setting.currency,
-                    fiatCode = setting.currency.code,
-                    symbol = setting.currency.symbol,
-                )
-            }
-        }
-        .stateIn(
-            viewModelScope,
-            SharingStarted.Eagerly,
-            AppSetting()
-        )
     init {
         viewModelScope.launch {
             // Runs immediately on launch
@@ -96,6 +77,18 @@ class BalanceBentoViewModel(
                 }
             }
         }
+
+        viewModelScope.launch {
+            ltcRepository.ltcStats.collect { ltcStats ->
+                _state.update {
+                    Timber.d("timber: ltcStats: $ltcStats")
+
+                    it.copy(
+                        ltcStats = ltcStats
+                    )
+                }
+            }
+        }
     }
 
     fun onResume(
@@ -112,9 +105,14 @@ class BalanceBentoViewModel(
             if (isWalletCreated()) {
                 addObservers()
                 val balance = BRSharedPrefs.getCachedBalance(app)
+                val currentSettings = settingRepository.currentSettings.value
+
                 _state.update {
                     it.copy(
                         ltcBalance = balance,
+                        selectedCurrency = currentSettings.currency,
+                        fiatCode = currentSettings.currency.code,
+                        symbol = currentSettings.currency.symbol,
                         litoshiBalance = BigDecimal(balance)
                             .divide(BigDecimal(ONE_LITECOIN_OF_LITOSHIS)),
                     )
@@ -149,8 +147,12 @@ class BalanceBentoViewModel(
 
     override fun onBalanceChanged(balance: Long) {
         _state.update {
+            val currentSettings = settingRepository.currentSettings.value
             it.copy(
-                ltcBalance = balance
+                ltcBalance = balance,
+                selectedCurrency = currentSettings.currency,
+                fiatCode = currentSettings.currency.code,
+                symbol = currentSettings.currency.symbol
             )
         }
         viewModelScope.launch(Dispatchers.IO) {

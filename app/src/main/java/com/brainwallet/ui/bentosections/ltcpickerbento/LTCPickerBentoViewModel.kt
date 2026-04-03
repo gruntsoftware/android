@@ -49,15 +49,26 @@ class LTCPickerBentoViewModel(
                 }
             }
         }
+        viewModelScope.launch {
+            ltcRepository.ltcStats.collect { ltcStats ->
+                _state.update {
+                    Timber.d("timber: ltcStats: $ltcStats")
+
+                    it.copy(
+                        ltcStats = ltcStats
+                    )
+                }
+            }
+        }
     }
     private suspend fun fetchAndUpdateRates(
         currencyCode: String = settingRepository.currentSettings.value.currency.code
     ) {
         val rates = ltcRepository.fetchRates()
-        val ltcStats = ltcRepository.fetchLtcStats()
         val selectedFiat = rates.find { it.code == currencyCode }
         var formattedFiat = ""
-        val msg = "||fetchRates ${selectedFiat?.rate} fetch ltc stats: $ltcStats"
+        val msg = "||fetchRates ${selectedFiat?.rate} fetch ltc stats: $state.ltcStats.currentBlockHeight"
+        Timber.d("timber: ltcStats: $state.ltcStats.value")
         Timber.d(msg)
         FirebaseCrashlytics.getInstance().log(msg)
 
@@ -65,7 +76,8 @@ class LTCPickerBentoViewModel(
             it.copy(
                 selectedCurrency = selectedFiat ?: return@update it,
                 formattedFiat = "${selectedFiat.symbol} ${"%6.2f".format(selectedFiat.rate)}",
-                formattedTimeStamp = formatter.format(java.util.Date())
+                formattedTimeStamp = formatter.format(java.util.Date()),
+                ltcStats = ltcRepository.ltcStats.value
             )
         }
     }

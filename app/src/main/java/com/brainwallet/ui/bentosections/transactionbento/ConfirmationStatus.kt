@@ -21,8 +21,8 @@ fun ConfirmationStatus(
     val completeStateColor = DesignTheme.colors.affirm
 
     val filledColor = when (numberOfConfs) {
-        in 2..3 -> medianStateColor
-        in 4..5 -> completeStateColor
+        in 3..4 -> medianStateColor
+        in 5..Int.MAX_VALUE -> completeStateColor
         else -> initialStateColor
     }
 

@@ -92,6 +92,16 @@ class MainViewModel(
         }
 
         viewModelScope.launch {
+            ltcRepository.ltcStats.collect { ltcStats ->
+                _state.update {
+                    it.copy(
+                        ltcStats = ltcStats
+                    )
+                }
+            }
+        }
+
+        viewModelScope.launch {
             state.map { it.fiatAmount }
                 .debounce(1000)
                 .distinctUntilChanged()

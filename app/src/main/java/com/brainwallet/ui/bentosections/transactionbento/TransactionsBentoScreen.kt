@@ -54,8 +54,8 @@ import com.brainwallet.ui.screens.main.MainViewModel
 import com.brainwallet.ui.theme.DesignTheme
 import com.brainwallet.ui.theme.IBMPlexSans
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.toImmutableList
 import org.koin.compose.viewmodel.koinViewModel
+import timber.log.Timber
 
 @Composable
 fun TransactionsBentoScreen(
@@ -70,20 +70,6 @@ fun TransactionsBentoScreen(
     mainViewModel: MainViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsState()
-
-    val filteredTransactions = remember(transactions, toggleState) {
-        if (toggleState == TransactionFilterState.RECEIVED) {
-            transactions
-                .filter { it.received > 0 }
-                .toImmutableList()
-        } else if (toggleState == TransactionFilterState.SENT) {
-            transactions
-                .filter { it.sent > 0 }
-                .toImmutableList()
-        } else {
-            transactions
-        }
-    }
 
     TransactionsBentoScreen(
         transactions = transactions,
@@ -143,6 +129,7 @@ fun TransactionsBentoScreen(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
+            Timber.d("timber: tr bento ${state.ltcStats}")
             AnimatedVisibility(
                 visible = showTransactionDetail,
                 enter = expandVertically(tween(EXPAND_DURATION)),
@@ -198,6 +185,7 @@ fun TransactionsBentoScreen(
                             TransactionRow(
                                 isDarkMode = state.darkMode,
                                 txItem = transaction,
+                                ltcStats = state.ltcStats,
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(transactionRowHt)

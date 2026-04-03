@@ -31,7 +31,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.brainwallet.R
 import com.brainwallet.data.model.CurrencyEntity
-import com.brainwallet.tools.sqlite.CurrencyDataSource
+import com.brainwallet.data.model.GlobalCurrency
 import com.brainwallet.ui.theme.DesignTheme
 
 @Composable
@@ -47,10 +47,10 @@ fun CurrencyDetail(
     val unselectedCircleSize = 20
     val tinyPad = 2
 
-    val currencies = remember { CurrencyDataSource.getInstance(context).getAllCurrencies(true) }
+    val globalCurrencies = remember { GlobalCurrency.entries }
     val listState = rememberLazyListState()
     val selectedIndex = remember(selectedCurrency) {
-        currencies.indexOfFirst { it.code == selectedCurrency.code }
+        globalCurrencies.indexOfFirst { it.code == selectedCurrency.code }
     }
 
     LaunchedEffect(selectedIndex) {
@@ -67,15 +67,23 @@ fun CurrencyDetail(
             state = listState,
             modifier = Modifier.height(expandedHeight.dp)
         ) {
-            items(items = currencies) { currency ->
+            items(items = globalCurrencies) { currency ->
+                val currencyEntity = CurrencyEntity()
+                currencyEntity.code = currency.code
+                currencyEntity.name = currency.fullCurrencyName
+                currencyEntity.rate = 1f
+                currencyEntity.symbol = currency.symbol
+
                 ListItem(
                     colors = ListItemDefaults.colors(
                         containerColor = DesignTheme.colors.background,
                         headlineColor = DesignTheme.colors.content,
                     ),
-                    modifier = Modifier.clickable {
-                        onFiatSelect.invoke(currency)
-                    },
+                    modifier = Modifier
+                        .height(44.dp)
+                        .clickable {
+                            onFiatSelect.invoke(currencyEntity)
+                        },
                     headlineContent = {
                         Row {
                             Text(

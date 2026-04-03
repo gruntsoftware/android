@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 interface LtcRepository {
 
     val rates: StateFlow<List<CurrencyEntity>>
+    val ltcStats: StateFlow<LtcStats>
 
     suspend fun fetchRates(): List<CurrencyEntity>
 
