@@ -15,4 +15,16 @@
     <string name="no_internet_dialog_title">Sync not possible without internet!</string>
     <string name="no_internet_dialog_subtitle">Please, reconnect to complete sync.</string>
     <string name="current_transaction_count">Wallet tx count:</string>
+    <string name="home_tab_description">simple home drawing</string>
+    <string name="home_icon_label">" Home "</string>
+    <string name="history_icon_label">History</string>
+    <string name="memo_label">"Memo: "</string>
+    <string name="block_height_label">"Block: "</string>
+    <string name="date_label">"Date: "</string>
+    <string name="amount_label">"Amount: "</string>
+    <string name="fees_label">"Fees: "</string>
+    <string name="tx_id_label">"TX ID: "</string>
+    <string name="no_transaction_detail_row">Nothing yet. Top up now!</string>
+    <string name="no_transaction_title_row">TRANSACTION HISTORY</string>
+    <string name="txns_label">txns</string>
 </resources>

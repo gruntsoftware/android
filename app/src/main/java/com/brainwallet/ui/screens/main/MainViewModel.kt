@@ -9,10 +9,12 @@ import com.brainwallet.data.repository.TxRepository
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.sqlite.TransactionDataSource
 import com.brainwallet.ui.BrainwalletViewModel
+import com.brainwallet.ui.bentosections.transactionbento.TransactionFilterState
 import com.brainwallet.util.VersionCodeProvider
 import com.brainwallet.wallet.BRPeerManager
 import com.brainwallet.wallet.BRWalletManager
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.delay
@@ -87,15 +89,17 @@ class MainViewModel(
                 }
         }
 
-        // Transactions → _state directly, no intermediate StateFlow copy
         viewModelScope.launch {
             txRepository.transactionItems.collect { items ->
-                Timber.d("timber: transactions updated: ${items.size}")
-                _state.update { it.copy(transactionItems = items) }
+                _state.update {
+                    it.copy(
+                        transactionItems = items,
+                        allTransactionItems = items
+                    )
+                }
             }
         }
 
-        // Fiat amount debounce validation (unchanged)
         viewModelScope.launch {
             state.map { it.fiatAmount }
                 .debounce(1000)
@@ -246,6 +250,36 @@ class MainViewModel(
                 settingRepository.save(
                     currentSettings.copy(isDarkMode = !currentSettings.isDarkMode)
                 )
+            }
+
+            is MainScreenEvent.OnToggleTransactionsDetail -> viewModelScope.launch {
+                _state.update { it.copy(showTransactionDetail = !it.showTransactionDetail) }
+            }
+
+            is MainScreenEvent.OnToggleTransactionsFilter -> viewModelScope.launch {
+                _state.update {
+                    val nextFilter = TransactionFilterState.entries[
+                        (it.filterState.ordinal + 1) % TransactionFilterState.entries.size
+                    ]
+
+                    val filteredTransactions = when (nextFilter) {
+                        TransactionFilterState.ALL -> it.allTransactionItems
+                        TransactionFilterState.RECEIVED -> it.allTransactionItems.filter {
+                                txItem ->
+                            (txItem.received - txItem.sent > 0)
+                        }.toImmutableList()
+                        TransactionFilterState.SENT -> it.allTransactionItems.filter {
+                                txItem ->
+                            (txItem.received - txItem.sent < 0)
+                        }.toImmutableList()
+                    }
+                    Timber.d("timber: filtered state: $nextFilter and transactions: ${filteredTransactions.size}")
+
+                    it.copy(
+                        filterState = nextFilter,
+                        transactionItems = filteredTransactions
+                    )
+                }
             }
         }
     }

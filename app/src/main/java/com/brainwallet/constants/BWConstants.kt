@@ -32,6 +32,14 @@ object BWConstants {
     const val CAMERA_REQUEST_ID: Int = 34
 
     /**
+     * Animation values
+     */
+    const val FADE_IN_DURATION: Int = 400
+    const val FADE_OUT_DURATION: Int = 400
+    const val SHRINK_DURATION: Int = 700
+    const val EXPAND_DURATION: Int = 700
+
+    /**
      * Request codes for auth
      */
     const val SHOW_PHRASE_REQUEST_CODE: Int = 111
@@ -104,7 +112,8 @@ object BWConstants {
      */
     const val BW_API_PROD_HOST: String = "https://api.grunt.ltd"
 
-    const val BLOCK_EXPLORER_BASE_URL: String = "https://blockchair.com/litecoin/transaction/"
+    const val BLOCKCHAIR_EXPLORER_BASE_URL: String = "https://blockchair.com/litecoin/transaction/"
+    const val BLOCKCYPHER_EXPLORER_BASE_URL: String = "https://live.blockcypher.com/ltc/"
 
     const val _20191105_AL: String = "app_launched"
     const val _20191105_VSC: String = "visit_send_controller"

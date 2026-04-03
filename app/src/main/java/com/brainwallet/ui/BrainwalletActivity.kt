@@ -96,7 +96,7 @@ class BrainwalletActivity :
         AnalyticsManager.logCustomEvent(BWConstants._BW_MAIN_OPEN)
 
         onConnectionChanged(InternetManager.getInstance().isConnected(this))
-        BRSharedPrefs.getPreferredLTC(application)
+        BRSharedPrefs.getLTCViewingPreference(application)
         showInAppReviewDialogIfNeeded()
         val startDestination =
             intent.getSerializableExtra(EXTRA_START_DESTINATION) ?: Route.Welcome
@@ -269,7 +269,8 @@ class BrainwalletActivity :
 
     override fun onConnectionChanged(isConnected: Boolean) {
         val thisContext: Context = this@BrainwalletActivity
-        val startHeight = BRSharedPrefs.getStartHeight(thisContext)
+        val ltcStats = BRSharedPrefs.getLiveLtcStats(thisContext)
+        val startHeight = ltcStats.currentBlockHeight
         if (isConnected) {
             BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
                 Runnable {

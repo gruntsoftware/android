@@ -16,9 +16,9 @@ import com.brainwallet.ui.theme.DesignTheme
 
 @Composable
 fun LargeButton(
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    onClick: () -> Unit,
     colors: ButtonColors = ButtonDefaults.buttonColors(
         containerColor = DesignTheme.colors.background,
         contentColor = DesignTheme.colors.content
@@ -40,8 +40,8 @@ fun LargeButton(
 
 @Composable
 fun BorderedLargeButton(
-    modifier: Modifier = Modifier,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
     colors: ButtonColors = ButtonDefaults.buttonColors(
         containerColor = DesignTheme.colors.surface,
         contentColor = DesignTheme.colors.content
@@ -60,4 +60,18 @@ fun BorderedLargeButton(
         shape = shape,
         content = content
     )
+}
+
+@Composable
+fun SmallToggleButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    colors: ButtonColors = ButtonDefaults.buttonColors(
+        containerColor = DesignTheme.colors.background,
+        contentColor = DesignTheme.colors.content
+    ),
+    shape: Shape = ButtonDefaults.shape,
+    content: @Composable RowScope.() -> Unit
+) {
 }

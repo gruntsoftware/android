@@ -48,7 +48,7 @@ class BWConstantsTests {
 
     @Test
     fun `validate block explorer base URL`() {
-        assertSame(BWConstants.BLOCK_EXPLORER_BASE_URL, "https://blockchair.com/litecoin/transaction/")
+        assertSame(BWConstants.BLOCKCHAIR_EXPLORER_BASE_URL, "https://blockchair.com/litecoin/transaction/")
     }
 
     // ─────────────────────────────────────────────────────────────────────────

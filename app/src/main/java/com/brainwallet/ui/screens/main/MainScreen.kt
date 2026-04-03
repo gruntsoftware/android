@@ -1,6 +1,13 @@
 package com.brainwallet.ui.screens.home
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -51,6 +58,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.brainwallet.constants.BWConstants.EXPAND_DURATION
+import com.brainwallet.constants.BWConstants.FADE_IN_DURATION
+import com.brainwallet.constants.BWConstants.FADE_OUT_DURATION
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.ui.bentosections.balancebento.BalanceBentoScreen
 import com.brainwallet.ui.bentosections.gamehubbento.GameHubBentoScreen
@@ -60,19 +70,14 @@ import com.brainwallet.constants.balanceGameBentoHt
 import com.brainwallet.constants.gameHubHt
 import com.brainwallet.constants.statusBarPadding
 import com.brainwallet.constants.transactionRowHt
+import com.brainwallet.ui.bentosections.transactionbento.TransactionsBentoScreen
 import com.brainwallet.ui.screens.buyreceive.BuyReceiveScreen
 import com.brainwallet.ui.screens.gamehub.GameHubScreen
 import com.brainwallet.ui.screens.main.MainScreenEvent
 import com.brainwallet.ui.screens.main.MainViewModel
-import com.brainwallet.ui.screens.main.history.HistoryScreen
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.ui.theme.mainScreenDarkSurfaceGradient
-
-/**
- * The main screen of the application, featuring a bento-style grid layout.
- * It integrates the top bar, bottom navigation, and content grid.
- * @param modifier The modifier to be applied to the component.
- */
+import kotlinx.collections.immutable.toImmutableList
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -90,7 +95,9 @@ fun MainScreen(
     val appSetting by viewModel.appSetting.collectAsState()
     val isDarkMode = appSetting.isDarkMode
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val showTransactionDetail = state.showTransactionDetail
     val context = LocalContext.current
+    val noTxItemsPresent = state.transactionItems.isEmpty()
 
     LaunchedEffect(Unit) {
         viewModel.onEvent(MainScreenEvent.OnLoad(context))
@@ -117,6 +124,8 @@ fun MainScreen(
                 BentoBottomNavBar(
                     isDarkMode = appSetting.isDarkMode,
                     currentRoute = currentRoute,
+                    isShowingTransactionDetail = showTransactionDetail,
+                    noTxItemsPresent = noTxItemsPresent,
                     onItemClick = { route: Route ->
                         currentRoute = route
 
@@ -126,7 +135,10 @@ fun MainScreen(
                                     isSheetOpen = false
                                 }
                             }
-                            onNavigate.invoke(UiEffect.Navigate(route)) // only navigate for Main
+                            onNavigate.invoke(UiEffect.Navigate(route))
+                        } else if (route == Route.History) {
+                            viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail)
+                            if (showTransactionDetail) currentRoute = Route.Main
                         } else {
                             modalContentRoute = route
                             isSheetOpen = true
@@ -138,7 +150,6 @@ fun MainScreen(
         ) { padding ->
             val gridItems = remember(state.transactionItems) {
                 listOf(
-                    "Transaction History Rows: ${state.transactionItems.size}",
                     "Tutorials Bento View",
                     "Favourites Bento View"
                 )
@@ -158,9 +169,15 @@ fun MainScreen(
                     transactionRowHt -
                     gameHubHt -
                     bottomPadding
-
+                val transactionsDetailHeight = availableHeight + gameHubHt + balanceGameBentoHt
                 val ltcPickerBentoHeight = (availableHeight * 0.78f) - (verticalSpacing / 2)
                 val favoritesBentoHeight = (availableHeight * 0.22f) - (verticalSpacing / 2)
+                val transactionBentoHeight by animateDpAsState(
+                    targetValue = if (showTransactionDetail) transactionsDetailHeight else transactionRowHt,
+                    animationSpec = tween(EXPAND_DURATION),
+                    label = "transactionHeight"
+                )
+
                 Column {
                     Row(
                         modifier = Modifier
@@ -178,9 +195,7 @@ fun MainScreen(
                                 }
                             }
                         )
-
                         Spacer(modifier = Modifier.weight(1f))
-
                         BentoThemeButton(
                             isDarkMode = isDarkMode,
                             onClick = {
@@ -202,29 +217,75 @@ fun MainScreen(
                     ) {
                         item(span = { GridItemSpan(2) }) {
                             Box(modifier = Modifier.height(balanceGameBentoHt)) {
-                                BalanceBentoScreen()
+                                BalanceBentoScreen(transactions = state.transactionItems.toImmutableList())
                             }
                         }
                         item(span = { GridItemSpan(2) }) {
-                            HomeBentoContainer(name = gridItems[0], modifier = Modifier.height(transactionRowHt))
-                        }
-                        item(span = { GridItemSpan(1) }) {
-                            HomeBentoContainer(name = gridItems[1], modifier = Modifier.height(availableHeight))
-                        }
-                        item(span = { GridItemSpan(1) }) {
-                            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                                Box(modifier = Modifier.height(ltcPickerBentoHeight)) {
-                                    LTCPickerBentoScreen()
-                                }
-                                HomeBentoContainer(
-                                    name = gridItems[2],
-                                    modifier = Modifier.height(favoritesBentoHeight)
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(transactionBentoHeight)
+                                    .clickable(
+                                        indication = null,
+                                        interactionSource = remember { MutableInteractionSource() }
+                                    ) {
+                                        if (noTxItemsPresent) {
+                                            onNavigate.invoke(UiEffect.Navigate(Route.MoonPayWeb))
+                                        } else {
+                                            viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail)
+                                        }
+                                    }
+                            ) {
+                                TransactionsBentoScreen(
+                                    transactions = state.transactionItems.toImmutableList(),
+                                    toggleState = state.filterState,
+                                    onEvent = viewModel::onEvent,
+                                    isDarkMode = isDarkMode,
+                                    showTransactionDetail = state.showTransactionDetail,
+                                    shouldShowFiatValues = state.shouldShowFiatValues,
+                                    modifier = Modifier.fillMaxSize()
                                 )
                             }
                         }
+
+                        item(span = { GridItemSpan(1) }) {
+                            AnimatedVisibility(
+                                visible = !showTransactionDetail,
+                                enter = fadeIn(tween(FADE_IN_DURATION)),
+                                exit = fadeOut(tween(FADE_OUT_DURATION)),
+                            ) {
+                                HomeBentoContainer(
+                                    name = gridItems[0],
+                                    modifier = Modifier.height(availableHeight)
+                                )
+                            }
+                        }
+                        item(span = { GridItemSpan(1) }) {
+                            AnimatedVisibility(
+                                visible = !showTransactionDetail,
+                                enter = fadeIn(tween(FADE_IN_DURATION)),
+                                exit = fadeOut(tween(FADE_OUT_DURATION)),
+                            ) {
+                                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                                    Box(modifier = Modifier.height(ltcPickerBentoHeight)) {
+                                        LTCPickerBentoScreen()
+                                    }
+                                    HomeBentoContainer(
+                                        name = gridItems[1],
+                                        modifier = Modifier.height(favoritesBentoHeight)
+                                    )
+                                }
+                            }
+                        }
                         item(span = { GridItemSpan(2) }) {
-                            Box(modifier = Modifier.height(gameHubHt)) {
-                                GameHubBentoScreen()
+                            AnimatedVisibility(
+                                visible = !showTransactionDetail,
+                                enter = fadeIn(tween(FADE_IN_DURATION)),
+                                exit = fadeOut(tween(FADE_OUT_DURATION)),
+                            ) {
+                                Box(modifier = Modifier.height(gameHubHt)) {
+                                    GameHubBentoScreen()
+                                }
                             }
                         }
                     }
@@ -248,7 +309,6 @@ fun MainScreen(
                         Route.Send -> SendScreen(onNavigate = onNavigate)
                         Route.BuyReceive -> BuyReceiveScreen(onNavigate = onNavigate)
                         Route.GameHub -> GameHubScreen(onNavigate = onNavigate)
-                        Route.History -> HistoryScreen(onNavigate = onNavigate)
                         else -> {}
                     }
                 }

@@ -104,7 +104,7 @@ class FragmentSend : Fragment() {
 //        warningText = rootView.findViewById<View>(R.id.warning_text) as TextView
         closeButton = rootView.findViewById<View>(R.id.close_button) as ImageButton
         selectedIsoCurrencySymbol =
-            if (BRSharedPrefs.getPreferredLTC(context)) {
+            if (BRSharedPrefs.getLTCViewingPreference(context)) {
                 "LTC"
             } else {
                 BRSharedPrefs.getIsoSymbol(

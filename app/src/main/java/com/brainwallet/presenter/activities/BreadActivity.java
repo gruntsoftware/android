@@ -122,7 +122,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         getWindowManager().getDefaultDisplay().getSize(screenParametersPoint);
 
         initializeViews();
-        setPriceTags(BRSharedPrefs.getPreferredLTC(BreadActivity.this), false);
+        setPriceTags(BRSharedPrefs.getLTCViewingPreference(BreadActivity.this), false);
         setListeners();
         setUpBarFlipper();
         checkTransactionDatabase();
@@ -271,9 +271,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     private void swap() {
         if (!BRAnimator.isClickAllowed()) return;
-        boolean b = !BRSharedPrefs.getPreferredLTC(this);
+        boolean b = !BRSharedPrefs.getLTCViewingPreference(this);
         setPriceTags(b, true);
-        BRSharedPrefs.putPreferredLTC(this, b);
+        BRSharedPrefs.putLTCViewingPreference(this, b);
     }
 
     private void setPriceTags(boolean ltcPreferred, boolean animate) {
@@ -434,7 +434,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 }
                 if (uiIsDone) return;
                 uiIsDone = true;
-                setPriceTags(BRSharedPrefs.getPreferredLTC(BreadActivity.this), false);
+                setPriceTags(BRSharedPrefs.getLTCViewingPreference(BreadActivity.this), false);
             }
         });
 

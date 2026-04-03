@@ -5,6 +5,7 @@ import static com.brainwallet.data.source.RemoteConfigSource.KEY_FEATURE_SELECTE
 import android.content.Context;
 
 import com.brainwallet.BrainwalletApp;
+import com.brainwallet.data.model.LtcStats;
 import com.brainwallet.data.repository.SelectedPeersRepository;
 import com.brainwallet.data.source.RemoteConfigSource;
 import com.brainwallet.presenter.entities.BlockEntity;
@@ -64,7 +65,9 @@ public class BRPeerManager {
     @Suppress(names = "unused") // called via BRPeerManager callback
     public static void syncStarted() {
         Context ctx = BrainwalletApp.getBreadContext();
-        int startHeight = BRSharedPrefs.getStartHeight(ctx);
+
+        LtcStats ltcStats = BRSharedPrefs.getLiveLtcStats(ctx);
+        int startHeight = ltcStats.currentBlockHeight;
         int lastHeight = BRSharedPrefs.getLastBlockHeight(ctx);
         if (startHeight > lastHeight) BRSharedPrefs.putStartHeight(ctx, lastHeight);
         SyncThreadManager.getInstance().startSyncing(startHeight);
