@@ -43,9 +43,10 @@ fun CurrencyDetail(
     val context = LocalContext.current
 
     // Layout values
-    val expandedHeight = 300
+    val expandedHeight = 200
     val unselectedCircleSize = 20
     val tinyPad = 2
+    val rowHeight = 44.dp
 
     val globalCurrencies = remember { GlobalCurrency.entries }
     val listState = rememberLazyListState()
@@ -80,7 +81,7 @@ fun CurrencyDetail(
                         headlineColor = DesignTheme.colors.content,
                     ),
                     modifier = Modifier
-                        .height(44.dp)
+                        .height(rowHeight)
                         .clickable {
                             onFiatSelect.invoke(currencyEntity)
                         },

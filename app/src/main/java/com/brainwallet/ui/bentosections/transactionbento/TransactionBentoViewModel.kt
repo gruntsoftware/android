@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import org.koin.android.annotation.KoinViewModel
 import timber.log.Timber
 import com.brainwallet.data.repository.LtcRepository
-import com.brainwallet.data.source.PeerManagerSource
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -17,7 +16,6 @@ import kotlinx.coroutines.launch
 class TransactionBentoViewModel(
     private val settingRepository: SettingRepository,
     private val ltcRepository: LtcRepository,
-    private val peerManagerSource: PeerManagerSource,
 ) : BrainwalletViewModel<TransactionBentoEvent>() {
 
     private val _state = MutableStateFlow(TransactionBentoState())
