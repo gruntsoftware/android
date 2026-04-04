@@ -54,7 +54,8 @@ class BalanceBentoViewModel(
                     it.copy(
                         currentBlockHeight = blockInfo.blockHeight,
                         lastTimeStamp = formatter.format(Date(blockInfo.timestamp * 1000L)),
-                        syncProgress = blockInfo.syncProgress
+                        syncProgress = blockInfo.syncProgress,
+                        brainwalletIsSyncing = blockInfo.syncProgress <= 0.99f,
                     )
                 }
             }
@@ -176,7 +177,7 @@ class BalanceBentoViewModel(
                         fiatCode = currentSettings.currency.code,
                         symbol = currentSettings.currency.symbol,
                         syncProgress = syncProgress,
-                        brainwalletIsSyncing = syncProgress <= 0.999f
+                        brainwalletIsSyncing = syncProgress <= 0.99f
                     )
                 }
             }

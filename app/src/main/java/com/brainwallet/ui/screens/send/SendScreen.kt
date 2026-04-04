@@ -1,6 +1,6 @@
 package com.brainwallet.ui.screens.send
 
-import com.brainwallet.R
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,7 +17,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.brainwallet.data.model.AppSetting
@@ -62,7 +61,7 @@ private fun SendScreen(
     BrainwalletScaffold { paddingValues ->
         Box(
             modifier = Modifier
-                .padding(paddingValues)
+                .padding(paddingValues).background(DesignTheme.colors.warn)
                 .fillMaxSize(),
             contentAlignment = Alignment.TopCenter
         ) {
@@ -74,7 +73,7 @@ private fun SendScreen(
                 verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
                 Text(
-                    text = stringResource(R.string.send_title),
+                    text = "DRAFT SEND LITECOIN - NOT WORKING",
                     style = DesignTheme.typography.titleLarge,
                 )
             }
