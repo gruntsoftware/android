@@ -16,6 +16,10 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -26,7 +30,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -44,6 +47,8 @@ fun GameHubBentoScreen(
     onClick: () -> Unit = {}
 ) {
     val gameHubBackground = R.drawable.game_hub_bk
+    var resizedTaglineFontSize by remember { mutableStateOf(14.sp) }
+
     Card(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
@@ -92,7 +97,6 @@ fun GameHubBentoScreen(
                             )
                         ),
                         maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.fillMaxWidth(textWidthRatio)
                     )
 
@@ -105,7 +109,6 @@ fun GameHubBentoScreen(
                             fontSize = 39.sp
                         ),
                         maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.fillMaxWidth(textWidthRatio)
                     )
                 }
@@ -115,10 +118,15 @@ fun GameHubBentoScreen(
                 ) {
                     Text(
                         text = stringResource(R.string.game_hub_tagline),
+                        onTextLayout = { textLayoutResult ->
+                            if (textLayoutResult.hasVisualOverflow) {
+                                resizedTaglineFontSize *= 0.95f
+                            }
+                        },
                         style = TextStyle(
                             fontFamily = IBMPlexSans,
                             fontWeight = FontWeight.Medium,
-                            fontSize = 13.sp,
+                            fontSize = resizedTaglineFontSize,
                             shadow = Shadow(
                                 color = Color.Black.copy(alpha = 0.5f),
                                 offset = Offset(x = 4f, y = 4f),
@@ -126,19 +134,22 @@ fun GameHubBentoScreen(
                             )
                         ),
                         maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.fillMaxWidth(textWidthRatio)
                     )
                     Text(
                         text = stringResource(R.string.game_hub_tagline),
+                        onTextLayout = { textLayoutResult ->
+                            if (textLayoutResult.hasVisualOverflow) {
+                                resizedTaglineFontSize *= 0.95f
+                            }
+                        },
                         style = TextStyle(
                             brush = gameTaglineGradient,
                             fontFamily = IBMPlexSans,
                             fontWeight = FontWeight.Medium,
-                            fontSize = 13.sp
+                            fontSize = resizedTaglineFontSize
                         ),
                         maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.fillMaxWidth(textWidthRatio)
                     )
                 }

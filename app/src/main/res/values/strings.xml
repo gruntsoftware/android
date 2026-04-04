@@ -875,7 +875,7 @@
     <string name="home_tab_description">simple home drawing</string>
     <string name="home_icon_label">Home</string>
     <string name="history_icon_label">History</string>
-    <string name="received_label">"Received: "</string>
+    <string name="received_label" translatable="false">"Received: "</string>
     <string name="memo_label">"Memo: "</string>
     <string name="block_height_label">"Block: "</string>
     <string name="date_label">"Date: "</string>
