@@ -3,7 +3,5 @@
 
     <!--  dark scheme  -->
     <color name="surface">@color/midnight</color>
-    <color name="background">@color/grape</color>
     <color name="content">@color/white</color>
-    <color name="border">@color/white</color>
 </resources>

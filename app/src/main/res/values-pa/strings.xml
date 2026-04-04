@@ -9,7 +9,6 @@
   <string name="About.privacy">پرائیویسی پالیسی</string>
   <!-- About screen Instagram label -->
   <!-- Terms of Use button label -->
-  <string name="About.terms">استعمال کی شرائط</string>
   <!-- About screen title -->
   <string name="About.title">متعلق</string>
   <!-- About screen twitter label -->
@@ -17,31 +16,22 @@
   <!-- Close modal button accessibility label -->
   <string name="AccessibilityLabels.close">بند کرو</string>
   <!-- Support center accessibiliy label -->
-  <string name="AccessibilityLabels.faq">سپورٹ سینٹر</string>
   <!-- Loading Wallet Message -->
   <!-- Default wallet name -->
   <!-- Third party keyboard warning -->
-  <string name="Alert.customKeyboard.android">لگدا اے کہ تُسی تیسری پارٹی دا کی بورڈ استعمال کر رہے او، جو تُہاڈا لکھیا ہویا ریکارڈ کر سکدا اے تے تُہاڈی پیپر کی چُرا سکدا اے۔ مہربانی کرکے اضافی تحفظ کے لیے ڈیفالٹ اینڈرائیڈ کی بورڈ پر سوئچ کریں۔</string>
   <!-- Error alert title -->
   <string name="Alert.error">غلطی</string>
   <!-- Keystore error -->
-  <string name="Alert.keystore.generic.android">تہاڈے اینڈرائیڈ او ایس کی اسٹور وچ کوئی مسئلہ ہے، مہربانی کرکے support.brainwallet.co نال رابطہ کرو۔</string>
   <!-- KeyStore error, keys are invalidated -->
   <string name="Alert.keystore.invalidated.android">تہاڈا برین والٹ انکرپٹڈ ڈیٹا حال ہی وچ غیر مؤثر ہو گیا سی کیونجے تہانڈا اینڈرائیڈ لاک سکرین غیر فعال کر دتا گیا سی۔</string>
   <!-- Keystore error title -->
   <string name="Alert.keystore.title.android">اینڈرائیڈ کی اسٹور خرابی</string>
   <!-- No internet alert message -->
-  <string name="Alert.noInternet">کوئی انٹرنیٹ کنکشن نہیں ملا۔ اپنا کنکشن چیک کرو تے دوبارہ کوشش کرو۔</string>
   <!-- Warning alert title -->
-  <string name="Alert.warning">انتباہ</string>
   <!-- 'the addresses were copied'' Alert title -->
-  <string name="Alerts.copiedAddressesHeader">پتے کاپی ہو گئے ہیں۔</string>
   <!-- Addresses Copied Alert sub header -->
-  <string name="Alerts.copiedAddressesSubheader">تمام والٹ ایڈریس کامیابی سے کاپی ہو گئے ہیں۔</string>
   <!-- Alert Header Label (the paper key was set) -->
-  <string name="Alerts.paperKeySet">پیپر کی سیٹ</string>
   <!-- Alert Subheader label (playfully positive) -->
-  <string name="Alerts.paperKeySetSubheader">کمال!</string>
   <!-- Alert Header label (the PIN was set) -->
   <string name="Alerts.pinSet">پن سیٹ</string>
   <!-- Send failure alert header label (the send failed to happen) -->
@@ -53,51 +43,37 @@
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">فنگرپرنٹ تسلیم شدہ ہے۔</string>
   <!-- JSON Serialization error message -->
-  <string name="ApiClient.jsonError">JSON سیریلائزیشن خرابی</string>
   <!-- Wallet not ready error message -->
-  <string name="ApiClient.notReady">پرس تیار نہیں ہے۔</string>
   <!-- API Token error message -->
-  <string name="ApiClient.tokenError">اے پی آئی ٹوکن حاصل کرنے میں ناکام</string>
   <!-- Cancel button label -->
   <string name="Button.cancel">منسوخ کریں۔</string>
   <!-- Ignore button label -->
-  <string name="Button.ignore">نظر انداز کریں۔</string>
   <!-- menu button -->
-  <string name="Button.menu">مینؤں</string>
   <!-- No button -->
   <string name="Button.no">نہیں</string>
   <!-- OK button label -->
   <string name="Button.ok">ٹھیک ہے۔</string>
   <!-- receive button -->
-  <string name="Button.receive">وصول کرنا</string>
   <!-- send button -->
-  <string name="Button.send">بھیجیں</string>
+  <string name="send_title">بھیجیں</string>
   <!-- Settings button label -->
-  <string name="Button.settings">ترتیبات</string>
   <!-- Settings button label -->
-  <string name="Button.submit">جمع کرو</string>
   <!-- Yes button -->
   <string name="Button.yes">جی ہاں</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">بھیجنے والی رقم:</string>
   <!-- Network Fee: ($1.00) -->
-  <string name="Confirmation.feeLabel">نیٹ ورک فیس:</string>
   <!-- Network-->
   <string name="Network.feeLabel">نیٹ ورک</string>
   <!-- eg. Processing time: This transaction is predicted to complete in [10-60 minutes]. -->
-  <string name="Confirmation.processingTime">پروسسنگ وقت: اس لین دین کے مکمل ہونے کی پیش گوئی %1$s میں کی گئی ہے۔</string>
   <!-- Label for "send" button on final confirmation screen -->
-  <string name="Confirmation.send">بھیجو</string>
   <!-- Confirmation Screen title -->
-  <string name="Confirmation.title">تصدیق</string>
   <!-- To: (address) -->
   <string name="Confirmation.to">نو</string>
   <!-- Total Cost: ($5.00) -->
   <string name="Confirmation.totalLabel">کل لاگت:</string>
   <!-- Confirm paper phrase view label. -->
-  <string name="ConfirmPaperPhrase.label">یقینی بنانے کے لیے کہ سب کچھ صحیح طریقے سے لکھا گیا ہے، براہ کرم اپنے پیپر کی کی سے مندرجہ ذیل الفاظ درج کریں۔</string>
   <!-- Word label eg. Word #1, Word #2 -->
-  <string name="ConfirmPaperPhrase.word">لفظ #%1$s</string>
   <!-- Litecoin denomination picker label -->
   <string name="DefaultCurrency.litecoinLabel">لائٹ کوائن ڈسپلے یونٹ</string>
   <!-- Exchange rate label -->
@@ -107,88 +83,56 @@
   <!-- Message that gets shown when we've detected the user has encountered the looping lock-screen bug. (preserve [ ] characters) -->
   <string name="ErrorMessages.loopingLockScreen.android">برین والٹ کو آپ کے اینڈرائیڈ کے ورژن میں ایک بگ کی وجہ سے تصدیق نہیں کی جا سکتی۔ [مزید معلومات کے لیے یہاں ٹیپ کریں۔]</string>
   <!-- Messaging unavailable alert title -->
-  <string name="ErrorMessages.messagingUnavailableMessage">یہ ڈیوائس پیغامات بھیجنے کے لیے ترتیب نہیں دی گئی۔</string>
   <!-- Messaging unavailable alert title -->
-  <string name="ErrorMessages.messagingUnavailableTitle">پیغام رسانی دستیاب نہیں ہے۔</string>
   <!-- Fingerprint was not recognized by the scanner, please try scanning again -->
   <string name="ErrorMessages.touchIdFailed.android">فنگر پرنٹ تسلیم نہیں ہوا۔ براہ کرم دوبارہ کوشش کریں۔</string>
   <!-- Economy fee -->
-  <string name="FeeSelector.economy">معیشت</string>
   <!-- E.g. [This transaction is predicted to complete in] 1-24 hours -->
-  <string name="FeeSelector.economyTime">10+ منٹ</string>
   <!-- Warning message for economy fee -->
-  <string name="FeeSelector.economyWarning">یہ آپشن وقت حساس لین دین کے لیے تجویز نہیں کی جاتی۔</string>
   <!-- E.g. Estimated delivery: 10-60 minutes -->
-  <string name="FeeSelector.estimatedDeliver">متوقع ترسیل: %1$s</string>
   <!-- Regular fee -->
-  <string name="FeeSelector.regular">باقاعدہ</string>
   <!-- E.g. [This transaction is predicted to complete in] 10-60 minutes -->
-  <string name="FeeSelector.regularTime">۲.۵ - ۵+ منٹ</string>
   <!-- Fee Selector title -->
-  <string name="FeeSelector.title">پروسيسنگ سپیڈ</string>
   <!-- Checking private key balance progress view text -->
   <string name="Import.checking">پرائیویٹ کی بیلنس چیک کر رہے ہیں...</string>
   <!-- Sweep private key confirmation message -->
   <string name="Import.confirm">کیا آپ اس پرائیویٹ کی سے %1$s کو اپنی والٹ میں بھیجنا چاہتے ہیں؟ لائٹ کوائن نیٹ ورک کو %2$s کی فیس موصول ہوگی۔</string>
   <!-- Duplicate key error message -->
-  <string name="Import.Error.duplicate">یہ نجی کلید پہلے ہی آپ کے والٹ میں موجود ہے۔</string>
   <!-- empty private key error message -->
   <string name="Import.Error.empty">یہ نجی کلید خالی ہے۔</string>
   <!-- High fees error message -->
-  <string name="Import.Error.highFees">لین دین دی فیس اس نجی کلید اُتے موجود فنڈز توں زیادہ خرچ ہووے گی۔</string>
   <!-- Not a valid private key error message -->
   <string name="Import.Error.notValid">نجی کلید درست نہیں ہے۔</string>
   <!-- Import signing error message -->
   <string name="Import.Error.signing">ٹرانزیکشن سائن کرنے میں غلطی</string>
   <!-- Import button label -->
-  <string name="Import.importButton">درآمد</string>
   <!-- Importing wallet progress view label -->
-  <string name="Import.importing">والٹ درآمد کرنا</string>
   <!-- Caption for graphics -->
-  <string name="Import.leftCaption">پرس درآمد کرنا ہے۔</string>
   <!-- Import wallet intro screen message -->
-  <string name="Import.message">ایک والٹ کو درآمد کرنے سے آپ کے دوسرے والٹ سے سارا پیسہ ایک ہی لین دین کے ذریعے آپ کے برین والٹ میں منتقل ہو جاتا ہے۔</string>
   <!-- Enter password alert view title -->
   <string name="Import.password">یہ نجی کلید پاس ورڈ سے محفوظ ہے۔</string>
   <!-- password textfield placeholder -->
-  <string name="Import.passwordPlaceholder">پاسورڈ</string>
   <!-- Caption for graphics -->
   <!-- Scan Private key button label -->
-  <string name="Import.scan">پرائیویٹ کی سکین کریں</string>
   <!-- Import wallet success alert title -->
-  <string name="Import.success">کامیابی</string>
   <!-- Successfully imported wallet message body -->
-  <string name="Import.SuccessBody">والٹ کامیابی سے درآمد ہو گیا۔</string>
   <!-- Import Wallet screen title -->
-  <string name="Import.title">والٹ درآمد کرو</string>
   <!-- Unlocking Private key activity view message. -->
-  <string name="Import.unlockingActivity">کلیدی کھولنا</string>
   <!-- Import wallet intro warning message -->
-  <string name="Import.warning">پرس درآمد کرنے سے لین دین کی تاریخ یا دیگر تفصیلات شامل نہیں ہوتیں۔</string>
   <!-- Wrong password alert message -->
-  <string name="Import.wrongPassword">غلط پاسورڈ، براہ کرم دوبارہ کوشش کریں۔</string>
   <!-- Ignore jailbreak warning button -->
   <string name="JailbreakWarnings.ignore">نظر انداز کریں</string>
   <!-- Jailbreak warning message -->
-  <string name="JailbreakWarnings.messageWithBalance">ڈیوائس سیکیورٹی متاثر\n کوئی بھی \'جیل بریک\' ایپ کی چین ڈیٹا تک رسائی حاصل کر سکتی ہے اور آپ کے لائٹ کوائن چرا سکتی ہے! اس والٹ کو فوراً صاف کریں اور کسی محفوظ ڈیوائس پر بحال کریں۔</string>
   <!-- Jailbreak warning message -->
-  <string name="JailbreakWarnings.messageWithoutBalance">ڈیوائس سیکیورٹی متاثر\n کوئی بھی \'جیلبریک\' ایپ کی چین ڈیٹا تک رسائی حاصل کر سکتی ہے اور آپ کے لائٹ کوائن چرا سکتی ہے۔ براہ کرم صرف برین والٹ کو غیر جیل بریک شدہ ڈیوائس پر استعمال کریں۔</string>
   <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">خبردار</string>
   <!-- Location services disabled error -->
-  <string name="LocationPlugin.disabled">لوکیشن سروسز غیر فعال ہیں۔</string>
   <!-- No permissions for location services -->
-  <string name="LocationPlugin.notAuthorized">برین والٹ کو مقام کی خدمات تک رسائی کی اجازت نہیں ہے۔</string>
   <!-- Wallet creation date prefix -->
-  <string name="ManageWallet.creationDatePrefix">تُسیں اپنا والٹ %1$s اُتے بنایا۔</string>
   <!-- Manage wallet description text -->
-  <string name="ManageWallet.description">تہاڈے والٹ دا ناں صرف تہاڈی اکاؤنٹ ٹرانزیکشن ہسٹری وچ ہی نظر آندا اے تے کسے ہور نوں نظر نہیں آ سکدا۔</string>
   <!-- Change Wallet name textfield label -->
-  <string name="ManageWallet.textFieldLabel">پرس دا ناں</string>
   <!-- Manage wallet modal title -->
-  <string name="ManageWallet.title">پرس سنبھالیں</string>
   <!-- Buy litecoin title -->
-  <string name="MenuButton.buy">خریدیں۔</string>
   <!-- Menu button title -->
   <string name="MenuButton.lock">لاک والیٹ</string>
   <!-- Menu button title -->
@@ -202,7 +146,6 @@
   <!-- Menu modal title -->
   <string name="MenuViewController.modalTitle">مینؤ</string>
   <!-- button label -->
-  <string name="MenuViewController.recoverButton">والٹ بحال کریں</string>
   <!-- Switch to automatic mode button label -->
   <string name="NodeSelector.automaticButton">خودکار موڈ پر سوئچ کریں۔</string>
   <!-- Node is connected label -->
@@ -226,49 +169,33 @@
   <!-- Error opening payment protocol file message -->
   <string name="PaymentProtocol.Errors.corruptedDocument">غیر معاون یا خراب شدہ دستاویز</string>
   <!-- Missing certificate payment protocol error message -->
-  <string name="PaymentProtocol.Errors.missingCertificate">گمشدہ سرٹیفکیٹ</string>
   <!-- Request expired payment protocol error message -->
   <string name="PaymentProtocol.Errors.requestExpired">درخواست کی میعاد ختم ہو گئی ہے۔</string>
   <!-- Payment too small alert title -->
-  <string name="PaymentProtocol.Errors.smallOutputError">ادائیگی نہیں ہو سکی۔</string>
   <!-- Amount too small error message -->
   <string name="PaymentProtocol.Errors.smallPayment">لائٹ کوائن ادائیگیاں %1$s سے کم نہیں ہو سکتیں۔</string>
   <!-- Output too small error message. -->
   <string name="PaymentProtocol.Errors.smallTransaction">لائٹ کوائن ٹرانزیکشن آؤٹ پُٹس %1$s سے کم نہیں ہو سکتے۔</string>
   <!-- Unsupported signature type payment protocol error message -->
-  <string name="PaymentProtocol.Errors.unsupportedSignatureType">غیر معاون دستخط قسم</string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">غیر معتبر سرٹیفکیٹ</string>
   <!-- No passcode set warning body -->
-  <string name="Prompts.NoPasscode.body">آپ کے والٹ کی حفاظت کے لیے ایک ڈیوائس پاسکوڈ کی ضرورت ہے۔ سیٹنگز وچ جاؤ تے پاسکوڈ آن کرو۔</string>
   <!-- No Passcode set warning title -->
-  <string name="Prompts.NoPasscode.title">ڈیوائس پاسکوڈ آن کرو</string>
   <!-- Instruction how to enable device encryption -->
-  <string name="Prompts.NoScreenLock.body.android">آپ کے بٹوے کی حفاظت کے لیے ایک ڈیوائس سکرین لاک کی ضرورت ہے۔ "سیٹنگز" &gt; "سیکیورٹی" &gt; "سکرین لاک" پر جائیں اور جاری رکھنے کے لیے فعال کریں۔</string>
   <!-- Device encryption prompt title -->
-  <string name="Prompts.NoScreenLock.title.android">سکرین لاک غیر فعال کر دیا گیا ہے۔</string>
   <!-- Warning about paper key. -->
-  <string name="Prompts.PaperKey.body">تہاڈا پیپر کی محفوظ رکھنا لازمی ہے جے کدے تہاڈا فون کھو جائے یا تبدیل ہو جائے۔ یہاں جاری رکھنے کے لیے ٹیپ کریں۔</string>
   <!-- An action is required (You must do this action). -->
-  <string name="Prompts.PaperKey.title">عمل درکار ہے</string>
   <!-- Transaction rejected prompt body -->
   <string name="Prompts.RecommendRescan.body">تُہاڈا والٹ شاید ہم آہنگی وچ نہیں۔ یہ اکثر بلاک چین کو دوبارہ سکین کر کے ٹھیک کیا جا سکتا ہے۔</string>
   <!-- Transaction rejected prompt title -->
   <string name="Prompts.RecommendRescan.title">لین دین مسترد کر دیا گیا ہے۔</string>
   <!-- Share data prompt body -->
-  <string name="Prompts.ShareData.body">برین والٹ کو بہتر بنانے میں مدد کریں اور اپنا گمنام ڈیٹا ہمارے ساتھ شیئر کریں۔</string>
   <!-- Share data prompt title -->
-  <string name="Prompts.ShareData.title">گمنام ڈیٹا شیئر کرو</string>
   <!-- Enable touch ID prompt body -->
-  <string name="Prompts.TouchId.body">یہاں ٹیپ کریں تاکہ ٹچ آئی ڈی فعال ہو سکے۔</string>
   <!-- Enable Fingerprint prompt body -->
-  <string name="Prompts.TouchId.body.android">یہاں تھپتھپائیں تاکہ فنگر پرنٹ تصدیق فعال ہو سکے۔</string>
   <!-- Enable touch ID prompt title -->
-  <string name="Prompts.TouchId.title">ٹچ آئی ڈی فعال کریں۔</string>
   <!-- Enable Fingerprint prompt title -->
-  <string name="Prompts.TouchId.title.android">فنگرپرنٹ تصدیق کو فعال کریں۔</string>
   <!-- Button on fingerprint prompt so the user can enter their PIN instead -->
-  <string name="Prompts.TouchId.usePin.android">پن</string>
   <!-- Upgrade PIN prompt body. -->
   <string name="Prompts.UpgradePin.body">برین والٹ نے 6-عددی پن کا استعمال اپ گریڈ کر لیا ہے۔ یہاں اپگریڈ کرنے کے لیے ٹیپ کریں۔</string>
   <!-- Upgrade PIN prompt title. -->
@@ -278,9 +205,7 @@
   <!-- Push notifications toggle switch label -->
   <string name="PushNotifications.label">پُش نوٹیفکیشنز</string>
   <!-- Push notifications are off label -->
-  <string name="PushNotifications.off">بند</string>
   <!-- Push notifications are on label -->
-  <string name="PushNotifications.on">تے</string>
   <!-- Push notifications settings view title label -->
   <string name="PushNotifications.title">اطلاعات</string>
   <!-- Address copied message. -->
@@ -288,11 +213,9 @@
   <!-- Share via email button label -->
   <string name="Receive.emailButton">ای میل</string>
   <!-- Request button label -->
-  <string name="Receive.request">رقم دی درخواست کرو</string>
   <!-- Share button label -->
   <string name="Receive.share">شئیر</string>
   <!-- Share via text message (SMS) -->
-  <string name="Receive.textButton">پیغام</string>
   <!-- Receive modal title -->
   <string name="Receive.title">وصول کرو</string>
   <!-- Done button text -->
@@ -300,37 +223,26 @@
   <!-- Recover wallet header -->
   <string name="RecoverWallet.header">والٹ بحال کریں</string>
   <!-- Reset PIN with paper key: header -->
-  <string name="RecoverWallet.header_reset_pin">پن کو دوبارہ سیٹ کریں</string>
   <!-- Enter paper key instruction -->
-  <string name="RecoverWallet.instruction">پیپر کی کلید درج کریں۔</string>
   <!-- Recover wallet intro -->
   <string name="RecoverWallet.intro">اپنے برین والٹ کو اپنے پیپر کی کے ساتھ بحال کریں۔</string>
   <!-- Invalid paper key message -->
   <string name="RecoverWallet.invalid">تُسیں داخل کیتا ہویا پیپر کلید غلط ہے۔ براہ کرم ہر لفظ کو دوبارہ چیک کریں اور دوبارہ کوشش کریں۔</string>
   <!-- Previous button accessibility label -->
-  <string name="RecoverWallet.leftArrow">بائیں تیر</string>
   <!-- Next button label -->
   <string name="RecoverWallet.next">اگلا</string>
   <!-- Reset PIN with paper key: more information button. -->
-  <string name="RecoverWallet.reset_pin_more_info">یہاں مزید معلومات کے لیے ٹیپ کریں۔</string>
   <!-- Next button accessibility label -->
-  <string name="RecoverWallet.rightArrow">دائیں تیر</string>
   <!-- Recover wallet sub-header -->
-  <string name="RecoverWallet.subheader">براہ کرم اُس والٹ کے لیے پیپر کی درج کریں جسے آپ بحال کرنا چاہتے ہیں۔</string>
   <!-- Reset PIN with paper key: sub-header -->
-  <string name="RecoverWallet.subheader_reset_pin">اپنا پن ری سیٹ کرنے کے لیے، نیچے دیے گئے خانوں میں اپنے پیپر کی کی الفاظ درج کریں۔</string>
   <!-- No amount entered error message. -->
-  <string name="RequestAnAmount.noAmount">مہربانی کرکے پہلے ایک رقم درج کریں۔</string>
   <!-- Request a specific amount of litecoin -->
-  <string name="RequestAnAmount.title">رقم دی درخواست کرو</string>
   <!-- Alert action button label -->
   <string name="ReScan.alertAction">ہم آہنگی</string>
   <!-- Alert message body -->
-  <string name="ReScan.alertMessage">تُسیں پیسے نہیں بھیج سکدے جدو تک ہم آہنگی ہو رہی ہے۔</string>
   <!-- Alert message title -->
   <string name="ReScan.alertTitle">بلاک چین کے ساتھ ہم آہنگی؟</string>
   <!-- extimated time -->
-  <string name="ReScan.body1">۲۰-۴۵ منٹ</string>
   <!-- Syncing explanation -->
   <string name="ReScan.body2">اگر لائٹ کوائن نیٹ ورک\'تے کوئی لین دین مکمل ہو کے وکھائی دیوے پر تُہاڈے برین والٹ \'چ نہ ہووے۔</string>
   <!-- Syncing explanation -->
@@ -340,21 +252,14 @@
   <!-- Sync blockchain view footer -->
   <string name="ReScan.footer">تُسیں بلاک چین نال ہم آہنگی کرن دوران پیسے نہیں بھیج سکدے۔</string>
   <!-- Sync Blockchain view header -->
-  <string name="ReScan.header">سنگ بلاک چین</string>
   <!-- Subheader label -->
-  <string name="ReScan.subheader1">تخمینہ شدہ وقت</string>
   <!-- Subheader label -->
   <string name="ReScan.subheader2">کدوں ہم آہنگ کرنا ہے؟</string>
   <!-- Scan litecoin address camera flash toggle -->
-  <string name="Scanner.flashButtonLabel">کیمرہ فلیش</string>
   <!-- Complete filter label -->
-  <string name="Search.complete">مکمل</string>
   <!-- Pending filter label -->
-  <string name="Search.pending">زیر التواء</string>
   <!-- Received filter label -->
-  <string name="Search.received">موصول ہويا</string>
   <!-- Sent filter label -->
-  <string name="Search.sent">بھیجیا گیا</string>
   <!-- Security Center Info -->
   <string name="SecurityCenter.info">تمام سیکیورٹی خصوصیات کو زیادہ سے زیادہ تحفظ کے لیے فعال کریں۔</string>
   <!-- Paper Key button description -->
@@ -368,11 +273,8 @@
   <!-- Security Center Title -->
   <string name="SecurityCenter.title">سیکیورٹی سینٹر</string>
   <!-- Touch ID button description -->
-  <string name="SecurityCenter.touchIdDescription">آسانی سے اپنا برین والٹ کھولیں اور مقررہ حد تک پیسے بھیجیں۔</string>
   <!-- Touch ID button title -->
-  <string name="SecurityCenter.touchIdTitle">ٹچ آئی ڈی</string>
   <!-- Security center fingerprint authentication button -->
-  <string name="SecurityCenter.touchIdTitle.android">فنگرپرنٹ تصدیق</string>
   <!-- Send money amount label -->
   <string name="Send.amountLabel">رقم</string>
   <!-- Balance: $4.00 -->
@@ -382,39 +284,28 @@
   <!-- Permission required to access camera -->
   <string name="Send.cameraUnavailabeTitle.android">برین والٹ کو کیمرے تک رسائی کی اجازت نہیں ہے۔</string>
   <!-- Camera not allowed message -->
-  <string name="Send.cameraunavailableMessage">کیمرہ رسائی کی اجازت دینے کے لیے سیٹنگز پر جائیں۔</string>
   <!-- Camera not allowed alert title -->
-  <string name="Send.cameraUnavailableTitle">برین والٹ کو کیمرے تک رسائی کی اجازت نہیں ہے۔</string>
   <!-- Warning when sending to self. -->
   <string name="Send.containsAddress">منزل مقصود آپنا پتہ ہے۔ تُسیں اپنے آپ نوں نہیں بھیج سکدے۔</string>
   <!-- Could not create transaction alert title -->
-  <string name="Send.creatTransactionError">لین دین پیدا نہیں ہو سکی۔</string>
   <!-- Description for sending money label -->
   <string name="Send.descriptionLabel">یادداشت</string>
   <!-- Emtpy pasteboard error message -->
   <string name="Send.emptyPasteboard">پیسٹ بورڈ خالی ہے۔</string>
   <!-- Network Fee: $0.01 -->
-  <string name="Send.fee">نیٹ ورک فیس: %1$s</string>
   <!-- Payee identity not certified alert title. -->
-  <string name="Send.identityNotCertified">ادائیگی کنندہ کی شناخت تصدیق شدہ نہیں ہے۔</string>
   <!-- Invalid address alert message -->
-  <string name="Send.invalidAddressMessage">منزل دا پتہ ایک درست لائٹ کوائن پتہ نہیں ہے۔</string>
   <!-- Invalid address on pasteboard message -->
-  <string name="Send.invalidAddressOnPasteboard">پیسٹ بورڈ وچ کوئی صحیح لائٹ کوائن پتہ موجود نہیں۔</string>
   <!-- Invalid address alert title -->
   <string name="Send.invalidAddressTitle">غلط پتہ</string>
   <!-- Is rescanning error message -->
   <string name="Send.isRescanning">مکمل دوبارہ سکیننگ کے دوران بھیجنا غیر فعال ہے۔</string>
   <!-- We are loading the request (now) -->
-  <string name="Send.loadingRequest">درخواست لوڈ ہو رہی ہے۔</string>
   <!-- Empty address alert message -->
-  <string name="Send.noAddress">براہ کرم وصول کنندہ کا پتہ درج کریں۔</string>
   <!-- Emtpy amount alert message -->
-  <string name="Send.noAmount">براہ کرم بھیجنے کے لیے رقم درج کریں۔</string>
   <!-- Paste button label -->
   <string name="Send.pasteLabel">پیسٹ</string>
   <!-- Could not publish transaction alert title -->
-  <string name="Send.publishTransactionError">لین دین شائع نہیں ہو سکی۔</string>
   <!-- Could not load remote request error message -->
   <string name="Send.remoteRequestError">ادائیگی کی درخواست لوڈ نہیں ہو سکی۔</string>
   <!-- Scan button label -->
@@ -426,19 +317,14 @@
   <!-- Send money to label -->
   <string name="Send.toLabel">لائٹ کوائن پتہ درج کریں۔</string>
   <!-- Enter to match domain name to LTC Address -->
-  <string name="Send.UnstoppableDomains.placeholder">.کرپٹو، .والٹ، .زیل، .این ایف ٹی، .بلاکچین، .بٹکوائن، .کوائن، .۸۸۸، .ڈاؤ، یا .ایکس ڈومین درج کریں۔</string>
   <!-- Or -->
-  <string name="Send.or">یا</string>
   <!-- Lookup -->
-  <string name="Send.UnstoppableDomains.lookup">تلاش</string>
   <!-- Your address was resolved! -->
-  <string name="Send.UnstoppableDomains.domainResolved">تہاڈا پتہ حل ہو گیا!</string>
   <!-- Address already used alert message - first part -->
   <string name="Send.UsedAddress.firstLine">لائٹ کوائن پتہ جات صرف ایک بار استعمال کے لیے بنائے گئے ہیں۔</string>
   <!-- Address already used alert message - second part -->
   <string name="Send.UsedAddress.secondLIne">دوبارہ استعمال کرنا آپ اور وصول کنندہ دونوں کے لیے پرائیویسی کو کم کرتا ہے اور اگر وصول کنندہ پتہ کو براہ راست کنٹرول نہیں کرتا تو نقصان کا باعث بن سکتا ہے۔</string>
   <!-- Address already used alert title -->
-  <string name="Send.UsedAddress.title">پتہ پہلے ہی استعمال ہو چکا ہے۔</string>
   <!-- About label -->
   <string name="Settings.about">متعلق</string>
   <!-- Advanced Settings title -->
@@ -446,31 +332,22 @@
   <!-- i.e. the currency which will be displayed -->
   <string name="Settings.currency">کرنسی دکھاؤ</string>
   <!-- Join Early access label -->
-  <string name="Settings.earlyAccess">ابتدائی رسائی میں شامل ہوں۔</string>
   <!-- Are you enjoying loaf alert message body -->
-  <string name="Settings.enjoying">کیا تسی برین والٹ دا لطف لے رہے ہو؟</string>
   <!-- Import wallet label -->
-  <string name="Settings.importTitle">والٹ درآمد کرو</string>
   <!-- Manage settings section header -->
   <string name="Settings.manage">مینج</string>
   <!-- Notifications label -->
-  <string name="Settings.notifications">اطلاعات</string>
   <!-- Leave review button label -->
-  <string name="Settings.review">ساڈے لئی ریویو چھوڑو</string>
   <!-- Share anonymous data label -->
   <string name="Settings.shareData">گمنام ڈیٹا شیئر کرو</string>
   <!-- Sync blockchain label -->
   <string name="Settings.sync">سنگ بلاک چین</string>
   <!-- Settings title -->
-  <string name="Settings.title">سیٹنگز</string>
   <!-- Touch ID spending limit label -->
-  <string name="Settings.touchIdLimit">ٹچ آئی ڈی خرچ کرنے دی حد</string>
   <!-- The fingerprint spending limit -->
-  <string name="Settings.touchIdLimit.android">فنگر پرنٹ تصدیق خرچ کرنے دی حد</string>
   <!-- Wallet Settings section header -->
   <string name="Settings.wallet">پرس</string>
   <!-- Start or recover another wallet menu label. -->
-  <string name="Settings.wipe">شروع/دوسرا والٹ بحال کریں</string>
   <!-- Share data view body -->
   <string name="ShareData.body">برین والٹ کو بہتر بنانے میں مدد کریں اور اپنا گمنام ڈیٹا ہمارے ساتھ شیئر کریں۔ یہ کسی مالی معلومات کو شامل نہیں کرتا۔ اسیٰ توہاڈی مالی رازداری دی عزت کردے آں۔</string>
   <!-- Share data header -->
@@ -478,7 +355,6 @@
   <!-- Share data switch label. -->
   <string name="ShareData.toggleLabel">گمنام ڈیٹا شیئر کرو؟</string>
   <!-- button label -->
-  <string name="StartPaperPhrase.againButtonTitle">کاغذ دی چابی دوبارہ لکھو</string>
   <!-- Paper key explanation text. -->
   <string name="StartPaperPhrase.body">تہاڈا پیپر کی واحد طریقہ ہے جڑا تہاڈی برین والٹ نوں بحال کر سکدا اے جے کر تہاڈا فون کھو جائے، چوری ہو جائے، ٹٹ جائے، یا اپگریڈ ہو جائے۔
 
@@ -486,57 +362,34 @@
   <!-- button label -->
   <string name="StartPaperPhrase.buttonTitle">کاغذ دی چابی لکھو</string>
   <!-- Argument is date -->
-  <string name="StartPaperPhrase.date">تُسیں آخری واری اپنا پیپر کی %1$s اُتے لکھیا۔</string>
   <!-- Start view message -->
-  <string name="StartViewController.message">لائٹ کوائن استعمال کرنے کا سب سے محفوظ اور محفوظ طریقہ۔</string>
   <!-- Syncing view connectiong state header text -->
-  <string name="SyncingView.connecting">کنیکٹ کرنا</string>
   <!-- Syncing view header text -->
   <string name="SyncingView.header">ہم آہنگی</string>
   <!-- Retry button label -->
-  <string name="SyncingView.retry">دوبارہ کوشش کریں۔</string>
   <!-- Syncing view syncing state header text -->
-  <string name="SyncingView.syncing">ہم آہنگی</string>
   <!-- 6 d (6 days) -->
-  <string name="TimeSince.days">%1$s د</string>
   <!-- 6 h (6 hours) -->
-  <string name="TimeSince.hours">%1$s ہ</string>
   <!-- 6 m (6 minutes) -->
-  <string name="TimeSince.minutes">%1$s م</string>
   <!-- 6 s (6 seconds) -->
-  <string name="TimeSince.seconds">%1$s س</string>
   <!-- You can customize your Touch ID Spending Limit from the [TouchIdSettings.linkText gets added here as a button] -->
-  <string name="TouchIdSettings.customizeText">تُسیں اپنے ٹچ آئی ڈی خرچ دی حد نوں %1$s توں حسب ضرورت تبدیل کر سکدے ہو۔</string>
   <!-- Fingerprint enabling description body -->
-  <string name="TouchIdSettings.customizeText.android">تُسیں فنگرپرنٹ اتھارائزیشن سپینڈنگ لِمٹ سکرین توں اپنی فنگرپرنٹ آتھنٹیکیشن خرچ دی حد نوں اپنی مرضی دے مطابق بنا سکدے ہو۔</string>
   <!-- Instruction for the fingerprint setup -->
-  <string name="TouchIdSettings.disabledWarning.body.android">تُسیں اس ڈیوائس اُتے فنگرپرنٹ تصدیق فعال نہیں کیتی۔ سیٹنگز -&gt; سیکیورٹی پر جائیں تاکہ فنگر پرنٹ تصدیق کو سیٹ اپ کریں۔</string>
   <!-- Fingerprint Is Not Setup -->
-  <string name="TouchIdSettings.disabledWarning.title.android">فنگر پرنٹ تصدیق فعال نہیں ہے۔</string>
   <!-- Touch Id screen label -->
-  <string name="TouchIdSettings.label">اپنی برین والٹ کو ان لاک کرنے اور مقررہ حد تک پیسے بھیجنے کے لیے اپنی فنگر پرنٹ کا استعمال کریں۔</string>
   <!-- Link Text (see TouchIdSettings.customizeText) -->
-  <string name="TouchIdSettings.linkText">ٹچ آئی ڈی خرچ کرنے کی حد سکرین</string>
   <!-- Spending Limit: b100,000 ($100) -->
-  <string name="TouchIdSettings.spendingLimit">خرچ دی حد: %1$s (%2$s)</string>
   <!-- Touch id switch label. -->
-  <string name="TouchIdSettings.switchLabel">برین والٹ لئی ٹچ آئی ڈی فعال کرو۔</string>
   <!-- Enable fingerprint for this wallet called Brainwallet -->
-  <string name="TouchIdSettings.switchLabel.android">فنگر پرنٹ تصدیق کو فعال کریں۔</string>
   <!-- Touch ID settings view title -->
-  <string name="TouchIdSettings.title">ٹچ آئی ڈی</string>
   <!-- Fingerprint authentication label -->
-  <string name="TouchIdSettings.title.android">فنگرپرنٹ تصدیق</string>
   <!-- Touch ID unavailable alert message -->
-  <string name="TouchIdSettings.unavailableAlertMessage">تُسیں اس ڈیوائس اُتے ٹچ آئی ڈی سیٹ نئیں کیتا۔ سیٹنگز-&gt;ٹچ آئی ڈی &amp; پاسکوڈ پر جا کر اسے ابھی سیٹ اپ کریں۔</string>
   <!-- Touch ID unavailable alert title -->
-  <string name="TouchIdSettings.unavailableAlertTitle">ٹچ آئی ڈی سیٹ اپ نہیں ہوئی</string>
   <!-- Always require passcode option -->
   <string name="TouchIdSpendingLimit">ہمیشہ پاسکوڈ کی ضرورت ہے۔</string>
   <!-- Touch ID spending limit screen body -->
   <string name="TouchIdSpendingLimit.body">تُسیں کسے وی خرچ دی حد توں وادھ لین دین بھیجݨ لئی اپنا 6-عددی پن درج کرݨ لئی پُچھے جاوگے، تے ہر 48 کنٹے بعد جدو تُسیں آخری واری اپنا 6-عددی پن درج کیتا سی۔</string>
   <!-- Touch Id spending limit screen title -->
-  <string name="TouchIdSpendingLimit.title">ٹچ آئی ڈی خرچ کرنے دی حد</string>
   <!-- name of spending limit when using fingerprint authorization -->
   <string name="TouchIdSpendingLimit.title.android">فنگرپرنٹ اجازت خرچ کرنے دی حد</string>
   <!-- Availability status text -->
@@ -546,29 +399,19 @@
   <!-- eg. Ending balance: $50.00 -->
   <string name="Transaction.ending">آخری بیلنس: %1$s</string>
   <!-- Exchange rate on date header -->
-  <string name="Transaction.exchangeOnDayReceived">موصول ہونے پر تبادلہ ریٹ:</string>
   <!-- Exchange rate on date header -->
-  <string name="Transaction.exchangeOnDaySent">بھیجتے وقت تبادلہ ریٹ:</string>
   <!-- (b600 fee) -->
-  <string name="Transaction.fee">(%1$sفیس)</string>
   <!-- Invalid transaction -->
   <string name="Transaction.invalid">غلط</string>
   <!-- Timestamp label for event that just happened -->
-  <string name="Transaction.justNow">ابھی ہال ہی میں</string>
   <!-- Receive status text: 'In progress: 20%' -->
-  <string name="Transaction.receivedStatus">جاری ہے: %1$s</string>
   <!-- Send status text: 'In progress: 20%' -->
-  <string name="Transaction.sendingStatus">جاری ہے: %1$s</string>
   <!-- eg. Starting balance: $50.00 -->
   <string name="Transaction.starting">آغازي بیلنس: %1$s</string>
   <!-- Waiting to be confirmed string -->
-  <string name="Transaction.waiting">تصدیق ہونے کا انتظار ہے۔ کچھ تاجران کو لین دین مکمل کرنے کے لیے تصدیق کی ضرورت ہوتی ہے۔ تخمینہ شدہ وقت: 1-2 گھنٹے۔</string>
   <!-- e.g. I received money from an account. -->
-  <string name="TransactionDetails.account">کھاتہ</string>
   <!-- Amount section header -->
-  <string name="TransactionDetails.amountHeader">رقم</string>
   <!-- Block height label -->
-  <string name="TransactionDetails.blockHeightLabel">تصدیق شدہ بلاک میں</string>
   <!-- Memo section header -->
   <string name="TransactionDetails.commentsHeader">یادداشت</string>
   <!-- Empty transaction list message. -->
@@ -576,21 +419,15 @@
   <!-- "Received [$5] at [which of my addresses]" => This is the "at [which of my addresses]" part. -->
   <string name="TransactionDetails.from"> پر%1$s</string>
   <!-- More button title -->
-  <string name="TransactionDetails.more">زیادہ...</string>
   <!-- Moved $5.00 (as in "I moved $5 to another location") -->
-  <string name="TransactionDetails.moved">منتقل ہو گیا %1$s</string>
   <!-- Moved $5.00 -->
-  <string name="TransactionDetails.movedAmountDescription">منتقل ہوگیا <b>%1$s</b></string>
   <!-- eg. Confirmed in Block: Not Confirmed -->
-  <string name="TransactionDetails.notConfirmedBlockHeightLabel">تصدیق نہیں ہوئی</string>
   <!-- "Received [$5] at [which of my addresses]" => This is the "Received [$5]" part. -->
   <string name="TransactionDetails.received">موصول ہو گیا %1$s</string>
   <!-- Received $5.00 -->
-  <string name="TransactionDetails.receivedAmountDescription">موصول ہويا <b>%1$s</b></string>
   <!-- "Sent [$5] to [address]" => This is the "Sent [$5]" part. -->
   <string name="TransactionDetails.sent">بھیجیا گیا %1$s</string>
   <!-- Sent $5.00 -->
-  <string name="TransactionDetails.sentAmountDescription">بھیجیا گیا <b>%1$s</b></string>
   <!-- Status section header -->
   <string name="TransactionDetails.statusHeader">حالت</string>
   <!-- Transaction Details Title -->
@@ -604,23 +441,19 @@
   <!-- (this transaction was) Sent to this address: -->
   <string name="TransactionDirection.to">اس پتے پر بھیجا گیا</string>
   <!-- Disabled until date -->
-  <string name="UnlockScreen.disabled">معذور ہے تآنکہ: %1$s</string>
   <!-- My Address button title -->
   <string name="UnlockScreen.myAddress">میرا پتہ</string>
   <!-- Reset PIN with Paper Key button label. -->
   <string name="UnlockScreen.resetPin">پن کو دوبارہ مقرر کریں</string>
   <!-- Scan button title -->
-  <string name="UnlockScreen.scan">سکین</string>
   <!-- Unlock Screen sub-header -->
   <string name="UnlockScreen.subheader">پن درج کریں۔</string>
   <!-- Instruction to touch the sensor for fingerprint authentication -->
   <string name="UnlockScreen.touchIdInstructions.android">ٹچ سینسر</string>
   <!-- TouchID prompt text -->
-  <string name="UnlockScreen.touchIdPrompt">اپنا برین والٹ کھولیں۔</string>
   <!-- Device authentication body -->
   <string name="UnlockScreen.touchIdPrompt.android">براہ کرم جاری رکھنے کے لیے اپنی اینڈرائیڈ ڈیوائس کو ان لاک کریں۔</string>
   <!-- Unlock with TouchID accessibility label -->
-  <string name="UnlockScreen.touchIdText">ٹچ آئی ڈی نال کھولو۔</string>
   <!-- View a transaction on the blockchain explorer -->
   <string name="ViewOnBlockchain">بلاک چین پر دیکھیں</string>
   <!-- Device authentication title -->
@@ -644,96 +477,50 @@
   <!-- Re-Enter new PIN instruction -->
   <string name="UpdatePin.reEnterNew">اپنا نواں پن دوبارہ درج کرو۔</string>
   <!-- Update PIN failure error message. -->
-  <string name="UpdatePin.setPinError">معاف کرنا، پن اپڈیٹ نہیں ہو سکی۔</string>
   <!-- Update PIN failure alert view title -->
-  <string name="UpdatePin.setPinErrorTitle">پن کو اپڈیٹ کرنے میں غلطی</string>
   <!-- Update PIN title -->
   <string name="UpdatePin.updateTitle">پن کو اپڈیٹ کریں</string>
   <!-- Authorize to copy wallet addresses alert message -->
-  <string name="URLHandling.addressaddressListAlertMessage">والٹ پتہ جات کلپ بورڈ پر کاپی کریں؟</string>
   <!-- Authorize to copy wallet address PIN view prompt. -->
-  <string name="URLHandling.addressList">کلپ بورڈ پر والٹ ایڈریس کاپی کرنے کی اجازت دیں۔</string>
   <!-- Authorize to copy wallet address alert title -->
-  <string name="URLHandling.addressListAlertTitle">والٹ پتہ جات کاپی کرو</string>
   <!-- Copy wallet addresses alert button label -->
   <string name="URLHandling.copy">نقل کریں۔</string>
   <!-- Verify PIN for transaction view body -->
-  <string name="VerifyPin.authorize">براہ کرم اس لین دین کی اجازت دینے کے لیے اپنا پن درج کریں۔</string>
   <!-- Verify PIN view body -->
-  <string name="VerifyPin.continueBody">براہ کرم جاری رکھنے کے لیے اپنا پن درج کریں۔</string>
   <!-- Verify PIN view title -->
-  <string name="VerifyPin.title">پن درکار ہے۔</string>
   <!-- Authorize transaction with touch id message -->
-  <string name="VerifyPin.touchIdMessage">اس لین دین کی اجازت دیں۔</string>
   <!-- 'No wallet' warning for watch app -->
-  <string name="Watch.noWalletWarning">برین والٹ آئی فون ایپ کھولیں تاکہ آپ اپنی والٹ سیٹ اپ کر سکیں۔</string>
   <!-- Dismiss button label -->
-  <string name="Webview.dismiss">برخاست کریں۔</string>
   <!-- Webview loading error message -->
-  <string name="Webview.errorMessage">مواد لوڈ کرنے میں ایک غلطی ہوئی۔ براہ کرم دوبارہ کوشش کریں۔</string>
   <!-- Updating webview message -->
   <string name="Webview.updating">اپ ڈیٹ ہو رہا ہے...</string>
   <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
-  <string name="Welcome.body">برین والٹ نے ابھی تازہ کاری کی ہے! \nاگر آپ کو مدد کی ضرورت ہے، تو زیادہ تر سکرینوں کے اوپر دائیں جانب موجود (?) کو دیکھیں۔</string>
   <!-- Top title of welcome screen -->
-  <string name="Welcome.title">برین والٹ میں خوش آمدید!</string>
   <!-- Wipe wallet alert message -->
   <string name="WipeWallet.alertMessage">کیا تسی یقین نال ایہہ والٹ حذف کرنا چوندے او؟</string>
   <!-- Wipe wallet alert title -->
   <string name="WipeWallet.alertTitle">پرس صاف کرو؟</string>
   <!-- Failed wipe wallet alert message -->
-  <string name="WipeWallet.failedMessage">پرس صاف کرنے میں ناکام۔</string>
   <!-- Failed wipe wallet alert title -->
-  <string name="WipeWallet.failedTitle">ناکام ہو گیا۔</string>
   <!-- Enter phrase to wipe wallet instruction. -->
-  <string name="WipeWallet.instruction">نواں والٹ شروع کرنے یا موجودہ والٹ بحال کرنے لئی، تہانوں پہلاں اوس والٹ نوں مٹانا پوے گا جو اس وقت انسٹال ہے۔ جاری رکھنے کے لیے، موجودہ والٹ کی پیپر کی درج کریں۔</string>
   <!-- Start wipe wallet view message -->
-  <string name="WipeWallet.startMessage">کسی ہور والٹ نوں شروع کرنا یا بحال کرنا تہاڈے لئی اس ڈیوائس اُتے اک مختلف برین والٹ تک رسائی حاصل کرنا تے اس نوں منیج کرنا ممکن بناندا اے۔</string>
   <!-- Start wipe wallet view warning -->
-  <string name="WipeWallet.startWarning">آپ کا موجودہ والٹ اس ڈیوائس سے ہٹا دیا جائے گا۔ اگر تسی اسے مستقبل وچ بحال کرنا چاهندے ہو، تاں تہانوں اپنا پیپر کی داخل کرنا پوے گا۔</string>
   <!-- Wipe wallet navigation item title. -->
-  <string name="WipeWallet.title">دوسرا والٹ شروع یا بحال کریں</string>
   <!-- Wipe wallet button title -->
   <string name="WipeWallet.wipe">پونچھو</string>
   <!-- Wiping activity message -->
-  <string name="WipeWallet.wiping">صاف کرنا...</string>
   <!-- Paper key instructions. -->
-  <string name="WritePaperPhrase.instruction">ہر لفظ کو ترتیب سے لکھو اور اسے محفوظ جگہ پر رکھو۔</string>
   <!-- button label -->
-  <string name="WritePaperPhrase.next">اگلا</string>
   <!-- button label -->
-  <string name="WritePaperPhrase.previous">پچھلا</string>
   <!-- 1 of 3 -->
-  <string name="WritePaperPhrase.step">ت%1$dصویر%2$d 1 دی تصویر 2 نال موازنہ</string>
-  <string name="Confirmation.processingAndDonationTime">پروسسنگ وقت: ایہہ لین دین %1$s منٹ لیں گے پروسس کرنے لئی۔</string>
-  <string name="Confirmation.staticAddressLabel">پتہ:</string>
-  <string name="FeeSelector.luxury">عیش</string>
-  <string name="FeeSelector.luxuryTime">۲.۵ - ۵+ منٹ</string>
-  <string name="FeeSelector.luxuryMessage">یہ آپشن عملی طور پر آپ کے لین دین کی منظوری کی ضمانت دیتا ہے حالانکہ آپ ایک اضافی قیمت ادا کر رہے ہیں۔</string>
   <!--Buy center - partners-->
-  <string name="BuyCenter.moonpay.Title" translatable="false" tools:ignore="MissingTranslation">مون پے</string>
-  <string name="BuyCenter.moonpay.FinancialDetails">"• ایل ٹی سی کو کئی فیاٹ جوڑوں کے ساتھ خریدیں\n• متعدد طریقوں سے ادائیگی کریں\n• عالمی ادائیگی فراہم کنندہ"</string>
-    <string name="BuyCenter.bitrefill.FinancialDetails">"• تحفے کے کارڈ خریدیں\n• پری پیڈ فونز کو ریفل کریں\n• سٹیم، ایمیزون، ہوٹلز ڈاٹ کام\n• 170 ممالک میں کام کرتا ہے"</string>
-  <string name="aud_currency_code" translatable="false">اے یو ڈی</string>
-  <string name="gbp_currency_code" translatable="false">پاؤنڈ سٹرلنگ</string>
-  <string name="hkd_currency_code" translatable="false">ایچ کے ڈی</string>
-  <string name="idr_currency_code" translatable="false">آئی ڈی آر</string>
-  <string name="rub_currency_code" translatable="false">رُوب</string>
-  <string name="sgd_currency_code" translatable="false">ایس جی ڈی</string>
-  <string name="cad_currency_code" translatable="false">سی اے ڈی</string>
-  <string name="eur_currency_code" translatable="false">یورو</string>
-  <string name="jpy_currency_code" translatable="false">جے پی وائی</string>
-  <string name="usd_currency_code" translatable="false">امریکی ڈالر</string>
   <string name="BottomNavItem.History.title">تاریخ</string>
   <!-- Balance -->
   <string name="ManageWallet.balance">توازن</string>
   <string name="Login.ltcPrice" translatable="false">1 ایل ٹی سی = %1$s</string>
   <string name="Login.currentLtcPrice">موجودہ ایل ٹی سی قیمت %1$s میں</string>
   <string name="Settings.languages">زبانیں</string>
-  <string name="Settings.ChangeLanguage.alertMessage">کیا آپ واقعی زبان کو انگریزی میں تبدیل کرنا چاہتے ہیں؟</string>
-  <string name="JailbreakWarnings.close">بند کرو</string>
   <!-- donation dialog -->
-  <string name="About.Instagram" translatable="false">انسٹاگرام</string>
   <string name="seed_phrase.label" translatable="false">1: %s 2: %s 3: %s 4: %s \\n5: %s 6: %s 7: %s 8: %s%s \\n9: %s 10: %s 11: %s 12: %s  %s</string>
   <string name="show_seed_label">شو</string>
   <string name="settings_show_seed">میری سیڈ فریس دکھاؤ</string>
@@ -741,12 +528,7 @@
   <string name="radio_low_privacy">کم پرائیویسی (تقریباً 45 منٹ)</string>
   <string name="radio_semi_private">نیم نجی (تقریباً 60 منٹ)</string>
   <string name="radio_anonymous">گمنام (تقریباً 77 منٹ)</string>
-  <string name="release_notes">اہم: ایپ 1ltc پتوں کو ہم آہنگ کرنے کی اجازت دے گی۔ تقریباً 1 گھنٹہ انتظار کریں تاکہ ہم آہنگی ہو سکے!</string>
   <!-- Announce Updates View -->
-  <string name="Announce.title">کچھ وی نہ چھڈو!</string>
-  <string name="Announce.close">بند کرو</string>
-  <string name="Announce.description">برین والٹ ٹیم کی طرف سے اپڈیٹس اور مقابلوں کے بارے میں سننے کے لیے سائن اپ کریں! نوٹیفکیشنز قبول کرو تاکہ آپ کو لائیو خبریں، قیمتیں، اور مارکیٹ کی معلومات مل سکیں!</string>
-  <string name="Announce.no_thanks">نہیں، شکریہ!</string>
   <string name="Fees.Service">سروس</string>
   <string name="ConfirmationAllFees.Label">فیس:</string>
   <string name="notification_channel_name_general" translatable="false">جنرل</string>
@@ -776,16 +558,13 @@
   <string name="setup_app_details_1">اپنے برین والٹ کو ان لاک کرنے کے لیے ایک پاس کوڈ منتخب کریں۔</string>
   <string name="setup_app_details_2">فون لاک کوڈ نہیں!</string>
   <string name="setup_app_details_3">اسے مختلف بناؤ۔ اسنوں ٹھنڈا بنا دو۔</string>
-  <string name="setup_app_biometrics">بایومیٹرکس کا استعمال کریں۔</string>
   <string name="you_saved_your_keys">تُسیں اپنی چابیاں بچا لیاں۔</string>
   <string name="you_saved_your_keys_desc">اگلے درجے کو فتح کرو۔</string>
   <string name="tap_drag_a_word">الفاظ نوں تھپ تھپاؤ تے اس نوں اپنی جگہ تے کھسکاؤ۔</string>
   <string name="top_up_title">ریچارج؟</string>
-  <string name="top_up_detail_2">اس وقت آپ کا دماغ خالی ہے...</string>
   <string name="top_up_detail_1">5 منٹ وچ لائٹ کوائن حاصل کرو</string>
   <string name="top_up_button_1">لائٹ کوائن حاصل کرو!</string>
   <string name="top_up_button_2">شاید بعد وچ۔</string>
-  <string name="top_up_button_3">چھڈو</string>
   <string name="restore_your_power">اپنی طاقت بحال کرو</string>
   <string name="restore_your_power_desc">تُسیں اُتھے واپس جا سکتے ہو جتھے تُسیں شُروع کیتا سی۔</string>
   <string name="restore_my_brainwallet">میرا برین والٹ بحال کرو۔</string>
@@ -795,13 +574,10 @@
 تُہانوں 5,444,517,950,000,000,000,000,000,000,000,000,000,000,000,000,000 کوششاں لگن گیاں۔</string>
   <string name="confirm">تصدیق کریں۔</string>
   <string name="confirm_desc">تُسیں بھلّے تاں نئیں؟ اسے دوبارہ داخل کریں۔ یا، واپس جا کر دوبارہ شروع کرو۔</string>
-  <string name="ready">بیج کے جملے کے ساتھ بحال کریں۔</string>
   <string name="restore">بحال کرو</string>
   <string name="incorrect_passcode">غلط پاسکوڈ، براہ کرم دوبارہ کوشش کریں!</string>
   <string name="down_left_arrow">نیچے-کھبے-تیر</string>
-  <string name="logo">لوگو</string>
   <string name="toggle_dark_mode">ٹوگل ڈارک موڈ</string>
-  <string name="toggle_lock_mode" translatable="false">ٹوگل-لاک-موڈ</string>
   <string name="settings_title_security">تحفظ</string>
   <string name="settings_title_language">زبان</string>
   <string name="settings_title_currency">کرنسی</string>
@@ -822,7 +598,6 @@
   <string name="game_buy_price_4" translatable="false">%s</string>
   <string name="security_PIN_title" translatable="false">پن</string>
   <string name="security_seed_phrase_title">بیج عبارت</string>
-  <string name="security_brainwallet_phrase_title">برین والٹ فریس</string>
   <string name="security_share_data_title">تجزیاتی ڈیٹا شئیر کریں۔</string>
   <string name="security_PIN_button">پن کو اپ ڈیٹ کریں</string>
   <string name="security_phrase_button">شوو</string>
@@ -843,32 +618,27 @@
   <string name="custom">حسب ضرورت</string>
   <string name="reset_start_over">ری سیٹ / دوبارہ شروع کریں</string>
   <string name="cta_export_transaction">ਟ੍ਰਾਂਜ਼ੈਕਸ਼ਨ ਡਾਟਾ ਐਕਸਪੋਰਟ ਕਰੋ</string>
-  <string name="send_tab_description">Paper plane icon to represent the Send action</string>
-  <string name="buy_receive_tab_description">Two arrows representing buying and receiving Litecoin</string>
-  <string name="game_hub_tab_description">gaming controller</string>
-  <string name="history_tab_description">circular arrow rotating counter clockwise</string>
-    <string name="send_title">Send Litecoin</string>
-    <string name="game_hub_title">Game Hub</string>
-  <string name="history_title">History</string>
-    <string name="game_hub_tagline">ਕੀ ਤੁਸੀਂ ਪਹਿਲੇ ਨੰਬਰ ਬਣਨ ਲਈ ਕਾਫ਼ੀ ਚੰਗੇ ਹੋ?</string>
-    <string name="game_hub_label">GAME HUB</string>
-    <string name="ltc_ticker_as_of_timestamp">as of %s</string>
-    <string name="my_balance">MY BALANCE</string>
-    <string name="balance_bento_last_block_label">Last block:</string>
-    <string name="no_internet_dialog_title">Sync not possible without internet!</string>
-  <string name="no_internet_dialog_subtitle">Please, reconnect to complete sync.</string>
-    <string name="current_transaction_count">Wallet tx count:</string>
-    <string name="home_tab_description">simple home drawing</string>
-  <string name="home_icon_label">" Home "</string>
-  <string name="history_icon_label">History</string>
-  <string name="memo_label">"Memo: "</string>
-  <string name="block_height_label">"Block: "</string>
-  <string name="date_label">"Date: "</string>
-  <string name="amount_label">"Amount: "</string>
-  <string name="fees_label">"Fees: "</string>
+  <string name="game_hub_title">ਗੇਮ ਹੱਬ</string>
+  <string name="game_hub_tagline">ਕੀ ਤੁਸੀਂ ਪਹਿਲੇ ਨੰਬਰ ਬਣਨ ਲਈ ਕਾਫ਼ੀ ਚੰਗੇ ਹੋ?</string>
+  <string name="send_tab_description">بھیجن دی کاروائی دسّن لئی کاغذی ہوائی جہاز دا آئیکن</string>
+  <string name="buy_receive_tab_description">Litecoin خریدن تے پراپت کرن نوں دسّن والے دو تیر</string>
+  <string name="game_hub_tab_description">گیمنگ کنٹرولر</string>
+  <string name="history_tab_description">گھڑی دیاں سوئیاں دے الٹ پاسے گھمدا گول تیر</string>
+  <string name="history_title">تاریخ</string>
+  <string name="ltc_ticker_as_of_timestamp">%1$s مطابق</string>
+  <string name="my_balance">میرا بیلنس</string>
+  <string name="no_internet_dialog_title">انٹرنیٹ توں بغیر سنک ممکن نئیں!</string>
+  <string name="no_internet_dialog_subtitle">سنک مکمل کرن لئی مہربانی کرکے دوبارہ جڑو۔</string>
+  <string name="current_transaction_count">والٹ ٹرانزیکشن گنتی:</string>
+  <string name="home_tab_description">گھر دی سادی تصویر</string>
+  <string name="home_icon_label">ہوم</string>
+  <string name="memo_label">"میمو: "</string>
+  <string name="block_height_label">"بلاک: "</string>
+  <string name="date_label">"تاریخ: "</string>
+  <string name="amount_label">"رقم: "</string>
+  <string name="fees_label">"فیس: "</string>
   <string name="tx_id_label">"TX ID: "</string>
-    <string name="no_transaction_detail_row">Nothing yet. Top up now!</string>
-  <string name="no_transaction_title_row">TRANSACTION HISTORY</string>
-  <string name="txns_label">txns</string>
-    <string name="confirmations_label">Confirmations:</string>
+  <string name="no_transaction_detail_row">ہالے کجھ نئیں۔ ہُنے ٹاپ اَپ کرو!</string>
+  <string name="no_transaction_title_row">ٹرانزیکشن تاریخ</string>
+  <string name="txns_label">ٹرانزیکشنز</string>
 </resources>

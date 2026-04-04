@@ -1,6 +1,8 @@
 package com.brainwallet.ui.bentosections.balancebento
 
-import android.R.attr.bottom
+import android.media.MediaPlayer
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
@@ -28,10 +30,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,6 +52,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
 import com.brainwallet.presenter.entities.TxItem
 import com.brainwallet.ui.screens.main.MainScreenEvent
@@ -70,14 +74,17 @@ fun BalanceBentoScreen(
     viewModel: BalanceBentoViewModel = koinViewModel(),
     mainViewModel: MainViewModel = koinViewModel()
 ) {
+    val context = LocalContext.current
     val state by viewModel.state.collectAsState()
     val mainState by mainViewModel.state.collectAsState()
+    val coinAudioPlayer = remember { MediaPlayer.create(context, R.raw.coinflip) }
 
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
+        viewModel.onEvent(BalanceBentoEvent.OnLoad)
         viewModel.onResume()
     }
 
-    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
+    LifecycleEventEffect(Lifecycle.Event.ON_PAUSE) {
         viewModel.onPause()
     }
 
@@ -106,6 +113,7 @@ fun BalanceBentoScreen(
     onDebugTxAdded: () -> Unit = {},
     onDebugBalanceChanged: () -> Unit = {},
 ) {
+    val context = LocalContext.current
     val infiniteTransition = rememberInfiniteTransition()
     val throbOpacity by infiniteTransition.animateFloat(
         initialValue = 0.5f,
@@ -143,6 +151,16 @@ fun BalanceBentoScreen(
         iconImage = painterResource(id = R.drawable.visibility_svg)
     } else {
         iconImage = painterResource(id = R.drawable.visibility_off)
+    }
+    val coinAudioPlayer = remember { MediaPlayer.create(context, R.raw.coinflip) }
+    var previousBalance by remember { mutableLongStateOf(state.ltcBalance) }
+
+    // Listen for changes in balance
+    LaunchedEffect(state.ltcBalance) {
+        if (state.ltcBalance > previousBalance) {
+            coinAudioPlayer.start()
+        }
+        previousBalance = state.ltcBalance
     }
 
     Box(

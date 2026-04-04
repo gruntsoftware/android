@@ -1,6 +1,7 @@
 package com.brainwallet.ui.bentosections.balancebento
 
 import android.app.Application
+import app.cash.turbine.test
 import app.cash.turbine.turbineScope
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.repository.ConnectivityRepository
@@ -294,6 +295,74 @@ class BalanceBentoViewModelTest {
 
             assertEquals(2_000_000L, states.expectMostRecentItem().ltcBalance)
             states.cancel()
+        }
+    }
+
+    @Test
+    fun `brainwalletIsSyncing is true when syncProgress is below threshold`() = runTest {
+        viewModel.state.test {
+            awaitItem() // initial state
+
+            blockInfoFlow.emit(
+                BlockInfo(
+                    blockHeight = 100,
+                    syncProgress = 0.5f,
+                    timestamp = 0L
+                )
+            )
+
+            testDispatcher.scheduler.advanceUntilIdle()
+
+            val state = awaitItem()
+            assertTrue(
+                "Expected brainwalletIsSyncing=true when syncProgress=0.5",
+                state.brainwalletIsSyncing
+            )
+        }
+    }
+
+    @Test
+    fun `brainwalletIsSyncing is false when syncProgress exceeds threshold`() = runTest {
+        viewModel.state.test {
+            awaitItem() // initial state
+
+            blockInfoFlow.emit(
+                BlockInfo(
+                    blockHeight = 2_500_000,
+                    syncProgress = 0.9999f,
+                    timestamp = 0L
+                )
+            )
+
+            testDispatcher.scheduler.advanceUntilIdle()
+
+            val state = awaitItem()
+            assertFalse(
+                "Expected brainwalletIsSyncing=false when syncProgress=0.9999",
+                state.brainwalletIsSyncing
+            )
+        }
+    }
+
+    @Test
+    fun `brainwalletIsSyncing toggles correctly across multiple emissions`() = runTest {
+        viewModel.state.test {
+            awaitItem() // initial state
+
+            // Syncing
+            blockInfoFlow.emit(BlockInfo(blockHeight = 100, syncProgress = 0.5f, timestamp = 0L))
+            testDispatcher.scheduler.advanceUntilIdle()
+            assertTrue(awaitItem().brainwalletIsSyncing)
+
+            // Synced
+            blockInfoFlow.emit(BlockInfo(blockHeight = 2_500_000, syncProgress = 0.9999f, timestamp = 0L))
+            testDispatcher.scheduler.advanceUntilIdle()
+            assertFalse(awaitItem().brainwalletIsSyncing)
+
+            // Back to syncing (e.g. chain reorg / test scenario)
+            blockInfoFlow.emit(BlockInfo(blockHeight = 100, syncProgress = 0.75f, timestamp = 0L))
+            testDispatcher.scheduler.advanceUntilIdle()
+            assertTrue(awaitItem().brainwalletIsSyncing)
         }
     }
 

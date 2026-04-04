@@ -58,6 +58,7 @@ class BalanceBentoViewModel(
                         brainwalletIsSyncing = blockInfo.syncProgress <= 0.99f,
                     )
                 }
+                Timber.d("brainwalletIsSyncing Collecting PeerManager %s", state.value.brainwalletIsSyncing)
             }
         }
 
@@ -180,6 +181,7 @@ class BalanceBentoViewModel(
                         brainwalletIsSyncing = syncProgress <= 0.99f
                     )
                 }
+                Timber.d("brainwalletIsSyncing BalanceBentoEvent.OnLoad  %s", state.value.brainwalletIsSyncing)
             }
             is BalanceBentoEvent.OnToggleBalanceVisibility -> {
                 _state.update { it.copy(balanceHidden = !it.balanceHidden) }

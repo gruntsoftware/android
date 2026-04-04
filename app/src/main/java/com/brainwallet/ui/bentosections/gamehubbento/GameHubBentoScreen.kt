@@ -163,7 +163,7 @@ fun GameHubBentoScreen(
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
-                    text = stringResource(R.string.game_hub_label),
+                    text = stringResource(R.string.game_hub_title).uppercase(),
                     color = Color.White,
                     style = TextStyle(
                         fontFamily = IBMPlexSans,

@@ -14,10 +14,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 import com.brainwallet.R
 import com.brainwallet.navigation.Route
 import com.brainwallet.constants.bentoBottomNavBarHt
+import com.brainwallet.tools.util.capitalizeFirst
 import com.brainwallet.ui.theme.DesignTheme
+import com.brainwallet.ui.theme.IBMPlexSans
 import com.brainwallet.ui.theme.colorMidnite
 
 /**
@@ -57,7 +63,19 @@ fun BentoBottomNavBar(
                     contentDescription = stringResource(id = R.string.send_tab_description)
                 )
             },
-            label = { Text("Send") },
+            label = {
+                Text(
+                    text = stringResource(R.string.send_title).capitalizeFirst(),
+                    textAlign = TextAlign.Center,
+                    style = TextStyle(
+                        fontFamily = IBMPlexSans,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 12.sp,
+                        color = Color.White
+                    ),
+                    maxLines = 1
+                )
+            },
             colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
                 selectedIconColor = contentsColor,
                 selectedTextColor = contentsColor,
@@ -75,7 +93,19 @@ fun BentoBottomNavBar(
                     contentDescription = stringResource(id = R.string.buy_receive_tab_description)
                 )
             },
-            label = { Text("Buy/Receive") },
+            label = {
+                Text(
+                    text = stringResource(R.string.bottom_nav_item_buy_receive_title),
+                    textAlign = TextAlign.Center,
+                    style = TextStyle(
+                        fontFamily = IBMPlexSans,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 12.sp,
+                        color = Color.White
+                    ),
+                    maxLines = 2
+                )
+            },
             colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
                 selectedIconColor = contentsColor,
                 selectedTextColor = contentsColor,
@@ -93,7 +123,19 @@ fun BentoBottomNavBar(
                     contentDescription = stringResource(id = R.string.game_hub_tab_description)
                 )
             },
-            label = { Text("Game Hub") },
+            label = {
+                Text(
+                    text = stringResource(R.string.game_hub_title),
+                    textAlign = TextAlign.Center,
+                    style = TextStyle(
+                        fontFamily = IBMPlexSans,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 12.sp,
+                        color = Color.White
+                    ),
+                    maxLines = 2
+                )
+            },
             colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
                 selectedIconColor = contentsColor,
                 selectedTextColor = contentsColor,
@@ -124,11 +166,19 @@ fun BentoBottomNavBar(
             },
             label = {
                 Text(
-                    if (isShowingTransactionDetail) {
+                    text = if (isShowingTransactionDetail) {
                         stringResource(R.string.home_icon_label)
                     } else {
-                        stringResource(R.string.history_icon_label)
-                    }
+                        stringResource(R.string.history_title)
+                    },
+                    textAlign = TextAlign.Center,
+                    style = TextStyle(
+                        fontFamily = IBMPlexSans,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 12.sp,
+                        color = Color.White
+                    ),
+                    maxLines = 1
                 )
             },
             colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
