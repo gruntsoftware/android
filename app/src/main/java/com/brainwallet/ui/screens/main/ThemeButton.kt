@@ -1,4 +1,4 @@
-package com.brainwallet.ui.screens.settings
+package com.brainwallet.ui.screens.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -17,6 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.brainwallet.R
+import com.brainwallet.constants.topNavButtonSize
 import com.brainwallet.ui.theme.DesignTheme
 import com.brainwallet.ui.theme.bentoDarkBorderGradient
 import com.brainwallet.ui.theme.bentoDarkSurfaceGradient
@@ -25,7 +26,7 @@ import com.brainwallet.ui.theme.bentoLightSurfaceGradient
 import com.brainwallet.ui.theme.midnight
 
 @Composable
-fun BentoThemeButton(
+fun ThemeButton(
     modifier: Modifier = Modifier,
     isDarkMode: Boolean = false,
     onClick: () -> Unit
@@ -33,7 +34,7 @@ fun BentoThemeButton(
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
-            .size(48.dp)
+            .size(topNavButtonSize)
             .clip(CircleShape)
             .background(
                 brush = if (isDarkMode) bentoDarkSurfaceGradient else bentoLightSurfaceGradient,
@@ -58,6 +59,6 @@ fun BentoThemeButton(
 @PreviewLightDark
 fun BentoThemeButtonPreview() {
     DesignTheme(isSystemInDarkTheme()) {
-        BentoThemeButton {}
+        ThemeButton {}
     }
 }

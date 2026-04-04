@@ -1,4 +1,4 @@
-package com.brainwallet.ui.screens.main.composable.settingsrows
+package com.brainwallet.ui.screens.settings.settingsrows
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,14 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.brainwallet.R
-import com.brainwallet.ui.screens.settings.SettingsEvent
 
-// TODO
 @Composable
-fun SecurityDetail(
-    modifier: Modifier = Modifier,
-    shareAnalyticsDataEnabled: Boolean = false,
-    onEvent: (SettingsEvent) -> Unit
+fun GamesDetail(
+    modifier: Modifier = Modifier
 ) {
     // / Layout values
     val contentHeight = 60
@@ -28,7 +24,7 @@ fun SecurityDetail(
 
     SettingRowItemExpandable(
         modifier = modifier,
-        title = stringResource(R.string.settings_title_security),
+        title = stringResource(R.string.settings_title_games)
     ) {
         Column(
             modifier = Modifier.padding(horizontal = horizontalPadding.dp),
@@ -39,12 +35,11 @@ fun SecurityDetail(
                     .height(contentHeight.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(stringResource(R.string.security_PIN_title))
+                Text(stringResource(R.string.game_title, 1))
                 Spacer(modifier = Modifier.weight(1f))
                 Button(onClick = {
-                    onEvent.invoke(SettingsEvent.OnSecurityUpdatePinClick)
                 }) {
-                    Text(stringResource(R.string.security_PIN_button))
+                    Text(stringResource(R.string.game_buy_price_1, "TBD"))
                 }
             }
 
@@ -53,38 +48,36 @@ fun SecurityDetail(
                     .height(contentHeight.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(stringResource(R.string.security_seed_phrase_title))
+                Text(stringResource(R.string.game_title, 2))
                 Spacer(modifier = Modifier.weight(1f))
                 Button(onClick = {
-                    onEvent.invoke(SettingsEvent.OnSecuritySeedPhraseClick)
                 }) {
-                    Text(stringResource(R.string.security_phrase_button))
+                    Text(stringResource(R.string.game_buy_price_2, "TBD"))
                 }
             }
 
-//            Row(
-//                modifier = Modifier
-//                    .height(contentHeight.dp),
-//                verticalAlignment = Alignment.CenterVertically
-//            ) {
-//                Text(stringResource(R.string.security_brainwallet_phrase_title))
-//                Spacer(modifier = Modifier.weight(1f))
-//                Button(onClick = {
-//                }) {
-//                    Text(stringResource(R.string.security_phrase_button))
-//                }
-//            }
             Row(
                 modifier = Modifier
                     .height(contentHeight.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(stringResource(R.string.security_share_data_title))
+                Text(stringResource(R.string.game_title, 3))
                 Spacer(modifier = Modifier.weight(1f))
                 Button(onClick = {
-                    onEvent.invoke(SettingsEvent.OnSecurityShareAnalyticsDataClick)
                 }) {
-                    Text(stringResource(if (shareAnalyticsDataEnabled) R.string.Button_yes else R.string.Button_no))
+                    Text(stringResource(R.string.game_buy_price_3, "TBD"))
+                }
+            }
+            Row(
+                modifier = Modifier
+                    .height(contentHeight.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(stringResource(R.string.game_title, 4))
+                Spacer(modifier = Modifier.weight(1f))
+                Button(onClick = {
+                }) {
+                    Text(stringResource(R.string.game_buy_price_4, "TBD"))
                 }
             }
         }

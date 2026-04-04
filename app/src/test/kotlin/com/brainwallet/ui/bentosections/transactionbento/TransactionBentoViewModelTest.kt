@@ -1,6 +1,9 @@
 package com.brainwallet.ui.bentosections.transactionbento
 
 import com.brainwallet.data.model.AppSetting
+import com.brainwallet.data.model.CurrencyEntity
+import com.brainwallet.data.model.LtcStats
+import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.data.repository.SettingRepository
 import io.mockk.every
 import io.mockk.mockk
@@ -15,7 +18,6 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -26,20 +28,30 @@ class TransactionBentoViewModelTest {
     private val testDispatcher = StandardTestDispatcher()
 
     private lateinit var settingRepository: SettingRepository
+    private lateinit var ltcRepository: LtcRepository
     private lateinit var viewModel: TransactionBentoViewModel
-
-    private val settingsFlow = MutableStateFlow(AppSetting())
+    private val currentSettingsFlow = MutableStateFlow(AppSetting())
+    private val ltcStatsFlow = MutableStateFlow(
+        LtcStats(
+            0,
+            0,
+            0,
+            0
+        )
+    )
 
     @Before
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
-
         settingRepository = mockk(relaxed = true)
+        ltcRepository = mockk(relaxed = true)
 
-        every { settingRepository.settings } returns settingsFlow
+        every { ltcRepository.ltcStats } returns ltcStatsFlow
+        every { settingRepository.currentSettings } returns currentSettingsFlow
 
         viewModel = TransactionBentoViewModel(
             settingRepository = settingRepository,
+            ltcRepository = ltcRepository,
         )
     }
 
@@ -52,34 +64,12 @@ class TransactionBentoViewModelTest {
     // ── settings subscription ──────────────────────────────────────────────
 
     @Test
-    fun `darkMode updates when settings emit isDarkMode true`() = runTest {
+    fun `state reflects currency from currentSettings flow`() = runTest {
+        val eur = CurrencyEntity(code = "EUR", symbol = "€", rate = 90.0F)
+        currentSettingsFlow.value = AppSetting(currency = eur)
         advanceUntilIdle()
 
-        settingsFlow.emit(AppSetting(isDarkMode = true))
-        advanceUntilIdle()
-
-        assertTrue(viewModel.state.value.darkMode)
-    }
-
-    @Test
-    fun `darkMode updates when settings emit isDarkMode false`() = runTest {
-        settingsFlow.emit(AppSetting(isDarkMode = true))
-        advanceUntilIdle()
-
-        settingsFlow.emit(AppSetting(isDarkMode = false))
-        advanceUntilIdle()
-
-        assertFalse(viewModel.state.value.darkMode)
-    }
-
-    @Test
-    fun `duplicate settings emissions do not cause redundant state updates`() = runTest {
-        settingsFlow.emit(AppSetting(isDarkMode = true))
-        advanceUntilIdle()
-        settingsFlow.emit(AppSetting(isDarkMode = true))
-        advanceUntilIdle()
-
-        assertTrue(viewModel.state.value.darkMode)
+        assertEquals("EUR", viewModel.state.value.selectedCurrency?.code)
     }
 
     // ── formatter ─────────────────────────────────────────────────────────

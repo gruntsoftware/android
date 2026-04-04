@@ -1,7 +1,6 @@
 package com.brainwallet.ui.bentosections.ltcpickerbento
 
 import androidx.lifecycle.viewModelScope
-import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.tools.sqlite.CurrencyDataSource
@@ -9,12 +8,8 @@ import com.brainwallet.ui.BrainwalletViewModel
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
@@ -33,20 +28,6 @@ class LTCPickerBentoViewModel(
         "MMM dd, yyyy h:mm:ss a",
         java.util.Locale.getDefault()
     )
-    private val appSetting = settingRepository.settings
-        .distinctUntilChanged()
-        .onEach { setting ->
-            _state.update {
-                it.copy(
-                    darkMode = setting.isDarkMode
-                )
-            }
-        }
-        .stateIn(
-            viewModelScope,
-            SharingStarted.Eagerly,
-            AppSetting()
-        )
 
     init {
         viewModelScope.launch {
@@ -58,13 +39,36 @@ class LTCPickerBentoViewModel(
                 delay(5000L)
             }
         }
-    }
-    private suspend fun fetchAndUpdateRates(currencyCode: String = appSetting.value.currency.code) {
-        val rates = ltcRepository.fetchRates()
-        val ltcStats = ltcRepository.fetchLtcStats()
-        val selectedFiat = rates.find { it.code == currencyCode } // ← uses passed code
+        viewModelScope.launch {
+            settingRepository.settings.collect { setting ->
+                _state.update {
+                    it.copy(
+                        darkMode = setting.isDarkMode,
+                        selectedCurrency = setting.currency
+                    )
+                }
+            }
+        }
+        viewModelScope.launch {
+            ltcRepository.ltcStats.collect { ltcStats ->
+                _state.update {
+                    Timber.d("timber: ltcStats: $ltcStats")
 
-        val msg = "||fetchRates ${selectedFiat?.rate} fetch ltc stats: $ltcStats"
+                    it.copy(
+                        ltcStats = ltcStats
+                    )
+                }
+            }
+        }
+    }
+    private suspend fun fetchAndUpdateRates(
+        currencyCode: String = settingRepository.currentSettings.value.currency.code
+    ) {
+        val rates = ltcRepository.fetchRates()
+        val selectedFiat = rates.find { it.code == currencyCode }
+        var formattedFiat = ""
+        val msg = "||fetchRates ${selectedFiat?.rate} fetch ltc stats: $state.ltcStats.currentBlockHeight"
+        Timber.d("timber: ltcStats: $state.ltcStats.value")
         Timber.d(msg)
         FirebaseCrashlytics.getInstance().log(msg)
 
@@ -72,7 +76,8 @@ class LTCPickerBentoViewModel(
             it.copy(
                 selectedCurrency = selectedFiat ?: return@update it,
                 formattedFiat = "${selectedFiat.symbol} ${"%6.2f".format(selectedFiat.rate)}",
-                formattedTimeStamp = formatter.format(java.util.Date())
+                formattedTimeStamp = formatter.format(java.util.Date()),
+                ltcStats = ltcRepository.ltcStats.value
             )
         }
     }
@@ -82,8 +87,8 @@ class LTCPickerBentoViewModel(
                 val newCurrency = currencyDataSource.getCurrencyByIso(event.globalCurrency.code)
                 if (newCurrency != null) {
                     viewModelScope.launch {
-                        settingRepository.save(appSetting.value.copy(currency = newCurrency))
-                        fetchAndUpdateRates(newCurrency.code) // ← pass code directly, don't wait for StateFlow
+                        settingRepository.save(settingRepository.currentSettings.value.copy(currency = newCurrency))
+                        fetchAndUpdateRates(newCurrency.code)
                     }
                 } else {
                     Timber.w("Currency not found for code: ${event.globalCurrency.code}")

@@ -20,24 +20,10 @@ import java.util.Locale;
 import timber.log.Timber;
 @Single
 public class BRSharedPrefs {
-
-    private static final List<OnIsoChangedListener> isoChangedListeners = new ArrayList<>();
     public static final String SEND_TRANSACTION_COUNT = "send_transaction_count";
     public static final String IN_APP_REVIEW_DONE = "in_app_review_done";
     public static final String PREFERRED_FPRATE = "preferredFalsePositiveRate";
 
-    public interface OnIsoChangedListener {
-        void onIsoChanged(String iso);
-    }
-
-    public static void addIsoChangedListener(OnIsoChangedListener listener) {
-        if (isoChangedListeners.contains(listener)) return;
-        isoChangedListeners.add(listener);
-    }
-
-    public static void removeListener(OnIsoChangedListener listener) {
-        isoChangedListeners.remove(listener);
-    }
 
     public static String getIsoSymbol(Context context) {
         SharedPreferences settingsToGet = KoinJavaComponent.get(SharedPreferences.class);

@@ -1,5 +1,6 @@
 package com.brainwallet.ui.screens.main
 import android.app.Application
+import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
@@ -19,7 +20,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
@@ -29,7 +29,6 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
@@ -46,7 +45,6 @@ class MainViewModel(
 ) : BrainwalletViewModel<MainScreenEvent>(),
     BRWalletManager.OnBalanceChanged,
     BRPeerManager.OnTxStatusUpdate,
-    BRSharedPrefs.OnIsoChangedListener,
     TransactionDataSource.OnTxAddedListener {
 
     private val _state =
@@ -57,14 +55,7 @@ class MainViewModel(
             )
         )
     val state: StateFlow<MainScreenState> = _state.asStateFlow()
-
-    val appSetting = settingRepository.settings
-        .stateIn(
-            viewModelScope,
-            SharingStarted.WhileSubscribed(5_000),
-            AppSetting()
-        )
-
+    val appSetting: StateFlow<AppSetting> = settingRepository.currentSettings
     val versionLabel = versionCodeProvider.getFormatted()
 
     init {
@@ -95,6 +86,16 @@ class MainViewModel(
                     it.copy(
                         transactionItems = items,
                         allTransactionItems = items
+                    )
+                }
+            }
+        }
+
+        viewModelScope.launch {
+            ltcRepository.ltcStats.collect { ltcStats ->
+                _state.update {
+                    it.copy(
+                        ltcStats = ltcStats
                     )
                 }
             }
@@ -139,19 +140,16 @@ class MainViewModel(
         super.onCleared()
         BRWalletManager.getInstance().removeListener(this)
         BRPeerManager.getInstance().removeListener(this)
-        BRSharedPrefs.removeListener(this)
         TransactionDataSource.getInstance(app).removeListener(this)
     }
     private fun addObservers() {
         BRWalletManager.getInstance().addBalanceChangedListener(this)
         BRPeerManager.getInstance().addStatusUpdateListener(this)
-        BRSharedPrefs.addIsoChangedListener(this)
         TransactionDataSource.getInstance(app).addTxAddedListener(this)
     }
     private fun removeObservers() {
         BRWalletManager.getInstance().removeListener(this)
         BRPeerManager.getInstance().removeListener(this)
-        BRSharedPrefs.removeListener(this)
         TransactionDataSource.getInstance(app).removeListener(this)
     }
 
@@ -167,11 +165,6 @@ class MainViewModel(
 
     override fun onStatusUpdate() {
         Timber.d("timber: MainViewModel subscribed onStatusUpdate: : BRPeerManager")
-    }
-
-    override fun onIsoChanged(iso: String?) {
-        val isoString = iso ?: ""
-        Timber.d("timber: MainViewModel subscribed onIsoChanged $isoString")
     }
 
     override fun onTxAdded() {

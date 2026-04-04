@@ -32,8 +32,8 @@ class BWConstantsTests {
         assertSame(BWConstants.TWITTER_LINK, "https://twitter.com/Brainwallet_App")
         assertSame(BWConstants.INSTAGRAM_LINK, "https://www.instagram.com/brainwalletapp")
         assertSame(BWConstants.WEB_LINK, "https://brainwallet.co")
-        assertSame(BWConstants.SUPPORT_WEB_LINK, "https://brainwallet.co/support.html")
-        assertSame(BWConstants.TOS_LINK, "https://brainwallet.co/privacy-policy.html")
+        assertSame(BWConstants.SUPPORT_WEB_LINK, "https://www.brainwallet.co/support")
+        assertSame(BWConstants.TOS_LINK, "https://www.brainwallet.co/privacypolicy")
         assertSame(BWConstants.LINKTREE_URL, "https://linktr.ee/brainwallet")
     }
 

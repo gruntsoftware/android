@@ -1,4 +1,4 @@
-package com.brainwallet.ui.screens.main.composable.settingsrows
+package com.brainwallet.ui.screens.settings.settingsrows
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
@@ -16,6 +17,8 @@ import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
@@ -26,18 +29,28 @@ import com.brainwallet.R
 import com.brainwallet.data.model.Language
 import com.brainwallet.ui.theme.DesignTheme
 
-// TODO
 @Composable
 fun LanguageDetail(
     modifier: Modifier = Modifier,
     selectedLanguage: Language,
     onLanguageSelect: (Language) -> Unit
 ) {
-    val languages = Language.entries.toTypedArray()
+    val languages = remember { Language.entries }
+    val listState = rememberLazyListState()
+    val selectedIndex = remember(selectedLanguage) {
+        languages.indexOfFirst { it.code == selectedLanguage.code }
+    }
 
-    // / Layout values
+    // Layout values
     val expandedHeight = 150
     val unselectedCircleSize = 20
+    val rowHeight = 44.dp
+
+    LaunchedEffect(selectedIndex) {
+        if (selectedIndex >= 0) {
+            listState.scrollToItem(selectedIndex)
+        }
+    }
 
     SettingRowItemExpandable(
         modifier = modifier,
@@ -52,11 +65,13 @@ fun LanguageDetail(
                         containerColor = DesignTheme.colors.background,
                         headlineColor = DesignTheme.colors.content,
                     ),
-                    modifier = Modifier.clickable {
-                        if (language.code.isNotBlank()) {
-                            onLanguageSelect.invoke(language)
-                        }
-                    },
+                    modifier = Modifier
+                        .height(rowHeight)
+                        .clickable {
+                            if (language.code.isNotBlank()) {
+                                onLanguageSelect.invoke(language)
+                            }
+                        },
                     headlineContent = {
                         Text(
                             modifier = Modifier,

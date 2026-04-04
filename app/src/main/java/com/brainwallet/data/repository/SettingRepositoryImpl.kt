@@ -6,11 +6,13 @@ import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.Language
 import com.brainwallet.data.repository.SettingRepository.Companion.KEY_FIAT_CURRENCY_CODE
+import com.brainwallet.data.repository.SettingRepository.Companion.KEY_FIAT_CURRENCY_NAME
+import com.brainwallet.data.repository.SettingRepository.Companion.KEY_FIAT_CURRENCY_RATE
+import com.brainwallet.data.repository.SettingRepository.Companion.KEY_FIAT_CURRENCY_SYMBOL
 import com.brainwallet.data.repository.SettingRepository.Companion.KEY_IS_DARK_MODE
 import com.brainwallet.data.repository.SettingRepository.Companion.KEY_LANGUAGE_CODE
 import com.brainwallet.data.repository.SettingRepository.Companion.KEY_SELECTED_FEE_TYPE
 import com.brainwallet.tools.manager.FeeManager
-import com.brainwallet.tools.sqlite.CurrencyDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,7 +23,6 @@ import org.koin.core.annotation.Single
 @Single(binds = [SettingRepository::class])
 class SettingRepositoryImpl(
     private val sharedPreferences: SharedPreferences,
-    private val currencyDataSource: CurrencyDataSource
 ) : SettingRepository {
 
     private val _state = MutableStateFlow(load())
@@ -30,11 +31,30 @@ class SettingRepositoryImpl(
     override val settings: Flow<AppSetting>
         get() = state
 
+    override val currentSettings: StateFlow<AppSetting> = _state.asStateFlow()
+
+    private fun load(): AppSetting {
+        return AppSetting(
+            isDarkMode = sharedPreferences.getBoolean(KEY_IS_DARK_MODE, true),
+            languageCode = sharedPreferences.getString(KEY_LANGUAGE_CODE, Language.ENGLISH.code)
+                ?: Language.ENGLISH.code,
+            currency = CurrencyEntity(
+                code = sharedPreferences.getString(KEY_FIAT_CURRENCY_CODE, "USD") ?: "USD",
+                name = sharedPreferences.getString(KEY_FIAT_CURRENCY_NAME, "US Dollar") ?: "US Dollar",
+                rate = sharedPreferences.getFloat(KEY_FIAT_CURRENCY_RATE, -1f),
+                symbol = sharedPreferences.getString(KEY_FIAT_CURRENCY_SYMBOL, "$") ?: "$"
+            )
+
+        )
+    }
     override suspend fun save(setting: AppSetting) {
         sharedPreferences.edit {
             putBoolean(KEY_IS_DARK_MODE, setting.isDarkMode)
             putString(KEY_LANGUAGE_CODE, setting.languageCode)
             putString(KEY_FIAT_CURRENCY_CODE, setting.currency.code)
+            putString(KEY_FIAT_CURRENCY_NAME, setting.currency.name)
+            putFloat(KEY_FIAT_CURRENCY_RATE, setting.currency.rate)
+            putString(KEY_FIAT_CURRENCY_SYMBOL, setting.currency.symbol)
         }
         _state.update { setting }
     }
@@ -69,22 +89,4 @@ class SettingRepositoryImpl(
     override fun getSelectedFeeType(): String =
         sharedPreferences.getString(KEY_SELECTED_FEE_TYPE, FeeManager.REGULAR)
             ?: FeeManager.REGULAR
-
-    private fun load(): AppSetting {
-        return AppSetting(
-            isDarkMode = sharedPreferences.getBoolean(KEY_IS_DARK_MODE, true),
-            languageCode = sharedPreferences.getString(KEY_LANGUAGE_CODE, Language.ENGLISH.code)
-                ?: Language.ENGLISH.code,
-            currency = sharedPreferences.getString(KEY_FIAT_CURRENCY_CODE, "USD").let {
-                currencyDataSource.getCurrencyByIso(it)
-                    ?: return@let CurrencyEntity(
-                        "USD",
-                        "US Dollar",
-                        -1f,
-                        "$"
-                    )
-            }
-
-        )
-    }
 }

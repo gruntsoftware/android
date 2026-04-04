@@ -1,4 +1,4 @@
-package com.brainwallet.ui.screens.main.composable
+package com.brainwallet.ui.screens.settings.settingsrows
 
 import android.content.Context
 import android.net.Uri
@@ -33,14 +33,6 @@ import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.constants.BWConstants
 import com.brainwallet.ui.screens.settings.SettingsEvent
 import com.brainwallet.ui.screens.settings.SettingsViewModel
-import com.brainwallet.ui.screens.main.composable.settingsrows.CurrencyDetail
-import com.brainwallet.ui.screens.main.composable.settingsrows.GamesDetail
-import com.brainwallet.ui.screens.main.composable.settingsrows.LanguageDetail
-import com.brainwallet.ui.screens.main.composable.settingsrows.LitecoinBlockchainDetail
-import com.brainwallet.ui.screens.main.composable.settingsrows.LockSettingRowItem
-import com.brainwallet.ui.screens.main.composable.settingsrows.SecurityDetail
-import com.brainwallet.ui.screens.main.composable.settingsrows.SettingRowItem
-import com.brainwallet.ui.screens.main.composable.settingsrows.ThemeSettingRowItem
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.ui.theme.DesignTheme
 import com.brainwallet.util.EventBus
@@ -159,7 +151,7 @@ fun HomeSettingDrawerSheet(
                 SettingRowItem(
                     modifier = Modifier.testTag("settingSupport"),
                     title = stringResource(R.string.settings_title_support),
-                    description = "brainwallet.co/support.html",
+                    description = "support.brainwallet.co",
                     onClick = {
                         val builder = CustomTabsIntent.Builder()
                         val customTabsIntent = builder.build()

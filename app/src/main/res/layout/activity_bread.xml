@@ -156,13 +156,7 @@
         android:id="@+id/navigationDrawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="start">
-
-        <com.brainwallet.ui.screens.main.composable.HomeSettingDrawerComposeView
-            android:id="@+id/homeDrawerComposeView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-    </com.google.android.material.navigation.NavigationView>
+        android:layout_gravity="start"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>
 

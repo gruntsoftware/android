@@ -9,7 +9,6 @@ import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.ui.BrainwalletViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
@@ -17,7 +16,6 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
@@ -30,14 +28,7 @@ class BuyReceiveViewModel(
 
     private val _state = MutableStateFlow(BuyReceiveState())
     val state: StateFlow<BuyReceiveState> = _state.asStateFlow()
-
-    val appSetting = settingRepository.settings
-        .distinctUntilChanged()
-        .stateIn(
-            viewModelScope,
-            SharingStarted.Eagerly,
-            AppSetting()
-        )
+    val appSetting: StateFlow<AppSetting> = settingRepository.currentSettings
 
     init {
         viewModelScope.launch {
@@ -64,7 +55,7 @@ class BuyReceiveViewModel(
 
                     _state.getAndUpdate {
                         val limitResult = ltcRepository.fetchLimits(
-                            baseCurrencyCode = appSetting.value.currency.code
+                            baseCurrencyCode = settingRepository.currentSettings.value.currency.code
                         )
 
                         it.copy(
@@ -105,7 +96,7 @@ class BuyReceiveViewModel(
                         val result = ltcRepository.fetchBuyQuote(
                             mapOf(
                                 "currencyCode" to "ltc",
-                                "baseCurrencyCode" to appSetting.value.currency.code,
+                                "baseCurrencyCode" to settingRepository.currentSettings.value.currency.code,
                                 "baseCurrencyAmount" to event.fiatAmount.toString(),
                             )
                         )

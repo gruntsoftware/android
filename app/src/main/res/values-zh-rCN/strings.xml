@@ -821,7 +821,7 @@
     <string name="send_title">Send Litecoin</string>
     <string name="game_hub_title">Game Hub</string>
     <string name="history_title">History</string>
-    <string name="game_hub_tagline">ARE YOU GOOD ENOUGH TO BE #1?</string>
+    <string name="game_hub_tagline">你够厉害成为第一名吗？</string>
     <string name="game_hub_label">GAME HUB</string>
     <string name="ltc_ticker_as_of_timestamp">as of %s</string>
     <string name="my_balance">MY BALANCE</string>
@@ -841,4 +841,5 @@
     <string name="no_transaction_detail_row">Nothing yet. Top up now!</string>
     <string name="no_transaction_title_row">TRANSACTION HISTORY</string>
     <string name="txns_label">txns</string>
+    <string name="confirmations_label">Confirmations:</string>
 </resources>

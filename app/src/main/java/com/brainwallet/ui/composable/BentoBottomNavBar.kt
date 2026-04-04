@@ -35,6 +35,7 @@ fun BentoBottomNavBar(
     isShowingTransactionDetail: Boolean,
     currentRoute: Route?,
     onItemClick: (Route) -> Unit,
+    onToggleTransactionDetail: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var surfaceColor = if (isDarkMode) Color.Black else Color.White
@@ -105,8 +106,8 @@ fun BentoBottomNavBar(
             modifier = Modifier.then(
                 if (noTxItemsPresent) Modifier.alpha(0.4f) else Modifier
             ),
-            selected = currentRoute is Route.History,
-            onClick = { if (!noTxItemsPresent) onItemClick(Route.History) },
+            selected = isShowingTransactionDetail,
+            onClick = { if (!noTxItemsPresent) onToggleTransactionDetail() },
             icon = {
                 Icon(
                     painter = if (isShowingTransactionDetail) {
@@ -150,7 +151,8 @@ fun BentoBottomNavBarPreview() {
             onItemClick = {},
             isDarkMode = isSystemInDarkTheme(),
             isShowingTransactionDetail = false,
-            noTxItemsPresent = false
+            noTxItemsPresent = false,
+            onToggleTransactionDetail = {}
         )
     }
 }

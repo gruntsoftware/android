@@ -40,7 +40,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -73,7 +72,6 @@ fun BalanceBentoScreen(
 ) {
     val state by viewModel.state.collectAsState()
     val mainState by mainViewModel.state.collectAsState()
-    val context = LocalContext.current
 
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
         viewModel.onResume()
@@ -121,7 +119,7 @@ fun BalanceBentoScreen(
         targetValue = if (isSwapped) 40.dp else 0.dp,
         animationSpec = spring(
             dampingRatio = 0.5f,
-            stiffness = Spring.StiffnessLow,
+            stiffness = Spring.StiffnessVeryLow,
         ),
         label = "primaryOffset",
     )
@@ -129,13 +127,13 @@ fun BalanceBentoScreen(
         targetValue = if (isSwapped) 0.dp else 40.dp,
         animationSpec = spring(
             dampingRatio = 0.5f,
-            stiffness = Spring.StiffnessLow,
+            stiffness = Spring.StiffnessVeryLow,
         ),
         label = "secondaryOffset",
     )
 
     val progressLabel = "%.2f".format(state.syncProgress * 100) + "%"
-    val currentBlockLabel = stringResource(R.string.memo_label) +
+    val currentBlockLabel = stringResource(R.string.block_height_label) +
         " ${state.currentBlockHeight}"
     val currentTxsLabel =
         stringResource(R.string.current_transaction_count) + " %d".format(transactions.size)
@@ -175,7 +173,7 @@ fun BalanceBentoScreen(
                         indication = null
                     ) { isSwapped = !isSwapped }
             ) {
-                // ── MY BALANCE LABEL ────────────────────────────────────────────────────
+                // ──────── MY BALANCE LABEL ────────
                 Text(
                     modifier = Modifier
                         .blurWhen(!state.isInternetReachable),
@@ -193,7 +191,7 @@ fun BalanceBentoScreen(
                         .fillMaxHeight()
                         .fillMaxWidth(0.5f)
                 ) {
-                    // ── TOP CURRENCY  ────────────────────────────────────────────────────
+                    // ──────── TOP CURRENCY ────────
                     Text(
                         text = if (state.balanceHidden) "" else "Ł${state.litoshiBalance}",
                         style = TextStyle(
@@ -210,9 +208,13 @@ fun BalanceBentoScreen(
                             .zIndex(if (isSwapped) 1f else 0f)
 
                     )
-                    // ── BOTTOM CURRENCY  ────────────────────────────────────────────────────
+                    // ──────── BOTTOM CURRENCY ────────
                     Text(
-                        text = if (state.balanceHidden) "" else " ${state.symbol} ${state.fiatBalanceFormatted}",
+                        text = if (state.balanceHidden) {
+                            ""
+                        } else {
+                            "${state.selectedCurrency.symbol}${state.fiatBalanceFormatted}"
+                        },
                         style = TextStyle(
                             fontFamily = IBMPlexSans,
                             fontWeight = if (isSwapped) FontWeight.SemiBold else FontWeight.Light,
@@ -246,6 +248,7 @@ fun BalanceBentoScreen(
                     contentDescription = "Toggle Balance Show",
                     tint = Color.White
                 )
+                // ──────── SYNC MESSAGE ────────
                 Text(
                     modifier = Modifier.align(Alignment.End)
                         .alpha(if (state.brainwalletIsSyncing) 1f else 0f)
@@ -259,6 +262,7 @@ fun BalanceBentoScreen(
                     ),
                     maxLines = 1
                 )
+                // ──────── CURRENT TXNS LABEL ────────
                 Text(
                     modifier = Modifier.align(Alignment.End)
                         .alpha(if (state.brainwalletIsSyncing) 1f else 0f)
@@ -272,6 +276,7 @@ fun BalanceBentoScreen(
                     ),
                     maxLines = 1
                 )
+                // ──────── TIMESTAMP LABEL ────────
                 Text(
                     modifier = Modifier.align(Alignment.End)
                         .alpha(if (state.brainwalletIsSyncing) 1f else 0f)

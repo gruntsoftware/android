@@ -32,13 +32,21 @@ class LtcRepositoryImpl(
 
     private val _rates = MutableStateFlow<List<CurrencyEntity>>(emptyList())
     override val rates: StateFlow<List<CurrencyEntity>> = _rates.asStateFlow()
+    private val _ltcStats = MutableStateFlow(
+        LtcStats(
+            0,
+            0,
+            0,
+            0
+        )
+    )
+    override val ltcStats: StateFlow<LtcStats> = _ltcStats.asStateFlow()
 
     // todo: make it offline first here later, currently just using CurrencyDataSource.getAllCurrencies
     override suspend fun fetchRates(): List<CurrencyEntity> {
         return runCatching {
             val rates = remoteApiSource.getRates()
 
-            // legacy logic
             FeeManager.updateFeePerKb(context)
             val selectedISO = BRSharedPrefs.getIsoSymbol(context)
             rates.forEachIndexed { index, currencyEntity ->
@@ -47,24 +55,16 @@ class LtcRepositoryImpl(
                     BRSharedPrefs.putCurrencyListPosition(context, index - 1)
                 }
             }
-            // update ltcRates
+
             val liveLtcStats = remoteApiSource.getLtcStats()
-
-            BRSharedPrefs.putLiveLtcStats(
-                context,
-                liveLtcStats.currentBlockHeight,
-                liveLtcStats.mempoolTransactions,
-                liveLtcStats.mempoolSize,
-                liveLtcStats.transactionsOver24H
-            )
-
-            // save to local
+            _ltcStats.value = liveLtcStats
             currencyDataSource.putCurrencies(rates)
             rates
-        }.getOrElse { currencyDataSource.getAllCurrencies(true) }
-            .also { result ->
-                _rates.value = result
-            }
+        }.getOrElse {
+            currencyDataSource.getAllCurrencies(true)
+        }.also { result ->
+            _rates.value = result
+        }
     }
 
     /**
@@ -77,6 +77,7 @@ class LtcRepositoryImpl(
 
     override suspend fun fetchLtcStats(): LtcStats {
         return remoteApiSource.getLtcStats()
+            .also { _ltcStats.value = it }
     }
 
     override suspend fun fetchLimits(baseCurrencyCode: String): MoonpayCurrencyLimit {

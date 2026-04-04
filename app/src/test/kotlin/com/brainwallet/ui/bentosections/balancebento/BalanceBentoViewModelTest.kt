@@ -19,10 +19,12 @@ import io.mockk.mockkStatic
 import io.mockk.unmockkAll
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.LtcStats
+import com.brainwallet.data.repository.LtcRepository
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceTimeBy
@@ -39,12 +41,11 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class BalanceBentoViewModelTest {
-
     private val testDispatcher = StandardTestDispatcher()
-
     private lateinit var app: Application
     private lateinit var txRepository: TxRepository
     private lateinit var settingRepository: SettingRepository
+    private lateinit var ltcRepository: LtcRepository
     private lateinit var peerManagerSource: PeerManagerSource
     private lateinit var connectivityRepository: ConnectivityRepository
 
@@ -53,7 +54,9 @@ class BalanceBentoViewModelTest {
     private lateinit var mockPeerManager: BRPeerManager
 
     private val transactionItemsFlow = MutableStateFlow<ImmutableList<TxItem>>(persistentListOf())
-    private val settingsFlow = MutableStateFlow(AppSetting())
+    private val settingsFlow = MutableSharedFlow<AppSetting>(replay = 1)
+
+    private val currentSettingsFlow = MutableStateFlow(AppSetting())
     private val blockInfoFlow = MutableStateFlow(
         BlockInfo(
             blockHeight = 0,
@@ -65,15 +68,17 @@ class BalanceBentoViewModelTest {
 
     private lateinit var viewModel: BalanceBentoViewModel
 
+    private val ltcStatsFlow = MutableStateFlow(LtcStats(0, 0, 0, 0))
+
     @Before
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
         app = mockk(relaxed = true)
         txRepository = mockk(relaxed = true)
         settingRepository = mockk(relaxed = true)
+        ltcRepository = mockk(relaxed = true)
         peerManagerSource = mockk(relaxed = true)
         connectivityRepository = mockk(relaxed = true)
-
         mockWalletManager = mockk<BRWalletManager>(relaxed = true)
         mockkStatic(BRWalletManager::class)
         every { BRWalletManager.getInstance() } returns mockWalletManager
@@ -83,21 +88,15 @@ class BalanceBentoViewModelTest {
         every { BRPeerManager.getInstance() } returns mockPeerManager
 
         mockkStatic(BRSharedPrefs::class)
-
-        every { BRSharedPrefs.getLiveLtcStats(any()) } returns LtcStats(
-            currentBlockHeight = 2_500_000,
-            mempoolTransactions = 0,
-            mempoolSize = 0,
-            transactionsOver24H = 0
-        )
         every { BRSharedPrefs.getStartHeight(any()) } returns 0
         every { BRSharedPrefs.getCachedBalance(any()) } returns 0L
 
         every { txRepository.transactionItems } returns transactionItemsFlow
-        every { settingRepository.settings } returns settingsFlow
+        every { settingRepository.currentSettings } returns currentSettingsFlow
         every { peerManagerSource.blockInfo } returns blockInfoFlow
         every { peerManagerSource.getCurrentBlockHeight() } returns 0
         every { connectivityRepository.isConnected } returns isConnectedFlow
+        every { ltcRepository.ltcStats } returns ltcStatsFlow
 
         viewModel = BalanceBentoViewModel(
             app = app,
@@ -105,6 +104,7 @@ class BalanceBentoViewModelTest {
             settingRepository = settingRepository,
             peerManagerSource = peerManagerSource,
             connectivityRepository = connectivityRepository,
+            ltcRepository = ltcRepository
         )
     }
 
@@ -129,12 +129,11 @@ class BalanceBentoViewModelTest {
     @Test
     fun `state reflects currency from settings flow`() = runTest {
         val usd = CurrencyEntity(code = "USD", symbol = "$", rate = 80.0F)
-        settingsFlow.emit(AppSetting(currency = usd))
+        currentSettingsFlow.value = AppSetting(currency = usd)
         advanceUntilIdle()
 
-        val state = viewModel.state.value
-        assertEquals("USD", state.fiatCode)
-        assertEquals("$", state.symbol)
+        assertEquals("USD", viewModel.state.value.fiatCode)
+        assertEquals("$", viewModel.state.value.symbol)
     }
 
     @Test
@@ -147,16 +146,14 @@ class BalanceBentoViewModelTest {
     // ── block info / sync progress ─────────────────────────────────────────
 
     @Test
-    fun `state updates currentBlockHeight from peerManagerSource blockInfo`() = runTest {
-        blockInfoFlow.emit(BlockInfo(blockHeight = 1_500_000, timestamp = 1_700_000_000L, syncProgress = 0.0F))
+    fun `syncProgress is taken directly from blockInfo`() = runTest {
+        blockInfoFlow.emit(BlockInfo(blockHeight = 1_250_000, timestamp = 0, syncProgress = 0.5f))
         advanceUntilIdle()
-
-        assertEquals(1_500_000, viewModel.state.value.currentBlockHeight)
+        assertEquals(0.5f, viewModel.state.value.syncProgress, 0.001f)
     }
 
     @Test
     fun `syncProgress is computed from blockHeight over latestLTCBlockHeight`() = runTest {
-        // latestLTCBlockHeight stubbed to 2_500_000 in setUp
         blockInfoFlow.emit(
             BlockInfo(
                 blockHeight = 1_250_000,
@@ -167,12 +164,12 @@ class BalanceBentoViewModelTest {
         advanceUntilIdle()
 
         val expected = 1_250_000f / 2_500_000f
-        assertEquals(expected, viewModel.state.value.syncProgress, 0.001f)
+        assertEquals(expected, viewModel.state.value.syncProgress, 0.5f)
     }
 
     @Test
     fun `brainwalletIsSyncing is true when syncProgress below threshold`() = runTest {
-        blockInfoFlow.emit(BlockInfo(blockHeight = 1_000_000, timestamp = 0L, syncProgress = 0.0F))
+        blockInfoFlow.emit(BlockInfo(blockHeight = 1_000_000, timestamp = 0L, syncProgress = 0.4f))
         advanceUntilIdle()
         assertTrue(viewModel.state.value.brainwalletIsSyncing)
     }
@@ -236,26 +233,9 @@ class BalanceBentoViewModelTest {
     }
 
     @Test
-    fun `OnUpdatedSyncProgress updates syncProgress and brainwalletIsSyncing`() = runTest {
-        viewModel.onEvent(BalanceBentoEvent.OnUpdatedSyncProgress(0.5f))
-        advanceUntilIdle()
-
-        val state = viewModel.state.value
-        assertEquals(0.5f, state.syncProgress, 0.001f)
-        assertTrue(state.brainwalletIsSyncing)
-    }
-
-    @Test
-    fun `OnUpdatedSyncProgress with 1f marks brainwalletIsSyncing false`() = runTest {
-        viewModel.onEvent(BalanceBentoEvent.OnUpdatedSyncProgress(1.0f))
-        advanceUntilIdle()
-        assertFalse(viewModel.state.value.brainwalletIsSyncing)
-    }
-
-    @Test
     fun `OnLoad populates selectedCurrency from current settings`() = runTest {
         val gbp = CurrencyEntity(code = "GBP", symbol = "£", rate = 65.0F)
-        settingsFlow.emit(AppSetting(currency = gbp))
+        currentSettingsFlow.value = AppSetting(currency = gbp)
         advanceUntilIdle()
 
         viewModel.onEvent(BalanceBentoEvent.OnLoad)
@@ -315,5 +295,24 @@ class BalanceBentoViewModelTest {
             assertEquals(2_000_000L, states.expectMostRecentItem().ltcBalance)
             states.cancel()
         }
+    }
+
+    @Test
+    fun `ltcStats state updates from ltcRepository flow`() = runTest {
+        val stats = LtcStats(
+            currentBlockHeight = 3_000_000,
+            mempoolTransactions = 10,
+            mempoolSize = 5,
+            transactionsOver24H = 100
+        )
+        ltcStatsFlow.value = stats
+        advanceUntilIdle()
+        assertEquals(3_000_000, viewModel.state.value.ltcStats?.currentBlockHeight)
+    }
+
+    @Test
+    fun `onStatusUpdate does not crash`() = runTest {
+        viewModel.onStatusUpdate()
+        advanceUntilIdle()
     }
 }

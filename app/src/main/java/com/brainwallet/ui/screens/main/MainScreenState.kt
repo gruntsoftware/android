@@ -1,5 +1,6 @@
 package com.brainwallet.ui.screens.main
 
+import com.brainwallet.data.model.LtcStats
 import com.brainwallet.data.model.MoonpayCurrencyLimit
 import com.brainwallet.presenter.entities.TxItem
 import com.brainwallet.ui.bentosections.transactionbento.TransactionFilterState
@@ -22,6 +23,12 @@ data class MainScreenState(
     val transactionItems: ImmutableList<TxItem> = persistentListOf(),
     val filterState: TransactionFilterState = TransactionFilterState.ALL,
     val allTransactionItems: ImmutableList<TxItem> = persistentListOf(),
+    val ltcStats: LtcStats = LtcStats(
+        0,
+        0,
+        0,
+        0
+    )
 )
 
 fun MainScreenState.isValid(): Boolean = errorFiatAmountStringId == null

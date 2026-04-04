@@ -6,37 +6,45 @@ import com.brainwallet.ui.BrainwalletViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
 import org.koin.android.annotation.KoinViewModel
 import timber.log.Timber
-import com.brainwallet.data.model.AppSetting
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
+import com.brainwallet.data.repository.LtcRepository
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+
 @KoinViewModel
 class TransactionBentoViewModel(
     private val settingRepository: SettingRepository,
+    private val ltcRepository: LtcRepository,
 ) : BrainwalletViewModel<TransactionBentoEvent>() {
 
     private val _state = MutableStateFlow(TransactionBentoState())
     val state: StateFlow<TransactionBentoState> = _state.asStateFlow()
-
-    private val appSetting = settingRepository.settings
-        .distinctUntilChanged()
-        .onEach { setting ->
-            _state.update {
-                it.copy(darkMode = setting.isDarkMode)
-            }
-        }
-        .stateIn(viewModelScope, SharingStarted.Eagerly, AppSetting())
-
     val formatter = java.text.SimpleDateFormat(
         "MMM dd, yyyy h:mm:ss a",
         java.util.Locale.getDefault()
     )
 
     init {
+        viewModelScope.launch {
+            ltcRepository.ltcStats.collect { ltcStats ->
+                _state.update {
+                    it.copy(
+                        ltcStats = ltcStats
+                    )
+                }
+            }
+        }
+
+        viewModelScope.launch {
+            settingRepository.currentSettings.collect { currentSettings ->
+                _state.update {
+                    it.copy(
+                        selectedCurrency = currentSettings.currency
+                    )
+                }
+            }
+        }
     }
 
     override fun onEvent(event: TransactionBentoEvent) {

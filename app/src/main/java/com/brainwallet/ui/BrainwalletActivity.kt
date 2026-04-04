@@ -23,8 +23,12 @@ import com.brainwallet.constants.BWConstants.BW_PIN_LENGTH
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.navigation.LegacyNavigation
+import com.brainwallet.navigation.LegacyNavigation.restartBreadActivity
+import com.brainwallet.navigation.LegacyNavigation.startBrainwalletActivity
 import com.brainwallet.navigation.MainNavigationHost
 import com.brainwallet.navigation.Route
+import com.brainwallet.navigation.Route.UnLock
+import com.brainwallet.presenter.activities.settings.SyncBlockchainActivity
 import com.brainwallet.presenter.activities.util.BRActivity
 import com.brainwallet.tools.animation.BRAnimator
 import com.brainwallet.tools.animation.BRDialog
@@ -43,6 +47,7 @@ import com.brainwallet.ui.screens.restore.RestoreViewModel.Companion.EFFECT_LEGA
 import com.brainwallet.ui.screens.restore.RestoreViewModel.Companion.LEGACY_DIALOG_INVALID
 import com.brainwallet.ui.screens.restore.RestoreViewModel.Companion.LEGACY_DIALOG_WIPE_ALERT
 import com.brainwallet.ui.screens.restore.RestoreViewModel.Companion.LEGACY_EFFECT_RESET_PIN
+import com.brainwallet.ui.screens.settings.SettingsViewModel
 import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItViewModel.Companion.LEGACY_EFFECT_ON_PAPERKEY_PROVED
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.util.EventBus
@@ -68,7 +73,6 @@ class BrainwalletActivity :
     BRActivity(),
     BRWalletManager.OnBalanceChanged,
     BRPeerManager.OnTxStatusUpdate,
-    BRSharedPrefs.OnIsoChangedListener,
     TransactionDataSource.OnTxAddedListener,
     InternetManager.ConnectionReceiverListener {
     private val settingRepository by inject<SettingRepository>()
@@ -140,6 +144,27 @@ class BrainwalletActivity :
     }
     private fun handleLegacyMessage(message: String) {
         when (message) {
+            SettingsViewModel.LEGACY_EFFECT_ON_LOCK -> {
+                startBrainwalletActivity(this, true)
+            }
+            SettingsViewModel.LEGACY_EFFECT_ON_TOGGLE_DARK_MODE -> {
+                restartBreadActivity(this)
+            }
+            SettingsViewModel.LEGACY_EFFECT_ON_SEC_UPDATE_PIN -> {
+                createIntent(this, UnLock(true))
+                    .apply { putExtra("noPin", true) }
+                    .also { startActivity(it) }
+            }
+            SettingsViewModel.LEGACY_EFFECT_ON_SEED_PHRASE -> {
+                PostAuth.getInstance().onPhraseCheckAuth(this@BrainwalletActivity, true)
+            }
+            SettingsViewModel.LEGACY_EFFECT_ON_SHARE_ANALYTICS_DATA_TOGGLE -> {
+                val current = BRSharedPrefs.getShareData(this)
+                BRSharedPrefs.putShareData(this, !current)
+            }
+            SettingsViewModel.LEGACY_EFFECT_ON_SYNC -> {
+                startActivity(Intent(this, SyncBlockchainActivity::class.java))
+            }
             EFFECT_LEGACY_RECOVER_WALLET_AUTH -> {
                 PostAuth.getInstance().onRecoverWalletAuth(this@BrainwalletActivity, false)
             }
@@ -168,7 +193,6 @@ class BrainwalletActivity :
                 },
                 null, null, 0
             )
-
             LEGACY_DIALOG_WIPE_ALERT -> BRDialog.showCustomDialog(
                 this,
                 getString(R.string.WipeWallet_alertTitle),
@@ -187,7 +211,6 @@ class BrainwalletActivity :
                 { brDialogView -> brDialogView.dismissWithAnimation() },
                 null, 0
             )
-
             else -> Unit
         }
     }
@@ -385,12 +408,10 @@ class BrainwalletActivity :
 
     private fun addObservers() {
         BRWalletManager.getInstance().addBalanceChangedListener(this)
-        BRSharedPrefs.addIsoChangedListener(this)
     }
 
     private fun removeObservers() {
         BRWalletManager.getInstance().removeListener(this)
-        BRSharedPrefs.removeListener(this)
     }
 
     override fun onResume() {
@@ -413,11 +434,6 @@ class BrainwalletActivity :
 
     override fun onStatusUpdate() {
         Timber.d("timber: BrainwalletActivity subscribed onStatusUpdate")
-    }
-
-    override fun onIsoChanged(iso: String?) {
-        val isoString = iso ?: ""
-        Timber.d("timber: BrainwalletActivity subscribed onIsoChanged $isoString")
     }
 
     override fun onTxAdded() {

@@ -1,10 +1,9 @@
 package com.brainwallet.ui.bentosections.balancebento
-
 import android.app.Application
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.BuildConfig
-import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.repository.ConnectivityRepository
+import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.repository.TxRepository
 import com.brainwallet.data.source.PeerManagerSource
@@ -18,12 +17,8 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
@@ -35,13 +30,13 @@ import java.util.Date
 class BalanceBentoViewModel(
     private val app: Application,
     private val txRepository: TxRepository,
+    private val ltcRepository: LtcRepository,
     private val settingRepository: SettingRepository,
     private val peerManagerSource: PeerManagerSource,
     private val connectivityRepository: ConnectivityRepository,
 ) : BrainwalletViewModel<BalanceBentoEvent>(),
     BRWalletManager.OnBalanceChanged,
     BRPeerManager.OnTxStatusUpdate,
-    BRSharedPrefs.OnIsoChangedListener,
     TransactionDataSource.OnTxAddedListener {
     private val _state = MutableStateFlow(BalanceBentoState())
     val state: StateFlow<BalanceBentoState> = _state.asStateFlow()
@@ -50,49 +45,47 @@ class BalanceBentoViewModel(
         java.util.Locale.getDefault()
     )
 
-    val latestLTCBlockHeight = BRSharedPrefs.getLiveLtcStats(app).currentBlockHeight
-
-    private val appSetting = settingRepository.settings
-        .distinctUntilChanged()
-        .onEach { setting ->
-            _state.update {
-                it.copy(
-                    darkMode = setting.isDarkMode,
-                    selectedCurrency = setting.currency,
-                    fiatCode = setting.currency.code,
-                    symbol = setting.currency.symbol,
-                )
-            }
-        }
-        .stateIn(
-            viewModelScope,
-            SharingStarted.Eagerly,
-            AppSetting()
-        )
     init {
-        viewModelScope.launch {
-            // Runs immediately on launch
-            val progress = peerManagerSource.getCurrentBlockHeight() / latestLTCBlockHeight.toFloat()
-            onEvent(BalanceBentoEvent.OnUpdatedSyncProgress(progress))
-
-            // Then starts collecting (blocks here)
-            connectivityRepository.isConnected.collect { isInternetReachable ->
-                _state.update { it.copy(isInternetReachable = isInternetReachable) }
-                if (isInternetReachable) {
-                    onEvent(BalanceBentoEvent.OnUpdatedSyncProgress(progress))
-                }
-            }
-        }
-
+        // ──────── Collecting PeerManager / Syncing Updates ────────
         viewModelScope.launch {
             peerManagerSource.blockInfo.collect { blockInfo ->
-                Timber.d("timber: blockInfo Height:  %d", blockInfo.blockHeight)
-
+                Timber.d("timber: blockInfo Height:  %d progress: %3.3f", blockInfo.blockHeight, blockInfo.syncProgress)
                 _state.update {
                     it.copy(
                         currentBlockHeight = blockInfo.blockHeight,
                         lastTimeStamp = formatter.format(Date(blockInfo.timestamp * 1000L)),
-                        syncProgress = blockInfo.blockHeight.toFloat() / latestLTCBlockHeight.toFloat()
+                        syncProgress = blockInfo.syncProgress
+                    )
+                }
+            }
+        }
+
+        // ──────── Collecting Mainnet LTC Chain Updates ────────
+        viewModelScope.launch {
+            ltcRepository.ltcStats.collect { ltcStats ->
+                _state.update {
+                    it.copy(
+                        ltcStats = ltcStats,
+                    )
+                }
+            }
+        }
+
+        // ──────── Collecting Reachability Updates ────────
+        viewModelScope.launch {
+            connectivityRepository.isConnected.collect { isInternetReachable ->
+                _state.update { it.copy(isInternetReachable = isInternetReachable) }
+            }
+        }
+
+        // ──────── Collecting Settings Updates ────────
+        viewModelScope.launch {
+            settingRepository.currentSettings.collect { settings ->
+                _state.update {
+                    it.copy(
+                        selectedCurrency = settings.currency,
+                        fiatCode = settings.currency.code,
+                        symbol = settings.currency.symbol,
                     )
                 }
             }
@@ -135,26 +128,25 @@ class BalanceBentoViewModel(
         super.onCleared()
         BRWalletManager.getInstance().removeListener(this)
         BRPeerManager.getInstance().removeListener(this)
-        BRSharedPrefs.removeListener(this)
         TransactionDataSource.getInstance(app).removeListener(this)
     }
     private fun addObservers() {
         BRWalletManager.getInstance().addBalanceChangedListener(this)
         BRPeerManager.getInstance().addStatusUpdateListener(this)
-        BRSharedPrefs.addIsoChangedListener(this)
         TransactionDataSource.getInstance(app).addTxAddedListener(this)
     }
     private fun removeObservers() {
         BRWalletManager.getInstance().removeListener(this)
         BRPeerManager.getInstance().removeListener(this)
-        BRSharedPrefs.removeListener(this)
         TransactionDataSource.getInstance(app).removeListener(this)
     }
 
     override fun onBalanceChanged(balance: Long) {
         _state.update {
             it.copy(
-                ltcBalance = balance
+                ltcBalance = balance,
+                litoshiBalance = BigDecimal(balance)
+                    .divide(BigDecimal(ONE_LITECOIN_OF_LITOSHIS)),
             )
         }
         viewModelScope.launch(Dispatchers.IO) {
@@ -163,19 +155,7 @@ class BalanceBentoViewModel(
     }
 
     override fun onStatusUpdate() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val progress = peerManagerSource.getCurrentBlockHeight() / latestLTCBlockHeight.toFloat()
-            _state.update {
-                it.copy(
-                    currentBlockHeight = peerManagerSource.getCurrentBlockHeight()
-                )
-            }
-            onEvent(BalanceBentoEvent.OnUpdatedSyncProgress(progress))
-        }
-    }
-
-    override fun onIsoChanged(iso: String) {
-        Timber.d("timber: BalanceBentoViewModel subscribed onIsoChanged $iso")
+        Timber.d("BalanceBentoViewModel: onStatusUpdate fired")
     }
 
     override fun onTxAdded() {
@@ -187,30 +167,21 @@ class BalanceBentoViewModel(
     override fun onEvent(event: BalanceBentoEvent) {
         when (event) {
             is BalanceBentoEvent.OnLoad -> {
-                val progress = peerManagerSource.getCurrentBlockHeight() / latestLTCBlockHeight.toFloat()
+                val syncProgress = peerManagerSource.getSyncProgress().toFloat()
+                val currentSettings = settingRepository.currentSettings.value
                 _state.update {
                     it.copy(
                         lastTimeStamp = "",
-                        selectedCurrency = appSetting.value.currency,
-                        fiatCode = appSetting.value.currency.code,
-                        symbol = appSetting.value.currency.symbol,
-                        syncProgress = progress,
-                        brainwalletIsSyncing = progress <= 0.999f
+                        selectedCurrency = currentSettings.currency,
+                        fiatCode = currentSettings.currency.code,
+                        symbol = currentSettings.currency.symbol,
+                        syncProgress = syncProgress,
+                        brainwalletIsSyncing = syncProgress <= 0.999f
                     )
                 }
             }
             is BalanceBentoEvent.OnToggleBalanceVisibility -> {
                 _state.update { it.copy(balanceHidden = !it.balanceHidden) }
-            }
-
-            is BalanceBentoEvent.OnUpdatedSyncProgress -> {
-                _state.update {
-                    it.copy(
-                        lastTimeStamp = "",
-                        syncProgress = event.syncProgress,
-                        brainwalletIsSyncing = event.syncProgress <= 0.999f
-                    )
-                }
             }
         }
     }

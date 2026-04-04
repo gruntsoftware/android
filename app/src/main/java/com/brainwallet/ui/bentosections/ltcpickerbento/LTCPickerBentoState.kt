@@ -2,6 +2,7 @@ package com.brainwallet.ui.bentosections.ltcpickerbento
 
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.GlobalCurrency
+import com.brainwallet.data.model.LtcStats
 import kotlin.text.lowercase
 
 data class LTCPickerBentoState(
@@ -12,7 +13,7 @@ data class LTCPickerBentoState(
         -1f,
         "$"
     ),
-    val iso: String = "USD",
+    val ltcStats: LtcStats? = null,
     val formattedFiat: String = "",
     val formattedTimeStamp: String = "",
     var globalCurrencies: List<GlobalCurrency> = GlobalCurrency.entries,

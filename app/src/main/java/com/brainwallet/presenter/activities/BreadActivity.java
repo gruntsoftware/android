@@ -57,7 +57,7 @@ import com.brainwallet.tools.util.ExtensionKt;
 import com.brainwallet.tools.util.Utils;
 import com.brainwallet.ui.BrainwalletActivity;
 import com.brainwallet.ui.screens.settings.SettingsViewModel;
-import com.brainwallet.ui.screens.main.composable.HomeSettingDrawerComposeView;
+import com.brainwallet.ui.screens.settings.settingsrows.HomeSettingDrawerComposeView;
 import com.brainwallet.ui.bentosections.buyreceivebento.receive.ReceiveDialogFragment;
 import com.brainwallet.util.PermissionUtil;
 import com.brainwallet.wallet.BRPeerManager;
@@ -73,7 +73,7 @@ import java.math.BigDecimal;
 
 import timber.log.Timber;
 
-public class BreadActivity extends BRActivity implements BRWalletManager.OnBalanceChanged, BRSharedPrefs.OnIsoChangedListener,
+public class BreadActivity extends BRActivity implements BRWalletManager.OnBalanceChanged,
         TransactionDataSource.OnTxAddedListener, InternetManager.ConnectionReceiverListener {
 
     public static final Point screenParametersPoint = new Point();
@@ -199,12 +199,10 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     private void addObservers() {
         BRWalletManager.getInstance().addBalanceChangedListener(this);
-        BRSharedPrefs.addIsoChangedListener(this);
     }
 
     private void removeObservers() {
         BRWalletManager.getInstance().removeListener(this);
-        BRSharedPrefs.removeListener(this);
     }
 
     private void setUrlHandler(Intent intent) {
@@ -389,7 +387,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
         navigationDrawer = findViewById(R.id.navigationDrawer);
         drawerLayout = findViewById(R.id.drawerLayout);
-        homeSettingDrawerComposeView = findViewById(R.id.homeDrawerComposeView);
         homeSettingDrawerComposeView.observeBus(message -> {
             drawerLayout.close();
             if (SettingsViewModel.LEGACY_EFFECT_ON_LOCK.equals(message.getMessage())) {
@@ -466,11 +463,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 secondaryPrice.setText(String.format("%s", formattedCurAmount));
             });
         });
-    }
-
-    @Override
-    public void onIsoChanged(String iso) {
-        updateUI();
     }
 
     @Override
