@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class, FlowPreview::class)
 
-package com.brainwallet.ui.screens.main.history.receive
+package com.brainwallet.ui.bentosections.buyreceivebento.receive
 
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility

@@ -58,7 +58,7 @@ import com.brainwallet.tools.util.Utils;
 import com.brainwallet.ui.BrainwalletActivity;
 import com.brainwallet.ui.screens.settings.SettingsViewModel;
 import com.brainwallet.ui.screens.main.composable.HomeSettingDrawerComposeView;
-import com.brainwallet.ui.screens.main.history.receive.ReceiveDialogFragment;
+import com.brainwallet.ui.bentosections.buyreceivebento.receive.ReceiveDialogFragment;
 import com.brainwallet.util.PermissionUtil;
 import com.brainwallet.wallet.BRPeerManager;
 import com.brainwallet.wallet.BRWalletManager;

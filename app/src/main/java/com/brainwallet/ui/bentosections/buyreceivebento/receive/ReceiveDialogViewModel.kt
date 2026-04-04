@@ -1,4 +1,4 @@
-package com.brainwallet.ui.screens.main.history.receive
+package com.brainwallet.ui.bentosections.buyreceivebento.receive
 
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.R
@@ -23,7 +23,6 @@ import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
-// todo: wip
 @KoinViewModel
 class ReceiveDialogViewModel(
     private val settingRepository: SettingRepository,
