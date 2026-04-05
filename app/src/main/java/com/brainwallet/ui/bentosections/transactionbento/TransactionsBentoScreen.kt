@@ -63,7 +63,6 @@ fun TransactionsBentoScreen(
     toggleState: TransactionFilterState,
     showTransactionDetail: Boolean,
     shouldShowFiatValues: Boolean,
-    isDarkMode: Boolean,
     onEvent: (MainScreenEvent) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: TransactionBentoViewModel = koinViewModel(),
@@ -77,7 +76,6 @@ fun TransactionsBentoScreen(
         toggleState = toggleState,
         showTransactionDetail = showTransactionDetail,
         shouldShowFiatValues = shouldShowFiatValues,
-        isDarkMode = isDarkMode,
         onEvent = onEvent,
         modifier = modifier,
         mainViewModel = mainViewModel
@@ -91,7 +89,6 @@ fun TransactionsBentoScreen(
     toggleState: TransactionFilterState,
     showTransactionDetail: Boolean,
     shouldShowFiatValues: Boolean,
-    isDarkMode: Boolean,
     onEvent: (MainScreenEvent) -> Unit,
     modifier: Modifier = Modifier,
     mainViewModel: MainViewModel = koinViewModel()
@@ -129,7 +126,6 @@ fun TransactionsBentoScreen(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            Timber.d("timber: tr bento ${state.ltcStats}")
             AnimatedVisibility(
                 visible = showTransactionDetail,
                 enter = expandVertically(tween(EXPAND_DURATION)),
@@ -214,7 +210,7 @@ fun TransactionsBentoScreen(
                                 .fillMaxHeight()
                                 .clip(RoundedCornerShape(10.dp))
                                 .background(
-                                    if (isDarkMode) {
+                                    if (state.darkMode) {
                                         Color.White.copy(alpha = 0.1f)
                                     } else {
                                         DesignTheme.colors.affirm.copy(alpha = 0.1f)
@@ -245,7 +241,7 @@ fun TransactionsBentoScreen(
                                     maxLines = 1,
                                     modifier = Modifier
                                         .padding(start = 4.dp),
-                                    color = if (isDarkMode) Color.White else DesignTheme.colors.affirm
+                                    color = if (state.darkMode) Color.White else DesignTheme.colors.affirm
                                 )
 
                                 Spacer(modifier = Modifier.weight(1f))

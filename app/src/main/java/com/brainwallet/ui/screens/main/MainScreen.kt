@@ -47,7 +47,6 @@ import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.composable.BentoBottomNavBar
 import com.brainwallet.ui.screens.main.SettingsButton
 import com.brainwallet.ui.screens.main.ThemeButton
-
 import com.brainwallet.ui.screens.send.SendScreen
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
@@ -84,6 +83,8 @@ import com.brainwallet.util.EventBus
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
+import androidx.compose.animation.core.animateFloatAsState
+import com.brainwallet.ui.theme.blurAnimatedWith
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -104,6 +105,11 @@ fun MainScreen(
     val showTransactionDetail = state.showTransactionDetail
     val context = LocalContext.current
     val noTxItemsPresent = state.transactionItems.isEmpty()
+    val blurRadiusWhen by animateFloatAsState(
+        targetValue = if (isSheetOpen) 40f else 0f,
+        animationSpec = tween(durationMillis = 400),
+        label = "blurRadius"
+    )
 
     LaunchedEffect(Unit) {
         viewModel.onEvent(MainScreenEvent.OnLoad(context))
@@ -137,7 +143,8 @@ fun MainScreen(
                 if (isDarkMode) mainScreenDarkSurfaceGradient else mainScreenLightSurfaceGradient
             ).padding(
                 top = statusBarPadding
-            ),
+            )
+                .blurAnimatedWith(blurRadiusWhen),
             containerColor = Color.Transparent,
             bottomBar = {
                 BentoBottomNavBar(
@@ -267,7 +274,6 @@ fun MainScreen(
                                     transactions = state.transactionItems.toImmutableList(),
                                     toggleState = state.filterState,
                                     onEvent = viewModel::onEvent,
-                                    isDarkMode = isDarkMode,
                                     showTransactionDetail = state.showTransactionDetail,
                                     shouldShowFiatValues = state.shouldShowFiatValues,
                                     modifier = Modifier.fillMaxSize()
@@ -327,9 +333,10 @@ fun MainScreen(
                 dragHandle = null,
                 containerColor = Color.Transparent,
                 scrimColor = if (isDarkMode) {
-                    Color.White.copy(0.6f)
+                    // Overall background of Main Screen
+                    Color.White.copy(0.1f)
                 } else {
-                    Color.Black.copy(0.6f)
+                    Color.Black.copy(0.1f)
                 },
                 shape = RoundedCornerShape(24.dp)
             ) {

@@ -71,7 +71,7 @@ fun BentoBottomNavBar(
                         fontFamily = IBMPlexSans,
                         fontWeight = FontWeight.Normal,
                         fontSize = 12.sp,
-                        color = Color.White
+                        color = contentsColor
                     ),
                     maxLines = 1
                 )
@@ -101,7 +101,7 @@ fun BentoBottomNavBar(
                         fontFamily = IBMPlexSans,
                         fontWeight = FontWeight.Normal,
                         fontSize = 12.sp,
-                        color = Color.White
+                        color = contentsColor
                     ),
                     maxLines = 2
                 )
@@ -131,7 +131,7 @@ fun BentoBottomNavBar(
                         fontFamily = IBMPlexSans,
                         fontWeight = FontWeight.Normal,
                         fontSize = 12.sp,
-                        color = Color.White
+                        color = contentsColor
                     ),
                     maxLines = 2
                 )
@@ -176,7 +176,7 @@ fun BentoBottomNavBar(
                         fontFamily = IBMPlexSans,
                         fontWeight = FontWeight.Normal,
                         fontSize = 12.sp,
-                        color = Color.White
+                        color = contentsColor
                     ),
                     maxLines = 1
                 )

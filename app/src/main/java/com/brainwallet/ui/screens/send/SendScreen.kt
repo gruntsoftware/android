@@ -1,6 +1,5 @@
 package com.brainwallet.ui.screens.send
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -61,7 +60,7 @@ private fun SendScreen(
     BrainwalletScaffold { paddingValues ->
         Box(
             modifier = Modifier
-                .padding(paddingValues).background(DesignTheme.colors.warn)
+                .padding(paddingValues)
                 .fillMaxSize(),
             contentAlignment = Alignment.TopCenter
         ) {

@@ -158,9 +158,8 @@ fun TransactionRow(
     }
 
     // ───────────────────────────From working Develop branch───────────────────────────
-
     Box(
-        modifier = Modifier
+        modifier = modifier
             .height(transactionRowHt)
             .background(
                 brush = if (isDarkMode) bentoDarkSurfaceGradient else bentoLightSurfaceGradient,

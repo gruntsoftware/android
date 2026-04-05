@@ -130,3 +130,17 @@ fun Modifier.blurWhen(condition: Boolean): Modifier = this.graphicsLayer {
         }
     }
 }
+
+fun Modifier.blurAnimatedWith(radius: Float): Modifier = this.graphicsLayer {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        renderEffect = if (radius > 0f) {
+            BlurEffect(
+                radiusX = radius,
+                radiusY = radius,
+                edgeTreatment = TileMode.Decal
+            )
+        } else {
+            null
+        }
+    }
+}
