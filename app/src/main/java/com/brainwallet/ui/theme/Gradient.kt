@@ -118,6 +118,17 @@ val bentoLightBorderGradient: Brush
         start = Offset.Zero,
         end = Offset(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY)
     )
+val bentoClearGradient: Brush
+
+    @Composable
+    get() = Brush.linearGradient(
+        colors = listOf(
+            Color(0xFFFFFFFF).copy(alpha = 0.0f),
+            Color(0xFFFFFFFF).copy(alpha = 0.0f)
+        ),
+        start = Offset(Float.MIN_VALUE, Float.POSITIVE_INFINITY),
+        end = Offset(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY),
+    )
 val bentoDarkBorderGradient: Brush
 
     @Composable
@@ -130,5 +141,17 @@ val bentoDarkBorderGradient: Brush
             Color(0xFF6944BE).copy(alpha = 0.2f)
         ),
         start = Offset.Zero,
+        end = Offset(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY),
+    )
+
+val bentoModalDarkGradient: Brush
+
+    @Composable
+    get() = Brush.linearGradient(
+        colors = listOf(
+            Color(0xFF09082B).copy(alpha = 1f),
+            Color(0xFF280589).copy(alpha = 0.7f)
+        ),
+        start = Offset(Float.MIN_VALUE, Float.POSITIVE_INFINITY),
         end = Offset(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY),
     )
