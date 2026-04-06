@@ -43,7 +43,6 @@
                     android:clipToPadding="false">
 
                     <androidx.appcompat.widget.Toolbar
-                        android:id="@+id/bread_bar"
                         android:layout_width="match_parent"
                         android:layout_height="85dp"
                         android:background="@color/midnight"

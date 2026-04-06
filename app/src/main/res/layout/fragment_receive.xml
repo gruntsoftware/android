@@ -129,20 +129,17 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/cur_spinner_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone">
 
                 <View
-                    android:id="@+id/separator5"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/white" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/cur_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_gravity="center_vertical"
@@ -170,7 +167,6 @@
                     android:background="@color/white" />
 
                 <View
-                    android:id="@+id/separator3"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/white" />
@@ -208,7 +204,6 @@
 
                 <TextView
                     style="@style/BRTextStyle"
-                    android:id="@+id/copied_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

@@ -12,42 +12,12 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
-    <style name="ToolbarTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorControlNormal">?attr/colorOnPrimary</item>
-    </style>
-
-    <style name="Theme.Brainwallet.ProgressBarTheme">
-        <item name="colorAccent">?attr/colorPrimaryVariant</item>
-    </style>
-
 
     <style name="Send_ActionButStyle">
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:paddingStart">4dp</item>
         <item name="android:paddingEnd">4dp</item>
         <item name="android:textSize">11sp</item>
-    </style>
-
-    <style name="FeeSelectorStyle">
-        <item name="android:layout_weight">1</item>
-        <item name="android:foreground">?selectableItemBackground</item>
-        <item name="android:button">@null</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/fee_selector_text_selector</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:fontFamily">@font/open_sauce_one_medium</item>
-    </style>
-
-    <style name="FeeSelectorStartStyle" parent="FeeSelectorStyle">
-        <item name="android:background">@drawable/fee_selector_bg_start</item>
-    </style>
-
-    <style name="FeeSelectorMiddleStyle" parent="FeeSelectorStyle">
-        <item name="android:background">@drawable/fee_selector_bg_middle</item>
-    </style>
-
-    <style name="FeeSelectorEndStyle" parent="FeeSelectorStyle">
-        <item name="android:background">@drawable/fee_selector_bg_end</item>
     </style>
 
     <style name="BottomNavTheme" parent="Widget.MaterialComponents.BottomNavigationView">
@@ -60,16 +30,6 @@
     </style>
 
     <!--    &lt;!&ndash; set the rounded drawable as background to your bottom sheet &ndash;&gt;-->
-    <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/auth_sheet_shape</item>
-    </style>
-
-    <style name="BaseBottomSheetDialog" parent="@style/Theme.Design.Light.BottomSheetDialog">
-        <item name="android:windowIsFloating">false</item>
-        <item name="bottomSheetStyle">@style/BottomSheet</item>
-    </style>
-
-    <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog" />
 
     <style name="LoginButStyle">
         <item name="android:layout_marginTop">30dp</item>
@@ -79,19 +39,6 @@
         <item name="android:textColor">@color/content</item>
         <item name="android:textSize">18sp</item>
         <item name="android:fontFamily">@font/open_sauce_one_medium</item>
-    </style>
-
-    <style name="TransferFiatOptionStyle">
-        <item name="android:foreground">?selectableItemBackground</item>
-        <item name="android:button">@null</item>
-        <item name="android:background">@drawable/transfer_fiat_option_bg_selector</item>
-        <item name="android:paddingStart">10dp</item>
-        <item name="android:paddingEnd">10dp</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:gravity">center</item>
-        <item name="android:fontFamily">@font/open_sauce_one_bold</item>
-        <item name="android:textColor">@color/transfer_fiat_option_text_selector</item>
     </style>
 
     <style name="BRTextStyle">
@@ -111,16 +58,6 @@
 
     <style name="BRButtonStyle">
         <item name="android:fontFamily">@font/open_sauce_one_medium</item>
-    </style>
-
-    <style name="FiatOptionButtonStyle">
-        <item name="android:foreground">?selectableItemBackground</item>
-        <item name="android:button">@null</item>
-        <item name="android:background">@drawable/fiat_option_bg_selector</item>
-        <item name="android:layout_marginRight">15dp</item>
-        <item name="android:paddingStart">5dp</item>
-        <item name="android:paddingEnd">5dp</item>
-        <item name="android:textColor">@color/fiat_option_text_selector</item>
     </style>
 
 </resources>

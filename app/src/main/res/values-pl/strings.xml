@@ -9,7 +9,6 @@
   <string name="About.privacy">Polityka prywatności</string>
   <!-- About screen Instagram label -->
     <!-- Terms of Use button label -->
-  <string name="About.terms">Warunki użytkowania</string>
   <!-- About screen title -->
   <string name="About.title">O</string>
   <!-- About screen twitter label -->
@@ -17,31 +16,22 @@
   <!-- Close modal button accessibility label -->
   <string name="AccessibilityLabels.close">Zamknij</string>
   <!-- Support center accessibiliy label -->
-  <string name="AccessibilityLabels.faq">Centrum wsparcia</string>
   <!-- Loading Wallet Message -->
   <!-- Default wallet name -->
   <!-- Third party keyboard warning -->
-  <string name="Alert.customKeyboard.android">Wygląda na to, że używasz klawiatury innej firmy, która może rejestrować to, co piszesz i kraść Twój klucz Paper Key. Dla dodatkowej ochrony należy przełączyć się na domyślną klawiaturę systemu Android.</string>
   <!-- Error alert title -->
   <string name="Alert.error">Błąd</string>
   <!-- Keystore error -->
-  <string name="Alert.keystore.generic.android">Wystąpił problem z magazynem kluczy systemu operacyjnego Android, skontaktuj się z support.brainwallet.co</string>
   <!-- KeyStore error, keys are invalidated -->
   <string name="Alert.keystore.invalidated.android">Twoje zaszyfrowane dane Brainwallet zostały niedawno unieważnione, ponieważ ekran blokady Androida został wyłączony.</string>
   <!-- Keystore error title -->
   <string name="Alert.keystore.title.android">Błąd magazynu kluczy systemu Android</string>
   <!-- No internet alert message -->
-  <string name="Alert.noInternet">Nie znaleziono połączenia internetowego. Sprawdź połączenie i spróbuj ponownie.</string>
   <!-- Warning alert title -->
-  <string name="Alert.warning">Ostrzeżenie</string>
   <!-- 'the addresses were copied'' Alert title -->
-  <string name="Alerts.copiedAddressesHeader">Skopiowane adresy</string>
   <!-- Addresses Copied Alert sub header -->
-  <string name="Alerts.copiedAddressesSubheader">Wszystkie adresy portfeli zostały pomyślnie skopiowane.</string>
   <!-- Alert Header Label (the paper key was set) -->
-  <string name="Alerts.paperKeySet">Zestaw kluczy papierowych</string>
   <!-- Alert Subheader label (playfully positive) -->
-  <string name="Alerts.paperKeySetSubheader">Niesamowite!</string>
   <!-- Alert Header label (the PIN was set) -->
   <string name="Alerts.pinSet">Zestaw PIN</string>
   <!-- Send failure alert header label (the send failed to happen) -->
@@ -53,51 +43,37 @@
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">Rozpoznany odcisk palca</string>
   <!-- JSON Serialization error message -->
-  <string name="ApiClient.jsonError">Błąd serializacji JSON</string>
   <!-- Wallet not ready error message -->
-  <string name="ApiClient.notReady">Portfel nie jest gotowy</string>
   <!-- API Token error message -->
-  <string name="ApiClient.tokenError">Nie można pobrać tokenu API</string>
   <!-- Cancel button label -->
   <string name="Button.cancel">Anuluj</string>
   <!-- Ignore button label -->
-  <string name="Button.ignore">Ignorować</string>
   <!-- menu button -->
-  <string name="Button.menu">menu</string>
   <!-- No button -->
   <string name="Button.no">Nie</string>
   <!-- OK button label -->
   <string name="Button.ok">OK</string>
   <!-- receive button -->
-  <string name="Button.receive">otrzymywać</string>
   <!-- send button -->
-  <string name="Button.send">Wyślij</string>
+  <string name="send_title">Wyślij</string>
   <!-- Settings button label -->
-  <string name="Button.settings">Ustawienia</string>
   <!-- Settings button label -->
-  <string name="Button.submit">Prześlij</string>
   <!-- Yes button -->
   <string name="Button.yes">Tak</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">Kwota do wysłania:</string>
   <!-- Network Fee: ($1.00) -->
-  <string name="Confirmation.feeLabel">Opłata sieciowa:</string>
   <!-- Network-->
   <string name="Network.feeLabel">Sieć</string>
   <!-- eg. Processing time: This transaction is predicted to complete in [10-60 minutes]. -->
-  <string name="Confirmation.processingTime">Czas przetwarzania: Przewiduje się, że ta transakcja zakończy się w %1$s.</string>
   <!-- Label for "send" button on final confirmation screen -->
-  <string name="Confirmation.send">Wyślij</string>
   <!-- Confirmation Screen title -->
-  <string name="Confirmation.title">Potwierdzenie</string>
   <!-- To: (address) -->
   <string name="Confirmation.to">Do</string>
   <!-- Total Cost: ($5.00) -->
   <string name="Confirmation.totalLabel">Całkowity koszt:</string>
   <!-- Confirm paper phrase view label. -->
-  <string name="ConfirmPaperPhrase.label">Aby upewnić się, że wszystko zostało poprawnie zapisane, wpisz następujące słowa z klucza do papieru.</string>
   <!-- Word label eg. Word #1, Word #2 -->
-  <string name="ConfirmPaperPhrase.word">Słowo #%1$s</string>
   <!-- Litecoin denomination picker label -->
   <string name="DefaultCurrency.litecoinLabel">Wyświetlacz Litecoin</string>
   <!-- Exchange rate label -->
@@ -107,88 +83,56 @@
   <!-- Message that gets shown when we've detected the user has encountered the looping lock-screen bug. (preserve [ ] characters) -->
   <string name="ErrorMessages.loopingLockScreen.android">Nie można uwierzytelnić Brainwallet z powodu błędu w wersji systemu Android. [Kliknij tutaj, aby uzyskać więcej informacji].</string>
   <!-- Messaging unavailable alert title -->
-  <string name="ErrorMessages.messagingUnavailableMessage">To urządzenie nie jest skonfigurowane do wysyłania wiadomości.</string>
   <!-- Messaging unavailable alert title -->
-  <string name="ErrorMessages.messagingUnavailableTitle">Wiadomości niedostępne</string>
   <!-- Fingerprint was not recognized by the scanner, please try scanning again -->
   <string name="ErrorMessages.touchIdFailed.android">Odcisk palca nie został rozpoznany. Spróbuj ponownie.</string>
   <!-- Economy fee -->
-  <string name="FeeSelector.economy">Gospodarka</string>
   <!-- E.g. [This transaction is predicted to complete in] 1-24 hours -->
-  <string name="FeeSelector.economyTime">10+ minut</string>
   <!-- Warning message for economy fee -->
-  <string name="FeeSelector.economyWarning">Ta opcja nie jest zalecana w przypadku transakcji wrażliwych na czas.</string>
   <!-- E.g. Estimated delivery: 10-60 minutes -->
-  <string name="FeeSelector.estimatedDeliver">Szacowana dostawa: %1$s</string>
   <!-- Regular fee -->
-  <string name="FeeSelector.regular">Regularny</string>
   <!-- E.g. [This transaction is predicted to complete in] 10-60 minutes -->
-  <string name="FeeSelector.regularTime">2,5 - 5+ minut</string>
   <!-- Fee Selector title -->
-  <string name="FeeSelector.title">Szybkość przetwarzania</string>
   <!-- Checking private key balance progress view text -->
   <string name="Import.checking">Sprawdzanie salda klucza prywatnego...</string>
   <!-- Sweep private key confirmation message -->
   <string name="Import.confirm">Wysłać  %1$sz tego klucza prywatnego do swojego portfela? Sieć Litecoin otrzyma opłatę w wysokości %2$s.</string>
   <!-- Duplicate key error message -->
-  <string name="Import.Error.duplicate">Ten klucz prywatny znajduje się już w portfelu użytkownika.</string>
   <!-- empty private key error message -->
   <string name="Import.Error.empty">Ten klucz prywatny jest pusty.</string>
   <!-- High fees error message -->
-  <string name="Import.Error.highFees">Opłaty transakcyjne kosztowałyby więcej niż środki dostępne na tym kluczu prywatnym.</string>
   <!-- Not a valid private key error message -->
   <string name="Import.Error.notValid">Nieprawidłowy klucz prywatny</string>
   <!-- Import signing error message -->
   <string name="Import.Error.signing">Błąd podpisywania transakcji</string>
   <!-- Import button label -->
-  <string name="Import.importButton">Import</string>
   <!-- Importing wallet progress view label -->
-  <string name="Import.importing">Importowanie portfela</string>
   <!-- Caption for graphics -->
-  <string name="Import.leftCaption">Importowany portfel</string>
   <!-- Import wallet intro screen message -->
-  <string name="Import.message">Importowanie portfela przenosi wszystkie pieniądze z innego portfela do portfela Brainwallet za pomocą jednej transakcji.</string>
   <!-- Enter password alert view title -->
   <string name="Import.password">Ten klucz prywatny jest chroniony hasłem.</string>
   <!-- password textfield placeholder -->
-  <string name="Import.passwordPlaceholder">hasło</string>
   <!-- Caption for graphics -->
   <!-- Scan Private key button label -->
-  <string name="Import.scan">Skanowanie klucza prywatnego</string>
   <!-- Import wallet success alert title -->
-  <string name="Import.success">Sukces</string>
   <!-- Successfully imported wallet message body -->
-  <string name="Import.SuccessBody">Pomyślnie zaimportowano portfel.</string>
   <!-- Import Wallet screen title -->
-  <string name="Import.title">Importuj portfel</string>
   <!-- Unlocking Private key activity view message. -->
-  <string name="Import.unlockingActivity">Klucz odblokowujący</string>
   <!-- Import wallet intro warning message -->
-  <string name="Import.warning">Import portfela nie obejmuje historii transakcji ani innych szczegółów.</string>
   <!-- Wrong password alert message -->
-  <string name="Import.wrongPassword">Błędne hasło, spróbuj ponownie.</string>
   <!-- Ignore jailbreak warning button -->
   <string name="JailbreakWarnings.ignore">Ignorować</string>
   <!-- Jailbreak warning message -->
-  <string name="JailbreakWarnings.messageWithBalance">ZNISZCZONE BEZPIECZEŃSTWO URZĄDZENIA\n Każda aplikacja po jailbreaku może uzyskać dostęp do danych pęku kluczy i wykraść twoje Litecoiny! Natychmiast wyczyść ten portfel i przywróć go na bezpiecznym urządzeniu.</string>
   <!-- Jailbreak warning message -->
-  <string name="JailbreakWarnings.messageWithoutBalance">ZNISZCZONE BEZPIECZEŃSTWO URZĄDZENIA \n Każda aplikacja po jailbreaku może uzyskać dostęp do danych pęku kluczy i wykraść Litecoiny. Brainwallet należy używać wyłącznie na urządzeniach, które nie zostały uszkodzone przez więzienie.</string>
   <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">OSTRZEŻENIE</string>
   <!-- Location services disabled error -->
-  <string name="LocationPlugin.disabled">Usługi lokalizacji są wyłączone.</string>
   <!-- No permissions for location services -->
-  <string name="LocationPlugin.notAuthorized">Brainwallet nie ma uprawnień dostępu do usług lokalizacyjnych.</string>
   <!-- Wallet creation date prefix -->
-  <string name="ManageWallet.creationDatePrefix">Utworzyłeś swój portfel na %1$s</string>
   <!-- Manage wallet description text -->
-  <string name="ManageWallet.description">Nazwa portfela pojawia się tylko w historii transakcji na koncie i nie może być widoczna dla nikogo innego.</string>
   <!-- Change Wallet name textfield label -->
-  <string name="ManageWallet.textFieldLabel">Nazwa portfela</string>
   <!-- Manage wallet modal title -->
-  <string name="ManageWallet.title">Zarządzanie portfelem</string>
   <!-- Buy litecoin title -->
-  <string name="MenuButton.buy">Kup</string>
   <!-- Menu button title -->
   <string name="MenuButton.lock">Portfel z zamkiem</string>
   <!-- Menu button title -->
@@ -202,7 +146,6 @@
   <!-- Menu modal title -->
   <string name="MenuViewController.modalTitle">Menu</string>
   <!-- button label -->
-  <string name="MenuViewController.recoverButton">Odzyskaj portfel</string>
   <!-- Switch to automatic mode button label -->
   <string name="NodeSelector.automaticButton">Przełączanie do trybu automatycznego</string>
   <!-- Node is connected label -->
@@ -226,49 +169,33 @@
   <!-- Error opening payment protocol file message -->
   <string name="PaymentProtocol.Errors.corruptedDocument">Nieobsługiwany lub uszkodzony dokument</string>
   <!-- Missing certificate payment protocol error message -->
-  <string name="PaymentProtocol.Errors.missingCertificate">brakujący certyfikat</string>
   <!-- Request expired payment protocol error message -->
   <string name="PaymentProtocol.Errors.requestExpired">żądanie wygasło</string>
   <!-- Payment too small alert title -->
-  <string name="PaymentProtocol.Errors.smallOutputError">Nie można dokonać płatności</string>
   <!-- Amount too small error message -->
   <string name="PaymentProtocol.Errors.smallPayment">Płatności w litecoinach nie mogą być niższe niż %1$s.</string>
   <!-- Output too small error message. -->
   <string name="PaymentProtocol.Errors.smallTransaction">Wyniki transakcji Litecoin nie mogą być niższe niż %1$s.</string>
   <!-- Unsupported signature type payment protocol error message -->
-  <string name="PaymentProtocol.Errors.unsupportedSignatureType">nieobsługiwany typ podpisu</string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">niezaufany certyfikat</string>
   <!-- No passcode set warning body -->
-  <string name="Prompts.NoPasscode.body">Do zabezpieczenia portfela wymagane jest hasło urządzenia. Przejdź do ustawień i włącz kod dostępu.</string>
   <!-- No Passcode set warning title -->
-  <string name="Prompts.NoPasscode.title">Włączanie kodu urządzenia</string>
   <!-- Instruction how to enable device encryption -->
-  <string name="Prompts.NoScreenLock.body.android">Blokada ekranu urządzenia jest niezbędna do ochrony portfela. Przejdź do "Ustawienia" &gt; "Zabezpieczenia" &gt; "Blokada ekranu" i włącz, aby kontynuować.</string>
   <!-- Device encryption prompt title -->
-  <string name="Prompts.NoScreenLock.title.android">Blokada ekranu wyłączona</string>
   <!-- Warning about paper key. -->
-  <string name="Prompts.PaperKey.body">Klucz Paper Key należy zapisać na wypadek utraty lub zmiany telefonu. Stuknij tutaj, aby kontynuować.</string>
   <!-- An action is required (You must do this action). -->
-  <string name="Prompts.PaperKey.title">Wymagane działanie</string>
   <!-- Transaction rejected prompt body -->
   <string name="Prompts.RecommendRescan.body">Twój portfel może być niezsynchronizowany. Często można to naprawić poprzez ponowne skanowanie łańcucha bloków.</string>
   <!-- Transaction rejected prompt title -->
   <string name="Prompts.RecommendRescan.title">Transakcja odrzucona</string>
   <!-- Share data prompt body -->
-  <string name="Prompts.ShareData.body">Pomóż ulepszyć Brainwallet, udostępniając nam swoje anonimowe dane</string>
   <!-- Share data prompt title -->
-  <string name="Prompts.ShareData.title">Udostępnianie anonimowych danych</string>
   <!-- Enable touch ID prompt body -->
-  <string name="Prompts.TouchId.body">Stuknij tutaj, aby włączyć Touch ID</string>
   <!-- Enable Fingerprint prompt body -->
-  <string name="Prompts.TouchId.body.android">Stuknij tutaj, aby włączyć uwierzytelnianie odciskiem palca</string>
   <!-- Enable touch ID prompt title -->
-  <string name="Prompts.TouchId.title">Włącz Touch ID</string>
   <!-- Enable Fingerprint prompt title -->
-  <string name="Prompts.TouchId.title.android">Włącz uwierzytelnianie odciskiem palca</string>
   <!-- Button on fingerprint prompt so the user can enter their PIN instead -->
-  <string name="Prompts.TouchId.usePin.android">PIN</string>
   <!-- Upgrade PIN prompt body. -->
   <string name="Prompts.UpgradePin.body">Brainwallet przeszedł na 6-cyfrowy kod PIN. Stuknij tutaj, aby dokonać aktualizacji.</string>
   <!-- Upgrade PIN prompt title. -->
@@ -278,9 +205,7 @@
   <!-- Push notifications toggle switch label -->
   <string name="PushNotifications.label">Powiadomienia push</string>
   <!-- Push notifications are off label -->
-  <string name="PushNotifications.off">Wył.</string>
   <!-- Push notifications are on label -->
-  <string name="PushNotifications.on">Na</string>
   <!-- Push notifications settings view title label -->
   <string name="PushNotifications.title">Powiadomienia</string>
   <!-- Address copied message. -->
@@ -288,11 +213,9 @@
   <!-- Share via email button label -->
   <string name="Receive.emailButton">E-mail</string>
   <!-- Request button label -->
-  <string name="Receive.request">Żądanie kwoty</string>
   <!-- Share button label -->
   <string name="Receive.share">Udział</string>
   <!-- Share via text message (SMS) -->
-  <string name="Receive.textButton">Wiadomość tekstowa</string>
   <!-- Receive modal title -->
   <string name="Receive.title">Odbiór</string>
   <!-- Done button text -->
@@ -300,37 +223,26 @@
   <!-- Recover wallet header -->
   <string name="RecoverWallet.header">Odzyskaj portfel</string>
   <!-- Reset PIN with paper key: header -->
-  <string name="RecoverWallet.header_reset_pin">Reset PIN</string>
   <!-- Enter paper key instruction -->
-  <string name="RecoverWallet.instruction">Klawisz Enter Paper</string>
   <!-- Recover wallet intro -->
   <string name="RecoverWallet.intro">Odzyskaj Brainwallet za pomocą papierowego klucza.</string>
   <!-- Invalid paper key message -->
   <string name="RecoverWallet.invalid">Wprowadzony klucz papieru jest nieprawidłowy. Sprawdź każde słowo i spróbuj ponownie.</string>
   <!-- Previous button accessibility label -->
-  <string name="RecoverWallet.leftArrow">Strzałka w lewo</string>
   <!-- Next button label -->
   <string name="RecoverWallet.next">Następny</string>
   <!-- Reset PIN with paper key: more information button. -->
-  <string name="RecoverWallet.reset_pin_more_info">Kliknij tutaj, aby uzyskać więcej informacji.</string>
   <!-- Next button accessibility label -->
-  <string name="RecoverWallet.rightArrow">Strzałka w prawo</string>
   <!-- Recover wallet sub-header -->
-  <string name="RecoverWallet.subheader">Wprowadź klucz papierowy dla portfela, który chcesz odzyskać.</string>
   <!-- Reset PIN with paper key: sub-header -->
-  <string name="RecoverWallet.subheader_reset_pin">Aby zresetować kod PIN, wprowadź słowa z klucza papierowego w polach poniżej.</string>
   <!-- No amount entered error message. -->
-  <string name="RequestAnAmount.noAmount">Najpierw wprowadź kwotę.</string>
   <!-- Request a specific amount of litecoin -->
-  <string name="RequestAnAmount.title">Żądanie kwoty</string>
   <!-- Alert action button label -->
   <string name="ReScan.alertAction">Synchronizacja</string>
   <!-- Alert message body -->
-  <string name="ReScan.alertMessage">Nie będzie można wysyłać pieniędzy podczas synchronizacji.</string>
   <!-- Alert message title -->
   <string name="ReScan.alertTitle">Synchronizacja z Blockchain?</string>
   <!-- extimated time -->
-  <string name="ReScan.body1">20-45 minut</string>
   <!-- Syncing explanation -->
   <string name="ReScan.body2">Jeśli transakcja jest wyświetlana jako zakończona w sieci Litecoin, ale nie w portfelu Brainwallet.</string>
   <!-- Syncing explanation -->
@@ -340,21 +252,14 @@
   <!-- Sync blockchain view footer -->
   <string name="ReScan.footer">Nie będzie można wysyłać pieniędzy podczas synchronizacji z blockchainem.</string>
   <!-- Sync Blockchain view header -->
-  <string name="ReScan.header">Synchronizacja łańcucha bloków</string>
   <!-- Subheader label -->
-  <string name="ReScan.subheader1">Szacowany czas</string>
   <!-- Subheader label -->
   <string name="ReScan.subheader2">Kiedy synchronizować?</string>
   <!-- Scan litecoin address camera flash toggle -->
-  <string name="Scanner.flashButtonLabel">Lampa błyskowa aparatu</string>
   <!-- Complete filter label -->
-  <string name="Search.complete">kompletny</string>
   <!-- Pending filter label -->
-  <string name="Search.pending">w toku</string>
   <!-- Received filter label -->
-  <string name="Search.received">otrzymany</string>
   <!-- Sent filter label -->
-  <string name="Search.sent">wysłany</string>
   <!-- Security Center Info -->
   <string name="SecurityCenter.info">Włącz wszystkie funkcje bezpieczeństwa dla maksymalnej ochrony.</string>
   <!-- Paper Key button description -->
@@ -368,11 +273,8 @@
   <!-- Security Center Title -->
   <string name="SecurityCenter.title">Centrum bezpieczeństwa</string>
   <!-- Touch ID button description -->
-  <string name="SecurityCenter.touchIdDescription">Wygodnie odblokuj Brainwallet i wysyłaj pieniądze do ustalonego limitu.</string>
   <!-- Touch ID button title -->
-  <string name="SecurityCenter.touchIdTitle">Touch ID</string>
   <!-- Security center fingerprint authentication button -->
-  <string name="SecurityCenter.touchIdTitle.android">Uwierzytelnianie odciskiem palca</string>
   <!-- Send money amount label -->
   <string name="Send.amountLabel">Kwota</string>
   <!-- Balance: $4.00 -->
@@ -382,39 +284,28 @@
   <!-- Permission required to access camera -->
   <string name="Send.cameraUnavailabeTitle.android">Brainwallet nie ma dostępu do kamery</string>
   <!-- Camera not allowed message -->
-  <string name="Send.cameraunavailableMessage">Przejdź do Ustawień, aby zezwolić na dostęp do kamery.</string>
   <!-- Camera not allowed alert title -->
-  <string name="Send.cameraUnavailableTitle">Brainwallet nie ma dostępu do kamery</string>
   <!-- Warning when sending to self. -->
   <string name="Send.containsAddress">Miejscem docelowym jest własny adres. Nie można wysyłać do samego siebie.</string>
   <!-- Could not create transaction alert title -->
-  <string name="Send.creatTransactionError">Nie można utworzyć transakcji.</string>
   <!-- Description for sending money label -->
   <string name="Send.descriptionLabel">Memo</string>
   <!-- Emtpy pasteboard error message -->
   <string name="Send.emptyPasteboard">Wklejka jest pusta</string>
   <!-- Network Fee: $0.01 -->
-  <string name="Send.fee">Opłata sieciowa: %1$s</string>
   <!-- Payee identity not certified alert title. -->
-  <string name="Send.identityNotCertified">Tożsamość odbiorcy płatności nie została potwierdzona.</string>
   <!-- Invalid address alert message -->
-  <string name="Send.invalidAddressMessage">Adres docelowy nie jest prawidłowym adresem Litecoin.</string>
   <!-- Invalid address on pasteboard message -->
-  <string name="Send.invalidAddressOnPasteboard">Pasteboard nie zawiera prawidłowego adresu Litecoin.</string>
   <!-- Invalid address alert title -->
   <string name="Send.invalidAddressTitle">Nieprawidłowy adres</string>
   <!-- Is rescanning error message -->
   <string name="Send.isRescanning">Wysyłanie jest wyłączone podczas pełnego ponownego skanowania.</string>
   <!-- We are loading the request (now) -->
-  <string name="Send.loadingRequest">Żądanie załadowania</string>
   <!-- Empty address alert message -->
-  <string name="Send.noAddress">Wprowadź adres odbiorcy.</string>
   <!-- Emtpy amount alert message -->
-  <string name="Send.noAmount">Wprowadź kwotę do wysłania.</string>
   <!-- Paste button label -->
   <string name="Send.pasteLabel">Pasta</string>
   <!-- Could not publish transaction alert title -->
-  <string name="Send.publishTransactionError">Nie można opublikować transakcji.</string>
   <!-- Could not load remote request error message -->
   <string name="Send.remoteRequestError">Nie można załadować żądania płatności</string>
   <!-- Scan button label -->
@@ -426,19 +317,14 @@
   <!-- Send money to label -->
   <string name="Send.toLabel">Wprowadź adres Litecoin</string>
   <!-- Enter to match domain name to LTC Address -->
-  <string name="Send.UnstoppableDomains.placeholder">Wprowadź domenę .crypto, .wallet, .zil, .nft, .blockchain, \n.bitcoin, .coin, .888, .dao lub .x.</string>
   <!-- Or -->
-  <string name="Send.or">Lub</string>
   <!-- Lookup -->
-  <string name="Send.UnstoppableDomains.lookup">Wyszukiwanie</string>
   <!-- Your address was resolved! -->
-  <string name="Send.UnstoppableDomains.domainResolved">Twój adres został rozwiązany!</string>
   <!-- Address already used alert message - first part -->
   <string name="Send.UsedAddress.firstLine">Adresy Litecoin są przeznaczone wyłącznie do jednorazowego użytku.</string>
   <!-- Address already used alert message - second part -->
   <string name="Send.UsedAddress.secondLIne">Ponowne użycie ogranicza prywatność zarówno użytkownika, jak i odbiorcy i może skutkować stratą, jeśli odbiorca nie kontroluje bezpośrednio adresu.</string>
   <!-- Address already used alert title -->
-  <string name="Send.UsedAddress.title">Adres już używany</string>
   <!-- About label -->
   <string name="Settings.about">O</string>
   <!-- Advanced Settings title -->
@@ -446,31 +332,22 @@
   <!-- i.e. the currency which will be displayed -->
   <string name="Settings.currency">Wyświetlanie waluty</string>
   <!-- Join Early access label -->
-  <string name="Settings.earlyAccess">Dołącz do wczesnego dostępu</string>
   <!-- Are you enjoying loaf alert message body -->
-  <string name="Settings.enjoying">Korzystasz z Brainwallet?</string>
   <!-- Import wallet label -->
-  <string name="Settings.importTitle">Importuj portfel</string>
   <!-- Manage settings section header -->
   <string name="Settings.manage">Zarządzanie</string>
   <!-- Notifications label -->
-  <string name="Settings.notifications">Powiadomienia</string>
   <!-- Leave review button label -->
-  <string name="Settings.review">Zostaw nam recenzję</string>
   <!-- Share anonymous data label -->
   <string name="Settings.shareData">Udostępnianie anonimowych danych</string>
   <!-- Sync blockchain label -->
   <string name="Settings.sync">Synchronizacja łańcucha bloków</string>
   <!-- Settings title -->
-  <string name="Settings.title">Ustawienia</string>
   <!-- Touch ID spending limit label -->
-  <string name="Settings.touchIdLimit">Limit wydatków na Touch ID</string>
   <!-- The fingerprint spending limit -->
-  <string name="Settings.touchIdLimit.android">Limit wydatków na uwierzytelnianie odcisków palców</string>
   <!-- Wallet Settings section header -->
   <string name="Settings.wallet">Portfel</string>
   <!-- Start or recover another wallet menu label. -->
-  <string name="Settings.wipe">Uruchamianie/odzyskiwanie innego portfela</string>
   <!-- Share data view body -->
   <string name="ShareData.body">Pomóż ulepszyć Brainwallet, udostępniając nam swoje anonimowe dane. Nie obejmuje to żadnych informacji finansowych. Szanujemy Twoją prywatność finansową.</string>
   <!-- Share data header -->
@@ -478,63 +355,39 @@
   <!-- Share data switch label. -->
   <string name="ShareData.toggleLabel">Udostępniać anonimowe dane?</string>
   <!-- button label -->
-  <string name="StartPaperPhrase.againButtonTitle">Zapisz ponownie klucz do papieru</string>
   <!-- Paper key explanation text. -->
   <string name="StartPaperPhrase.body">Klucz papierowy to jedyny sposób na przywrócenie Brainwallet w przypadku zgubienia, kradzieży, uszkodzenia lub aktualizacji telefonu. Pokażemy Ci listę słów, które należy zapisać na kartce papieru i przechowywać w bezpiecznym miejscu.</string>
   <!-- button label -->
   <string name="StartPaperPhrase.buttonTitle">Klucz do zapisywania dokumentów</string>
   <!-- Argument is date -->
-  <string name="StartPaperPhrase.date">Ostatni raz zapisałeś swój papierowy klucz na %1$s</string>
   <!-- Start view message -->
-  <string name="StartViewController.message">Najbezpieczniejszy sposób korzystania z Litecoin.</string>
   <!-- Syncing view connectiong state header text -->
-  <string name="SyncingView.connecting">Łączenie</string>
   <!-- Syncing view header text -->
   <string name="SyncingView.header">Synchronizacja</string>
   <!-- Retry button label -->
-  <string name="SyncingView.retry">Ponów próbę</string>
   <!-- Syncing view syncing state header text -->
-  <string name="SyncingView.syncing">Synchronizacja</string>
   <!-- 6 d (6 days) -->
-  <string name="TimeSince.days">%1$s d</string>
   <!-- 6 h (6 hours) -->
-  <string name="TimeSince.hours">%1$s h</string>
   <!-- 6 m (6 minutes) -->
-  <string name="TimeSince.minutes">%1$s m</string>
   <!-- 6 s (6 seconds) -->
-  <string name="TimeSince.seconds">%1$s s</string>
   <!-- You can customize your Touch ID Spending Limit from the [TouchIdSettings.linkText gets added here as a button] -->
-  <string name="TouchIdSettings.customizeText">Limit wydatków na Touch ID można dostosować na stronie %1$s.</string>
   <!-- Fingerprint enabling description body -->
-  <string name="TouchIdSettings.customizeText.android">Limit wydatków na uwierzytelnianie odcisków palców można dostosować na ekranie Limit wydatków na autoryzację odcisków palców</string>
   <!-- Instruction for the fingerprint setup -->
-  <string name="TouchIdSettings.disabledWarning.body.android">Nie włączono uwierzytelniania odcisków palców na tym urządzeniu. Przejdź do Ustawienia -&gt; Bezpieczeństwo, aby skonfigurować uwierzytelnianie odciskiem palca.</string>
   <!-- Fingerprint Is Not Setup -->
-  <string name="TouchIdSettings.disabledWarning.title.android">Uwierzytelnianie odciskiem palca nie jest włączone</string>
   <!-- Touch Id screen label -->
-  <string name="TouchIdSettings.label">Użyj odcisku palca, aby odblokować Brainwallet i wysłać pieniądze do ustalonego limitu.</string>
   <!-- Link Text (see TouchIdSettings.customizeText) -->
-  <string name="TouchIdSettings.linkText">Ekran limitu wydatków Touch ID</string>
   <!-- Spending Limit: b100,000 ($100) -->
-  <string name="TouchIdSettings.spendingLimit">Limit wydatków: %1$s (%2$s)</string>
   <!-- Touch id switch label. -->
-  <string name="TouchIdSettings.switchLabel">Włącz Touch ID dla Brainwallet</string>
   <!-- Enable fingerprint for this wallet called Brainwallet -->
-  <string name="TouchIdSettings.switchLabel.android">Włącz uwierzytelnianie odciskiem palca</string>
   <!-- Touch ID settings view title -->
-  <string name="TouchIdSettings.title">Touch ID</string>
   <!-- Fingerprint authentication label -->
-  <string name="TouchIdSettings.title.android">Uwierzytelnianie odciskiem palca</string>
   <!-- Touch ID unavailable alert message -->
-  <string name="TouchIdSettings.unavailableAlertMessage">Touch ID nie został skonfigurowany na tym urządzeniu. Przejdź do Ustawienia-&gt;Touch ID i kod dostępu, aby skonfigurować go teraz.</string>
   <!-- Touch ID unavailable alert title -->
-  <string name="TouchIdSettings.unavailableAlertTitle">Touch ID nie został skonfigurowany</string>
   <!-- Always require passcode option -->
   <string name="TouchIdSpendingLimit">Zawsze wymagaj kodu dostępu</string>
   <!-- Touch ID spending limit screen body -->
   <string name="TouchIdSpendingLimit.body">Użytkownik zostanie poproszony o wprowadzenie 6-cyfrowego kodu PIN w celu wysłania każdej transakcji przekraczającej limit wydatków, a także co 48 godzin od ostatniego wprowadzenia 6-cyfrowego kodu PIN.</string>
   <!-- Touch Id spending limit screen title -->
-  <string name="TouchIdSpendingLimit.title">Limit wydatków na Touch ID</string>
   <!-- name of spending limit when using fingerprint authorization -->
   <string name="TouchIdSpendingLimit.title.android">Limit wydatków na autoryzację odcisków palców</string>
   <!-- Availability status text -->
@@ -544,29 +397,19 @@
   <!-- eg. Ending balance: $50.00 -->
   <string name="Transaction.ending">Saldo końcowe: %1$s</string>
   <!-- Exchange rate on date header -->
-  <string name="Transaction.exchangeOnDayReceived">Kurs wymiany w momencie otrzymania:</string>
   <!-- Exchange rate on date header -->
-  <string name="Transaction.exchangeOnDaySent">Kurs wymiany w momencie wysłania:</string>
   <!-- (b600 fee) -->
-  <string name="Transaction.fee">(%1$s opłata)</string>
   <!-- Invalid transaction -->
   <string name="Transaction.invalid">NIEPRAWIDŁOWY</string>
   <!-- Timestamp label for event that just happened -->
-  <string name="Transaction.justNow">właśnie teraz</string>
   <!-- Receive status text: 'In progress: 20%' -->
-  <string name="Transaction.receivedStatus">W toku: %1$s</string>
   <!-- Send status text: 'In progress: 20%' -->
-  <string name="Transaction.sendingStatus">W toku: %1$s</string>
   <!-- eg. Starting balance: $50.00 -->
   <string name="Transaction.starting">Saldo początkowe: %1$s</string>
   <!-- Waiting to be confirmed string -->
-  <string name="Transaction.waiting">Czekam na potwierdzenie. Niektórzy sprzedawcy wymagają potwierdzenia w celu sfinalizowania transakcji. Szacowany czas: 1-2 godziny.</string>
   <!-- e.g. I received money from an account. -->
-  <string name="TransactionDetails.account">konto</string>
   <!-- Amount section header -->
-  <string name="TransactionDetails.amountHeader">Kwota</string>
   <!-- Block height label -->
-  <string name="TransactionDetails.blockHeightLabel">Potwierdzone w bloku</string>
   <!-- Memo section header -->
   <string name="TransactionDetails.commentsHeader">Memo</string>
   <!-- Empty transaction list message. -->
@@ -574,21 +417,15 @@
   <!-- "Received [$5] at [which of my addresses]" => This is the "at [which of my addresses]" part. -->
   <string name="TransactionDetails.from">na %1$s</string>
   <!-- More button title -->
-  <string name="TransactionDetails.more">Więcej...</string>
   <!-- Moved $5.00 (as in "I moved $5 to another location") -->
-  <string name="TransactionDetails.moved">Przeniesiony %1$s</string>
   <!-- Moved $5.00 -->
-  <string name="TransactionDetails.movedAmountDescription">Przeniesiony <b>%1$s</b></string>
   <!-- eg. Confirmed in Block: Not Confirmed -->
-  <string name="TransactionDetails.notConfirmedBlockHeightLabel">Nie potwierdzono</string>
   <!-- "Received [$5] at [which of my addresses]" => This is the "Received [$5]" part. -->
   <string name="TransactionDetails.received">Otrzymano %1$s</string>
   <!-- Received $5.00 -->
-  <string name="TransactionDetails.receivedAmountDescription">Otrzymano <b>%1$s</b></string>
   <!-- "Sent [$5] to [address]" => This is the "Sent [$5]" part. -->
   <string name="TransactionDetails.sent">Wysłany %1$s</string>
   <!-- Sent $5.00 -->
-  <string name="TransactionDetails.sentAmountDescription">Wysłany <b>%1$s</b></string>
   <!-- Status section header -->
   <string name="TransactionDetails.statusHeader">Status</string>
   <!-- Transaction Details Title -->
@@ -602,23 +439,19 @@
   <!-- (this transaction was) Sent to this address: -->
   <string name="TransactionDirection.to">Wysłane na ten adres</string>
   <!-- Disabled until date -->
-  <string name="UnlockScreen.disabled">Wyłączone do: %1$s</string>
   <!-- My Address button title -->
   <string name="UnlockScreen.myAddress">Mój adres</string>
   <!-- Reset PIN with Paper Key button label. -->
   <string name="UnlockScreen.resetPin">Reset PIN</string>
   <!-- Scan button title -->
-  <string name="UnlockScreen.scan">Skanowanie</string>
   <!-- Unlock Screen sub-header -->
   <string name="UnlockScreen.subheader">Wprowadź kod PIN</string>
   <!-- Instruction to touch the sensor for fingerprint authentication -->
   <string name="UnlockScreen.touchIdInstructions.android">Czujnik dotykowy</string>
   <!-- TouchID prompt text -->
-  <string name="UnlockScreen.touchIdPrompt">Odblokuj swój Brainwallet.</string>
   <!-- Device authentication body -->
   <string name="UnlockScreen.touchIdPrompt.android">Aby kontynuować, odblokuj urządzenie z systemem Android.</string>
   <!-- Unlock with TouchID accessibility label -->
-  <string name="UnlockScreen.touchIdText">Odblokowywanie za pomocą TouchID</string>
   <!-- View a transaction on the blockchain explorer -->
   <string name="ViewOnBlockchain">Widok na blockchain</string>
   <!-- Device authentication title -->
@@ -642,96 +475,50 @@
   <!-- Re-Enter new PIN instruction -->
   <string name="UpdatePin.reEnterNew">Wprowadź ponownie nowy kod PIN.</string>
   <!-- Update PIN failure error message. -->
-  <string name="UpdatePin.setPinError">Przepraszamy, nie mogłem zaktualizować kodu PIN.</string>
   <!-- Update PIN failure alert view title -->
-  <string name="UpdatePin.setPinErrorTitle">Błąd aktualizacji kodu PIN</string>
   <!-- Update PIN title -->
   <string name="UpdatePin.updateTitle">Aktualizacja kodu PIN</string>
   <!-- Authorize to copy wallet addresses alert message -->
-  <string name="URLHandling.addressaddressListAlertMessage">Skopiować adresy portfeli do schowka?</string>
   <!-- Authorize to copy wallet address PIN view prompt. -->
-  <string name="URLHandling.addressList">Autoryzacja kopiowania adresu portfela do schowka</string>
   <!-- Authorize to copy wallet address alert title -->
-  <string name="URLHandling.addressListAlertTitle">Kopiowanie adresów portfela</string>
   <!-- Copy wallet addresses alert button label -->
   <string name="URLHandling.copy">Kopia</string>
   <!-- Verify PIN for transaction view body -->
-  <string name="VerifyPin.authorize">Wprowadź kod PIN, aby autoryzować tę transakcję.</string>
   <!-- Verify PIN view body -->
-  <string name="VerifyPin.continueBody">Wprowadź kod PIN, aby kontynuować.</string>
   <!-- Verify PIN view title -->
-  <string name="VerifyPin.title">Wymagany kod PIN</string>
   <!-- Authorize transaction with touch id message -->
-  <string name="VerifyPin.touchIdMessage">Autoryzuj tę transakcję</string>
   <!-- 'No wallet' warning for watch app -->
-  <string name="Watch.noWalletWarning">Otwórz aplikację Brainwallet na iPhone\'a, aby skonfigurować portfel.</string>
   <!-- Dismiss button label -->
-  <string name="Webview.dismiss">Odrzucić</string>
   <!-- Webview loading error message -->
-  <string name="Webview.errorMessage">Wystąpił błąd podczas ładowania zawartości. Spróbuj ponownie.</string>
   <!-- Updating webview message -->
   <string name="Webview.updating">Aktualizacja...</string>
   <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
-  <string name="Welcome.body">Brainwallet został właśnie zaktualizowany! \Jeśli potrzebujesz pomocy, poszukaj (?) w prawym górnym rogu większości ekranów.</string>
   <!-- Top title of welcome screen -->
-  <string name="Welcome.title">Witamy w Brainwallet!</string>
   <!-- Wipe wallet alert message -->
   <string name="WipeWallet.alertMessage">Czy na pewno chcesz usunąć ten portfel?</string>
   <!-- Wipe wallet alert title -->
   <string name="WipeWallet.alertTitle">Wymazać portfel?</string>
   <!-- Failed wipe wallet alert message -->
-  <string name="WipeWallet.failedMessage">Nie udało się wyczyścić portfela.</string>
   <!-- Failed wipe wallet alert title -->
-  <string name="WipeWallet.failedTitle">Nie powiodło się</string>
   <!-- Enter phrase to wipe wallet instruction. -->
-  <string name="WipeWallet.instruction">Aby uruchomić nowy portfel lub przywrócić istniejący portfel, należy najpierw usunąć aktualnie zainstalowany portfel. Aby kontynuować, wprowadź klucz papieru bieżącego portfela.</string>
   <!-- Start wipe wallet view message -->
-  <string name="WipeWallet.startMessage">Uruchomienie lub odzyskanie innego portfela umożliwia dostęp do innego portfela Brainwallet i zarządzanie nim na tym urządzeniu.</string>
   <!-- Start wipe wallet view warning -->
-  <string name="WipeWallet.startWarning">Obecny portfel zostanie usunięty z tego urządzenia. Aby przywrócić ją w przyszłości, należy wprowadzić klucz Paper Key.</string>
   <!-- Wipe wallet navigation item title. -->
-  <string name="WipeWallet.title">Uruchomienie lub odzyskanie innego portfela</string>
   <!-- Wipe wallet button title -->
   <string name="WipeWallet.wipe">Wycieranie</string>
   <!-- Wiping activity message -->
-  <string name="WipeWallet.wiping">Wycieranie...</string>
   <!-- Paper key instructions. -->
-  <string name="WritePaperPhrase.instruction">Zapisz każde słowo w kolejności i przechowuj je w bezpiecznym miejscu.</string>
   <!-- button label -->
-  <string name="WritePaperPhrase.next">Następny</string>
   <!-- button label -->
-  <string name="WritePaperPhrase.previous">Poprzedni</string>
   <!-- 1 of 3 -->
-  <string name="WritePaperPhrase.step"> %1$dz%2$d </string>
-  <string name="Confirmation.processingAndDonationTime">Czas przetwarzania: Przetworzenie tych transakcji zajmie %1$s minut.</string>
-  <string name="Confirmation.staticAddressLabel">Adres:</string>
-  <string name="FeeSelector.luxury">Luksus</string>
-  <string name="FeeSelector.luxuryTime">2,5 - 5+ minut</string>
-  <string name="FeeSelector.luxuryMessage">Ta opcja praktycznie gwarantuje akceptację transakcji, mimo że płacisz premię.</string>
   <!--Buy center - partners-->
-  <string name="BuyCenter.moonpay.Title" translatable="false" tools:ignore="MissingTranslation">Moonpay</string>
-  <string name="BuyCenter.moonpay.FinancialDetails">"- Kup LTC za pomocą wielu par walutowych - Płać wieloma metodami - Globalny dostawca płatności"</string>
-    <string name="BuyCenter.bitrefill.FinancialDetails">"- Kupuj karty podarunkowe \n- Doładuj telefony przedpłacone \n- Steam, Amazon, Hotels.com \n- Działa w 170 krajach"</string>
-  <string name="aud_currency_code" translatable="false">AUD</string>
-  <string name="gbp_currency_code" translatable="false">GBP</string>
-  <string name="hkd_currency_code" translatable="false">HKD</string>
-  <string name="idr_currency_code" translatable="false">IDR</string>
-  <string name="rub_currency_code" translatable="false">RUB</string>
-  <string name="sgd_currency_code" translatable="false">SGD</string>
-  <string name="cad_currency_code" translatable="false">CAD</string>
-  <string name="eur_currency_code" translatable="false">EUR</string>
-  <string name="jpy_currency_code" translatable="false">JPY</string>
-  <string name="usd_currency_code" translatable="false">USD</string>
   <string name="BottomNavItem.History.title">Historia</string>
   <!-- Balance -->
   <string name="ManageWallet.balance">Równowaga</string>
   <string name="Login.ltcPrice" translatable="false">1 LTC = %1$s</string>
   <string name="Login.currentLtcPrice">Aktualna wartość LTC w %1$s</string>
   <string name="Settings.languages">Języki</string>
-  <string name="Settings.ChangeLanguage.alertMessage">Czy na pewno chcesz zmienić język na angielski?</string>
-  <string name="JailbreakWarnings.close">Zamknij</string>
   <!-- donation dialog -->
-  <string name="About.Instagram" translatable="false">Instagram</string>
   <string name="seed_phrase.label" translatable="false">1: %s 2: %s 3: %s 4: %s \\n5: %s 6: %s 7: %s 8: %s%s \\n9: %s 10: %s 11: %s 12: %s  %s</string>
   <string name="show_seed_label">Pokaż</string>
   <string name="settings_show_seed">Pokaż moje nasiona</string>
@@ -739,12 +526,7 @@
   <string name="radio_low_privacy">Niski poziom prywatności (~45 minut)</string>
   <string name="radio_semi_private">Półprywatnie (~60 minut)</string>
   <string name="radio_anonymous">Anonimowy (~77 minut)</string>
-  <string name="release_notes">WAŻNE: Aplikacja zsynchronizuje się, aby zezwolić na adresy 1ltc. Poczekaj ~1 godzinę na synchronizację!</string>
   <!-- Announce Updates View -->
-  <string name="Announce.title">Nie przegap niczego!</string>
-  <string name="Announce.close">Zamknij</string>
-  <string name="Announce.description">Zarejestruj się, aby otrzymywać informacje o aktualizacjach i konkursach od zespołu Brainwallet! Zaakceptuj powiadomienia, aby otrzymywać wiadomości na żywo, ceny i informacje rynkowe!</string>
-  <string name="Announce.no_thanks">Nie, dzięki!</string>
   <string name="Fees.Service">Usługa</string>
   <string name="ConfirmationAllFees.Label">Opłaty:</string>
   <string name="notification_channel_name_general" translatable="false">Ogólne</string>
@@ -773,16 +555,13 @@
   <string name="setup_app_details_1">Wybierz hasło, aby odblokować Brainwallet</string>
   <string name="setup_app_details_2">Nie kod blokady telefonu!</string>
   <string name="setup_app_details_3">Spraw, by było inaczej. Niech będzie fajnie.</string>
-  <string name="setup_app_biometrics">Korzystanie z danych biometrycznych</string>
   <string name="you_saved_your_keys">Zachowałeś swoje klucze.</string>
   <string name="you_saved_your_keys_desc">Przejdź na następny poziom.</string>
   <string name="tap_drag_a_word">Stuknij słowo i przeciągnij je na miejsce</string>
   <string name="top_up_title">Doładować?</string>
-  <string name="top_up_detail_2">W tej chwili twój mózg jest pusty...</string>
   <string name="top_up_detail_1">Zdobądź Litecoin w 5 minut</string>
   <string name="top_up_button_1">Zdobądź trochę Litecoina!</string>
   <string name="top_up_button_2">Może później.</string>
-  <string name="top_up_button_3">Pomiń</string>
   <string name="restore_your_power">Przywróć swoją moc</string>
   <string name="restore_your_power_desc">Możesz wrócić z miejsca, w którym zacząłeś</string>
   <string name="restore_my_brainwallet">Przywróć mój Brainwallet</string>
@@ -790,13 +569,10 @@
   <string name="dont_guess_desc">Nie zgaduj. Zajęłoby ci to 5 444 517 950 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 prób.</string>
   <string name="confirm">Potwierdzenie</string>
   <string name="confirm_desc">Nie zapomniałeś, prawda? Wprowadź go ponownie. Albo wrócić i zacząć od nowa.</string>
-  <string name="ready">Gotowy</string>
   <string name="restore">Przywróć za pomocą frazy początkowej</string>
   <string name="incorrect_passcode">Nieprawidłowe hasło, spróbuj ponownie!</string>
   <string name="down_left_arrow">strzałka w dół-lewo</string>
-  <string name="logo">logo</string>
   <string name="toggle_dark_mode">toggle-dark-mode</string>
-  <string name="toggle_lock_mode" translatable="false">toggle-lock-mode</string>
   <string name="settings_title_security">Bezpieczeństwo</string>
   <string name="settings_title_language">Język</string>
   <string name="settings_title_currency">Waluta</string>
@@ -817,7 +593,6 @@
   <string name="game_buy_price_4" translatable="false">%s</string>
   <string name="security_PIN_title" translatable="false">PIN</string>
   <string name="security_seed_phrase_title">Fraza seed</string>
-  <string name="security_brainwallet_phrase_title">Zwrot Brainwallet</string>
   <string name="security_share_data_title">Udostępnianie danych analitycznych</string>
   <string name="security_PIN_button">Aktualizacja kodu PIN</string>
   <string name="security_phrase_button">Pokaż</string>
@@ -838,32 +613,27 @@
   <string name="custom">Niestandardowe</string>
   <string name="reset_start_over">Reset / Rozpocznij od nowa</string>
   <string name="cta_export_transaction">Eksportuj dane transakcji</string>
-  <string name="send_tab_description">Paper plane icon to represent the Send action</string>
-  <string name="buy_receive_tab_description">Two arrows representing buying and receiving Litecoin</string>
-  <string name="game_hub_tab_description">gaming controller</string>
-  <string name="history_tab_description">circular arrow rotating counter clockwise</string>
-    <string name="send_title">Send Litecoin</string>
-    <string name="game_hub_title">Game Hub</string>
-  <string name="history_title">History</string>
-    <string name="game_hub_tagline">Czy jesteś wystarczająco dobry, żeby być numerem 1?</string>
-    <string name="game_hub_label">GAME HUB</string>
-    <string name="ltc_ticker_as_of_timestamp">as of %s</string>
-    <string name="my_balance">MY BALANCE</string>
-    <string name="balance_bento_last_block_label">Last block:</string>
-    <string name="no_internet_dialog_title">Sync not possible without internet!</string>
-  <string name="no_internet_dialog_subtitle">Please, reconnect to complete sync.</string>
-    <string name="current_transaction_count">Wallet tx count:</string>
-    <string name="home_tab_description">simple home drawing</string>
-  <string name="home_icon_label">" Home "</string>
-  <string name="history_icon_label">History</string>
-  <string name="memo_label">"Memo: "</string>
-  <string name="block_height_label">"Block: "</string>
-  <string name="date_label">"Date: "</string>
-  <string name="amount_label">"Amount: "</string>
-  <string name="fees_label">"Fees: "</string>
-  <string name="tx_id_label">"TX ID: "</string>
-    <string name="no_transaction_detail_row">Nothing yet. Top up now!</string>
-  <string name="no_transaction_title_row">TRANSACTION HISTORY</string>
-  <string name="txns_label">txns</string>
-    <string name="confirmations_label">Confirmations:</string>
+  <string name="game_hub_title">Centrum Gier</string>
+  <string name="game_hub_tagline">Czy jesteś wystarczająco dobry, żeby być numerem 1?</string>
+  <string name="send_tab_description">Ikona papierowego samolotu reprezentująca akcję Wyślij</string>
+  <string name="buy_receive_tab_description">Dwie strzałki reprezentujące kupowanie i otrzymywanie Litecoin</string>
+  <string name="game_hub_tab_description">kontroler do gier</string>
+  <string name="history_tab_description">okrągła strzałka obracająca się w kierunku przeciwnym do ruchu wskazówek zegara</string>
+  <string name="history_title">Historia</string>
+  <string name="ltc_ticker_as_of_timestamp">na dzień %1$s</string>
+  <string name="my_balance">MÓJ STAN KONTA</string>
+  <string name="no_internet_dialog_title">Synchronizacja niemożliwa bez internetu!</string>
+  <string name="no_internet_dialog_subtitle">Połącz się ponownie, aby zakończyć synchronizację.</string>
+  <string name="current_transaction_count">Liczba tx portfela:</string>
+  <string name="home_tab_description">prosty rysunek domu</string>
+  <string name="home_icon_label">Strona główna</string>
+  <string name="memo_label">"Notatka: "</string>
+  <string name="block_height_label">"Blok: "</string>
+  <string name="date_label">"Data: "</string>
+  <string name="amount_label">"Kwota: "</string>
+  <string name="fees_label">"Opłaty: "</string>
+  <string name="tx_id_label">"ID TX: "</string>
+  <string name="no_transaction_detail_row">Nic jeszcze. Doładuj teraz!</string>
+  <string name="no_transaction_title_row">HISTORIA TRANSAKCJI</string>
+  <string name="txns_label">transakcje</string>
 </resources>
