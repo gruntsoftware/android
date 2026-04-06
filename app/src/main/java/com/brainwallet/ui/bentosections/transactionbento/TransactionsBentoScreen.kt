@@ -55,7 +55,6 @@ import com.brainwallet.ui.theme.DesignTheme
 import com.brainwallet.ui.theme.IBMPlexSans
 import kotlinx.collections.immutable.ImmutableList
 import org.koin.compose.viewmodel.koinViewModel
-import timber.log.Timber
 
 @Composable
 fun TransactionsBentoScreen(

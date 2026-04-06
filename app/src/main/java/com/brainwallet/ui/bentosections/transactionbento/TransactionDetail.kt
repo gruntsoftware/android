@@ -36,7 +36,6 @@ import com.brainwallet.ui.theme.bentoDarkBorderGradient
 import com.brainwallet.ui.theme.bentoDarkSurfaceGradient
 import com.brainwallet.ui.theme.bentoLightBorderGradient
 import com.brainwallet.ui.theme.bentoLightSurfaceGradient
-import timber.log.Timber
 import java.math.BigDecimal
 import java.util.Date
 @Composable
