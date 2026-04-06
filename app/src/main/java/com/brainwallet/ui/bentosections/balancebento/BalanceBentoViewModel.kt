@@ -7,12 +7,11 @@ import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.repository.TxRepository
 import com.brainwallet.data.source.PeerManagerSource
-import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.sqlite.TransactionDataSource
-import com.brainwallet.tools.util.BRExchange.ONE_LITECOIN_OF_LITOSHIS
 import com.brainwallet.ui.BrainwalletViewModel
 import com.brainwallet.wallet.BRPeerManager
 import com.brainwallet.wallet.BRWalletManager
+import com.brainwallet.wallet.BRWalletManager.onBalanceChanged
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -23,7 +22,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import timber.log.Timber
-import java.math.BigDecimal
 import java.util.Date
 
 @KoinViewModel
@@ -35,7 +33,6 @@ class BalanceBentoViewModel(
     private val peerManagerSource: PeerManagerSource,
     private val connectivityRepository: ConnectivityRepository,
 ) : BrainwalletViewModel<BalanceBentoEvent>(),
-    BRWalletManager.OnBalanceChanged,
     BRPeerManager.OnTxStatusUpdate,
     TransactionDataSource.OnTxAddedListener {
     private val _state = MutableStateFlow(BalanceBentoState())
@@ -58,6 +55,7 @@ class BalanceBentoViewModel(
                         brainwalletIsSyncing = blockInfo.syncProgress <= 0.99f,
                     )
                 }
+                Timber.d("brainwalletIsSyncing Collecting PeerManager %s", state.value.brainwalletIsSyncing)
             }
         }
 
@@ -78,19 +76,6 @@ class BalanceBentoViewModel(
                 _state.update { it.copy(isInternetReachable = isInternetReachable) }
             }
         }
-
-        // ──────── Collecting Settings Updates ────────
-        viewModelScope.launch {
-            settingRepository.currentSettings.collect { settings ->
-                _state.update {
-                    it.copy(
-                        selectedCurrency = settings.currency,
-                        fiatCode = settings.currency.code,
-                        symbol = settings.currency.symbol,
-                    )
-                }
-            }
-        }
     }
 
     fun onResume(
@@ -106,17 +91,9 @@ class BalanceBentoViewModel(
             }
             if (isWalletCreated()) {
                 addObservers()
-                val balance = BRSharedPrefs.getCachedBalance(app)
-                _state.update {
-                    it.copy(
-                        ltcBalance = balance,
-                        litoshiBalance = BigDecimal(balance)
-                            .divide(BigDecimal(ONE_LITECOIN_OF_LITOSHIS)),
-                    )
-                }
                 txRepository.refresh()
             } else {
-                Timber.d("BalanceBentoViewModel: wallet not ready after waiting")
+                Timber.d("onResume: Wallet not ready")
             }
         }
     }
@@ -127,36 +104,20 @@ class BalanceBentoViewModel(
 
     override fun onCleared() {
         super.onCleared()
-        BRWalletManager.getInstance().removeListener(this)
         BRPeerManager.getInstance().removeListener(this)
         TransactionDataSource.getInstance(app).removeListener(this)
     }
     private fun addObservers() {
-        BRWalletManager.getInstance().addBalanceChangedListener(this)
         BRPeerManager.getInstance().addStatusUpdateListener(this)
         TransactionDataSource.getInstance(app).addTxAddedListener(this)
     }
     private fun removeObservers() {
-        BRWalletManager.getInstance().removeListener(this)
         BRPeerManager.getInstance().removeListener(this)
         TransactionDataSource.getInstance(app).removeListener(this)
     }
 
-    override fun onBalanceChanged(balance: Long) {
-        _state.update {
-            it.copy(
-                ltcBalance = balance,
-                litoshiBalance = BigDecimal(balance)
-                    .divide(BigDecimal(ONE_LITECOIN_OF_LITOSHIS)),
-            )
-        }
-        viewModelScope.launch(Dispatchers.IO) {
-            txRepository.refresh()
-        }
-    }
-
-    override fun onStatusUpdate() {
-        Timber.d("BalanceBentoViewModel: onStatusUpdate fired")
+    override fun onStatusPeerManagerUpdate() {
+        Timber.d("BalanceBentoViewModel: onStatusPeerManagerUpdate fired")
     }
 
     override fun onTxAdded() {
@@ -173,13 +134,13 @@ class BalanceBentoViewModel(
                 _state.update {
                     it.copy(
                         lastTimeStamp = "",
-                        selectedCurrency = currentSettings.currency,
                         fiatCode = currentSettings.currency.code,
                         symbol = currentSettings.currency.symbol,
                         syncProgress = syncProgress,
                         brainwalletIsSyncing = syncProgress <= 0.99f
                     )
                 }
+                Timber.d("brainwalletIsSyncing BalanceBentoEvent.OnLoad  %s", state.value.brainwalletIsSyncing)
             }
             is BalanceBentoEvent.OnToggleBalanceVisibility -> {
                 _state.update { it.copy(balanceHidden = !it.balanceHidden) }
@@ -189,7 +150,7 @@ class BalanceBentoViewModel(
 
     fun debugTriggerStatusUpdate() {
         if (!BuildConfig.DEBUG) return
-        onStatusUpdate()
+        onStatusPeerManagerUpdate()
     }
 
     fun debugTriggerTxAdded() {

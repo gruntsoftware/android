@@ -432,7 +432,7 @@ class BrainwalletActivity :
         Timber.d("timber: BrainwalletActivity subscribed onBalanceChanged $balance")
     }
 
-    override fun onStatusUpdate() {
+    override fun onStatusPeerManagerUpdate() {
         Timber.d("timber: BrainwalletActivity subscribed onStatusUpdate")
     }
 

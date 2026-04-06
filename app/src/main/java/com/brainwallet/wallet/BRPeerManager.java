@@ -97,7 +97,7 @@ public class BRPeerManager {
 
         synchronized (statusUpdateListeners) {
             for (OnTxStatusUpdate listener : statusUpdateListeners) {
-                if (listener != null) listener.onStatusUpdate();
+                if (listener != null) listener.onStatusPeerManagerUpdate();
             }
         }
 
@@ -239,7 +239,7 @@ public class BRPeerManager {
     }
 
     public interface OnTxStatusUpdate {
-        void onStatusUpdate();
+        void onStatusPeerManagerUpdate();
     }
 
     public interface OnSyncSucceeded {
