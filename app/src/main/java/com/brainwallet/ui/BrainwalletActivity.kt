@@ -361,6 +361,7 @@ class BrainwalletActivity :
     private fun onUnlock(passcode: List<Int>) {
         if (AuthManager.getInstance().checkAuth(passcode.joinToString(""), this)) {
             AuthManager.getInstance().authSuccess(this)
+
             AnalyticsManager.logCustomEvent(BWConstants._20200217_DUWB)
             LegacyNavigation.startBrainwalletActivity(this, false)
         } else {

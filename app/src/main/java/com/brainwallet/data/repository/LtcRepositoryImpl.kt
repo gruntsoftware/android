@@ -42,7 +42,6 @@ class LtcRepositoryImpl(
     )
     override val ltcStats: StateFlow<LtcStats> = _ltcStats.asStateFlow()
 
-    // todo: make it offline first here later, currently just using CurrencyDataSource.getAllCurrencies
     override suspend fun fetchRates(): List<CurrencyEntity> {
         return runCatching {
             val rates = remoteApiSource.getRates()
@@ -67,13 +66,19 @@ class LtcRepositoryImpl(
         }
     }
 
-    /**
-     * for now we just using [Fee.Default]
-     * will move to [RemoteApiSource.getFeePerKb] after fix the calculation when we do send
-     *
-     * maybe need updaete core if we need to use dynamic fee?
-     */
-    override suspend fun fetchFeePerKb(): Fee = Fee.Default // using static fee
+    override suspend fun fetchFeePerKb(): Fee {
+        return runCatching {
+            val feesPerKb = remoteApiSource.getFeePerKb()
+            Fee(
+                feesPerKb.economy,
+                feesPerKb.regular,
+                feesPerKb.luxury,
+                System.currentTimeMillis()
+            )
+        }.getOrElse {
+            Fee.Default
+        }
+    }
 
     override suspend fun fetchLtcStats(): LtcStats {
         return remoteApiSource.getLtcStats()
