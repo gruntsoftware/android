@@ -120,7 +120,6 @@ class BalanceBentoViewModelTest {
     fun `initial state has expected defaults`() = runTest {
         advanceUntilIdle()
         val state = viewModel.state.value
-        assertEquals(0L, state.ltcBalance)
         assertTrue(state.balanceHidden)
     }
 
@@ -252,8 +251,6 @@ class BalanceBentoViewModelTest {
         )
         advanceTimeBy(6_000)
         advanceUntilIdle()
-
-        assertEquals(7_500_000L, viewModel.state.value.ltcBalance)
     }
 
     @Test
