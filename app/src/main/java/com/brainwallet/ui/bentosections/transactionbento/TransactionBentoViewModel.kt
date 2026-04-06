@@ -40,7 +40,8 @@ class TransactionBentoViewModel(
             settingRepository.currentSettings.collect { currentSettings ->
                 _state.update {
                     it.copy(
-                        selectedCurrency = currentSettings.currency
+                        selectedCurrency = currentSettings.currency,
+                        darkMode = currentSettings.isDarkMode
                     )
                 }
             }
