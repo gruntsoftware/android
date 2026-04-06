@@ -1,6 +1,8 @@
 package com.brainwallet.ui.bentosections.balancebento
 
-import android.R.attr.bottom
+import android.media.MediaPlayer
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
@@ -28,10 +30,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,6 +52,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
 import com.brainwallet.presenter.entities.TxItem
 import com.brainwallet.ui.screens.main.MainScreenEvent
@@ -74,10 +78,11 @@ fun BalanceBentoScreen(
     val mainState by mainViewModel.state.collectAsState()
 
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
+        viewModel.onEvent(BalanceBentoEvent.OnLoad)
         viewModel.onResume()
     }
 
-    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
+    LifecycleEventEffect(Lifecycle.Event.ON_PAUSE) {
         viewModel.onPause()
     }
 
@@ -106,6 +111,7 @@ fun BalanceBentoScreen(
     onDebugTxAdded: () -> Unit = {},
     onDebugBalanceChanged: () -> Unit = {},
 ) {
+    val context = LocalContext.current
     val infiniteTransition = rememberInfiniteTransition()
     val throbOpacity by infiniteTransition.animateFloat(
         initialValue = 0.5f,
@@ -144,6 +150,16 @@ fun BalanceBentoScreen(
     } else {
         iconImage = painterResource(id = R.drawable.visibility_off)
     }
+    val coinAudioPlayer = remember { MediaPlayer.create(context, R.raw.coinflip) }
+    var previousBalance by remember { mutableLongStateOf(mainState.ltcBalance) }
+
+    // Listen for changes in balance
+    LaunchedEffect(mainState.ltcBalance) {
+        if (mainState.ltcBalance > previousBalance) {
+            coinAudioPlayer.start()
+        }
+        previousBalance = mainState.ltcBalance
+    }
 
     Box(
         modifier = Modifier
@@ -176,7 +192,7 @@ fun BalanceBentoScreen(
                 // ──────── MY BALANCE LABEL ────────
                 Text(
                     modifier = Modifier
-                        .blurWhen(!state.isInternetReachable),
+                        .blurWhen(!mainState.isInternetReachable),
                     text = stringResource(R.string.my_balance),
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
@@ -193,7 +209,7 @@ fun BalanceBentoScreen(
                 ) {
                     // ──────── TOP CURRENCY ────────
                     Text(
-                        text = if (state.balanceHidden) "" else "Ł${state.litoshiBalance}",
+                        text = if (state.balanceHidden) "" else "Ł${mainState.litoshiBalance}",
                         style = TextStyle(
                             fontFamily = IBMPlexSans,
                             fontWeight = if (isSwapped) FontWeight.Light else FontWeight.SemiBold,
@@ -203,7 +219,7 @@ fun BalanceBentoScreen(
                         maxLines = 1,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .blurWhen(!state.isInternetReachable)
+                            .blurWhen(!mainState.isInternetReachable)
                             .offset(y = primaryOffset)
                             .zIndex(if (isSwapped) 1f else 0f)
 
@@ -213,7 +229,7 @@ fun BalanceBentoScreen(
                         text = if (state.balanceHidden) {
                             ""
                         } else {
-                            "${state.selectedCurrency.symbol}${state.fiatBalanceFormatted}"
+                            "${mainState.selectedCurrency.symbol}${mainState.fiatBalanceFormatted}"
                         },
                         style = TextStyle(
                             fontFamily = IBMPlexSans,
@@ -224,7 +240,7 @@ fun BalanceBentoScreen(
                         maxLines = 1,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .blurWhen(!state.isInternetReachable)
+                            .blurWhen(!mainState.isInternetReachable)
                             .offset(y = secondaryOffset)
                             .zIndex(if (isSwapped) 0f else 1f)
                     )
@@ -243,7 +259,7 @@ fun BalanceBentoScreen(
                         .clickable(
                             interactionSource = remember { MutableInteractionSource() },
                         ) { onEvent(BalanceBentoEvent.OnToggleBalanceVisibility) }
-                        .blurWhen(!state.isInternetReachable),
+                        .blurWhen(!mainState.isInternetReachable),
                     painter = iconImage,
                     contentDescription = "Toggle Balance Show",
                     tint = Color.White
@@ -252,7 +268,7 @@ fun BalanceBentoScreen(
                 Text(
                     modifier = Modifier.align(Alignment.End)
                         .alpha(if (state.brainwalletIsSyncing) 1f else 0f)
-                        .blurWhen(!state.isInternetReachable),
+                        .blurWhen(!mainState.isInternetReachable),
                     text = state.topMessage,
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
@@ -266,7 +282,7 @@ fun BalanceBentoScreen(
                 Text(
                     modifier = Modifier.align(Alignment.End)
                         .alpha(if (state.brainwalletIsSyncing) 1f else 0f)
-                        .blurWhen(!state.isInternetReachable),
+                        .blurWhen(!mainState.isInternetReachable),
                     text = currentTxsLabel,
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
@@ -280,7 +296,7 @@ fun BalanceBentoScreen(
                 Text(
                     modifier = Modifier.align(Alignment.End)
                         .alpha(if (state.brainwalletIsSyncing) 1f else 0f)
-                        .blurWhen(!state.isInternetReachable),
+                        .blurWhen(!mainState.isInternetReachable),
                     text = state.lastTimeStamp,
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
@@ -315,7 +331,7 @@ fun BalanceBentoScreen(
                         modifier = Modifier
                             .width(70.dp)
                             .padding(bottom = 3.dp)
-                            .blurWhen(!state.isInternetReachable)
+                            .blurWhen(!mainState.isInternetReachable)
                             .graphicsLayer {
                                 alpha = throbOpacity
                             },
@@ -331,7 +347,7 @@ fun BalanceBentoScreen(
 
                     Text(
                         modifier = Modifier.padding(2.dp, bottom = 3.dp)
-                            .blurWhen(!state.isInternetReachable),
+                            .blurWhen(!mainState.isInternetReachable),
                         text = if (state.currentBlockHeight > 1) currentBlockLabel else "",
                         style = TextStyle(
                             fontFamily = IBMPlexSans,
@@ -346,14 +362,14 @@ fun BalanceBentoScreen(
 
                     SyncStatusSubScreen(
                         modifier = Modifier,
-                        isInternetReachable = !state.isInternetReachable
+                        isInternetReachable = !mainState.isInternetReachable
                     )
                 }
                 LinearProgressIndicator(
                     progress = { state.syncProgress },
                     modifier = Modifier.fillMaxWidth()
                         .alpha(if (state.brainwalletIsSyncing) 1f else 0f)
-                        .blurWhen(!state.isInternetReachable),
+                        .blurWhen(!mainState.isInternetReachable),
                     color = DesignTheme.colors.affirm,
                     trackColor = Color.White.copy(0.5f),
                     strokeCap = StrokeCap.Round,
@@ -364,7 +380,7 @@ fun BalanceBentoScreen(
         }
         NoWifiBalanceAlertScreen(
             modifier = Modifier,
-            isInternetReachable = !state.isInternetReachable
+            isInternetReachable = !mainState.isInternetReachable
         )
 //  Uncomment to trigger BRWalletManager Callbacks
 //        if (BuildConfig.DEBUG) {

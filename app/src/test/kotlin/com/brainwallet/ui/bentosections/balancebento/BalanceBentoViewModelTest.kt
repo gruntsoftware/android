@@ -1,7 +1,7 @@
 package com.brainwallet.ui.bentosections.balancebento
 
 import android.app.Application
-import app.cash.turbine.turbineScope
+import app.cash.turbine.test
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.repository.ConnectivityRepository
 import com.brainwallet.data.repository.SettingRepository
@@ -187,22 +187,6 @@ class BalanceBentoViewModelTest {
         assertTrue(viewModel.state.value.isInternetReachable)
     }
 
-    // ── onBalanceChanged ───────────────────────────────────────────────────
-
-    @Test
-    fun `onBalanceChanged updates ltcBalance with callback value`() = runTest {
-        viewModel.onBalanceChanged(5_000_000L)
-        advanceUntilIdle()
-        assertEquals(5_000_000L, viewModel.state.value.ltcBalance)
-    }
-
-    @Test
-    fun `onBalanceChanged triggers txRepository refresh`() = runTest {
-        viewModel.onBalanceChanged(1_000_000L)
-        advanceUntilIdle()
-        coVerify { txRepository.refresh() }
-    }
-
     // ── onTxAdded ─────────────────────────────────────────────────────────
 
     @Test
@@ -280,20 +264,71 @@ class BalanceBentoViewModelTest {
         advanceUntilIdle()
     }
 
-    // ── state emission continuity (Turbine) ───────────────────────────────
+    @Test
+    fun `brainwalletIsSyncing is true when syncProgress is below threshold`() = runTest {
+        viewModel.state.test {
+            awaitItem() // initial state
+
+            blockInfoFlow.emit(
+                BlockInfo(
+                    blockHeight = 100,
+                    syncProgress = 0.5f,
+                    timestamp = 0L
+                )
+            )
+
+            testDispatcher.scheduler.advanceUntilIdle()
+
+            val state = awaitItem()
+            assertTrue(
+                "Expected brainwalletIsSyncing=true when syncProgress=0.5",
+                state.brainwalletIsSyncing
+            )
+        }
+    }
 
     @Test
-    fun `consecutive balance changes each emit distinct state`() = runTest {
-        turbineScope {
-            val states = viewModel.state.testIn(backgroundScope)
+    fun `brainwalletIsSyncing is false when syncProgress exceeds threshold`() = runTest {
+        viewModel.state.test {
+            awaitItem() // initial state
 
-            viewModel.onBalanceChanged(1_000_000L)
-            advanceUntilIdle()
-            viewModel.onBalanceChanged(2_000_000L)
-            advanceUntilIdle()
+            blockInfoFlow.emit(
+                BlockInfo(
+                    blockHeight = 2_500_000,
+                    syncProgress = 0.9999f,
+                    timestamp = 0L
+                )
+            )
 
-            assertEquals(2_000_000L, states.expectMostRecentItem().ltcBalance)
-            states.cancel()
+            testDispatcher.scheduler.advanceUntilIdle()
+
+            val state = awaitItem()
+            assertFalse(
+                "Expected brainwalletIsSyncing=false when syncProgress=0.9999",
+                state.brainwalletIsSyncing
+            )
+        }
+    }
+
+    @Test
+    fun `brainwalletIsSyncing toggles correctly across multiple emissions`() = runTest {
+        viewModel.state.test {
+            awaitItem() // initial state
+
+            // Syncing
+            blockInfoFlow.emit(BlockInfo(blockHeight = 100, syncProgress = 0.5f, timestamp = 0L))
+            testDispatcher.scheduler.advanceUntilIdle()
+            assertTrue(awaitItem().brainwalletIsSyncing)
+
+            // Synced
+            blockInfoFlow.emit(BlockInfo(blockHeight = 2_500_000, syncProgress = 0.9999f, timestamp = 0L))
+            testDispatcher.scheduler.advanceUntilIdle()
+            assertFalse(awaitItem().brainwalletIsSyncing)
+
+            // Back to syncing (e.g. chain reorg / test scenario)
+            blockInfoFlow.emit(BlockInfo(blockHeight = 100, syncProgress = 0.75f, timestamp = 0L))
+            testDispatcher.scheduler.advanceUntilIdle()
+            assertTrue(awaitItem().brainwalletIsSyncing)
         }
     }
 
@@ -312,7 +347,7 @@ class BalanceBentoViewModelTest {
 
     @Test
     fun `onStatusUpdate does not crash`() = runTest {
-        viewModel.onStatusUpdate()
+        viewModel.onStatusPeerManagerUpdate()
         advanceUntilIdle()
     }
 }
