@@ -82,7 +82,7 @@ fun ConfirmSend(
                     )
                     SendDetailRow(
                         label = stringResource(R.string.amount_in_fiat_label),
-                        valueLabel = state.amountInLTC.toString()
+                        valueLabel = state.amountInLTCString
                     )
                     Text(
                         modifier = Modifier.padding(
@@ -102,7 +102,7 @@ fun ConfirmSend(
                         modifier = Modifier.padding(
                             12.dp
                         ),
-                        text = state.memo.ifEmpty { " " },
+                        text = state.userMemorandum.ifEmpty { " " },
                         style = TextStyle(
                             fontFamily = IBMPlexSans,
                             fontWeight = FontWeight.Light,

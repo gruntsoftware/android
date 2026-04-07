@@ -50,6 +50,16 @@ fun SendContinueButton(
     colors: ButtonColors = ButtonDefaults.buttonColors(
         containerColor = if (darkMode) Color.White else Color.Black.copy(0.7f),
         contentColor = if (darkMode) Color.Black else Color.White,
+        if (darkMode) {
+            Color.White.copy(0.4f)
+        } else {
+            Color.Black.copy(0.4f)
+        },
+        disabledContentColor = if (darkMode) {
+            Color.Black.copy(0.3f)
+        } else {
+            Color.White.copy(0.3f)
+        }
     ),
     shape: Shape = RoundedCornerShape(16.dp),
     content: @Composable RowScope.() -> Unit

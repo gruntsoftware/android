@@ -33,7 +33,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -66,6 +65,7 @@ import com.brainwallet.ui.theme.bentoLightBorderGradient
 import com.brainwallet.ui.theme.blurWhen
 import kotlinx.collections.immutable.ImmutableList
 import org.koin.compose.viewmodel.koinViewModel
+import java.math.BigDecimal
 
 @Composable
 fun BalanceBentoScreen(
@@ -113,6 +113,8 @@ fun BalanceBentoScreen(
 ) {
     val context = LocalContext.current
     val infiniteTransition = rememberInfiniteTransition()
+    var previousBalance by remember { mutableStateOf(BigDecimal.ZERO) }
+
     val throbOpacity by infiniteTransition.animateFloat(
         initialValue = 0.5f,
         targetValue = 1f,
@@ -151,7 +153,6 @@ fun BalanceBentoScreen(
         iconImage = painterResource(id = R.drawable.visibility_off)
     }
     val coinAudioPlayer = remember { MediaPlayer.create(context, R.raw.coinflip) }
-    var previousBalance by remember { mutableLongStateOf(mainState.ltcBalance) }
 
     // Listen for changes in balance
     LaunchedEffect(mainState.ltcBalance) {
