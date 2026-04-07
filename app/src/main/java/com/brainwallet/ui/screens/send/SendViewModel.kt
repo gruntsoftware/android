@@ -3,7 +3,7 @@ package com.brainwallet.ui.screens.send
 import android.app.Application
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.R
-import com.brainwallet.data.repository.LtcRepository
+import com.brainwallet.constants.BWConstants
 import com.brainwallet.ui.BrainwalletViewModel
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.repository.TxRepository
@@ -29,7 +29,6 @@ class SendViewModel(
     private val app: Application,
     private val txRepository: TxRepository,
     private val settingRepository: SettingRepository,
-    private val ltcRepository: LtcRepository
 ) : BrainwalletViewModel<SendEvent>() {
     private val _state =
         MutableStateFlow(SendState())
@@ -40,7 +39,8 @@ class SendViewModel(
             settingRepository.currentSettings.collect { currentSettings ->
                 _state.update {
                     it.copy(
-                        darkMode = currentSettings.isDarkMode
+                        darkMode = currentSettings.isDarkMode,
+                        selectedCurrency = currentSettings.currency
                     )
                 }
             }
@@ -81,9 +81,6 @@ class SendViewModel(
             is SendEvent.OnLoad -> {
                 Timber.i("SendEvent.OnLoad")
             }
-            is SendEvent.OnCheckIfSendIsReady -> {
-                Timber.i("SendEvent.OnCheckIfSendIsReady")
-            }
             is SendEvent.OnConfirmSend -> {
                 Timber.i("SendEvent.OnConfirmSend")
             }
@@ -97,10 +94,52 @@ class SendViewModel(
                 }
             }
             is SendEvent.OnTapShowCameraForQRLTCAddress -> {
-                Timber.i("SendEvent.OnTapPasteLTCAddress")
+                Timber.i("SendEvent.OnTapShowCameraForQRLTCAddress")
             }
             is SendEvent.OnToggleFiatOrLTC -> {
-                _state.update { it.copy(userViewsFiat = !it.userViewsFiat) }
+                val currentlyViewingFiat = _state.value.userViewsFiat
+                val currentAmountString = _state.value.amountString
+                val rate = _state.value.selectedCurrency.rate
+                val symbol = _state.value.selectedCurrency.symbol
+
+                val convertedAmount = if (currentAmountString.isNotBlank()) {
+                    val currentAmount = currentAmountString.toBigDecimalOrNull() ?: BigDecimal.ZERO
+                    val rateBD = BigDecimal(rate.toString())
+
+                    if (currentlyViewingFiat) {
+                        // switching back to LTC — divide fiat by rate
+                        currentAmount
+                            .divide(
+                                rateBD,
+                                8,
+                                BWConstants.ROUNDING_MODE
+                            )
+                            .stripTrailingZeros()
+                            .toPlainString()
+                    } else {
+                        // switching to fiat — multiply LTC by rate
+                        String.format(
+                            "%s %s",
+                            symbol,
+                            currentAmount
+                                .multiply(rateBD)
+                                .setScale(
+                                    2,
+                                    BWConstants.ROUNDING_MODE
+                                )
+                                .toPlainString()
+                        )
+                    }
+                } else {
+                    currentAmountString // no rate available, leave as-is
+                }
+
+                _state.update {
+                    it.copy(
+                        userViewsFiat = !it.userViewsFiat,
+                        amountString = convertedAmount
+                    )
+                }
             }
             is SendEvent.OnRecipientAddressChanged -> {
                 val isAddressValid = if (BRWalletManager.getInstance().isCreated()) {
@@ -117,22 +156,62 @@ class SendViewModel(
                 }
             }
             is SendEvent.OnAmountChanged -> {
-                val amountInDecimalLTC = event.amountInLTCString.toBigDecimalOrNull() ?: BigDecimal.ZERO
-                val litoshiAmount = amountInDecimalLTC
-                    .multiply(BigDecimal(BRExchange.ONE_LITECOIN_OF_LITOSHIS))
-                    .toLong()
+                val currentState = _state.value
+                val enteredAmount = event
+                    .amountInLTCString.toBigDecimalOrNull() ?: BigDecimal.ZERO
+
+                // Resolve rate safely
+                val rate = _state.value.selectedCurrency.rate
+
+                // Always convert to LTC first
+                val amountInLTC = when {
+                    currentState.userViewsFiat && rate != null -> {
+                        enteredAmount.divide(
+                            BigDecimal(rate.toString()),
+                            8,
+                            BWConstants.ROUNDING_MODE
+                        )
+                    }
+                    currentState.userViewsFiat && rate == null -> {
+                        // rate not available yet — block send
+                        null
+                    }
+                    else -> enteredAmount // already in LTC
+                }
+
+                // Convert LTC → litoshis safely
+                val litoshiAmount = amountInLTC
+                    ?.multiply(
+                        BigDecimal(
+                            BRExchange
+                                .ONE_LITECOIN_OF_LITOSHIS
+                        )
+                    )
+                    ?.toLong()
+                    ?: 0L
+
                 val currentBalance = BRWalletManager.getInstance().getBalance(app)
                 val networkFee = FeeManager.getInstance().currentFeeValue
                 val opsFee = Utils.tieredOpsFee(app, litoshiAmount)
-                val isAmountValid = currentBalance >= (litoshiAmount + opsFee + networkFee)
+
+                // isAmountValid is false if rate was unavailable in fiat mode
+                val isAmountValid = amountInLTC != null &&
+                    enteredAmount > BigDecimal.ZERO &&
+                    currentBalance >= (litoshiAmount + opsFee + networkFee)
 
                 _state.update {
                     it.copy(
-                        amountInLTCString = event.amountInLTCString,
+                        amountString = event.amountInLTCString,
                         isAmountBelowBalance = isAmountValid,
-                        isReadyToSend = BRWalletManager.validateAddress(it.recipientLTCAddress) && isAmountValid
+                        isReadyToSend = isAmountValid &&
+                            BRWalletManager.validateAddress(it.recipientLTCAddress),
+                        networkFees = BigDecimal(networkFee.toDouble()),
+                        serviceFees = BigDecimal(opsFee)
                     )
                 }
+            }
+            is SendEvent.OnSend -> {
+                Timber.i("SendEvent.OnSend")
             }
             is SendEvent.OnUserMemorandumChanged -> {
                 _state.update { it.copy(userMemorandum = event.memo) }

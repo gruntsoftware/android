@@ -16,8 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -69,13 +67,11 @@ private fun SendScreen(
     viewModel: SendViewModel = koinViewModel(),
     mainViewModel: MainViewModel = koinViewModel()
 ) {
-    val horizontalVerticalSpacing = 8
     val state by viewModel.state.collectAsState()
     val mainState by mainViewModel.state.collectAsState()
     val loadingState by viewModel.loadingState.collectAsState()
     val context = LocalContext.current
     val bottomButtonPadding = 60.dp
-    var sendDataIsReady by remember { mutableStateOf(false) }
 
     val pageCount = 2
     val pagerState = rememberPagerState(pageCount = { pageCount })
@@ -112,14 +108,23 @@ private fun SendScreen(
 
             HorizontalPager(
                 state = pagerState,
-                Modifier.fillMaxHeight(0.65f)
+                userScrollEnabled = false,
+                modifier = Modifier
+                    .fillMaxHeight(0.65f)
             ) { page ->
                 if (page == 0) {
                     PreSend(
                         modifier = Modifier.fillMaxHeight(0.65f)
                     )
                 } else {
-                    ConfirmSend(modifier = Modifier.fillMaxHeight(0.65f))
+                    ConfirmSend(
+                        modifier = Modifier.fillMaxHeight(0.65f),
+                        onEdit = {
+                            coroutineScope.launch {
+                                pagerState.animateScrollToPage(0)
+                            }
+                        }
+                    )
                 }
             }
 
@@ -172,7 +177,7 @@ private fun SendScreen(
                     bottom = bottomButtonPadding
                 ),
                 darkMode = state.darkMode,
-                enabled = sendDataIsReady,
+                enabled = state.isReadyToSend,
                 onClick = {
                     if (pagerState.targetPage == 0) {
                         coroutineScope.launch {
@@ -180,7 +185,7 @@ private fun SendScreen(
                         }
                     } else {
                         val amountInDecimalLTC = viewModel
-                            .state.value.amountInLTCString.toBigDecimalOrNull() ?: BigDecimal.ZERO
+                            .state.value.amountString.toBigDecimalOrNull() ?: BigDecimal.ZERO
 
                         onEvent(SendEvent.OnConfirmSend(amountInDecimalLTC))
                     }
