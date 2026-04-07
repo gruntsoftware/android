@@ -38,6 +38,7 @@ import com.brainwallet.ui.screens.main.MainViewModel
 import org.koin.compose.viewmodel.koinViewModel
 import com.brainwallet.ui.theme.IBMPlexSans
 import kotlinx.coroutines.launch
+import java.math.BigDecimal
 
 @Composable
 fun SendScreen(
@@ -171,14 +172,17 @@ private fun SendScreen(
                     bottom = bottomButtonPadding
                 ),
                 darkMode = state.darkMode,
-                enabled = !sendDataIsReady,
+                enabled = sendDataIsReady,
                 onClick = {
                     if (pagerState.targetPage == 0) {
                         coroutineScope.launch {
                             pagerState.animateScrollToPage(1)
                         }
                     } else {
-                        onEvent(SendEvent.OnConfirmSend(viewModel.state.value.amountInLTC))
+                        val amountInDecimalLTC = viewModel
+                            .state.value.amountInLTCString.toBigDecimalOrNull() ?: BigDecimal.ZERO
+
+                        onEvent(SendEvent.OnConfirmSend(amountInDecimalLTC))
                     }
                 }
             ) {

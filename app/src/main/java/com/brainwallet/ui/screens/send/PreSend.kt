@@ -29,8 +29,6 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -48,6 +46,7 @@ import org.koin.compose.viewmodel.koinViewModel
 import com.brainwallet.R
 import com.brainwallet.ui.composable.SendActionButton
 import com.brainwallet.ui.screens.main.MainViewModel
+import timber.log.Timber
 
 @Composable
 fun PreSend(
@@ -56,25 +55,14 @@ fun PreSend(
     mainViewModel: MainViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsState()
-    val sectionHeight = 70.dp
+    val sectionHeight = 68.dp
     val sectionBorder = 0.8.dp
     val sectionDarkColor = Color.White.copy(alpha = 0.3f)
     val sectionLightColor = Color.Black.copy(alpha = 0.95f)
     val onEvent = viewModel::onEvent
     val mainState by mainViewModel.state.collectAsState()
 
-    val recipientLTCAddressValue = remember {
-        mutableStateOf("")
-    }
-    val amountValueInLTC = remember {
-        mutableStateOf("")
-    }
-
-    val userMemorandum = remember {
-        mutableStateOf("")
-    }
-
-    val textFieldSetup = TextFieldDefaults.colors(
+    val memoTextFieldSetup = TextFieldDefaults.colors(
         focusedIndicatorColor = Color.Transparent,
         unfocusedIndicatorColor = Color.Transparent,
         disabledIndicatorColor = Color.Transparent,
@@ -85,10 +73,24 @@ fun PreSend(
         unfocusedTextColor = if (state.darkMode) Color.White else Color.Black,
     )
 
+    val amountTextFieldSetup = TextFieldDefaults.colors(
+        focusedIndicatorColor = Color.Transparent,
+        unfocusedIndicatorColor = Color.Transparent,
+        disabledIndicatorColor = Color.Transparent,
+        focusedContainerColor = Color.Transparent,
+        unfocusedContainerColor = Color.Transparent,
+        cursorColor = if (state.darkMode) Color.White else Color.Black,
+        focusedTextColor = if (state.darkMode) {
+            if (state.isAmountBelowBalance) Color.White else Color.Red
+        } else {
+            Color.Black
+        },
+        unfocusedTextColor = if (state.darkMode) Color.White else Color.Black,
+    )
     val fieldTextStyle = TextStyle(
         fontFamily = IBMPlexSans,
         fontWeight = FontWeight.Normal,
-        fontSize = 15.sp,
+        fontSize = 12.sp,
         textAlign = TextAlign.Start,
     )
 
@@ -121,45 +123,58 @@ fun PreSend(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column(
-                        modifier = Modifier.fillMaxWidth(0.5f)
+                        modifier = Modifier.fillMaxWidth(0.65F)
                     ) {
                         TextField(
                             modifier = Modifier.height(sectionHeight),
-                            value = recipientLTCAddressValue.value,
+                            value = state.recipientLTCAddress,
                             onValueChange = {
-                                recipientLTCAddressValue.value = it
+                                onEvent(SendEvent.OnRecipientAddressChanged(it))
                             },
                             singleLine = true,
                             textStyle = fieldTextStyle,
-                            colors = textFieldSetup,
+                            colors = TextFieldDefaults.colors(
+                                focusedIndicatorColor = Color.Transparent,
+                                unfocusedIndicatorColor = Color.Transparent,
+                                disabledIndicatorColor = Color.Transparent,
+                                focusedContainerColor = Color.Transparent,
+                                unfocusedContainerColor = Color.Transparent,
+                                cursorColor = if (state.darkMode) Color.White else Color.Black,
+                                focusedTextColor = if (state.darkMode) {
+                                    if (state.isLTCAddressValid) Color.White else Color.Red
+                                } else {
+                                    Color.Black
+                                },
+                                unfocusedTextColor = if (state.darkMode) Color.White else Color.Black,
+                            ),
                             label = {
                                 Text(stringResource(R.string.recipient_label))
                             }
                         )
                     }
-                    Spacer(modifier = Modifier.weight(1f))
+                    Spacer(modifier = Modifier.weight(0.1f))
                     SendActionButton(
                         modifier = Modifier
                             .padding(
                                 start = 8.dp,
-                                end = 4.dp
+                                end = 2.dp,
                             ),
                         darkMode = state.darkMode,
                         icon = Icons.Default.ContentPaste,
                         onClick = { onEvent(SendEvent.OnTapPasteLTCAddress) }
                     )
-                    Spacer(modifier = Modifier.width(1.dp))
+                    Spacer(modifier = Modifier.width(4.dp))
                     SendActionButton(
                         modifier = Modifier
                             .padding(
-                                start = 4.dp,
-                                end = 8.dp
+                                start = 2.dp,
+                                end = 4.dp
                             ),
                         darkMode = state.darkMode,
                         icon = Icons.Default.QrCode,
                         onClick = { onEvent(SendEvent.OnTapPasteLTCAddress) }
                     )
-                    Spacer(modifier = Modifier.width(4.dp))
+                    Spacer(modifier = Modifier.width(1.dp))
                 }
             }
             Box(
@@ -183,17 +198,32 @@ fun PreSend(
                 ) {
                     TextField(
                         modifier = Modifier.height(sectionHeight),
-                        value = amountValueInLTC.value,
+                        value = state.amountInLTCString,
                         keyboardActions = KeyboardActions(),
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Decimal
                         ),
                         singleLine = true,
                         onValueChange = {
-                            amountValueInLTC.value = it
+                            if (it.isEmpty() || it.matches(Regex("^\\d*\\.?\\d*$"))) {
+                                onEvent(SendEvent.OnAmountChanged(it))
+                            }
                         },
                         textStyle = fieldTextStyle,
-                        colors = textFieldSetup,
+                        colors = TextFieldDefaults.colors(
+                            focusedIndicatorColor = Color.Transparent,
+                            unfocusedIndicatorColor = Color.Transparent,
+                            disabledIndicatorColor = Color.Transparent,
+                            focusedContainerColor = Color.Transparent,
+                            unfocusedContainerColor = Color.Transparent,
+                            cursorColor = if (state.darkMode) Color.White else Color.Black,
+                            focusedTextColor = if (state.darkMode) {
+                                if (state.isAmountBelowBalance) Color.White else Color.Red
+                            } else {
+                                Color.Black
+                            },
+                            unfocusedTextColor = if (state.darkMode) Color.White else Color.Black
+                        ),
                         label = {
                             Text(stringResource(R.string.amount_label))
                         }
@@ -250,7 +280,11 @@ fun PreSend(
                                             .padding(8.dp)
                                             .align(alignment = Alignment.End),
                                         painter = painterResource(
-                                            if (state.darkMode) R.drawable.white_ltc_coin else R.drawable.black_ltc_coin
+                                            if (state.darkMode) {
+                                                R.drawable.white_ltc_coin
+                                            } else {
+                                                R.drawable.black_ltc_coin
+                                            }
                                         ),
                                         contentDescription = "litecoin_coin",
                                         contentScale = ContentScale.Fit
@@ -287,13 +321,13 @@ fun PreSend(
                         TextField(
                             modifier = Modifier
                                 .height(sectionHeight),
-                            value = userMemorandum.value,
+                            value = state.userMemorandum,
                             onValueChange = {
-                                userMemorandum.value = it
+                                onEvent(SendEvent.OnUserMemorandumChanged(it))
                             },
                             singleLine = true,
                             textStyle = fieldTextStyle,
-                            colors = textFieldSetup,
+                            colors = memoTextFieldSetup,
                             label = {
                                 Text(stringResource(R.string.memo_label))
                             }

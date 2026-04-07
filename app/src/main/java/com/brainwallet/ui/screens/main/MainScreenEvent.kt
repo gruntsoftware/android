@@ -1,10 +1,12 @@
 package com.brainwallet.ui.screens.main
 
 import android.content.Context
+import java.math.BigDecimal
+
 sealed class MainScreenEvent {
     data class OnLoad(val context: Context) : MainScreenEvent()
-    data class OnFiatAmountChange(
-        val fiatAmount: Float,
+    data class OnFiatAmountChangeFromMPLimits(
+        val fiatAmount: BigDecimal,
         val needFetch: Boolean = true
     ) : MainScreenEvent()
     data object OnToggleDarkMode : MainScreenEvent()
