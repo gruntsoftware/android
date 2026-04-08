@@ -47,7 +47,6 @@ import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.composable.BentoBottomNavBar
 import com.brainwallet.ui.screens.main.SettingsButton
 import com.brainwallet.ui.screens.main.ThemeButton
-import com.brainwallet.ui.screens.send.SendScreen
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -87,8 +86,12 @@ import com.brainwallet.ui.theme.blurAnimatedWith
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.material3.BottomSheetDefaults
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
+import com.brainwallet.constants.BWConstants
+import com.brainwallet.tools.animation.BRAnimator
+import com.brainwallet.ui.screens.send.SendScreen
 import com.brainwallet.ui.theme.bentoClearGradient
 import com.brainwallet.ui.theme.bentoModalDarkGradient
 import com.google.common.math.LinearTransformation.horizontal
@@ -140,7 +143,8 @@ fun MainScreen(
         drawerState = drawerState,
         drawerContent = {
             HomeSettingDrawerSheet(
-                modifier = Modifier.fillMaxHeight()
+                modifier = Modifier
+                    .fillMaxHeight()
                     .fillMaxWidth()
                     .padding(
                         end = topNavStartEndPadding +
@@ -151,11 +155,13 @@ fun MainScreen(
         }
     ) {
         Scaffold(
-            modifier = modifier.background(
-                if (isDarkMode) mainScreenDarkSurfaceGradient else mainScreenLightSurfaceGradient
-            ).padding(
-                top = statusBarPadding
-            )
+            modifier = modifier
+                .background(
+                    if (isDarkMode) mainScreenDarkSurfaceGradient else mainScreenLightSurfaceGradient
+                )
+                .padding(
+                    top = statusBarPadding
+                )
                 .blurAnimatedWith(blurRadiusWhen),
             containerColor = Color.Transparent,
             bottomBar = {
@@ -163,6 +169,7 @@ fun MainScreen(
                     isDarkMode = appSetting.isDarkMode,
                     currentRoute = currentRoute,
                     isShowingTransactionDetail = showTransactionDetail,
+                    brainwalletIsSyncing = state.brainwalletIsSyncing,
                     noTxItemsPresent = noTxItemsPresent,
                     onToggleTransactionDetail = {
                         viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail)
@@ -373,7 +380,14 @@ fun MainScreen(
 
                 ) {
                     when (modalContentRoute) {
-                        Route.Send -> SendScreen(onNavigate = onNavigate)
+                        Route.Send -> SendScreen(
+                            onNavigate = onNavigate,
+                            onOpenScanner = {
+                                val activity = context as? FragmentActivity
+                                activity?.let { BRAnimator.openScanner(it, BWConstants.SCANNER_REQUEST) }
+                            }
+                        )
+
                         Route.BuyReceive -> ReceiveDialog(
                             modifier = Modifier
                                 .fillMaxWidth(0.9f)

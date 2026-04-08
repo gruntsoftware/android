@@ -112,11 +112,16 @@ class SettingsViewModel(
 
                     it.copy(darkMode = toggled)
                 }
-                EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_TOGGLE_DARK_MODE))
+                EventBus.emit(
+                    EventBus.Event.Message(
+                        LEGACY_EFFECT_ON_TOGGLE_DARK_MODE,
+                        address = null
+                    )
+                )
             }
 
             SettingsEvent.OnToggleLock -> viewModelScope.launch {
-                EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_LOCK))
+                EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_LOCK, null))
             }
 
             SettingsEvent.OnFiatButtonClick -> _state.update {
@@ -166,21 +171,36 @@ class SettingsViewModel(
             }
 
             is SettingsEvent.OnBlockchainSyncClick -> viewModelScope.launch {
-                EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_SYNC))
+                EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_SYNC, address = null))
             }
 
             SettingsEvent.OnSecuritySeedPhraseClick -> viewModelScope.launch {
-                EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_SEED_PHRASE))
+                EventBus.emit(
+                    EventBus.Event.Message(
+                        LEGACY_EFFECT_ON_SEED_PHRASE,
+                        address = null
+                    )
+                )
             }
 
             SettingsEvent.OnSecurityUpdatePinClick -> viewModelScope.launch {
-                EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_SEC_UPDATE_PIN))
+                EventBus.emit(
+                    EventBus.Event.Message(
+                        LEGACY_EFFECT_ON_SEC_UPDATE_PIN,
+                        address = null
+                    )
+                )
             }
 
             SettingsEvent.OnSecurityShareAnalyticsDataClick -> viewModelScope.launch {
                 _state.update { it.copy(shareAnalyticsDataEnabled = it.shareAnalyticsDataEnabled.not()) }
 
-                EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_SHARE_ANALYTICS_DATA_TOGGLE))
+                EventBus.emit(
+                    EventBus.Event.Message(
+                        LEGACY_EFFECT_ON_SHARE_ANALYTICS_DATA_TOGGLE,
+                        address = null
+                    )
+                )
             }
 
             is SettingsEvent.OnFeeTypeChange -> _state.update {

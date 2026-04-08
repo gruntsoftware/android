@@ -4,13 +4,20 @@ import android.app.Application
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.R
 import com.brainwallet.constants.BWConstants
-import com.brainwallet.ui.BrainwalletViewModel
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.repository.TxRepository
+import com.brainwallet.navigation.UiEffect
+import com.brainwallet.presenter.entities.ServiceItems
+import com.brainwallet.presenter.entities.TransactionItem
+import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.manager.BRClipboardManager
+import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.manager.FeeManager
+import com.brainwallet.tools.security.BRSender
 import com.brainwallet.tools.util.BRExchange
 import com.brainwallet.tools.util.Utils
+import com.brainwallet.ui.BrainwalletViewModel
+import com.brainwallet.util.EventBus
 import com.brainwallet.wallet.BRWalletManager
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +25,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
@@ -44,6 +52,13 @@ class SendViewModel(
                     )
                 }
             }
+        }
+        viewModelScope.launch {
+            EventBus.events
+                .filterIsInstance<EventBus.Event.QRCodeScanned>()
+                .collect { event ->
+                    _state.update { it.copy(recipientLTCAddress = event.url ?: "") }
+                }
         }
     }
 
@@ -81,9 +96,6 @@ class SendViewModel(
             is SendEvent.OnLoad -> {
                 Timber.i("SendEvent.OnLoad")
             }
-            is SendEvent.OnConfirmSend -> {
-                Timber.i("SendEvent.OnConfirmSend")
-            }
             is SendEvent.OnTapPasteLTCAddress -> {
                 val litecoinUrl = BRClipboardManager.getClipboard(app)
                 val isAddressValid = BRWalletManager.validateAddress(litecoinUrl)
@@ -106,6 +118,7 @@ class SendViewModel(
             }
             is SendEvent.OnTapShowCameraForQRLTCAddress -> {
                 Timber.i("SendEvent.OnTapShowCameraForQRLTCAddress")
+                sendUiEffect(UiEffect.OpenQRScanner)
             }
             is SendEvent.OnToggleFiatOrLTC -> {
                 val currentlyViewingFiat = _state.value.userViewsFiat
@@ -144,7 +157,6 @@ class SendViewModel(
                 } else {
                     currentAmountString // no rate available, leave as-is
                 }
-
                 _state.update {
                     it.copy(
                         userViewsFiat = !it.userViewsFiat,
@@ -217,12 +229,27 @@ class SendViewModel(
                         isReadyToSend = isAmountValid &&
                             BRWalletManager.validateAddress(it.recipientLTCAddress),
                         networkFees = BigDecimal(networkFee.toDouble()),
-                        serviceFees = BigDecimal(opsFee)
+                        serviceFees = BigDecimal(opsFee),
+                        amountInLitoshi = BigDecimal(litoshiAmount)
                     )
                 }
             }
             is SendEvent.OnSend -> {
                 Timber.i("SendEvent.OnSend")
+                val amountInLitoshi = _state.value.amountInLitoshi.toLong()
+                val transactionItem = TransactionItem(
+                    _state.value.recipientLTCAddress,
+                    Utils.fetchServiceItem(app, ServiceItems.WALLETOPS),
+                    null,
+                    amountInLitoshi,
+                    Utils.tieredOpsFee(app, amountInLitoshi),
+                    null,
+                    false,
+                    _state.value.userMemorandum
+                )
+                BRSender.getInstance().sendTransaction(app, transactionItem)
+                AnalyticsManager.logCustomEvent(BWConstants._20191105_DSL)
+                BRSharedPrefs.incrementSendTransactionCount(app)
             }
             is SendEvent.OnUserMemorandumChanged -> {
                 _state.update { it.copy(userMemorandum = event.memo) }

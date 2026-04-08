@@ -1,7 +1,10 @@
 package com.brainwallet.tools.security;
 
+import android.media.metrics.Event;
+
 import androidx.fragment.app.FragmentActivity;
 
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.tools.animation.BRAnimator;
 import com.brainwallet.tools.animation.BRDialog;
 import com.brainwallet.tools.threads.PaymentProtocolTask;
@@ -12,6 +15,7 @@ import com.brainwallet.presenter.entities.ServiceItems;
 import com.brainwallet.presenter.entities.PaymentRequestWrapper;
 import com.brainwallet.presenter.entities.RequestObject;
 import com.brainwallet.presenter.entities.TransactionItem;
+import com.brainwallet.util.EventBus;
 import com.brainwallet.wallet.BRWalletManager;
 
 import java.io.UnsupportedEncodingException;
@@ -154,26 +158,10 @@ public class BitcoinUrlHandler {
             app.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    BRAnimator.showSendFragment(app, url);
+                    EventBus.INSTANCE.postQRCodeScanned(requestObject.address);
                 }
             });
-        } else {
-            if (app != null) {
-                BRAnimator.killAllFragments(app);
-                BRSender.getInstance()
-                        .sendTransaction(app,
-                                new TransactionItem(requestObject.address,
-                                Utils.fetchServiceItem(app, ServiceItems.WALLETOPS),
-                                null,
-                                new BigDecimal(amount).longValue(),
-                                Utils.tieredOpsFee(app,  new BigDecimal(amount).longValue()),
-                                null,
-                                true));
-            } else {
-                Timber.e(new NullPointerException("tryLitecoinURL, app is null!"));
-            }
         }
-
         return true;
     }
 

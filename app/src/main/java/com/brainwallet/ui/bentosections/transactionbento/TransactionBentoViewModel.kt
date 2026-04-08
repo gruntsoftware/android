@@ -1,16 +1,16 @@
 package com.brainwallet.ui.bentosections.transactionbento
 
 import androidx.lifecycle.viewModelScope
+import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.ui.BrainwalletViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import org.koin.android.annotation.KoinViewModel
-import timber.log.Timber
-import com.brainwallet.data.repository.LtcRepository
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.koin.android.annotation.KoinViewModel
+import timber.log.Timber
 
 @KoinViewModel
 class TransactionBentoViewModel(
@@ -28,6 +28,7 @@ class TransactionBentoViewModel(
     init {
         viewModelScope.launch {
             ltcRepository.ltcStats.collect { ltcStats ->
+                Timber.i("ltcStats: $ltcStats")
                 _state.update {
                     it.copy(
                         ltcStats = ltcStats

@@ -37,11 +37,11 @@ import org.koin.compose.viewmodel.koinViewModel
 import com.brainwallet.ui.theme.IBMPlexSans
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
-
 @Composable
 fun SendScreen(
     onNavigate: OnNavigate,
     modifier: Modifier = Modifier,
+    onOpenScanner: () -> Unit = {},
     viewModel: SendViewModel = koinViewModel(),
     mainViewModel: MainViewModel = koinViewModel()
 ) {
@@ -52,6 +52,7 @@ fun SendScreen(
         viewModel.uiEffect.collect { effect ->
             when (effect) {
                 is UiEffect.Navigate -> onNavigate.invoke(effect)
+                is UiEffect.OpenQRScanner -> onOpenScanner()
                 else -> Unit
             }
         }
@@ -63,13 +64,13 @@ fun SendScreen(
 private fun SendScreen(
     uiState: SendState,
     modifier: Modifier = Modifier,
+    onOpenScanner: () -> Unit = {},
     onEvent: (SendEvent) -> Unit = {},
     viewModel: SendViewModel = koinViewModel(),
     mainViewModel: MainViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsState()
     val mainState by mainViewModel.state.collectAsState()
-    val loadingState by viewModel.loadingState.collectAsState()
     val context = LocalContext.current
     val bottomButtonPadding = 60.dp
 
@@ -203,8 +204,7 @@ private fun SendScreen(
                     } else {
                         val amountInDecimalLTC = viewModel
                             .state.value.amountString.toBigDecimalOrNull() ?: BigDecimal.ZERO
-
-                        onEvent(SendEvent.OnConfirmSend(amountInDecimalLTC))
+                        onEvent(SendEvent.OnSend(amountInDecimalLTC))
                     }
                 }
             ) {

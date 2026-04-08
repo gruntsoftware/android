@@ -11,6 +11,7 @@ data class SendState(
     val userMemorandum: String = "",
     val networkFees: BigDecimal = BigDecimal(0),
     val serviceFees: BigDecimal = BigDecimal(0),
+    val amountInLitoshi: BigDecimal = BigDecimal(0),
     val amountString: String = "",
     val userViewsFiat: Boolean = false,
     val isReadyToSend: Boolean = false,

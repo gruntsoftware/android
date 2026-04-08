@@ -15,6 +15,7 @@ import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.sqlite.TransactionDataSource
 import com.brainwallet.tools.util.BRExchange.ONE_LITECOIN_OF_LITOSHIS
 import com.brainwallet.ui.BrainwalletViewModel
+import com.brainwallet.ui.bentosections.balancebento.BalanceBentoViewModel
 import com.brainwallet.ui.bentosections.transactionbento.TransactionFilterState
 import com.brainwallet.util.CurrencyDataGetter
 import com.brainwallet.util.VersionCodeProvider
@@ -52,6 +53,7 @@ class MainViewModel(
     private val ltcRepository: LtcRepository,
     private val txRepository: TxRepository,
     private val connectivityRepository: ConnectivityRepository,
+    private val balanceBentoViewModel: BalanceBentoViewModel,
     versionCodeProvider: VersionCodeProvider,
 ) : BrainwalletViewModel<MainScreenEvent>(),
     BRWalletManager.OnBalanceChanged,
@@ -147,6 +149,15 @@ class MainViewModel(
                 }
                 .collect {
                     onEvent(MainScreenEvent.OnFiatAmountChangeFromMPLimits(it))
+                }
+        }
+
+        viewModelScope.launch {
+            balanceBentoViewModel.state
+                .map { it.brainwalletIsSyncing }
+                .distinctUntilChanged()
+                .collect { brainwalletIsSyncing ->
+                    _state.update { it.copy(brainwalletIsSyncing = brainwalletIsSyncing) }
                 }
         }
     }
