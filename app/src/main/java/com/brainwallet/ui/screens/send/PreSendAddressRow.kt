@@ -23,6 +23,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -78,7 +79,12 @@ fun PreSendAddressRow(
                 modifier = Modifier.fillMaxWidth(0.65F)
             ) {
                 TextField(
-                    modifier = Modifier.height(sectionHeight),
+                    modifier = Modifier.height(sectionHeight)
+                        .onFocusChanged { focusState ->
+                            if (focusState.hasFocus) {
+                                onEvent(SendEvent.OnFieldFocused)
+                            }
+                        },
                     value = value,
                     onValueChange = {
                         onEvent(SendEvent.OnRecipientAddressChanged(it))
@@ -102,6 +108,7 @@ fun PreSendAddressRow(
                     label = {
                         Text(label)
                     }
+
                 )
             }
             Spacer(modifier = Modifier.weight(0.1f))
