@@ -5,8 +5,6 @@ import java.math.BigDecimal
 sealed class SendEvent {
 
     data object OnLoad : SendEvent()
-    data class OnConfirmSend(val sendAmount: BigDecimal) : SendEvent()
-
     data class OnSend(val sendAmount: BigDecimal) : SendEvent()
     data object OnTapPasteLTCAddress : SendEvent()
     data object OnTapShowCameraForQRLTCAddress : SendEvent()

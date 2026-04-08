@@ -60,7 +60,12 @@ class YourSeedProveItViewModel() : BrainwalletViewModel<YourSeedProveItEvent>() 
             )
 
             YourSeedProveItEvent.OnCompletedPaperKey -> viewModelScope.launch {
-                EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_PAPERKEY_PROVED))
+                EventBus.emit(
+                    EventBus.Event.Message(
+                        LEGACY_EFFECT_ON_PAPERKEY_PROVED,
+                        address = null
+                    )
+                )
             }
         }
     }

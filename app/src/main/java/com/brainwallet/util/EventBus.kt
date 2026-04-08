@@ -19,9 +19,14 @@ object EventBus {
         _events.emit(event)
     }
 
+    fun postQRCodeScanned(url: String?) {
+        _events.tryEmit(Event.QRCodeScanned(url))
+    }
+
     sealed class Event {
         data class Message(
             val message: String,
+            val address: String?,
         ) : Event()
 
         // provide this for old flow
@@ -32,5 +37,7 @@ object EventBus {
         data class LegacyUnLock(
             val passcode: List<Int>,
         ) : Event()
+
+        data class QRCodeScanned(val url: String?) : Event()
     }
 }

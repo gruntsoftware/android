@@ -151,4 +151,5 @@ object BWConstants {
 
     @Retention(AnnotationRetention.SOURCE)
     annotation class Event
+    const val ON_QR_CODE_RESULT: String = "on_qr_code_result"
 }

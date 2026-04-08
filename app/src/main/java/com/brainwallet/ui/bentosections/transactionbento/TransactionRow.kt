@@ -14,9 +14,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,15 +28,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.brainwallet.constants.BWConstants
 import com.brainwallet.constants.transactionRowHt
 import com.brainwallet.data.model.LtcStats
 import com.brainwallet.presenter.entities.ServiceItems
 import com.brainwallet.presenter.entities.TxItem
-import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.util.BRExchange.ONE_LITECOIN_OF_LITOSHIS
 import com.brainwallet.tools.util.Utils
-import com.brainwallet.ui.composable.rememberWheelPickerState
 import com.brainwallet.ui.theme.DesignTheme
 import com.brainwallet.ui.theme.IBMPlexSans
 import com.brainwallet.ui.theme.bentoDarkBorderGradient
@@ -45,9 +41,12 @@ import com.brainwallet.ui.theme.bentoDarkSurfaceGradient
 import com.brainwallet.ui.theme.bentoLightBorderGradient
 import com.brainwallet.ui.theme.bentoLightSurfaceGradient
 import com.brainwallet.wallet.BRPeerManager
+import org.koin.compose.viewmodel.koinViewModel
 import timber.log.Timber
 import java.math.BigDecimal
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 @Composable
 fun TransactionRow(
@@ -55,31 +54,14 @@ fun TransactionRow(
     ltcStats: LtcStats?,
     isDarkMode: Boolean,
     modifier: Modifier = Modifier,
+    viewModel: TransactionBentoViewModel = koinViewModel(),
 ) {
-    val gameHubBackground = R.drawable.game_hub_bk
-    val wheelPickerState = rememberWheelPickerState(initialIndex = 0)
-    var resizedLTCFiatFontSize by remember { mutableStateOf(44.sp) }
-    var resizedAsOfFontSize by remember { mutableStateOf(12.sp) }
-    var resizedLocalizedPriceFontSize by remember { mutableStateOf(20.sp) }
     val context = LocalContext.current
-
-    val formatter = java.text.SimpleDateFormat(
+    val state by viewModel.state.collectAsState()
+    val formatter = SimpleDateFormat(
         "MMM dd, yyyy hh:mm a",
-        java.util.Locale.getDefault()
+        Locale.getDefault()
     )
-
-    val amountReceived = BigDecimal(txItem.received).divide(BigDecimal(ONE_LITECOIN_OF_LITOSHIS))
-
-    // ────────────────From working Develop branch─────────────────────
-
-    // the current iso / fiat code
-    val preferredCurrencyCode = BRSharedPrefs.getIsoSymbol(context)
-
-    // the services amount
-    val opsAmount: Long = run {
-        if (txItem.outAmounts?.size != 3) return@run 0L
-        txItem.outAmounts.minOrNull() ?: 0L
-    }
 
     // the transactions amount
     val txAmount = BigDecimal(txItem.getReceived() - txItem.getSent())
@@ -111,29 +93,20 @@ fun TransactionRow(
         String.format(stringResource(R.string.TransactionDetails_from), ltcAddress)
     }
 
-    val confirmationLevel: Int = run {
-        val txBlockHeight = txItem.blockHeight
-        val ltcStats = ltcStats ?: return
-        val numberOfConfirmations = if (txBlockHeight == Integer.MAX_VALUE) {
-            0
-        } else {
-            ltcStats.currentBlockHeight - txBlockHeight + 1
-        }
-        var level = 0
-        if (numberOfConfirmations <= 0) {
-            when (BRPeerManager.getRelayCount(txItem.txHash)) {
-                0 -> 0
-                1 -> 1
-                else -> 2
-            }
-        } else {
-            when {
-                numberOfConfirmations == 1 -> 3
-                numberOfConfirmations == 2 -> 4
-                numberOfConfirmations == 3 -> 5
-                else -> 6
-            }
-        }
+    val currentLtcStats = state.ltcStats ?: LtcStats(
+        currentBlockHeight = txItem.blockHeight,
+        mempoolTransactions = 0,
+        mempoolSize = 0,
+        transactionsOver24H = 0
+    )
+
+    // For the first peers in the middle of confirmation
+    val peerRelayCount = BRPeerManager.getRelayCount(txItem.txHash)
+
+    val confirmationLevel: Int = when {
+        txItem.blockHeight == Int.MAX_VALUE -> peerRelayCount.coerceIn(0, 2)
+        else -> (currentLtcStats.currentBlockHeight - txItem.blockHeight + 1)
+            .coerceIn(3, 7)
     }
 
     val dateTimestamp: String = when (confirmationLevel) {
@@ -144,17 +117,14 @@ fun TransactionRow(
     }
 
     val confirmationLabel: String = when (confirmationLevel) {
-        0 -> "0%"
-        1 -> "0%"
+        0 -> ""
+        1 -> "-"
         2 -> "20%"
         3 -> "40%"
         4 -> "60%"
         5 -> "80%"
         6 -> "100%"
         else -> "∞"
-    }
-    val txIDBrowserURL: String = run {
-        "${BWConstants.BLOCKCHAIR_EXPLORER_BASE_URL}${txItem.txHashHexReversed ?: ""}"
     }
 
     // ───────────────────────────From working Develop branch───────────────────────────

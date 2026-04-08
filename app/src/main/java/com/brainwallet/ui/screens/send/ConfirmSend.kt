@@ -154,8 +154,8 @@ fun ConfirmSend(
                         text = state.recipientLTCAddress,
                         style = TextStyle(
                             fontFamily = IBMPlexSans,
-                            fontWeight = FontWeight.Light,
-                            letterSpacing = 2.sp,
+                            fontWeight = FontWeight.Normal,
+                            letterSpacing = 1.3.sp,
                             fontSize = 13.sp,
                             textAlign = TextAlign.Start,
                             color = if (state.darkMode) Color.White else Color.Black

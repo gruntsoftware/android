@@ -608,6 +608,7 @@
     <ID>UnusedPrivateMember:GameHubBentoScreen.kt$@PreviewLightDark @Composable private fun GameHubBentoScreenPreview()</ID>
     <ID>UnusedPrivateMember:LTCPickerBentoScreen.kt$@PreviewLightDark @Composable private fun LTCPickerBentoScreenPreview()</ID>
     <ID>UnusedPrivateMember:BalanceBentoScreen.kt$@PreviewLightDark @Composable private fun BalanceBentoScreenPreview()</ID>
+    <ID>UnusedPrivateMember:ConfirmationStatus.kt$@PreviewLightDark @Composable private fun ConfirmationStatusPreview()</ID>
     <ID>WildcardImport:FragmentBalanceSeedReminder.kt$import android.widget.*</ID>
     <ID>Wrapping:AppModule.kt$AppModule$(</ID>
     <ID>Wrapping:CurrencyDetail.kt$(</ID>

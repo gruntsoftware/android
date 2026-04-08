@@ -2,9 +2,8 @@ package com.brainwallet.tools.security;
 
 import android.app.Activity;
 import android.content.Context;
-
+import android.content.ContextWrapper;
 import androidx.fragment.app.FragmentActivity;
-
 import com.brainwallet.tools.animation.BRAnimator;
 import com.brainwallet.tools.animation.BRDialog;
 import com.brainwallet.tools.manager.AnalyticsManager;
@@ -89,11 +88,16 @@ public class BRSender {
                     errMessage[0] = String.format(Locale.getDefault(), app.getString(R.string.PaymentProtocol_Errors_smallPayment),
                             BWConstants.litecoinLowercase + new BigDecimal(minAmount).divide(new BigDecimal(100), BWConstants.ROUNDING_MODE));
                 } catch (SpendingNotAllowed spendingNotAllowed) {
-                    showSpendNotAllowed(app);
+                    Activity activity = convertToActivity(app);
+                    if (activity != null) {
+                        showSpendNotAllowed(activity);
+                    } else {
+                        Timber.e("sendTransaction: could not resolve Activity for showAdjustFee");
+                    }
                     return;
                 } catch (FeeNeedsAdjust feeNeedsAdjust) {
                     //offer to change amount, so it would be enough for fee
-                    showAdjustFee((Activity) app, transactionItem);
+                    showAdjustFee((Activity) convertToActivity(app), transactionItem);
                     return;
                 } catch (FeeOutOfDate ex) {
                     //Fee is out of date, show not connected error
@@ -120,7 +124,10 @@ public class BRSender {
                     BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable() {
                         @Override
                         public void run() {
-                            BRDialog.showCustomDialog(app, errTitle[0], errMessage[0], app.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
+                            Activity activity = convertToActivity(app);
+                            BRDialog.showCustomDialog(activity, errTitle[0],
+                                    errMessage[0], activity.getString(R.string.Button_ok),
+                                    null, new BRDialogView.BROnClickListener() {
                                 @Override
                                 public void onClick(BRDialogView brDialogView) {
                                     brDialogView.dismiss();
@@ -132,6 +139,13 @@ public class BRSender {
         });
     }
 
+    private static Activity convertToActivity(Context context) {
+        while (context instanceof ContextWrapper) {
+            if (context instanceof Activity) return (Activity) context;
+            context = ((ContextWrapper) context).getBaseContext();
+        }
+        return null;
+    }
     //Try transaction and throw appropriate exceptions if something was wrong
     private void tryPay(final Context app, final TransactionItem transactionItem) throws InsufficientFundsException,
             AmountSmallerThanMinException, SpendingNotAllowed, FeeNeedsAdjust {
@@ -150,7 +164,7 @@ public class BRSender {
         final long maxOutputAmount = BRWalletManager.getInstance().getMaxOutputAmount();
 
         // check if spending is allowed
-        if (!BRSharedPrefs.getAllowSpend(app)) {
+        if (!BRSharedPrefs.getAllowSpend(convertToActivity(app))) {
             throw new SpendingNotAllowed();
         }
 
@@ -177,7 +191,8 @@ public class BRSender {
                 throw new InsufficientFundsException(sendAmount, balance);
             }
 
-            long feeForTx = m.feeForTransaction(transactionItem.sendAddress, transactionItem.sendAmount + transactionItem.opsFee);
+            long feeForTx = m.feeForTransaction(transactionItem.sendAddress,
+                    transactionItem.sendAmount + transactionItem.opsFee);
             throw new FeeNeedsAdjust(sendAmount, balance, feeForTx);
         }
         // payment successful
@@ -190,7 +205,7 @@ public class BRSender {
                         transactionItem.opsFee);
                 if (tmpTx == null) {
                     //something went wrong, failed to create tx
-                    ((Activity) app).runOnUiThread(new Runnable() {
+                    ((Activity) convertToActivity(app)).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             BRDialog.showCustomDialog(app, "", app.getString(R.string.Alerts_sendFailure), app.getString(R.string.AccessibilityLabels_close), null, new BRDialogView.BROnClickListener() {
@@ -219,14 +234,20 @@ public class BRSender {
             return;
         }
         if (maxAmountDouble == 0) {
-            BRDialog.showCustomDialog(app, app.getString(R.string.Alerts_sendFailure), "Insufficient amount for transaction fee", app.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
+            BRDialog.showCustomDialog(app, app.getString(R.string.Alerts_sendFailure),
+                    "Insufficient amount for transaction fee",
+                    app.getString(R.string.Button_ok), null,
+                    new BRDialogView.BROnClickListener() {
                 @Override
                 public void onClick(BRDialogView brDialogView) {
                     brDialogView.dismissWithAnimation();
                 }
             }, null, null, 0);
         } else {
-            BRDialog.showCustomDialog(app, app.getString(R.string.Alerts_sendFailure), "Insufficient amount for transaction fee", app.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
+            BRDialog.showCustomDialog(app, app.getString(R.string.Alerts_sendFailure),
+                    "Insufficient amount for transaction fee",
+                    app.getString(R.string.Button_ok), null,
+                    new BRDialogView.BROnClickListener() {
                 @Override
                 public void onClick(BRDialogView brDialogView) {
                     brDialogView.dismissWithAnimation();
@@ -253,13 +274,17 @@ public class BRSender {
 
         //amount can't be less than the min
         if (transactionItem.sendAmount < minOutput) {
-            final String bitcoinMinMessage = String.format(Locale.getDefault(), ctx.getString(R.string.PaymentProtocol_Errors_smallTransaction),
-                    BWConstants.litecoinLowercase + new BigDecimal(minOutput).divide(new BigDecimal("100")));
+            final String bitcoinMinMessage = String.format(Locale.getDefault(),
+                    ctx.getString(R.string.PaymentProtocol_Errors_smallTransaction),
+                    BWConstants.litecoinLowercase +
+                            new BigDecimal(minOutput).divide(new BigDecimal("100")));
 
             ((Activity) ctx).runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    BRDialog.showCustomDialog(ctx, ctx.getString(R.string.Alerts_sendFailure), bitcoinMinMessage, ctx.getString(R.string.AccessibilityLabels_close), null, new BRDialogView.BROnClickListener() {
+                    BRDialog.showCustomDialog(ctx, ctx.getString(R.string.Alerts_sendFailure),
+                            bitcoinMinMessage, ctx.getString(R.string.AccessibilityLabels_close),
+                            null, new BRDialogView.BROnClickListener() {
                         @Override
                         public void onClick(BRDialogView brDialogView) {
                             brDialogView.dismiss();
@@ -271,10 +296,8 @@ public class BRSender {
         }
         boolean forcePin = false;
 
-        Timber.d("timber: confirmPay: totalSent: %s, request.amount: %s, total limit: %s, limit: %s", BRWalletManager.getInstance().getTotalSent(),transactionItem.sendAmount, AuthManager.getInstance().getTotalLimit(ctx), BRKeyStore.getSpendLimit(ctx));
-
-
-        if (BRWalletManager.getInstance().getTotalSent() + transactionItem.sendAmount > AuthManager.getInstance().getTotalLimit(ctx)) {
+        if (BRWalletManager.getInstance().getTotalSent() +
+                transactionItem.sendAmount > AuthManager.getInstance().getTotalLimit(ctx)) {
             forcePin = true;
         }
 
@@ -310,7 +333,10 @@ public class BRSender {
                 throw ex;
             }
             if (maxAmount == 0) {
-                BRDialog.showCustomDialog(ctx, "", ctx.getString(R.string.Alerts_sendFailure), ctx.getString(R.string.AccessibilityLabels_close), null, new BRDialogView.BROnClickListener() {
+                BRDialog.showCustomDialog(ctx, "",
+                        ctx.getString(R.string.Alerts_sendFailure),
+                        ctx.getString(R.string.AccessibilityLabels_close),
+                        null, new BRDialogView.BROnClickListener() {
                     @Override
                     public void onClick(BRDialogView brDialogView) {
                         brDialogView.dismiss();
@@ -324,13 +350,22 @@ public class BRSender {
             feesForTx += opsFee;
         }
         final long total = transactionItem.sendAmount + feesForTx + opsFee;
-        String formattedAmountLTC = BRCurrency.getFormattedCurrencyString(ctx, "LTC", BRExchange.getLitecoinForLitoshis(ctx, new BigDecimal(transactionItem.sendAmount)));
-        String formattedFeesLTC = BRCurrency.getFormattedCurrencyString(ctx, "LTC", BRExchange.getLitecoinForLitoshis(ctx, new BigDecimal(feesForTx)));
-        String formattedTotalLTC = BRCurrency.getFormattedCurrencyString(ctx, "LTC", BRExchange.getLitecoinForLitoshis(ctx, new BigDecimal(total)));
+        String formattedAmountLTC = BRCurrency.getFormattedCurrencyString(ctx,
+                "LTC", BRExchange.getLitecoinForLitoshis(ctx,
+                        new BigDecimal(transactionItem.sendAmount)));
+        String formattedFeesLTC = BRCurrency.getFormattedCurrencyString(ctx,
+                "LTC", BRExchange.getLitecoinForLitoshis(ctx,
+                        new BigDecimal(feesForTx)));
+        String formattedTotalLTC = BRCurrency.getFormattedCurrencyString(ctx,
+                "LTC", BRExchange.getLitecoinForLitoshis(ctx, new BigDecimal(total)));
 
-        String formattedAmount = BRCurrency.getFormattedCurrencyString(ctx, iso, BRExchange.getAmountFromLitoshis(ctx, iso, new BigDecimal(transactionItem.sendAmount)));
-        String formattedFees = BRCurrency.getFormattedCurrencyString(ctx, iso, BRExchange.getAmountFromLitoshis(ctx, iso, new BigDecimal(feesForTx)));
-        String formattedTotal = BRCurrency.getFormattedCurrencyString(ctx, iso, BRExchange.getAmountFromLitoshis(ctx, iso, new BigDecimal(total)));
+        String formattedAmount = BRCurrency.getFormattedCurrencyString(ctx,
+                iso, BRExchange.getAmountFromLitoshis(ctx,
+                        iso, new BigDecimal(transactionItem.sendAmount)));
+        String formattedFees = BRCurrency.getFormattedCurrencyString(ctx,
+                iso, BRExchange.getAmountFromLitoshis(ctx, iso, new BigDecimal(feesForTx)));
+        String formattedTotal = BRCurrency.getFormattedCurrencyString(ctx,
+                iso, BRExchange.getAmountFromLitoshis(ctx, iso, new BigDecimal(total)));
 
         //formatted text
         return receiver + "\n\n"
@@ -350,7 +385,8 @@ public class BRSender {
     }
 
     private boolean isLargerThanBalance(Context app, TransactionItem transactionItem) {
-        return transactionItem.sendAmount > 0 && transactionItem.sendAmount > BRWalletManager.getInstance().getBalance(app);
+        return transactionItem.sendAmount > 0 &&
+                transactionItem.sendAmount > BRWalletManager.getInstance().getBalance(app);
     }
 
     private boolean notEnoughForFee(TransactionItem transactionItem) {
@@ -367,7 +403,10 @@ public class BRSender {
         ((Activity) app).runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                BRDialog.showCustomDialog(app, app.getString(R.string.Alert_error), app.getString(R.string.Send_isRescanning), app.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
+                BRDialog.showCustomDialog(app, app.getString(R.string.Alert_error),
+                        app.getString(R.string.Send_isRescanning),
+                        app.getString(R.string.Button_ok),
+                        null, new BRDialogView.BROnClickListener() {
                     @Override
                     public void onClick(BRDialogView brDialogView) {
                         brDialogView.dismissWithAnimation();
