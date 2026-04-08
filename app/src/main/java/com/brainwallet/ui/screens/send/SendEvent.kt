@@ -14,4 +14,6 @@ sealed class SendEvent {
     data class OnRecipientAddressChanged(val address: String) : SendEvent()
     data class OnAmountChanged(val amountInLTCString: String) : SendEvent()
     data class OnUserMemorandumChanged(val memo: String) : SendEvent()
+
+    data object OnFieldFocused : SendEvent()
 }

@@ -463,4 +463,5 @@
     <string name="amount_in_fiat_label">Amount in Fiat</string>
     <string name="balance_label">Balance:</string>
     <string name="exchange_rate_label">Exchange rate:</string>
+    <string name="send_error_message">Valid LTC address and send amount to continue</string>
 </resources>

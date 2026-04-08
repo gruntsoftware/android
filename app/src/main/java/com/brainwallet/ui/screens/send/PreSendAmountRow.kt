@@ -27,6 +27,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -84,7 +85,12 @@ fun PreSendAmountRow(
             verticalAlignment = Alignment.CenterVertically
         ) {
             TextField(
-                modifier = Modifier.height(sectionHeight),
+                modifier = Modifier.height(sectionHeight)
+                    .onFocusChanged { focusState ->
+                        if (focusState.hasFocus) {
+                            onEvent(SendEvent.OnFieldFocused)
+                        }
+                    },
                 value = value,
                 keyboardActions = KeyboardActions(),
                 keyboardOptions = KeyboardOptions(

@@ -151,11 +151,12 @@ fun ConfirmSend(
                         modifier = Modifier.padding(
                             12.dp
                         ),
-                        text = state.recipientLTCAddress.uppercase(),
+                        text = state.recipientLTCAddress,
                         style = TextStyle(
                             fontFamily = IBMPlexSans,
                             fontWeight = FontWeight.Light,
-                            fontSize = 12.sp,
+                            letterSpacing = 2.sp,
+                            fontSize = 13.sp,
                             textAlign = TextAlign.Start,
                             color = if (state.darkMode) Color.White else Color.Black
                         )

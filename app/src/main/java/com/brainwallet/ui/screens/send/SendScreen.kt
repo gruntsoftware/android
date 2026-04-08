@@ -128,6 +128,23 @@ private fun SendScreen(
                 }
             }
 
+            Spacer(modifier = Modifier.weight(0.5f))
+            Text(
+                modifier = Modifier.padding(8.dp),
+                text = if (state.isReadyToSend) {
+                    " "
+                } else {
+                    stringResource(
+                        R.string.send_error_message
+                    )
+                },
+                style = TextStyle(
+                    fontFamily = IBMPlexSans,
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 14.sp,
+                    color = if (state.darkMode) Color.White else Color.Black
+                )
+            )
             Spacer(modifier = Modifier.weight(1f))
 
             Row {

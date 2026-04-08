@@ -86,11 +86,22 @@ class SendViewModel(
             }
             is SendEvent.OnTapPasteLTCAddress -> {
                 val litecoinUrl = BRClipboardManager.getClipboard(app)
-                if (BRWalletManager.validateAddress(litecoinUrl)) {
-                    _state.update { it.copy(recipientLTCAddress = litecoinUrl) }
+                val isAddressValid = BRWalletManager.validateAddress(litecoinUrl)
+                if (isAddressValid) {
+                    _state.update {
+                        it.copy(
+                            recipientLTCAddress = litecoinUrl,
+                            isLTCAddressValid = true,
+                            isReadyToSend = isAddressValid && it.isAmountBelowBalance
+                        )
+                    }
                 } else {
                     val error = app.resources.getString(R.string.Alert_error)
-                    _state.update { it.copy(recipientLTCAddress = error) }
+                    _state.update {
+                        it.copy(
+                            recipientLTCAddress = error
+                        )
+                    }
                 }
             }
             is SendEvent.OnTapShowCameraForQRLTCAddress -> {
@@ -215,6 +226,14 @@ class SendViewModel(
             }
             is SendEvent.OnUserMemorandumChanged -> {
                 _state.update { it.copy(userMemorandum = event.memo) }
+            }
+            is SendEvent.OnFieldFocused -> {
+                _state.update {
+                    it.copy(
+                        isReadyToSend = it.isAmountBelowBalance &&
+                            BRWalletManager.validateAddress(it.recipientLTCAddress),
+                    )
+                }
             }
         }
     }
