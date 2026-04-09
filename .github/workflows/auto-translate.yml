@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.TRANSLATION_PAT_GHA_CLAUDE_JUL082026 }}
+          token: ${{ env.TRANSLATION_PAT_GHA_CLAUDE_JUL082026 }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -36,7 +36,7 @@ jobs:
 
       - name: Run translation script
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_GH_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ env.ANTHROPIC_GH_API_KEY }}
         run: python scripts/translate_strings.py
 
       - name: Check for changes
@@ -63,7 +63,7 @@ jobs:
       - name: Open Pull Request
         if: steps.changes.outputs.changed == 'true'
         env:
-          GH_TOKEN: ${{ secrets.TRANSLATION_PAT_GHA_CLAUDE_JUL082026 }}
+          GH_TOKEN: ${{ env.TRANSLATION_PAT_GHA_CLAUDE_JUL082026 }}
         run: |
           gh pr create \
             --title "🌍 Auto-translations: missing strings updated" \
