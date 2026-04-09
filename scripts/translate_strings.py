@@ -88,7 +88,6 @@ def write_tree(tree, path: Path):
         pretty_print=True,
     )
 
-
 def set_translated(tree, name: str, translated_text: str):
     """Insert or update a <string name="…"> element in the tree."""
     root = tree.getroot()
