@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - develop
-	  - bento
+      - bento
     paths:
       - '**/values/strings.xml'
   workflow_dispatch:   # allow manual trigger from GitHub UI
