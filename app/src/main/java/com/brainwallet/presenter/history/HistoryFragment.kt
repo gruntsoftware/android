@@ -86,7 +86,7 @@ class HistoryFragment :
         updateUI()
     }
 
-    override fun onStatusUpdate() {
+    override fun onStatusPeerManagerUpdate() {
         BRExecutor.getInstance().forBackgroundTasks().execute {
             if (this.activity == null) {
                 registerAnalyticsError("null_in_history_fragment_on_status_update")

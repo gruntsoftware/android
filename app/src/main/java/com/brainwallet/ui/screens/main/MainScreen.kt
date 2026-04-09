@@ -47,7 +47,6 @@ import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.composable.BentoBottomNavBar
 import com.brainwallet.ui.screens.main.SettingsButton
 import com.brainwallet.ui.screens.main.ThemeButton
-
 import com.brainwallet.ui.screens.send.SendScreen
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
@@ -73,7 +72,6 @@ import com.brainwallet.constants.topNavButtonSize
 import com.brainwallet.constants.topNavStartEndPadding
 import com.brainwallet.constants.transactionRowHt
 import com.brainwallet.ui.bentosections.transactionbento.TransactionsBentoScreen
-import com.brainwallet.ui.screens.gamehub.GameHubScreen
 import com.brainwallet.ui.screens.main.MainScreenEvent
 import com.brainwallet.ui.screens.main.MainViewModel
 import com.brainwallet.ui.bentosections.buyreceivebento.receive.ReceiveDialog
@@ -84,6 +82,16 @@ import com.brainwallet.util.EventBus
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
+import androidx.compose.animation.core.animateFloatAsState
+import com.brainwallet.ui.theme.blurAnimatedWith
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.material3.BottomSheetDefaults
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
+import com.brainwallet.ui.theme.bentoClearGradient
+import com.brainwallet.ui.theme.bentoModalDarkGradient
+import com.google.common.math.LinearTransformation.horizontal
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -92,6 +100,7 @@ fun MainScreen(
     modifier: Modifier = Modifier,
     viewModel: MainViewModel = koinViewModel()
 ) {
+    val context = LocalContext.current
     var currentRoute by remember { mutableStateOf<Route>(Route.Main) }
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -102,11 +111,20 @@ fun MainScreen(
     val isDarkMode = appSetting.isDarkMode
     val state by viewModel.state.collectAsStateWithLifecycle()
     val showTransactionDetail = state.showTransactionDetail
-    val context = LocalContext.current
     val noTxItemsPresent = state.transactionItems.isEmpty()
+    val blurRadiusWhen by animateFloatAsState(
+        targetValue = if (isSheetOpen) 40f else 0f,
+        animationSpec = tween(durationMillis = 400),
+        label = "blurRadius"
+    )
 
-    LaunchedEffect(Unit) {
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
         viewModel.onEvent(MainScreenEvent.OnLoad(context))
+        viewModel.onResume()
+    }
+
+    LifecycleEventEffect(Lifecycle.Event.ON_PAUSE) {
+        viewModel.onPause()
     }
 
     LaunchedEffect(Unit) {
@@ -137,7 +155,8 @@ fun MainScreen(
                 if (isDarkMode) mainScreenDarkSurfaceGradient else mainScreenLightSurfaceGradient
             ).padding(
                 top = statusBarPadding
-            ),
+            )
+                .blurAnimatedWith(blurRadiusWhen),
             containerColor = Color.Transparent,
             bottomBar = {
                 BentoBottomNavBar(
@@ -267,7 +286,6 @@ fun MainScreen(
                                     transactions = state.transactionItems.toImmutableList(),
                                     toggleState = state.filterState,
                                     onEvent = viewModel::onEvent,
-                                    isDarkMode = isDarkMode,
                                     showTransactionDetail = state.showTransactionDetail,
                                     shouldShowFiatValues = state.shouldShowFiatValues,
                                     modifier = Modifier.fillMaxSize()
@@ -322,36 +340,47 @@ fun MainScreen(
 
         if (isSheetOpen) {
             ModalBottomSheet(
+                modifier = Modifier
+                    .imePadding(),
                 onDismissRequest = { isSheetOpen = false },
                 sheetState = sheetState,
-                dragHandle = null,
+                dragHandle = { BottomSheetDefaults.DragHandle() },
                 containerColor = Color.Transparent,
+                contentWindowInsets = { WindowInsets(0) },
                 scrimColor = if (isDarkMode) {
-                    Color.White.copy(0.6f)
+                    // Overall background of Main Screen
+                    Color.White.copy(0.1f)
                 } else {
-                    Color.Black.copy(0.6f)
+                    Color.Black.copy(0.1f)
                 },
                 shape = RoundedCornerShape(24.dp)
             ) {
                 Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth(if (modalContentRoute == Route.BuyReceive) 0.9f else 1f)
-                            .wrapContentWidth()
-                            .height(if (modalContentRoute == Route.BuyReceive) 700.dp else 400.dp)
-                    ) {
-                        when (modalContentRoute) {
-                            Route.Send -> SendScreen(onNavigate = onNavigate)
-                            Route.BuyReceive -> ReceiveDialog(
-                                onDismissRequest = { isSheetOpen = false }
-                            )
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentWidth()
+                        .fillMaxHeight(0.85f)
+                        .background(
+                            brush = if (modalContentRoute == Route.BuyReceive) {
+                                bentoClearGradient
+                            } else if (isDarkMode && modalContentRoute == Route.Send) {
+                                bentoModalDarkGradient
+                            } else {
+                                mainScreenLightSurfaceGradient
+                            },
+                            shape = RoundedCornerShape(24.dp)
+                        )
 
-                            Route.GameHub -> GameHubScreen(onNavigate = onNavigate)
-                            else -> {}
-                        }
+                ) {
+                    when (modalContentRoute) {
+                        Route.Send -> SendScreen(onNavigate = onNavigate)
+                        Route.BuyReceive -> ReceiveDialog(
+                            modifier = Modifier
+                                .fillMaxWidth(0.9f)
+                                .align(Alignment.Center),
+                            onDismissRequest = { isSheetOpen = false }
+                        )
+                        else -> {}
                     }
                 }
             }

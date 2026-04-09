@@ -63,7 +63,7 @@ fun TransactionDetail(
     val qrBitmap = QRUtils.generateQR(context, "litecoin:$ltcAddressString").asImageBitmap()
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .background(
                 brush = if (isDarkMode) bentoDarkSurfaceGradient else bentoLightSurfaceGradient,
                 shape = RoundedCornerShape(16.dp)

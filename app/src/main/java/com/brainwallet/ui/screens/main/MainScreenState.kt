@@ -1,12 +1,13 @@
 package com.brainwallet.ui.screens.main
 
+import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.LtcStats
 import com.brainwallet.data.model.MoonpayCurrencyLimit
 import com.brainwallet.presenter.entities.TxItem
 import com.brainwallet.ui.bentosections.transactionbento.TransactionFilterState
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
-import timber.log.Timber
+import java.math.BigDecimal
 
 data class MainScreenState(
     val moonpayCurrencyLimit: MoonpayCurrencyLimit = MoonpayCurrencyLimit(),
@@ -15,7 +16,7 @@ data class MainScreenState(
     val address: String = "",
     val errorFiatAmountStringId: Int? = null,
     val fiatSymbol: String = "",
-    val fiatIso: String = "",
+    val fiatiSOCode: String = "USD",
     val fiatRate: Float = 0f,
     val versionLabel: String = "",
     val showTransactionDetail: Boolean = false,
@@ -28,12 +29,22 @@ data class MainScreenState(
         0,
         0,
         0
-    )
-)
-
-fun MainScreenState.isValid(): Boolean = errorFiatAmountStringId == null
-
-fun MainScreenState.getLtcAmountFormatted(isLoading: Boolean): String =
-    (if (isLoading || ltcAmount < 0f) "x.xxxŁ" else "%.3fŁ".format(ltcAmount)).also {
-        Timber.d("TImber:  ltcamount $ltcAmount")
-    }
+    ),
+    val ltcBalance: Long = 0L,
+    val litoshiBalance: BigDecimal = BigDecimal(0),
+    val selectedCurrency: CurrencyEntity = CurrencyEntity(
+        "USD",
+        "US Dollar",
+        -1f,
+        "$"
+    ),
+    val isInternetReachable: Boolean = true,
+    val formattedCurrency: String = ""
+) {
+    val fiatBalance: Float
+        get() = litoshiBalance
+            .multiply(BigDecimal(selectedCurrency.rate.toDouble()))
+            .toFloat()
+    val fiatBalanceFormatted: String
+        get() = "%.2f".format(fiatBalance)
+}

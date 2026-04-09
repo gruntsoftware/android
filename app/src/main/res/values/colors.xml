@@ -11,7 +11,5 @@
 
     <!--  light scheme  -->
     <color name="surface">@color/white</color>
-    <color name="background">@color/white</color>
     <color name="content">@color/midnight</color>
-    <color name="border">@color/midnight</color>
 </resources>

@@ -5,7 +5,6 @@
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/notification_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

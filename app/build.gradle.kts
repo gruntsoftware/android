@@ -34,7 +34,7 @@ android {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 35
-        versionCode = 202506307
+        versionCode = 202506309
         versionName = "v4.8.3"
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
@@ -227,6 +227,7 @@ dependencies {
     implementation(libs.androidx.junit.ktx)
     implementation(libs.androidx.espresso.core)
     implementation(libs.androidx.runtime)
+    implementation(libs.androidx.foundation)
     ksp(grunt.koin.annotation.compiler)
     implementation(platform(libs.squareup.okhttp.bom))
     implementation(libs.bundles.squareup.okhttp)

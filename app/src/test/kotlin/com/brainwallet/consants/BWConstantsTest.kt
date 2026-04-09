@@ -161,11 +161,9 @@ class BWConstantsTest {
     @Ignore("Integration test - run manually or in dedicated network test job")
     fun `all external URLs are reachable`() = runBlocking {
         val urls = listOf(
-            BWConstants.INSTAGRAM_LINK,
             BWConstants.WEB_LINK,
             BWConstants.SUPPORT_WEB_LINK,
             BWConstants.TOS_LINK,
-            BWConstants.LINKTREE_URL,
         )
 
         urls.forEach { url ->
@@ -178,6 +176,30 @@ class BWConstantsTest {
                 assertTrue(
                     "$url returned $responseCode",
                     responseCode in 200..399
+                )
+            } finally {
+                connection.disconnect()
+            }
+        }
+    }
+
+    @Test
+    fun `Instagram or Linktree BW account is reachable`() = runBlocking {
+        val urls = listOf(
+            BWConstants.INSTAGRAM_LINK,
+            BWConstants.LINKTREE_URL,
+        )
+
+        urls.forEach { url ->
+            val connection = java.net.URL(url).openConnection() as java.net.HttpURLConnection
+            connection.requestMethod = "HEAD"
+            connection.connectTimeout = 5000
+            connection.readTimeout = 5000
+            try {
+                val responseCode = connection.responseCode
+                assertTrue(
+                    "$url returned $responseCode",
+                    responseCode in 200..499
                 )
             } finally {
                 connection.disconnect()

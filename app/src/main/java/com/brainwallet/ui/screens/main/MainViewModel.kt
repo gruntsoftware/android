@@ -3,19 +3,26 @@ import android.app.Application
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.R
+import com.brainwallet.constants.BWConstants
 import com.brainwallet.data.model.AppSetting
+import com.brainwallet.data.model.GlobalCurrency
+import com.brainwallet.data.model.GlobalCurrency.entries
+import com.brainwallet.data.repository.ConnectivityRepository
 import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.repository.TxRepository
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.sqlite.TransactionDataSource
+import com.brainwallet.tools.util.BRExchange.ONE_LITECOIN_OF_LITOSHIS
 import com.brainwallet.ui.BrainwalletViewModel
 import com.brainwallet.ui.bentosections.transactionbento.TransactionFilterState
+import com.brainwallet.util.CurrencyDataGetter
 import com.brainwallet.util.VersionCodeProvider
 import com.brainwallet.wallet.BRPeerManager
 import com.brainwallet.wallet.BRWalletManager
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.delay
@@ -33,6 +40,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import timber.log.Timber
+import java.math.BigDecimal
 
 @OptIn(FlowPreview::class)
 @KoinViewModel
@@ -41,6 +49,7 @@ class MainViewModel(
     private val settingRepository: SettingRepository,
     private val ltcRepository: LtcRepository,
     private val txRepository: TxRepository,
+    private val connectivityRepository: ConnectivityRepository,
     versionCodeProvider: VersionCodeProvider,
 ) : BrainwalletViewModel<MainScreenEvent>(),
     BRWalletManager.OnBalanceChanged,
@@ -56,10 +65,26 @@ class MainViewModel(
         )
     val state: StateFlow<MainScreenState> = _state.asStateFlow()
     val appSetting: StateFlow<AppSetting> = settingRepository.currentSettings
-    val versionLabel = versionCodeProvider.getFormatted()
 
     init {
-        // Currency rate → fiat fields in _state
+
+        // ──────── Collecting Reachability Updates ────────
+        viewModelScope.launch {
+            connectivityRepository.isConnected.collect { isInternetReachable ->
+                _state.update { it.copy(isInternetReachable = isInternetReachable) }
+            }
+        }
+
+        viewModelScope.launch {
+            settingRepository.currentSettings.collect { currentSettings ->
+                _state.update {
+                    it.copy(
+                        selectedCurrency = currentSettings.currency,
+                    )
+                }
+            }
+        }
+
         viewModelScope.launch {
             ltcRepository.rates
                 .combine(appSetting) { currencies, setting ->
@@ -73,7 +98,7 @@ class MainViewModel(
                     _state.update {
                         it.copy(
                             fiatSymbol = selectedCurrency.symbol,
-                            fiatIso = selectedCurrency.code,
+                            fiatiSOCode = selectedCurrency.code,
                             fiatRate = selectedCurrency.rate,
                         )
                     }
@@ -116,18 +141,30 @@ class MainViewModel(
         }
     }
 
-    fun onResume() {
-        viewModelScope.launch(Dispatchers.IO) {
+    fun onResume(
+        isWalletCreated: () -> Boolean = { BRWalletManager.getInstance().isCreated() },
+        ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    ) {
+        viewModelScope.launch(ioDispatcher) {
             var attempts = 0
-            while (!BRWalletManager.getInstance().isCreated() && attempts < 20) {
+
+            while (!isWalletCreated() && attempts < 20) {
                 delay(250)
                 attempts++
             }
-            if (BRWalletManager.getInstance().isCreated()) {
+            if (isWalletCreated()) {
                 addObservers()
+                val balance = BRSharedPrefs.getCachedBalance(app)
+                _state.update {
+                    it.copy(
+                        ltcBalance = balance,
+                        litoshiBalance = BigDecimal(balance)
+                            .divide(BigDecimal(ONE_LITECOIN_OF_LITOSHIS)),
+                    )
+                }
                 txRepository.refresh()
             } else {
-                Timber.d("MainViewModel: wallet not ready after waiting")
+                Timber.d("BalanceBentoViewModel: wallet not ready after waiting")
             }
         }
     }
@@ -153,22 +190,27 @@ class MainViewModel(
         TransactionDataSource.getInstance(app).removeListener(this)
     }
 
-    // /Callbacks fron BRWalletManager, TransactionDataSource, BRSharedPrefs
     override fun onBalanceChanged(balance: Long) {
-        Timber.d("timber: MainViewModel subscribed onBalanceChanged $balance")
+        _state.update {
+            it.copy(
+                ltcBalance = balance,
+                litoshiBalance = BigDecimal(balance)
+                    .divide(BigDecimal(ONE_LITECOIN_OF_LITOSHIS)),
+            )
+        }
         viewModelScope.launch(Dispatchers.IO) {
             txRepository.refresh()
-
-            Timber.d("MainViewModel: TxRepository refreshing ")
         }
     }
 
-    override fun onStatusUpdate() {
+    override fun onStatusPeerManagerUpdate() {
         Timber.d("timber: MainViewModel subscribed onStatusUpdate: : BRPeerManager")
     }
 
     override fun onTxAdded() {
-        Timber.d("timber: MainViewModel subscribed onTxAdded: TransactionDataSource")
+        viewModelScope.launch(Dispatchers.IO) {
+            txRepository.refresh()
+        }
     }
 
     override fun onEvent(event: MainScreenEvent) {
@@ -180,6 +222,27 @@ class MainViewModel(
                 try {
                     onLoading(true)
                     txRepository.refresh()
+                    val currentSettings = settingRepository.currentSettings.value
+                    var formattedCurrency: String? = null
+                    val currency = currentSettings.currency
+                    val currencyDataGetter = CurrencyDataGetter(event.context)
+                    if (currency != null) {
+                        val roundedPriceAmount: BigDecimal =
+                            BigDecimal(currency.rate.toDouble()).multiply(BigDecimal(100))
+                                .divide(BigDecimal(100), 2, BWConstants.ROUNDING_MODE)
+                        formattedCurrency =
+                            currencyDataGetter.getFormattedCurrencyString(
+                                currency.code,
+                                roundedPriceAmount
+                            )
+                    } else {
+                        Timber.w("The currency related to %s is NULL", currency.code)
+                    }
+
+                    fun from(code: String): GlobalCurrency? {
+                        return entries.find { it.code == code }
+                    }
+
                     _state.getAndUpdate {
                         val limitResult = ltcRepository.fetchLimits(
                             baseCurrencyCode = appSetting.value.currency.code
@@ -188,6 +251,10 @@ class MainViewModel(
                         it.copy(
                             moonpayCurrencyLimit = limitResult,
                             fiatAmount = limitResult.data.baseCurrency.min,
+                            selectedCurrency = currentSettings.currency,
+                            fiatiSOCode = currentSettings.currency.code,
+                            fiatSymbol = currentSettings.currency.symbol,
+                            formattedCurrency = formattedCurrency ?: ""
                         )
                     }
                 } catch (e: Exception) {

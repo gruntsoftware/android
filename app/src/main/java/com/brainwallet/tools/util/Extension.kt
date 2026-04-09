@@ -185,3 +185,4 @@ fun Fragment.getString(
         result
     }
 }
+fun String.capitalizeFirst(): String = replaceFirstChar { it.uppercase() }
