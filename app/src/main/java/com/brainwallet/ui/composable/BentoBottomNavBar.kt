@@ -39,7 +39,7 @@ fun BentoBottomNavBar(
     isDarkMode: Boolean,
     noTxItemsPresent: Boolean,
     isShowingTransactionDetail: Boolean,
-    brainwalletIsSyncing: Boolean,
+    canUserSend: Boolean,
     currentRoute: Route?,
     onItemClick: (Route) -> Unit,
     onToggleTransactionDetail: () -> Unit,
@@ -58,7 +58,7 @@ fun BentoBottomNavBar(
         NavigationBarItem(
             selected = currentRoute is Route.Send,
             onClick = { onItemClick(Route.Send) },
-            enabled = !brainwalletIsSyncing,
+            enabled = canUserSend,
             icon = {
                 Icon(
                     painter = painterResource(R.drawable.ic_send),
@@ -205,7 +205,7 @@ fun BentoBottomNavBarPreview() {
             onItemClick = {},
             isDarkMode = isSystemInDarkTheme(),
             isShowingTransactionDetail = false,
-            brainwalletIsSyncing = true,
+            canUserSend = true,
             noTxItemsPresent = false,
             onToggleTransactionDetail = {}
         )

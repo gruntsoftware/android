@@ -33,6 +33,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -153,13 +154,14 @@ fun BalanceBentoScreen(
         iconImage = painterResource(id = R.drawable.visibility_off)
     }
     val coinAudioPlayer = remember { MediaPlayer.create(context, R.raw.coinflip) }
+    val previousCount = remember { mutableIntStateOf(state.transactions.size) }
 
-    // Listen for changes in balance
-    LaunchedEffect(mainState.ltcBalance) {
-        if (mainState.ltcBalance > previousBalance) {
+    // Listen for changes in number of transactions
+    LaunchedEffect(state.transactions) {
+        if (state.transactions.size > previousCount.intValue) {
             coinAudioPlayer.start()
         }
-        previousBalance = mainState.ltcBalance
+        previousCount.intValue = state.transactions.size
     }
 
     Box(

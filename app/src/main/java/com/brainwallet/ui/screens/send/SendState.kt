@@ -1,6 +1,7 @@
 package com.brainwallet.ui.screens.send
 
 import com.brainwallet.data.model.CurrencyEntity
+import com.brainwallet.presenter.entities.TransactionItem
 import java.math.BigDecimal
 
 data class SendState(
@@ -15,6 +16,7 @@ data class SendState(
     val amountString: String = "",
     val userViewsFiat: Boolean = false,
     val isReadyToSend: Boolean = false,
+    val brainwalletIsPublishing: Boolean = false,
     val isLTCAddressValid: Boolean = false,
     val isAmountBelowBalance: Boolean = false,
     val selectedCurrency: CurrencyEntity = CurrencyEntity(
@@ -22,5 +24,18 @@ data class SendState(
         "US Dollar",
         -1f,
         "$"
-    )
+    ),
+    val transactionItem: TransactionItem = TransactionItem(
+        "",
+        null,
+        null,
+        0L,
+        0L,
+        null,
+        false,
+        ""
+    ),
+    val errorResultString: String = "",
+    val passcode: List<Int> = emptyList(),
+    val isPasscodeAuthenticated: Boolean = false
 )

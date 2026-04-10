@@ -1,4 +1,4 @@
-package com.brainwallet.ui.composable
+package com.brainwallet.ui.composable.passcode
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

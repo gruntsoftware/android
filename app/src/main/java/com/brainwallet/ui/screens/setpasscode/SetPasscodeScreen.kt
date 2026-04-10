@@ -36,9 +36,9 @@ import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.UiEffect
 import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
-import com.brainwallet.ui.composable.PasscodeIndicator
-import com.brainwallet.ui.composable.PasscodeKeypad
-import com.brainwallet.ui.composable.PasscodeKeypadEvent
+import com.brainwallet.ui.composable.passcode.PasscodeIndicator
+import com.brainwallet.ui.composable.passcode.PasscodeKeypad
+import com.brainwallet.ui.composable.passcode.PasscodeKeypadEvent
 import org.koin.compose.koinInject
 
 @Composable

@@ -335,36 +335,12 @@ public class BRWalletManager {
     @Suppress(names = "unused") // called via BRPeerManager callback
     public static void publishCallback(final String message, final int error, byte[] txHash) {
         Timber.d("timber: publishCallback: " + message + ", err:" + error + ", txHash: " + Arrays.toString(txHash));
-
         Bundle params = new Bundle();
         params.putString("function", "BRWalletManager.publishCallback");
         params.putString("message", message);
         params.putInt("error", error);
         params.putString("txHash", Arrays.toString(txHash));
         AnalyticsManager.logCustomEventWithParams(BWConstants._20250517_WCINFO, params);
-
-        final Context app = BrainwalletApp.getBreadContext();
-        BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (app instanceof FragmentActivity)
-                            BRAnimator.showBreadSignal((FragmentActivity) app, error == 0 ? app.getString(R.string.Alerts_sendSuccess) : app.getString(R.string.Alert_error),
-                                    error == 0 ? app.getString(R.string.Alerts_sendSuccessSubheader) : message, error == 0 ? R.drawable.ic_check_mark_white : R.drawable.ic_error_outline_black_24dp, new BROnSignalCompletion() {
-                                        @Override
-                                        public void onComplete() {
-                                            /**
-                                             * no-op, since the fragment already closed, please check [FragmentSignal]
-                                             */
-                                        }
-                                    });
-                    }
-                }, 500);
-            }
-        });
-
     }
 
     public static void onBalanceChanged(final long balance) {

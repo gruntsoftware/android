@@ -121,6 +121,8 @@ fun MainScreen(
         label = "blurRadius"
     )
 
+    val canUserSend = !state.brainwalletIsSyncing && state.isInternetReachable
+
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
         viewModel.onEvent(MainScreenEvent.OnLoad(context))
         viewModel.onResume()
@@ -169,7 +171,7 @@ fun MainScreen(
                     isDarkMode = appSetting.isDarkMode,
                     currentRoute = currentRoute,
                     isShowingTransactionDetail = showTransactionDetail,
-                    brainwalletIsSyncing = state.brainwalletIsSyncing,
+                    canUserSend = canUserSend,
                     noTxItemsPresent = noTxItemsPresent,
                     onToggleTransactionDetail = {
                         viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail)
@@ -384,8 +386,14 @@ fun MainScreen(
                             onNavigate = onNavigate,
                             onOpenScanner = {
                                 val activity = context as? FragmentActivity
-                                activity?.let { BRAnimator.openScanner(it, BWConstants.SCANNER_REQUEST) }
-                            }
+                                activity?.let {
+                                    BRAnimator.openScanner(
+                                        it,
+                                        BWConstants.SCANNER_REQUEST
+                                    )
+                                }
+                            },
+                            onDimissSendModal = { isSheetOpen = false }
                         )
 
                         Route.BuyReceive -> ReceiveDialog(

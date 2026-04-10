@@ -13,17 +13,21 @@ import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.manager.BRClipboardManager
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.manager.FeeManager
-import com.brainwallet.tools.security.BRSender
+import com.brainwallet.tools.security.BRKeyStore
 import com.brainwallet.tools.util.BRExchange
 import com.brainwallet.tools.util.Utils
 import com.brainwallet.ui.BrainwalletViewModel
+import com.brainwallet.ui.screens.send.BWSendResult.Error
 import com.brainwallet.util.EventBus
 import com.brainwallet.wallet.BRWalletManager
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.update
@@ -31,16 +35,20 @@ import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import timber.log.Timber
 import java.math.BigDecimal
+import java.util.Locale
 
 @KoinViewModel
 class SendViewModel(
     private val app: Application,
+    private val bwSender: BWSender,
     private val txRepository: TxRepository,
     private val settingRepository: SettingRepository,
 ) : BrainwalletViewModel<SendEvent>() {
     private val _state =
         MutableStateFlow(SendState())
     val state: StateFlow<SendState> = _state.asStateFlow()
+    private val _effect = MutableSharedFlow<SendEffect>(extraBufferCapacity = 1)
+    val effect: SharedFlow<SendEffect> = _effect.asSharedFlow()
 
     init {
         viewModelScope.launch {
@@ -117,7 +125,6 @@ class SendViewModel(
                 }
             }
             is SendEvent.OnTapShowCameraForQRLTCAddress -> {
-                Timber.i("SendEvent.OnTapShowCameraForQRLTCAddress")
                 sendUiEffect(UiEffect.OpenQRScanner)
             }
             is SendEvent.OnToggleFiatOrLTC -> {
@@ -234,8 +241,10 @@ class SendViewModel(
                     )
                 }
             }
+            is SendEvent.OnAuthPasscode -> {
+                sendUiEffect(UiEffect.OnEnterAuthPasscode)
+            }
             is SendEvent.OnSend -> {
-                Timber.i("SendEvent.OnSend")
                 val amountInLitoshi = _state.value.amountInLitoshi.toLong()
                 val transactionItem = TransactionItem(
                     _state.value.recipientLTCAddress,
@@ -247,9 +256,62 @@ class SendViewModel(
                     false,
                     _state.value.userMemorandum
                 )
-                BRSender.getInstance().sendTransaction(app, transactionItem)
-                AnalyticsManager.logCustomEvent(BWConstants._20191105_DSL)
-                BRSharedPrefs.incrementSendTransactionCount(app)
+
+                _state.update {
+                    it.copy(
+                        transactionItem = transactionItem,
+                        brainwalletIsPublishing = true
+                    )
+                }
+
+                viewModelScope.launch {
+                    when (val result = bwSender.prepareTransaction(transactionItem)) {
+                        BWSendResult.Success -> {
+                            _effect.emit(SendEffect.DismissSheet)
+                            AnalyticsManager.logCustomEvent(BWConstants._20191105_DSL)
+                            BRSharedPrefs.incrementSendTransactionCount(app)
+                        }
+                        is BWSendResult.Error.InsufficientFunds -> {
+                            _state.update {
+                                it.copy(
+                                    errorResultString = String.format(
+                                        Locale.getDefault(),
+                                        "%s",
+                                        app.getString(R.string.Import_Error_notValid)
+                                    )
+                                )
+                            }
+                        }
+                        is BWSendResult.Error.AmountTooSmall -> {
+                            _state.update {
+                                it.copy(
+                                    errorResultString = String.format(
+                                        Locale.getDefault(),
+                                        "%s",
+                                        app.getString(R.string.Send_isRescanning)
+                                    )
+                                )
+                            }
+                        }
+                        BWSendResult.Error.AlreadySending,
+                        BWSendResult.Error.TimedOut,
+                        is BWSendResult.Error.Unknown -> {
+                            Timber.e("Send unknown error: $result")
+                            _state.update {
+                                it.copy(
+                                    errorResultString = String.format(
+                                        Locale.getDefault(),
+                                        "%s",
+                                        app.getString(R.string.Alerts_sendFailure)
+                                    )
+                                )
+                            }
+                        }
+                    }
+
+                    _state.update { it.copy(isPasscodeAuthenticated = true) }
+                    _state.update { it.copy(brainwalletIsPublishing = false) }
+                }
             }
             is SendEvent.OnUserMemorandumChanged -> {
                 _state.update { it.copy(userMemorandum = event.memo) }
@@ -262,7 +324,28 @@ class SendViewModel(
                     )
                 }
             }
+            is SendEvent.OnPasscodeDigitAdded -> {
+                if (_state.value.passcode.size < 4) {
+                    _state.update { it.copy(passcode = it.passcode + event.digit) }
+                }
+                if (_state.value.passcode.size == 4) {
+                    val pin = BRKeyStore.getPinCode(app)
+                    val enteredPin = _state.value.passcode.map { it.toString() }.joinToString("")
+                    if (pin == enteredPin) {
+                        onEvent(SendEvent.OnSend(_state.value.transactionItem))
+                    } else {
+                        _state.update { it.copy(isPasscodeAuthenticated = false) }
+                    }
+                }
+            }
+            is SendEvent.OnPasscodeDigitDeleted -> {
+                _state.update { it.copy(passcode = it.passcode.dropLast(1)) }
+            }
         }
+    }
+
+    sealed class SendEffect {
+        data object DismissSheet : SendEffect()
     }
 }
 
