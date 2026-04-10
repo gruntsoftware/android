@@ -34,7 +34,7 @@ android {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 35
-        versionCode = 202506311
+        versionCode = 202506312
         versionName = "v4.8.3"
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
@@ -67,12 +67,12 @@ android {
             keyAlias = localProperties.getProperty("DEBUG_KEY_ALIAS")
             keyPassword = localProperties.getProperty("DEBUG_KEY_PASSWORD")
         }
-//        val release by creating {
-//            storeFile = file(localProperties.getProperty("RELEASE_STORE_FILE"))
-//            storePassword = localProperties.getProperty("RELEASE_STORE_PASSWORD")
-//            keyAlias = localProperties.getProperty("RELEASE_KEY_ALIAS")
-//            keyPassword = localProperties.getProperty("RELEASE_KEY_PASSWORD")
-//        }
+        val release by creating {
+            storeFile = file(localProperties.getProperty("RELEASE_STORE_FILE"))
+            storePassword = localProperties.getProperty("RELEASE_STORE_PASSWORD")
+            keyAlias = localProperties.getProperty("RELEASE_KEY_ALIAS")
+            keyPassword = localProperties.getProperty("RELEASE_KEY_PASSWORD")
+        }
     }
 
     buildTypes {

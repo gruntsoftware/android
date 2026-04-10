@@ -1,5 +1,4 @@
 package com.brainwallet.ui.bentosections.gamehubbento
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -43,7 +42,7 @@ import com.brainwallet.ui.theme.gameTaglineGradient
 import com.brainwallet.ui.theme.gameTitleGradient
 
 @Composable
-fun GameHubBentoScreen(
+fun GameHubBentoRiceScreen(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
@@ -190,8 +189,8 @@ fun GameHubBentoScreen(
 
 @PreviewLightDark
 @Composable
-private fun GameHubBentoScreenPreview() {
+private fun GameHubBentoRiceScreenPreview() {
     Box(modifier = Modifier.height(120.dp)) {
-        GameHubBentoScreen()
+        GameHubBentoRiceScreen()
     }
 }
