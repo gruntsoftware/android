@@ -8,8 +8,11 @@ import com.google.firebase.remoteconfig.ConfigUpdateListener
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigException
 import com.google.firebase.remoteconfig.remoteConfigSettings
+import kotlinx.coroutines.suspendCancellableCoroutine
 import org.koin.core.annotation.Single
 import timber.log.Timber
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 
 @Single(binds = [RemoteConfigSource::class])
 class FirebaseRemoteConfigRepository(
@@ -47,6 +50,13 @@ class FirebaseRemoteConfigRepository(
             }
         })
     }
+
+    override suspend fun fetchAndActivate(): Boolean =
+        suspendCancellableCoroutine { continuation ->
+            remoteConfig.fetchAndActivate()
+                .addOnSuccessListener { activated -> continuation.resume(activated) }
+                .addOnFailureListener { e -> continuation.resumeWithException(e) }
+        }
 
     override fun getString(key: String): String {
         return remoteConfig.getString(key)
