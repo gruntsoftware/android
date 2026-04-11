@@ -4,18 +4,17 @@ import android.content.Context
 import com.brainwallet.presenter.entities.TransactionItem
 import com.brainwallet.tools.security.PostAuth
 import com.brainwallet.wallet.BRWalletManager
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import org.koin.core.annotation.Single
 import timber.log.Timber
 import kotlinx.coroutines.withContext
 
 @Single
 class BWSender(
-    private val context: Context
+    private val context: Context,
+    private val getWalletManager: () -> BRWalletManager = { BRWalletManager.getInstance() },
+    private val getPostAuth: () -> PostAuth = { PostAuth.getInstance() }
 ) {
-    private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
     @Volatile var timedOut = false
 
@@ -52,7 +51,7 @@ class BWSender(
             return BWSendResult.Error.Unknown(ex)
         }
 
-        val walletManager = BRWalletManager.getInstance()
+        val walletManager = getWalletManager()
 
         // Transaction creation is CPU/IO-bound — run on IO dispatcher
         val temporaryTransaction = withContext(Dispatchers.IO) {
@@ -66,12 +65,12 @@ class BWSender(
 
         // Back on the calling dispatcher — mutate and hand off to PostAuth
         transactionItem.serializedTx = temporaryTransaction
-        PostAuth.getInstance().setTransactionItem(transactionItem)
+        getPostAuth().setTransactionItem(transactionItem)
         return tryToPublishToMainnet(transactionItem)
     }
 
     private suspend fun tryToPublishToMainnet(transactionItem: TransactionItem): BWSendResult {
-        val walletManager = BRWalletManager.getInstance()
+        val walletManager = getWalletManager()
 
         val minOutput = if (transactionItem.isAmountRequested) {
             walletManager.getMinOutputAmountRequested()
@@ -85,7 +84,7 @@ class BWSender(
 
         // onPublishTxAuth is a blocking native call — keep it off the main thread
         withContext(Dispatchers.IO) {
-            PostAuth.getInstance().onPublishTxAuth(context, false)
+            getPostAuth().onPublishTxAuth(context, false)
         }
 
         return BWSendResult.Success

@@ -6,7 +6,6 @@ sealed class SendEvent {
 
     data object OnLoad : SendEvent()
     data class OnSend(val transactionItem: TransactionItem) : SendEvent()
-
     data object OnAuthPasscode : SendEvent()
     data object OnTapPasteLTCAddress : SendEvent()
     data object OnTapShowCameraForQRLTCAddress : SendEvent()
