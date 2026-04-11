@@ -27,6 +27,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -84,6 +85,17 @@ fun PreSendAmountRow(
             modifier = Modifier.fillMaxSize(),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            Text(
+                modifier = Modifier.padding(start = 16.dp),
+                text = if (state.userViewsFiat) state.selectedCurrency.symbol else "Ł",
+                textAlign = TextAlign.End,
+                style = TextStyle(
+                    fontFamily = IBMPlexSans,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 14.sp,
+                    color = if (state.darkMode) Color.White else Color.Black
+                ),
+            )
             TextField(
                 modifier = Modifier.height(sectionHeight)
                     .onFocusChanged { focusState ->

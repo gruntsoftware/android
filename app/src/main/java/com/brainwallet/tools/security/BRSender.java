@@ -277,7 +277,8 @@ public class BRSender {
             final String bitcoinMinMessage = String.format(Locale.getDefault(),
                     ctx.getString(R.string.PaymentProtocol_Errors_smallTransaction),
                     BWConstants.litecoinLowercase +
-                            new BigDecimal(minOutput).divide(new BigDecimal("100")));
+                            new BigDecimal(minOutput).divide(new BigDecimal("100"),
+                                8, BWConstants.ROUNDING_MODE));
 
             ((Activity) ctx).runOnUiThread(new Runnable() {
                 @Override
