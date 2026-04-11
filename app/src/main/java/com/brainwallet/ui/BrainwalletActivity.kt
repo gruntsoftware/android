@@ -138,6 +138,7 @@ class BrainwalletActivity :
                     is EventBus.Event.Message -> handleLegacyMessage(event.message)
                     is EventBus.Event.LegacyPasscodeVerified -> onPasscodeVerified(event.passcode)
                     is EventBus.Event.LegacyUnLock -> onUnlock(event.passcode)
+                    is EventBus.Event.QRCodeScanned -> Unit
                 }
             }
             .launchIn(lifecycleScope)
@@ -321,7 +322,8 @@ class BrainwalletActivity :
             lifecycleScope.launch {
                 EventBus.emit(
                     EventBus.Event.Message(
-                        LEGACY_EFFECT_RESET_PIN
+                        LEGACY_EFFECT_RESET_PIN,
+                        address = null
                     )
                 )
             }
@@ -361,6 +363,7 @@ class BrainwalletActivity :
     private fun onUnlock(passcode: List<Int>) {
         if (AuthManager.getInstance().checkAuth(passcode.joinToString(""), this)) {
             AuthManager.getInstance().authSuccess(this)
+
             AnalyticsManager.logCustomEvent(BWConstants._20200217_DUWB)
             LegacyNavigation.startBrainwalletActivity(this, false)
         } else {

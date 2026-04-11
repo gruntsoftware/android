@@ -290,7 +290,7 @@ public class PaymentProtocolTask extends AsyncTask<String, String, String> {
                 double minOutput = BRWalletManager.getInstance().getMinOutputAmount();
                 if (paymentRequest.amount < minOutput) {
                     final String bitcoinMinMessage = String.format(Locale.getDefault(), app.getString(R.string.PaymentProtocol_Errors_smallTransaction),
-                            BWConstants.litecoinLowercase + new BigDecimal(minOutput).divide(new BigDecimal("100")));
+                            BWConstants.litecoinLowercase + new BigDecimal(minOutput).divide(new BigDecimal("100"), 8, BWConstants.ROUNDING_MODE));
                     app.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -318,7 +318,7 @@ public class PaymentProtocolTask extends AsyncTask<String, String, String> {
                     @Override
                     public void run() {
                         /// DEV NOTES: Remove this call to auth Prompt
-                        
+
                     }
                 });
             }

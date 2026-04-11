@@ -61,7 +61,8 @@ class RestoreViewModel : BrainwalletViewModel<RestoreEvent>() {
                     viewModelScope.launch {
                         EventBus.emit(
                             EventBus.Event.Message(
-                                LEGACY_DIALOG_INVALID
+                                LEGACY_DIALOG_INVALID,
+                                address = null
                             )
                         )
                     }
@@ -74,7 +75,8 @@ class RestoreViewModel : BrainwalletViewModel<RestoreEvent>() {
                     viewModelScope.launch {
                         EventBus.emit(
                             EventBus.Event.Message(
-                                LEGACY_DIALOG_INVALID
+                                LEGACY_DIALOG_INVALID,
+                                address = null
                             )
                         )
                     }
@@ -83,14 +85,24 @@ class RestoreViewModel : BrainwalletViewModel<RestoreEvent>() {
 
                 if (currentState.isFrom(Route.Restore.Source.RESET_PIN)) {
                     viewModelScope.launch {
-                        EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_RESET_PIN))
+                        EventBus.emit(
+                            EventBus.Event.Message(
+                                LEGACY_EFFECT_RESET_PIN,
+                                address = null
+                            )
+                        )
                     }
                     return
                 }
 
                 if (currentState.isFrom(Route.Restore.Source.SETTING_WIPE)) {
                     viewModelScope.launch {
-                        EventBus.emit(EventBus.Event.Message(LEGACY_DIALOG_WIPE_ALERT))
+                        EventBus.emit(
+                            EventBus.Event.Message(
+                                LEGACY_DIALOG_WIPE_ALERT,
+                                address = null
+                            )
+                        )
                     }
                     return
                 }
@@ -101,7 +113,12 @@ class RestoreViewModel : BrainwalletViewModel<RestoreEvent>() {
                 PostAuth.getInstance().setPhraseForKeyStore(cleanPhrase)
 
                 viewModelScope.launch {
-                    EventBus.emit(EventBus.Event.Message(EFFECT_LEGACY_RECOVER_WALLET_AUTH))
+                    EventBus.emit(
+                        EventBus.Event.Message(
+                            EFFECT_LEGACY_RECOVER_WALLET_AUTH,
+                            address = null
+                        )
+                    )
                 }
             }
         }

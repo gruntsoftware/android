@@ -3,10 +3,17 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.height
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.unit.dp
 import kotlin.math.cos
 import kotlin.math.sin
 import com.brainwallet.ui.theme.DesignTheme
@@ -16,8 +23,8 @@ fun ConfirmationStatus(
     modifier: Modifier = Modifier,
     numberOfConfs: Int = 0
 ) {
-    val initialStateColor = DesignTheme.colors.info.copy(0.2f)
-    val medianStateColor = DesignTheme.colors.warn
+    val initialStateColor = DesignTheme.colors.info.copy(0.6f)
+    val medianStateColor = DesignTheme.colors.affirm.copy(0.6f)
     val completeStateColor = DesignTheme.colors.affirm
 
     val filledColor = when (numberOfConfs) {
@@ -38,7 +45,7 @@ fun ConfirmationStatus(
         val r = size.width / 2f * 0.9f
 
         val vertices = (0..5).map { i ->
-            val angle = Math.toRadians(60.0 * i - 30.0)
+            val angle = Math.toRadians(60.0 * i + 90.0)
             Offset(
                 cx + r * cos(angle).toFloat(),
                 cy - r * sin(angle).toFloat()
@@ -55,6 +62,22 @@ fun ConfirmationStatus(
             }
             drawPath(path, color = segmentColors[i])
             drawPath(path, color = Color.White.copy(0.3f), style = Stroke(width = 1f))
+        }
+    }
+}
+
+class ConfirmationStateProvider : PreviewParameterProvider<Int> {
+    override val values = sequenceOf(0, 1, 2, 3, 4, 5, 6, 7)
+}
+
+@Preview
+@Composable
+private fun ConfirmationStatusPreview(
+    @PreviewParameter(ConfirmationStateProvider::class) numberOfConfs: Int
+) {
+    DesignTheme(isSystemInDarkTheme()) {
+        Box(modifier = Modifier.height(120.dp)) {
+            ConfirmationStatus(numberOfConfs = numberOfConfs)
         }
     }
 }

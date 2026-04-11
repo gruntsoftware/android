@@ -21,6 +21,10 @@ sealed class UiEffect {
     data class ShowDialog(val name: String) : UiEffect()
     data object ShowMoonPayDialog : UiEffect()
 
+    object OpenQRScanner : UiEffect()
+
+    object OnEnterAuthPasscode : UiEffect()
+
     data class ShowMessage(
         val message: String,
         val type: Type = Type.Success,

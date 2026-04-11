@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalLayoutApi::class)
 
-package com.brainwallet.ui.composable
+package com.brainwallet.ui.composable.passcode
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -25,16 +25,16 @@ fun PasscodeKeypad(
     onEvent: (PasscodeKeypadEvent) -> Unit
 ) {
     FlowRow(
-        horizontalArrangement = Arrangement.spacedBy(24.dp),
-        verticalArrangement = Arrangement.spacedBy(24.dp),
+        horizontalArrangement = Arrangement.spacedBy(18.dp),
+        verticalArrangement = Arrangement.spacedBy(18.dp),
         maxItemsInEachRow = 3
     ) {
         // pin number button
-        val modifierCircleButton = Modifier.size(75.dp)
+        val modifierCircleButton = Modifier.size(60.dp)
 
         repeat(9) { index ->
             val number = index + 1
-            CircleButton(
+            _root_ide_package_.com.brainwallet.ui.composable.CircleButton(
                 modifier = modifierCircleButton.testTag("keypad$number"),
                 onClick = {
                     onEvent.invoke(PasscodeKeypadEvent.OnPressed(number))
@@ -49,7 +49,7 @@ fun PasscodeKeypad(
 
         // Bottom row with biometric, 0, and backspace
         if (false) { // hardcoded false for now
-            CircleButton(
+            _root_ide_package_.com.brainwallet.ui.composable.CircleButton(
                 modifier = modifierCircleButton,
                 onClick = {
                     //
@@ -64,7 +64,7 @@ fun PasscodeKeypad(
                 )
             }
         } else {
-            CircleButton(
+            _root_ide_package_.com.brainwallet.ui.composable.CircleButton(
                 modifier = modifierCircleButton,
                 onClick = { },
                 colors = IconButtonDefaults.filledIconButtonColors(
@@ -76,7 +76,7 @@ fun PasscodeKeypad(
             }
         }
 
-        CircleButton(
+        _root_ide_package_.com.brainwallet.ui.composable.CircleButton(
             modifier = modifierCircleButton,
             onClick = {
                 onEvent.invoke(PasscodeKeypadEvent.OnPressed(0))
@@ -88,7 +88,7 @@ fun PasscodeKeypad(
             )
         }
 
-        CircleButton(
+        _root_ide_package_.com.brainwallet.ui.composable.CircleButton(
             modifier = modifierCircleButton,
             onClick = {
                 onEvent.invoke(PasscodeKeypadEvent.OnDelete)
@@ -103,9 +103,4 @@ fun PasscodeKeypad(
             )
         }
     }
-}
-
-sealed class PasscodeKeypadEvent {
-    object OnDelete : PasscodeKeypadEvent()
-    data class OnPressed(val digit: Int) : PasscodeKeypadEvent()
 }

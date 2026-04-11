@@ -15,6 +15,7 @@ import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.sqlite.TransactionDataSource
 import com.brainwallet.tools.util.BRExchange.ONE_LITECOIN_OF_LITOSHIS
 import com.brainwallet.ui.BrainwalletViewModel
+import com.brainwallet.ui.bentosections.balancebento.BalanceBentoViewModel
 import com.brainwallet.ui.bentosections.transactionbento.TransactionFilterState
 import com.brainwallet.util.CurrencyDataGetter
 import com.brainwallet.util.VersionCodeProvider
@@ -41,6 +42,8 @@ import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import timber.log.Timber
 import java.math.BigDecimal
+import kotlin.math.max
+import kotlin.math.min
 
 @OptIn(FlowPreview::class)
 @KoinViewModel
@@ -50,6 +53,7 @@ class MainViewModel(
     private val ltcRepository: LtcRepository,
     private val txRepository: TxRepository,
     private val connectivityRepository: ConnectivityRepository,
+    private val balanceBentoViewModel: BalanceBentoViewModel,
     versionCodeProvider: VersionCodeProvider,
 ) : BrainwalletViewModel<MainScreenEvent>(),
     BRWalletManager.OnBalanceChanged,
@@ -99,7 +103,7 @@ class MainViewModel(
                         it.copy(
                             fiatSymbol = selectedCurrency.symbol,
                             fiatiSOCode = selectedCurrency.code,
-                            fiatRate = selectedCurrency.rate,
+                            fiatRate = BigDecimal(selectedCurrency.rate.toDouble()),
                         )
                     }
                 }
@@ -132,11 +136,28 @@ class MainViewModel(
                 .distinctUntilChanged()
                 .filter {
                     val baseCurrency = state.value.moonpayCurrencyLimit.data.baseCurrency
-                    if (baseCurrency.min == 0f && baseCurrency.max == 0f) return@filter false
-                    it in baseCurrency.min..baseCurrency.max
+                    val baseCurrencyMin = BigDecimal(baseCurrency.min.toDouble())
+                    val baseCurrencyMax = BigDecimal(baseCurrency.max.toDouble())
+
+                    if (baseCurrencyMin == BigDecimal(0) &&
+                        baseCurrencyMax == BigDecimal(0)
+                    ) {
+                        return@filter false
+                    }
+
+                    it in baseCurrencyMin..baseCurrencyMax
                 }
                 .collect {
-                    onEvent(MainScreenEvent.OnFiatAmountChange(it))
+                    onEvent(MainScreenEvent.OnFiatAmountChangeFromMPLimits(it))
+                }
+        }
+
+        viewModelScope.launch {
+            balanceBentoViewModel.state
+                .map { it.brainwalletIsSyncing }
+                .distinctUntilChanged()
+                .collect { brainwalletIsSyncing ->
+                    _state.update { it.copy(brainwalletIsSyncing = brainwalletIsSyncing) }
                 }
         }
     }
@@ -154,11 +175,11 @@ class MainViewModel(
             }
             if (isWalletCreated()) {
                 addObservers()
-                val balance = BRSharedPrefs.getCachedBalance(app)
+                val balance = BigDecimal(BRSharedPrefs.getCachedBalance(app).toDouble())
                 _state.update {
                     it.copy(
                         ltcBalance = balance,
-                        litoshiBalance = BigDecimal(balance)
+                        litoshiBalance = balance
                             .divide(BigDecimal(ONE_LITECOIN_OF_LITOSHIS)),
                     )
                 }
@@ -193,8 +214,8 @@ class MainViewModel(
     override fun onBalanceChanged(balance: Long) {
         _state.update {
             it.copy(
-                ltcBalance = balance,
-                litoshiBalance = BigDecimal(balance)
+                ltcBalance = BigDecimal(balance.toDouble()),
+                litoshiBalance = BigDecimal(balance.toDouble())
                     .divide(BigDecimal(ONE_LITECOIN_OF_LITOSHIS)),
             )
         }
@@ -250,7 +271,7 @@ class MainViewModel(
 
                         it.copy(
                             moonpayCurrencyLimit = limitResult,
-                            fiatAmount = limitResult.data.baseCurrency.min,
+                            fiatAmount = BigDecimal(limitResult.data.baseCurrency.min.toDouble()),
                             selectedCurrency = currentSettings.currency,
                             fiatiSOCode = currentSettings.currency.code,
                             fiatSymbol = currentSettings.currency.symbol,
@@ -264,12 +285,12 @@ class MainViewModel(
                 }
             }
 
-            is MainScreenEvent.OnFiatAmountChange -> viewModelScope.launch {
-                // do validation
+            is MainScreenEvent.OnFiatAmountChangeFromMPLimits -> viewModelScope.launch {
+                // do validation based on the MP Limits
                 val (_, min, max) = state.value.moonpayCurrencyLimit.data.baseCurrency
                 val errorStringId = when {
-                    event.fiatAmount < min -> R.string.buy_litecoin_fiat_amount_validation_min
-                    event.fiatAmount > max -> R.string.buy_litecoin_fiat_amount_validation_max
+                    event.fiatAmount < BigDecimal(min.toDouble()) -> R.string.buy_litecoin_fiat_amount_validation_min
+                    event.fiatAmount > BigDecimal(max.toDouble()) -> R.string.buy_litecoin_fiat_amount_validation_max
                     else -> null
                 }
                 _state.update {
@@ -296,7 +317,7 @@ class MainViewModel(
                         )
 
                         it.copy(
-                            ltcAmount = result.data.quoteCurrencyAmount,
+                            ltcAmount = BigDecimal(result.data.quoteCurrencyAmount.toDouble()),
                         )
                     }
                 } catch (e: Exception) {
