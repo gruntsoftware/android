@@ -128,46 +128,35 @@ class SendViewModel(
                 sendUiEffect(UiEffect.OpenQRScanner)
             }
             is SendEvent.OnToggleFiatOrLTC -> {
-                val currentlyViewingFiat = _state.value.userViewsFiat
-                val currentAmountString = _state.value.amountString
+                val currentState = _state.value
                 val rate = _state.value.selectedCurrency.rate
-                val symbol = _state.value.selectedCurrency.symbol
 
-                val convertedAmount = if (currentAmountString.isNotBlank()) {
-                    val currentAmount = currentAmountString.toBigDecimalOrNull() ?: BigDecimal.ZERO
-                    val rateBD = BigDecimal(rate.toString())
-
-                    if (currentlyViewingFiat) {
-                        // switching back to LTC — divide fiat by rate
-                        currentAmount
-                            .divide(
-                                rateBD,
-                                8,
-                                BWConstants.ROUNDING_MODE
-                            )
-                            .stripTrailingZeros()
-                            .toPlainString()
+                val convertedAmount = if (rate != null && currentState.amountString.isNotBlank()) {
+                    val current = currentState.amountString.toBigDecimalOrNull() ?: BigDecimal.ZERO
+                    if (currentState.userViewsFiat) {
+                        // switching fiat → LTC: divide by rate
+                        current.divide(BigDecimal(rate.toString()), 8, BWConstants.ROUNDING_MODE)
                     } else {
-                        // switching to fiat — multiply LTC by rate
-                        String.format(
-                            "%s %s",
-                            symbol,
-                            currentAmount
-                                .multiply(rateBD)
-                                .setScale(
-                                    2,
-                                    BWConstants.ROUNDING_MODE
-                                )
-                                .toPlainString()
-                        )
+                        // switching LTC → fiat: multiply by rate
+                        current.multiply(BigDecimal(rate.toString()))
+                            .setScale(2, BWConstants.ROUNDING_MODE)
                     }
                 } else {
-                    currentAmountString // no rate available, leave as-is
+                    null
                 }
                 _state.update {
                     it.copy(
                         userViewsFiat = !it.userViewsFiat,
-                        amountString = convertedAmount
+                        amountString = convertedAmount?.toPlainString() ?: it.amountString,
+                        amountInLitoshi = if (currentState.userViewsFiat) {
+                            BigDecimal(rate.toDouble()).divide(
+                                convertedAmount,
+                                8,
+                                BWConstants.ROUNDING_MODE
+                            )
+                        } else {
+                            convertedAmount ?: BigDecimal.ZERO
+                        }
                     )
                 }
             }
@@ -340,6 +329,11 @@ class SendViewModel(
             }
             is SendEvent.OnPasscodeDigitDeleted -> {
                 _state.update { it.copy(passcode = it.passcode.dropLast(1)) }
+            }
+            is SendEvent.OnEditSend -> {
+                _state.update {
+                    it.copy(amountString = "")
+                }
             }
         }
     }

@@ -26,6 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brainwallet.R
+import com.brainwallet.constants.BWConstants
 import com.brainwallet.tools.util.BRExchange
 import com.brainwallet.ui.composable.EditSendButton
 import com.brainwallet.ui.theme.IBMPlexSans
@@ -42,17 +43,24 @@ fun ConfirmSend(
     val sectionBorder = 0.8.dp
     val sectionDarkColor = Color.White.copy(alpha = 0.3f)
     val sectionLightColor = Color.Black.copy(alpha = 0.95f)
-    val decimalValue = state.amountString.toBigDecimalOrNull() ?: BigDecimal.ZERO
-    val networkFeesInLitoshi = state.networkFees
-        .divide(BigDecimal(BRExchange.ONE_LITECOIN_OF_LITOSHIS))
-    val serviceFeesInLitoshi = state.serviceFees
-        .divide(BigDecimal(BRExchange.ONE_LITECOIN_OF_LITOSHIS))
-    val totalAmount = decimalValue
-        .add(networkFeesInLitoshi)
-        .add(serviceFeesInLitoshi)
-    val fiatValue = totalAmount
+
+    val amountInLTC = state.amountInLitoshi
+        .divide(BigDecimal(BRExchange.ONE_LITECOIN_OF_LITOSHIS), 6, BWConstants.ROUNDING_MODE)
+
+    val networkFeesInLTC = state.networkFees
+        .divide(BigDecimal(BRExchange.ONE_LITECOIN_OF_LITOSHIS), 6, BWConstants.ROUNDING_MODE)
+
+    val serviceFeesInLTC = state.serviceFees
+        .divide(BigDecimal(BRExchange.ONE_LITECOIN_OF_LITOSHIS), 6, BWConstants.ROUNDING_MODE)
+
+    val totalInLTC = amountInLTC
+        .add(networkFeesInLTC)
+        .add(serviceFeesInLTC)
+
+    val fiatValue = totalInLTC
         .multiply(BigDecimal(state.selectedCurrency.rate.toDouble()))
-    val formattedFiatValue = "%s %.2f".format(state.selectedCurrency.symbol, fiatValue)
+
+    val formattedFiatValue = "%s %4.2f".format(state.selectedCurrency.symbol, fiatValue)
 
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -84,15 +92,15 @@ fun ConfirmSend(
 
                     SendDetailRow(
                         label = stringResource(R.string.amount_label),
-                        valueLabel = "Ł " + state.amountString
+                        valueLabel = "Ł " + amountInLTC
                     )
                     SendDetailRow(
                         label = stringResource(R.string.network_fees_label),
-                        valueLabel = "Ł %4.4f".format(networkFeesInLitoshi)
+                        valueLabel = "Ł %4.4f".format(networkFeesInLTC)
                     )
                     SendDetailRow(
                         label = stringResource(R.string.service_fees_label),
-                        valueLabel = "Ł %4.4f".format(serviceFeesInLitoshi)
+                        valueLabel = "Ł %4.4f".format(serviceFeesInLTC)
                     )
                     SendDetailRow(
                         label = stringResource(R.string.amount_in_fiat_label),
@@ -171,6 +179,7 @@ fun ConfirmSend(
                 ),
                 darkMode = state.darkMode,
                 onClick = {
+                    viewModel.onEvent(SendEvent.OnEditSend)
                     onEdit()
                 }
             ) {

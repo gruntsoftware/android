@@ -59,7 +59,11 @@ fun TransactionDetail(
     val dateTimestamp = formatter.format(Date(currentTransaction?.timeStamp?.times(1000L) ?: 0L))
     val wasReceived = currentTransaction?.getSent() == 0L
     val amountReceived =
-        BigDecimal(currentTransaction?.received ?: 0L).divide(BigDecimal(ONE_LITECOIN_OF_LITOSHIS))
+        BigDecimal(currentTransaction?.received ?: 0L).divide(
+            BigDecimal(ONE_LITECOIN_OF_LITOSHIS),
+            8,
+            BWConstants.ROUNDING_MODE
+        )
 
     val outAmounts: LongArray? = currentTransaction?.getOutAmounts()
     var opsAmount = Long.Companion.MAX_VALUE
@@ -93,7 +97,11 @@ fun TransactionDetail(
     )
 
     val amountSent =
-        BigDecimal(currentTransaction?.sent ?: 0L).divide(BigDecimal(ONE_LITECOIN_OF_LITOSHIS))
+        BigDecimal(currentTransaction?.sent ?: 0L).divide(
+            BigDecimal(ONE_LITECOIN_OF_LITOSHIS),
+            8,
+            BWConstants.ROUNDING_MODE
+        )
     val combinedFees = BigDecimal(currentTransaction?.fee ?: 0L) + BigDecimal(opsAmount)
     val feesLitoshis = combinedFees.divide(BigDecimal(ONE_LITECOIN_OF_LITOSHIS))
     val feesTotal = String.format("-Ł $feesLitoshis")
