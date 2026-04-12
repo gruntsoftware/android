@@ -35,7 +35,7 @@ jobs:
 
       - name: Run translation script
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_GH_API_KEY: ${{ secrets.ANTHROPIC_GH_API_KEY }}
         run: python scripts/translate_strings.py
 
       - name: Check for changes
