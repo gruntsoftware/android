@@ -3,8 +3,8 @@ name: Auto-Translate strings.xml
 on:
   push:
     branches:
+      - main
       - bento
-      - develop
     paths:
       - '**/values/strings.xml'
   workflow_dispatch:   # allow manual trigger from GitHub UI
@@ -17,6 +17,7 @@ jobs:
   translate:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -34,7 +35,7 @@ jobs:
 
       - name: Run translation script
         env:
-          ANTHROPIC_GH_API_KEY: ${{ secrets.ANTHROPIC_GH_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_GH_API_KEY }}
         run: python scripts/translate_strings.py
 
       - name: Check for changes
@@ -66,7 +67,7 @@ jobs:
           gh pr create \
             --title "🌍 Auto-translations: missing strings updated" \
             --body "$(cat /tmp/pr_body.md)" \
-            --base main \
+            --base bento \
             --head "$BRANCH" \
             --label "translations" \
             --reviewer "${{ github.actor }}"
