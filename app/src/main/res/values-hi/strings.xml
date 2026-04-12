@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <string name="About.blog">वेबसाइट</string>
   <string name="About.privacy">गोपनीयता नीति</string>
@@ -217,7 +217,7 @@
   <string name="settings_title_theme">विषय</string>
   <string name="settings_title_app_version">एप्लिकेशन वेरीज़न:</string>
     <string name="settings_blockchain_litecoin_button">सिंक</string>
-  <string name="settings_blockchain_litecoin_description">सिंक अवधि: >20 मिनट</string>
+  <string name="settings_blockchain_litecoin_description">सिंक अवधि: &gt;20 मिनट</string>
   <string name="game_title">खेल %1$d:</string>
     <string name="security_seed_phrase_title">सीड वाक्यांश</string>
   <string name="security_share_data_title">विश्लेषण डेटा साझा करें</string>
