@@ -1,6 +1,7 @@
 package com.brainwallet.worker
 
 import com.brainwallet.data.repository.LtcRepository
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -12,20 +13,20 @@ import org.koin.core.annotation.Single
 
 @Single
 class CurrencyUpdateWorker(
-    private val ltcRepository: LtcRepository
+    private val ltcRepository: LtcRepository,
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
+    private val workerScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 ) {
-    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private var job: Job? = null
 
     fun start() {
-        if (job?.isActive == true && job != null) {
+        if (job?.isActive == true) {
             job?.cancel()
         }
-
-        job = scope.launch(Dispatchers.IO) {
+        job = workerScope.launch(ioDispatcher) {
             while (isActive) {
                 ltcRepository.fetchRates()
-                delay(4000L) // 4secs
+                delay(4000L)
             }
         }
     }
