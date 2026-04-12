@@ -543,7 +543,7 @@
   <string name="empty_string" translatable="false"></string>
   <string name="back">واپس</string>
   <string name="your_seed_words">تہاڈے بیج دے الفاظ</string>
-  <string name="your_seed_words_desc">"صرف آپ کے لئے۔  
+  <string name="your_seed_words_desc">"صرف آپ کے لئے۔
 یہ ہے" <b>نجی کلید</b> جو تہانوں پیغام بھیجنے دی اجازت دیندا اے۔</string>
   <string name="blockchain_litecoin">بلاک چین: لائٹ کوائن</string>
   <string name="i_saved_it_on_paper">میں نے اِسے کاغذ یا دھات پر محفوظ کر لیا۔</string>
@@ -569,8 +569,8 @@
   <string name="restore_your_power_desc">تُسیں اُتھے واپس جا سکتے ہو جتھے تُسیں شُروع کیتا سی۔</string>
   <string name="restore_my_brainwallet">میرا برین والٹ بحال کرو۔</string>
   <string name="clear">صاف</string>
-  <string name="dont_guess_desc">اندازہ نہ لگائیں۔  
-  
+  <string name="dont_guess_desc">اندازہ نہ لگائیں۔
+
 تُہانوں 5,444,517,950,000,000,000,000,000,000,000,000,000,000,000,000,000 کوششاں لگن گیاں۔</string>
   <string name="confirm">تصدیق کریں۔</string>
   <string name="confirm_desc">تُسیں بھلّے تاں نئیں؟ اسے دوبارہ داخل کریں۔ یا، واپس جا کر دوبارہ شروع کرو۔</string>
