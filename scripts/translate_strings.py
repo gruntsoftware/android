@@ -171,10 +171,10 @@ def main():
 
     pr_lines = [
         "## 🌍 Auto-translation summary\n",
-        "| Language | New translations | File |",
-        "|---|---|---|",
+        "| Number | Language | New translations | File |",
+        "|---|---|---|---|",
     ]
-
+    number = 1
     for locale_dir, language in LOCALE_MAP.items():
         target_path = Path(RES_BASE_DIR) / locale_dir / "strings.xml"
         existing     = parse_strings(target_path)
@@ -190,7 +190,7 @@ def main():
 
         print(f"  🔄  {language}: {len(missing)} strings to translate …")
         tree = load_or_create_tree(target_path)
-
+        number += 1
         translated_count = 0
         keys = list(missing.keys())
         for i in range(0, len(keys), BATCH_SIZE):
@@ -205,7 +205,7 @@ def main():
 
         write_tree(tree, target_path)
         print(f"  ✅  {language}: {translated_count} strings written → {target_path}")
-        pr_lines.append(f"| {language} | {translated_count} | `{target_path}` |")
+        pr_lines.append(f"| {number} | {language} | {translated_count} | `{target_path}` |")
 
     # Write PR body
     pr_body = "\n".join(pr_lines) + "\n\n---\n*Generated automatically by translate_strings.py*\n"
