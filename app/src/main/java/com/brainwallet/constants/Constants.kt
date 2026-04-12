@@ -19,3 +19,5 @@ val iconSize = 26.dp
 val topNavButtonSize = 48.dp
 
 val topNavStartEndPadding = 12.dp
+
+val favouriteSize = 30.dp
