@@ -63,7 +63,6 @@ import com.brainwallet.data.model.AppSetting
 import com.brainwallet.ui.bentosections.balancebento.BalanceBentoScreen
 import com.brainwallet.ui.bentosections.gamehubbento.GameHubBentoScreen
 import com.brainwallet.ui.bentosections.ltcpickerbento.LTCPickerBentoScreen
-import com.brainwallet.ui.composable.HomeBentoContainer
 import com.brainwallet.constants.balanceGameBentoHt
 import com.brainwallet.constants.gameHubHt
 import com.brainwallet.constants.statusBarPadding
@@ -91,6 +90,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import com.brainwallet.constants.BWConstants
 import com.brainwallet.tools.animation.BRAnimator
+import com.brainwallet.ui.bentosections.favouritesbento.FavouritesBentoScreen
+import com.brainwallet.ui.bentosections.tutorials.TutorialsBentoScreen
 import com.brainwallet.ui.screens.send.SendScreen
 import com.brainwallet.ui.theme.bentoClearGradient
 import com.brainwallet.ui.theme.bentoModalDarkGradient
@@ -202,8 +203,7 @@ fun MainScreen(
         ) { padding ->
             val gridItems = remember(state.transactionItems) {
                 listOf(
-                    "Tutorials Bento View",
-                    "Favourites Bento View"
+                    "Tutorials: Coming soon!",
                 )
             }
             BoxWithConstraints(
@@ -222,8 +222,8 @@ fun MainScreen(
                     gameHubHt -
                     bottomPadding
                 val transactionsDetailHeight = availableHeight + gameHubHt + balanceGameBentoHt
-                val ltcPickerBentoHeight = (availableHeight * 0.78f) - (verticalSpacing / 2)
-                val favoritesBentoHeight = (availableHeight * 0.22f) - (verticalSpacing / 2)
+                val ltcPickerBentoHeight = (availableHeight * 0.75f) - (verticalSpacing / 2)
+                val favoritesBentoHeight = (availableHeight * 0.25f) - (verticalSpacing / 2)
                 val transactionBentoHeight by animateDpAsState(
                     targetValue = if (showTransactionDetail) transactionsDetailHeight else transactionRowHt,
                     animationSpec = tween(EXPAND_DURATION),
@@ -308,10 +308,9 @@ fun MainScreen(
                                 enter = fadeIn(tween(FADE_IN_DURATION)),
                                 exit = fadeOut(tween(FADE_OUT_DURATION)),
                             ) {
-                                HomeBentoContainer(
-                                    name = gridItems[0],
-                                    modifier = Modifier.height(availableHeight)
-                                )
+                                Box(modifier = Modifier.height(availableHeight)) {
+                                    TutorialsBentoScreen()
+                                }
                             }
                         }
                         item(span = { GridItemSpan(1) }) {
@@ -324,10 +323,9 @@ fun MainScreen(
                                     Box(modifier = Modifier.height(ltcPickerBentoHeight)) {
                                         LTCPickerBentoScreen()
                                     }
-                                    HomeBentoContainer(
-                                        name = gridItems[1],
-                                        modifier = Modifier.height(favoritesBentoHeight)
-                                    )
+                                    Box(modifier = Modifier.height(favoritesBentoHeight)) {
+                                        FavouritesBentoScreen()
+                                    }
                                 }
                             }
                         }
