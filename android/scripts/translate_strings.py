@@ -156,9 +156,9 @@ def translate_batch(
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    api_key = os.environ.get("ANTHROPIC_GH_API_KEY")
     if not api_key:
-        sys.exit("ERROR: ANTHROPIC_API_KEY environment variable not set.")
+        sys.exit("ERROR: ANTHROPIC_GH_API_KEY environment variable not set.")
 
     client = anthropic.Anthropic(api_key=api_key)
 
