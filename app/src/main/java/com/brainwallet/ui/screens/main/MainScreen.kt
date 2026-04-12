@@ -201,11 +201,6 @@ fun MainScreen(
             }
 
         ) { padding ->
-            val gridItems = remember(state.transactionItems) {
-                listOf(
-                    "Tutorials: Coming soon!",
-                )
-            }
             BoxWithConstraints(
                 modifier = Modifier
                     .fillMaxSize()
