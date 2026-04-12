@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!-- App name -->
   <!-- About screen blog label -->
@@ -538,7 +538,7 @@
   <string name="permission_info">Informacje o zezwoleniu</string>
   <string name="permission_notification_granted">Powiadomienie Przyznane zezwolenie</string>
   <!-- New Strings -->
-  <string name="empty_string" translatable="false"></string>
+  <string name="empty_string" translatable="false"/>
   <string name="back">Powrót</string>
   <string name="your_seed_words">Twoje słowa zalążkowe</string>
   <string name="your_seed_words_desc">"Tylko dla ciebie. \To jest <b>klucz prywatny</b> która umożliwia wysyłanie".</string>

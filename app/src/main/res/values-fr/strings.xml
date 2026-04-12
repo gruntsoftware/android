@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources>
     <!-- App name -->
     <!-- About screen blog label -->
@@ -578,7 +578,7 @@
     <string name="settings_title_theme">Thème</string>
     <string name="settings_title_app_version">Version de l\'application:</string>
     <string name="settings_blockchain_litecoin_button">Synchronisation</string>
-    <string name="settings_blockchain_litecoin_description">Durée de synchronisation : >20 minutes</string>
+    <string name="settings_blockchain_litecoin_description">Durée de synchronisation : &gt;20 minutes</string>
     <string name="game_title">Jeu %1$d :</string>
     <string name="security_seed_phrase_title">Phrase de récupération</string>
     <string name="security_share_data_title">Partager les données analytiques</string>

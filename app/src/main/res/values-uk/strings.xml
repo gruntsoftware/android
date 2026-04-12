@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources>
     <!-- App name -->
     <!-- About screen blog label -->
@@ -582,7 +582,7 @@
     <string name="settings_title_theme">Тема</string>
     <string name="settings_title_app_version">Версія програми:</string>
     <string name="settings_blockchain_litecoin_button">Синхронізація</string>
-    <string name="settings_blockchain_litecoin_description">Тривалість синхронізації: >20 хвилин</string>
+    <string name="settings_blockchain_litecoin_description">Тривалість синхронізації: &gt;20 хвилин</string>
     <string name="game_title">Гра %1$d:</string>
     <string name="security_seed_phrase_title">Фраза відновлення</string>
     <string name="security_share_data_title">Ділитися аналітичними даними</string>
