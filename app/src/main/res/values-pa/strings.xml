@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!-- App name -->
     <!-- About screen blog label -->
@@ -540,7 +540,7 @@
   <string name="permission_info">اجازت کی معلومات</string>
   <string name="permission_notification_granted">اطلاع دی اجازت دیتی گئی ہے۔</string>
   <!-- New Strings -->
-  <string name="empty_string" translatable="false"></string>
+  <string name="empty_string" translatable="false"/>
   <string name="back">واپس</string>
   <string name="your_seed_words">تہاڈے بیج دے الفاظ</string>
   <string name="your_seed_words_desc">"صرف آپ کے لئے۔  

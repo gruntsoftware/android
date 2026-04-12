@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources>
     <!-- App name -->
     <!-- About screen blog label -->
@@ -600,7 +600,7 @@
     <string name="settings_title_theme">Tema</string>
     <string name="settings_title_app_version">Uygulama sürümü:</string>
     <string name="settings_blockchain_litecoin_button">Eşitleme</string>
-    <string name="settings_blockchain_litecoin_description">Eşitleme süresi: >20 dakika</string>
+    <string name="settings_blockchain_litecoin_description">Eşitleme süresi: &gt;20 dakika</string>
     <string name="game_title">Oyun %1$d:</string>
     <string name="security_seed_phrase_title">Tohum ifadesi</string>
     <string name="security_share_data_title">Analitik verileri paylaş</string>
