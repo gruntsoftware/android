@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <string name="About.blog">Webbplats</string>
   <string name="About.privacy">Sekretesspolicy</string>
@@ -217,7 +217,7 @@
     <string name="settings_title_theme">Tema</string>
     <string name="settings_title_app_version">Appversion:</string>
     <string name="settings_blockchain_litecoin_button">Sync</string>
-  <string name="settings_blockchain_litecoin_description">Synkroniseringstid: >20 minuter</string>
+  <string name="settings_blockchain_litecoin_description">Synkroniseringstid: &gt;20 minuter</string>
   <string name="game_title">Spel %1$d:</string>
     <string name="security_seed_phrase_title">Återställningsfras</string>
   <string name="security_share_data_title">Dela analysdata</string>
@@ -265,4 +265,4 @@
   <string name="no_transaction_title_row">TRANSAKTIONSHISTORIK</string>
   <string name="txns_label">txns</string>
 
-</resources>
+<string name="enter_passcode">Ange lösenord</string><string name="recipient_label">Mottagare:</string><string name="send_litecoin_label">Skicka Litecoin</string><string name="confirm_send_label">Bekräfta skicka-detaljer:</string><string name="edit_send_details">Redigera</string><string name="network_fees_label">Nätverksavgifter</string><string name="service_fees_label">Serviceavgifter</string><string name="amount_in_fiat_label">Belopp i Fiat</string><string name="balance_label">Saldo:</string><string name="exchange_rate_label">Växelkurs:</string><string name="send_error_message">Ange en giltig LTC-adress och belopp för att fortsätta</string><string name="enter_pin">Ange PIN</string></resources>
