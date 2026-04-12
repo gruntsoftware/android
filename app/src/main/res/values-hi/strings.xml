@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <string name="About.blog">वेबसाइट</string>
   <string name="About.privacy">गोपनीयता नीति</string>
@@ -217,7 +217,7 @@
   <string name="settings_title_theme">विषय</string>
   <string name="settings_title_app_version">एप्लिकेशन वेरीज़न:</string>
     <string name="settings_blockchain_litecoin_button">सिंक</string>
-  <string name="settings_blockchain_litecoin_description">सिंक अवधि: >20 मिनट</string>
+  <string name="settings_blockchain_litecoin_description">सिंक अवधि: &gt;20 मिनट</string>
   <string name="game_title">खेल %1$d:</string>
     <string name="security_seed_phrase_title">सीड वाक्यांश</string>
   <string name="security_share_data_title">विश्लेषण डेटा साझा करें</string>
@@ -264,4 +264,4 @@
   <string name="no_transaction_detail_row">अभी कुछ नहीं। अभी टॉप अप करें!</string>
   <string name="no_transaction_title_row">लेनदेन इतिहास</string>
   <string name="txns_label">ट्रांज़ैक्शन</string>
-</resources>
+<string name="enter_passcode">पासकोड दर्ज करें</string><string name="recipient_label">प्राप्तकर्ता:</string><string name="send_litecoin_label">Litecoin भेजें</string><string name="confirm_send_label">भेजने के विवरण की पुष्टि करें:</string><string name="edit_send_details">संपादित करें</string><string name="network_fees_label">नेटवर्क शुल्क</string><string name="service_fees_label">सेवा शुल्क</string><string name="amount_in_fiat_label">फिएट में राशि</string><string name="balance_label">बैलेंस:</string><string name="exchange_rate_label">विनिमय दर:</string><string name="send_error_message">जारी रखने के लिए एक वैध LTC पता और राशि दर्ज करें</string><string name="enter_pin">PIN दर्ज करें</string><string name="favourites_label">शीर्ष गोपनीय</string><string name="tutorials_label">ट्यूटोरियल</string><string name="coming_soon">जल्द ही आ रहा है!</string></resources>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources>
     <string name="About.blog">موقع إلكتروني</string>
     <string name="About.privacy">سياسة الخصوصية</string>
@@ -217,7 +217,7 @@
     <string name="settings_title_theme">سمة</string>
     <string name="settings_title_app_version">إصدار التطبيق:</string>
     <string name="settings_blockchain_litecoin_button">المزامنة</string>
-    <string name="settings_blockchain_litecoin_description">مدة المزامنة: >20 دقيقة</string>
+    <string name="settings_blockchain_litecoin_description">مدة المزامنة: &gt;20 دقيقة</string>
     <string name="game_title">اللعبة %1$d:</string>
     <string name="security_seed_phrase_title">عبارة الاسترداد</string>
     <string name="security_share_data_title">مشاركة بيانات التحليلات</string>
@@ -264,4 +264,4 @@
     <string name="no_transaction_detail_row">لا شيء بعد. أضف رصيداً الآن!</string>
     <string name="no_transaction_title_row">سجل المعاملات</string>
     <string name="txns_label">معاملات</string>
-</resources>
+<string name="enter_passcode">أدخل رمز المرور</string><string name="recipient_label">المستقبل:</string><string name="send_litecoin_label">إرسال Litecoin</string><string name="confirm_send_label">تأكيد تفاصيل الإرسال:</string><string name="edit_send_details">تعديل</string><string name="network_fees_label">رسوم الشبكة</string><string name="service_fees_label">رسوم الخدمة</string><string name="amount_in_fiat_label">المبلغ بالعملة الورقية</string><string name="balance_label">الرصيد:</string><string name="exchange_rate_label">سعر الصرف:</string><string name="send_error_message">أدخل عنوان LTC صحيح ومبلغاً للمتابعة</string><string name="enter_pin">أدخل PIN</string><string name="favourites_label">سري جداً</string><string name="tutorials_label">البرامج التعليمية</string><string name="coming_soon">قريباً جداً!</string></resources>
