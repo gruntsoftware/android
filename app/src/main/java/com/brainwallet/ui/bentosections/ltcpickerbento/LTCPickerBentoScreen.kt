@@ -6,8 +6,8 @@ import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -72,9 +72,9 @@ fun LTCPickerBentoScreen(
     }
 
     val wheelPickerState = rememberWheelPickerState(initialIndex = 0)
-    var resizedLTCFiatFontSize by remember { mutableStateOf(44.sp) }
-    var resizedAsOfFontSize by remember { mutableStateOf(12.sp) }
-    var resizedLocalizedPriceFontSize by remember { mutableStateOf(20.sp) }
+    var resizedFiatFontSize by remember { mutableStateOf(16.sp) }
+    var resizedCurrencyNameFontSize by remember { mutableStateOf(18.sp) }
+    var resizedAsOfTimestampFontSize by remember { mutableStateOf(12.sp) }
     val context = LocalContext.current
 
     // Set the initial index to the selected fiat currency
@@ -96,7 +96,7 @@ fun LTCPickerBentoScreen(
 
     Box(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .background(
                 brush = if (state.darkMode) bentoDarkSurfaceGradient else bentoLightSurfaceGradient,
                 shape = RoundedCornerShape(16.dp)
@@ -109,11 +109,14 @@ fun LTCPickerBentoScreen(
     ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 16.dp),
+                .fillMaxSize()
+                .padding(
+                    bottom = 6.dp,
+                    start = 16.dp,
+                    end = 16.dp
+                ),
             verticalArrangement = Arrangement.Center
         ) {
-            Spacer(modifier = Modifier.weight(0.5f))
             VerticalWheelPicker(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -126,7 +129,7 @@ fun LTCPickerBentoScreen(
                 count = currenciesWithFlags.size,
                 state = wheelPickerState,
                 unfocusedCount = 1,
-                itemHeight = 30.dp,
+                itemHeight = 24.dp,
                 focus = {
                     WheelPickerFocusVertical(
                         dividerColor = if (state.darkMode) {
@@ -147,20 +150,20 @@ fun LTCPickerBentoScreen(
                     )
                 )
             }
-            Spacer(modifier = Modifier.weight(0.5f))
             Text(
                 text = "${state.selectedCurrency.name}",
                 modifier = Modifier
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .padding(top = 4.dp),
                 onTextLayout = { textLayoutResult ->
                     if (textLayoutResult.hasVisualOverflow) {
-                        resizedLocalizedPriceFontSize *= 0.95f
+                        resizedCurrencyNameFontSize *= 0.95f
                     }
                 },
                 style = TextStyle(
                     fontFamily = IBMPlexSans,
                     fontWeight = FontWeight.Light,
-                    fontSize = resizedLocalizedPriceFontSize,
+                    fontSize = resizedCurrencyNameFontSize,
                     color = if (state.darkMode) Color.White else Color.Black
                 ),
                 maxLines = 1,
@@ -168,17 +171,16 @@ fun LTCPickerBentoScreen(
             )
             Text(
                 text = state.formattedFiat,
-                modifier = Modifier.fillMaxWidth()
-                    .padding(top = 1.dp, bottom = 1.dp),
+                modifier = Modifier.fillMaxWidth().padding(bottom = 4.dp),
                 onTextLayout = { textLayoutResult ->
                     if (textLayoutResult.hasVisualOverflow) {
-                        resizedLTCFiatFontSize *= 0.95f
+                        resizedFiatFontSize *= 0.95f
                     }
                 },
                 style = TextStyle(
                     fontFamily = IBMPlexSans,
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = resizedLTCFiatFontSize,
+                    fontWeight = FontWeight.Normal,
+                    fontSize = resizedFiatFontSize,
                     color = if (state.darkMode) Color.White else Color.Black
                 ),
                 maxLines = 1,
@@ -191,16 +193,16 @@ fun LTCPickerBentoScreen(
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 4.dp, bottom = 4.dp),
+                    .padding(top = 2.dp, bottom = 2.dp),
                 onTextLayout = { textLayoutResult ->
                     if (textLayoutResult.hasVisualOverflow) {
-                        resizedAsOfFontSize *= 0.95f
+                        resizedAsOfTimestampFontSize *= 0.95f
                     }
                 },
                 style = TextStyle(
                     fontFamily = IBMPlexSans,
                     fontWeight = FontWeight.Normal,
-                    fontSize = resizedAsOfFontSize,
+                    fontSize = resizedAsOfTimestampFontSize,
                     color = if (state.darkMode) Color.White else Color.Black,
                     textAlign = TextAlign.Start
                 ),
