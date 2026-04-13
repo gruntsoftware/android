@@ -88,7 +88,6 @@ def write_tree(tree, path: Path):
         pretty_print=True,
     )
 
-
 def set_translated(tree, name: str, translated_text: str):
     """Insert or update a <string name="…"> element in the tree."""
     root = tree.getroot()
@@ -174,7 +173,7 @@ def main():
         "| Number | Language | New translations | File |",
         "|---|---|---|---|",
     ]
-    number = 1
+    number = 0
     for locale_dir, language in LOCALE_MAP.items():
         target_path = Path(RES_BASE_DIR) / locale_dir / "strings.xml"
         existing     = parse_strings(target_path)
