@@ -176,6 +176,13 @@ jobs:
               }
             );
             const data = await response.json();
+            // Check Data
+            if (!response.ok || !data.content) {
+              console.log('API response status:', response.status);
+              console.log('API response body:', JSON.stringify(data, null, 2));
+              core.setFailed(`Anthropic API error: ${JSON.stringify(data)}`);
+              return;
+            }
             const summary = data.content[0].text;
 
             core.setOutput('summary', summary);
