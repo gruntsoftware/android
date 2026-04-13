@@ -55,6 +55,7 @@ jobs:
         uses: actions/github-script@v7
         env:
           DIFF_CONTENT: ${{ steps.pr_info.outputs.diff }}
+          ANTHROPIC_GH_API_KEY: ${{ secrets.ANTHROPIC_GH_API_KEY }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -156,33 +157,33 @@ jobs:
             ---
             `;
 
-            // --- Call OpenAI-compatible endpoint via gh models ---
+            // --- Call Claude-compatible endpoint via gh models ---
             // models API when the workflow has the `models: read` permission.
             const response = await fetch(
-              'https://api.openai.com/v1/chat/completions',
+              'https://api.anthropic.com/v1/messages',
               {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+                  'x-api-key': process.env.ANTHROPIC_GH_API_KEY,
+                  'anthropic-version': '2023-06-01',
                 },
                 body: JSON.stringify({
-                  model: 'gpt-4o',
+                  model: 'claude-haiku-3-5-20241022',
                   messages: [{ role: 'user', content: prompt }],
                   max_tokens: 2048,
-                  temperature: 0.3,
                 }),
               }
             );
-
-            if (!response.ok) {
-              const err = await response.text();
-              core.setFailed(`Copilot API error ${response.status}: ${err}`);
+            const data = await response.json();
+            // Check Data
+            if (!response.ok || !data.content) {
+              console.log('API response status:', response.status);
+              console.log('API response body:', JSON.stringify(data, null, 2));
+              core.setFailed(`Anthropic API error: ${JSON.stringify(data)}`);
               return;
             }
-
-            const json   = await response.json();
-            const summary = json.choices?.[0]?.message?.content ?? '(no summary generated)';
+            const summary = data.content[0].text;
 
             core.setOutput('summary', summary);
             fs.writeFileSync('pr_summary.md', summary);
