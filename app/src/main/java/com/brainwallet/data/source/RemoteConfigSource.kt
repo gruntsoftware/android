@@ -2,9 +2,12 @@ package com.brainwallet.data.source
 
 interface RemoteConfigSource {
 
+    suspend fun fetchAndActivate(): Boolean
+
     companion object {
         const val KEY_FEATURE_MENU_HIDDEN_EXAMPLE = "feature_menu_hidden_example"
         const val KEY_FEATURE_SELECTED_PEERS_ENABLED = "feature_selected_peers_enabled"
+        const val KEY_FEATURE_GAMEHUB_CONTENT = "feature_gamehub_content"
     }
 
     fun initialize()

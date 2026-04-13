@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -48,6 +49,8 @@ fun GameHubBentoScreen(
 ) {
     val gameHubBackground = R.drawable.game_hub_bk
     var resizedTaglineFontSize by remember { mutableStateOf(14.sp) }
+    val hubPageCount = 3
+    val pagerState = rememberPagerState(pageCount = { hubPageCount })
 
     Card(
         modifier = modifier.fillMaxWidth(),
@@ -81,7 +84,8 @@ fun GameHubBentoScreen(
                 horizontalAlignment = Alignment.Start
             ) {
                 Box(
-                    modifier = Modifier.fillMaxWidth(textWidthRatio)
+                    modifier = Modifier
+                        .fillMaxWidth(textWidthRatio)
                         .height(44.dp)
                 ) {
                     Text(
@@ -113,7 +117,8 @@ fun GameHubBentoScreen(
                     )
                 }
                 Box(
-                    modifier = Modifier.fillMaxWidth(textWidthRatio)
+                    modifier = Modifier
+                        .fillMaxWidth(textWidthRatio)
                         .padding(top = 1.dp)
                 ) {
                     Text(
@@ -170,11 +175,13 @@ fun GameHubBentoScreen(
                         fontWeight = FontWeight.Normal,
                         fontSize = 10.sp
                     ),
-                    modifier = Modifier.padding(start = 1.dp, end = 1.dp)
+                    modifier = Modifier
+                        .padding(start = 1.dp, end = 1.dp)
                         .background(
                             color = Color.White.copy(alpha = 0.2f),
                             shape = RoundedCornerShape(6.dp)
-                        ).padding(horizontal = 10.dp, vertical = 2.dp)
+                        )
+                        .padding(horizontal = 10.dp, vertical = 2.dp)
                 )
             }
         }

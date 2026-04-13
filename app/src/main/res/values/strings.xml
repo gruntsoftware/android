@@ -403,7 +403,7 @@
     <string name="settings_title_app_version">App version:</string>
     <string name="settings_title_sync_metadata">Sync metadata:</string>
     <string name="settings_blockchain_litecoin_button">Sync</string>
-    <string name="settings_blockchain_litecoin_description">Sync duration: &gt;20 minutes</string>
+    <string name="settings_blockchain_litecoin_description">Sync duration: >20 minutes</string>
     <string name="game_title">Game %1$d:</string>
     <string name="game_buy_price_1" translatable="false">%s</string>
     <string name="game_buy_price_2" translatable="false">%s</string>
@@ -469,4 +469,7 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Tutorials</string>
     <string name="coming_soon">Coming soon!</string>
+    <string name="rice_partner_03_tagline">Top up in 5 minutes with our partner</string>
+    <string name="unagi_social_01_tagline">Click and follow us!</string>
+
 </resources>

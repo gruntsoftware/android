@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!-- App name -->
   <!-- About screen blog label -->
@@ -517,7 +517,7 @@
   <string name="permission_info">اطلاعات مجوز</string>
   <string name="permission_notification_granted">مجوز اعلان اعطا شد</string>
   <!-- New Strings -->
-  <string name="empty_string" translatable="false"></string>
+  <string name="empty_string" translatable="false"/>
   <string name="back">بازگشت</string>
   <string name="your_seed_words">کلمات بذر شما</string>
   <string name="your_seed_words_desc">"فقط برای تو. \n این است" <b>کلید خصوصی</b> "که به شما اجازه می‌دهد ارسال کنید."</string>
@@ -630,4 +630,4 @@
 <string name="enter_pin">PIN را وارد کنید</string>
 <string name="favourites_label">اسرار تاپ</string>
 <string name="tutorials_label">آموزش‌ها</string>
-<string name="coming_soon">به زودی!</string></resources>
+<string name="coming_soon">به زودی!</string><string name="rice_partner_03_tagline">شارژ کنید در ۵ دقیقه با پارتنر ما</string><string name="unagi_social_01_tagline">کلیک کنید و ما را دنبال کنید!</string></resources>

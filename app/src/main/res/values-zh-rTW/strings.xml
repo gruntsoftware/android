@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources>
     <!-- App name -->
     <!-- About screen blog label -->
@@ -578,7 +578,7 @@
     <string name="settings_title_app_version">应用程序版本:</string>
     <string name="settings_blockchain_litecoin_button">同步</string>
     <string name="About.blog">博客</string>
-    <string name="settings_blockchain_litecoin_description">同步時間：>20 分鐘</string>
+    <string name="settings_blockchain_litecoin_description">同步時間：&gt;20 分鐘</string>
     <string name="game_title">遊戲 %1$d：</string>
     <string name="security_seed_phrase_title">助記詞</string>
     <string name="security_share_data_title">分享分析數據</string>
@@ -640,4 +640,4 @@
     <string name="favourites_label">絕密</string>
     <string name="tutorials_label">教學</string>
     <string name="coming_soon">即將推出！</string>
-</resources>
+<string name="rice_partner_03_tagline">透過我們的合作夥伴在 5 分鐘內充值</string><string name="unagi_social_01_tagline">點擊並追蹤我們！</string></resources>

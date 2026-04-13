@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <string name="About.blog">Webbplats</string>
   <string name="About.privacy">Sekretesspolicy</string>
@@ -217,7 +217,7 @@
     <string name="settings_title_theme">Tema</string>
     <string name="settings_title_app_version">Appversion:</string>
     <string name="settings_blockchain_litecoin_button">Sync</string>
-  <string name="settings_blockchain_litecoin_description">Synkroniseringstid: >20 minuter</string>
+  <string name="settings_blockchain_litecoin_description">Synkroniseringstid: &gt;20 minuter</string>
   <string name="game_title">Spel %1$d:</string>
     <string name="security_seed_phrase_title">Återställningsfras</string>
   <string name="security_share_data_title">Dela analysdata</string>
@@ -279,4 +279,4 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Guider</string>
     <string name="coming_soon">Kommer snart!</string>
-</resources>
+<string name="rice_partner_03_tagline">Fylla på på 5 minuter med vår partner</string><string name="unagi_social_01_tagline">Klicka och följ oss!</string></resources>

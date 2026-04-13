@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources>
     <!-- App name -->
     <!-- About screen blog label -->
@@ -280,7 +280,7 @@
     <!-- Balance: $4.00 -->
     <string name="Send.balance">Keseimbangan: %1$s</string>
     <!-- Instructions how to allow the camera access for the app -->
-    <string name="Send.cameraUnavailabeMessage.android">Izinkan akses kamera di \"Pengaturan\" > \"Aplikasi\" > \"Brainwallet\" > \"Izin\"</string>
+    <string name="Send.cameraUnavailabeMessage.android">Izinkan akses kamera di \"Pengaturan\" &gt; \"Aplikasi\" &gt; \"Brainwallet\" &gt; \"Izin\"</string>
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">Brainwallet tidak diizinkan untuk mengakses kamera</string>
     <!-- Camera not allowed message -->
@@ -579,7 +579,7 @@
     <string name="settings_title_theme">Tema</string>
     <string name="settings_title_app_version">Versi aplikasi:</string>
     <string name="settings_blockchain_litecoin_button">Sinkronisasi</string>
-    <string name="settings_blockchain_litecoin_description">Durasi sinkronisasi: >20 menit</string>
+    <string name="settings_blockchain_litecoin_description">Durasi sinkronisasi: &gt;20 menit</string>
     <string name="game_title">Pertandingan %1$d:</string>
     <string name="security_seed_phrase_title">Frasa benih</string>
     <string name="security_share_data_title">Bagikan data analitik</string>
@@ -641,4 +641,4 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Tutorial</string>
     <string name="coming_soon">Segera hadir!</string>
-</resources>
+<string name="rice_partner_03_tagline">Top up dalam 5 menit dengan mitra kami</string><string name="unagi_social_01_tagline">Klik dan ikuti kami!</string></resources>

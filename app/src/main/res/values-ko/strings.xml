@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources>
     <!-- App name -->
     <!-- About screen blog label -->
@@ -578,7 +578,7 @@
     <string name="settings_title_theme">주제</string>
     <string name="settings_title_app_version">앱 버전:</string>
     <string name="settings_blockchain_litecoin_button">동기화</string>
-    <string name="settings_blockchain_litecoin_description">동기화 시간: >20분</string>
+    <string name="settings_blockchain_litecoin_description">동기화 시간: &gt;20분</string>
     <string name="game_title">게임 %1$d:</string>
     <string name="security_seed_phrase_title">시드 문구</string>
     <string name="security_share_data_title">분석 데이터 공유</string>
@@ -640,4 +640,4 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">튜토리얼</string>
     <string name="coming_soon">곧 출시됩니다!</string>
-</resources>
+<string name="rice_partner_03_tagline">파트너와 함께 5분 안에 충전하세요</string><string name="unagi_social_01_tagline">클릭하고 우리를 팔로우하세요!</string></resources>
