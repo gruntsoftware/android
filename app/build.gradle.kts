@@ -34,8 +34,8 @@ android {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 35
-        versionCode = 202506313
-        versionName = "v4.8.3"
+        versionCode = 202506314
+        versionName = "v4.8.4"
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
