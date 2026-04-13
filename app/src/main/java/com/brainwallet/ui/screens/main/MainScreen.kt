@@ -1,5 +1,7 @@
 package com.brainwallet.ui.screens.home
 
+import android.net.Uri
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
@@ -61,7 +63,6 @@ import com.brainwallet.constants.BWConstants.FADE_IN_DURATION
 import com.brainwallet.constants.BWConstants.FADE_OUT_DURATION
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.ui.bentosections.balancebento.BalanceBentoScreen
-import com.brainwallet.ui.bentosections.gamehubbento.GameHubBentoScreen
 import com.brainwallet.ui.bentosections.ltcpickerbento.LTCPickerBentoScreen
 import com.brainwallet.constants.balanceGameBentoHt
 import com.brainwallet.constants.gameHubHt
@@ -91,6 +92,7 @@ import androidx.lifecycle.compose.LifecycleEventEffect
 import com.brainwallet.constants.BWConstants
 import com.brainwallet.tools.animation.BRAnimator
 import com.brainwallet.ui.bentosections.favouritesbento.FavouritesBentoScreen
+import com.brainwallet.ui.bentosections.gamehubbento.GameHubBentoPagerScreen
 import com.brainwallet.ui.bentosections.tutorials.TutorialsBentoScreen
 import com.brainwallet.ui.screens.send.SendScreen
 import com.brainwallet.ui.theme.bentoClearGradient
@@ -144,6 +146,7 @@ fun MainScreen(
 
     ModalNavigationDrawer(
         drawerState = drawerState,
+        gesturesEnabled = drawerState.isOpen,
         drawerContent = {
             HomeSettingDrawerSheet(
                 modifier = Modifier
@@ -331,7 +334,23 @@ fun MainScreen(
                                 exit = fadeOut(tween(FADE_OUT_DURATION)),
                             ) {
                                 Box(modifier = Modifier.height(gameHubHt)) {
-                                    GameHubBentoScreen()
+                                    GameHubBentoPagerScreen(onClick = { page ->
+                                        when (page) {
+                                            0 -> Unit
+                                            1 -> {
+                                                modalContentRoute = Route.BuyReceive
+                                                isSheetOpen = true
+                                            }
+                                            2 -> {
+                                                val builder = CustomTabsIntent.Builder()
+                                                val customTabsIntent = builder.build()
+                                                customTabsIntent.launchUrl(
+                                                    context,
+                                                    Uri.parse(BWConstants.LINKTREE_URL)
+                                                )
+                                            }
+                                        }
+                                    })
                                 }
                             }
                         }

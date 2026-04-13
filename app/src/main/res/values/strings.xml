@@ -469,5 +469,7 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Tutorials</string>
     <string name="coming_soon">Coming soon!</string>
+    <string name="rice_partner_03_tagline">Top up in 5 minutes with our partner</string>
+    <string name="unagi_social_01_tagline">Click and follow us!</string>
 
 </resources>
