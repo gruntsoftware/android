@@ -11,16 +11,13 @@ The open source code of Brainwallet Android
 ### v4.8.3
 # 🚀 Brainwallet Android — Release Notes
 
----
 ## ✨ New UI — Favourites & Tutorials Bento Sections
 **PR [#191](https://github.com/gruntsoftware/android/pull/191)**
 The main screen now features two new purpose-built bento panels replacing the generic placeholder container. The **Favourites** panel displays a set of coloured circular indicators using the app's design theme colours (affirm, info, warn, error) with full dark/light mode support. The **Tutorials** panel shows a "Coming Soon" placeholder consistent with the broader bento design language. The old `HomeBentoContainer` has been removed. String resources for both sections have been translated across 19 locales including Arabic, Chinese (Traditional & Simplified), French, German, Farsi, Hindi, Indonesian, Italian, Japanese, Korean, Polish, Punjabi, Brazilian Portuguese, Russian, Spanish, Swedish, Turkish, and Ukrainian.
----
 
 ## 🔧 Send Screen Overhaul & Financial Precision
 **PR [#182](https://github.com/gruntsoftware/android/pull/182)**
 The send transaction flow has been fully redesigned as a multi-step paged screen (Pre-send → Confirm → Authenticate). All monetary values have been migrated from `Float` to `BigDecimal` with explicit rounding modes, eliminating floating-point precision issues in fiat/LTC conversions. Transaction fees are now calculated dynamically using `getFeePerKb()` rather than a static default. The pre-send composable has been broken into focused sub-components (`PreSendAddressRow`, `PreSendAmountRow`, `PreSendMemoRow`), and passcode UI components have been extracted into a dedicated package. QR code scanning is now wired into the send flow via an `EventBus` event. A `BWSender` class handles transaction preparation with proper error handling and activity context management.
----
 
 ## 🧪 Test Coverage Expanded to 309 Tests
 **PR [#182](https://github.com/gruntsoftware/android/pull/182)**
