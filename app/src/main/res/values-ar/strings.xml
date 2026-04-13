@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources>
     <string name="About.blog">موقع إلكتروني</string>
     <string name="About.privacy">سياسة الخصوصية</string>
@@ -217,7 +217,7 @@
     <string name="settings_title_theme">سمة</string>
     <string name="settings_title_app_version">إصدار التطبيق:</string>
     <string name="settings_blockchain_litecoin_button">المزامنة</string>
-    <string name="settings_blockchain_litecoin_description">مدة المزامنة: >20 دقيقة</string>
+    <string name="settings_blockchain_litecoin_description">مدة المزامنة: &gt;20 دقيقة</string>
     <string name="game_title">اللعبة %1$d:</string>
     <string name="security_seed_phrase_title">عبارة الاسترداد</string>
     <string name="security_share_data_title">مشاركة بيانات التحليلات</string>
@@ -278,4 +278,4 @@
     <string name="enter_pin">أدخل PIN</string>
     <string name="favourites_label">سري جداً</string>
     <string name="tutorials_label">البرامج التعليمية</string>
-    <string name="coming_soon">قريباً جداً!</string></resources>
+    <string name="coming_soon">قريباً جداً!</string><string name="rice_partner_03_tagline">أضف رصيداً في 5 دقائق مع شريكنا</string><string name="unagi_social_01_tagline">انقر واتبعنا!</string></resources>

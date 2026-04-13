@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources>
     <string name="About.blog">Blog</string>
     <!-- About screen footer -->
@@ -350,7 +350,7 @@
     <string name="settings_title_theme">Thema</string>
     <string name="settings_title_app_version">App-Version:</string>
     <string name="settings_blockchain_litecoin_button">Sync</string>
-    <string name="settings_blockchain_litecoin_description">Synchronisationsdauer: >20 Minuten</string>
+    <string name="settings_blockchain_litecoin_description">Synchronisationsdauer: &gt;20 Minuten</string>
     <string name="game_title">Spiel %1$d:</string>
     <string name="security_seed_phrase_title">Wiederherstellungsphrase</string>
     <string name="security_share_data_title">Analyse-Daten teilen</string>
@@ -411,4 +411,4 @@
     <string name="enter_pin">PIN eingeben</string>
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Tutorials</string>
-    <string name="coming_soon">Kommt bald!</string></resources>
+    <string name="coming_soon">Kommt bald!</string><string name="rice_partner_03_tagline">Laden Sie in 5 Minuten mit unserem Partner auf</string><string name="unagi_social_01_tagline">Klicken Sie und folgen Sie uns!</string></resources>
