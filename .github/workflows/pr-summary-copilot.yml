@@ -156,16 +156,15 @@ jobs:
             ---
             `;
 
-            // --- Call Copilot / OpenAI-compatible endpoint via gh models ---
-            // GitHub Copilot in Actions is accessed through the GITHUB_TOKEN-scoped
+            // --- Call OpenAI-compatible endpoint via gh models ---
             // models API when the workflow has the `models: read` permission.
             const response = await fetch(
-              'https://models.inference.ai.azure.com/chat/completions',
+              'https://api.openai.com/v1/chat/completions',
               {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
+                  'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
                 },
                 body: JSON.stringify({
                   model: 'gpt-4o',
