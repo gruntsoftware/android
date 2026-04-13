@@ -624,4 +624,5 @@
     <string name="no_transaction_detail_row">Nada ainda. Faça um depósito agora!</string>
     <string name="no_transaction_title_row">HISTÓRICO DE TRANSAÇÕES</string>
     <string name="txns_label">txns</string>
+
 </resources>
