@@ -1,19 +1,16 @@
 package com.brainwallet.tools.sqlite;
 
-import static kotlinx.coroutines.flow.FlowKt.collect;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.brainwallet.data.model.CurrencyEntity;
-import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.constants.BWConstants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -189,7 +186,7 @@ public class CurrencyDataSource implements BRDataSourceInterface {
     public SQLiteDatabase openDatabase() {
         if (database == null || !database.isOpen())
             database = dbHelper.getWritableDatabase();
-        dbHelper.setWriteAheadLoggingEnabled(BRConstants.WAL);
+        dbHelper.setWriteAheadLoggingEnabled(BWConstants.WAL);
         return database;
     }
 

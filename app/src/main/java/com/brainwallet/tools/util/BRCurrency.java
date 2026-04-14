@@ -1,10 +1,11 @@
 package com.brainwallet.tools.util;
 
-import static com.brainwallet.tools.util.BRConstants.CURRENT_UNIT_PHOTONS;
+import static com.brainwallet.constants.BWConstants.CURRENT_UNIT_PHOTONS;
 
 import android.content.Context;
 
 import com.brainwallet.tools.manager.BRSharedPrefs;
+import com.brainwallet.constants.BWConstants;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -38,7 +39,7 @@ public class BRCurrency {
         }
         decimalFormatSymbols.setCurrencySymbol(symbol);
         currencyFormat.setGroupingUsed(true);
-        currencyFormat.setMaximumFractionDigits(BRSharedPrefs.getCurrencyUnit(app) == BRConstants.CURRENT_UNIT_LITECOINS ? 8 : 2);
+        currencyFormat.setMaximumFractionDigits(BRSharedPrefs.getCurrencyUnit(app) == BWConstants.CURRENT_UNIT_LITECOINS ? 8 : 2);
         currencyFormat.setDecimalFormatSymbols(decimalFormatSymbols);
         currencyFormat.setNegativePrefix(decimalFormatSymbols.getCurrencySymbol() + "-");
         currencyFormat.setNegativeSuffix("");
@@ -48,18 +49,18 @@ public class BRCurrency {
     public static String getSymbolByIso(Context app, String iso) {
         String symbol;
         if (Objects.equals(iso, "LTC")) {
-            String currencySymbolString = BRConstants.litecoinLowercase;
+            String currencySymbolString = BWConstants.litecoinLowercase;
             if (app != null) {
                 int unit = BRSharedPrefs.getCurrencyUnit(app);
                 switch (unit) {
                     case CURRENT_UNIT_PHOTONS:
-                        currencySymbolString = BRConstants.litecoinLowercase;
+                        currencySymbolString = BWConstants.litecoinLowercase;
                         break;
-                    case BRConstants.CURRENT_UNIT_LITES:
-                        currencySymbolString = "m" + BRConstants.litecoinUppercase;
+                    case BWConstants.CURRENT_UNIT_LITES:
+                        currencySymbolString = "m" + BWConstants.litecoinUppercase;
                         break;
-                    case BRConstants.CURRENT_UNIT_LITECOINS:
-                        currencySymbolString = BRConstants.litecoinUppercase;
+                    case BWConstants.CURRENT_UNIT_LITECOINS:
+                        currencySymbolString = BWConstants.litecoinUppercase;
                         break;
                 }
             }
@@ -84,9 +85,9 @@ public class BRCurrency {
                 switch (unit) {
                     case CURRENT_UNIT_PHOTONS:
                         return "Bits";
-                    case BRConstants.CURRENT_UNIT_LITES:
+                    case BWConstants.CURRENT_UNIT_LITES:
                         return "MBits";
-                    case BRConstants.CURRENT_UNIT_LITECOINS:
+                    case BWConstants.CURRENT_UNIT_LITECOINS:
                         return "LTC";
                 }
             }

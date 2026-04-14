@@ -3,7 +3,12 @@ package com.brainwallet.presenter.entities;
 
 import com.platform.entities.TxMetaData;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.Serializable;
+import java.util.UUID;
+
+import kotlin.Unit;
 
 public class TxItem implements Serializable {
     public static final String TAG = TxItem.class.getName();
@@ -22,6 +27,7 @@ public class TxItem implements Serializable {
     private int txSize;
     public TxMetaData metaData;
 
+    public UUID id = UUID.randomUUID();
     private TxItem() {
     }
 

@@ -1,0 +1,190 @@
+
+package com.brainwallet.ui.screens.send
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.brainwallet.R
+import com.brainwallet.constants.BWConstants
+import com.brainwallet.tools.util.BRExchange
+import com.brainwallet.ui.composable.EditSendButton
+import com.brainwallet.ui.theme.IBMPlexSans
+import org.koin.compose.viewmodel.koinViewModel
+import java.math.BigDecimal
+
+@Composable
+fun ConfirmSend(
+    onEdit: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: SendViewModel = koinViewModel()
+) {
+    val state by viewModel.state.collectAsState()
+    val sectionBorder = 0.8.dp
+    val sectionDarkColor = Color.White.copy(alpha = 0.3f)
+    val sectionLightColor = Color.Black.copy(alpha = 0.95f)
+
+    val amountInLTC = state.amountInLitoshi
+        .divide(BigDecimal(BRExchange.ONE_LITECOIN_OF_LITOSHIS), 6, BWConstants.ROUNDING_MODE)
+
+    val networkFeesInLTC = state.networkFees
+        .divide(BigDecimal(BRExchange.ONE_LITECOIN_OF_LITOSHIS), 6, BWConstants.ROUNDING_MODE)
+
+    val serviceFeesInLTC = state.serviceFees
+        .divide(BigDecimal(BRExchange.ONE_LITECOIN_OF_LITOSHIS), 6, BWConstants.ROUNDING_MODE)
+
+    val totalInLTC = amountInLTC
+        .add(networkFeesInLTC)
+        .add(serviceFeesInLTC)
+
+    val fiatValue = totalInLTC
+        .multiply(BigDecimal(state.selectedCurrency.rate.toDouble()))
+
+    val formattedFiatValue = "%s %4.2f".format(state.selectedCurrency.symbol, fiatValue)
+
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.TopCenter
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxHeight(0.8f)
+                    .padding(start = 12.dp, end = 12.dp, bottom = 4.dp)
+                    .border(
+                        width = sectionBorder,
+                        color = if (state.darkMode) sectionDarkColor else sectionLightColor,
+                        shape = RoundedCornerShape(16.dp)
+                    )
+                    .background(
+                        color = if (state.darkMode) Color.Transparent else Color.White,
+                        shape = RoundedCornerShape(16.dp)
+                    )
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                    SendDetailRow(
+                        label = stringResource(R.string.amount_label),
+                        valueLabel = "Ł " + amountInLTC
+                    )
+                    SendDetailRow(
+                        label = stringResource(R.string.network_fees_label),
+                        valueLabel = "Ł %4.4f".format(networkFeesInLTC)
+                    )
+                    SendDetailRow(
+                        label = stringResource(R.string.service_fees_label),
+                        valueLabel = "Ł %4.4f".format(serviceFeesInLTC)
+                    )
+                    SendDetailRow(
+                        label = stringResource(R.string.amount_in_fiat_label),
+                        valueLabel = formattedFiatValue
+                    )
+                    Text(
+                        modifier = Modifier.padding(
+                            start = 14.dp,
+                            top = 10.dp,
+                        ),
+                        text = stringResource(R.string.memo_label),
+                        style = TextStyle(
+                            fontFamily = IBMPlexSans,
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 13.sp,
+                            textAlign = TextAlign.Start,
+                            color = if (state.darkMode) Color.White else Color.Black
+                        )
+                    )
+                    Text(
+                        modifier = Modifier.padding(
+                            12.dp
+                        ),
+                        text = state.userMemorandum.ifEmpty { " " },
+                        style = TextStyle(
+                            fontFamily = IBMPlexSans,
+                            fontWeight = FontWeight.Light,
+                            fontSize = 12.sp,
+                            textAlign = TextAlign.Start,
+                            color = if (state.darkMode) Color.White else Color.Black
+                        ),
+                        maxLines = 4
+                    )
+
+                    Spacer(modifier = Modifier.weight(0.5f))
+
+                    HorizontalDivider(
+                        modifier = Modifier.padding(
+                            all = 12.dp
+                        )
+                    )
+                    Text(
+                        modifier = Modifier.padding(
+                            start = 12.dp,
+                        ),
+                        text = stringResource(R.string.recipient_label),
+                        style = TextStyle(
+                            fontFamily = IBMPlexSans,
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 15.sp,
+                            textAlign = TextAlign.Start,
+                            color = if (state.darkMode) Color.White else Color.Black
+                        )
+                    )
+                    Text(
+                        modifier = Modifier.padding(
+                            12.dp
+                        ),
+                        text = state.recipientLTCAddress,
+                        style = TextStyle(
+                            fontFamily = IBMPlexSans,
+                            fontWeight = FontWeight.Normal,
+                            letterSpacing = 1.3.sp,
+                            fontSize = 13.sp,
+                            textAlign = TextAlign.Start,
+                            color = if (state.darkMode) Color.White else Color.Black
+                        )
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.width(4.dp))
+            EditSendButton(
+                modifier = modifier.padding(
+                    start = 24.dp,
+                    end = 24.dp,
+                ),
+                darkMode = state.darkMode,
+                onClick = {
+                    viewModel.onEvent(SendEvent.OnEditSend)
+                    onEdit()
+                }
+            ) {
+                Text(stringResource(R.string.edit_send_details))
+            }
+        }
+    }
+}

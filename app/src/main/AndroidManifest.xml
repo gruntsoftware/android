@@ -58,10 +58,21 @@
             android:authorities="${applicationId}.androidx-startup"
             android:exported="false"
             tools:node="merge">
-            <meta-data  android:name="com.brainwallet.initializer.AppInitializer"
+
+            <meta-data
+                android:name="com.brainwallet.initializer.AppInitializer"
                 android:value="androidx.startup" />
-        </provider>
-        <!-- Main Compose Activity -->
+
+        <!-- TODO: Re-enable EmojiCompatInitializer in AndroidManifest.xml when -->
+        <!-- emoji support is implemented. -->
+        <!-- Disabled to prevent Context leak identified in Memory Profiler. -->
+        <meta-data
+            android:name="androidx.emoji2.text.EmojiCompatInitializer"
+            android:value="@string/androidx_startup"
+            tools:node="remove" />
+
+    </provider>
+    <!-- Main Compose Activity -->
         <activity
             android:name=".ui.BrainwalletActivity"
             android:exported="true"
@@ -161,7 +172,6 @@
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".presenter.activities.camera.ScanQRActivity"
             android:exported="true"

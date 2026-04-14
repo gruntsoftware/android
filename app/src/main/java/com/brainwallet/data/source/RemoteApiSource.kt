@@ -2,6 +2,7 @@ package com.brainwallet.data.source
 
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.Fee
+import com.brainwallet.data.model.LtcStats
 import com.brainwallet.data.model.MoonpayCurrencyLimit
 import com.brainwallet.data.source.response.GetMoonpayBuyQuoteResponse
 import com.brainwallet.data.source.response.GetMoonpaySignUrlResponse
@@ -14,6 +15,9 @@ interface RemoteApiSource {
 
     @GET("v1/rates")
     suspend fun getRates(): List<CurrencyEntity>
+
+    @GET("v1/ltc-stats")
+    suspend fun getLtcStats(): LtcStats
 
     @GET("v1/fee-per-kb")
     suspend fun getFeePerKb(): Fee

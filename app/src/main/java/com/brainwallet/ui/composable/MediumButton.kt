@@ -11,15 +11,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.DesignTheme
 
 @Composable
 fun MediumTextButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     colors: ButtonColors = ButtonDefaults.buttonColors(
-        containerColor = BrainwalletTheme.colors.surface,
-        contentColor = BrainwalletTheme.colors.content
+        containerColor = DesignTheme.colors.surface,
+        contentColor = DesignTheme.colors.content
     ),
     shape: Shape = ButtonDefaults.shape,
     content: @Composable RowScope.() -> Unit

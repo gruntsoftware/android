@@ -1,33 +1,31 @@
 package com.brainwallet.ui
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.brainwallet.di.AppModule.json
 import com.brainwallet.navigation.UiEffect
-import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.getAndUpdate
-import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.launch
 import kotlinx.serialization.json.JsonObject
 
 /**
  * describe [BrainwalletViewModel] here
  */
 abstract class BrainwalletViewModel<Event> : ViewModel() {
-
-    private val _uiEffect = Channel<UiEffect>()
-    val uiEffect = _uiEffect.receiveAsFlow()
-
     private val _loadingState = MutableStateFlow(LoadingState())
     val loadingState: StateFlow<LoadingState> = _loadingState.asStateFlow()
 
+    private val _uiEffect = MutableSharedFlow<UiEffect>(
+        extraBufferCapacity = 1,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST
+    )
+    val uiEffect = _uiEffect.asSharedFlow()
     fun sendUiEffect(effect: UiEffect) {
-        viewModelScope.launch {
-            _uiEffect.send(effect)
-        }
+        _uiEffect.tryEmit(effect)
     }
 
     abstract fun onEvent(event: Event)

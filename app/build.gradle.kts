@@ -5,7 +5,6 @@ plugins {
     alias(grunt.plugins.android.application)
     alias(grunt.plugins.jetbrains.kotlin.android)
     alias(grunt.plugins.jetbrains.kotlin.compose)
-    alias(libs.plugins.jetbrains.kotlin.kapt)
     alias(grunt.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
@@ -18,18 +17,27 @@ val localProperties = gradleLocalProperties(rootDir, providers)
 
 android {
     namespace = "com.brainwallet"
-    compileSdk = 36
+    compileSdk = 35
+
+    firebaseCrashlytics {
+        nativeSymbolUploadEnabled = true
+    }
+
+    /// For screengrab testing
+    val screengrabPaperKey = localProperties
+        .getProperty("SCREENGRAB_PAPERKEY", "")
+        .split(" ")
+        .filter { it.isNotBlank() }
+        .joinToString(separator = ", ") { "\"$it\"" }
 
     defaultConfig {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
-        targetSdk = 36
-        versionCode = 202506301
-        versionName = "v4.8.0"
-
+        targetSdk = 35
+        versionCode = 202506314
+        versionName = "v4.8.4"
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -42,6 +50,12 @@ android {
                 arguments("-DANDROID_TOOLCHAIN=clang")
             }
         }
+
+        buildConfigField(
+            "String[]",
+            "SCREENGRAB_PAPERKEY",
+            "new String[] {$screengrabPaperKey}"
+        )
     }
 
     assetPacks.addAll(setOf(":install_time_asset_pack"))
@@ -53,52 +67,37 @@ android {
             keyAlias = localProperties.getProperty("DEBUG_KEY_ALIAS")
             keyPassword = localProperties.getProperty("DEBUG_KEY_PASSWORD")
         }
-//        val release by creating {
-//            storeFile = file(localProperties.getProperty("RELEASE_STORE_FILE"))
-//            storePassword = localProperties.getProperty("RELEASE_STORE_PASSWORD")
-//            keyAlias = localProperties.getProperty("RELEASE_KEY_ALIAS")
-//            keyPassword = localProperties.getProperty("RELEASE_KEY_PASSWORD")
-//        }
+        val release by creating {
+            storeFile = file(localProperties.getProperty("RELEASE_STORE_FILE"))
+            storePassword = localProperties.getProperty("RELEASE_STORE_PASSWORD")
+            keyAlias = localProperties.getProperty("RELEASE_KEY_ALIAS")
+            keyPassword = localProperties.getProperty("RELEASE_KEY_PASSWORD")
+        }
     }
 
     buildTypes {
         val debug by getting {
             isDebuggable = true
             isMinifyEnabled = false
-
+            enableUnitTestCoverage = true
+            enableAndroidTestCoverage = true
             ndk {
                 isDebuggable = true
                 isMinifyEnabled = false
             }
-
-            firebaseCrashlytics {
-                nativeSymbolUploadEnabled = true
-            }
-            buildConfigField("String[]", "SCREENGRAB_PAPERKEY",
-                "new String[] {${
-                    localProperties.getProperty("SCREENGRAB_PAPERKEY", "")
-                        .split(" ")
-                        .joinToString { "\"$it\"" }
-                }}"
-            )
         }
 
-//        val release by getting {
-//            signingConfig = signingConfigs.getByName("release")
-//            isDebuggable = false
-//            isMinifyEnabled = true
-//            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-//
-//            ndk {
-//                isDebuggable = false
-//                isMinifyEnabled = true
-//            }
-//
-//            firebaseCrashlytics {
-//                nativeSymbolUploadEnabled = true
-//            }
-//        }
+        val release by getting {
+            signingConfig = signingConfigs.getByName("release")
+            isDebuggable = false
+            isMinifyEnabled = true
+            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
 
+            ndk {
+                isDebuggable = false
+                isMinifyEnabled = true
+            }
+        }
     }
 
     externalNativeBuild {
@@ -224,8 +223,13 @@ dependencies {
     implementation(grunt.bundles.koin)
     implementation(platform(grunt.koin.annotation.bom))
     implementation(grunt.koin.annotation)
+    implementation("androidx.compose.material:material-icons-extended:1.7.8")
+    implementation(libs.androidx.junit.ktx)
+    implementation(libs.androidx.espresso.core)
+    implementation(libs.androidx.runtime)
+    implementation(libs.androidx.foundation)
+    implementation(libs.androidx.animation)
     ksp(grunt.koin.annotation.compiler)
-
     implementation(platform(libs.squareup.okhttp.bom))
     implementation(libs.bundles.squareup.okhttp)
     implementation(libs.bundles.squareup.retrofit)
@@ -239,14 +243,18 @@ dependencies {
     implementation(libs.razir.progressbutton)
     implementation(libs.appsflyer)
     implementation(libs.android.installreferrer)
-
+    implementation("androidx.compose.animation:animation:1.5.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.7")
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
     testImplementation(libs.turbine)
     testImplementation(libs.slf4j.android)
     testImplementation(libs.kotlinx.coroutines.tests)
-
+    testImplementation("io.mockk:mockk:1.13.5")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation("app.cash.turbine:turbine:1.0.0")
     androidTestImplementation(platform(grunt.androidx.compose.bom))
+    androidTestImplementation("androidx.test:core-ktx:1.5.0")
     androidTestImplementation(grunt.bundles.androidx.compose.ui.test)
     androidTestImplementation(libs.bundles.android.test)
     androidTestImplementation(libs.fastlane.screengrab)

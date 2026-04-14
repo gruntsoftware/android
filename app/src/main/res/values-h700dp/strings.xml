@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="send_tab_description">Paper plane icon to represent the Send action</string>
+    <string name="buy_receive_tab_description">Two arrows representing buying and receiving Litecoin</string>
+    <string name="game_hub_tab_description">gaming controller</string>
+    <string name="history_tab_description">circular arrow rotating counter clockwise</string>
+    <string name="game_hub_title">Game Hub</string>
+    <string name="history_title">History</string>
+    <string name="game_hub_tagline">ARE YOU GOOD ENOUGH TO BE #1?</string>
+    <string name="ltc_ticker_as_of_timestamp">as of %s</string>
+    <string name="my_balance">MY BALANCE</string>
+    <string name="no_internet_dialog_title">Sync not possible without internet!</string>
+    <string name="no_internet_dialog_subtitle">Please, reconnect to complete sync.</string>
+    <string name="current_transaction_count">Wallet tx count:</string>
+    <string name="home_tab_description">simple home drawing</string>
+    <string name="home_icon_label">Home</string>
+    <string name="memo_label">"Memo: "</string>
+    <string name="block_height_label">"Block: "</string>
+    <string name="date_label">"Date: "</string>
+    <string name="amount_label">"Amount: "</string>
+    <string name="fees_label">"Fees: "</string>
+    <string name="tx_id_label">"TX ID: "</string>
+    <string name="no_transaction_detail_row">Nothing yet. Top up now!</string>
+    <string name="no_transaction_title_row">TRANSACTION HISTORY</string>
+    <string name="txns_label">txns</string>
+</resources>

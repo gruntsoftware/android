@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.brainwallet.presenter.activities.SetPinActivity">
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/BRBoldTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/bread_margin"
+        android:layout_marginTop="@dimen/bread_margin"
+        android:layout_marginEnd="16dp"
+        android:text="@string/UpdatePin.createTitle"
+        android:textColor="@color/midnight"
+        android:textSize="@dimen/header"
+        app:layout_constraintEnd_toStartOf="@+id/faq_button"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/description"
+        style="@style/BRTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/UpdatePin.createInstruction"
+        android:textColor="@color/midnight"
+        android:textSize="@dimen/sub_header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/title"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <com.brainwallet.presenter.customviews.BRKeyboard
+        android:id="@+id/brkeyboard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:showAlphabet="true" />
+
+    <TextView
+        style="@style/BRTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/UpdatePin.caption"
+        android:textSize="@dimen/paragraph"
+        app:layout_constraintBottom_toTopOf="@+id/brkeyboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/description"
+        app:layout_constraintTop_toBottomOf="@+id/pinLayout"
+        app:layout_constraintVertical_bias="0.73" />
+
+    <ImageButton
+        android:id="@+id/faq_button"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="@dimen/bread_margin"
+        android:layout_marginBottom="0dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/title" />
+
+    <LinearLayout
+        android:id="@+id/pinLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/bread_margin"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="@dimen/bread_margin"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description">
+
+        <View
+            android:id="@+id/dot1"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/ic_pin_dot_gray" />
+
+        <View
+            android:id="@+id/dot2"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/ic_pin_dot_gray" />
+
+        <View
+            android:id="@+id/dot3"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/ic_pin_dot_gray" />
+
+        <View
+            android:id="@+id/dot4"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/ic_pin_dot_gray" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

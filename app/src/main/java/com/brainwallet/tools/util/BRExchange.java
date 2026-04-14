@@ -1,13 +1,14 @@
 package com.brainwallet.tools.util;
 
-import static com.brainwallet.tools.util.BRConstants.CURRENT_UNIT_PHOTONS;
-import static com.brainwallet.tools.util.BRConstants.ROUNDING_MODE;
+import static com.brainwallet.constants.BWConstants.CURRENT_UNIT_PHOTONS;
+import static com.brainwallet.constants.BWConstants.ROUNDING_MODE;
 
 import android.content.Context;
 
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.sqlite.CurrencyDataSource;
 import com.brainwallet.data.model.CurrencyEntity;
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.wallet.BRWalletManager;
 
 import java.math.BigDecimal;
@@ -33,10 +34,10 @@ public class BRExchange {
             case CURRENT_UNIT_PHOTONS:
                 result = new BigDecimal(String.valueOf(amount)).divide(new BigDecimal("100"), 2, ROUNDING_MODE);
                 break;
-            case BRConstants.CURRENT_UNIT_LITES:
+            case BWConstants.CURRENT_UNIT_LITES:
                 result = new BigDecimal(String.valueOf(amount)).divide(new BigDecimal("100000"), 5, ROUNDING_MODE);
                 break;
-            case BRConstants.CURRENT_UNIT_LITECOINS:
+            case BWConstants.CURRENT_UNIT_LITECOINS:
                 result = new BigDecimal(String.valueOf(amount)).divide(new BigDecimal("100000000"), 8, ROUNDING_MODE);
                 break;
         }
@@ -50,10 +51,10 @@ public class BRExchange {
             case CURRENT_UNIT_PHOTONS:
                 result = new BigDecimal(String.valueOf(amount)).multiply(new BigDecimal("100"));
                 break;
-            case BRConstants.CURRENT_UNIT_LITES:
+            case BWConstants.CURRENT_UNIT_LITES:
                 result = new BigDecimal(String.valueOf(amount)).multiply(new BigDecimal("100000"));
                 break;
-            case BRConstants.CURRENT_UNIT_LITECOINS:
+            case BWConstants.CURRENT_UNIT_LITECOINS:
                 result = new BigDecimal(String.valueOf(amount)).multiply(new BigDecimal("100000000"));
                 break;
         }
@@ -71,24 +72,24 @@ public class BRExchange {
             if (ent == null) return new BigDecimal(0);
             BigDecimal rate = new BigDecimal(ent.rate).multiply(new BigDecimal(100));
             result = new BigDecimal(BRWalletManager.getInstance().localAmount(amount.longValue(), rate.doubleValue()))
-                    .divide(new BigDecimal(100), 2, BRConstants.ROUNDING_MODE);
+                    .divide(new BigDecimal(100), 2, BWConstants.ROUNDING_MODE);
         }
         return result;
     }
 
     public static String getLitecoinSymbol(Context app) {
-        String currencySymbolString = BRConstants.litecoinLowercase;
+        String currencySymbolString = BWConstants.litecoinLowercase;
         if (app != null) {
             int unit = BRSharedPrefs.getCurrencyUnit(app);
             switch (unit) {
                 case CURRENT_UNIT_PHOTONS:
-                    currencySymbolString = "m" + BRConstants.litecoinLowercase;
+                    currencySymbolString = "m" + BWConstants.litecoinLowercase;
                     break;
-                case BRConstants.CURRENT_UNIT_LITES:
-                    currencySymbolString = BRConstants.litecoinLowercase;
+                case BWConstants.CURRENT_UNIT_LITES:
+                    currencySymbolString = BWConstants.litecoinLowercase;
                     break;
-                case BRConstants.CURRENT_UNIT_LITECOINS:
-                    currencySymbolString = BRConstants.litecoinUppercase;
+                case BWConstants.CURRENT_UNIT_LITECOINS:
+                    currencySymbolString = BWConstants.litecoinUppercase;
                     break;
             }
         }
@@ -108,11 +109,11 @@ public class BRExchange {
             // Get the exchange rate
             BigDecimal rate = new BigDecimal(ent.rate);
 
-            result = amount.divide(rate, 8, BRConstants.ROUNDING_MODE)
+            result = amount.divide(rate, 8, BWConstants.ROUNDING_MODE)
                 .multiply(new BigDecimal("100000000"));
 
             // Round to a whole number of litoshis
-            result = result.setScale(0, BRConstants.ROUNDING_MODE);
+            result = result.setScale(0, BWConstants.ROUNDING_MODE);
         }
         return result;
     }

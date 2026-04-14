@@ -22,7 +22,6 @@
         android:padding="0dp">
 
         <RelativeLayout
-            android:id="@+id/title_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -47,7 +46,6 @@
                 tools:layout_editor_absoluteY="81dp" />
 
             <TextView
-                android:id="@+id/show_seed_title"
                 style="@style/BRBoldTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -65,7 +63,6 @@
         </RelativeLayout>
 
         <View
-            android:id="@+id/separator0"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/white" />
@@ -109,7 +106,6 @@
             android:orientation="vertical">
 
             <View
-                android:id="@+id/separator3"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/white" />
@@ -122,7 +118,6 @@
             android:orientation="vertical" />
 
         <View
-            android:id="@+id/separator4"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/white" />

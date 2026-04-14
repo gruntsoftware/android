@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.startup.Initializer
 import com.brainwallet.data.source.RemoteConfigSource
 import com.brainwallet.di.AppModule
+import com.brainwallet.di.remoteConfigModule
 import com.brainwallet.domain.MessagingTopicUseCase
 import com.grunt.brainwallet.core.presentation.KoinInitializer
 import org.koin.core.component.KoinComponent
@@ -20,7 +21,8 @@ class AppInitializer(
             loadKoinModules(
                 listOf(
                     AppModule.dataModule,
-                    AppModule.module
+                    AppModule.module,
+                    remoteConfigModule
                 )
             )
         }

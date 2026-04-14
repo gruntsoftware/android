@@ -6,6 +6,7 @@ import androidx.core.net.toUri
 import com.brainwallet.BuildConfig
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.Fee
+import com.brainwallet.data.model.LtcStats
 import com.brainwallet.data.model.MoonpayCurrencyLimit
 import com.brainwallet.data.repository.LtcRepository.Companion.PREF_KEY_BUY_LIMITS_PREFIX
 import com.brainwallet.data.repository.LtcRepository.Companion.PREF_KEY_BUY_LIMITS_PREFIX_CACHED_AT
@@ -16,6 +17,9 @@ import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.manager.FeeManager
 import com.brainwallet.tools.sqlite.CurrencyDataSource
 import com.brainwallet.tools.util.Utils
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import org.koin.core.annotation.Single
 
 @Single(binds = [LtcRepository::class])
@@ -26,12 +30,22 @@ class LtcRepositoryImpl(
     private val sharedPreferences: SharedPreferences,
 ) : LtcRepository {
 
-    // todo: make it offline first here later, currently just using CurrencyDataSource.getAllCurrencies
+    private val _rates = MutableStateFlow<List<CurrencyEntity>>(emptyList())
+    override val rates: StateFlow<List<CurrencyEntity>> = _rates.asStateFlow()
+    private val _ltcStats = MutableStateFlow(
+        LtcStats(
+            0,
+            0,
+            0,
+            0
+        )
+    )
+    override val ltcStats: StateFlow<LtcStats> = _ltcStats.asStateFlow()
+
     override suspend fun fetchRates(): List<CurrencyEntity> {
         return runCatching {
             val rates = remoteApiSource.getRates()
 
-            // legacy logic
             FeeManager.updateFeePerKb(context)
             val selectedISO = BRSharedPrefs.getIsoSymbol(context)
             rates.forEachIndexed { index, currencyEntity ->
@@ -41,19 +55,35 @@ class LtcRepositoryImpl(
                 }
             }
 
-            // save to local
+            val liveLtcStats = remoteApiSource.getLtcStats()
+            _ltcStats.value = liveLtcStats
             currencyDataSource.putCurrencies(rates)
-            return rates
-        }.getOrElse { currencyDataSource.getAllCurrencies(true) }
+            rates
+        }.getOrElse {
+            currencyDataSource.getAllCurrencies(true)
+        }.also { result ->
+            _rates.value = result
+        }
     }
 
-    /**
-     * for now we just using [Fee.Default]
-     * will move to [RemoteApiSource.getFeePerKb] after fix the calculation when we do send
-     *
-     * maybe need updaete core if we need to use dynamic fee?
-     */
-    override suspend fun fetchFeePerKb(): Fee = Fee.Default // using static fee
+    override suspend fun fetchFeePerKb(): Fee {
+        return runCatching {
+            val feesPerKb = remoteApiSource.getFeePerKb()
+            Fee(
+                feesPerKb.economy,
+                feesPerKb.regular,
+                feesPerKb.luxury,
+                System.currentTimeMillis()
+            )
+        }.getOrElse {
+            Fee.Default
+        }
+    }
+
+    override suspend fun fetchLtcStats(): LtcStats {
+        return remoteApiSource.getLtcStats()
+            .also { _ltcStats.value = it }
+    }
 
     override suspend fun fetchLimits(baseCurrencyCode: String): MoonpayCurrencyLimit {
         return sharedPreferences.fetchWithCache(

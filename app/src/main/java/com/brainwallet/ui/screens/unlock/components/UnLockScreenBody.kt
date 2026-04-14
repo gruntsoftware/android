@@ -25,13 +25,12 @@ import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.security.AuthManager
-import com.brainwallet.tools.util.BRConstants
-import com.brainwallet.ui.composable.PasscodeIndicator
-import com.brainwallet.ui.composable.PasscodeKeypad
-import com.brainwallet.ui.composable.PasscodeKeypadEvent
+import com.brainwallet.constants.BWConstants
+import com.brainwallet.ui.composable.passcode.PasscodeIndicator
+import com.brainwallet.ui.composable.passcode.PasscodeKeypadWrapper
 import com.brainwallet.ui.screens.unlock.UnLockEvent
 import com.brainwallet.ui.theme.BrainwalletAppTheme
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.DesignTheme
 import com.google.common.collect.ImmutableList
 
 @Composable
@@ -60,36 +59,22 @@ fun UnLockScreenBody(
         Spacer(modifier = Modifier.weight(1f))
         PasscodeIndicator(passcode = passcode, modifier = Modifier)
         Spacer(modifier = Modifier.weight(1f))
-        PasscodeKeypad { passcodeKeypadEvent ->
-            when (passcodeKeypadEvent) {
-                PasscodeKeypadEvent.OnDelete -> onEvent(UnLockEvent.OnDeletePinDigit)
-                is PasscodeKeypadEvent.OnPressed -> onEvent(
-                    UnLockEvent.OnPinDigitChange(
-                        digit = passcodeKeypadEvent.digit,
-                        isValidPin = { pin ->
-
-                            // provide old logic here, its like on the BrainwalletActivity.onUnlock
-                            return@OnPinDigitChange AuthManager.getInstance()
-                                .checkAuth(pin, context).also { isValid ->
-                                    if (isValid) {
-                                        AuthManager.getInstance().authSuccess(context)
-                                        AnalyticsManager.logCustomEvent(BRConstants._20200217_DUWB)
-                                        AnalyticsManager.logCustomEvent(BRConstants._20200217_DUWB)
-                                    } else {
-                                        AuthManager.getInstance().authFail(context)
-                                        // for now just toast
-                                        Toast.makeText(
-                                            context,
-                                            R.string.incorrect_passcode,
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                }
-                        }
-                    )
-                )
-            }
-        }
+        PasscodeKeypadWrapper(
+            onDelete = { onEvent(UnLockEvent.OnDeletePinDigit) },
+            onDigitPressed = { digit, isValidPin ->
+                onEvent(UnLockEvent.OnPinDigitChange(digit = digit, isValidPin = isValidPin))
+            },
+            onValidatePin = { pin ->
+                AuthManager.getInstance().checkAuth(pin, context).also { isValid ->
+                    if (isValid) {
+                        AuthManager.getInstance().authSuccess(context)
+                        AnalyticsManager.logCustomEvent(BWConstants._20200217_DUWB)
+                    } else {
+                        Toast.makeText(context, R.string.incorrect_passcode, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            },
+        )
         Spacer(modifier = Modifier.weight(1f))
     }
 }
@@ -100,7 +85,7 @@ private fun UnLockScreenBodyPreview() {
     BrainwalletAppTheme(AppSetting(isDarkMode = isSystemInDarkTheme())) {
         Box(
             modifier = Modifier
-                .background(BrainwalletTheme.colors.background)
+                .background(DesignTheme.colors.background)
                 .fillMaxWidth()
         ) {
             UnLockScreenBody(isUpdatePin = true, passcode = ImmutableList.of(1, 2))
