@@ -1,7 +1,5 @@
-package com.brainwallet.ui.bentosections.transactionbento
+package com.brainwallet.ui.bentosections.transactionbento.subscreens
 import com.brainwallet.R
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,12 +9,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,12 +30,10 @@ import com.brainwallet.presenter.entities.ServiceItems
 import com.brainwallet.presenter.entities.TxItem
 import com.brainwallet.tools.util.BRExchange.ONE_LITECOIN_OF_LITOSHIS
 import com.brainwallet.tools.util.Utils
+import com.brainwallet.ui.bentosections.transactionbento.TransactionBentoViewModel
 import com.brainwallet.ui.theme.DesignTheme
 import com.brainwallet.ui.theme.IBMPlexSans
-import com.brainwallet.ui.theme.bentoDarkBorderGradient
-import com.brainwallet.ui.theme.bentoDarkSurfaceGradient
-import com.brainwallet.ui.theme.bentoLightBorderGradient
-import com.brainwallet.ui.theme.bentoLightSurfaceGradient
+import com.brainwallet.ui.theme.bentoSurface
 import com.brainwallet.wallet.BRPeerManager
 import org.koin.compose.viewmodel.koinViewModel
 import timber.log.Timber
@@ -54,6 +48,7 @@ fun TransactionRow(
     ltcStats: LtcStats?,
     isDarkMode: Boolean,
     modifier: Modifier = Modifier,
+    isCurrentItem: Boolean = false,
     viewModel: TransactionBentoViewModel = koinViewModel(),
 ) {
     val context = LocalContext.current
@@ -127,19 +122,10 @@ fun TransactionRow(
         else -> "∞"
     }
 
-    // ───────────────────────────From working Develop branch───────────────────────────
     Box(
-        modifier = modifier
+        modifier = Modifier
             .height(transactionRowHt)
-            .background(
-                brush = if (isDarkMode) bentoDarkSurfaceGradient else bentoLightSurfaceGradient,
-                shape = RoundedCornerShape(16.dp)
-            )
-            .border(
-                width = 1.5.dp,
-                brush = if (isDarkMode) bentoDarkBorderGradient else bentoLightBorderGradient,
-                shape = RoundedCornerShape(16.dp)
-            )
+            .bentoSurface(isDarkMode)
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -224,14 +210,12 @@ fun TransactionRow(
                     text = toFromAddressFormatting,
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
-                        fontWeight = FontWeight.Light,
+                        fontWeight = if (isCurrentItem) FontWeight.SemiBold else FontWeight.Light,
                         fontSize = 11.sp,
                         color = if (isDarkMode) {
-                            Color.White.copy(0.5f)
+                            if (isCurrentItem) Color.White.copy(1f) else Color.White.copy(0.5f)
                         } else {
-                            Color.Black.copy(
-                                0.5f
-                            )
+                            if (isCurrentItem) Color.Black.copy(1f) else Color.Black.copy(0.5f)
                         }
                     ),
                     maxLines = 1,

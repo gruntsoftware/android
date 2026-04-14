@@ -6,6 +6,12 @@ import android.content.ClipboardManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Bundle;
+
+import com.brainwallet.constants.BWConstants;
+import com.google.firebase.analytics.FirebaseAnalytics;
+
+import java.util.Arrays;
 
 import timber.log.Timber;
 
@@ -19,6 +25,19 @@ public class BRClipboardManager {
             ClipData clip = ClipData
                     .newPlainText("message", text);
             clipboard.setPrimaryClip(clip);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    public static void putDetailsClipboard(Context context, String text) {
+        try {
+            ClipboardManager clipboard = (ClipboardManager) context
+                .getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData
+                .newPlainText("Transaction Details: ", text);
+            clipboard.setPrimaryClip(clip);
+            AnalyticsManager.logCustomEventWithParams("tx_details_copied", null);
         } catch (Exception e) {
             Timber.e(e);
         }

@@ -1,4 +1,4 @@
-package com.brainwallet.ui.bentosections.transactionbento
+package com.brainwallet.ui.bentosections.transactionbento.subscreens
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

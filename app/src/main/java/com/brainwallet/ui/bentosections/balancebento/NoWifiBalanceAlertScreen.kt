@@ -31,6 +31,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brainwallet.R
+import com.brainwallet.constants.bentoBorderWidth
 import com.brainwallet.constants.iconBorderSize
 import com.brainwallet.constants.iconSize
 import com.brainwallet.ui.theme.IBMPlexSans
@@ -52,7 +53,7 @@ fun NoWifiBalanceAlertScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .border(
-                    width = 1.dp,
+                    width = bentoBorderWidth,
                     color = Color.White.copy(alpha = 0.15f),
                     shape = RoundedCornerShape(16.dp)
                 )

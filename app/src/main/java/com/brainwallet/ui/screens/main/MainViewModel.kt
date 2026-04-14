@@ -1,6 +1,5 @@
 package com.brainwallet.ui.screens.main
 import android.app.Application
-import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.R
 import com.brainwallet.constants.BWConstants
@@ -11,6 +10,8 @@ import com.brainwallet.data.repository.ConnectivityRepository
 import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.repository.TxRepository
+import com.brainwallet.tools.manager.AnalyticsManager
+import com.brainwallet.tools.manager.BRClipboardManager
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.sqlite.TransactionDataSource
 import com.brainwallet.tools.util.BRExchange.ONE_LITECOIN_OF_LITOSHIS
@@ -42,8 +43,9 @@ import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import timber.log.Timber
 import java.math.BigDecimal
-import kotlin.math.max
-import kotlin.math.min
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @OptIn(FlowPreview::class)
 @KoinViewModel
@@ -355,12 +357,86 @@ class MainViewModel(
                         }.toImmutableList()
                     }
                     Timber.d("timber: filtered state: $nextFilter and transactions: ${filteredTransactions.size}")
+                    AnalyticsManager.logCustomEventWithParams("did_toggle_transaction_filter", null)
 
                     it.copy(
                         filterState = nextFilter,
                         transactionItems = filteredTransactions
                     )
                 }
+            }
+            is MainScreenEvent.OnExportTransactions -> {
+                // TODO: Implement
+            }
+            is MainScreenEvent.OnCopyTransactions -> {
+                val currentTransaction = event.transactionItem
+
+                val ltcAddressString = currentTransaction?.to?.firstOrNull() ?: ""
+                val formatter = SimpleDateFormat(
+                    "MMM dd, yyyy hh:mm a",
+                    Locale.getDefault()
+                )
+                val dateTimestamp = formatter.format(Date(currentTransaction?.timeStamp?.times(1000L) ?: 0L))
+                val wasReceived = currentTransaction?.getSent() == 0L
+                val amountReceived =
+                    BigDecimal(currentTransaction?.received ?: 0L).divide(
+                        BigDecimal(ONE_LITECOIN_OF_LITOSHIS),
+                        8,
+                        BWConstants.ROUNDING_MODE
+                    )
+
+                val outAmounts: LongArray? = currentTransaction?.getOutAmounts()
+                var opsAmount = Long.Companion.MAX_VALUE
+                if (outAmounts?.size == 3) {
+                    for (i in outAmounts.indices) {
+                        val value = outAmounts[i]
+
+                        if (value < opsAmount && value != 0L) {
+                            opsAmount = value
+                            Timber.d("timber: outAmounts size %d opsAmount value: %d", outAmounts.size, value)
+                        }
+                    }
+                } else {
+                    opsAmount = 0L
+                }
+
+                val txWasReceived = currentTransaction?.getReceived() ?: 0L
+                val txWasSent = currentTransaction?.getSent() ?: 0L
+
+                val sentLitoshisAmount: Long = when {
+                    wasReceived -> txWasReceived
+                    else -> txWasSent - txWasReceived - opsAmount
+                }
+                val isLTCPreferred = BRSharedPrefs.getLTCViewingPreference(app)
+                val iso = if (isLTCPreferred) "LTC" else BRSharedPrefs.getIsoSymbol(app)
+                val txAmount = BigDecimal(currentTransaction.getReceived() - currentTransaction.getSent())
+                    .abs().divide(BigDecimal(ONE_LITECOIN_OF_LITOSHIS))
+                val wasSentVsReceived = currentTransaction.received - currentTransaction.sent < 0
+
+                val amountString = if (wasSentVsReceived) {
+                    String.format(
+                        "-Ł $txAmount"
+                    )
+                } else {
+                    String.format("+Ł $txAmount")
+                }
+
+                val combinedFees = BigDecimal(currentTransaction?.fee ?: 0L) + BigDecimal(opsAmount)
+                val feesLitoshis = combinedFees.divide(BigDecimal(ONE_LITECOIN_OF_LITOSHIS))
+                val feesTotal = String.format("-Ł $feesLitoshis")
+                val txHxString = currentTransaction?.txHashHexReversed ?: ""
+                val txIDBrowserURL: String = run {
+                    "${BWConstants.BLOCKCHAIR_EXPLORER_BASE_URL}$txHxString"
+                }
+
+                val transactionDetailsString = """
+                    LTC Address: $ltcAddressString  Timestamp: $dateTimestamp
+                    Amount: $amountString  Fees: $feesTotal
+                    Transaction Hash: $txHxString
+                    Blockchain browser URL: $txIDBrowserURL
+                """.trimIndent()
+
+                BRClipboardManager.putDetailsClipboard(app, transactionDetailsString)
             }
         }
     }

@@ -8,8 +8,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -90,6 +88,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import com.brainwallet.constants.BWConstants
+import com.brainwallet.constants.bentoSpacer
 import com.brainwallet.tools.animation.BRAnimator
 import com.brainwallet.ui.bentosections.favouritesbento.FavouritesBentoScreen
 import com.brainwallet.ui.bentosections.gamehubbento.GameHubBentoPagerScreen
@@ -97,7 +96,6 @@ import com.brainwallet.ui.bentosections.tutorials.TutorialsBentoScreen
 import com.brainwallet.ui.screens.send.SendScreen
 import com.brainwallet.ui.theme.bentoClearGradient
 import com.brainwallet.ui.theme.bentoModalDarkGradient
-import com.google.common.math.LinearTransformation.horizontal
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -209,19 +207,18 @@ fun MainScreen(
                     .fillMaxSize()
                     .navigationBarsPadding()
             ) {
-                val verticalSpacing = 12.dp
                 val topPadding = padding.calculateTopPadding()
-                val bottomPadding = padding.calculateBottomPadding()
+                val bottomPadding = padding.calculateBottomPadding() - bentoSpacer
                 val availableHeight = maxHeight -
-                    (verticalSpacing * 5) -
+                    (bentoSpacer * 5) -
                     topPadding -
                     balanceGameBentoHt -
                     transactionRowHt -
                     gameHubHt -
                     bottomPadding
                 val transactionsDetailHeight = availableHeight + gameHubHt + balanceGameBentoHt
-                val ltcPickerBentoHeight = (availableHeight * 0.75f) - (verticalSpacing / 2)
-                val favoritesBentoHeight = (availableHeight * 0.25f) - (verticalSpacing / 2)
+                val ltcPickerBentoHeight = (availableHeight * 0.75f) - (bentoSpacer / 2)
+                val favoritesBentoHeight = (availableHeight * 0.25f) - (bentoSpacer / 2)
                 val transactionBentoHeight by animateDpAsState(
                     targetValue = if (showTransactionDetail) transactionsDetailHeight else transactionRowHt,
                     animationSpec = tween(EXPAND_DURATION),
@@ -260,12 +257,12 @@ fun MainScreen(
                         columns = GridCells.Fixed(2),
                         modifier = Modifier
                             .padding(
-                                horizontal = 12.dp,
+                                horizontal = bentoSpacer,
                                 vertical = 1.dp
                             )
                             .weight(1f),
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                        verticalArrangement = Arrangement.spacedBy(12.dp),
+                        horizontalArrangement = Arrangement.spacedBy(bentoSpacer),
+                        verticalArrangement = Arrangement.spacedBy(bentoSpacer),
                         userScrollEnabled = false
                     ) {
                         item(span = { GridItemSpan(2) }) {
@@ -274,30 +271,21 @@ fun MainScreen(
                             }
                         }
                         item(span = { GridItemSpan(2) }) {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(transactionBentoHeight)
-                                    .clickable(
-                                        indication = null,
-                                        interactionSource = remember { MutableInteractionSource() }
-                                    ) {
-                                        if (noTxItemsPresent) {
-                                            onNavigate.invoke(UiEffect.Navigate(Route.MoonPayWeb))
-                                        } else {
-                                            viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail)
-                                        }
+                            TransactionsBentoScreen(
+                                modifier = Modifier.fillMaxWidth()
+                                    .height(transactionBentoHeight),
+                                transactions = state.transactionItems.toImmutableList(),
+                                toggleState = state.filterState,
+                                showTransactionDetail = state.showTransactionDetail,
+                                shouldShowFiatValues = state.shouldShowFiatValues,
+                                onBentoTap = {
+                                    if (noTxItemsPresent) {
+                                        onNavigate.invoke(UiEffect.Navigate(Route.MoonPayWeb))
+                                    } else {
+                                        viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail)
                                     }
-                            ) {
-                                TransactionsBentoScreen(
-                                    transactions = state.transactionItems.toImmutableList(),
-                                    toggleState = state.filterState,
-                                    onEvent = viewModel::onEvent,
-                                    showTransactionDetail = state.showTransactionDetail,
-                                    shouldShowFiatValues = state.shouldShowFiatValues,
-                                    modifier = Modifier.fillMaxSize()
-                                )
-                            }
+                                }
+                            )
                         }
 
                         item(span = { GridItemSpan(1) }) {
@@ -317,7 +305,7 @@ fun MainScreen(
                                 enter = fadeIn(tween(FADE_IN_DURATION)),
                                 exit = fadeOut(tween(FADE_OUT_DURATION)),
                             ) {
-                                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                                Column(verticalArrangement = Arrangement.spacedBy(bentoSpacer)) {
                                     Box(modifier = Modifier.height(ltcPickerBentoHeight)) {
                                         LTCPickerBentoScreen()
                                     }
@@ -369,7 +357,6 @@ fun MainScreen(
                 containerColor = Color.Transparent,
                 contentWindowInsets = { WindowInsets(0) },
                 scrimColor = if (isDarkMode) {
-                    // Overall background of Main Screen
                     Color.White.copy(0.1f)
                 } else {
                     Color.Black.copy(0.1f)
