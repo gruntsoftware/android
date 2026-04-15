@@ -640,4 +640,4 @@
     <string name="favourites_label">トップシークレット</string>
     <string name="tutorials_label">チュートリアル</string>
     <string name="coming_soon">近日公開予定!</string>
-<string name="rice_partner_03_tagline">パートナーでわずか5分でチャージできます</string><string name="unagi_social_01_tagline">クリックしてフォローしてください！</string></resources>
+<string name="rice_partner_03_tagline">パートナーでわずか5分でチャージできます</string><string name="unagi_social_01_tagline">クリックしてフォローしてください！</string><string name="sign_up_messaging_title">アップデート、新機能、コンテストの最新情報を受け取ろう！</string><string name="grant_for_notifications_message">"通知の許可を有効にしてください"</string></resources>
