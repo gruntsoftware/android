@@ -640,4 +640,4 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">튜토리얼</string>
     <string name="coming_soon">곧 출시됩니다!</string>
-<string name="rice_partner_03_tagline">파트너와 함께 5분 안에 충전하세요</string><string name="unagi_social_01_tagline">클릭하고 우리를 팔로우하세요!</string></resources>
+<string name="rice_partner_03_tagline">파트너와 함께 5분 안에 충전하세요</string><string name="unagi_social_01_tagline">클릭하고 우리를 팔로우하세요!</string><string name="sign_up_messaging_title">업데이트, 새로운 소식 및 이벤트 구독하기!</string><string name="grant_for_notifications_message">"알림 권한을 허용해 주세요"</string></resources>
