@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Brainwallet</string>
+    <string name="send_title">Versturen</string>
+    <string name="MenuViewController.createButton">Nieuw Wallet Aanmaken</string>
+</resources>
