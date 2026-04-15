@@ -56,7 +56,7 @@ class LocaleHelperTest {
     fun `check all language codes given the subjective business logic which prioritizes localization popularity`() {
         Language.entries
             .also { languages ->
-                assertEquals(20, languages.size)
+                assertEquals(22, languages.size)
             }
             .map { it.code }
             .also {
@@ -64,8 +64,8 @@ class LocaleHelperTest {
                     listOf(
                         "en", "es", "in", "ar", "uk",
                         "ru", "pt", "hi", "de", "fa",
-                        "pa", "pl", "ko", "fr", "zh-TW",
-                        "tr", "ja", "zh-CN", "it", "sv"
+                        "pa", "pl", "ko", "nl", "th", "fr",
+                        "zh-TW", "tr", "ja", "zh-CN", "it", "sv"
                     ),
                     it
                 )
