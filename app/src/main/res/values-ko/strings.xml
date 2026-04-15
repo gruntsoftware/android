@@ -640,4 +640,4 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">튜토리얼</string>
     <string name="coming_soon">곧 출시됩니다!</string>
-<string name="rice_partner_03_tagline">파트너와 함께 5분 안에 충전하세요</string><string name="unagi_social_01_tagline">클릭하고 우리를 팔로우하세요!</string></resources>
+<string name="rice_partner_03_tagline">파트너와 함께 5분 안에 충전하세요</string><string name="unagi_social_01_tagline">클릭하고 우리를 팔로우하세요!</string><string name="export_transaction_button_title">모든 거래 내역 내보내기</string><string name="copy_tx_details">거래 상세정보 복사</string><string name="all_label">전체</string><string name="received_label">받음</string><string name="sent_label">보냄</string><string name="ltc_price_label">LTC 가격</string></resources>

@@ -279,4 +279,4 @@
     <string name="favourites_label">शीर्ष गोपनीय</string>
     <string name="tutorials_label">ट्यूटोरियल</string>
     <string name="coming_soon">जल्द ही आ रहा है!</string>
-<string name="rice_partner_03_tagline">हमारे पार्टनर के साथ 5 मिनट में टॉप अप करें</string><string name="unagi_social_01_tagline">क्लिक करें और हमें फॉलो करें!</string></resources>
+<string name="rice_partner_03_tagline">हमारे पार्टनर के साथ 5 मिनट में टॉप अप करें</string><string name="unagi_social_01_tagline">क्लिक करें और हमें फॉलो करें!</string><string name="export_transaction_button_title">सभी लेनदेन निर्यात करें</string><string name="copy_tx_details">लेनदेन विवरण कॉपी करें</string><string name="all_label">सभी</string><string name="received_label">प्राप्त</string><string name="sent_label">भेजा गया</string><string name="ltc_price_label">LTC मूल्य</string></resources>

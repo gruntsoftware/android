@@ -640,4 +640,4 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Обучающие материалы</string>
     <string name="coming_soon">Скоро!</string>
-<string name="rice_partner_03_tagline">Пополните счет за 5 минут с нашим партнером</string><string name="unagi_social_01_tagline">Нажмите и подпишитесь на нас!</string></resources>
+<string name="rice_partner_03_tagline">Пополните счет за 5 минут с нашим партнером</string><string name="unagi_social_01_tagline">Нажмите и подпишитесь на нас!</string><string name="export_transaction_button_title">Экспортировать все транзакции</string><string name="copy_tx_details">Копировать детали транзакции</string><string name="all_label">Все</string><string name="received_label">Получено</string><string name="sent_label">Отправлено</string><string name="ltc_price_label">Цена LTC</string></resources>
