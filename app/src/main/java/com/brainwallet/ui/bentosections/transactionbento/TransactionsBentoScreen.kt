@@ -44,14 +44,15 @@ import com.brainwallet.constants.bentoCornerRadius
 import com.brainwallet.constants.bentoSpacer
 import com.brainwallet.constants.transactionActionHt
 import com.brainwallet.constants.transactionDetailHt
-import com.brainwallet.constants.transactionRowDetailHt
 import com.brainwallet.constants.transactionRowHt
+import com.brainwallet.constants.tripleBentoSpacer
 import com.brainwallet.presenter.entities.TxItem
 import com.brainwallet.ui.bentosections.transactionbento.subscreens.CopyTransactionsWidget
 import com.brainwallet.ui.bentosections.transactionbento.subscreens.NoTxRow
 import com.brainwallet.ui.bentosections.transactionbento.subscreens.TransactionDetail
 import com.brainwallet.ui.bentosections.transactionbento.subscreens.TransactionFilterWidget
 import com.brainwallet.ui.bentosections.transactionbento.subscreens.TransactionRow
+import com.brainwallet.ui.composable.screenHeightPercent
 import com.brainwallet.ui.screens.main.MainScreenEvent
 import com.brainwallet.ui.screens.main.MainViewModel
 import kotlinx.collections.immutable.ImmutableList
@@ -209,7 +210,7 @@ fun TransactionsBentoScreen(
                         flingBehavior = flingBehavior,
                         contentPadding = if (showTransactionDetail) {
                             PaddingValues(
-                                bottom = transactionRowHt
+                                top = tripleBentoSpacer,
                             )
                         } else {
                             PaddingValues(bottom = 0.dp)
@@ -218,14 +219,14 @@ fun TransactionsBentoScreen(
                             .fillMaxWidth()
                             .height(
                                 if (showTransactionDetail) {
-                                    transactionRowDetailHt
+                                    screenHeightPercent(0.25f)
                                 } else {
                                     transactionRowHt
                                 }
                             )
                             .clip(RoundedCornerShape(bentoCornerRadius))
                             .clipToBounds(),
-                        verticalArrangement = Arrangement.spacedBy(3.dp),
+                        verticalArrangement = Arrangement.spacedBy(bentoSpacer),
                     ) {
                         itemsIndexed(
                             items = transactions,
