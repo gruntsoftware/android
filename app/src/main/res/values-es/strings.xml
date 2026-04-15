@@ -487,4 +487,4 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Tutoriales</string>
     <string name="coming_soon">¡Próximamente!</string>
-<string name="rice_partner_03_tagline">¡Recarga en 5 minutos con nuestro socio!</string><string name="unagi_social_01_tagline">¡Haz clic y síguenos!</string></resources>
+<string name="rice_partner_03_tagline">¡Recarga en 5 minutos con nuestro socio!</string><string name="unagi_social_01_tagline">¡Haz clic y síguenos!</string><string name="sign_up_messaging_title">¡Regístrate para recibir actualizaciones, novedades y concursos!</string><string name="grant_for_notifications_message">"Por favor, acepta el permiso para nuestras notificaciones"</string></resources>
