@@ -3,7 +3,7 @@ name: Auto-Translate strings.xml
 on:
   push:
     branches:
-      - bento
+      - main
       - develop
     paths:
       - '**/values/strings.xml'
@@ -66,7 +66,7 @@ jobs:
           gh pr create \
             --title "🌍 Auto-translations: missing strings updated" \
             --body "$(cat /tmp/pr_body.md)" \
-            --base main \
+            --base develop \
             --head "$BRANCH" \
             --label "translations" \
             --reviewer "${{ github.actor }}"
