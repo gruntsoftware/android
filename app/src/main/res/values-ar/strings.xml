@@ -278,4 +278,4 @@
     <string name="enter_pin">أدخل PIN</string>
     <string name="favourites_label">سري جداً</string>
     <string name="tutorials_label">البرامج التعليمية</string>
-    <string name="coming_soon">قريباً جداً!</string><string name="rice_partner_03_tagline">أضف رصيداً في 5 دقائق مع شريكنا</string><string name="unagi_social_01_tagline">انقر واتبعنا!</string></resources>
+    <string name="coming_soon">قريباً جداً!</string><string name="rice_partner_03_tagline">أضف رصيداً في 5 دقائق مع شريكنا</string><string name="unagi_social_01_tagline">انقر واتبعنا!</string><string name="export_transaction_button_title">تصدير جميع المعاملات</string><string name="copy_tx_details">نسخ تفاصيل المعاملة</string><string name="all_label">الكل</string><string name="received_label">مستقبل</string><string name="sent_label">مرسل</string><string name="ltc_price_label">سعر LTC</string></resources>

@@ -640,4 +640,4 @@
     <string name="favourites_label">トップシークレット</string>
     <string name="tutorials_label">チュートリアル</string>
     <string name="coming_soon">近日公開予定!</string>
-<string name="rice_partner_03_tagline">パートナーでわずか5分でチャージできます</string><string name="unagi_social_01_tagline">クリックしてフォローしてください！</string></resources>
+<string name="rice_partner_03_tagline">パートナーでわずか5分でチャージできます</string><string name="unagi_social_01_tagline">クリックしてフォローしてください！</string><string name="export_transaction_button_title">すべてのトランザクションをエクスポート</string><string name="copy_tx_details">トランザクションの詳細をコピー</string><string name="all_label">すべて</string><string name="received_label">受け取り</string><string name="sent_label">送信</string><string name="ltc_price_label">LTC 価格</string></resources>

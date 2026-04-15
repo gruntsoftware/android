@@ -641,4 +641,4 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Tutorial</string>
     <string name="coming_soon">Segera hadir!</string>
-<string name="rice_partner_03_tagline">Top up dalam 5 menit dengan mitra kami</string><string name="unagi_social_01_tagline">Klik dan ikuti kami!</string></resources>
+<string name="rice_partner_03_tagline">Top up dalam 5 menit dengan mitra kami</string><string name="unagi_social_01_tagline">Klik dan ikuti kami!</string><string name="export_transaction_button_title">Ekspor Semua Transaksi</string><string name="copy_tx_details">Salin detail transaksi</string><string name="all_label">Semua</string><string name="received_label">Diterima</string><string name="sent_label">Dikirim</string><string name="ltc_price_label">Harga LTC</string></resources>
