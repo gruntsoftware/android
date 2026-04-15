@@ -51,7 +51,8 @@ jobs:
           git checkout -b "$BRANCH"
           git add app/src/main/res/values-*/strings.xml
           git commit -m "chore(i18n): auto-translate missing strings [skip ci]
-          Languages updated: ar, zh-rTW, zh-rCN, fr, de, fa, pa, pl, in, es, sv, uk, ru, tr, ja, ko, hi, it, pt-rBR
+
+          Languages updated: ar, zh-rTW, zh-rCN, fr, de, fa, pa, pl, in, es, sv, uk, ru, th, tr, ja, ko, nl, hi, it, pt-rBR
           Triggered by: ${{ github.sha }}
           "
           git push origin "$BRANCH"
