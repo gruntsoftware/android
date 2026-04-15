@@ -64,7 +64,7 @@ jobs:
           gh pr create \
             --title "🌍 Auto-translations: missing strings updated" \
             --body "$(cat /tmp/pr_body.md)" \
-            --base main \
+            --base develop \
             --head "$BRANCH" \
             --label "translations" \
             --reviewer "${{ github.actor }}"
