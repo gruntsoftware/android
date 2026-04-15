@@ -167,7 +167,7 @@ def main():
         sys.exit(f"ERROR: Source file not found: {source_path}")
 
     source_strings = parse_strings(source_path)
-    print(f"✅ Source: {len(source_strings)} translatable strings loaded.")
+    print(f"✅ Source android android: {len(source_strings)} translatable strings loaded.")
 
     pr_lines = [
         "## 🌍 Auto-translation summary\n",
