@@ -515,12 +515,10 @@
   <string name="BottomNavItem.History.title">Historia</string>
   <!-- Balance -->
   <string name="ManageWallet.balance">Równowaga</string>
-  <string name="Login.ltcPrice" translatable="false">1 LTC = %1$s</string>
-  <string name="Login.currentLtcPrice">Aktualna wartość LTC w %1$s</string>
+    <string name="Login.currentLtcPrice">Aktualna wartość LTC w %1$s</string>
   <string name="Settings.languages">Języki</string>
   <!-- donation dialog -->
-  <string name="seed_phrase.label" translatable="false">1: %s 2: %s 3: %s 4: %s \\n5: %s 6: %s 7: %s 8: %s%s \\n9: %s 10: %s 11: %s 12: %s  %s</string>
-  <string name="show_seed_label">Pokaż</string>
+    <string name="show_seed_label">Pokaż</string>
   <string name="settings_show_seed">Pokaż moje nasiona</string>
   <string name="sync_preferences">Preferencje synchronizacji: %1$s fałszywe alarmy</string>
   <string name="radio_low_privacy">Niski poziom prywatności (~45 minut)</string>
@@ -529,10 +527,7 @@
   <!-- Announce Updates View -->
   <string name="Fees.Service">Usługa</string>
   <string name="ConfirmationAllFees.Label">Opłaty:</string>
-  <string name="notification_channel_name_general" translatable="false">Ogólne</string>
-  <string name="notification_channel_name_litecoin_news" translatable="false">Wiadomości Litecoin</string>
-  <string name="notification_channel_name_brainwallet_update" translatable="false">Aktualizacja Brainwallet</string>
-  <string name="cancel">Anuluj</string>
+    <string name="cancel">Anuluj</string>
   <string name="ok">Ok</string>
   <string name="please_grant_notification_permission">Prosimy o zezwolenie na powiadomienie</string>
   <string name="permission_info">Informacje o zezwoleniu</string>
@@ -587,12 +582,7 @@
   <string name="settings_blockchain_litecoin_button">Synchronizacja</string>
   <string name="settings_blockchain_litecoin_description">Czas trwania synchronizacji: &gt;20 minut</string>
   <string name="game_title">Gra %1$d:</string>
-  <string name="game_buy_price_1" translatable="false">%s</string>
-  <string name="game_buy_price_2" translatable="false">%s</string>
-  <string name="game_buy_price_3" translatable="false">%s</string>
-  <string name="game_buy_price_4" translatable="false">%s</string>
-  <string name="security_PIN_title" translatable="false">PIN</string>
-  <string name="security_seed_phrase_title">Fraza seed</string>
+    <string name="security_seed_phrase_title">Fraza seed</string>
   <string name="security_share_data_title">Udostępnianie danych analitycznych</string>
   <string name="security_PIN_button">Aktualizacja kodu PIN</string>
   <string name="security_phrase_button">Pokaż</string>
@@ -632,8 +622,7 @@
   <string name="date_label">"Data: "</string>
   <string name="amount_label">"Kwota: "</string>
   <string name="fees_label">"Opłaty: "</string>
-  <string name="tx_id_label">"ID TX: "</string>
-  <string name="no_transaction_detail_row">Nic jeszcze. Doładuj teraz!</string>
+    <string name="no_transaction_detail_row">Nic jeszcze. Doładuj teraz!</string>
   <string name="no_transaction_title_row">HISTORIA TRANSAKCJI</string>
-  <string name="txns_label">transakcje</string>
-<string name="enter_passcode">Wprowadź kod dostępu</string><string name="recipient_label">Odbiorca:</string><string name="send_litecoin_label">Wyślij Litecoin</string><string name="confirm_send_label">Potwierdź szczegóły przesyłki:</string><string name="edit_send_details">Edytuj</string><string name="network_fees_label">Opłaty sieciowe</string><string name="service_fees_label">Opłaty za usługę</string><string name="amount_in_fiat_label">Kwota w walucie fiducjarnej</string><string name="balance_label">Saldo:</string><string name="exchange_rate_label">Kurs wymiany:</string><string name="send_error_message">Wpisz prawidłowy adres LTC i kwotę, aby kontynuować</string><string name="enter_pin">Wprowadź PIN</string><string name="favourites_label">Top Secret</string><string name="tutorials_label">Poradniki</string><string name="coming_soon">Wkrótce!</string><string name="rice_partner_03_tagline">Doładuj w 5 minut z naszym partnerem</string><string name="unagi_social_01_tagline">Kliknij i obserwuj nas!</string><string name="export_transaction_button_title">Eksportuj wszystkie transakcje</string><string name="copy_tx_details">Skopiuj szczegóły transakcji</string><string name="all_label">Wszystkie</string><string name="received_label">Otrzymane</string><string name="sent_label">Wysłane</string><string name="ltc_price_label">Cena LTC</string></resources>
+    <string name="enter_passcode">Wprowadź kod dostępu</string><string name="recipient_label">Odbiorca:</string><string name="send_litecoin_label">Wyślij Litecoin</string><string name="confirm_send_label">Potwierdź szczegóły przesyłki:</string><string name="edit_send_details">Edytuj</string><string name="network_fees_label">Opłaty sieciowe</string><string name="service_fees_label">Opłaty za usługę</string><string name="amount_in_fiat_label">Kwota w walucie fiducjarnej</string><string name="balance_label">Saldo:</string><string name="exchange_rate_label">Kurs wymiany:</string><string name="send_error_message">Wpisz prawidłowy adres LTC i kwotę, aby kontynuować</string><string name="enter_pin">Wprowadź PIN</string><string name="favourites_label">Top Secret</string><string name="tutorials_label">Poradniki</string><string name="coming_soon">Wkrótce!</string><string name="rice_partner_03_tagline">Doładuj w 5 minut z naszym partnerem</string><string name="unagi_social_01_tagline">Kliknij i obserwuj nas!</string><string name="export_transaction_button_title">Eksportuj wszystkie transakcje</string><string name="copy_tx_details">Skopiuj szczegóły transakcji</string><string name="all_label">Wszystkie</string><string name="received_label">Otrzymane</string><string name="sent_label">Wysłane</string><string name="ltc_price_label">Cena LTC</string>
+    <string name="sign_up_messaging_title">Zarejestruj się, aby otrzymywać aktualizacje, wiadomości i informacje o konkursach!</string><string name="grant_for_notifications_message">"Proszę wyraź zgodę na nasze powiadomienia "</string></resources>

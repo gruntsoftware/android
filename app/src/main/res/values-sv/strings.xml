@@ -260,11 +260,9 @@
   <string name="date_label">"Datum: "</string>
   <string name="amount_label">"Belopp: "</string>
   <string name="fees_label">"Avgifter: "</string>
-  <string name="tx_id_label">"TX ID: "</string>
-  <string name="no_transaction_detail_row">Inget ännu. Fyll på nu!</string>
+    <string name="no_transaction_detail_row">Inget ännu. Fyll på nu!</string>
   <string name="no_transaction_title_row">TRANSAKTIONSHISTORIK</string>
-  <string name="txns_label">txns</string>
-<string name="enter_passcode">Ange lösenord</string>
+    <string name="enter_passcode">Ange lösenord</string>
     <string name="recipient_label">Mottagare:</string>
     <string name="send_litecoin_label">Skicka Litecoin</string>
     <string name="confirm_send_label">Bekräfta skicka-detaljer:</string>
@@ -279,4 +277,5 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Guider</string>
     <string name="coming_soon">Kommer snart!</string>
-<string name="rice_partner_03_tagline">Fylla på på 5 minuter med vår partner</string><string name="unagi_social_01_tagline">Klicka och följ oss!</string><string name="export_transaction_button_title">Exportera alla transaktioner</string><string name="copy_tx_details">Kopiera transaktionsdetaljer</string><string name="all_label">Alla</string><string name="received_label">Mottaget</string><string name="sent_label">Skickat</string><string name="ltc_price_label">LTC-pris</string></resources>
+<string name="rice_partner_03_tagline">Fylla på på 5 minuter med vår partner</string><string name="unagi_social_01_tagline">Klicka och följ oss!</string><string name="sign_up_messaging_title">Registrera dig för uppdateringar, nyheter och tävlingar!</string><string name="grant_for_notifications_message">"Vänligen acceptera behörighet för våra meddelanden "</string>
+    <string name="export_transaction_button_title">Exportera alla transaktioner</string><string name="copy_tx_details">Kopiera transaktionsdetaljer</string><string name="all_label">Alla</string><string name="received_label">Mottaget</string><string name="sent_label">Skickat</string><string name="ltc_price_label">LTC-pris</string></resources>

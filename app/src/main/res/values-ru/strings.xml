@@ -621,10 +621,8 @@
     <string name="date_label">"Дата: "</string>
     <string name="amount_label">"Сумма: "</string>
     <string name="fees_label">"Комиссия: "</string>
-    <string name="tx_id_label">"ID транзакции: "</string>
     <string name="no_transaction_detail_row">Пока ничего. Пополните сейчас!</string>
     <string name="no_transaction_title_row">ИСТОРИЯ ТРАНЗАКЦИЙ</string>
-    <string name="txns_label">транзакции</string>
     <string name="enter_passcode">Введите пароль</string>
     <string name="recipient_label">Получатель:</string>
     <string name="send_litecoin_label">Отправить Litecoin</string>
@@ -640,4 +638,5 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Обучающие материалы</string>
     <string name="coming_soon">Скоро!</string>
-<string name="rice_partner_03_tagline">Пополните счет за 5 минут с нашим партнером</string><string name="unagi_social_01_tagline">Нажмите и подпишитесь на нас!</string><string name="export_transaction_button_title">Экспортировать все транзакции</string><string name="copy_tx_details">Копировать детали транзакции</string><string name="all_label">Все</string><string name="received_label">Получено</string><string name="sent_label">Отправлено</string><string name="ltc_price_label">Цена LTC</string></resources>
+<string name="rice_partner_03_tagline">Пополните счет за 5 минут с нашим партнером</string><string name="unagi_social_01_tagline">Нажмите и подпишитесь на нас!</string><string name="export_transaction_button_title">Экспортировать все транзакции</string><string name="copy_tx_details">Копировать детали транзакции</string><string name="all_label">Все</string><string name="received_label">Получено</string><string name="sent_label">Отправлено</string><string name="ltc_price_label">Цена LTC</string>
+    <string name="sign_up_messaging_title">Подпишитесь на обновления, новости и конкурсы!</string><string name="grant_for_notifications_message">"Пожалуйста, разрешите отправку уведомлений "</string></resources>

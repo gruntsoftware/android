@@ -260,10 +260,8 @@
     <string name="date_label">"التاريخ: "</string>
     <string name="amount_label">"المبلغ: "</string>
     <string name="fees_label">"الرسوم: "</string>
-    <string name="tx_id_label">"معرف المعاملة: "</string>
     <string name="no_transaction_detail_row">لا شيء بعد. أضف رصيداً الآن!</string>
     <string name="no_transaction_title_row">سجل المعاملات</string>
-    <string name="txns_label">معاملات</string>
     <string name="enter_passcode">أدخل رمز المرور</string>
     <string name="recipient_label">المستقبل:</string>
     <string name="send_litecoin_label">إرسال Litecoin</string>
@@ -278,4 +276,5 @@
     <string name="enter_pin">أدخل PIN</string>
     <string name="favourites_label">سري جداً</string>
     <string name="tutorials_label">البرامج التعليمية</string>
-    <string name="coming_soon">قريباً جداً!</string><string name="rice_partner_03_tagline">أضف رصيداً في 5 دقائق مع شريكنا</string><string name="unagi_social_01_tagline">انقر واتبعنا!</string><string name="export_transaction_button_title">تصدير جميع المعاملات</string><string name="copy_tx_details">نسخ تفاصيل المعاملة</string><string name="all_label">الكل</string><string name="received_label">مستقبل</string><string name="sent_label">مرسل</string><string name="ltc_price_label">سعر LTC</string></resources>
+    <string name="coming_soon">قريباً جداً!</string><string name="rice_partner_03_tagline">أضف رصيداً في 5 دقائق مع شريكنا</string><string name="unagi_social_01_tagline">انقر واتبعنا!</string><string name="export_transaction_button_title">تصدير جميع المعاملات</string><string name="copy_tx_details">نسخ تفاصيل المعاملة</string><string name="all_label">الكل</string><string name="received_label">مستقبل</string><string name="sent_label">مرسل</string><string name="ltc_price_label">سعر LTC</string>
+    <string name="sign_up_messaging_title">اشترك للحصول على التحديثات والأخبار والمسابقات!</string><string name="grant_for_notifications_message">"يرجى قبول إذن إشعاراتنا "</string></resources>

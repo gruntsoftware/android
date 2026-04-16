@@ -176,13 +176,6 @@ public class SettingsActivity extends BRActivity {
             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
         }, false));
 
-        /*About*/
-        items.add(new BRSettingsItem(getString(R.string.Settings_about), "", v -> {
-            Intent intent = new Intent(SettingsActivity.this, AboutActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-        }, false));
-
         /*SPACER*/
         items.add(new BRSettingsItem("", "", null, true));
 
