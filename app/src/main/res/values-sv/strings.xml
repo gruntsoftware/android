@@ -259,11 +259,9 @@
   <string name="date_label">"Datum: "</string>
   <string name="amount_label">"Belopp: "</string>
   <string name="fees_label">"Avgifter: "</string>
-  <string name="tx_id_label">"TX ID: "</string>
-  <string name="no_transaction_detail_row">Inget ännu. Fyll på nu!</string>
+    <string name="no_transaction_detail_row">Inget ännu. Fyll på nu!</string>
   <string name="no_transaction_title_row">TRANSAKTIONSHISTORIK</string>
-  <string name="txns_label">txns</string>
-<string name="enter_passcode">Ange lösenord</string>
+    <string name="enter_passcode">Ange lösenord</string>
     <string name="recipient_label">Mottagare:</string>
     <string name="send_litecoin_label">Skicka Litecoin</string>
     <string name="confirm_send_label">Bekräfta skicka-detaljer:</string>

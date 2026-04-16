@@ -493,12 +493,10 @@
   <string name="BottomNavItem.History.title">تاریخ</string>
   <!-- Balance -->
   <string name="ManageWallet.balance">تعادل</string>
-  <string name="Login.ltcPrice" translatable="false">1 LTC = %1$s</string>
-  <string name="Login.currentLtcPrice">ارزش فعلی LTC در %1$s</string>
+    <string name="Login.currentLtcPrice">ارزش فعلی LTC در %1$s</string>
   <string name="Settings.languages">زبان‌ها</string>
   <!-- donation dialog -->
-  <string name="seed_phrase.label" translatable="false">۱: %s ۲: %s ۳: %s ۴: %s \\n۵: %s ۶: %s ۷: %s ۸: %s%s \\n۹: %s ۱۰: %s ۱۱: %s ۱۲: %s %s </string>
-  <string name="show_seed_label">نمایش</string>
+    <string name="show_seed_label">نمایش</string>
   <string name="settings_show_seed">نمایش عبارت بازیابی من</string>
   <string name="sync_preferences">ترجیح همگام‌سازی: %1$s مثبت‌های کاذب</string>
   <string name="radio_low_privacy">حریم خصوصی کم (حدود ۴۵ دقیقه)</string>
@@ -507,10 +505,7 @@
   <!-- Announce Updates View -->
   <string name="Fees.Service">خدمات</string>
   <string name="ConfirmationAllFees.Label">هزینه‌ها:</string>
-  <string name="notification_channel_name_general" translatable="false">عمومی</string>
-  <string name="notification_channel_name_litecoin_news" translatable="false">اخبار لایت کوین</string>
-  <string name="notification_channel_name_brainwallet_update" translatable="false">بروزرسانی کیف پول مغزی</string>
-  <string name="cancel">لغو</string>
+    <string name="cancel">لغو</string>
   <string name="ok">باشه</string>
   <string name="please_grant_notification_permission">لطفاً اجازه اعلان را صادر کنید</string>
   <string name="permission_info">اطلاعات مجوز</string>
@@ -566,12 +561,7 @@
   <string name="settings_blockchain_litecoin_button">همگام‌سازی</string>
   <string name="settings_blockchain_litecoin_description">مدت همگام‌سازی: &gt;۲۰ دقیقه</string>
   <string name="game_title">بازی %1$d:</string>
-  <string name="game_buy_price_1" translatable="false">%s</string>
-  <string name="game_buy_price_2" translatable="false">%s</string>
-  <string name="game_buy_price_3" translatable="false">%s</string>
-  <string name="game_buy_price_4" translatable="false">%s</string>
-  <string name="security_PIN_title" translatable="false">پین</string>
-  <string name="security_seed_phrase_title">عبارت بازیابی</string>
+    <string name="security_seed_phrase_title">عبارت بازیابی</string>
   <string name="security_share_data_title">اشتراک‌گذاری داده‌های تحلیلی</string>
   <string name="security_PIN_button">بروزرسانی پین</string>
   <string name="security_phrase_button">نمایش</string>
@@ -611,11 +601,9 @@
   <string name="date_label">"تاریخ: "</string>
   <string name="amount_label">"مقدار: "</string>
   <string name="fees_label">"کارمزد: "</string>
-  <string name="tx_id_label">"شناسه تراکنش: "</string>
-  <string name="no_transaction_detail_row">هنوز چیزی نیست. همین الان شارژ کنید!</string>
+    <string name="no_transaction_detail_row">هنوز چیزی نیست. همین الان شارژ کنید!</string>
   <string name="no_transaction_title_row">تاریخچه تراکنش‌ها</string>
-  <string name="txns_label">تراکنش‌ها</string>
-  <string name="enter_passcode">رمز عبور را وارد کنید</string>
+    <string name="enter_passcode">رمز عبور را وارد کنید</string>
 <string name="recipient_label">گیرنده:</string>
 <string name="send_litecoin_label">ارسال Litecoin</string>
 <string name="confirm_send_label">تایید جزئیات ارسال:</string>

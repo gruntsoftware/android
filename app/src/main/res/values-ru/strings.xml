@@ -620,10 +620,8 @@
     <string name="date_label">"Дата: "</string>
     <string name="amount_label">"Сумма: "</string>
     <string name="fees_label">"Комиссия: "</string>
-    <string name="tx_id_label">"ID транзакции: "</string>
     <string name="no_transaction_detail_row">Пока ничего. Пополните сейчас!</string>
     <string name="no_transaction_title_row">ИСТОРИЯ ТРАНЗАКЦИЙ</string>
-    <string name="txns_label">транзакции</string>
     <string name="enter_passcode">Введите пароль</string>
     <string name="recipient_label">Получатель:</string>
     <string name="send_litecoin_label">Отправить Litecoin</string>

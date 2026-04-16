@@ -392,10 +392,8 @@
     <string name="date_label">"Datum: "</string>
     <string name="amount_label">"Betrag: "</string>
     <string name="fees_label">"Gebühren: "</string>
-    <string name="tx_id_label">"TX ID: "</string>
     <string name="no_transaction_detail_row">Noch nichts. Jetzt aufladen!</string>
     <string name="no_transaction_title_row">TRANSAKTIONSVERLAUF</string>
-    <string name="txns_label">Txns</string>
     <string name="enter_passcode">Passcode eingeben</string>
     <string name="recipient_label">Empfänger:</string>
     <string name="send_litecoin_label">Litecoin senden</string>

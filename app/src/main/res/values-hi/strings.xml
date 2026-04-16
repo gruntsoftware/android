@@ -259,11 +259,9 @@
   <string name="date_label">"तारीख: "</string>
   <string name="amount_label">"राशि: "</string>
   <string name="fees_label">"शुल्क: "</string>
-  <string name="tx_id_label">"TX ID: "</string>
-  <string name="no_transaction_detail_row">अभी कुछ नहीं। अभी टॉप अप करें!</string>
+    <string name="no_transaction_detail_row">अभी कुछ नहीं। अभी टॉप अप करें!</string>
   <string name="no_transaction_title_row">लेनदेन इतिहास</string>
-  <string name="txns_label">ट्रांज़ैक्शन</string>
-  <string name="enter_passcode">पासकोड दर्ज करें</string>
+    <string name="enter_passcode">पासकोड दर्ज करें</string>
     <string name="recipient_label">प्राप्तकर्ता:</string>
     <string name="send_litecoin_label">Litecoin भेजें</string>
     <string name="confirm_send_label">भेजने के विवरण की पुष्टि करें:</string>

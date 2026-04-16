@@ -620,10 +620,8 @@
     <string name="date_label">"日付： "</string>
     <string name="amount_label">"金額： "</string>
     <string name="fees_label">"手数料： "</string>
-    <string name="tx_id_label">"TX ID： "</string>
     <string name="no_transaction_detail_row">まだありません。今すぐチャージ！</string>
     <string name="no_transaction_title_row">取引履歴</string>
-    <string name="txns_label">取引</string>
     <string name="enter_passcode">パスコードを入力</string>
     <string name="recipient_label">受取人:</string>
     <string name="send_litecoin_label">Litecoinを送信</string>

@@ -467,10 +467,8 @@
     <string name="date_label">"Fecha: "</string>
     <string name="amount_label">"Monto: "</string>
     <string name="fees_label">"Comisiones: "</string>
-    <string name="tx_id_label">"ID de TX: "</string>
     <string name="no_transaction_detail_row">Nada aún. ¡Recarga ahora!</string>
     <string name="no_transaction_title_row">HISTORIAL DE TRANSACCIONES</string>
-    <string name="txns_label">txns</string>
     <string name="enter_passcode">Ingresa el código de acceso</string>
     <string name="recipient_label">Destinatario:</string>
     <string name="send_litecoin_label">Enviar Litecoin</string>

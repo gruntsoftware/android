@@ -620,10 +620,8 @@
     <string name="date_label">"날짜: "</string>
     <string name="amount_label">"금액: "</string>
     <string name="fees_label">"수수료: "</string>
-    <string name="tx_id_label">"TX ID: "</string>
     <string name="no_transaction_detail_row">아직 없습니다. 지금 충전하세요!</string>
     <string name="no_transaction_title_row">거래 내역</string>
-    <string name="txns_label">거래</string>
     <string name="enter_passcode">암호를 입력하세요</string>
     <string name="recipient_label">받는 사람:</string>
     <string name="send_litecoin_label">Litecoin 전송</string>

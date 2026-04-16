@@ -260,11 +260,9 @@
   <string name="date_label">"Datum: "</string>
   <string name="amount_label">"Bedrag: "</string>
   <string name="fees_label">"Kosten: "</string>
-  <string name="tx_id_label">"TX ID: "</string>
-  <string name="no_transaction_detail_row">Nog niets. Vul nu aan!</string>
+    <string name="no_transaction_detail_row">Nog niets. Vul nu aan!</string>
   <string name="no_transaction_title_row">TRANSACTIEGESCHIEDENIS</string>
-  <string name="txns_label">txns</string>
-  <string name="enter_passcode">Voer passcode in</string>
+    <string name="enter_passcode">Voer passcode in</string>
   <string name="recipient_label">Ontvanger:</string>
   <string name="send_litecoin_label">Litecoin verzenden</string>
   <string name="confirm_send_label">Bevestig verzendgegevens:</string>

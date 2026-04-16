@@ -259,10 +259,8 @@
     <string name="date_label">"التاريخ: "</string>
     <string name="amount_label">"المبلغ: "</string>
     <string name="fees_label">"الرسوم: "</string>
-    <string name="tx_id_label">"معرف المعاملة: "</string>
     <string name="no_transaction_detail_row">لا شيء بعد. أضف رصيداً الآن!</string>
     <string name="no_transaction_title_row">سجل المعاملات</string>
-    <string name="txns_label">معاملات</string>
     <string name="enter_passcode">أدخل رمز المرور</string>
     <string name="recipient_label">المستقبل:</string>
     <string name="send_litecoin_label">إرسال Litecoin</string>

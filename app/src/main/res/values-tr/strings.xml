@@ -642,11 +642,9 @@
     <string name="date_label">"Tarih: "</string>
     <string name="amount_label">"Tutar: "</string>
     <string name="fees_label">"Ücretler: "</string>
-    <string name="tx_id_label">"TX ID: "</string>
     <string name="no_transaction_detail_row">Henüz yok. Hemen yükle!</string>
     <string name="no_transaction_title_row">İŞLEM GEÇMİŞİ</string>
-    <string name="txns_label">işlemler</string>
-<string name="enter_passcode">Şifre girin</string>
+    <string name="enter_passcode">Şifre girin</string>
     <string name="recipient_label">Alıcı:</string>
     <string name="send_litecoin_label">Litecoin gönder</string>
     <string name="confirm_send_label">Gönderme detaylarını onayla:</string>
