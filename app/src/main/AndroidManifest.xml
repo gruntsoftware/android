@@ -138,11 +138,6 @@
             android:launchMode="singleTask"
             />
         <activity
-            android:name=".presenter.activities.settings.AboutActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            />
-        <activity
             android:name=".presenter.activities.settings.SecurityCenterActivity"
             android:exported="true"
             android:launchMode="singleTask"

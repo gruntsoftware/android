@@ -11,6 +11,7 @@
     <!-- About screen title -->
     <string name="About.title">关于</string>
     <!-- About screen twitter label -->
+    <string name="About.twitter">Twitter</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">关闭</string>
     <!-- Support center accessibiliy label -->

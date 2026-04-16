@@ -12,7 +12,6 @@
     <string name="About.instagram" translatable="false">Instagram</string>
     <!-- About screen title -->
     <string name="About.title">About</string>
-    <!-- About screen twitter label -->
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">Close</string>
     <!-- Error alert title -->
