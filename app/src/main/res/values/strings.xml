@@ -471,5 +471,11 @@
     <string name="coming_soon">Coming soon!</string>
     <string name="rice_partner_03_tagline">Top up in 5 minutes with our partner</string>
     <string name="unagi_social_01_tagline">Click and follow us!</string>
+    <string name="export_transaction_button_title">Export All Transactions</string>
+    <string name="copy_tx_details">Copy transaction details</string>
+    <string name="all_label">All</string>
+    <string name="received_label">Received</string>
+    <string name="sent_label">Sent</string>
+    <string name="ltc_price_label">LTC Price</string>
 
 </resources>

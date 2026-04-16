@@ -58,6 +58,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.brainwallet.R
+import com.brainwallet.constants.bentoBorderWidth
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.model.getFormattedText
 import com.brainwallet.data.model.isCustom
@@ -158,7 +159,7 @@ private fun ReceiveDialog(
                 shape = DesignTheme.shapes.large
             )
             .border(
-                width = 1.dp,
+                width = bentoBorderWidth,
                 color = DesignTheme.colors.surface,
                 shape = DesignTheme.shapes.large
             ),

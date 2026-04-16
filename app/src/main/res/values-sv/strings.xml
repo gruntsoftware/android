@@ -279,4 +279,4 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Guider</string>
     <string name="coming_soon">Kommer snart!</string>
-<string name="rice_partner_03_tagline">Fylla på på 5 minuter med vår partner</string><string name="unagi_social_01_tagline">Klicka och följ oss!</string></resources>
+<string name="rice_partner_03_tagline">Fylla på på 5 minuter med vår partner</string><string name="unagi_social_01_tagline">Klicka och följ oss!</string><string name="export_transaction_button_title">Exportera alla transaktioner</string><string name="copy_tx_details">Kopiera transaktionsdetaljer</string><string name="all_label">Alla</string><string name="received_label">Mottaget</string><string name="sent_label">Skickat</string><string name="ltc_price_label">LTC-pris</string></resources>

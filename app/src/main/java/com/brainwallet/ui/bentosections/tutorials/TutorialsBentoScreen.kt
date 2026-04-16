@@ -5,7 +5,6 @@ import androidx.compose.ui.Alignment
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.brainwallet.ui.screens.main.MainViewModel
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,10 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brainwallet.ui.theme.IBMPlexSans
-import com.brainwallet.ui.theme.bentoDarkBorderGradient
-import com.brainwallet.ui.theme.bentoDarkSurfaceGradient
-import com.brainwallet.ui.theme.bentoLightBorderGradient
-import com.brainwallet.ui.theme.bentoLightSurfaceGradient
+import com.brainwallet.ui.theme.bentoSurface
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -45,15 +41,7 @@ fun TutorialsBentoScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(
-                brush = if (isDarkMode) bentoDarkSurfaceGradient else bentoLightSurfaceGradient,
-                shape = RoundedCornerShape(16.dp)
-            )
-            .border(
-                width = 1.5.dp,
-                brush = if (isDarkMode) bentoDarkBorderGradient else bentoLightBorderGradient,
-                shape = RoundedCornerShape(16.dp)
-            )
+            .bentoSurface(isDarkMode)
     ) {
         Column(
             modifier = Modifier

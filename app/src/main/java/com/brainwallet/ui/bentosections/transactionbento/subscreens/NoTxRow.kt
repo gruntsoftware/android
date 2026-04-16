@@ -1,4 +1,4 @@
-package com.brainwallet.ui.bentosections.transactionbento
+package com.brainwallet.ui.bentosections.transactionbento.subscreens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brainwallet.R
+import com.brainwallet.constants.bentoBorderWidth
 import com.brainwallet.constants.transactionRowHt
 import com.brainwallet.ui.theme.IBMPlexSans
 import com.brainwallet.ui.theme.bentoDarkBorderGradient
@@ -45,7 +46,7 @@ fun NoTxRow(
                 shape = RoundedCornerShape(16.dp)
             )
             .border(
-                width = 1.5.dp,
+                width = bentoBorderWidth,
                 brush = if (isDarkMode) bentoDarkBorderGradient else bentoLightBorderGradient,
                 shape = RoundedCornerShape(16.dp)
             )

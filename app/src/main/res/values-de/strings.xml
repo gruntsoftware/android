@@ -411,4 +411,4 @@
     <string name="enter_pin">PIN eingeben</string>
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Tutorials</string>
-    <string name="coming_soon">Kommt bald!</string><string name="rice_partner_03_tagline">Laden Sie in 5 Minuten mit unserem Partner auf</string><string name="unagi_social_01_tagline">Klicken Sie und folgen Sie uns!</string></resources>
+    <string name="coming_soon">Kommt bald!</string><string name="rice_partner_03_tagline">Laden Sie in 5 Minuten mit unserem Partner auf</string><string name="unagi_social_01_tagline">Klicken Sie und folgen Sie uns!</string><string name="export_transaction_button_title">Alle Transaktionen exportieren</string><string name="copy_tx_details">Transaktionsdetails kopieren</string><string name="all_label">Alle</string><string name="received_label">Empfangen</string><string name="sent_label">Gesendet</string><string name="ltc_price_label">LTC-Preis</string></resources>

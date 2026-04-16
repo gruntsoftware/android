@@ -5,7 +5,6 @@ import androidx.compose.ui.Alignment
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.brainwallet.ui.screens.main.MainViewModel
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +12,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -27,7 +27,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.R
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -40,10 +39,7 @@ import com.airbnb.lottie.model.content.CircleShape
 import com.brainwallet.constants.favouriteSize
 import com.brainwallet.ui.theme.DesignTheme
 import com.brainwallet.ui.theme.IBMPlexSans
-import com.brainwallet.ui.theme.bentoDarkBorderGradient
-import com.brainwallet.ui.theme.bentoDarkSurfaceGradient
-import com.brainwallet.ui.theme.bentoLightBorderGradient
-import com.brainwallet.ui.theme.bentoLightSurfaceGradient
+import com.brainwallet.ui.theme.bentoSurface
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -62,15 +58,7 @@ fun FavouritesBentoScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(
-                brush = if (isDarkMode) bentoDarkSurfaceGradient else bentoLightSurfaceGradient,
-                shape = RoundedCornerShape(16.dp)
-            )
-            .border(
-                width = 1.5.dp,
-                brush = if (isDarkMode) bentoDarkBorderGradient else bentoLightBorderGradient,
-                shape = RoundedCornerShape(16.dp)
-            )
+            .bentoSurface(isDarkMode)
     ) {
         Column(
             modifier = Modifier
@@ -95,6 +83,7 @@ fun FavouritesBentoScreen(
                     )
                     .padding(horizontal = 6.dp, vertical = 2.dp)
             )
+            Spacer(modifier = Modifier.weight(1f))
             Row(modifier = Modifier.padding(top = 4.dp)) {
                 Box {
                     Column(
@@ -154,6 +143,7 @@ fun FavouritesBentoScreen(
                 }
                 Spacer(modifier = Modifier.weight(1f))
             }
+            Spacer(modifier = Modifier.weight(1f))
         }
     }
 }
@@ -161,11 +151,7 @@ fun FavouritesBentoScreen(
 @PreviewLightDark
 @Composable
 private fun FavouritesBentoScreenPreview() {
-    Box(
-        modifier = Modifier
-            .fillMaxHeight(0.7f)
-            .padding(16.dp)
-    ) {
+    Box(modifier = Modifier.height(120.dp)) {
         FavouritesBentoScreen()
     }
 }

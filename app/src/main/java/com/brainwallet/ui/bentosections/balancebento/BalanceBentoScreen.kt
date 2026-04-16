@@ -55,6 +55,7 @@ import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
 import com.brainwallet.presenter.entities.TxItem
+import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.ui.screens.main.MainScreenEvent
 import com.brainwallet.ui.screens.main.MainScreenState
 import com.brainwallet.ui.screens.main.MainViewModel
@@ -190,7 +191,10 @@ fun BalanceBentoScreen(
                     .clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = null
-                    ) { isSwapped = !isSwapped }
+                    ) {
+                        isSwapped = !isSwapped
+                        AnalyticsManager.logCustomEventWithParams("did_toggle_fiat_ltc", null)
+                    }
             ) {
                 // ──────── MY BALANCE LABEL ────────
                 Text(
@@ -261,7 +265,11 @@ fun BalanceBentoScreen(
                         .size(30.dp)
                         .clickable(
                             interactionSource = remember { MutableInteractionSource() },
-                        ) { onEvent(BalanceBentoEvent.OnToggleBalanceVisibility) }
+                        ) {
+                            AnalyticsManager.logCustomEventWithParams("did_toggle_balance_visibility", null)
+
+                            onEvent(BalanceBentoEvent.OnToggleBalanceVisibility)
+                        }
                         .blurWhen(!mainState.isInternetReachable),
                     painter = iconImage,
                     contentDescription = "Toggle Balance Show",

@@ -5,7 +5,9 @@ val balanceGameBentoHt = 125.dp
 val gameHubHt = 120.dp
 val transactionRowHt = 70.dp
 
-val transactionRowDetailHt = 140.dp
+val transactionActionHt = 40.dp
+
+val transactionDetailHt = 240.dp
 
 val transactionQRSize = 120.dp
 
@@ -21,3 +23,9 @@ val topNavButtonSize = 48.dp
 val topNavStartEndPadding = 12.dp
 
 val favouriteSize = 30.dp
+
+val bentoBorderWidth = 1.1.dp
+val bentoCornerRadius = 16.dp
+
+val bentoSpacer = 6.dp
+val tripleBentoSpacer = 18.dp

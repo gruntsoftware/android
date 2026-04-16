@@ -1,6 +1,7 @@
 package com.brainwallet.ui.screens.main
 
 import android.content.Context
+import com.brainwallet.presenter.entities.TxItem
 import java.math.BigDecimal
 
 sealed class MainScreenEvent {
@@ -12,4 +13,6 @@ sealed class MainScreenEvent {
     data object OnToggleDarkMode : MainScreenEvent()
     data object OnToggleTransactionsDetail : MainScreenEvent()
     data object OnToggleTransactionsFilter : MainScreenEvent()
+    data object OnExportTransactions : MainScreenEvent()
+    data class OnCopyTransactions(val transactionItem: TxItem) : MainScreenEvent()
 }

@@ -640,4 +640,4 @@
     <string name="favourites_label">最高机密</string>
     <string name="tutorials_label">教程</string>
     <string name="coming_soon">敬请期待！</string>
-<string name="rice_partner_03_tagline">通过我们的合作伙伴5分钟内充值</string><string name="unagi_social_01_tagline">点击关注我们！</string></resources>
+<string name="rice_partner_03_tagline">通过我们的合作伙伴5分钟内充值</string><string name="unagi_social_01_tagline">点击关注我们！</string><string name="export_transaction_button_title">导出所有交易</string><string name="copy_tx_details">复制交易详情</string><string name="all_label">全部</string><string name="received_label">已接收</string><string name="sent_label">已发送</string><string name="ltc_price_label">LTC 价格</string></resources>

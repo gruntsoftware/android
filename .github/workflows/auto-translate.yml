@@ -3,7 +3,7 @@ name: Auto-Translate strings.xml
 on:
   push:
     branches:
-      - bento
+      - main
       - develop
     paths:
       - '**/values/strings.xml'
@@ -41,7 +41,6 @@ jobs:
         id: changes
         run: |
           git diff --quiet && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
-
       - name: Create branch and commit
         if: steps.changes.outputs.changed == 'true'
         run: |
@@ -52,12 +51,10 @@ jobs:
           git checkout -b "$BRANCH"
           git add app/src/main/res/values-*/strings.xml
           git commit -m "chore(i18n): auto-translate missing strings [skip ci]
-
           Languages updated: ar, zh-rTW, zh-rCN, fr, de, fa, pa, pl, in, es, sv, uk, ru, tr, ja, ko, hi, it, pt-rBR
           Triggered by: ${{ github.sha }}
           "
           git push origin "$BRANCH"
-
       - name: Open Pull Request
         if: steps.changes.outputs.changed == 'true'
         env:

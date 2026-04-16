@@ -1,11 +1,11 @@
 package com.brainwallet.ui.bentosections.ltcpickerbento
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -38,10 +38,7 @@ import com.brainwallet.ui.composable.VerticalWheelPicker
 import com.brainwallet.ui.composable.WheelPickerFocusVertical
 import com.brainwallet.ui.composable.rememberWheelPickerState
 import com.brainwallet.ui.theme.IBMPlexSans
-import com.brainwallet.ui.theme.bentoDarkBorderGradient
-import com.brainwallet.ui.theme.bentoDarkSurfaceGradient
-import com.brainwallet.ui.theme.bentoLightBorderGradient
-import com.brainwallet.ui.theme.bentoLightSurfaceGradient
+import com.brainwallet.ui.theme.bentoSurface
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -97,26 +94,31 @@ fun LTCPickerBentoScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(
-                brush = if (state.darkMode) bentoDarkSurfaceGradient else bentoLightSurfaceGradient,
-                shape = RoundedCornerShape(16.dp)
-            )
-            .border(
-                width = 1.5.dp,
-                brush = if (state.darkMode) bentoDarkBorderGradient else bentoLightBorderGradient,
-                shape = RoundedCornerShape(16.dp)
-            )
+            .bentoSurface(state.darkMode)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(
-                    bottom = 6.dp,
-                    start = 16.dp,
-                    end = 16.dp
-                ),
-            verticalArrangement = Arrangement.Center
+                .padding(10.dp),
+            verticalArrangement = Arrangement.Bottom
         ) {
+            Text(
+                text = stringResource(com.brainwallet.R.string.ltc_price_label).uppercase(),
+                color = if (state.darkMode) Color.White else Color.Black,
+                style = TextStyle(
+                    fontFamily = IBMPlexSans,
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 10.sp
+                ),
+                modifier = Modifier
+                    .padding(start = 1.dp, end = 1.dp)
+                    .background(
+                        color = Color.White.copy(alpha = 0.2f),
+                        shape = RoundedCornerShape(6.dp)
+                    )
+                    .padding(horizontal = 6.dp, vertical = 2.dp)
+            )
+            Spacer(modifier = Modifier.weight(0.5f))
             VerticalWheelPicker(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -129,7 +131,7 @@ fun LTCPickerBentoScreen(
                 count = currenciesWithFlags.size,
                 state = wheelPickerState,
                 unfocusedCount = 1,
-                itemHeight = 24.dp,
+                itemHeight = 30.dp,
                 focus = {
                     WheelPickerFocusVertical(
                         dividerColor = if (state.darkMode) {
@@ -154,7 +156,7 @@ fun LTCPickerBentoScreen(
                 text = "${state.selectedCurrency.name}",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 4.dp),
+                    .padding(vertical = 8.dp),
                 onTextLayout = { textLayoutResult ->
                     if (textLayoutResult.hasVisualOverflow) {
                         resizedCurrencyNameFontSize *= 0.95f
@@ -193,7 +195,7 @@ fun LTCPickerBentoScreen(
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 2.dp, bottom = 2.dp),
+                    .padding(top = 2.dp, bottom = 4.dp),
                 onTextLayout = { textLayoutResult ->
                     if (textLayoutResult.hasVisualOverflow) {
                         resizedAsOfTimestampFontSize *= 0.95f

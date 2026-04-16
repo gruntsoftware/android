@@ -593,26 +593,7 @@
     <ID>UnstableCollections:UnLockScreenBody.kt$List&lt;Int&gt;</ID>
     <ID>UnstableCollections:YourSeedProveItScreen.kt$List&lt;String&gt;</ID>
     <ID>UnstableCollections:YourSeedWordsScreen.kt$List&lt;String&gt;</ID>
-    <ID>UnusedPrivateMember:BrainWalletLogo.kt$@PreviewLightDark @Composable private fun BrainWalletLogoPreview()</ID>
-    <ID>UnusedPrivateMember:TransactionRowsBentoScreenPreview.kt$@PreviewLightDark @Composable private fun TransactionRowsBentoScreenPreview()</ID>
-    <ID>UnusedPrivateMember:DarkModeToggleButton.kt$@PreviewLightDark @Composable private fun DarkModeToggleButtonPreview()</ID>
     <ID>UnusedPrivateMember:PaperKeyActivity.kt$PaperKeyActivity$private fun onSavedItClick()</ID>
-    <ID>UnusedPrivateMember:ReceiveDialog.kt$@PreviewLightDark @Composable private fun ReceiveDialogPreview()</ID>
-    <ID>UnusedPrivateMember:UnLockScreen.kt$@PreviewLightDark @Composable private fun UnLockScreenPreview()</ID>
-    <ID>UnusedPrivateMember:SendScreen.kt$@PreviewLightDark @Composable private fun SendScreenPreview()</ID>
-    <ID>UnusedPrivateMember:UnLockScreenBody.kt$@PreviewLightDark @Composable private fun UnLockScreenBodyPreview()</ID>
-    <ID>UnusedPrivateMember:UnLockScreenFooter.kt$@PreviewLightDark @Composable private fun UnLockScreenFooterPreview()</ID>
-    <ID>UnusedPrivateMember:UnLockScreenHeader.kt$@PreviewLightDark @Composable private fun UnLockScreenHeaderPreview()</ID>
-    <ID>UnusedPrivateMember:GameHubScreen.kt$@PreviewLightDark @Composable private fun GameHubScreenPreview()</ID>
-    <ID>UnusedPrivateMember:HistoryScreen.kt$@PreviewLightDark @Composable private fun HistoryScreenPreview()</ID>
-    <ID>UnusedPrivateMember:GameHubBentoScreen.kt$@PreviewLightDark @Composable private fun GameHubBentoScreenPreview()</ID>
-    <ID>UnusedPrivateMember:LTCPickerBentoScreen.kt$@PreviewLightDark @Composable private fun LTCPickerBentoScreenPreview()</ID>
-    <ID>UnusedPrivateMember:BalanceBentoScreen.kt$@PreviewLightDark @Composable private fun BalanceBentoScreenPreview()</ID>
-    <ID>UnusedPrivateMember:ConfirmationStatus.kt$@PreviewLightDark @Composable private fun ConfirmationStatusPreview()</ID>
-    <ID>UnusedPrivateMember:FavouritesBentoScreen.kt$@PreviewLightDark @Composable private fun FavouritesBentoScreenPreview()</ID>
-    <ID>UnusedPrivateMember:GameHubBentoRiceScreen.kt$@PreviewLightDark @Composable private fun GameHubBentoRiceScreenPreview()</ID>
-    <ID>UnusedPrivateMember:GameHubBentoUnagiScreen.kt$@PreviewLightDark @Composable private fun GameHubBentoUnagiScreenPreview()</ID>
-    <ID>UnusedPrivateMember:GameHubBentoPagerScreen.kt$@PreviewLightDark @Composable private fun GameHubBentoPagerScreenPreview()</ID>
     <ID>WildcardImport:FragmentBalanceSeedReminder.kt$import android.widget.*</ID>
     <ID>Wrapping:AppModule.kt$AppModule$(</ID>
     <ID>Wrapping:CurrencyDetail.kt$(</ID>
@@ -628,6 +609,5 @@
     <ID>Wrapping:UnLockScreen.kt$(</ID>
     <ID>Wrapping:UnLockViewModelTest.kt$UnLockViewModelTest$(</ID>
     <ID>Wrapping:YourSeedWordsScreen.kt$(</ID>
-
   </CurrentIssues>
 </SmellBaseline>
