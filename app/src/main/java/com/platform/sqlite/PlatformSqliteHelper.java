@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.constants.BWConstants;
 
 import timber.log.Timber;
 
@@ -49,7 +49,7 @@ public class PlatformSqliteHelper extends SQLiteOpenHelper {
 
     private PlatformSqliteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        setWriteAheadLoggingEnabled(BRConstants.WAL);
+        setWriteAheadLoggingEnabled(BWConstants.WAL);
     }
 
     @Override

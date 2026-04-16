@@ -12,5 +12,3 @@ sealed class UnLockEvent {
     object OnQrClicked : UnLockEvent()
     object OnDeletePinDigit : UnLockEvent()
 }
-
-// todo

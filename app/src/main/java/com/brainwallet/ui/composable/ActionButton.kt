@@ -1,0 +1,36 @@
+package com.brainwallet.ui.composable
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.minimumInteractiveComponentSize
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+
+@Composable
+fun SendActionButton(
+    onClick: () -> Unit,
+    darkMode: Boolean,
+    icon: ImageVector,
+    modifier: Modifier = Modifier
+) {
+    IconButton(
+        onClick = onClick,
+        modifier = modifier
+            .minimumInteractiveComponentSize() // removes the 48dp floor
+            .size(30.dp)
+            .padding(2.dp)
+            .background(
+                if (darkMode) Color.White else Color.Black.copy(0.2f),
+                RoundedCornerShape(12.dp)
+            )
+    ) {
+        Icon(icon, contentDescription = null)
+    }
+}

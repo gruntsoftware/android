@@ -1,6 +1,6 @@
 package com.brainwallet.presenter.activities.settings;
 
-import static com.brainwallet.tools.util.BRConstants.BW_PIN_LENGTH;
+import static com.brainwallet.constants.BWConstants.BW_PIN_LENGTH;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,7 +21,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.brainwallet.R;
-import com.brainwallet.presenter.activities.UpdatePinActivity;
+import com.brainwallet.navigation.Route;
+import com.brainwallet.ui.BrainwalletActivity;
 import com.brainwallet.presenter.activities.intro.WriteDownActivity;
 import com.brainwallet.presenter.activities.util.ActivityUTILS;
 import com.brainwallet.presenter.activities.util.BRActivity;
@@ -152,7 +153,10 @@ public class SecurityCenterActivity extends BRActivity {
                 isPinSet ? R.drawable.ic_check_mark_blue : R.drawable.ic_check_mark_grey, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SecurityCenterActivity.this, UpdatePinActivity.class);
+                Intent intent = BrainwalletActivity.createIntent(
+                    SecurityCenterActivity.this, 
+                    new Route.UnLock(true)
+                );
                 startActivity(intent);
                 overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
             }

@@ -7,7 +7,7 @@ import com.brainwallet.tools.animation.BRDialog;
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.security.BitcoinUrlHandler;
 import com.brainwallet.tools.security.X509CertificateValidator;
-import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.tools.util.BRCurrency;
 import com.brainwallet.tools.util.BRExchange;
 import com.brainwallet.tools.util.BytesUtil;
@@ -290,7 +290,7 @@ public class PaymentProtocolTask extends AsyncTask<String, String, String> {
                 double minOutput = BRWalletManager.getInstance().getMinOutputAmount();
                 if (paymentRequest.amount < minOutput) {
                     final String bitcoinMinMessage = String.format(Locale.getDefault(), app.getString(R.string.PaymentProtocol_Errors_smallTransaction),
-                            BRConstants.litecoinLowercase + new BigDecimal(minOutput).divide(new BigDecimal("100")));
+                            BWConstants.litecoinLowercase + new BigDecimal(minOutput).divide(new BigDecimal("100"), 8, BWConstants.ROUNDING_MODE));
                     app.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -318,7 +318,7 @@ public class PaymentProtocolTask extends AsyncTask<String, String, String> {
                     @Override
                     public void run() {
                         /// DEV NOTES: Remove this call to auth Prompt
-                        
+
                     }
                 });
             }

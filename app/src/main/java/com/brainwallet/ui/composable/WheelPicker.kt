@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,6 +22,9 @@ import androidx.compose.foundation.lazy.LazyListItemInfo
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -385,7 +389,7 @@ internal inline fun logMsg(debug: Boolean, block: () -> String) {
 @Composable
 fun WheelPickerFocusVertical(
     modifier: Modifier = Modifier,
-    dividerSize: Dp = 1.dp,
+    dividerSize: Dp = 0.7.dp,
     dividerColor: Color = DefaultDividerColor,
 ) {
     Box(
@@ -395,15 +399,39 @@ fun WheelPickerFocusVertical(
             modifier = Modifier
                 .background(dividerColor)
                 .height(dividerSize)
-                .fillMaxWidth()
+                .fillMaxWidth(0.7f)
                 .align(Alignment.TopCenter),
         )
         Box(
             modifier = Modifier
                 .background(dividerColor)
                 .height(dividerSize)
-                .fillMaxWidth()
+                .fillMaxWidth(0.7f)
                 .align(Alignment.BottomCenter),
+        )
+    }
+}
+
+/**
+ * The capsule implementation of focus view in vertical.
+ */
+@Composable
+fun WheelPickerFocusCapsule(
+    modifier: Modifier = Modifier,
+    focusColor: Color = Color.Black
+) {
+    Card(
+        modifier = modifier
+            .padding(start = 16.dp, end = 16.dp)
+            .fillMaxSize(),
+        shape = RoundedCornerShape(6.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = focusColor.copy(alpha = 0.04f)
+        )
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
         )
     }
 }
@@ -412,6 +440,12 @@ fun WheelPickerFocusVertical(
  * Default divider color.
  */
 private val DefaultDividerColor: Color
+    @Composable
+    get() {
+        val color = if (isSystemInDarkTheme()) Color.White else Color.Black
+        return color.copy(alpha = 0.2f)
+    }
+private val CapusleColor: Color
     @Composable
     get() {
         val color = if (isSystemInDarkTheme()) Color.White else Color.Black

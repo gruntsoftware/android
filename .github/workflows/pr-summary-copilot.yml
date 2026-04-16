@@ -1,0 +1,230 @@
+name: 🤖 Copilot PR Summary
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - develop
+      - main
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  summarize-pr:
+    name: Generate PR Summary
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get PR diff and changed files
+        id: pr_info
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Collect changed files with their status
+          gh pr view ${{ github.event.pull_request.number }} \
+            --json files,title,body,additions,deletions,commits \
+            > pr_meta.json
+
+          # Get full diff (capped to avoid token limits)
+          git diff origin/${{ github.base_ref }}...HEAD \
+            -- '*.kt' '*.java' '*.xml' '*.kts' '*.toml' \
+            | head -c 32000 > pr_diff.txt
+
+          # Summarise stats for the prompt
+          ADDITIONS=$(jq '.additions' pr_meta.json)
+          DELETIONS=$(jq '.deletions' pr_meta.json)
+          COMMITS=$(jq '.commits | length' pr_meta.json)
+          FILES=$(jq '.files | length' pr_meta.json)
+          FILE_LIST=$(jq -r '.files[].path' pr_meta.json | tr '\n' ', ')
+
+          echo "additions=$ADDITIONS"   >> $GITHUB_OUTPUT
+          echo "deletions=$DELETIONS"   >> $GITHUB_OUTPUT
+          echo "commits=$COMMITS"       >> $GITHUB_OUTPUT
+          echo "files=$FILES"           >> $GITHUB_OUTPUT
+          echo "file_list=$FILE_LIST"   >> $GITHUB_OUTPUT
+
+      - name: Generate summary with GitHub Copilot
+        id: copilot_summary
+        uses: actions/github-script@v7
+        env:
+          DIFF_CONTENT: ${{ steps.pr_info.outputs.diff }}
+          ANTHROPIC_GH_API_KEY: ${{ secrets.ANTHROPIC_GH_API_KEY }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+
+            const diff     = fs.existsSync('pr_diff.txt')
+                              ? fs.readFileSync('pr_diff.txt', 'utf8').slice(0, 28000)
+                              : '(diff unavailable)';
+            const prMeta   = JSON.parse(fs.readFileSync('pr_meta.json', 'utf8'));
+            const title    = prMeta.title || '';
+            const files    = (prMeta.files || []).map(f => f.path);
+            const additions = prMeta.additions ?? 0;
+            const deletions = prMeta.deletions ?? 0;
+            const commits   = (prMeta.commits || []).length;
+
+            // --- Classify change types from file paths ---
+            const isNewFeature  = files.some(f => /Screen\.kt$|ViewModel\.kt$|Bento/.test(f));
+            const isRefactor    = files.some(f => /Repository|DataSource|Module\.kt$/.test(f));
+            const isTest        = files.some(f => /Test\.kt$|test\//.test(f));
+            const isUI          = files.some(f => /\.xml$|Theme|Color|strings/.test(f));
+            const isConfig      = files.some(f => /\.toml$|\.kts$|Constants/.test(f));
+            const isPerfOrFix   = files.some(f => /Fix|Bug|Perf/.test(f));
+
+            // --- Build Copilot prompt ---
+            const prompt = `
+            You are a senior Android engineer reviewing a pull request for the Brainwallet Android app
+            (Kotlin, Jetpack Compose, MVI architecture, Koin DI, Coroutines/StateFlow).
+
+            Repository layout:
+            - app/src/main/java/com/brainwallet/   → Kotlin/Java source (UI, ViewModels, repos, DI)
+            - app/src/main/res/                     → XML resources (layouts, strings, drawables)
+            - app/src/main/jni/core/               → Native JNI wallet logic (C/C++)
+            - modules/private-general-purpose/     → :core, :games, :iap feature modules
+            - gradle/, android-build-logic/        → Build configuration
+
+            PR title: ${title}
+            Files changed (${files.length}): ${files.join(', ')}
+            Additions: ${additions}  Deletions: ${deletions}  Commits: ${commits}
+
+            Diff (truncated to 28 000 chars):
+            \`\`\`diff
+            ${diff}
+            \`\`\`
+
+            Write a GitHub PR description using EXACTLY this markdown template. Fill every section
+            accurately from the diff. Do not add sections or change headings.
+
+            ---
+            ## 📱 Description
+            <2–4 sentence plain-English summary of what this PR does and why>
+
+            ## Platform
+            - [x] **Android**
+
+            ## 🎯 Type of Change
+            - [${isPerfOrFix   ? 'x' : ' '}] 🐛 Bug fix
+            - [${isNewFeature  ? 'x' : ' '}] ✨ New feature
+            - [${isRefactor    ? 'x' : ' '}] 🔧 Refactoring (code change that neither fixes a bug nor adds a feature)
+            - [ ] 📚 Documentation update
+            - [${isUI          ? 'x' : ' '}] 🎨 UI/UX improvement
+            - [ ] ⚡ Performance improvement
+            - [${isTest        ? 'x' : ' '}] 🧪 Test addition or improvement
+
+            ## 📋 Changes
+            ### New Components Added
+            <bullet list of new files/classes and what each does>
+
+            ### Modifications
+            <bullet list of modified files and what changed in each>
+
+            ### Removals
+            <bullet list of deleted files/classes and why they were removed, or "None" if not applicable>
+
+            ## 📊 Statistics
+            - **Additions:** ${additions} lines
+            - **Deletions:** ${deletions} lines
+            - **Files Changed:** ${files.length}
+            - **Commits:** ${commits}
+
+            ## 🔗 Related Issues
+            - Fixes #
+            - Related to #
+
+            ## 🧪 Tests Status
+            - [ ] Tests ran successfully locally?
+            - [ ] Added more tests? How many?
+            - [ ] Code coverage percentage of the codebase: __%
+
+            ## 📸 Screenshots/Videos
+            | Before | After |
+            |--------|-------|
+            | _Add screenshot_ | _Add screenshot_ |
+
+            ## 🎯 Reviewers
+            @kcw-grunt, @josikie
+
+            ---
+            **Draft Status:** This PR is currently in draft mode and ready for review feedback.
+            ---
+            `;
+
+            // --- Call Claude-compatible endpoint via gh models ---
+            // models API when the workflow has the `models: read` permission.
+            const response = await fetch(
+              'https://api.anthropic.com/v1/messages',
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'x-api-key': process.env.ANTHROPIC_GH_API_KEY,
+                  'anthropic-version': '2023-06-01',
+                },
+                body: JSON.stringify({
+                  model: 'claude-haiku-4-5-20251001',
+                  messages: [{ role: 'user', content: prompt }],
+                  max_tokens: 2048,
+                }),
+              }
+            );
+            const data = await response.json();
+            // Check Data
+            if (!response.ok || !data.content) {
+              console.log('API response status:', response.status);
+              console.log('API response body:', JSON.stringify(data, null, 2));
+              core.setFailed(`Anthropic API error: ${JSON.stringify(data)}`);
+              return;
+            }
+            const summary = data.content[0].text;
+
+            core.setOutput('summary', summary);
+            fs.writeFileSync('pr_summary.md', summary);
+            console.log('Summary generated successfully.');
+
+      - name: Post summary as PR comment
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs   = require('fs');
+            const body = fs.readFileSync('pr_summary.md', 'utf8');
+
+            // Find and replace existing bot comment, or create a new one
+            const { data: comments } = await github.rest.issues.listComments({
+              owner:      context.repo.owner,
+              repo:       context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const botComment = comments.find(c =>
+              c.user.type === 'Bot' &&
+              c.body.includes('<!-- copilot-pr-summary -->')
+            );
+
+            const fullBody = `<!-- copilot-pr-summary -->\n> 🤖 _Auto-generated by GitHub Copilot — edit as needed before merging._\n\n${body}`;
+
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner:      context.repo.owner,
+                repo:       context.repo.repo,
+                comment_id: botComment.id,
+                body:       fullBody,
+              });
+              console.log('Updated existing summary comment.');
+            } else {
+              await github.rest.issues.createComment({
+                owner:      context.repo.owner,
+                repo:       context.repo.repo,
+                issue_number: context.issue.number,
+                body:       fullBody,
+              });
+              console.log('Created new summary comment.');
+            }

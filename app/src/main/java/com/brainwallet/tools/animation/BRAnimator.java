@@ -11,7 +11,6 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -22,7 +21,6 @@ import android.view.animation.OvershootInterpolator;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.compose.ui.platform.ComposeView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -32,14 +30,13 @@ import com.brainwallet.navigation.LegacyNavigation;
 import com.brainwallet.presenter.fragments.FragmentMoonpay;
 import com.brainwallet.tools.manager.AnalyticsManager;
 import com.brainwallet.tools.threads.BRExecutor;
-import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.R;
 import com.brainwallet.presenter.activities.BreadActivity;
 import com.brainwallet.presenter.activities.camera.ScanQRActivity;
 import com.brainwallet.presenter.customviews.BRDialogView;
 import com.brainwallet.presenter.entities.TxItem;
 import com.brainwallet.presenter.fragments.FragmentBalanceSeedReminder;
-import com.brainwallet.presenter.fragments.FragmentMenu;
 import com.brainwallet.presenter.fragments.FragmentReceive;
 import com.brainwallet.presenter.fragments.FragmentSend;
 import com.brainwallet.presenter.fragments.FragmentSignal;
@@ -86,7 +83,7 @@ public class BRAnimator {
             transaction.commit();
         } catch (IllegalStateException e) {
             transaction.commitAllowingStateLoss();
-            AnalyticsManager.logCustomEvent(BRConstants._20200112_ERR);
+            AnalyticsManager.logCustomEvent(BWConstants._20200112_ERR);
         }
     }
 
@@ -174,7 +171,11 @@ public class BRAnimator {
                 // Should we show an explanation?
                 if (ActivityCompat.shouldShowRequestPermissionRationale(app,
                         Manifest.permission.CAMERA)) {
-                    BRDialog.showCustomDialog(app, app.getString(R.string.Send_cameraUnavailabeTitle_android), app.getString(R.string.Send_cameraUnavailabeMessage_android), app.getString(R.string.AccessibilityLabels_close), null, new BRDialogView.BROnClickListener() {
+                    BRDialog.showCustomDialog(app,
+                            app.getString(R.string.Send_cameraUnavailabeTitle_android),
+                            app.getString(R.string.Send_cameraUnavailabeMessage_android),
+                            app.getString(R.string.AccessibilityLabels_close),
+                            null, new BRDialogView.BROnClickListener() {
                         @Override
                         public void onClick(BRDialogView brDialogView) {
                             brDialogView.dismiss();
@@ -184,7 +185,7 @@ public class BRAnimator {
                     // No explanation needed, we can request the permission.
                     ActivityCompat.requestPermissions(app,
                             new String[]{Manifest.permission.CAMERA},
-                            BRConstants.CAMERA_REQUEST_ID);
+                            BWConstants.CAMERA_REQUEST_ID);
                 }
             } else {
                 // Permission is granted, open camera
@@ -293,7 +294,7 @@ public class BRAnimator {
      * wrap using [com.brainwallet.navigation.LegacyNavigation.startBreadActivity]
      */
     public static void startBreadActivity(Activity from, boolean auth) {
-        LegacyNavigation.startBreadActivity(from, auth);
+        LegacyNavigation.startBrainwalletActivity(from, auth);
     }
 
     public static void animateSignalSlide(ViewGroup signalLayout, final boolean reverse, @Nullable final OnSlideAnimationEnd listener) {

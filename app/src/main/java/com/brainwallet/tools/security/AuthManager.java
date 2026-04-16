@@ -68,10 +68,6 @@ public class AuthManager {
         BRKeyStore.putLastPinUsedTime(System.currentTimeMillis(), app);
     }
 
-    public void authFail(Context app) {
-        //TODO: Check if this cruft from the BRD implementation
-    }
-
     public boolean isWalletDisabled(Activity app) {
         int failCount = BRKeyStore.getFailCount(app);
         return failCount >= 3 && disabledUntil(app) > BRSharedPrefs.getSecureTime(app);

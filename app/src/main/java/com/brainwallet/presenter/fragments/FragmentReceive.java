@@ -32,7 +32,7 @@ import com.brainwallet.tools.manager.BRClipboardManager;
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.qrcode.QRUtils;
 import com.brainwallet.tools.threads.BRExecutor;
-import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.tools.util.Utils;
 import com.brainwallet.wallet.BRWalletManager;
 
@@ -94,7 +94,7 @@ public class FragmentReceive extends Fragment {
         signalLayout.removeView(copiedLayout);
         signalLayout.setLayoutTransition(BRAnimator.getDefaultTransition());
         signalLayout.setOnTouchListener(new SlideDetector(signalLayout, this::animateClose));
-        AnalyticsManager.logCustomEvent(BRConstants._20202116_VRC);
+        AnalyticsManager.logCustomEvent(BWConstants._20202116_VRC);
         return rootView;
     }
 

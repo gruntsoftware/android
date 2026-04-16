@@ -4,51 +4,51 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import com.brainwallet.R
-import com.brainwallet.presenter.activities.BreadActivity
 import com.brainwallet.ui.BrainwalletActivity
 import timber.log.Timber
-
-// provide old navigation using intent activity
 object LegacyNavigation {
 
-    // todo
-
     /**
-     * wrapper for old `startBreadActivity`
-     * at [com.brainwallet.tools.animation.BRAnimator.startBreadActivity]
+     * Wrapper for old `startBreadActivity`
+     * Previously routed to BentoActivity via BentoNavigation — now routes directly
+     * to BrainwalletActivity with Route.Main (auth=false) or Route.UnLock (auth=true).
      */
     @JvmStatic
-    fun startBreadActivity(
+    fun startBrainwalletActivity(
         from: Activity,
         auth: Boolean
     ) {
-        Timber.i("timber: startBreadActivity: %s", from.javaClass.name)
+        Timber.i("timber: startBrainwalletActivity: %s", from.javaClass.name)
 
-        val intent = if (auth) {
-            BrainwalletActivity.createIntent(from, Route.UnLock())
-        } else {
-            Intent(from, BreadActivity::class.java)
+        val destination = if (auth) Route.UnLock() else Route.Main
+        BrainwalletActivity.createIntent(from, destination).apply {
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+        }.also {
+            from.startActivity(it)
         }
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        from.startActivity(intent)
+
         from.overridePendingTransition(R.anim.fade_up, R.anim.fade_down)
         if (!from.isDestroyed) {
             from.finish()
         }
     }
 
+    /**
+     * Restarts the main wallet activity, clearing the back stack.
+     * Previously pointed at the legacy BreadActivity.
+     */
     @JvmStatic
-    fun restartBreadActivity(
-        context: Context
-    ) {
-        Intent(context, BreadActivity::class.java).apply {
+    fun restartBreadActivity(context: Context) {
+        BrainwalletActivity.createIntent(context, Route.Main).apply {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         }.also {
             context.startActivity(it)
         }
     }
 
-    // open compose from old activity
+    /**
+     * Opens a specific Compose screen from a legacy (non-Compose) context.
+     */
     @JvmStatic
     @JvmOverloads
     fun openComposeScreen(

@@ -56,7 +56,7 @@ public class DisabledActivity extends BRActivity {
                 //to navigate into compose screen
                 LegacyNavigation.openComposeScreen(
                         DisabledActivity.this,
-                        new Route.InputWords(Route.InputWords.Source.RESET_PIN)
+                        new Route.Restore(Route.Restore.Source.RESET_PIN)
                 );
                 overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
             }

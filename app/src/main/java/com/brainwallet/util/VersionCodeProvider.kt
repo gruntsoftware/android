@@ -19,4 +19,10 @@ class VersionCodeProvider(
     fun getFormatted(): String {
         return "${getVersionName()} (${getVersionCode()})"
     }
+
+    companion object {
+        fun getVersionLabel() {
+            TODO("Not yet implemented")
+        }
+    }
 }

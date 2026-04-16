@@ -25,7 +25,7 @@ class RecoverActivity : BRActivity() {
                 if (!BRAnimator.isClickAllowed()) return@OnClickListener
                 LegacyNavigation.openComposeScreen(
                     context = this@RecoverActivity,
-                    destination = Route.InputWords()
+                    destination = Route.Restore()
                 )
             }
         )

@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.ui.theme.BrainwalletAppTheme
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.DesignTheme
 
 @Composable
 fun DarkModeToggleButton(
@@ -43,16 +43,16 @@ fun DarkModeToggleButton(
                 .clip(CircleShape)
                 .border(
                     1.dp,
-                    if (checked) BrainwalletTheme.colors.warn else BrainwalletTheme.colors.surface,
+                    if (checked) DesignTheme.colors.warn else DesignTheme.colors.surface,
                     CircleShape
                 )
-                .background(if (checked) BrainwalletTheme.colors.surface else BrainwalletTheme.colors.content)
+                .background(if (checked) DesignTheme.colors.surface else DesignTheme.colors.content)
         ) {
             Icon(
                 modifier = Modifier
                     .align(Alignment.Center)
                     .size((iconButtonSizeInDp * 0.6).dp),
-                tint = if (checked) BrainwalletTheme.colors.warn else BrainwalletTheme.colors.surface,
+                tint = if (checked) DesignTheme.colors.warn else DesignTheme.colors.surface,
                 painter = painterResource(if (checked) R.drawable.ic_light_mode else R.drawable.ic_dark_mode),
                 contentDescription = stringResource(R.string.toggle_dark_mode),
             )
@@ -64,7 +64,7 @@ fun DarkModeToggleButton(
 @Composable
 private fun DarkModeToggleButtonPreview() {
     BrainwalletAppTheme(AppSetting(isDarkMode = isSystemInDarkTheme())) {
-        Box(modifier = Modifier.background(BrainwalletTheme.colors.background)) {
+        Box(modifier = Modifier.background(DesignTheme.colors.background)) {
             DarkModeToggleButton(checked = isSystemInDarkTheme(), onCheckedChange = {},)
         }
     }

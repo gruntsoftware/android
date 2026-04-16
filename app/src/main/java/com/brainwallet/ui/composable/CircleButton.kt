@@ -6,7 +6,7 @@ import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.brainwallet.ui.theme.DesignTheme
 
 @Composable
 fun CircleButton(
@@ -14,8 +14,8 @@ fun CircleButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: IconButtonColors = IconButtonDefaults.filledIconButtonColors(
-        containerColor = BrainwalletTheme.colors.background.copy(0.2f),
-        contentColor = BrainwalletTheme.colors.content
+        containerColor = DesignTheme.colors.background.copy(0.2f),
+        contentColor = DesignTheme.colors.content
     ),
     content: @Composable () -> Unit
 ) {

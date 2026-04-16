@@ -28,7 +28,7 @@ import com.brainwallet.tools.security.AuthManager;
 import com.brainwallet.tools.security.BRKeyStore;
 import com.brainwallet.tools.sqlite.CurrencyDataSource;
 import com.brainwallet.tools.threads.BRExecutor;
-import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.tools.util.BRCurrency;
 import com.brainwallet.ui.BrainwalletActivity;
 import com.brainwallet.wallet.BRWalletManager;
@@ -106,7 +106,7 @@ public class LoginActivity extends BRActivity {
 
         keyboard.setCustomButtonBackgroundColor(10, getColor(android.R.color.transparent));
         keyboard.setDeleteImage(getDrawable(R.drawable.ic_delete_white));
-        versionText.setText(BRConstants.APP_VERSION_NAME_CODE);
+        versionText.setText(BWConstants.APP_VERSION_NAME_CODE);
 
 // DEV:  Keeping for reference when REFACTORING
 //        findViewById(R.id.scanQRCodeImgBut).setOnClickListener(v -> {
@@ -123,7 +123,7 @@ public class LoginActivity extends BRActivity {
 //                    } else {
 //                        ActivityCompat.requestPermissions(app,
 //                                new String[]{Manifest.permission.CAMERA},
-//                                BRConstants.CAMERA_REQUEST_ID);
+//                                BWConstants.CAMERA_REQUEST_ID);
 //                    }
 //                } else {
 //                    Intent intent = new Intent(app, ScanQRActivity.class);
@@ -145,7 +145,7 @@ public class LoginActivity extends BRActivity {
         CurrencyEntity currency = CurrencyDataSource.getInstance(this).getCurrencyByIso(iso);
         if (currency != null) {
             final BigDecimal roundedPriceAmount = new BigDecimal(currency.rate).multiply(new BigDecimal(100))
-                    .divide(new BigDecimal(100), 2, BRConstants.ROUNDING_MODE);
+                    .divide(new BigDecimal(100), 2, BWConstants.ROUNDING_MODE);
             formattedCurrency = BRCurrency.getFormattedCurrencyString(this, iso, roundedPriceAmount);
         } else {
             Timber.w("The currency related to %s is NULL", iso);
@@ -257,11 +257,9 @@ public class LoginActivity extends BRActivity {
                     if (AuthManager.getInstance().checkAuth(pin.toString(), LoginActivity.this)) {
                         AuthManager.getInstance().authSuccess(LoginActivity.this);
                         unlockWallet();
-                        AnalyticsManager.logCustomEvent(BRConstants._20200217_DUWB);
-                        AnalyticsManager.logCustomEvent(BRConstants._20200217_DUWB);
+                        AnalyticsManager.logCustomEvent(BWConstants._20200217_DUWB);
 
                     } else {
-                        AuthManager.getInstance().authFail(LoginActivity.this);
                         showFailedToUnlock();
                     }
                 });
@@ -272,11 +270,11 @@ public class LoginActivity extends BRActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         switch (requestCode) {
-            case BRConstants.CAMERA_REQUEST_ID: {
+            case BWConstants.CAMERA_REQUEST_ID: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    BRAnimator.openScanner(this, BRConstants.SCANNER_REQUEST);
+                    BRAnimator.openScanner(this, BWConstants.SCANNER_REQUEST);
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
                 } else {

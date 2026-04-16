@@ -2,18 +2,18 @@ package com.brainwallet.tools.manager;
 
 import static com.brainwallet.tools.manager.PromptManager.PromptItem.RECOMMEND_RESCAN;
 import static com.brainwallet.tools.manager.PromptManager.PromptItem.UPGRADE_PIN;
-import static com.brainwallet.tools.util.BRConstants.BW_PIN_LENGTH;
+import static com.brainwallet.constants.BWConstants.BW_PIN_LENGTH;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
-import com.brainwallet.presenter.activities.settings.SyncBlockchainActivity;
 import com.brainwallet.tools.security.BRKeyStore;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.R;
-import com.brainwallet.presenter.activities.UpdatePinActivity;
+import com.brainwallet.navigation.Route;
+import com.brainwallet.ui.BrainwalletActivity;
 import com.brainwallet.wallet.BRPeerManager;
 
 public class PromptManager {
@@ -74,7 +74,10 @@ public class PromptManager {
                 return new PromptInfo(app.getString(R.string.Prompts_UpgradePin_title), app.getString(R.string.Prompts_UpgradePin_body), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(app, UpdatePinActivity.class);
+                        Intent intent = BrainwalletActivity.createIntent(
+                            app, 
+                            new Route.UnLock(true)
+                        );
                         app.startActivity(intent);
                         app.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
                     }

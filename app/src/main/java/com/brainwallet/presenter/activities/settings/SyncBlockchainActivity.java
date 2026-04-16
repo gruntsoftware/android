@@ -16,7 +16,7 @@ import com.brainwallet.tools.animation.BRDialog;
 import com.brainwallet.tools.manager.AnalyticsManager;
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.threads.BRExecutor;
-import com.brainwallet.tools.util.BRConstants;
+import com.brainwallet.constants.BWConstants;
 import com.brainwallet.wallet.BRPeerManager;
 
 
@@ -51,10 +51,10 @@ public class SyncBlockchainActivity extends BRActivity {
         String rateAsString = String.format("%1.5f",fprate);
         syncPreferenceTextView.setText(getString(R.string.sync_preferences, rateAsString));
 
-        if (fprate == BRConstants.FALSE_POS_RATE_LOW_PRIVACY) {
+        if (fprate == BWConstants.FALSE_POS_RATE_LOW_PRIVACY) {
             syncRadioGroup.check(R.id.radio_low_privacy);
         }
-        else if (fprate == BRConstants.FALSE_POS_RATE_SEMI_PRIVACY) {
+        else if (fprate == BWConstants.FALSE_POS_RATE_SEMI_PRIVACY) {
             syncRadioGroup.check(R.id.radio_semi_private);
         }else  {
             ///Assumed the Anon option is preferred
@@ -85,7 +85,7 @@ public class SyncBlockchainActivity extends BRActivity {
         lowPrivacyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BRSharedPrefs.putFalsePositivesRate(SyncBlockchainActivity.this, BRConstants.FALSE_POS_RATE_LOW_PRIVACY);
+                BRSharedPrefs.putFalsePositivesRate(SyncBlockchainActivity.this, BWConstants.FALSE_POS_RATE_LOW_PRIVACY);
                 updateSyncPreference();
             }
         });
@@ -93,14 +93,14 @@ public class SyncBlockchainActivity extends BRActivity {
         semiPrivateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BRSharedPrefs.putFalsePositivesRate(SyncBlockchainActivity.this, BRConstants.FALSE_POS_RATE_SEMI_PRIVACY);
+                BRSharedPrefs.putFalsePositivesRate(SyncBlockchainActivity.this, BWConstants.FALSE_POS_RATE_SEMI_PRIVACY);
                 updateSyncPreference();
             }
         });
         anonymousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BRSharedPrefs.putFalsePositivesRate(SyncBlockchainActivity.this, BRConstants.FALSE_POS_RATE_ANONYMOUS);
+                BRSharedPrefs.putFalsePositivesRate(SyncBlockchainActivity.this, BWConstants.FALSE_POS_RATE_ANONYMOUS);
                 updateSyncPreference();
             }
         });
@@ -123,7 +123,7 @@ public class SyncBlockchainActivity extends BRActivity {
                                         BRSharedPrefs.putAllowSpend(SyncBlockchainActivity.this, false);
                                         BRPeerManager.getInstance().rescan();
                                         BRAnimator.startBreadActivity(SyncBlockchainActivity.this, false);
-                                        AnalyticsManager.logCustomEvent(BRConstants._20200112_DSR);
+                                        AnalyticsManager.logCustomEvent(BWConstants._20200112_DSR);
                                     }
                                 });
                             }

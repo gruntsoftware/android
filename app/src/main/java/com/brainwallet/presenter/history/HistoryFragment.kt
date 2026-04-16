@@ -9,12 +9,10 @@ import com.brainwallet.databinding.FragmentHistoryBinding
 import com.brainwallet.presenter.activities.BreadActivity
 import com.brainwallet.presenter.base.BaseFragment
 import com.brainwallet.tools.manager.AnalyticsManager
-import com.brainwallet.tools.manager.BRSharedPrefs
-import com.brainwallet.tools.manager.BRSharedPrefs.OnIsoChangedListener
 import com.brainwallet.tools.manager.TxManager
 import com.brainwallet.tools.sqlite.TransactionDataSource.OnTxAddedListener
 import com.brainwallet.tools.threads.BRExecutor
-import com.brainwallet.tools.util.BRConstants
+import com.brainwallet.constants.BWConstants
 import com.brainwallet.ui.theme.setContentWithTheme
 import com.brainwallet.wallet.BRPeerManager
 import com.brainwallet.wallet.BRPeerManager.OnTxStatusUpdate
@@ -28,7 +26,6 @@ class HistoryFragment :
     BaseFragment<HistoryPresenter>(),
     OnBalanceChanged,
     OnTxStatusUpdate,
-    OnIsoChangedListener,
     OnTxAddedListener,
     HistoryView {
     lateinit var binding: FragmentHistoryBinding
@@ -55,19 +52,17 @@ class HistoryFragment :
     private fun addObservers() {
         BRWalletManager.getInstance().addBalanceChangedListener(this)
         BRPeerManager.getInstance().addStatusUpdateListener(this)
-        BRSharedPrefs.addIsoChangedListener(this)
     }
 
     private fun removeObservers() {
         BRWalletManager.getInstance().removeListener(this)
         BRPeerManager.getInstance().removeListener(this)
-        BRSharedPrefs.removeListener(this)
     }
 
     private fun registerAnalyticsError(errorString: String) {
         val params = Bundle()
         params.putString("lwa_error_message", errorString)
-        AnalyticsManager.logCustomEventWithParams(BRConstants._20200112_ERR, params)
+        AnalyticsManager.logCustomEventWithParams(BWConstants._20200112_ERR, params)
         Timber.d("History Fragment: RegisterError : %s", errorString)
     }
 
@@ -91,7 +86,7 @@ class HistoryFragment :
         updateUI()
     }
 
-    override fun onStatusUpdate() {
+    override fun onStatusPeerManagerUpdate() {
         BRExecutor.getInstance().forBackgroundTasks().execute {
             if (this.activity == null) {
                 registerAnalyticsError("null_in_history_fragment_on_status_update")
@@ -101,10 +96,6 @@ class HistoryFragment :
                 }
             }
         }
-    }
-
-    override fun onIsoChanged(iso: String) {
-        updateUI()
     }
 
     override fun onTxAdded() {
