@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -15,10 +16,12 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -26,12 +29,16 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.rememberDrawerState
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -39,63 +46,57 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.brainwallet.ui.theme.mainScreenLightSurfaceGradient
-import androidx.compose.ui.unit.dp
-import com.brainwallet.navigation.OnNavigate
-import com.brainwallet.navigation.Route
-import com.brainwallet.navigation.UiEffect
-import com.brainwallet.ui.composable.BentoBottomNavBar
-import com.brainwallet.ui.screens.main.SettingsButton
-import com.brainwallet.ui.screens.main.ThemeButton
-import kotlinx.coroutines.launch
-import org.koin.compose.viewmodel.koinViewModel
-import androidx.compose.material3.rememberModalBottomSheetState
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.unit.dp
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.brainwallet.constants.BWConstants
 import com.brainwallet.constants.BWConstants.EXPAND_DURATION
 import com.brainwallet.constants.BWConstants.FADE_IN_DURATION
 import com.brainwallet.constants.BWConstants.FADE_OUT_DURATION
-import com.brainwallet.data.model.AppSetting
-import com.brainwallet.ui.bentosections.balancebento.BalanceBentoScreen
-import com.brainwallet.ui.bentosections.ltcpickerbento.LTCPickerBentoScreen
 import com.brainwallet.constants.balanceGameBentoHt
+import com.brainwallet.constants.bentoSpacer
 import com.brainwallet.constants.gameHubHt
 import com.brainwallet.constants.statusBarPadding
 import com.brainwallet.constants.topNavButtonSize
 import com.brainwallet.constants.topNavStartEndPadding
 import com.brainwallet.constants.transactionRowHt
+import com.brainwallet.data.model.AppSetting
+import com.brainwallet.navigation.OnNavigate
+import com.brainwallet.navigation.Route
+import com.brainwallet.navigation.UiEffect
+import com.brainwallet.tools.animation.BRAnimator
+import com.brainwallet.tools.manager.AnalyticsManager
+import com.brainwallet.ui.bentosections.balancebento.BalanceBentoScreen
+import com.brainwallet.ui.bentosections.buyreceivebento.receive.ReceiveDialog
+import com.brainwallet.ui.bentosections.favouritesbento.FavouritesBentoScreen
+import com.brainwallet.ui.bentosections.gamehubbento.GameHubBentoPagerScreen
+import com.brainwallet.ui.bentosections.ltcpickerbento.LTCPickerBentoScreen
 import com.brainwallet.ui.bentosections.transactionbento.TransactionsBentoScreen
+import com.brainwallet.ui.bentosections.tutorials.TutorialsBentoScreen
+import com.brainwallet.ui.composable.BentoBottomNavBar
 import com.brainwallet.ui.screens.main.MainScreenEvent
 import com.brainwallet.ui.screens.main.MainViewModel
-import com.brainwallet.ui.bentosections.buyreceivebento.receive.ReceiveDialog
+import com.brainwallet.ui.screens.main.SettingsButton
+import com.brainwallet.ui.screens.main.ThemeButton
+import com.brainwallet.ui.screens.send.SendScreen
 import com.brainwallet.ui.screens.settings.settingsrows.HomeSettingDrawerSheet
 import com.brainwallet.ui.theme.BrainwalletAppTheme
+import com.brainwallet.ui.theme.bentoClearGradient
+import com.brainwallet.ui.theme.bentoModalDarkGradient
+import com.brainwallet.ui.theme.blurAnimatedWith
 import com.brainwallet.ui.theme.mainScreenDarkSurfaceGradient
+import com.brainwallet.ui.theme.mainScreenLightSurfaceGradient
 import com.brainwallet.util.EventBus
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
-import androidx.compose.animation.core.animateFloatAsState
-import com.brainwallet.ui.theme.blurAnimatedWith
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.imePadding
-import androidx.compose.material3.BottomSheetDefaults
-import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.compose.LifecycleEventEffect
-import com.brainwallet.constants.BWConstants
-import com.brainwallet.constants.bentoSpacer
-import com.brainwallet.tools.animation.BRAnimator
-import com.brainwallet.ui.bentosections.favouritesbento.FavouritesBentoScreen
-import com.brainwallet.ui.bentosections.gamehubbento.GameHubBentoPagerScreen
-import com.brainwallet.ui.bentosections.tutorials.TutorialsBentoScreen
-import com.brainwallet.ui.screens.send.SendScreen
-import com.brainwallet.ui.theme.bentoClearGradient
-import com.brainwallet.ui.theme.bentoModalDarkGradient
+import kotlinx.coroutines.launch
+import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -272,7 +273,8 @@ fun MainScreen(
                         }
                         item(span = { GridItemSpan(2) }) {
                             TransactionsBentoScreen(
-                                modifier = Modifier.fillMaxWidth()
+                                modifier = Modifier
+                                    .fillMaxWidth()
                                     .height(transactionBentoHeight),
                                 transactions = state.transactionItems.toImmutableList(),
                                 toggleState = state.filterState,
@@ -328,6 +330,7 @@ fun MainScreen(
                                             1 -> {
                                                 modalContentRoute = Route.BuyReceive
                                                 isSheetOpen = true
+                                                AnalyticsManager.logCustomEvent("user_did_tap_mp_in_gh")
                                             }
                                             2 -> {
                                                 val builder = CustomTabsIntent.Builder()
@@ -336,6 +339,9 @@ fun MainScreen(
                                                     context,
                                                     Uri.parse(BWConstants.LINKTREE_URL)
                                                 )
+
+                                                AnalyticsManager.logCustomEvent("user_did_tap_linktree")
+
                                             }
                                         }
                                     })
