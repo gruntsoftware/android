@@ -471,7 +471,7 @@
     <string name="coming_soon">Coming soon!</string>
     <string name="rice_partner_03_tagline">Top up in 5 minutes with our partner</string>
     <string name="unagi_social_01_tagline">Click and follow us!</string>
-    <string name="sign_up_messaging_title">Sign up to updates, new and contests!</string>
-    <string name="grant_for_notifications_message">"Please accept permission for our notifications "</string>
+    <string name="sign_up_messaging_title">Sign up to updates, news and contests!</string>
+    <string name="grant_for_notifications_message">"Please accept permission for our notifications"</string>
 
 </resources>
