@@ -6,8 +6,6 @@
     <string name="About.privacy">Política de privacidad</string>
     <!-- About screen title -->
     <string name="About.title">Acerca de nosotros</string>
-    <!-- About screen twitter label -->
-    <string name="About.twitter">Twitter</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">Cerrar</string>
     <!-- Error alert title -->

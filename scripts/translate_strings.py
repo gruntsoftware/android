@@ -5,6 +5,9 @@ Finds all Android locale strings.xml files under app/src/main/res/,
 compares them to the source (values/strings.xml), translates any missing
 strings via the Anthropic API, and writes the updated files back to disk.
 Also writes /tmp/pr_body.md summarising what was changed for the PR.
+
+Updates:
+  - Added formatting update
 """
 
 import os
@@ -81,14 +84,36 @@ def load_or_create_tree(path: Path):
     return etree.ElementTree(root)
 
 
+def normalise_indentation(tree):
+    """
+    Ensure every child element of <resources> sits on its own line with
+    4-space indentation.  This fixes both existing elements that lack
+    tail whitespace and newly-appended elements added by set_translated().
+    """
+    root = tree.getroot()
+    # Root's own text (before the first child) should be a newline + indent
+    root.text = "\n    "
+    children = list(root)
+    for i, child in enumerate(children):
+        # Each element's tail is the whitespace that follows its closing tag.
+        # For all but the last child that means newline + indent; for the last
+        # child it means newline only (so </resources> sits on its own line).
+        if i < len(children) - 1:
+            child.tail = "\n    "
+        else:
+            child.tail = "\n"
+
+
 def write_tree(tree, path: Path):
+    normalise_indentation(tree)
     path.parent.mkdir(parents=True, exist_ok=True)
     tree.write(
         str(path),
         encoding="utf-8",
         xml_declaration=True,
-        pretty_print=True,
+        pretty_print=False,   # we handle whitespace ourselves
     )
+
 
 def set_translated(tree, name: str, translated_text: str):
     """Insert or update a <string name="…"> element in the tree."""
@@ -100,6 +125,7 @@ def set_translated(tree, name: str, translated_text: str):
     el = etree.SubElement(root, "string")
     el.set("name", name)
     el.text = translated_text
+    # tail is set later in normalise_indentation(); no need to set it here
 
 
 # ── Translation via Anthropic ─────────────────────────────────────────────────

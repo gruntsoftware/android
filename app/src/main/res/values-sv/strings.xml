@@ -3,7 +3,6 @@
   <string name="About.blog">Webbplats</string>
   <string name="About.privacy">Sekretesspolicy</string>
   <string name="About.title">Om</string>
-  <string name="About.twitter">Kvittra</string>
   <string name="AccessibilityLabels.close">Nära</string>
   <string name="Alert.error">Fel</string>
   <string name="Alert.keystore.invalidated.android">Din Brainwallet-krypterade data ogiltigförklarades nyligen eftersom din Android-låsskärm var inaktiverad.</string>
