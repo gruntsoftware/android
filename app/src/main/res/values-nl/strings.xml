@@ -281,4 +281,4 @@
   <string name="unagi_social_01_tagline">Klik en volg ons!</string>
   <string name="sign_up_messaging_title">Meld je aan voor updates, nieuws en wedstrijden!</string>
   <string name="grant_for_notifications_message">"Accepteer alstublieft toestemming voor onze meldingen"</string>
-</resources>
+    <string name="export_transaction_button_title">Alle transacties exporteren</string><string name="copy_tx_details">Transactiegegevens kopiëren</string><string name="all_label">Alles</string><string name="received_label">Ontvangen</string><string name="sent_label">Verzonden</string><string name="ltc_price_label">LTC Prijs</string></resources>

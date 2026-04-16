@@ -602,8 +602,7 @@
   <string name="date_label">"تاریخ: "</string>
   <string name="amount_label">"مقدار: "</string>
   <string name="fees_label">"کارمزد: "</string>
-    <string name="no_transaction_detail_row">هنوز چیزی نیست. همین الان شارژ کنید!</string>
-  <string name="no_transaction_title_row">تاریخچه تراکنش‌ها</string>
+    <string name="no_transaction_title_row">تاریخچه تراکنش‌ها</string>
     <string name="enter_passcode">رمز عبور را وارد کنید</string>
 <string name="recipient_label">گیرنده:</string>
 <string name="send_litecoin_label">ارسال Litecoin</string>
@@ -618,4 +617,5 @@
 <string name="enter_pin">PIN را وارد کنید</string>
 <string name="favourites_label">اسرار تاپ</string>
 <string name="tutorials_label">آموزش‌ها</string>
-<string name="coming_soon">به زودی!</string><string name="rice_partner_03_tagline">شارژ کنید در ۵ دقیقه با پارتنر ما</string><string name="unagi_social_01_tagline">کلیک کنید و ما را دنبال کنید!</string><string name="export_transaction_button_title">صادر کردن تمام تراکنش‌ها</string><string name="copy_tx_details">کپی جزئیات تراکنش</string><string name="all_label">همه</string><string name="received_label">دریافت شده</string><string name="sent_label">ارسال شده</string><string name="ltc_price_label">قیمت LTC</string></resources>
+<string name="coming_soon">به زودی!</string><string name="rice_partner_03_tagline">شارژ کنید در ۵ دقیقه با پارتنر ما</string><string name="unagi_social_01_tagline">کلیک کنید و ما را دنبال کنید!</string><string name="export_transaction_button_title">صادر کردن تمام تراکنش‌ها</string><string name="copy_tx_details">کپی جزئیات تراکنش</string><string name="all_label">همه</string><string name="received_label">دریافت شده</string><string name="sent_label">ارسال شده</string><string name="ltc_price_label">قیمت LTC</string>
+    <string name="sign_up_messaging_title">برای دریافت به‌روزرسانی‌ها، اخبار و مسابقات ثبت‌نام کنید!</string><string name="grant_for_notifications_message">"لطفاً اجازه برای اعلان‌های ما را بپذیرید "</string></resources>
