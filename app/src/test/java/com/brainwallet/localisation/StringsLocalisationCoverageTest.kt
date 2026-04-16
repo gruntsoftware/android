@@ -5,6 +5,7 @@ import org.w3c.dom.Element
 import java.io.File
 import javax.xml.parsers.DocumentBuilderFactory
 import kotlin.math.roundToInt
+import kotlin.test.DefaultAsserter.assertTrue
 
 /**
  * Informational test that compares strings.xml coverage across all locale resource folders.
@@ -73,9 +74,7 @@ class StringsLocalisationCoverageTest {
 
         printReport(englishKeys, localeResults)
 
-        // The test itself is informational — it never asserts failure.
-        // Remove the comment below to turn it into a real CI gate:
-        // localeResults.forEach { assertTrue("${it.locale} coverage below 80%", it.coveragePct >= 80.0) }
+        localeResults.forEach { assertTrue("${it.locale} coverage below 80%", it.coveragePct >= 80.0) }
     }
 
     // ──────────────────────────────────────────────────────────────────────
