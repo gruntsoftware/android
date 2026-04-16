@@ -1,5 +1,4 @@
-name:🇧🇷 🇫🇷 🇳🇱 🇺🇦 Auto-Translate strings.xml
-
+name: 🇧🇷 🇳🇱 🇹🇭 Auto-Translate strings.xml
 on:
   push:
     branches:
