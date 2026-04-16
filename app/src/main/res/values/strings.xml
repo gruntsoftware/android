@@ -13,7 +13,6 @@
     <!-- About screen title -->
     <string name="About.title">About</string>
     <!-- About screen twitter label -->
-    <string name="About.twitter" translatable="false">Twitter</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">Close</string>
     <!-- Error alert title -->

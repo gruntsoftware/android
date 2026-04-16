@@ -3,8 +3,7 @@
   <string name="About.blog">वेबसाइट</string>
   <string name="About.privacy">गोपनीयता नीति</string>
   <string name="About.title">के बारे में</string>
-  <string name="About.twitter">ट्विटर</string>
-  <string name="AccessibilityLabels.close">बंद करना</string>
+    <string name="AccessibilityLabels.close">बंद करना</string>
   <string name="Alert.error">गलती</string>
   <string name="Alert.keystore.invalidated.android">आपका ब्रेनवॉलेट एन्क्रिप्टेड डेटा हाल ही में अमान्य कर दिया गया था क्योंकि आपकी एंड्रॉइड लॉक स्क्रीन अक्षम कर दी गई थी।</string>
   <string name="Alert.keystore.title.android">एंड्रॉइड कीस्टोर त्रुटि</string>

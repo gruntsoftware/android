@@ -3,7 +3,6 @@
     <string name="About.blog">موقع إلكتروني</string>
     <string name="About.privacy">سياسة الخصوصية</string>
     <string name="About.title">عن</string>
-    <string name="About.twitter">Twitter</string>
     <string name="AccessibilityLabels.close">يغلق</string>
     <string name="Alert.error">خطأ</string>
     <string name="Alert.keystore.invalidated.android">تم إبطال صلاحية بيانات Brainwallet المشفرة الخاصة بك مؤخرًا بسبب تعطيل شاشة قفل Android.</string>

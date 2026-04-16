@@ -10,7 +10,6 @@
     <!-- About screen title -->
     <string name="About.title">關於</string>
     <!-- About screen twitter label -->
-    <string name="About.twitter">Twitter</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">關閉</string>
     <!-- Support center accessibiliy label -->

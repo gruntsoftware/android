@@ -6,7 +6,6 @@
     <string name="About.privacy">Datenschutzerklärung</string>
     <string name="About.title">Info</string>
     <!-- About screen twitter label -->
-    <string name="About.twitter">Twitter</string>
     <string name="AccessibilityLabels.close">Schließen</string>
     <string name="Alert.error">Fehler</string>
     <!-- Keystore error -->

@@ -11,7 +11,6 @@
     <!-- About screen title -->
     <string name="About.title">Sobre</string>
     <!-- About screen twitter label -->
-    <string name="About.twitter">Twitter</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">Fechar</string>
     <!-- Support center accessibiliy label -->

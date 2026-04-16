@@ -12,8 +12,7 @@
   <!-- About screen title -->
   <string name="About.title">درباره</string>
   <!-- About screen twitter label -->
-  <string name="About.twitter">توییتر</string>
-  <!-- Close modal button accessibility label -->
+    <!-- Close modal button accessibility label -->
   <string name="AccessibilityLabels.close">بستن</string>
   <string name="Alert.error">خطا</string>
   <!-- Keystore error -->
