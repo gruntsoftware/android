@@ -44,3 +44,6 @@ app/src/.DS_Store
 /app/src/main/assets/canary-file.json
 service-data.json
 canary-file.json
+
+#Claude
+.claude/
