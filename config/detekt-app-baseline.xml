@@ -371,7 +371,6 @@
     <ID>Indentation:AppModule.kt$AppModule$ </ID>
     <ID>Indentation:CurrencyDetail.kt$ </ID>
     <ID>Indentation:FiatSelectorBottomSheet.kt$ </ID>
-    <ID>Indentation:FragmentMoonpay.kt$FragmentMoonpay$ </ID>
     <ID>Indentation:FragmentSend.kt$FragmentSend$ </ID>
     <ID>Indentation:HomeSettingDrawerSheet.kt$ </ID>
     <ID>Indentation:MoonPayWidgeLauncher.kt$MoonPayWidgetLauncherViewModel$ </ID>
@@ -530,7 +529,6 @@
     <ID>NoSemicolons:BRConstantsTest.kt$BRConstantsTest$;</ID>
     <ID>NoSemicolons:CountryLanguageAdapter.kt$CountryLanguageAdapter$;</ID>
     <ID>NoSemicolons:FragmentBalanceSeedReminder.kt$FragmentBalanceSeedReminder$;</ID>
-    <ID>NoSemicolons:FragmentMoonpay.kt$FragmentMoonpay$;</ID>
     <ID>NoSemicolons:FragmentSend.kt$FragmentSend$;</ID>
     <ID>NoSemicolons:HistoryFragment.kt$HistoryFragment$;</ID>
     <ID>NoSemicolons:TransactionDataItem.kt$TransactionDataItem$;</ID>
@@ -544,7 +542,6 @@
     <ID>NoUnusedImports:FiatSelectorBottomSheet.kt$com.brainwallet.ui.composable.bottomsheet.FiatSelectorBottomSheet.kt</ID>
     <ID>NoUnusedImports:Font.kt$com.brainwallet.ui.theme.Font.kt</ID>
     <ID>NoUnusedImports:FragmentBalanceSeedReminder.kt$com.brainwallet.presenter.fragments.FragmentBalanceSeedReminder.kt</ID>
-    <ID>NoUnusedImports:FragmentMoonpay.kt$com.brainwallet.presenter.fragments.FragmentMoonpay.kt</ID>
     <ID>NoUnusedImports:GoogleServicesTests.kt$com.brainwallet.tools.util.GoogleServicesTests.kt</ID>
     <ID>NoUnusedImports:LegacyNavigation.kt$com.brainwallet.navigation.LegacyNavigation.kt</ID>
     <ID>NoUnusedImports:LitecoinBlockchainDetail.kt$com.brainwallet.ui.screens.main.composable.settingsrows.LitecoinBlockchainDetail.kt</ID>
@@ -560,7 +557,6 @@
     <ID>NoUnusedImports:UnLockScreenBody.kt$com.brainwallet.ui.screens.unlock.components.UnLockScreenBody.kt</ID>
     <ID>NoUnusedImports:WelcomeScreen.kt$com.brainwallet.ui.screens.welcome.WelcomeScreen.kt</ID>
     <ID>NoWildcardImports:FragmentBalanceSeedReminder.kt$import android.widget.*</ID>
-    <ID>ParameterListWrapping:FragmentMoonpay.kt$FragmentMoonpay$( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? )</ID>
     <ID>ParameterListWrapping:HomeSettingDrawerSheet.kt$HomeSettingDrawerComposeView$( context: Context, attrs: AttributeSet? = null )</ID>
     <ID>ParameterListWrapping:KeyStoreKeyGeneratorImpl.kt$KeyStoreKeyGeneratorImpl$( builder: KeyGenParameterSpec.Builder, authTimeout: Int? )</ID>
     <ID>ParameterListWrapping:SeedWordItem.kt$( modifier: Modifier = Modifier, content: @Composable RowScope.() -&gt; Unit )</ID>

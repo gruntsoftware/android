@@ -27,7 +27,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.brainwallet.navigation.LegacyNavigation;
-import com.brainwallet.presenter.fragments.FragmentMoonpay;
 import com.brainwallet.tools.manager.AnalyticsManager;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.constants.BWConstants;
@@ -237,27 +236,6 @@ public class BRAnimator {
                 .add(android.R.id.content, fragmentReceive, FragmentReceive.class.getName())
                 .addToBackStack(FragmentReceive.class.getName()).commit();
 
-    }
-
-    public static void showMoonpayFragment(FragmentActivity app) {
-
-        if (app == null) {
-            Timber.i("timber: showSendFragment: app is null");
-            return;
-        }
-        androidx.fragment.app.FragmentManager fragmentManager = app.getSupportFragmentManager();
-        FragmentMoonpay fragmentMoonpay = (FragmentMoonpay) fragmentManager.findFragmentByTag(FragmentMoonpay.class.getName());
-        if (fragmentMoonpay != null && fragmentMoonpay.isAdded()) {
-            return;
-        }
-        try {
-            fragmentMoonpay = new FragmentMoonpay();
-            fragmentManager.beginTransaction()
-                    .setCustomAnimations(0, 0, 0, R.animator.plain_300)
-                    .add(android.R.id.content, fragmentMoonpay, FragmentMoonpay.class.getName())
-                    .addToBackStack(FragmentMoonpay.class.getName()).commit();
-        } finally {
-        }
     }
 
     public static boolean isClickAllowed() {

@@ -341,7 +341,6 @@ fun MainScreen(
                                                 )
 
                                                 AnalyticsManager.logCustomEvent("user_did_tap_linktree")
-
                                             }
                                         }
                                     })
