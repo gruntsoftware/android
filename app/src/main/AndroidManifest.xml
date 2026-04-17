@@ -121,17 +121,7 @@
             android:launchMode="singleTask"
             />
         <activity
-            android:name=".presenter.activities.settings.DisplayCurrencyActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            />
-        <activity
             android:name=".presenter.activities.intro.WriteDownActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            />
-        <activity
-            android:name=".presenter.activities.PaperKeyActivity"
             android:exported="true"
             android:launchMode="singleTask"
             />
@@ -140,11 +130,6 @@
             android:exported="true"
             android:launchMode="singleTask"
             />
-        <activity
-            android:name=".presenter.activities.PaperKeyProveActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".presenter.activities.camera.ScanQRActivity"
             android:exported="true"

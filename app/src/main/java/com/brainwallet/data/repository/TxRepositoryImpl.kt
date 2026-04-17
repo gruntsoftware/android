@@ -1,6 +1,7 @@
 package com.brainwallet.data.repository
 
 import android.app.Application
+import com.brainwallet.data.source.TransactionSource
 import com.brainwallet.presenter.entities.TxItem
 import com.brainwallet.wallet.BRWalletManager
 import kotlinx.collections.immutable.ImmutableList
@@ -17,14 +18,15 @@ import timber.log.Timber
 
 @Single(binds = [TxRepository::class])
 class TxRepositoryImpl(
-    private val app: Application
+    private val app: Application,
+    private val transactionSource: TransactionSource = BRWalletManager.getInstance(),
 ) : TxRepository {
 
     private val _transactionItems = MutableStateFlow<ImmutableList<TxItem>>(persistentListOf())
     override val transactionItems: StateFlow<ImmutableList<TxItem>> = _transactionItems.asStateFlow()
 
     override suspend fun refresh() = withContext(Dispatchers.IO) {
-        val items = BRWalletManager.getInstance().getTransactions()
+        val items = transactionSource.getTransactions()
             ?.toImmutableList() ?: persistentListOf()
         Timber.d("TxRepositoryImpl refresh: count=${items.size}")
         _transactionItems.update { items }

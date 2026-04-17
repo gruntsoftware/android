@@ -4,6 +4,7 @@ import android.content.Context
 import com.brainwallet.presenter.entities.TransactionItem
 import com.brainwallet.tools.security.PostAuth
 import com.brainwallet.wallet.BRWalletManager
+import com.brainwallet.wallet.WalletOperations
 import kotlinx.coroutines.Dispatchers
 import org.koin.core.annotation.Single
 import timber.log.Timber
@@ -12,7 +13,7 @@ import kotlinx.coroutines.withContext
 @Single
 class BWSender(
     private val context: Context,
-    private val getWalletManager: () -> BRWalletManager = { BRWalletManager.getInstance() },
+    private val getWalletManager: () -> WalletOperations = { BRWalletManager.getInstance() },
     private val getPostAuth: () -> PostAuth = { PostAuth.getInstance() }
 ) {
 
