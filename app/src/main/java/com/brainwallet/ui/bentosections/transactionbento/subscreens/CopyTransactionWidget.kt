@@ -22,9 +22,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brainwallet.ui.bentosections.transactionbento.TransactionBentoViewModel
 import com.brainwallet.ui.theme.IBMPlexSans
-import com.brainwallet.ui.theme.bentoSurface
 import org.koin.compose.viewmodel.koinViewModel
 import com.brainwallet.R
+import com.brainwallet.ui.theme.mainBentoSurface
 
 @Composable
 fun CopyTransactionsWidget(
@@ -38,7 +38,7 @@ fun CopyTransactionsWidget(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .bentoSurface(isDarkMode)
+            .mainBentoSurface(isDarkMode)
     ) {
         Row(
             modifier = Modifier.fillMaxSize(),

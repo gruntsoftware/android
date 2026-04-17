@@ -25,6 +25,8 @@ val topNavStartEndPadding = 12.dp
 val favouriteSize = 30.dp
 
 val bentoBorderWidth = 1.1.dp
+
+val mainBentoBorderWidth = 0.8.dp
 val bentoCornerRadius = 16.dp
 
 val bentoSpacer = 6.dp

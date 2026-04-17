@@ -35,11 +35,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.airbnb.lottie.model.content.CircleShape
 import com.brainwallet.constants.favouriteSize
 import com.brainwallet.ui.theme.DesignTheme
 import com.brainwallet.ui.theme.IBMPlexSans
-import com.brainwallet.ui.theme.bentoSurface
+import com.brainwallet.ui.theme.mainBentoSurface
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -58,7 +57,7 @@ fun FavouritesBentoScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .bentoSurface(isDarkMode)
+            .mainBentoSurface(isDarkMode)
     ) {
         Column(
             modifier = Modifier

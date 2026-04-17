@@ -21,7 +21,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.R
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
@@ -38,7 +37,7 @@ import com.brainwallet.ui.composable.VerticalWheelPicker
 import com.brainwallet.ui.composable.WheelPickerFocusVertical
 import com.brainwallet.ui.composable.rememberWheelPickerState
 import com.brainwallet.ui.theme.IBMPlexSans
-import com.brainwallet.ui.theme.bentoSurface
+import com.brainwallet.ui.theme.mainBentoSurface
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -94,7 +93,7 @@ fun LTCPickerBentoScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .bentoSurface(state.darkMode)
+            .mainBentoSurface(state.darkMode)
     ) {
         Column(
             modifier = Modifier

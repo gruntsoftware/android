@@ -33,7 +33,7 @@ import com.brainwallet.tools.util.Utils
 import com.brainwallet.ui.bentosections.transactionbento.TransactionBentoViewModel
 import com.brainwallet.ui.theme.DesignTheme
 import com.brainwallet.ui.theme.IBMPlexSans
-import com.brainwallet.ui.theme.bentoSurface
+import com.brainwallet.ui.theme.mainBentoSurface
 import com.brainwallet.wallet.BRPeerManager
 import org.koin.compose.viewmodel.koinViewModel
 import timber.log.Timber
@@ -125,7 +125,7 @@ fun TransactionRow(
     Box(
         modifier = Modifier
             .height(transactionRowHt)
-            .bentoSurface(isDarkMode)
+            .mainBentoSurface(isDarkMode)
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

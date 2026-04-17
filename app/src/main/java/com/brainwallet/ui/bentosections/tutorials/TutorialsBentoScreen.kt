@@ -25,7 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brainwallet.ui.theme.IBMPlexSans
-import com.brainwallet.ui.theme.bentoSurface
+import com.brainwallet.ui.theme.mainBentoSurface
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -41,7 +41,7 @@ fun TutorialsBentoScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .bentoSurface(isDarkMode)
+            .mainBentoSurface(isDarkMode)
     ) {
         Column(
             modifier = Modifier
