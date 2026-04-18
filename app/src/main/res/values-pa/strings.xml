@@ -11,8 +11,6 @@
   <!-- Terms of Use button label -->
   <!-- About screen title -->
   <string name="About.title">متعلق</string>
-  <!-- About screen twitter label -->
-  <string name="About.twitter">ٹوئٹر</string>
   <!-- Close modal button accessibility label -->
   <string name="AccessibilityLabels.close">بند کرو</string>
   <!-- Support center accessibiliy label -->

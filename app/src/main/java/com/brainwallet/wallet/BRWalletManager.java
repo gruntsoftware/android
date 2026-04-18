@@ -60,7 +60,7 @@ import java.util.List;
 import kotlin.Suppress;
 import timber.log.Timber;
 
-public class BRWalletManager {
+public class BRWalletManager implements WalletOperations, com.brainwallet.data.source.TransactionSource {
     private static BRWalletManager instance;
     public List<OnBalanceChanged> balanceListeners = new ArrayList<>();
     private boolean isInitiatingWallet;

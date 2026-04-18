@@ -21,17 +21,12 @@ import android.widget.TextView;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.brainwallet.R;
-import com.brainwallet.presenter.activities.settings.SecurityCenterActivity;
-import com.brainwallet.presenter.activities.settings.SettingsActivity;
 import com.brainwallet.presenter.entities.BRMenuItem;
 import com.brainwallet.tools.animation.BRAnimator;
 import com.brainwallet.tools.animation.SlideDetector;
-import com.brainwallet.tools.manager.AnalyticsManager;
-import com.brainwallet.constants.BWConstants;
 import com.brainwallet.data.source.RemoteConfigSource;
 
 import org.json.JSONObject;
@@ -64,32 +59,6 @@ public class FragmentMenu extends Fragment {
 
         itemList = new ArrayList<>();
 
-        /* Security Center */
-        itemList.add(new BRMenuItem(getString(R.string.MenuButton_security), R.drawable.ic_shield, v -> {
-            Intent intent = new Intent(getActivity(), SecurityCenterActivity.class);
-            launchActivity(intent);
-        }));
-
-        /* Customer Support */
-        itemList.add(new BRMenuItem(getString(R.string.MenuButton_support), R.drawable.faq_question_black, v -> {
-            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-            CustomTabsIntent customTabsIntent = builder.build();
-            customTabsIntent.launchUrl(getContext(), Uri.parse(BWConstants.WEB_LINK));
-            AnalyticsManager.logCustomEvent(BWConstants._20201118_DTGS);
-        }));
-
-        /* Settings */
-        itemList.add(new BRMenuItem(getString(R.string.MenuButton_settings), R.drawable.ic_settings, v -> {
-            Intent intent = new Intent(getActivity(), SettingsActivity.class);
-            launchActivity(intent);
-        }));
-
-        /* Lock Wallet */
-        itemList.add(new BRMenuItem(getString(R.string.MenuButton_lock), R.drawable.ic_lock, v -> {
-            closeMenu();
-            final Activity from = getActivity();
-            BRAnimator.startBreadActivity(from, true);
-        }));
 
         /**
          * remote config example here

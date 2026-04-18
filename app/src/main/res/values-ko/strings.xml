@@ -10,8 +10,6 @@
     <!-- Terms of Use button label -->
     <!-- About screen title -->
     <string name="About.title">관련 사항</string>
-    <!-- About screen twitter label -->
-    <string name="About.twitter">트위터</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">닫기</string>
     <!-- Support center accessibiliy label -->
