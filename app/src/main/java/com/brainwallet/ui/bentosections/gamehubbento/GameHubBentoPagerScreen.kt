@@ -32,7 +32,7 @@ fun GameHubBentoPagerScreen(
     LaunchedEffect(pagerState.pageCount) {
         var forward = true
         while (true) {
-            delay(5_000)
+            delay(15_000)
             if (!pagerState.isScrollInProgress) {
                 val nextPage = if (forward) {
                     (pagerState.currentPage + 1).also {

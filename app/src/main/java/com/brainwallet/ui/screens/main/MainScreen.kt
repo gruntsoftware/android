@@ -324,7 +324,9 @@ fun MainScreen(
                                 Box(modifier = Modifier.height(gameHubHt)) {
                                     GameHubBentoPagerScreen(onClick = { page ->
                                         when (page) {
-                                            0 -> Unit
+                                            0 -> {
+                                                AnalyticsManager.logCustomEvent("user_did_tap_fallinmoji_no_op")
+                                            }
                                             1 -> {
                                                 modalContentRoute = Route.BuyReceive
                                                 isSheetOpen = true
