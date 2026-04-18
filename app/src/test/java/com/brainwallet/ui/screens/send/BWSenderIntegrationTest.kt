@@ -49,10 +49,11 @@ class BWSenderIntegrationTest {
         walletManager = mockk(relaxed = true)
         postAuth = mockk(relaxed = true)
 
-        every { walletManager.tryTransactionWithOps(any(),
-            any(),
-            any(),
-            any()) } returns validTxBytes
+        every {
+            walletManager.tryTransactionWithOps(
+                any(), any(), any(), any()
+            )
+        } returns validTxBytes
         every { walletManager.getMinOutputAmount() } returns minOutput
         every { walletManager.getMinOutputAmountRequested() } returns minOutput
         every { postAuth.setTransactionItem(any()) } just Runs
@@ -74,12 +75,15 @@ class BWSenderIntegrationTest {
         address: String? = "LSfkWtX2rzXrTeoFmFozj1mcXodTqg4GdH",
         amount: Long = sendAmount,
         isAmountRequested: Boolean = false,
-    ) = TransactionItem(address,
+    ) = TransactionItem(
+        address,
         "ops_address",
         null,
         amount,
         100L,
-        null, isAmountRequested)
+        null,
+        isAmountRequested
+    )
 
     // ── success path ──────────────────────────────────────────────────────────
 
@@ -155,10 +159,14 @@ class BWSenderIntegrationTest {
 
     @Test
     fun `prepareTransaction returns Unknown when tryTransactionWithOps returns null`() = runTest {
-        every { walletManager.tryTransactionWithOps(any(),
-            any(),
-            any(),
-            any()) } returns null
+        every {
+            walletManager.tryTransactionWithOps(
+                any(),
+                any(),
+                any(),
+                any()
+            )
+        } returns null
 
         val result = sender.prepareTransaction(makeTransactionItem())
 
@@ -168,10 +176,12 @@ class BWSenderIntegrationTest {
     @Test
     fun `prepareTransaction returns Unknown when walletManager throws`() = runTest {
         every {
-            walletManager.tryTransactionWithOps(any(),
+            walletManager.tryTransactionWithOps(
                 any(),
                 any(),
-                any())
+                any(),
+                any()
+            )
         } throws RuntimeException("native crash")
 
         val result = sender.prepareTransaction(makeTransactionItem())
@@ -182,10 +192,12 @@ class BWSenderIntegrationTest {
     @Test
     fun `prepareTransaction resets isSending after walletManager exception`() = runTest {
         every {
-            walletManager.tryTransactionWithOps(any(),
+            walletManager.tryTransactionWithOps(
                 any(),
                 any(),
-                any())
+                any(),
+                any()
+            )
         } throws RuntimeException("crash")
 
         sender.prepareTransaction(makeTransactionItem())
@@ -215,8 +227,10 @@ class BWSenderIntegrationTest {
         )
 
         assertTrue(result is BWSendResult.Error.AmountTooSmall)
-        assertEquals(200_000L,
-            (result as BWSendResult.Error.AmountTooSmall).minAmount)
+        assertEquals(
+            200_000L,
+            (result as BWSendResult.Error.AmountTooSmall).minAmount
+        )
     }
 
     @Test
@@ -229,8 +243,10 @@ class BWSenderIntegrationTest {
         )
 
         assertTrue(result is BWSendResult.Error.AmountTooSmall)
-        assertEquals(150_000L,
-            (result as BWSendResult.Error.AmountTooSmall).minAmount)
+        assertEquals(
+            150_000L,
+            (result as BWSendResult.Error.AmountTooSmall).minAmount
+        )
     }
 
     @Test
