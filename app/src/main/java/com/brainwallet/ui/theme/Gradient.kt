@@ -149,8 +149,8 @@ val bentoBalanceGameDarkBorderGradient: Brush
         colors = listOf(
             Color(0xFFFFFFFF).copy(alpha = 0.2f),
             Color(0xFF9074FF).copy(alpha = 0.8f),
-            Color(0xFF020148).copy(alpha = 1f),
-            Color(0xFF2B193B).copy(alpha = 1f),
+            Color(0xFF020148).copy(alpha = 0.8f),
+            Color(0xFF2B193B).copy(alpha = 0.8f),
             Color(0xFF6944BE).copy(alpha = 0.2f)
         ),
         start = Offset.Zero,

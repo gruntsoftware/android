@@ -1,6 +1,5 @@
 package com.brainwallet.ui.bentosections.gamehubbento
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,6 +20,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -30,9 +31,9 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brainwallet.R
+import com.brainwallet.constants.bentoCornerRadius
 import com.brainwallet.ui.theme.IBMPlexSans
-import com.brainwallet.ui.theme.bentoDarkBorderGradient
-import com.brainwallet.ui.theme.gameTaglineGradient
+import com.brainwallet.ui.theme.balanceGameBentoSurface
 
 @Composable
 fun GameHubBentoRiceScreen(
@@ -42,7 +43,7 @@ fun GameHubBentoRiceScreen(
     val hubPageCount = 3
     val pagerState = rememberPagerState(pageCount = { hubPageCount })
     var resizedTaglineFontSize by remember { mutableStateOf(16.sp) }
-    val riceBackground = R.drawable.rice_partner_03
+    val riceBackground = R.drawable.rice_partner_04
     Card(
         modifier = modifier.fillMaxSize(),
         shape = RoundedCornerShape(16.dp),
@@ -53,16 +54,13 @@ fun GameHubBentoRiceScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
-                .border(
-                    width = 0.7.dp,
-                    brush = bentoDarkBorderGradient,
-                    shape = RoundedCornerShape(17.dp)
-                )
+                .balanceGameBentoSurface(isDarkMode = true)
         ) {
             Image(
                 painter = painterResource(riceBackground),
                 contentDescription = "game_hub_background",
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize()
+                    .clip(RoundedCornerShape(bentoCornerRadius)),
                 contentScale = ContentScale.Crop
             )
             Column(
@@ -80,10 +78,10 @@ fun GameHubBentoRiceScreen(
                         }
                     },
                     style = TextStyle(
-                        brush = gameTaglineGradient,
                         fontFamily = IBMPlexSans,
                         fontWeight = FontWeight.SemiBold,
-                        fontSize = resizedTaglineFontSize
+                        fontSize = resizedTaglineFontSize,
+                        color = Color.Black
                     ),
                     maxLines = 2
                 )

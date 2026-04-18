@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brainwallet.ui.theme.IBMPlexSans
@@ -47,7 +49,7 @@ fun TutorialsBentoScreen(
             modifier = Modifier
                 .padding(10.dp)
                 .fillMaxHeight(),
-            verticalArrangement = Arrangement.Top,
+            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.Start
         ) {
             Text(
@@ -67,20 +69,29 @@ fun TutorialsBentoScreen(
                     .padding(horizontal = 6.dp, vertical = 2.dp)
             )
             Spacer(modifier = Modifier.weight(1f))
-            Text(
-                text = stringResource(com.brainwallet.R.string.coming_soon),
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(30.dp)
-                    .align(Alignment.CenterHorizontally),
-                style = TextStyle(
-                    fontFamily = IBMPlexSans,
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 14.sp,
-                    textAlign = TextAlign.Center,
-                    color = if (isDarkMode) Color.White else Color.Black
-                )
-            )
         }
+
+        Text(
+            text = stringResource(com.brainwallet.R.string.coming_soon),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(30.dp)
+                .wrapContentSize(Alignment.Center),
+            style = TextStyle(
+                fontFamily = IBMPlexSans,
+                fontWeight = FontWeight.Normal,
+                fontSize = 14.sp,
+                color = if (isDarkMode) Color.White else Color.Black,
+                textAlign = TextAlign.Center
+            ),
+        )
+    }
+}
+
+@PreviewLightDark
+@Composable
+private fun TutorialsBentoScreenPreview() {
+    Box(modifier = Modifier) {
+        TutorialsBentoScreen()
     }
 }

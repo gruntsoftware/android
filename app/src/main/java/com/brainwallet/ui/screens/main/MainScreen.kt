@@ -22,7 +22,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -61,7 +60,6 @@ import com.brainwallet.constants.BWConstants.FADE_OUT_DURATION
 import com.brainwallet.constants.balanceGameBentoHt
 import com.brainwallet.constants.bentoSpacer
 import com.brainwallet.constants.gameHubHt
-import com.brainwallet.constants.statusBarPadding
 import com.brainwallet.constants.topNavButtonSize
 import com.brainwallet.constants.topNavStartEndPadding
 import com.brainwallet.constants.transactionRowHt
@@ -97,6 +95,7 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
+import timber.log.Timber
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -162,10 +161,11 @@ fun MainScreen(
         Scaffold(
             modifier = modifier
                 .background(
-                    if (isDarkMode) mainScreenDarkSurfaceGradient else mainScreenLightSurfaceGradient
-                )
-                .padding(
-                    top = statusBarPadding
+                    if (isDarkMode) {
+                        mainScreenDarkSurfaceGradient
+                    } else {
+                        mainScreenLightSurfaceGradient
+                    }
                 )
                 .blurAnimatedWith(blurRadiusWhen),
             containerColor = Color.Transparent,
@@ -198,7 +198,6 @@ fun MainScreen(
                             isSheetOpen = true
                         }
                     },
-
                 )
             }
 
@@ -206,17 +205,15 @@ fun MainScreen(
             BoxWithConstraints(
                 modifier = Modifier
                     .fillMaxSize()
-                    .navigationBarsPadding()
+                    .padding(padding)
             ) {
-                val topPadding = padding.calculateTopPadding()
-                val bottomPadding = padding.calculateBottomPadding() - bentoSpacer
+                val topNavRowHt = topNavButtonSize + (topNavStartEndPadding * 2)
                 val availableHeight = maxHeight -
+                    topNavRowHt -
                     (bentoSpacer * 5) -
-                    topPadding -
                     balanceGameBentoHt -
                     transactionRowHt -
-                    gameHubHt -
-                    bottomPadding
+                    gameHubHt
                 val transactionsDetailHeight = availableHeight + gameHubHt + balanceGameBentoHt
                 val ltcPickerBentoHeight = (availableHeight * 0.75f) - (bentoSpacer / 2)
                 val favoritesBentoHeight = (availableHeight * 0.25f) - (bentoSpacer / 2)
@@ -225,7 +222,9 @@ fun MainScreen(
                     animationSpec = tween(EXPAND_DURATION),
                     label = "transactionHeight"
                 )
-
+                Timber.d(
+                    "bento layout maxHeight=$maxHeight "
+                )
                 Column {
                     Row(
                         modifier = Modifier
@@ -289,7 +288,6 @@ fun MainScreen(
                                 }
                             )
                         }
-
                         item(span = { GridItemSpan(1) }) {
                             AnimatedVisibility(
                                 visible = !showTransactionDetail,
