@@ -29,12 +29,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brainwallet.ui.bentosections.transactionbento.TransactionBentoViewModel
 import com.brainwallet.ui.theme.IBMPlexSans
-import com.brainwallet.ui.theme.bentoSurface
 import org.koin.compose.viewmodel.koinViewModel
 import com.brainwallet.R
 import com.brainwallet.presenter.entities.TxItem
 import com.brainwallet.ui.bentosections.transactionbento.TransactionFilterState
 import com.brainwallet.ui.theme.DesignTheme
+import com.brainwallet.ui.theme.mainBentoSurface
 import kotlinx.collections.immutable.ImmutableList
 
 @Composable
@@ -60,7 +60,7 @@ fun TransactionFilterWidget(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .bentoSurface(isDarkMode)
+            .mainBentoSurface(isDarkMode)
     ) {
         Row(
             modifier = Modifier.fillMaxHeight(),

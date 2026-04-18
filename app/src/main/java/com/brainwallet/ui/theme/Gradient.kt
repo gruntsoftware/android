@@ -19,6 +19,8 @@ val colorMainScreenBackground3 = Color(0xFF491FA3)
 val colorMainScreenBackground4 = Color(0xFF000000)
 val colorMainScreenBackground5 = Color(0xFF000000)
 
+val colorMainScreenBackground6 = Color(0xFF5827E2)
+
 /**
  * A reusable vertical gradient brush for text and backgrounds.33
  */
@@ -54,12 +56,23 @@ val gameHubBackgroundGradient: Brush
         tileMode = TileMode.Clamp
     )
 
-val balanceBackgroundGradient: Brush
+val balanceBackgroundGradientOld: Brush
 
     @Composable
     get() = Brush.verticalGradient(
         0.0f to colorMainScreenBackground5,
         1.0f to colorMainScreenBackground1,
+        startY = 0f,
+        endY = Float.POSITIVE_INFINITY,
+        tileMode = TileMode.Clamp
+    )
+
+val balanceBackgroundGradient: Brush
+
+    @Composable
+    get() = Brush.verticalGradient(
+        0.0f to colorMainScreenBackground2,
+        1.0f to colorMainScreenBackground3,
         startY = 0f,
         endY = Float.POSITIVE_INFINITY,
         tileMode = TileMode.Clamp
@@ -129,16 +142,28 @@ val bentoClearGradient: Brush
         start = Offset(Float.MIN_VALUE, Float.POSITIVE_INFINITY),
         end = Offset(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY),
     )
-val bentoDarkBorderGradient: Brush
+val bentoBalanceGameDarkBorderGradient: Brush
 
     @Composable
     get() = Brush.linearGradient(
         colors = listOf(
             Color(0xFFFFFFFF).copy(alpha = 0.2f),
             Color(0xFF9074FF).copy(alpha = 0.8f),
-            Color(0xFF020148).copy(alpha = 1f),
-            Color(0xFF2B193B).copy(alpha = 1f),
+            Color(0xFF020148).copy(alpha = 0.8f),
+            Color(0xFF2B193B).copy(alpha = 0.8f),
             Color(0xFF6944BE).copy(alpha = 0.2f)
+        ),
+        start = Offset.Zero,
+        end = Offset(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY),
+    )
+
+val bentoDarkBorderGradient: Brush
+
+    @Composable
+    get() = Brush.linearGradient(
+        colors = listOf(
+            Color(0xFFFFFFFF).copy(alpha = 0.2f),
+            Color(0xFFFFFFFF).copy(alpha = 0.2f)
         ),
         start = Offset.Zero,
         end = Offset(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY),

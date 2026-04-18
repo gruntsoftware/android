@@ -11,8 +11,6 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
@@ -25,7 +23,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
@@ -61,9 +58,7 @@ import com.brainwallet.ui.screens.main.MainScreenState
 import com.brainwallet.ui.screens.main.MainViewModel
 import com.brainwallet.ui.theme.DesignTheme
 import com.brainwallet.ui.theme.IBMPlexSans
-import com.brainwallet.ui.theme.balanceBackgroundGradient
-import com.brainwallet.ui.theme.bentoDarkBorderGradient
-import com.brainwallet.ui.theme.bentoLightBorderGradient
+import com.brainwallet.ui.theme.balanceGameBentoSurface
 import com.brainwallet.ui.theme.blurWhen
 import kotlinx.collections.immutable.ImmutableList
 import org.koin.compose.viewmodel.koinViewModel
@@ -169,15 +164,7 @@ fun BalanceBentoScreen(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
-            .background(
-                brush = balanceBackgroundGradient,
-                shape = RoundedCornerShape(16.dp)
-            )
-            .border(
-                width = 1.5.dp,
-                brush = if (state.darkMode) bentoDarkBorderGradient else bentoLightBorderGradient,
-                shape = RoundedCornerShape(16.dp)
-            )
+            .balanceGameBentoSurface(isDarkMode = true)
     ) {
         Row(
             modifier = Modifier

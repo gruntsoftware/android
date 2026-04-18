@@ -37,7 +37,7 @@ import com.brainwallet.R
 import com.brainwallet.constants.bentoCornerRadius
 import com.brainwallet.ui.theme.BoldenVan
 import com.brainwallet.ui.theme.IBMPlexSans
-import com.brainwallet.ui.theme.bentoSurface
+import com.brainwallet.ui.theme.balanceGameBentoSurface
 import com.brainwallet.ui.theme.gameTaglineGradient
 import com.brainwallet.ui.theme.gameTitleGradient
 
@@ -54,7 +54,7 @@ fun GameHubBentoScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .bentoSurface(isDarkMode = true)
+            .balanceGameBentoSurface(isDarkMode = true)
             .clickable(onClick = onClick)
     ) {
         Image(
