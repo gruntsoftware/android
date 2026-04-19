@@ -65,6 +65,14 @@ fun GameHubBentoScreen(
             contentScale = ContentScale.Crop,
         )
         val textWidthRatio = 0.85f
+
+        FallinScene(
+            modifier = Modifier
+                .fillMaxWidth(textWidthRatio)
+                .fillMaxHeight(1f)
+                .align(Alignment.CenterEnd),
+            dotQuantity = 14
+        )
         Column(
             modifier = Modifier
                 .padding(start = 16.dp)

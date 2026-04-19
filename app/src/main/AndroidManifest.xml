@@ -126,11 +126,6 @@
             android:launchMode="singleTask"
             />
         <activity
-            android:name=".presenter.activities.settings.SpendLimitActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            />
-        <activity
             android:name=".presenter.activities.camera.ScanQRActivity"
             android:exported="true"
             android:launchMode="singleTask"
