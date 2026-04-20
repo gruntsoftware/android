@@ -359,14 +359,12 @@ class MainViewModel(
                             (txItem.received - txItem.sent < 0)
                         }.toImmutableList()
                     }
-                    Timber.d("timber: filtered state: $nextFilter and transactions: ${filteredTransactions.size}")
-                    AnalyticsManager.logCustomEventWithParams("did_toggle_transaction_filter", null)
-
                     it.copy(
                         filterState = nextFilter,
                         transactionItems = filteredTransactions
                     )
                 }
+                AnalyticsManager.logCustomAdHocEvent("did_toggle_txn_filter")
             }
             is MainScreenEvent.OnExportTransactions -> {
                 // TODO: Implement
