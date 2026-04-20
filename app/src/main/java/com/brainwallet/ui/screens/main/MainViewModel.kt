@@ -15,7 +15,6 @@ import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.repository.TxRepository
 import com.brainwallet.tools.manager.AnalyticsManager
-import com.brainwallet.tools.manager.BRClipboardManager
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.sqlite.TransactionDataSource
 import com.brainwallet.tools.util.BRExchange.ONE_LITECOIN_OF_LITOSHIS
@@ -445,7 +444,7 @@ class MainViewModel(
                     val clip = ClipData
                         .newPlainText("Transaction Details: ", transactionDetailsString)
                     clipboard.setPrimaryClip(clip)
-                    AnalyticsManager.logCustomEventWithParams("tx_details_copied", null)
+                    AnalyticsManager.logCustomEventWithParams("txn_details_copied", null)
                 } catch (e: java.lang.Exception) {
                     Timber.e(e)
                 }
