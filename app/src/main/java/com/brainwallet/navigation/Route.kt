@@ -53,6 +53,12 @@ sealed class Route : JavaSerializable {
     object Send : Route()
 
     @Serializable
+    object TutorialWalkthrough : Route()
+
+    @Serializable
+    object TutorialSend : Route()
+
+    @Serializable
     object GameHub : Route()
 
     @Serializable

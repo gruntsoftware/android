@@ -477,5 +477,26 @@
     <string name="ltc_price_label">LTC Price</string>
     <string name="sign_up_messaging_title">Sign up to updates, news and contests!</string>
     <string name="grant_for_notifications_message">"Please accept permission for our notifications "</string>
+    <string name="send_tutorial_title">How to send Litecoin</string>
+    <string name="brainwallet_walkthrough_title">Brainwallet Walkthrough</string>
+    <string name="brainwallet_walkthrough_description">Try all the features of Brainwallet, from sending and receiving crypto to managing your keys.</string>
+    <string name="send_tutorial_description">Follow the easy steps to send LTC to someone else\'s wallet. They get it in seconds!</string>
+    <string name="walkthrough_title_1">1. Check your balance</string>
+    <string name="walkthrough_description_1">You cannot send if it\'s zero or it\'s syncing. Top up in 5 minutes with MoonPay if needed.</string>
+    <string name="tap_moonpay_callout_title"><![CDATA[Tap here & top up!]]></string>
+    <string name="walkthrough_title_2">2. Settings &amp; Dark Mode </string>
+    <string name="walkthrough_description_2">Fine tune by tapping on Settings to the top right. Set your Dark Mode preference by tapping on the ☀️ on the top left.</string>
+    <string name="walkthrough_title_3">Review your transactions</string>
+    <string name="walkthrough_description_3">When you get transactions, they show here. Swipe up &amp; down to check. Tap filter to toggle All, Receive or Sent.</string>
+    <string name="walkthrough_title_3a">Go Deep!</string>
+    <string name="walkthrough_description_3a">Tap on History to show more detail and expand the view. Swipe up or down to scroll through the all information.</string>
+    <string name="walkthrough_title_4">Check the LTC Price</string>
+    <string name="walkthrough_description_4">Brainwallet updates the price of Litecoin (LTC) regularly. Pick your local currency to get the rate by swiping. Use your flag as a guide!</string>
+    <string name="send_tutorial_title_1a">2. Tap the Send tab</string>
+    <string name="send_tutorial_description_1a">Balance over zero? Switch to currency or LTC to figure out how much to send. Adjust the network fee in settings</string>
+    <string name="send_tutorial_title_3a">3. Set the values</string>
+    <string name="send_tutorial_description_3a">Do you have some LTC? Change your local figure fiat to figure out how much you can send. Or, calculate in LTC. Go to settings to adjust your preferred network fee</string>
+    <string name="send_tutorial_title_3b">Verify before sending!</string>
+    <string name="send_tutorial_description_3b">Scan or paste the destination address. Double check! Change your local fiat to figure out how much you can send. Add a memo as a handy reminder. Tap Continue.</string>
 
 </resources>
