@@ -86,6 +86,8 @@ class SendViewModel(
                 val address = _state.value.recipientLTCAddress
                 if (address.isNotBlank()) {
                     val isValid = BRWalletManager.validateAddress(address)
+                    Timber.d("OnTapPasteLTCAddress SendViewModel: isValid : $isValid")
+
                     _state.update {
                         it.copy(
                             isLTCAddressValid = isValid,
@@ -106,6 +108,8 @@ class SendViewModel(
             }
             is SendEvent.OnTapPasteLTCAddress -> {
                 val litecoinUrl = BRClipboardManager.getClipboard(app)
+                Timber.d("timber: OnTapPasteLTCAddress: $litecoinUrl")
+
                 val isAddressValid = BRWalletManager.validateAddress(litecoinUrl)
                 if (isAddressValid) {
                     _state.update {
@@ -222,8 +226,7 @@ class SendViewModel(
                     it.copy(
                         amountString = event.amountInLTCString,
                         isAmountBelowBalance = isAmountValid,
-                        isReadyToSend = isAmountValid &&
-                            BRWalletManager.validateAddress(it.recipientLTCAddress),
+                        isReadyToSend = isAmountValid && it.isLTCAddressValid,
                         networkFees = BigDecimal(networkFee.toDouble()),
                         serviceFees = BigDecimal(opsFee),
                         amountInLitoshi = BigDecimal(litoshiAmount)
@@ -306,10 +309,14 @@ class SendViewModel(
                 _state.update { it.copy(userMemorandum = event.memo) }
             }
             is SendEvent.OnFieldFocused -> {
+                Timber.d(
+                    "timber: is ${_state.value.isAmountBelowBalance}" +
+                        "\ntimber: isLTC${_state.value.isLTCAddressValid}"
+                )
+
                 _state.update {
                     it.copy(
-                        isReadyToSend = it.isAmountBelowBalance &&
-                            BRWalletManager.validateAddress(it.recipientLTCAddress),
+                        isReadyToSend = (it.isAmountBelowBalance && it.isLTCAddressValid)
                     )
                 }
             }
