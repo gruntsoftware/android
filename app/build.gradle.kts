@@ -200,6 +200,8 @@ dependencies {
     implementation(project(":iap"))
     implementation(project(":core"))
     implementation("androidx.webkit:webkit:1.9.0")
+    testImplementation(testFixtures(project(":app")))
+    androidTestImplementation(testFixtures(project(":app")))
     implementation(grunt.androidx.core.ktx)
     implementation(grunt.app.startup)
     implementation(libs.androidx.appcompat)

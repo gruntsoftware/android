@@ -3,6 +3,7 @@ package com.brainwallet.ui.screens.send
 import android.content.Context
 import com.brainwallet.presenter.entities.TransactionItem
 import com.brainwallet.tools.security.PostAuth
+import com.brainwallet.wallet.FakeWalletManager
 import com.brainwallet.wallet.WalletOperations
 import io.mockk.coVerify
 import io.mockk.every

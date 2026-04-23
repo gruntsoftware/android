@@ -45,7 +45,7 @@ class SendInstrumentationTest {
 
     @Before
     fun loadNativeLibrary() {
-        System.loadLibrary("core") // adjust name to match your .so — e.g. "brainwallet-core" or "litewallet-core"
+        System.loadLibrary("core-lib")
     }
 
     // -------------------------------------------------------------------------
@@ -55,28 +55,28 @@ class SendInstrumentationTest {
     @Test
     fun validateAddress_acceptsKnownGoodLitecoinAddress() {
         // Litecoin P2PKH sample address (starts with L).
-        val addr = "LhK2kQwiaAvhjWY799cZvMyYwnQAcxkarr"
+        val addr = "LcWHwzZitnqQsXwi6UScRjtjDFYjR7t24t"
         assertTrue(
             "Native validator must accept canonical L-prefix addresses",
-            BRWalletManager.validateAddress(addr)
+            BRWalletManager.getInstance().validateAddress(addr)
         )
     }
 
     @Test
     fun validateAddress_rejectsEmptyString() {
-        assertFalse(BRWalletManager.validateAddress(""))
+        assertFalse(BRWalletManager.getInstance().validateAddress(""))
     }
 
     @Test
     fun validateAddress_rejectsGarbage() {
-        assertFalse(BRWalletManager.validateAddress("not-a-real-address"))
+        assertFalse(BRWalletManager.getInstance().validateAddress("not-a-real-address"))
     }
 
     @Test
     fun validateAddress_rejectsBitcoinAddress() {
         // Bitcoin address should be rejected by a Litecoin wallet.
         assertFalse(
-            BRWalletManager.validateAddress("1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa")
+            BRWalletManager.getInstance().validateAddress("1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa")
         )
     }
 
@@ -124,7 +124,7 @@ class SendInstrumentationTest {
 
     @Test
     fun bwSender_reentrancyGuard_holdsAgainstRealWallet() = runTest {
-        assumeTrue(walletManager.isCreated)
+        assumeTrue(walletManager.isCreated())
 
         val postAuth = mockk<PostAuth>(relaxed = true)
         val sender = BWSender(
