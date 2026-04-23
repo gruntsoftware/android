@@ -73,9 +73,9 @@ jobs:
         GRADLE_OPTS: "-Xmx2g -XX:MaxMetaspaceSize=512m -Dorg.gradle.daemon=false"
     steps:
       - setup_environment
-      - run:
+      -  run:
           name: "Execute Unit Tests"
-          command: ./gradlew testBrainwalletDebugUnitTest --no-daemon --max-workers=2 -Dorg.gradle.jvmargs="-Xmx8g" -Dkotlin.compiler.execution.strategy=in-process
+          command: ./gradlew testBrainwalletDebugUnitTest --no-daemon --max-workers=2
       - android/save_gradle_cache
       - run:
           name: Save test results
