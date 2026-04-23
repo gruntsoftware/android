@@ -66,6 +66,7 @@ class BWSenderTest {
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
         context = mockk(relaxed = true)
+        val fakeWallet = FakeWalletManager(created = true)
         walletManager = mockk<WalletOperations>(relaxed = true) {
             every {
                 tryTransactionWithOps(any(), any(), any(), any())

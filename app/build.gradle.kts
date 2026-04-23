@@ -189,7 +189,9 @@ android {
             )
         }
     }
-
+        testFixtures {
+            enable = true
+        }
     //TODO: rename output apk/bundle
 }
 
@@ -277,18 +279,4 @@ dependencies {
 tasks.withType<Test> {
     jvmArgs("-XX:+EnableDynamicAgentLoading")
 }
-tasks.whenTaskAdded {
-    if (name.startsWith("bundle")) {
-        doLast {
-            val outputDir = file("${layout.buildDirectory.get()}/outputs/bundle")
-            outputDir.walkTopDown()
-                .filter { it.name.endsWith(".aab") }
-                .forEach { aab ->
-                    val buildType = aab.parentFile.name // e.g. "release"
-                    val newName = "Brainwallet-${android.defaultConfig.versionName}" +
-                        "(${android.defaultConfig.versionCode})-${buildType}.aab"
-                    aab.renameTo(File(aab.parent, newName))
-                }
-        }
-    }
-}
+

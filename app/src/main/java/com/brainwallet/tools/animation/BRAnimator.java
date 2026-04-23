@@ -37,7 +37,6 @@ import com.brainwallet.presenter.customviews.BRDialogView;
 import com.brainwallet.presenter.entities.TxItem;
 import com.brainwallet.presenter.fragments.FragmentBalanceSeedReminder;
 import com.brainwallet.presenter.fragments.FragmentReceive;
-import com.brainwallet.presenter.fragments.FragmentSend;
 import com.brainwallet.presenter.fragments.FragmentSignal;
 import com.brainwallet.presenter.fragments.FragmentTransactionDetails;
 import com.brainwallet.presenter.interfaces.BROnSignalCompletion;
@@ -105,31 +104,6 @@ public class BRAnimator {
                    .addToBackStack(FragmentBalanceSeedReminder.class.getName()).commit();
        } finally {
        }
-    }
-    public static void showSendFragment(FragmentActivity app, final String bitcoinUrl) {
-        if (app == null) {
-            Timber.i("timber: showSendFragment: app is null");
-            return;
-        }
-        androidx.fragment.app.FragmentManager fragmentManager = app.getSupportFragmentManager();
-        FragmentSend fragmentSend = (FragmentSend) fragmentManager.findFragmentByTag(FragmentSend.class.getName());
-        if (fragmentSend != null && fragmentSend.isAdded()) {
-            fragmentSend.setUrl(bitcoinUrl);
-            return;
-        }
-        try {
-            fragmentSend = new FragmentSend();
-            if (bitcoinUrl != null && !bitcoinUrl.isEmpty()) {
-                Bundle bundle = new Bundle();
-                bundle.putString("url", bitcoinUrl);
-                fragmentSend.setArguments(bundle);
-            }
-            fragmentManager.beginTransaction()
-                    .setCustomAnimations(0, 0, 0, R.animator.plain_300)
-                    .add(android.R.id.content, fragmentSend, FragmentSend.class.getName())
-                    .addToBackStack(FragmentSend.class.getName()).commit();
-        } finally {
-        }
     }
 
     public static void showTransactionPager(FragmentActivity app, List<TxItem> items, int position) {

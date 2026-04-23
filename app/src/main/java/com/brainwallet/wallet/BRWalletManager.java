@@ -60,7 +60,9 @@ import java.util.List;
 import kotlin.Suppress;
 import timber.log.Timber;
 
-public class BRWalletManager implements WalletOperations, com.brainwallet.data.source.TransactionSource {
+public class BRWalletManager implements WalletOperations,
+    WalletManager,
+    com.brainwallet.data.source.TransactionSource {
     private static BRWalletManager instance;
     public List<OnBalanceChanged> balanceListeners = new ArrayList<>();
     private boolean isInitiatingWallet;
@@ -569,7 +571,7 @@ public class BRWalletManager implements WalletOperations, com.brainwallet.data.s
 
     public native TxItem[] getTransactions();
 
-    public static native boolean validateAddress(String address);
+    public native boolean validateAddress(String address);
 
     public native boolean addressContainedInWallet(String address);
 

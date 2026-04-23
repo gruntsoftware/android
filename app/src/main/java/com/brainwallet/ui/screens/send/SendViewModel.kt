@@ -44,7 +44,7 @@ class SendViewModel(
     private val txRepository: TxRepository,
     private val settingRepository: SettingRepository,
     private val isWalletCreated: () -> Boolean = { BRWalletManager.getInstance().isCreated() },
-    private val validateAddress: (String) -> Boolean = { BRWalletManager.validateAddress(it) },
+    private val validateAddress: (String) -> Boolean = { BRWalletManager.getInstance().validateAddress(it) },
     private val getBalance: () -> Long = { BRWalletManager.getInstance().getBalance(app) },
     private val getCurrentFee: () -> Long = { FeeManager.getInstance().currentFeeValue },
     private val getOpsFee: (Long) -> Long = { Utils.tieredOpsFee(app, it) },

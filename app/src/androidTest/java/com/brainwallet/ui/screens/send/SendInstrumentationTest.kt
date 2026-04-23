@@ -43,6 +43,11 @@ class SendInstrumentationTest {
         walletManager = BRWalletManager.getInstance()
     }
 
+    @Before
+    fun loadNativeLibrary() {
+        System.loadLibrary("core") // adjust name to match your .so — e.g. "brainwallet-core" or "litewallet-core"
+    }
+
     // -------------------------------------------------------------------------
     // Native address validation — the regression that crashed production
     // -------------------------------------------------------------------------

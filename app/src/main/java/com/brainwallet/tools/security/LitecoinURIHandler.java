@@ -41,7 +41,7 @@ public class LitecoinURIHandler {
         String host = uri.getHost();
         if (host != null) {
             String addrs = host.trim();
-            if (BRWalletManager.validateAddress(addrs)) {
+            if (BRWalletManager.getInstance().validateAddress(addrs)) {
                 obj.address = addrs;
             }
         }
@@ -83,7 +83,7 @@ public class LitecoinURIHandler {
 
     public static boolean isValidLitecoinUrl(String url) {
         if (isValidLitecoinURI(url)) {
-            return BRWalletManager.validateAddress(url);
+            return BRWalletManager.getInstance().validateAddress(url);
         }
         return false;
     }
