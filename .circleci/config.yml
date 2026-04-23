@@ -69,6 +69,8 @@ jobs:
       name: android/android_docker
       resource_class: large
       tag: 2024.07.1-ndk
+      environment:
+        GRADLE_OPTS: "-Xmx2g -XX:MaxMetaspaceSize=512m -Dorg.gradle.daemon=false"
     steps:
       - setup_environment
       - run:
