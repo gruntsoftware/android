@@ -1,4 +1,5 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import org.gradle.kotlin.dsl.androidTestImplementation
 import org.gradle.kotlin.dsl.grunt
 
 plugins {
@@ -179,6 +180,13 @@ android {
     packaging {
         resources {
             pickFirsts.add("protobuf.meta")
+            excludes += setOf(
+                "META-INF/LICENSE.md",
+                "META-INF/LICENSE-notice.md",
+                "META-INF/NOTICE.md",
+                "META-INF/NOTICE",
+                "META-INF/LICENSE"
+            )
         }
     }
 
@@ -259,8 +267,28 @@ dependencies {
     androidTestImplementation(libs.bundles.android.test)
     androidTestImplementation(libs.fastlane.screengrab)
     androidTestImplementation(libs.slf4j.android)
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestImplementation("androidx.test:rules:1.5.0")
+    androidTestImplementation("io.mockk:mockk-android:1.13.8")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 }
 
 tasks.withType<Test> {
     jvmArgs("-XX:+EnableDynamicAgentLoading")
+}
+tasks.whenTaskAdded {
+    if (name.startsWith("bundle")) {
+        doLast {
+            val outputDir = file("${layout.buildDirectory.get()}/outputs/bundle")
+            outputDir.walkTopDown()
+                .filter { it.name.endsWith(".aab") }
+                .forEach { aab ->
+                    val buildType = aab.parentFile.name // e.g. "release"
+                    val newName = "Brainwallet-${android.defaultConfig.versionName}" +
+                        "(${android.defaultConfig.versionCode})-${buildType}.aab"
+                    aab.renameTo(File(aab.parent, newName))
+                }
+        }
+    }
 }
