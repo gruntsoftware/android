@@ -32,6 +32,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.ui.screens.main.MainViewModel
 import com.brainwallet.ui.theme.DesignTheme
 import com.brainwallet.ui.theme.IBMPlexSans
@@ -92,9 +93,15 @@ fun TutorialsBentoPagerScreen(
             when (page) {
                 0 -> TutorialGeneralBentoScreen(
                     tutorialBentoState = tutorialBentoState,
-                    onClick = { onClick(page) }
+                    onClick = {
+                        AnalyticsManager.logCustomAdHocEvent("user_tapped_walkthrough_tutorial")
+                        onClick(page)
+                    }
                 )
-                1 -> TutorialSendBentoScreen(onClick = { onClick(page) })
+                1 -> TutorialSendBentoScreen(onClick = {
+                    AnalyticsManager.logCustomAdHocEvent("user_tapped_send_tutorial")
+                    onClick(page)
+                })
             }
         }
 
