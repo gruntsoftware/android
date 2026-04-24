@@ -278,7 +278,6 @@
     <!-- Balance: $4.00 -->
     <string name="Send.balance">残高: %1$s</string>
     <!-- Instructions how to allow the camera access for the app -->
-    <string name="Send.cameraUnavailabeMessage.android">「設定」 &gt; 「アプリ」 &gt; 「ブレッド」 &gt; 「許可」でカメラへのアクセスを許可してください</string>
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">ブレッドはカメラへのアクセスを許可されていません</string>
     <!-- Camera not allowed message -->

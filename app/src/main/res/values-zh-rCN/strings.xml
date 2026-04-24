@@ -278,7 +278,6 @@
     <!-- Balance: $4.00 -->
     <string name="Send.balance">余额：%1$s</string>
     <!-- Instructions how to allow the camera access for the app -->
-    <string name="Send.cameraUnavailabeMessage.android">在“设置”&gt;“应用”&gt;“Loaf”&gt;“权限”中允许访问相机</string>
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">Loaf 没有访问相机的权限</string>
     <!-- Camera not allowed message -->

@@ -278,7 +278,6 @@
     <!-- Balance: $4.00 -->
     <string name="Send.balance">Keseimbangan: %1$s</string>
     <!-- Instructions how to allow the camera access for the app -->
-    <string name="Send.cameraUnavailabeMessage.android">Izinkan akses kamera di \"Pengaturan\" &gt; \"Aplikasi\" &gt; \"Brainwallet\" &gt; \"Izin\"</string>
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">Brainwallet tidak diizinkan untuk mengakses kamera</string>
     <!-- Camera not allowed message -->

@@ -85,7 +85,6 @@
     <string name="SecurityCenter.title">सुरक्षा केंद्र</string>
     <string name="Send.amountLabel">मात्रा</string>
     <string name="Send.balance">शेष राशि: %1$s</string>
-    <string name="Send.cameraUnavailabeMessage.android">\Settings\" &gt; \""Apps\"" &gt; \""Brainwallet\"" &gt; \""Permissions\"""" में कैमरा एक्सेस की अनुमति दें"</string>
     <string name="Send.cameraUnavailabeTitle.android">ब्रेनवॉलेट को कैमरे तक पहुंचने की अनुमति नहीं है</string>
     <string name="Send.containsAddress">मंजिल आपका अपना पता है. आप स्वयं को नहीं भेज सकते.</string>
     <string name="Send.descriptionLabel">ज्ञापन</string>

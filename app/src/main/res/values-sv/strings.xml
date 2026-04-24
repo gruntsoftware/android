@@ -85,7 +85,6 @@
     <string name="SecurityCenter.title">Säkerhetscenter</string>
     <string name="Send.amountLabel">Belopp</string>
     <string name="Send.balance">Saldo: %1$s</string>
-    <string name="Send.cameraUnavailabeMessage.android">Tillåt kameraåtkomst i \Settings\"&gt; \""Appar\"" &gt; \""Brainwallet\"" &gt; \""Behörigheter\"""""</string>
     <string name="Send.cameraUnavailabeTitle.android">Brainwallet får inte komma åt kameran</string>
     <string name="Send.containsAddress">Destinationen är din egen adress. Du kan inte skicka till dig själv.</string>
     <string name="Send.descriptionLabel">Pm</string>

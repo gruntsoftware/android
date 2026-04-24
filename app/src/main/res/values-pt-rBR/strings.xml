@@ -85,7 +85,6 @@
     <string name="SecurityCenter.title">Central de Segurança</string>
     <string name="Send.amountLabel">Valor</string>
     <string name="Send.balance">Saldo: %1$s</string>
-    <string name="Send.cameraUnavailabeMessage.android">Permita acesso à câmera em \"Configurações\" &gt; \"Apps\" &gt; \"Brainwallet\" &gt; \"Permissões\"</string>
     <string name="Send.cameraUnavailabeTitle.android">Brainwallet não tem permissão para acessar a câmera</string>
     <string name="Send.containsAddress">O destino é seu próprio endereço. Você não pode enviar para si mesmo.</string>
     <string name="Send.descriptionLabel">Memorando</string>

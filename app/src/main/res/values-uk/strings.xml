@@ -508,7 +508,6 @@
     <string name="ManageWallet.balance">Баланс</string>
     <string name="Login.currentLtcPrice">Поточне значення LTC в %1$s</string>
     <string name="Settings.languages">Мови</string>
-    <string name="Send.cameraUnavailabeMessage.android">Дозволити доступ до камери в \"Налаштуваннях\" &gt; \"Програми\" &gt; \\Brainwallet\" &gt; \"Дозволи\"</string>
     <string name="UnlockScreen.touchIdTitle.android">Потрібна автентифікація</string>
     <string name="PaymentProtocol.Errors.badPaymentRequest">Поганий запит на оплату</string>
     <string name="NodeSelector.connected">Підключено</string>

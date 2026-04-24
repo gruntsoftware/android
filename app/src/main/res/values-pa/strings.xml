@@ -278,7 +278,6 @@
     <!-- Balance: $4.00 -->
     <string name="Send.balance">توازن: %1$s</string>
     <!-- Instructions how to allow the camera access for the app -->
-    <string name="Send.cameraUnavailabeMessage.android">"سیٹنگز" &gt; "ایپس" &gt; "برین والٹ" &gt; "پرمیشرز" وچ کیمرہ رسائی دی اجازت دو۔</string>
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">برین والٹ کو کیمرے تک رسائی کی اجازت نہیں ہے۔</string>
     <!-- Camera not allowed message -->

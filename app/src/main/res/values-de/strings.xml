@@ -139,7 +139,6 @@
     <!-- Balance: $4.00 -->
     <string name="Send.balance">Guthaben: %1$s</string>
     <!-- Instructions how to allow the camera access for the app -->
-    <string name="Send.cameraUnavailabeMessage.android">Erlauben Sie den Kamerazugriff unter „Einstellungen” &gt; „Apps” &gt; „Loaf” &gt; „Berechtigungen”</string>
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">Loaf hat keine Berechtigung für Kamerazugriff</string>
     <string name="Send.containsAddress">Das Ziel ist deine eigene Adresse. Du kannst nichts an dich selbst senden.</string>

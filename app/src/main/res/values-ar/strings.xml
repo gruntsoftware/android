@@ -85,7 +85,6 @@
     <string name="SecurityCenter.title">مركز الأمن</string>
     <string name="Send.amountLabel">كمية</string>
     <string name="Send.balance">الرصيد: %1$s</string>
-    <string name="Send.cameraUnavailabeMessage.android">السماح بالوصول إلى الكاميرا في \الإعدادات\" &gt; \""التطبيقات\"" &gt; \""Brainwallet\"" &gt; \""الأذونات\"""""</string>
     <string name="Send.cameraUnavailabeTitle.android">لا يُسمح لـ Brainwallet بالوصول إلى الكاميرا</string>
     <string name="Send.containsAddress">الوجهة هي عنوانك الخاص. لا يمكنك أن ترسل لنفسك.</string>
     <string name="Send.descriptionLabel">مذكرة</string>

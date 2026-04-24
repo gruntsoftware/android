@@ -85,7 +85,6 @@
     <string name="SecurityCenter.title">Beveiligingscentrum</string>
     <string name="Send.amountLabel">Bedrag</string>
     <string name="Send.balance">Saldo: %1$s</string>
-    <string name="Send.cameraUnavailabeMessage.android">Sta cameratoegang toe in \"Instellingen\" &gt; \"Apps\" &gt; \"Brainwallet\" &gt; \"Machtigingen\"</string>
     <string name="Send.cameraUnavailabeTitle.android">Brainwallet mag niet op de camera zugreifen</string>
     <string name="Send.containsAddress">Het doeladdres is je eigen adres. Je kunt niet naar jezelf versturen.</string>
     <string name="Send.descriptionLabel">Notitie</string>
