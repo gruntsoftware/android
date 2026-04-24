@@ -644,4 +644,25 @@
     <string name="grant_for_notifications_message">"Accetta l'autorizzazione per le nostre notifiche "</string>
     <string name="tx_id_label">"ID TX: "</string>
     <string name="txns_label">txns</string>
+    <string name="send_tutorial_title">Come inviare Litecoin</string>
+    <string name="brainwallet_walkthrough_title">Brainwallet Walkthrough</string>
+    <string name="brainwallet_walkthrough_description">Prova tutte le funzionalità di Brainwallet, dall'invio e ricezione di criptovalute alla gestione delle tue chiavi.</string>
+    <string name="send_tutorial_description">Segui i semplici passaggi per inviare LTC al portafoglio di qualcun altro. Lo ricevono in pochi secondi!</string>
+    <string name="walkthrough_title_1">1. Controlla il tuo saldo</string>
+    <string name="walkthrough_description_1">Non puoi inviare se è zero o se è in sincronizzazione. Se necessario, ricarica in 5 minuti con MoonPay.</string>
+    <string name="tap_moonpay_callout_title">Tocca qui e ricarica!</string>
+    <string name="walkthrough_title_2">2. Impostazioni e Modalità Scura</string>
+    <string name="walkthrough_description_2">Perfeziona toccando le Impostazioni in alto a destra. Imposta la tua preferenza di Modalità Scura toccando il ☀️ in alto a sinistra.</string>
+    <string name="walkthrough_title_3">Rivedi le tue transazioni</string>
+    <string name="walkthrough_description_3">Quando ricevi transazioni, vengono visualizzate qui. Scorri verso l'alto e verso il basso per verificare. Tocca filtro per alternare Tutte, Ricevute o Inviate.</string>
+    <string name="walkthrough_title_3a">Vai più a fondo!</string>
+    <string name="walkthrough_description_3a">Tocca Cronologia per mostrare più dettagli e ampliare la visualizzazione. Scorri verso l'alto o verso il basso per navigare tra tutte le informazioni.</string>
+    <string name="walkthrough_title_4">Controlla il prezzo del LTC</string>
+    <string name="walkthrough_description_4">Brainwallet aggiorna regolarmente il prezzo di Litecoin (LTC). Scegli la tua valuta locale per ottenere il tasso scorrendo. Usa la tua bandiera come guida!</string>
+    <string name="send_tutorial_title_1a">2. Tocca la scheda Invia</string>
+    <string name="send_tutorial_description_1a">Saldo maggiore di zero? Passa a valuta o LTC per capire quanto inviare. Regola la commissione di rete nelle impostazioni</string>
+    <string name="send_tutorial_title_3a">3. Imposta i valori</string>
+    <string name="send_tutorial_description_3a">Hai un po' di LTC? Cambia da valuta fiat locale per capire quanto puoi inviare. Oppure, calcola in LTC. Vai alle impostazioni per regolare la commissione di rete preferita</string>
+    <string name="send_tutorial_title_3b">Verifica prima di inviare!</string>
+    <string name="send_tutorial_description_3b">Scansiona o incolla l'indirizzo di destinazione. Verifica! Cambia la tua valuta fiat locale per capire quanto puoi inviare. Aggiungi una nota come promemoria utile. Tocca Continua.</string>
 </resources>

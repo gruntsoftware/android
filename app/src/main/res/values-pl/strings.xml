@@ -649,4 +649,25 @@
     <string name="grant_for_notifications_message">"Proszę wyraź zgodę na nasze powiadomienia "</string>
     <string name="tx_id_label">"ID transakcji: "</string>
     <string name="txns_label">transakcje</string>
+    <string name="send_tutorial_title">Jak wysłać Litecoin</string>
+    <string name="brainwallet_walkthrough_title">Przewodnik po Brainwallet</string>
+    <string name="brainwallet_walkthrough_description">Spróbuj wszystkich funkcji Brainwallet, od wysyłania i otrzymywania kryptowalut po zarządzanie swoimi kluczami.</string>
+    <string name="send_tutorial_description">Postępuj zgodnie z łatwymi krokami, aby wysłać LTC do portfela innej osoby. Otrzyma to w sekundy!</string>
+    <string name="walkthrough_title_1">1. Sprawdź swoje saldo</string>
+    <string name="walkthrough_description_1">Nie możesz wysłać, jeśli wynosi zero lub trwa synchronizacja. W razie potrzeby doładuj się za 5 minut za pośrednictwem MoonPay.</string>
+    <string name="tap_moonpay_callout_title">Kliknij tutaj i doładuj!</string>
+    <string name="walkthrough_title_2">2. Ustawienia i tryb ciemny</string>
+    <string name="walkthrough_description_2">Dostosuj ustawienia, dotykając przycisku Ustawienia w prawym górnym rogu. Ustaw preferowanie trybu ciemnego, dotykając ☀️ w lewym górnym rogu.</string>
+    <string name="walkthrough_title_3">Przejrzyj swoje transakcje</string>
+    <string name="walkthrough_description_3">Gdy otrzymasz transakcje, pojawią się tutaj. Przesuń w górę i w dół, aby sprawdzić. Kliknij filtr, aby przełączać się między Wszystkie, Otrzymane lub Wysłane.</string>
+    <string name="walkthrough_title_3a">Zagłęb się!</string>
+    <string name="walkthrough_description_3a">Dotknij Historii, aby wyświetlić więcej szczegółów i rozwinąć widok. Przesuń w górę lub w dół, aby przewinąć wszystkie informacje.</string>
+    <string name="walkthrough_title_4">Sprawdź cenę LTC</string>
+    <string name="walkthrough_description_4">Brainwallet regularnie aktualizuje cenę Litecoin (LTC). Wybierz swoją walutę lokalną, aby uzyskać kurs, przesuwając. Użyj swojej flagi jako przewodnika!</string>
+    <string name="send_tutorial_title_1a">2. Dotknij zakładkę Wyślij</string>
+    <string name="send_tutorial_description_1a">Saldo większe od zera? Przełącz się na walutę lub LTC, aby sprawdzić, ile wysłać. Dostosuj opłatę sieciową w ustawieniach</string>
+    <string name="send_tutorial_title_3a">3. Ustaw wartości</string>
+    <string name="send_tutorial_description_3a">Masz LTC? Zmień swoją lokalną walutę fiat, aby sprawdzić, ile możesz wysłać. Lub oblicz w LTC. Przejdź do ustawień, aby dostosować preferowaną opłatę sieciową</string>
+    <string name="send_tutorial_title_3b">Sprawdź przed wysłaniem!</string>
+    <string name="send_tutorial_description_3b">Zeskanuj lub wklej adres docelowy. Sprawdź dokładnie! Zmień swoją lokalną walutę fiat, aby sprawdzić, ile możesz wysłać. Dodaj notatkę jako przydatne przypomnienie. Dotknij Kontynuuj.</string>
 </resources>
