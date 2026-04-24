@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -42,7 +43,7 @@ fun TutorialSendBentoScreen(
 ) {
     val hubPageCount = 3
     val pagerState = rememberPagerState(pageCount = { hubPageCount })
-    var resizedDescriptionFontSize by remember { mutableStateOf(13.sp) }
+    var resizedDescriptionFontSize by remember { mutableStateOf(12.sp) }
 
     Card(
         modifier = modifier.fillMaxSize(),
@@ -61,7 +62,8 @@ fun TutorialSendBentoScreen(
                 painter = painterResource(R.drawable.send_tut_3x),
                 contentDescription = "fruits_background",
                 modifier = Modifier.fillMaxWidth()
-                    .clip(RoundedCornerShape(bentoCornerRadius)),
+                    .clip(RoundedCornerShape(bentoCornerRadius))
+                    .offset(y = 30.dp),
                 contentScale = ContentScale.Crop,
                 alignment = Alignment.BottomCenter
             )
@@ -74,8 +76,9 @@ fun TutorialSendBentoScreen(
                     color = if (tutorialBentoState.darkMode) Color.White else Color.Black,
                     modifier = Modifier
                         .padding(
-                            top = 40.dp,
-                            start = 16.dp
+                            top = 35.dp,
+                            start = 12.dp,
+                            end = 12.dp
                         ),
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
@@ -91,8 +94,8 @@ fun TutorialSendBentoScreen(
                     color = if (tutorialBentoState.darkMode) Color.White else Color.Black,
                     modifier = Modifier
                         .padding(
-                            top = 16.dp,
-                            start = 16.dp
+                            top = 10.dp,
+                            start = 12.dp
                         ),
                     onTextLayout = { textLayoutResult ->
                         if (textLayoutResult.hasVisualOverflow) {

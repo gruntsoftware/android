@@ -636,7 +636,7 @@
     <string name="walkthrough_description_1">اگر موجودی صفر باشد یا در حال همگام‌سازی باشد، نمی‌توانید ارسال کنید. در صورت نیاز، با MoonPay در ۵ دقیقه شارژ کنید.</string>
     <string name="tap_moonpay_callout_title">اینجا ضربه بزنید و شارژ کنید!</string>
     <string name="walkthrough_title_2">۲. تنظیمات و حالت تاریک</string>
-    <string name="walkthrough_description_2">با ضربه زدن بر روی تنظیمات در گوشه بالا سمت راست، تنظیمات را دقیق کنید. ترجیح حالت تاریک خود را با ضربه زدن بر روی ☀️ در گوشه بالا سمت چپ تعیین کنید.</string>
+    <string name="walkthrough_description_2">با ضربه زدن بر روی تنظیمات در گوشه بالا سمت راست، تنظیمات را دقیق کنید. ترجیح حالت تاریک خود را با ضربه زدن بر روی در گوشه بالا سمت چپ تعیین کنید.</string>
     <string name="walkthrough_title_3">تراکنش‌های خود را بررسی کنید</string>
     <string name="walkthrough_description_3">هنگامی که تراکنش‌ها را دریافت کنید، آنها اینجا نمایش داده می‌شوند. برای بررسی، به بالا و پایین بکشید. برای تغییر بین همه، دریافت یا ارسال، بر روی فیلتر ضربه بزنید.</string>
     <string name="walkthrough_title_3a">عمیق‌تر بروید!</string>

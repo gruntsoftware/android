@@ -295,7 +295,7 @@
     <string name="walkthrough_description_1">U kunt niet verzenden als het nul is of als het synchroniseert. Vul indien nodig in 5 minuten bij met MoonPay.</string>
     <string name="tap_moonpay_callout_title">Tik hier en vul aan!</string>
     <string name="walkthrough_title_2">2. Instellingen &amp; Donkere modus</string>
-    <string name="walkthrough_description_2">Verfijn de instellingen door rechtsboven op Instellingen te tikken. Stel uw voorkeur voor donkere modus in door linksboven op de ☀️ te tikken.</string>
+    <string name="walkthrough_description_2">Verfijn de instellingen door rechtsboven op Instellingen te tikken. Stel uw voorkeur voor donkere modus in door linksboven op de te tikken.</string>
     <string name="walkthrough_title_3">Controleer uw transacties</string>
     <string name="walkthrough_description_3">Wanneer u transacties ontvangt, worden deze hier weergegeven. Veeg omhoog en omlaag om te controleren. Tik op filter om tussen Alles, Ontvangen of Verzonden te schakelen.</string>
     <string name="walkthrough_title_3a">Duik dieper!</string>

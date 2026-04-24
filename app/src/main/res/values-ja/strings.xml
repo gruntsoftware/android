@@ -651,7 +651,7 @@
     <string name="walkthrough_description_1">残高がゼロまたは同期中の場合は送信できません。必要に応じてMoonPayで5分でチャージしてください。</string>
     <string name="tap_moonpay_callout_title">ここをタップしてチャージ！</string>
     <string name="walkthrough_title_2">2. 設定とダークモード</string>
-    <string name="walkthrough_description_2">右上の設定をタップして調整します。左上の☀️をタップしてダークモードの設定を行います。</string>
+    <string name="walkthrough_description_2">右上の設定をタップして調整します。左上の☀をタップしてダークモードの設定を行います。</string>
     <string name="walkthrough_title_3">トランザクションを確認</string>
     <string name="walkthrough_description_3">トランザクションがここに表示されます。上下にスワイプして確認できます。フィルターをタップして、すべて、受信、送信を切り替えます。</string>
     <string name="walkthrough_title_3a">詳細を確認！</string>

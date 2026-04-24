@@ -425,7 +425,7 @@
     <string name="walkthrough_description_1">Du kannst nicht senden, wenn er null ist oder synchronisiert wird. Stocke bei Bedarf in 5 Minuten mit MoonPay auf.</string>
     <string name="tap_moonpay_callout_title">Hier tippen &amp; aufladen!</string>
     <string name="walkthrough_title_2">2. Einstellungen &amp; Dunkler Modus</string>
-    <string name="walkthrough_description_2">Passe deine Einstellungen an, indem du oben rechts auf Einstellungen tippst. Stelle deine Dunkelmodus-Voreinstellung ein, indem du oben links auf das ☀️ tippst.</string>
+    <string name="walkthrough_description_2">Passe deine Einstellungen an, indem du oben rechts auf Einstellungen tippst. Stelle deine Dunkelmodus-Voreinstellung ein, indem du oben links auf das  tippst.</string>
     <string name="walkthrough_title_3">Überprüfe deine Transaktionen</string>
     <string name="walkthrough_description_3">Wenn du Transaktionen erhältst, werden sie hier angezeigt. Wische nach oben und unten, um sie zu überprüfen. Tippe auf Filter, um zwischen Alle, Empfangen oder Gesendet zu wechseln.</string>
     <string name="walkthrough_title_3a">Tiefer einsteigen!</string>

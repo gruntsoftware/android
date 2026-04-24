@@ -39,7 +39,7 @@ fun TutorialGeneralBentoScreen(
 ) {
     val hubPageCount = 3
     val pagerState = rememberPagerState(pageCount = { hubPageCount })
-    var resizedDescriptionFontSize by remember { mutableStateOf(13.sp) }
+    var resizedDescriptionFontSize by remember { mutableStateOf(12.sp) }
 
     Card(
         modifier = modifier.fillMaxSize(),
@@ -56,7 +56,7 @@ fun TutorialGeneralBentoScreen(
                 painter = painterResource(R.drawable.fruits3),
                 contentDescription = "fruits_background",
                 modifier = Modifier.fillMaxWidth(0.8f)
-                    .padding(bottom = 32.dp),
+                    .padding(bottom = 12.dp),
                 contentScale = ContentScale.Fit
             )
             Column(
@@ -68,8 +68,9 @@ fun TutorialGeneralBentoScreen(
                     color = if (tutorialBentoState.darkMode) Color.White else Color.Black,
                     modifier = Modifier
                         .padding(
-                            top = 40.dp,
-                            start = 16.dp
+                            top = 35.dp,
+                            start = 12.dp,
+                            end = 12.dp
                         ),
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
@@ -85,8 +86,9 @@ fun TutorialGeneralBentoScreen(
                     color = if (tutorialBentoState.darkMode) Color.White else Color.Black,
                     modifier = Modifier
                         .padding(
-                            top = 16.dp,
-                            start = 16.dp
+                            top = 10.dp,
+                            start = 12.dp,
+                            end = 12.dp
                         ),
                     onTextLayout = { textLayoutResult ->
                         if (textLayoutResult.hasVisualOverflow) {

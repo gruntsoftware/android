@@ -295,7 +295,7 @@
     <string name="walkthrough_description_1">Du kan inte skicka om det är noll eller synkroniseras. Fyll på på 5 minuter med MoonPay om det behövs.</string>
     <string name="tap_moonpay_callout_title">Tryck här &amp; fyll på!</string>
     <string name="walkthrough_title_2">2. Inställningar &amp; Mörkt läge</string>
-    <string name="walkthrough_description_2">Finjustera genom att trycka på Inställningar i det övre högra hörnet. Ställ in ditt mörklägesinställningar genom att trycka på ☀️ i det övre vänstra hörnet.</string>
+    <string name="walkthrough_description_2">Finjustera genom att trycka på Inställningar i det övre högra hörnet. Ställ in ditt mörklägesinställningar genom att trycka på i det övre vänstra hörnet.</string>
     <string name="walkthrough_title_3">Granska dina transaktioner</string>
     <string name="walkthrough_description_3">När du får transaktioner visas de här. Svep upp och ned för att kontrollera. Tryck på filter för att växla mellan Alla, Mottagna eller Skickade.</string>
     <string name="walkthrough_title_3a">Gå djupare!</string>

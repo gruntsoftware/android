@@ -485,7 +485,7 @@
     <string name="walkthrough_description_1">You cannot send if it\'s zero or it\'s syncing. Top up in 5 minutes with MoonPay if needed.</string>
     <string name="tap_moonpay_callout_title"><![CDATA[Tap here & top up!]]></string>
     <string name="walkthrough_title_2">2. Settings &amp; Dark Mode </string>
-    <string name="walkthrough_description_2">Fine tune by tapping on Settings to the top right. Set your Dark Mode preference by tapping on the ☀️ on the top left.</string>
+    <string name="walkthrough_description_2">Fine tune by tapping on Settings to the top right. Set your Dark Mode preference by tapping on the  on the top left.</string>
     <string name="walkthrough_title_3">Review your transactions</string>
     <string name="walkthrough_description_3">When you get transactions, they show here. Swipe up &amp; down to check. Tap filter to toggle All, Receive or Sent.</string>
     <string name="walkthrough_title_3a">Go Deep!</string>

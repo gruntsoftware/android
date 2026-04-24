@@ -295,7 +295,7 @@
     <string name="walkthrough_description_1">لا يمكنك الإرسال إذا كان الرصيد صفراً أو جاري المزامنة. أضف أموالاً في 5 دقائق باستخدام MoonPay إذا لزم الأمر.</string>
     <string name="tap_moonpay_callout_title">اضغط هنا وأضف أموالاً!</string>
     <string name="walkthrough_title_2">2. الإعدادات والوضع الليلي</string>
-    <string name="walkthrough_description_2">اضبط الإعدادات بالضغط على خيار الإعدادات في أعلى اليمين. اضبط تفضيل الوضع الليلي بالضغط على ☀️ في أعلى اليسار.</string>
+    <string name="walkthrough_description_2">اضبط الإعدادات بالضغط على خيار الإعدادات في أعلى اليمين. اضبط تفضيل الوضع الليلي بالضغط على☀️ في أعلى اليسار.</string>
     <string name="walkthrough_title_3">راجع معاملاتك</string>
     <string name="walkthrough_description_3">عندما تتلقى معاملات، تظهر هنا. مرّر لأعلى ولأسفل للتحقق. اضغط على الفلتر لتبديل بين الكل والاستقبال والإرسال.</string>
     <string name="walkthrough_title_3a">انغمس أعمق!</string>

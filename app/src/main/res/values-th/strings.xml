@@ -295,7 +295,7 @@
     <string name="walkthrough_description_1">คุณไม่สามารถส่งได้หากเป็นศูนย์หรือกำลังซิงค์ อัปเกรดใน 5 นาทีด้วย MoonPay หากจำเป็น</string>
     <string name="tap_moonpay_callout_title">แตะที่นี่และอัปเกรด!</string>
     <string name="walkthrough_title_2">2. การตั้งค่าและโหมดมืด</string>
-    <string name="walkthrough_description_2">ปรับแต่งโดยแตะการตั้งค่าที่มุมขวาบน ตั้งค่าความชอบโหมดมืดของคุณโดยแตะ ☀️ ที่มุมซ้ายบน</string>
+    <string name="walkthrough_description_2">ปรับแต่งโดยแตะการตั้งค่าที่มุมขวาบน ตั้งค่าความชอบโหมดมืดของคุณโดยแตะ ที่มุมซ้ายบน</string>
     <string name="walkthrough_title_3">ตรวจสอบธุรกรรมของคุณ</string>
     <string name="walkthrough_description_3">เมื่อคุณได้รับธุรกรรม ธุรกรรมเหล่านั้นจะแสดงที่นี่ เลื่อนขึ้นและลงเพื่อตรวจสอบ แตะตัวกรองเพื่อสลับระหว่างทั้งหมด รับหรือส่ง</string>
     <string name="walkthrough_title_3a">เจาะลึก!</string>

@@ -651,7 +651,7 @@
     <string name="walkthrough_description_1">잔액이 0이거나 동기화 중이면 보낼 수 없습니다. 필요하면 MoonPay로 5분 안에 충전하세요.</string>
     <string name="tap_moonpay_callout_title">여기를 탭하고 충전하세요!</string>
     <string name="walkthrough_title_2">2. 설정 및 다크 모드</string>
-    <string name="walkthrough_description_2">우측 상단의 설정을 탭하여 조정하세요. 좌측 상단의 ☀️를 탭하여 다크 모드 설정을 변경하세요.</string>
+    <string name="walkthrough_description_2">우측 상단의 설정을 탭하여 조정하세요. 좌측 상단의 를 탭하여 다크 모드 설정을 변경하세요.</string>
     <string name="walkthrough_title_3">거래내역 확인</string>
     <string name="walkthrough_description_3">거래가 발생하면 여기에 표시됩니다. 위아래로 스와이프하여 확인하세요. 필터를 탭하여 모두, 수신 또는 발송을 전환하세요.</string>
     <string name="walkthrough_title_3a">자세히 보기!</string>

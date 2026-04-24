@@ -656,7 +656,7 @@
     <string name="walkthrough_description_1">Nie możesz wysłać, jeśli wynosi zero lub trwa synchronizacja. W razie potrzeby doładuj się za 5 minut za pośrednictwem MoonPay.</string>
     <string name="tap_moonpay_callout_title">Kliknij tutaj i doładuj!</string>
     <string name="walkthrough_title_2">2. Ustawienia i tryb ciemny</string>
-    <string name="walkthrough_description_2">Dostosuj ustawienia, dotykając przycisku Ustawienia w prawym górnym rogu. Ustaw preferowanie trybu ciemnego, dotykając ☀️ w lewym górnym rogu.</string>
+    <string name="walkthrough_description_2">Dostosuj ustawienia, dotykając przycisku Ustawienia w prawym górnym rogu. Ustaw preferowanie trybu ciemnego, dotykając w lewym górnym rogu.</string>
     <string name="walkthrough_title_3">Przejrzyj swoje transakcje</string>
     <string name="walkthrough_description_3">Gdy otrzymasz transakcje, pojawią się tutaj. Przesuń w górę i w dół, aby sprawdzić. Kliknij filtr, aby przełączać się między Wszystkie, Otrzymane lub Wysłane.</string>
     <string name="walkthrough_title_3a">Zagłęb się!</string>

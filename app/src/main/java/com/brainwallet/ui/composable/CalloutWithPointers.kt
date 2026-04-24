@@ -44,7 +44,7 @@ fun CalloutWithPointers(
     subtitle: String,
     modifier: Modifier = Modifier,
     calloutWidth: Dp = 190.dp,
-    calloutHeight: Dp = 130.dp,
+    calloutHeight: Dp = 150.dp,
     pointer: Pointer = Pointer.TOP_LEFT
 ) {
     val pointerSize = 40.dp

@@ -651,7 +651,7 @@
     <string name="walkthrough_description_1">如果余额为零或正在同步，您无法发送。如需要，使用 MoonPay 在 5 分钟内充值。</string>
     <string name="tap_moonpay_callout_title">点击这里充值！</string>
     <string name="walkthrough_title_2">2. 设置与深色模式</string>
-    <string name="walkthrough_description_2">点击右上角的设置进行微调。点击左上角的 ☀️ 设置您的深色模式偏好。</string>
+    <string name="walkthrough_description_2">点击右上角的设置进行微调。点击左上角的 设置您的深色模式偏好。</string>
     <string name="walkthrough_title_3">查看您的交易</string>
     <string name="walkthrough_description_3">当您收到交易时，它们会显示在这里。向上或向下滑动查看。点击筛选以切换全部、接收或已发送。</string>
     <string name="walkthrough_title_3a">深入了解！</string>
