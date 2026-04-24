@@ -314,12 +314,10 @@
     <string name="Send.title">Invia</string>
     <!-- Send money to label -->
     <string name="Send.toLabel">Inserire un indirizzo Litecoin</string>
-
     <!-- Enter to match domain name to LTC Address -->
     <!-- Or -->
     <!-- Lookup -->
     <!-- Your address was resolved! -->
-
     <!-- Adress already used alert message - first part -->
     <string name="Send.UsedAddress.firstLine">Gli indirizzi Litecoin dovrebbero essere utilizzati una sola volta.</string>
     <!-- Adress already used alert message - second part -->
@@ -520,12 +518,10 @@
     <string name="radio_low_privacy">Bassa privacy (~19 minuti)</string>
     <string name="radio_semi_private">Semi-privato (~42 minuti)</string>
     <string name="radio_anonymous">Anonimo (~77 minuti)</string>
-
     <!-- Announce Updates View -->
     <string name="Fees.Service">Servizio</string>
     <string name="Network.feeLabel">Rete</string>
     <string name="ConfirmationAllFees.Label">Commissioni:</string>
-
     <string name="cancel">Cancellare</string>
     <string name="ok">OK</string>
     <string name="please_grant_notification_permission">Concedere l\'autorizzazione alla notifica</string>
@@ -636,5 +632,16 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Tutorial</string>
     <string name="coming_soon">Presto disponibile!</string>
-<string name="rice_partner_03_tagline">Ricarica in 5 minuti con il nostro partner</string><string name="unagi_social_01_tagline">Clicca e seguici!</string><string name="export_transaction_button_title">Esporta tutte le transazioni</string><string name="copy_tx_details">Copia dettagli transazione</string><string name="all_label">Tutto</string><string name="received_label">Ricevuto</string><string name="sent_label">Inviato</string><string name="ltc_price_label">Prezzo LTC</string>
-    <string name="sign_up_messaging_title">Iscriviti per ricevere aggiornamenti, notizie e concorsi!</string><string name="grant_for_notifications_message">"Accetta l'autorizzazione per le nostre notifiche "</string></resources>
+    <string name="rice_partner_03_tagline">Ricarica in 5 minuti con il nostro partner</string>
+    <string name="unagi_social_01_tagline">Clicca e seguici!</string>
+    <string name="export_transaction_button_title">Esporta tutte le transazioni</string>
+    <string name="copy_tx_details">Copia dettagli transazione</string>
+    <string name="all_label">Tutto</string>
+    <string name="received_label">Ricevuto</string>
+    <string name="sent_label">Inviato</string>
+    <string name="ltc_price_label">Prezzo LTC</string>
+    <string name="sign_up_messaging_title">Iscriviti per ricevere aggiornamenti, notizie e concorsi!</string>
+    <string name="grant_for_notifications_message">"Accetta l'autorizzazione per le nostre notifiche "</string>
+    <string name="tx_id_label">"ID TX: "</string>
+    <string name="txns_label">txns</string>
+</resources>
