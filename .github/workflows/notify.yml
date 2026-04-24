@@ -1,0 +1,27 @@
+name: Notify Mirror on PR
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  trigger-mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger mirror workflow
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.MIRROR_REPO_TOKEN }}
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: 'gruntsoftware',
+              repo: 'brainwallet-android',
+              workflow_id: 'sync.yml',
+              ref: 'main',
+              inputs: {
+                source: '${{ github.event.repository.name }}',
+                pr_number: '${{ github.event.pull_request.number }}',
+                pr_title: '${{ github.event.pull_request.title }}',
+                branch: '${{ github.head_ref }}'
+              }
+            })
