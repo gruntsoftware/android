@@ -629,4 +629,25 @@
     <string name="tx_id_label">"شناسه تراکنش: "</string>
     <string name="no_transaction_detail_row">هنوز چیزی نیست. همین الآن شارژ کنید!</string>
     <string name="txns_label">تراکنش‌ها</string>
+    <string name="send_tutorial_title">نحوه ارسال Litecoin</string>
+    <string name="brainwallet_walkthrough_title">آموزش Brainwallet</string>
+    <string name="brainwallet_walkthrough_description">تمامی ویژگی‌های Brainwallet را امتحان کنید، از ارسال و دریافت رمزارز تا مدیریت کلیدهای خود.</string>
+    <string name="send_tutorial_description">مراحل ساده را دنبال کنید تا LTC را به کیف پول شخص دیگری ارسال کنید. آنها آن را در ثانیه‌ها دریافت می‌کنند!</string>
+    <string name="walkthrough_title_1">۱. موجودی خود را بررسی کنید</string>
+    <string name="walkthrough_description_1">اگر موجودی صفر باشد یا در حال همگام‌سازی باشد، نمی‌توانید ارسال کنید. در صورت نیاز، با MoonPay در ۵ دقیقه شارژ کنید.</string>
+    <string name="tap_moonpay_callout_title">اینجا ضربه بزنید و شارژ کنید!</string>
+    <string name="walkthrough_title_2">۲. تنظیمات و حالت تاریک</string>
+    <string name="walkthrough_description_2">با ضربه زدن بر روی تنظیمات در گوشه بالا سمت راست، تنظیمات را دقیق کنید. ترجیح حالت تاریک خود را با ضربه زدن بر روی ☀️ در گوشه بالا سمت چپ تعیین کنید.</string>
+    <string name="walkthrough_title_3">تراکنش‌های خود را بررسی کنید</string>
+    <string name="walkthrough_description_3">هنگامی که تراکنش‌ها را دریافت کنید، آنها اینجا نمایش داده می‌شوند. برای بررسی، به بالا و پایین بکشید. برای تغییر بین همه، دریافت یا ارسال، بر روی فیلتر ضربه بزنید.</string>
+    <string name="walkthrough_title_3a">عمیق‌تر بروید!</string>
+    <string name="walkthrough_description_3a">برای نمایش جزئیات بیشتر و گسترش نمایش، بر روی تاریخچه ضربه بزنید. برای پیمایش در تمامی اطلاعات، به بالا یا پایین بکشید.</string>
+    <string name="walkthrough_title_4">قیمت LTC را بررسی کنید</string>
+    <string name="walkthrough_description_4">Brainwallet قیمت Litecoin (LTC) را به طور منظم به‌روزرسانی می‌کند. ارز محلی خود را انتخاب کنید تا نرخ را با کشیدن به دست آورید. از پرچم خود به عنوان راهنما استفاده کنید!</string>
+    <string name="send_tutorial_title_1a">۲. بر روی تب ارسال ضربه بزنید</string>
+    <string name="send_tutorial_description_1a">موجودی بیش از صفر است؟ برای تعیین میزان ارسال بین ارز محلی و LTC تبدیل کنید. هزینه شبکه را در تنظیمات تنظیم کنید</string>
+    <string name="send_tutorial_title_3a">۳. مقادیر را تعیین کنید</string>
+    <string name="send_tutorial_description_3a">آیا LTC دارید؟ ارز محلی خود را تغییر دهید تا بفهمید چقدر می‌توانید ارسال کنید. یا در LTC محاسبه کنید. برای تنظیم هزینه شبکه ترجیحی خود به تنظیمات بروید</string>
+    <string name="send_tutorial_title_3b">قبل از ارسال تأیید کنید!</string>
+    <string name="send_tutorial_description_3b">آدرس مقصد را اسکن یا جایگذاری کنید. دوبار بررسی کنید! ارز محلی خود را تغییر دهید تا بفهمید چقدر می‌توانید ارسال کنید. یادداشتی به عنوان یادآوری اضافه کنید. بر روی ادامه ضربه بزنید.</string>
 </resources>

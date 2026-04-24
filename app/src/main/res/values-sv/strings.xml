@@ -288,4 +288,25 @@
     <string name="ltc_price_label">LTC-pris</string>
     <string name="tx_id_label">"TX-ID: "</string>
     <string name="txns_label">transaktioner</string>
+    <string name="send_tutorial_title">Hur du skickar Litecoin</string>
+    <string name="brainwallet_walkthrough_title">Brainwallet Genomgång</string>
+    <string name="brainwallet_walkthrough_description">Prova alla funktioner i Brainwallet, från att skicka och ta emot krypto till att hantera dina nycklar.</string>
+    <string name="send_tutorial_description">Följ de enkla stegen för att skicka LTC till någon annans plånbok. De får det på sekunder!</string>
+    <string name="walkthrough_title_1">1. Kontrollera ditt saldo</string>
+    <string name="walkthrough_description_1">Du kan inte skicka om det är noll eller synkroniseras. Fyll på på 5 minuter med MoonPay om det behövs.</string>
+    <string name="tap_moonpay_callout_title">Tryck här &amp; fyll på!</string>
+    <string name="walkthrough_title_2">2. Inställningar &amp; Mörkt läge</string>
+    <string name="walkthrough_description_2">Finjustera genom att trycka på Inställningar i det övre högra hörnet. Ställ in ditt mörklägesinställningar genom att trycka på ☀️ i det övre vänstra hörnet.</string>
+    <string name="walkthrough_title_3">Granska dina transaktioner</string>
+    <string name="walkthrough_description_3">När du får transaktioner visas de här. Svep upp och ned för att kontrollera. Tryck på filter för att växla mellan Alla, Mottagna eller Skickade.</string>
+    <string name="walkthrough_title_3a">Gå djupare!</string>
+    <string name="walkthrough_description_3a">Tryck på Historik för att visa mer detalj och expandera vyn. Svep upp eller ned för att bläddra genom all information.</string>
+    <string name="walkthrough_title_4">Kontrollera LTC-priset</string>
+    <string name="walkthrough_description_4">Brainwallet uppdaterar priset på Litecoin (LTC) regelbundet. Välj din lokala valuta för att få växelkursen genom att svepa. Använd din flagga som guide!</string>
+    <string name="send_tutorial_title_1a">2. Tryck på Skicka-fliken</string>
+    <string name="send_tutorial_description_1a">Saldo över noll? Växla mellan valuta och LTC för att räkna ut hur mycket du ska skicka. Justera nätverksavgiften i inställningar.</string>
+    <string name="send_tutorial_title_3a">3. Ställ in värdena</string>
+    <string name="send_tutorial_description_3a">Har du något LTC? Ändra din lokala fiat-valuta för att räkna ut hur mycket du kan skicka. Eller beräkna i LTC. Gå till inställningar för att justera din föredragna nätverksavgift.</string>
+    <string name="send_tutorial_title_3b">Verifiera innan du skickar!</string>
+    <string name="send_tutorial_description_3b">Skanna eller klistra in destinationsadressen. Dubbelkolla! Ändra din lokala fiat-valuta för att räkna ut hur mycket du kan skicka. Lägg till en anteckning som en praktisk påminnelse. Tryck Fortsätt.</string>
 </resources>

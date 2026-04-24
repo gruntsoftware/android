@@ -644,4 +644,25 @@
     <string name="grant_for_notifications_message">"알림 권한을 허용해 주세요 "</string>
     <string name="tx_id_label">"TX ID: "</string>
     <string name="txns_label">거래</string>
+    <string name="send_tutorial_title">Litecoin을 보내는 방법</string>
+    <string name="brainwallet_walkthrough_title">Brainwallet 둘러보기</string>
+    <string name="brainwallet_walkthrough_description">암호화폐 송수신부터 키 관리까지 Brainwallet의 모든 기능을 체험해보세요.</string>
+    <string name="send_tutorial_description">간단한 단계에 따라 LTC를 다른 사람의 지갑으로 보내세요. 몇 초 안에 도착합니다!</string>
+    <string name="walkthrough_title_1">1. 잔액 확인</string>
+    <string name="walkthrough_description_1">잔액이 0이거나 동기화 중이면 보낼 수 없습니다. 필요하면 MoonPay로 5분 안에 충전하세요.</string>
+    <string name="tap_moonpay_callout_title">여기를 탭하고 충전하세요!</string>
+    <string name="walkthrough_title_2">2. 설정 및 다크 모드</string>
+    <string name="walkthrough_description_2">우측 상단의 설정을 탭하여 조정하세요. 좌측 상단의 ☀️를 탭하여 다크 모드 설정을 변경하세요.</string>
+    <string name="walkthrough_title_3">거래내역 확인</string>
+    <string name="walkthrough_description_3">거래가 발생하면 여기에 표시됩니다. 위아래로 스와이프하여 확인하세요. 필터를 탭하여 모두, 수신 또는 발송을 전환하세요.</string>
+    <string name="walkthrough_title_3a">자세히 보기!</string>
+    <string name="walkthrough_description_3a">히스토리를 탭하면 더 자세한 정보가 표시되고 보기가 확장됩니다. 위아래로 스와이프하여 모든 정보를 살펴보세요.</string>
+    <string name="walkthrough_title_4">LTC 가격 확인</string>
+    <string name="walkthrough_description_4">Brainwallet은 Litecoin(LTC) 가격을 정기적으로 업데이트합니다. 스와이프로 현지 통화를 선택하여 환율을 확인하세요. 국기를 참고하세요!</string>
+    <string name="send_tutorial_title_1a">2. 보내기 탭 탭하기</string>
+    <string name="send_tutorial_description_1a">잔액이 0보다 많나요? 통화 또는 LTC로 전환하여 보낼 금액을 계산하세요. 설정에서 네트워크 수수료를 조정하세요.</string>
+    <string name="send_tutorial_title_3a">3. 금액 설정</string>
+    <string name="send_tutorial_description_3a">LTC를 보유하고 있나요? 현지 통화로 변경하여 보낼 수 있는 금액을 계산하세요. 또는 LTC로 계산하세요. 설정에서 선호하는 네트워크 수수료를 조정하세요.</string>
+    <string name="send_tutorial_title_3b">보내기 전에 확인하세요!</string>
+    <string name="send_tutorial_description_3b">수신자 주소를 스캔하거나 붙여넣기하세요. 확인하세요! 현지 통화로 변경하여 보낼 수 있는 금액을 계산하세요. 편리한 참고를 위해 메모를 추가하세요. 계속을 탭하세요.</string>
 </resources>

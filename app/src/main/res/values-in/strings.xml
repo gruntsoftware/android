@@ -644,4 +644,25 @@
     <string name="grant_for_notifications_message">"Mohon izinkan notifikasi dari kami "</string>
     <string name="tx_id_label">"ID TX: "</string>
     <string name="txns_label">txn</string>
+    <string name="send_tutorial_title">Cara mengirim Litecoin</string>
+    <string name="brainwallet_walkthrough_title">Panduan Brainwallet</string>
+    <string name="brainwallet_walkthrough_description">Coba semua fitur Brainwallet, dari mengirim dan menerima crypto hingga mengelola kunci Anda.</string>
+    <string name="send_tutorial_description">Ikuti langkah-langkah mudah untuk mengirim LTC ke dompet orang lain. Mereka akan menerimanya dalam hitungan detik!</string>
+    <string name="walkthrough_title_1">1. Periksa saldo Anda</string>
+    <string name="walkthrough_description_1">Anda tidak dapat mengirim jika saldo nol atau sedang sinkronisasi. Isi ulang dalam 5 menit dengan MoonPay jika diperlukan.</string>
+    <string name="tap_moonpay_callout_title">Ketuk di sini &amp; isi ulang!</string>
+    <string name="walkthrough_title_2">2. Pengaturan &amp; Mode Gelap</string>
+    <string name="walkthrough_description_2">Sesuaikan dengan mengetuk Pengaturan di pojok kanan atas. Atur preferensi Mode Gelap dengan mengetuk ☀️ di pojok kiri atas.</string>
+    <string name="walkthrough_title_3">Tinjau transaksi Anda</string>
+    <string name="walkthrough_description_3">Ketika Anda mendapatkan transaksi, mereka muncul di sini. Geser ke atas dan ke bawah untuk memeriksa. Ketuk filter untuk beralih antara Semua, Terima, atau Kirim.</string>
+    <string name="walkthrough_title_3a">Lihat Lebih Detail!</string>
+    <string name="walkthrough_description_3a">Ketuk Riwayat untuk menampilkan detail lebih lanjut dan memperluas tampilan. Geser ke atas atau ke bawah untuk scroll melalui semua informasi.</string>
+    <string name="walkthrough_title_4">Periksa Harga LTC</string>
+    <string name="walkthrough_description_4">Brainwallet memperbarui harga Litecoin (LTC) secara teratur. Pilih mata uang lokal Anda untuk mendapatkan kurs dengan menggeser. Gunakan bendera Anda sebagai panduan!</string>
+    <string name="send_tutorial_title_1a">2. Ketuk tab Kirim</string>
+    <string name="send_tutorial_description_1a">Saldo lebih dari nol? Alihkan ke mata uang atau LTC untuk mengetahui jumlah yang akan dikirim. Sesuaikan biaya jaringan di pengaturan</string>
+    <string name="send_tutorial_title_3a">3. Atur nilai</string>
+    <string name="send_tutorial_description_3a">Apakah Anda memiliki beberapa LTC? Ubah angka fiat lokal Anda untuk mengetahui berapa banyak yang dapat Anda kirim. Atau, hitung dalam LTC. Buka pengaturan untuk menyesuaikan biaya jaringan pilihan Anda</string>
+    <string name="send_tutorial_title_3b">Verifikasi sebelum mengirim!</string>
+    <string name="send_tutorial_description_3b">Pindai atau tempel alamat tujuan. Periksa dua kali! Ubah fiat lokal Anda untuk mengetahui berapa banyak yang dapat Anda kirim. Tambahkan memo sebagai pengingat praktis. Ketuk Lanjutkan.</string>
 </resources>

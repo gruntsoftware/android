@@ -663,4 +663,25 @@
     <string name="ltc_price_label">LTC Fiyatı</string>
     <string name="tx_id_label">"İŞLEM KİMLİĞİ: "</string>
     <string name="txns_label">işlem</string>
+    <string name="send_tutorial_title">Litecoin Nasıl Gönderilir</string>
+    <string name="brainwallet_walkthrough_title">Brainwallet Rehberi</string>
+    <string name="brainwallet_walkthrough_description">Brainwallet'ın tüm özelliklerini deneyin: kripto gönderme ve alma işlemlerinden anahtar yönetimine kadar.</string>
+    <string name="send_tutorial_description">LTC'yi başka birinin cüzdanına göndermek için basit adımları izleyin. Saniyeler içinde ulaşır!</string>
+    <string name="walkthrough_title_1">1. Bakiyenizi Kontrol Edin</string>
+    <string name="walkthrough_description_1">Bakiye sıfırsa veya senkronize oluyorsa gönderemezsiniz. Gerekirse MoonPay ile 5 dakikada yükleyin.</string>
+    <string name="tap_moonpay_callout_title">Buraya Dokunun &amp; Yükleyin!</string>
+    <string name="walkthrough_title_2">2. Ayarlar &amp; Koyu Mod</string>
+    <string name="walkthrough_description_2">Sağ üst köşedeki Ayarlar'a dokunarak ayrıntılı ayarlamalar yapın. Sol üst köşedeki ☀️ simgesine dokunarak Koyu Mod tercihini ayarlayın.</string>
+    <string name="walkthrough_title_3">İşlemlerinizi Gözden Geçirin</string>
+    <string name="walkthrough_description_3">İşlem aldığınızda burada görüntülenir. Kontrol etmek için yukarı ve aşağı kaydırın. Filtre seçeneğini kullanarak Tüm, Al veya Gönder'i değiştirin.</string>
+    <string name="walkthrough_title_3a">Daha Derine İn!</string>
+    <string name="walkthrough_description_3a">Daha ayrıntılı bilgi görmek ve görünümü genişletmek için Geçmiş'e dokunun. Tüm bilgileri görmek için yukarı veya aşağı kaydırın.</string>
+    <string name="walkthrough_title_4">LTC Fiyatını Kontrol Edin</string>
+    <string name="walkthrough_description_4">Brainwallet, Litecoin (LTC) fiyatını düzenli olarak günceller. Kaydırarak yerel para biriminizi seçin ve oranı öğrenin. Rehberiniz olarak bayrağınızı kullanın!</string>
+    <string name="send_tutorial_title_1a">2. Gönder Sekmesine Dokunun</string>
+    <string name="send_tutorial_description_1a">Bakiye sıfırdan fazla mı? Ne kadar göndereceğinizi öğrenmek için para birimini veya LTC'ye değiştirin. Ayarlardan ağ ücretini ayarlayın.</string>
+    <string name="send_tutorial_title_3a">3. Değerleri Ayarlayın</string>
+    <string name="send_tutorial_description_3a">Biraz LTC'niz var mı? Ne kadar gönderebileceğinizi öğrenmek için yerel para biriminizi değiştirin. Veya LTC cinsinden hesaplayın. Tercih ettiğiniz ağ ücretini ayarlamak için Ayarlar'a gidin.</string>
+    <string name="send_tutorial_title_3b">Göndermeden Önce Doğrulayın!</string>
+    <string name="send_tutorial_description_3b">Hedef adresini tarayın veya yapıştırın. İki kez kontrol edin! Ne kadar gönderebileceğinizi öğrenmek için yerel para biriminizi değiştirin. Hatırlatıcı olması için not ekleyin. Devam Et'e dokunun.</string>
 </resources>
