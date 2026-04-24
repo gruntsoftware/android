@@ -314,12 +314,10 @@
     <string name="Send.title">보내기</string>
     <!-- Send money to label -->
     <string name="Send.toLabel">라이트 코인 주소를 입력하세요</string>
-
     <!-- Enter to match domain name to LTC Address -->
     <!-- Or -->
     <!-- Lookup -->
     <!-- Your address was resolved! -->
-
     <!-- Adress already used alert message - first part -->
     <string name="Send.UsedAddress.firstLine">라이트코인 주소는 일회용입니다.</string>
     <!-- Adress already used alert message - second part -->
@@ -520,12 +518,10 @@
     <string name="radio_low_privacy">낮은 프라이버시(~19분)</string>
     <string name="radio_semi_private">세미 프라이빗(~42분)</string>
     <string name="radio_anonymous">익명(~77분)</string>
-
     <!-- Announce Updates View -->
     <string name="Fees.Service">서비스</string>
     <string name="Network.feeLabel">회로망</string>
     <string name="ConfirmationAllFees.Label">수수료:</string>
-
     <string name="cancel">취소</string>
     <string name="ok">좋아요</string>
     <string name="please_grant_notification_permission">알림 권한을 부여해 주세요</string>
@@ -636,5 +632,16 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">튜토리얼</string>
     <string name="coming_soon">곧 출시됩니다!</string>
-<string name="rice_partner_03_tagline">파트너와 함께 5분 안에 충전하세요</string><string name="unagi_social_01_tagline">클릭하고 우리를 팔로우하세요!</string><string name="export_transaction_button_title">모든 거래 내역 내보내기</string><string name="copy_tx_details">거래 상세정보 복사</string><string name="all_label">전체</string><string name="received_label">받음</string><string name="sent_label">보냄</string><string name="ltc_price_label">LTC 가격</string>
-    <string name="sign_up_messaging_title">업데이트, 뉴스 및 이벤트 소식을 받아보세요!</string><string name="grant_for_notifications_message">"알림 권한을 허용해 주세요 "</string></resources>
+    <string name="rice_partner_03_tagline">파트너와 함께 5분 안에 충전하세요</string>
+    <string name="unagi_social_01_tagline">클릭하고 우리를 팔로우하세요!</string>
+    <string name="export_transaction_button_title">모든 거래 내역 내보내기</string>
+    <string name="copy_tx_details">거래 상세정보 복사</string>
+    <string name="all_label">전체</string>
+    <string name="received_label">받음</string>
+    <string name="sent_label">보냄</string>
+    <string name="ltc_price_label">LTC 가격</string>
+    <string name="sign_up_messaging_title">업데이트, 뉴스 및 이벤트 소식을 받아보세요!</string>
+    <string name="grant_for_notifications_message">"알림 권한을 허용해 주세요 "</string>
+    <string name="tx_id_label">"TX ID: "</string>
+    <string name="txns_label">거래</string>
+</resources>
