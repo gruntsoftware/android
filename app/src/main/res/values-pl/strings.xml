@@ -669,4 +669,5 @@
     <string name="send_tutorial_description_3a">Masz LTC? Zmień swoją lokalną walutę fiat, aby sprawdzić, ile możesz wysłać. Lub oblicz w LTC. Przejdź do ustawień, aby dostosować preferowaną opłatę sieciową</string>
     <string name="send_tutorial_title_3b">Sprawdź przed wysłaniem!</string>
     <string name="send_tutorial_description_3b">Zeskanuj lub wklej adres docelowy. Sprawdź dokładnie! Zmień swoją lokalną walutę fiat, aby sprawdzić, ile możesz wysłać. Dodaj notatkę jako przydatne przypomnienie. Dotknij Kontynuuj.</string>
+    <string name="Send.cameraUnavailabeMessage.android">Zezwól na dostęp do aparatu w Ustawieniach</string>
 </resources>

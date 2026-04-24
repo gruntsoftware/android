@@ -664,4 +664,5 @@
     <string name="send_tutorial_description_3a">У вас есть LTC? Конвертируйте между фиатом и LTC, чтобы узнать, сколько вы можете отправить. Или рассчитывайте в LTC. Перейдите в настройки для выбора предпочитаемой комиссии сети</string>
     <string name="send_tutorial_title_3b">Проверьте перед отправкой!</string>
     <string name="send_tutorial_description_3b">Отсканируйте или вставьте адрес получателя. Проверьте дважды! Конвертируйте между фиатом и LTC, чтобы узнать сумму отправки. Добавьте заметку в качестве напоминания. Нажмите Продолжить.</string>
+    <string name="Send.cameraUnavailabeMessage.android">Разрешите доступ к камере в Настройках</string>
 </resources>

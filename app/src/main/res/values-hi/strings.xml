@@ -308,4 +308,5 @@
     <string name="send_tutorial_description_3a">क्या आपके पास कुछ LTC है? आप कितना भेज सकते हैं यह जानने के लिए अपनी स्थानीय फिएट आकृति को बदलें। या, LTC में गणना करें। पसंदीदा नेटवर्क शुल्क को समायोजित करने के लिए सेटिंग्स पर जाएं</string>
     <string name="send_tutorial_title_3b">भेजने से पहले सत्यापित करें!</string>
     <string name="send_tutorial_description_3b">गंतव्य पता स्कैन या पेस्ट करें। दोबारा जांचें! आप कितना भेज सकते हैं यह जानने के लिए अपनी स्थानीय फिएट को बदलें। एक सहायक स्मरणीय के रूप में एक मेमो जोड़ें। जारी रखें पर टैप करें।</string>
+    <string name="Send.cameraUnavailabeMessage.android">सेटिंग्स में कैमरा एक्सेस की अनुमति दें</string>
 </resources>

@@ -513,4 +513,5 @@
     <string name="send_tutorial_description_3a">¿Tienes algo de LTC? Cambia tu moneda fiduciaria local para determinar cuánto puedes enviar. O calcula en LTC. Ve a configuración para ajustar tu comisión de red preferida</string>
     <string name="send_tutorial_title_3b">¡Verifica antes de enviar!</string>
     <string name="send_tutorial_description_3b">Escanea o pega la dirección de destino. ¡Verifica dos veces! Cambia tu moneda fiduciaria local para determinar cuánto puedes enviar. Añade una nota como recordatorio útil. Toca Continuar.</string>
+    <string name="Send.cameraUnavailabeMessage.android">Permitir acceso a la cámara en Configuración</string>
 </resources>

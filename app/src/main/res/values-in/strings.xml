@@ -664,4 +664,5 @@
     <string name="send_tutorial_description_3a">Apakah Anda memiliki beberapa LTC? Ubah angka fiat lokal Anda untuk mengetahui berapa banyak yang dapat Anda kirim. Atau, hitung dalam LTC. Buka pengaturan untuk menyesuaikan biaya jaringan pilihan Anda</string>
     <string name="send_tutorial_title_3b">Verifikasi sebelum mengirim!</string>
     <string name="send_tutorial_description_3b">Pindai atau tempel alamat tujuan. Periksa dua kali! Ubah fiat lokal Anda untuk mengetahui berapa banyak yang dapat Anda kirim. Tambahkan memo sebagai pengingat praktis. Ketuk Lanjutkan.</string>
+    <string name="Send.cameraUnavailabeMessage.android">Izinkan akses kamera di Pengaturan</string>
 </resources>
