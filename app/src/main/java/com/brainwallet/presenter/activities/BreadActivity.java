@@ -234,34 +234,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     public boolean handleNavigationItemSelected(int menuItemId) {
         if (mSelectedBottomNavItem == menuItemId) return true;
         mSelectedBottomNavItem = menuItemId;
+        //TODO: Removal as Compose Send workflow is live and in Production
+        // Will remove as cruft as a backlog item
 
-        //TODO: revisit
-        // we are using compose, that's why commented, will remove it after fully migrated to compose
-        if (menuItemId == R.id.nav_history) {
-            ExtensionKt.replaceFragment(BreadActivity.this, new HistoryFragment(), false, R.id.fragment_container);
-        } else if (menuItemId == R.id.nav_send) {
-            if (BRAnimator.isClickAllowed()) {
-                BRAnimator.showSendFragment(BreadActivity.this, null);
-            }
-            mSelectedBottomNavItem = 0;
-        } else if (menuItemId == R.id.nav_receive) {
-            if (BRAnimator.isClickAllowed()) {
-//                BRAnimator.showReceiveFragment(BreadActivity.this, true);
-                //todo
-                ReceiveDialogFragment.show(getSupportFragmentManager());
-            }
-            mSelectedBottomNavItem = 0;
-        }
-//        else if (menuItemId == R.id.nav_buy) {
-//            if (BRAnimator.isClickAllowed()) {
-////                BRAnimator.showMoonpayFragment(BreadActivity.this);
-//            }
-//
-//
-//
-//
-//            mSelectedBottomNavItem = 0;
-//        }
         return true;
     }
 

@@ -5,6 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -31,6 +32,7 @@ import com.brainwallet.ui.theme.bentoDarkBorderGradient
 import com.brainwallet.ui.theme.bentoDarkSurfaceGradient
 import com.brainwallet.ui.theme.bentoLightBorderGradient
 import com.brainwallet.ui.theme.bentoLightSurfaceGradient
+import com.brainwallet.ui.theme.colorMainScreenBackground3
 
 @Composable
 fun NoTxRow(
@@ -89,22 +91,42 @@ fun NoTxRow(
                     maxLines = 1
                 )
             }
-
+            Spacer(modifier = Modifier.weight(0.3f))
             Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .fillMaxWidth(0.6f)
+                    .padding(vertical = 6.dp),
+                horizontalAlignment = Alignment.End,
             ) {
-                Image(
-                    painter = if (isDarkMode) {
-                        painterResource(R.drawable.powered_by_moonpay_wht)
-                    } else {
-                        painterResource(R.drawable.powered_by_moonpay_blk)
-                    },
-                    contentDescription = "moonpay_logo",
+                Box(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(4.dp),
-                    contentScale = ContentScale.Fit
-                )
+                        .background(
+                            color = if (isDarkMode) {
+                                Color.White.copy(alpha = 0.1f)
+                            } else {
+                                colorMainScreenBackground3.copy(alpha = 0.05f)
+                            },
+                            shape = RoundedCornerShape(10.dp)
+                        )
+                        .border(
+                            width = 0.5.dp,
+                            color = Color.White.copy(alpha = 0.1f),
+                            shape = RoundedCornerShape(10.dp)
+                        )
+                ) {
+                    Image(
+                        painter = if (isDarkMode) {
+                            painterResource(R.drawable.powered_by_moonpay_wht)
+                        } else {
+                            painterResource(R.drawable.powered_by_moonpay_blk)
+                        },
+                        contentDescription = "moonpay_logo",
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(1.dp),
+                        contentScale = ContentScale.Fit
+                    )
+                }
             }
         }
     }

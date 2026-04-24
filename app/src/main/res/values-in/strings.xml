@@ -10,8 +10,6 @@
     <!-- Terms of Use button label -->
     <!-- About screen title -->
     <string name="About.title">Tentang</string>
-    <!-- About screen twitter label -->
-    <string name="About.twitter">Twitter</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">Menutup</string>
     <!-- Support center accessibiliy label -->
@@ -622,10 +620,8 @@
     <string name="date_label">"Tanggal: "</string>
     <string name="amount_label">"Jumlah: "</string>
     <string name="fees_label">"Biaya: "</string>
-    <string name="tx_id_label">"ID TX: "</string>
     <string name="no_transaction_detail_row">Belum ada. Top up sekarang!</string>
     <string name="no_transaction_title_row">RIWAYAT TRANSAKSI</string>
-    <string name="txns_label">txns</string>
     <string name="enter_passcode">Masukkan kode akses</string>
     <string name="recipient_label">Penerima:</string>
     <string name="send_litecoin_label">Kirim Litecoin</string>
@@ -641,4 +637,5 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Tutorial</string>
     <string name="coming_soon">Segera hadir!</string>
-<string name="rice_partner_03_tagline">Top up dalam 5 menit dengan mitra kami</string><string name="unagi_social_01_tagline">Klik dan ikuti kami!</string><string name="export_transaction_button_title">Ekspor Semua Transaksi</string><string name="copy_tx_details">Salin detail transaksi</string><string name="all_label">Semua</string><string name="received_label">Diterima</string><string name="sent_label">Dikirim</string><string name="ltc_price_label">Harga LTC</string></resources>
+<string name="rice_partner_03_tagline">Top up dalam 5 menit dengan mitra kami</string><string name="unagi_social_01_tagline">Klik dan ikuti kami!</string><string name="export_transaction_button_title">Ekspor Semua Transaksi</string><string name="copy_tx_details">Salin detail transaksi</string><string name="all_label">Semua</string><string name="received_label">Diterima</string><string name="sent_label">Dikirim</string><string name="ltc_price_label">Harga LTC</string>
+    <string name="sign_up_messaging_title">Daftar untuk mendapatkan update, berita, dan kontes!</string><string name="grant_for_notifications_message">"Mohon izinkan notifikasi dari kami "</string></resources>

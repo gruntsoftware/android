@@ -24,10 +24,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -35,16 +41,11 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
-import com.airbnb.lottie.compose.animateLottieCompositionAsState
-import com.airbnb.lottie.compose.rememberLottieComposition
-import com.brainwallet.BuildConfig
 import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
@@ -55,7 +56,12 @@ import com.brainwallet.ui.composable.DarkModeToggleButton
 import com.brainwallet.ui.composable.bottomsheet.FiatSelectorBottomSheet
 import com.brainwallet.ui.composable.bottomsheet.LanguageSelectorBottomSheet
 import com.brainwallet.constants.BWConstants
+import com.brainwallet.constants.bentoCornerRadius
+import com.brainwallet.ui.bentosections.gamehubbento.FallinScene
+import com.brainwallet.ui.theme.BoldenVan
 import com.brainwallet.ui.theme.DesignTheme
+import com.brainwallet.ui.theme.gameTitleGradient
+import kotlinx.coroutines.delay
 import org.koin.compose.koinInject
 
 @Composable
@@ -86,11 +92,19 @@ fun WelcomeScreen(
     val versionPadding = 8
     val activeRowHeight = 58
 
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.welcomeemoji20250212))
-    val progress by animateLottieCompositionAsState(
-        composition = composition,
-        iterations = LottieConstants.IterateForever
-    )
+    val gameHubBackground = R.drawable.game_hub_bk
+
+    val fullText = "FALLINMOJI"
+    var displayedText by remember { mutableStateOf("") }
+
+    LaunchedEffect(Unit) {
+        fullText.forEachIndexed { index, _ ->
+            delay(120L) // ms per character
+            displayedText = fullText.substring(0, index + 1)
+        }
+        delay(5000L)
+        displayedText = ""
+    }
 
     Box(
         modifier = Modifier
@@ -116,24 +130,60 @@ fun WelcomeScreen(
                     .padding(horizontal = 55.dp)
             )
 
-            // Animation Placeholder
-            // Shows only during Prod
-            if (!BuildConfig.DEBUG) {
-                LottieAnimation(
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(thirdOfScreenHeight.dp)
+            ) {
+                Image(
+                    painter = painterResource(gameHubBackground),
+                    contentDescription = "game_hub_background",
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(leadTrailPadding.dp)
+                        .height(thirdOfScreenHeight.dp)
+                        .clip(RoundedCornerShape(bentoCornerRadius)),
+                    contentScale = ContentScale.Crop,
+                )
+                FallinScene(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(leadTrailPadding.dp)
-                        .background(
-                            DesignTheme.colors.surface,
-                            DesignTheme.shapes.large
-                        )
                         .height(thirdOfScreenHeight.dp)
                         .clip(DesignTheme.shapes.large),
-                    composition = composition,
-                    contentScale = ContentScale.FillWidth,
-                    alignment = Alignment.Center,
-                    progress = { progress }
+                    dotQuantity = 24
                 )
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth().padding(top = 48.dp)
+                        .height(65.dp),
+                    Alignment.Center
+                ) {
+                    Text(
+                        text = displayedText,
+                        style = TextStyle(
+                            fontFamily = BoldenVan,
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 60.sp,
+                            shadow = Shadow(
+                                color = Color.Black.copy(alpha = 0.5f),
+                                offset = Offset(x = 4f, y = 4f),
+                                blurRadius = 4f
+                            )
+                        ),
+                        maxLines = 1,
+                    )
+                    Text(
+                        text = displayedText,
+                        style = TextStyle(
+                            brush = gameTitleGradient,
+                            fontFamily = BoldenVan,
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 60.sp
+                        ),
+                        maxLines = 1,
+                    )
+                }
             }
         }
 

@@ -1,4 +1,5 @@
 package com.brainwallet.ui.screens.send
+import android.R.attr.value
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

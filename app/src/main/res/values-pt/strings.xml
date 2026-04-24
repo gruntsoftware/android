@@ -10,8 +10,6 @@
     <!-- Terms of Use button label -->
     <!-- About screen title -->
     <string name="About.title">Sobre</string>
-    <!-- About screen twitter label -->
-    <string name="About.twitter">Twitter</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">Fechar</string>
     <!-- Support center accessibiliy label -->
@@ -620,9 +618,7 @@
     <string name="date_label">"Data: "</string>
     <string name="amount_label">"Valor: "</string>
     <string name="fees_label">"Taxas: "</string>
-    <string name="tx_id_label">"ID TX: "</string>
     <string name="no_transaction_detail_row">Nada ainda. Faça um depósito agora!</string>
     <string name="no_transaction_title_row">HISTÓRICO DE TRANSAÇÕES</string>
-    <string name="txns_label">txns</string>
 
 </resources>

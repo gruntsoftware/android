@@ -10,8 +10,6 @@
     <!-- Terms of Use button label -->
     <!-- About screen title -->
     <string name="About.title">关于</string>
-    <!-- About screen twitter label -->
-    <string name="About.twitter">Twitter</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">关闭</string>
     <!-- Support center accessibiliy label -->
@@ -621,10 +619,8 @@
     <string name="date_label">"日期： "</string>
     <string name="amount_label">"金额： "</string>
     <string name="fees_label">"手续费： "</string>
-    <string name="tx_id_label">"交易 ID： "</string>
     <string name="no_transaction_detail_row">暂无记录。立即充值！</string>
     <string name="no_transaction_title_row">交易记录</string>
-    <string name="txns_label">交易</string>
     <string name="enter_passcode">输入密码</string>
     <string name="recipient_label">收款人：</string>
     <string name="send_litecoin_label">发送 Litecoin</string>
@@ -640,4 +636,5 @@
     <string name="favourites_label">最高机密</string>
     <string name="tutorials_label">教程</string>
     <string name="coming_soon">敬请期待！</string>
-<string name="rice_partner_03_tagline">通过我们的合作伙伴5分钟内充值</string><string name="unagi_social_01_tagline">点击关注我们！</string><string name="export_transaction_button_title">导出所有交易</string><string name="copy_tx_details">复制交易详情</string><string name="all_label">全部</string><string name="received_label">已接收</string><string name="sent_label">已发送</string><string name="ltc_price_label">LTC 价格</string></resources>
+<string name="rice_partner_03_tagline">通过我们的合作伙伴5分钟内充值</string><string name="unagi_social_01_tagline">点击关注我们！</string><string name="sign_up_messaging_title">注册以获取更新、新闻和竞赛信息！</string><string name="grant_for_notifications_message">"请允许我们的通知权限"</string>
+    <string name="export_transaction_button_title">导出所有交易</string><string name="copy_tx_details">复制交易详情</string><string name="all_label">全部</string><string name="received_label">已接收</string><string name="sent_label">已发送</string><string name="ltc_price_label">LTC 价格</string></resources>

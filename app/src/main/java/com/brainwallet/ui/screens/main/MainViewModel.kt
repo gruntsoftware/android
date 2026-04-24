@@ -1,5 +1,9 @@
 package com.brainwallet.ui.screens.main
 import android.app.Application
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.R
 import com.brainwallet.constants.BWConstants
@@ -11,7 +15,6 @@ import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.repository.TxRepository
 import com.brainwallet.tools.manager.AnalyticsManager
-import com.brainwallet.tools.manager.BRClipboardManager
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.sqlite.TransactionDataSource
 import com.brainwallet.tools.util.BRExchange.ONE_LITECOIN_OF_LITOSHIS
@@ -356,14 +359,12 @@ class MainViewModel(
                             (txItem.received - txItem.sent < 0)
                         }.toImmutableList()
                     }
-                    Timber.d("timber: filtered state: $nextFilter and transactions: ${filteredTransactions.size}")
-                    AnalyticsManager.logCustomEventWithParams("did_toggle_transaction_filter", null)
-
                     it.copy(
                         filterState = nextFilter,
                         transactionItems = filteredTransactions
                     )
                 }
+                AnalyticsManager.logCustomAdHocEvent("did_toggle_txn_filter")
             }
             is MainScreenEvent.OnExportTransactions -> {
                 // TODO: Implement
@@ -436,7 +437,15 @@ class MainViewModel(
                     Blockchain browser URL: $txIDBrowserURL
                 """.trimIndent()
 
-                BRClipboardManager.putDetailsClipboard(app, transactionDetailsString)
+                try {
+                    val clipboard = app.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    val clip = ClipData
+                        .newPlainText("Transaction Details: ", transactionDetailsString)
+                    clipboard.setPrimaryClip(clip)
+                    AnalyticsManager.logCustomEventWithParams("txn_details_copied", null)
+                } catch (e: java.lang.Exception) {
+                    Timber.e(e)
+                }
             }
         }
     }

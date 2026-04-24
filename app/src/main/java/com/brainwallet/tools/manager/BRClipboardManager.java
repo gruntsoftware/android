@@ -38,10 +38,11 @@ public class BRClipboardManager {
                 .newPlainText("Transaction Details: ", text);
             clipboard.setPrimaryClip(clip);
             AnalyticsManager.logCustomEventWithParams("tx_details_copied", null);
+
         } catch (Exception e) {
             Timber.e(e);
         }
-    }
+     }
 
     @SuppressLint("NewApi")
     public static String getClipboard(Context context) {

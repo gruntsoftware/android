@@ -32,6 +32,7 @@ espresso-core = "3.7.0"
 runtime = "1.10.6"
 foundation = "1.10.6"
 animation = "1.10.6"
+play-services-games = "24.0.0"
 
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
@@ -105,6 +106,7 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 androidx-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "runtime" }
 androidx-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "foundation" }
 androidx-animation = { group = "androidx.compose.animation", name = "animation", version.ref = "animation" }
+play-services-games = { group = "com.google.android.gms", name = "play-services-games", version.ref = "play-services-games" }
 
 [bundles]
 androidx-lifecycle = ["androidx-lifecycle-runtime", "androidx-lifecycle-viewmodel", "androidx-lifecycle-viewmodel-compose"]

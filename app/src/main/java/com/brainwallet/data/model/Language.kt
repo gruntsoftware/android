@@ -27,6 +27,8 @@ enum class Language(
     PUNJABI("pa", "پنجابی", "زبان دا انتخاب کرو"),
     POLISH("pl", "Polski", "Wybierz język"),
     KOREAN("ko", "한국어", "언어 선택"),
+    DUTCH("nl", "Nederlands", "Taal selecteren"),
+    THAI("th", "ไทย", "เลือกภาษา"),
     FRENCH("fr", "Français", "Sélectionner la langue"),
     CHINESE_TRADITIONAL("zh-TW", "繁體字", "選擇語言"),
     TURKISH("tr", "Türkçe", "Dil Seçin"),

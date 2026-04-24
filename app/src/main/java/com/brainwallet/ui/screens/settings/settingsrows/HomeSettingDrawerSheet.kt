@@ -3,6 +3,7 @@ package com.brainwallet.ui.screens.settings.settingsrows
 import android.content.Context
 import android.net.Uri
 import android.util.AttributeSet
+import android.view.View
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -234,13 +235,22 @@ class HomeSettingDrawerComposeView @JvmOverloads constructor(
         }
     }
 
-    fun observeBus(
-        onEach: (EventBus.Event.Message) -> Unit
-    ) {
+    fun observeBus(onEach: (EventBus.Event.Message) -> Unit) {
+        val lifecycleOwner = findViewTreeLifecycleOwner() ?: run {
+            // View not yet attached — wire up once it is
+            addOnAttachStateChangeListener(object : OnAttachStateChangeListener {
+                override fun onViewAttachedToWindow(v: View) {
+                    removeOnAttachStateChangeListener(this)
+                    observeBus(onEach) // retry once attached
+                }
+                override fun onViewDetachedFromWindow(v: View) {}
+            })
+            return
+        }
         EventBus.events
             .filter { it is EventBus.Event.Message }
             .map { it as EventBus.Event.Message }
             .onEach { onEach.invoke(it) }
-            .launchIn(findViewTreeLifecycleOwner()!!.lifecycle.coroutineScope)
+            .launchIn(lifecycleOwner.lifecycle.coroutineScope)
     }
 }

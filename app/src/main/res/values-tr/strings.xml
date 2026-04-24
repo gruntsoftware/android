@@ -10,8 +10,6 @@
     <!-- Terms of Use button label -->
     <!-- About screen title -->
     <string name="About.title">hakkında</string>
-    <!-- About screen twitter label -->
-    <string name="About.twitter">Twitter</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">Kapat</string>
     <!-- Support center accessibiliy label -->
@@ -643,11 +641,9 @@
     <string name="date_label">"Tarih: "</string>
     <string name="amount_label">"Tutar: "</string>
     <string name="fees_label">"Ücretler: "</string>
-    <string name="tx_id_label">"TX ID: "</string>
     <string name="no_transaction_detail_row">Henüz yok. Hemen yükle!</string>
     <string name="no_transaction_title_row">İŞLEM GEÇMİŞİ</string>
-    <string name="txns_label">işlemler</string>
-<string name="enter_passcode">Şifre girin</string>
+    <string name="enter_passcode">Şifre girin</string>
     <string name="recipient_label">Alıcı:</string>
     <string name="send_litecoin_label">Litecoin gönder</string>
     <string name="confirm_send_label">Gönderme detaylarını onayla:</string>
@@ -662,4 +658,5 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Eğitimler</string>
     <string name="coming_soon">Çok yakında!</string>
-<string name="rice_partner_03_tagline">Ortağımız ile 5 dakikada bakiye yükleyin</string><string name="unagi_social_01_tagline">Tıklayın ve bizi takip edin!</string><string name="export_transaction_button_title">Tüm İşlemleri Dışa Aktar</string><string name="copy_tx_details">İşlem detaylarını kopyala</string><string name="all_label">Tümü</string><string name="received_label">Alınan</string><string name="sent_label">Gönderilen</string><string name="ltc_price_label">LTC Fiyatı</string></resources>
+<string name="rice_partner_03_tagline">Ortağımız ile 5 dakikada bakiye yükleyin</string><string name="unagi_social_01_tagline">Tıklayın ve bizi takip edin!</string><string name="sign_up_messaging_title">Güncellemeler, yenilikler ve yarışmalar için kaydolun!</string><string name="grant_for_notifications_message">"Lütfen bildirimlerimiz için izin verin "</string>
+    <string name="export_transaction_button_title">Tüm İşlemleri Dışa Aktar</string><string name="copy_tx_details">İşlem detaylarını kopyala</string><string name="all_label">Tümü</string><string name="received_label">Alınan</string><string name="sent_label">Gönderilen</string><string name="ltc_price_label">LTC Fiyatı</string></resources>

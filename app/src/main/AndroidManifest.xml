@@ -110,18 +110,6 @@
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-
-
-        <activity
-            android:name=".presenter.activities.LoginActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            />
-        <activity
-            android:name=".presenter.activities.settings.SettingsActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            />
         <activity
             android:name=".presenter.activities.settings.SyncBlockchainActivity"
             android:exported="true"
@@ -133,45 +121,10 @@
             android:launchMode="singleTask"
             />
         <activity
-            android:name=".presenter.activities.settings.DisplayCurrencyActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            />
-        <activity
-            android:name=".presenter.activities.settings.AboutActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            />
-        <activity
-            android:name=".presenter.activities.settings.SecurityCenterActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            />
-        <activity
-            android:name=".presenter.activities.settings.ShareDataActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            />
-        <activity
             android:name=".presenter.activities.intro.WriteDownActivity"
             android:exported="true"
             android:launchMode="singleTask"
             />
-        <activity
-            android:name=".presenter.activities.PaperKeyActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            />
-        <activity
-            android:name=".presenter.activities.settings.SpendLimitActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            />
-        <activity
-            android:name=".presenter.activities.PaperKeyProveActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".presenter.activities.camera.ScanQRActivity"
             android:exported="true"
@@ -179,11 +132,6 @@
             />
         <activity
             android:name=".presenter.activities.DisabledActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            />
-        <activity
-            android:name=".presenter.activities.settings.AdvancedActivity"
             android:exported="true"
             android:launchMode="singleTask"
             />

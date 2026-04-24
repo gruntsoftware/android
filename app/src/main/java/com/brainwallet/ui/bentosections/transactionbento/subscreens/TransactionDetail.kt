@@ -31,7 +31,7 @@ import com.brainwallet.tools.util.BRCurrency
 import com.brainwallet.tools.util.BRExchange
 import com.brainwallet.tools.util.BRExchange.ONE_LITECOIN_OF_LITOSHIS
 import com.brainwallet.ui.theme.IBMPlexSans
-import com.brainwallet.ui.theme.bentoSurface
+import com.brainwallet.ui.theme.mainBentoSurface
 import timber.log.Timber
 import java.math.BigDecimal
 import java.text.SimpleDateFormat
@@ -109,7 +109,7 @@ fun TransactionDetail(
         modifier = Modifier
             .fillMaxWidth()
             .height(sectionHeight)
-            .bentoSurface(isDarkMode)
+            .mainBentoSurface(isDarkMode)
     ) {
         Column {
             Row(

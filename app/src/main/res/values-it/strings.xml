@@ -10,8 +10,6 @@
     <!-- Terms of Use button label -->
     <!-- About screen title -->
     <string name="About.title">Chi siamo</string>
-    <!-- About screen twitter label -->
-    <string name="About.twitter">Twitter</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">Chiudi</string>
     <!-- Support center accessibiliy label -->
@@ -621,10 +619,8 @@
     <string name="date_label">"Data: "</string>
     <string name="amount_label">"Importo: "</string>
     <string name="fees_label">"Commissioni: "</string>
-    <string name="tx_id_label">"ID TX: "</string>
     <string name="no_transaction_detail_row">Niente ancora. Ricarica ora!</string>
     <string name="no_transaction_title_row">CRONOLOGIA TRANSAZIONI</string>
-    <string name="txns_label">txns</string>
     <string name="enter_passcode">Inserisci passcode</string>
     <string name="recipient_label">Destinatario:</string>
     <string name="send_litecoin_label">Invia Litecoin</string>
@@ -640,4 +636,5 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Tutorial</string>
     <string name="coming_soon">Presto disponibile!</string>
-<string name="rice_partner_03_tagline">Ricarica in 5 minuti con il nostro partner</string><string name="unagi_social_01_tagline">Clicca e seguici!</string><string name="export_transaction_button_title">Esporta tutte le transazioni</string><string name="copy_tx_details">Copia dettagli transazione</string><string name="all_label">Tutto</string><string name="received_label">Ricevuto</string><string name="sent_label">Inviato</string><string name="ltc_price_label">Prezzo LTC</string></resources>
+<string name="rice_partner_03_tagline">Ricarica in 5 minuti con il nostro partner</string><string name="unagi_social_01_tagline">Clicca e seguici!</string><string name="export_transaction_button_title">Esporta tutte le transazioni</string><string name="copy_tx_details">Copia dettagli transazione</string><string name="all_label">Tutto</string><string name="received_label">Ricevuto</string><string name="sent_label">Inviato</string><string name="ltc_price_label">Prezzo LTC</string>
+    <string name="sign_up_messaging_title">Iscriviti per ricevere aggiornamenti, notizie e concorsi!</string><string name="grant_for_notifications_message">"Accetta l'autorizzazione per le nostre notifiche "</string></resources>

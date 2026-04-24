@@ -1,4 +1,5 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import org.gradle.kotlin.dsl.androidTestImplementation
 import org.gradle.kotlin.dsl.grunt
 
 plugins {
@@ -34,8 +35,8 @@ android {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 35
-        versionCode = 202506315
-        versionName = "v4.9.0"
+        versionCode = 202506323
+        versionName = "v4.9.1"
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -179,9 +180,18 @@ android {
     packaging {
         resources {
             pickFirsts.add("protobuf.meta")
+            excludes += setOf(
+                "META-INF/LICENSE.md",
+                "META-INF/LICENSE-notice.md",
+                "META-INF/NOTICE.md",
+                "META-INF/NOTICE",
+                "META-INF/LICENSE"
+            )
         }
     }
-
+        testFixtures {
+            enable = true
+        }
     //TODO: rename output apk/bundle
 }
 
@@ -190,6 +200,8 @@ dependencies {
     implementation(project(":iap"))
     implementation(project(":core"))
     implementation("androidx.webkit:webkit:1.9.0")
+    testImplementation(testFixtures(project(":app")))
+    androidTestImplementation(testFixtures(project(":app")))
     implementation(grunt.androidx.core.ktx)
     implementation(grunt.app.startup)
     implementation(libs.androidx.appcompat)
@@ -218,7 +230,6 @@ dependencies {
     implementation(libs.bundles.google.play.review)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.coroutines.android)
-    implementation (libs.airbnb.lottie.compose)
     implementation(platform(grunt.koin.bom))
     implementation(grunt.bundles.koin)
     implementation(platform(grunt.koin.annotation.bom))
@@ -229,6 +240,7 @@ dependencies {
     implementation(libs.androidx.runtime)
     implementation(libs.androidx.foundation)
     implementation(libs.androidx.animation)
+    implementation(libs.play.services.games)
     ksp(grunt.koin.annotation.compiler)
     implementation(platform(libs.squareup.okhttp.bom))
     implementation(libs.bundles.squareup.okhttp)
@@ -259,8 +271,14 @@ dependencies {
     androidTestImplementation(libs.bundles.android.test)
     androidTestImplementation(libs.fastlane.screengrab)
     androidTestImplementation(libs.slf4j.android)
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestImplementation("androidx.test:rules:1.5.0")
+    androidTestImplementation("io.mockk:mockk-android:1.13.8")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 }
 
 tasks.withType<Test> {
     jvmArgs("-XX:+EnableDynamicAgentLoading")
 }
+

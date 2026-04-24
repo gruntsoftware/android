@@ -1,20 +1,11 @@
 package com.brainwallet.tools.security;
-
-import android.media.metrics.Event;
-
 import androidx.fragment.app.FragmentActivity;
-
-import com.brainwallet.constants.BWConstants;
-import com.brainwallet.tools.animation.BRAnimator;
 import com.brainwallet.tools.animation.BRDialog;
 import com.brainwallet.tools.threads.PaymentProtocolTask;
-import com.brainwallet.tools.util.Utils;
 import com.brainwallet.R;
 import com.brainwallet.presenter.customviews.BRDialogView;
-import com.brainwallet.presenter.entities.ServiceItems;
 import com.brainwallet.presenter.entities.PaymentRequestWrapper;
 import com.brainwallet.presenter.entities.RequestObject;
-import com.brainwallet.presenter.entities.TransactionItem;
 import com.brainwallet.util.EventBus;
 import com.brainwallet.wallet.BRWalletManager;
 
@@ -101,7 +92,7 @@ public class BitcoinUrlHandler {
         String host = uri.getHost();
         if (host != null) {
             String addrs = host.trim();
-            if (BRWalletManager.validateAddress(addrs)) {
+            if (BRWalletManager.getInstance().validateAddress(addrs)) {
                 obj.address = addrs;
             }
         }

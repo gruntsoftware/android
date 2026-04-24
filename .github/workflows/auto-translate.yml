@@ -1,5 +1,4 @@
-name: Auto-Translate strings.xml
-
+name: 🇧🇷 🇳🇱 🇹🇭 Auto-Translate strings.xml
 on:
   push:
     branches:
@@ -51,7 +50,8 @@ jobs:
           git checkout -b "$BRANCH"
           git add app/src/main/res/values-*/strings.xml
           git commit -m "chore(i18n): auto-translate missing strings [skip ci]
-          Languages updated: ar, zh-rTW, zh-rCN, fr, de, fa, pa, pl, in, es, sv, uk, ru, tr, ja, ko, hi, it, pt-rBR
+
+          Languages updated: ar, de, es, fa, fr, hi, in, it, ja, ko, nl, pa, pl, pt-rBR, ru, sv, th, tr, uk, zh-rCN, zh-rTW
           Triggered by: ${{ github.sha }}
           "
           git push origin "$BRANCH"
@@ -63,7 +63,7 @@ jobs:
           gh pr create \
             --title "🌍 Auto-translations: missing strings updated" \
             --body "$(cat /tmp/pr_body.md)" \
-            --base main \
+            --base develop \
             --head "$BRANCH" \
             --label "translations" \
             --reviewer "${{ github.actor }}"

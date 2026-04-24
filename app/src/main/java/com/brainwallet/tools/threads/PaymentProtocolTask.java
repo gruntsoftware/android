@@ -121,7 +121,7 @@ public class PaymentProtocolTask extends AsyncTask<String, String, String> {
             StringBuilder allAddresses = new StringBuilder();
             for (String s : paymentRequest.addresses) {
                 allAddresses.append(s).append(", ");
-                if (!BRWalletManager.validateAddress(s)) {
+                if (!BRWalletManager.getInstance().validateAddress(s)) {
                     if (app != null)
                         BRDialog.showCustomDialog(app, app.getString(R.string.Alert_error), app.getString(R.string.Send_invalidAddressTitle) + ": " + s, app.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
                             @Override

@@ -7,9 +7,46 @@ The open source code of Brainwallet Android
 
 **develop**: [![CircleCI](https://dl.circleci.com/status-badge/img/gh/gruntsoftware/android/tree/develop.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/gruntsoftware/android/tree/develop)
 
-## Release Notes
-### v4.8.3
+
 # 🚀 Brainwallet Android — Release Notes
+### v4.9.0
+
+### ✨ New Features
+
+#### 📋 Copy Transaction Details to Clipboard
+Transaction details can now be copied directly to the clipboard from the transaction detail view. A new `BRClipboardManager.putDetailsClipboard()` method handles the copy action with full analytics tracking, making it easy to share or reference transaction information outside the app.
+
+#### 📊 Analytics Tracking for Key Interactions
+Firebase analytics events are now fired for core user interactions — fiat/LTC toggle, balance visibility toggle, and transaction detail copy — giving the team better insight into how users engage with the wallet's main screens.
+
+---
+
+### 🎨 UI / Design System
+
+#### 🧱 Unified `bentoSurface` Design System
+A new `bentoSurface()` modifier in `BentoModifiers.kt` consolidates gradient and border styling across the entire bento UI. Previously hardcoded values like `1.dp` borders are now driven by shared constants (`bentoBorderWidth`, `bentoCornerRadius`, `bentoCornerRadius`, `bentoSpacer`, `transactionActionHt`, `transactionDetailHt`), making the visual system consistent and easy to maintain going forward.
+
+#### 🃏 Bento Section Refactors
+- **GameHub** — migrated from `Card` to `Box` with `bentoSurface()`, with a `clickable` modifier added
+- **Favourites** — refactored to `bentoSurface()` with improved `Spacer` layout
+- **LTC Picker** — label repositioned to top, spacing and item heights adjusted
+- **Transactions** — `TransactionFilter`, `TransactionsBentoScreen`, `ConfirmationStatus`, `CopyTransactionWidget`, `ExportTransactionsWidget`, `NoTxRow`, `TransactionDetail`, `TransactionFilterWidget`, `TransactionRow` all updated to unified styling
+- **Tutorials & Bottom Nav Bar** — updated to use unified theme system
+
+---
+
+### 🔧 Technical Changes
+- `MainScreen`, `MainScreenEvent`, and `MainViewModel` updated for new event handling and state management
+- `NoWifiBalanceAlertScreen` and `ReceiveDialog` border widths replaced with `bentoBorderWidth` constant
+- `strings.xml` updated with new/updated string resources
+- `gradle/libs.versions.toml` and `app/build.gradle.kts` dependencies updated
+- `detekt-app-baseline.xml` baseline updated
+- Version bumped: **v4.8.4 (202506314) → v4.9.0 (202506315)** 
+- Release/v4.7.2 202506296 by @kcw-grunt in https://github.com/gruntsoftware/android/pull/134
+- Release/v4.8.0 by @kcw-grunt in https://github.com/gruntsoftware/android/pull/145
+
+**Full Changelog**: https://github.com/gruntsoftware/android/compare/v4.7.2...v4.9.0
+### v4.8.3
 
 ## ✨ New UI — Favourites & Tutorials Bento Sections
 **PR [#191](https://github.com/gruntsoftware/android/pull/191)**

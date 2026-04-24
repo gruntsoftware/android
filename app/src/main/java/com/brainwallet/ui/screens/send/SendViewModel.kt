@@ -43,6 +43,11 @@ class SendViewModel(
     private val bwSender: BWSender,
     private val txRepository: TxRepository,
     private val settingRepository: SettingRepository,
+    private val isWalletCreated: () -> Boolean = { BRWalletManager.getInstance().isCreated() },
+    private val validateAddress: (String) -> Boolean = { BRWalletManager.getInstance().validateAddress(it) },
+    private val getBalance: () -> Long = { BRWalletManager.getInstance().getBalance(app) },
+    private val getCurrentFee: () -> Long = { FeeManager.getInstance().currentFeeValue },
+    private val getOpsFee: (Long) -> Long = { Utils.tieredOpsFee(app, it) },
 ) : BrainwalletViewModel<SendEvent>() {
     private val _state =
         MutableStateFlow(SendState())
@@ -85,7 +90,9 @@ class SendViewModel(
                 txRepository.refresh()
                 val address = _state.value.recipientLTCAddress
                 if (address.isNotBlank()) {
-                    val isValid = BRWalletManager.validateAddress(address)
+                    val isValid = validateAddress(address)
+                    Timber.d("OnTapPasteLTCAddress SendViewModel: isValid : $isValid")
+
                     _state.update {
                         it.copy(
                             isLTCAddressValid = isValid,
@@ -106,7 +113,9 @@ class SendViewModel(
             }
             is SendEvent.OnTapPasteLTCAddress -> {
                 val litecoinUrl = BRClipboardManager.getClipboard(app)
-                val isAddressValid = BRWalletManager.validateAddress(litecoinUrl)
+                Timber.d("timber: OnTapPasteLTCAddress: $litecoinUrl")
+
+                val isAddressValid = validateAddress(litecoinUrl)
                 if (isAddressValid) {
                     _state.update {
                         it.copy(
@@ -161,8 +170,8 @@ class SendViewModel(
                 }
             }
             is SendEvent.OnRecipientAddressChanged -> {
-                val isAddressValid = if (BRWalletManager.getInstance().isCreated()) {
-                    BRWalletManager.validateAddress(event.address)
+                val isAddressValid = if (isWalletCreated()) {
+                    validateAddress(event.address)
                 } else {
                     null
                 }
@@ -209,9 +218,9 @@ class SendViewModel(
                     ?.toLong()
                     ?: 0L
 
-                val currentBalance = BRWalletManager.getInstance().getBalance(app)
-                val networkFee = FeeManager.getInstance().currentFeeValue
-                val opsFee = Utils.tieredOpsFee(app, litoshiAmount)
+                val currentBalance = getBalance()
+                val networkFee = getCurrentFee()
+                val opsFee = getOpsFee(litoshiAmount)
 
                 // isAmountValid is false if rate was unavailable in fiat mode
                 val isAmountValid = amountInLTC != null &&
@@ -222,8 +231,7 @@ class SendViewModel(
                     it.copy(
                         amountString = event.amountInLTCString,
                         isAmountBelowBalance = isAmountValid,
-                        isReadyToSend = isAmountValid &&
-                            BRWalletManager.validateAddress(it.recipientLTCAddress),
+                        isReadyToSend = isAmountValid && it.isLTCAddressValid,
                         networkFees = BigDecimal(networkFee.toDouble()),
                         serviceFees = BigDecimal(opsFee),
                         amountInLitoshi = BigDecimal(litoshiAmount)
@@ -240,7 +248,7 @@ class SendViewModel(
                     Utils.fetchServiceItem(app, ServiceItems.WALLETOPS),
                     null,
                     amountInLitoshi,
-                    Utils.tieredOpsFee(app, amountInLitoshi),
+                    getOpsFee(amountInLitoshi),
                     null,
                     false,
                     _state.value.userMemorandum
@@ -306,10 +314,14 @@ class SendViewModel(
                 _state.update { it.copy(userMemorandum = event.memo) }
             }
             is SendEvent.OnFieldFocused -> {
+                Timber.d(
+                    "timber: is ${_state.value.isAmountBelowBalance}" +
+                        "\ntimber: isLTC${_state.value.isLTCAddressValid}"
+                )
+
                 _state.update {
                     it.copy(
-                        isReadyToSend = it.isAmountBelowBalance &&
-                            BRWalletManager.validateAddress(it.recipientLTCAddress),
+                        isReadyToSend = (it.isAmountBelowBalance && it.isLTCAddressValid)
                     )
                 }
             }
@@ -351,7 +363,7 @@ class SendViewModel(
 //            Utils.fetchServiceItem(context, ServiceItems.WALLETOPS),
 //            null,
 //            litoshiAmount.toLong(),
-//            Utils.tieredOpsFee(context, litoshiAmount.toLong()),
+//            getOpsFee(litoshiAmount.toLong()),
 //            null,
 //            false,
 //            comment
