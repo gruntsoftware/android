@@ -683,4 +683,5 @@
     <string name="send_tutorial_description_3a">Biraz LTC'niz var mı? Ne kadar gönderebileceğinizi öğrenmek için yerel para biriminizi değiştirin. Veya LTC cinsinden hesaplayın. Tercih ettiğiniz ağ ücretini ayarlamak için Ayarlar'a gidin.</string>
     <string name="send_tutorial_title_3b">Göndermeden Önce Doğrulayın!</string>
     <string name="send_tutorial_description_3b">Hedef adresini tarayın veya yapıştırın. İki kez kontrol edin! Ne kadar gönderebileceğinizi öğrenmek için yerel para biriminizi değiştirin. Hatırlatıcı olması için not ekleyin. Devam Et'e dokunun.</string>
+    <string name="Send.cameraUnavailabeMessage.android">Ayarlar'da kamera erişimine izin verin</string>
 </resources>

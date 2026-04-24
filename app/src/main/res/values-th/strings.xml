@@ -308,4 +308,5 @@
     <string name="send_tutorial_description_3a">คุณมี LTC หรือไม่ เปลี่ยนตัวเลขเงินฟิแอตท้องถิ่นของคุณเพื่อคำนวณจำนวนที่คุณสามารถส่งได้ หรือคำนวณใน LTC ไปที่การตั้งค่าเพื่อปรับค่าธรรมเนียมเครือข่ายที่คุณต้องการ</string>
     <string name="send_tutorial_title_3b">ตรวจสอบก่อนส่ง!</string>
     <string name="send_tutorial_description_3b">สแกนหรือวาง address ปลายทาง ตรวจสอบอีกครั้ง! เปลี่ยนตัวเลขเงินฟิแอตท้องถิ่นของคุณเพื่อคำนวณจำนวนที่คุณสามารถส่งได้ เพิ่มบันทึกเป็นการเตือนที่มีประโยชน์ แตะ ดำเนินการต่อ</string>
+    <string name="Send.cameraUnavailabeMessage.android">อนุญาตการเข้าถึงกล้องในการตั้งค่า</string>
 </resources>

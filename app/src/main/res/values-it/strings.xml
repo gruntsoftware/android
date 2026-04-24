@@ -664,4 +664,5 @@
     <string name="send_tutorial_description_3a">Hai un po' di LTC? Cambia da valuta fiat locale per capire quanto puoi inviare. Oppure, calcola in LTC. Vai alle impostazioni per regolare la commissione di rete preferita</string>
     <string name="send_tutorial_title_3b">Verifica prima di inviare!</string>
     <string name="send_tutorial_description_3b">Scansiona o incolla l'indirizzo di destinazione. Verifica! Cambia la tua valuta fiat locale per capire quanto puoi inviare. Aggiungi una nota come promemoria utile. Tocca Continua.</string>
+    <string name="Send.cameraUnavailabeMessage.android">Consenti l'accesso alla fotocamera in Impostazioni</string>
 </resources>

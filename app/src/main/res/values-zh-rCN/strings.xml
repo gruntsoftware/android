@@ -664,4 +664,5 @@
     <string name="send_tutorial_description_3a">您有一些 LTC 吗？更改您的本地法币以计算可以发送的金额。或者用 LTC 计算。进入设置以调整您的首选网络费用</string>
     <string name="send_tutorial_title_3b">发送前验证！</string>
     <string name="send_tutorial_description_3b">扫描或粘贴目标地址。仔细检查！更改您的本地法币以计算可以发送的金额。添加备忘录作为便捷提醒。点击继续。</string>
+    <string name="Send.cameraUnavailabeMessage.android">在设置中允许摄像头访问</string>
 </resources>
