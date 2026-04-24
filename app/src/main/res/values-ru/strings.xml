@@ -314,12 +314,10 @@
     <string name="Send.title">Отправить</string>
     <!-- Send money to label -->
     <string name="Send.toLabel">Введите адрес Litecoin</string>
-
     <!-- Enter to match domain name to LTC Address -->
     <!-- Or -->
     <!-- Lookup -->
     <!-- Your address was resolved! -->
-
     <!-- Adress already used alert message - first part -->
     <string name="Send.UsedAddress.firstLine">Биткойн-адреса предназначены исключительно для однократного использования.</string>
     <!-- Adress already used alert message - second part -->
@@ -520,12 +518,10 @@
     <string name="radio_low_privacy">"Низкая конфиденциальность (~ 19 минут) "</string>
     <string name="radio_semi_private">"Полуприватный (~ 42 минуты) "</string>
     <string name="radio_anonymous">"Аноним (~77 минут) "</string>
-
     <!-- Announce Updates View -->
     <string name="Fees.Service">Услуга</string>
     <string name="Network.feeLabel">Сеть</string>
     <string name="ConfirmationAllFees.Label">Сборы:</string>
-
     <string name="cancel">Отмена</string>
     <string name="ok">Хорошо</string>
     <string name="please_grant_notification_permission">Пожалуйста, предоставьте разрешение на уведомление</string>
@@ -636,5 +632,16 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Обучающие материалы</string>
     <string name="coming_soon">Скоро!</string>
-<string name="rice_partner_03_tagline">Пополните счет за 5 минут с нашим партнером</string><string name="unagi_social_01_tagline">Нажмите и подпишитесь на нас!</string><string name="export_transaction_button_title">Экспортировать все транзакции</string><string name="copy_tx_details">Копировать детали транзакции</string><string name="all_label">Все</string><string name="received_label">Получено</string><string name="sent_label">Отправлено</string><string name="ltc_price_label">Цена LTC</string>
-    <string name="sign_up_messaging_title">Подпишитесь на обновления, новости и конкурсы!</string><string name="grant_for_notifications_message">"Пожалуйста, разрешите отправку уведомлений "</string></resources>
+    <string name="rice_partner_03_tagline">Пополните счет за 5 минут с нашим партнером</string>
+    <string name="unagi_social_01_tagline">Нажмите и подпишитесь на нас!</string>
+    <string name="export_transaction_button_title">Экспортировать все транзакции</string>
+    <string name="copy_tx_details">Копировать детали транзакции</string>
+    <string name="all_label">Все</string>
+    <string name="received_label">Получено</string>
+    <string name="sent_label">Отправлено</string>
+    <string name="ltc_price_label">Цена LTC</string>
+    <string name="sign_up_messaging_title">Подпишитесь на обновления, новости и конкурсы!</string>
+    <string name="grant_for_notifications_message">"Пожалуйста, разрешите отправку уведомлений "</string>
+    <string name="tx_id_label">"ID транзакции: "</string>
+    <string name="txns_label">транзакции</string>
+</resources>

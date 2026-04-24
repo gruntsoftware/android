@@ -286,4 +286,6 @@
     <string name="received_label">รับได้</string>
     <string name="sent_label">ส่งแล้ว</string>
     <string name="ltc_price_label">ราคา LTC</string>
+    <string name="tx_id_label">"TX ID: "</string>
+    <string name="txns_label">รายการทำธุรกรรม</string>
 </resources>

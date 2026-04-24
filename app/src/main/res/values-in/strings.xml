@@ -314,12 +314,10 @@
     <string name="Send.title">Kirim</string>
     <!-- Send money to label -->
     <string name="Send.toLabel">Masukkan alamat Litecoin</string>
-
     <!-- Enter to match domain name to LTC Address -->
     <!-- Or -->
     <!-- Lookup -->
     <!-- Your address was resolved! -->
-
     <!-- Adress already used alert message - first part -->
     <string name="Send.UsedAddress.firstLine">Alamat Litecoin hanya ditujukan untuk penggunaan tunggal.</string>
     <!-- Adress already used alert message - second part -->
@@ -510,7 +508,6 @@
     <!-- button label -->
     <!-- button label -->
     <!-- 1 of 3 -->
-
     <string name="BottomNavItem.History.title">Sejarah</string>
     <string name="ManageWallet.balance">Saldo Kartu</string>
     <string name="Login.currentLtcPrice">Nilai LTC saat ini di %1$s</string>
@@ -521,12 +518,10 @@
     <string name="radio_low_privacy">Privasi rendah (~19 menit)</string>
     <string name="radio_semi_private">Semi-pribadi (~42 menit)</string>
     <string name="radio_anonymous">Anonim (~77 menit)</string>
-
     <!-- Announce Updates View -->
     <string name="Fees.Service">Melayani</string>
     <string name="Network.feeLabel">Jaringan</string>
     <string name="ConfirmationAllFees.Label">Biaya:</string>
-
     <string name="cancel">Batal</string>
     <string name="ok">OK</string>
     <string name="please_grant_notification_permission">Harap berikan izin pemberitahuan</string>
@@ -637,5 +632,16 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Tutorial</string>
     <string name="coming_soon">Segera hadir!</string>
-<string name="rice_partner_03_tagline">Top up dalam 5 menit dengan mitra kami</string><string name="unagi_social_01_tagline">Klik dan ikuti kami!</string><string name="export_transaction_button_title">Ekspor Semua Transaksi</string><string name="copy_tx_details">Salin detail transaksi</string><string name="all_label">Semua</string><string name="received_label">Diterima</string><string name="sent_label">Dikirim</string><string name="ltc_price_label">Harga LTC</string>
-    <string name="sign_up_messaging_title">Daftar untuk mendapatkan update, berita, dan kontes!</string><string name="grant_for_notifications_message">"Mohon izinkan notifikasi dari kami "</string></resources>
+    <string name="rice_partner_03_tagline">Top up dalam 5 menit dengan mitra kami</string>
+    <string name="unagi_social_01_tagline">Klik dan ikuti kami!</string>
+    <string name="export_transaction_button_title">Ekspor Semua Transaksi</string>
+    <string name="copy_tx_details">Salin detail transaksi</string>
+    <string name="all_label">Semua</string>
+    <string name="received_label">Diterima</string>
+    <string name="sent_label">Dikirim</string>
+    <string name="ltc_price_label">Harga LTC</string>
+    <string name="sign_up_messaging_title">Daftar untuk mendapatkan update, berita, dan kontes!</string>
+    <string name="grant_for_notifications_message">"Mohon izinkan notifikasi dari kami "</string>
+    <string name="tx_id_label">"ID TX: "</string>
+    <string name="txns_label">txn</string>
+</resources>
