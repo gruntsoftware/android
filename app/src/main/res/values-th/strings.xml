@@ -85,7 +85,6 @@
     <string name="SecurityCenter.title">ศูนย์ความปลอดภัย</string>
     <string name="Send.amountLabel">จำนวนเงิน</string>
     <string name="Send.balance">ยอดคงเหลือ: %1$s</string>
-    <string name="Send.cameraUnavailabeMessage.android">อนุญาตการเข้าถึงกล้องใน "Settings" &gt; "Apps" &gt; "Brainwallet" &gt; "Permissions"</string>
     <string name="Send.cameraUnavailabeTitle.android">Brainwallet ไม่ได้รับอนุญาตให้เข้าถึงกล้อง</string>
     <string name="Send.containsAddress">ที่อยู่ปลายทางเป็นที่อยู่ของคุณเอง คุณไม่สามารถส่งเงินให้ตัวเองได้</string>
     <string name="Send.descriptionLabel">หมายเหตุ</string>
@@ -288,4 +287,26 @@
     <string name="ltc_price_label">ราคา LTC</string>
     <string name="tx_id_label">"TX ID: "</string>
     <string name="txns_label">รายการทำธุรกรรม</string>
+    <string name="send_tutorial_title">วิธีการส่ง Litecoin</string>
+    <string name="brainwallet_walkthrough_title">Brainwallet ทำความคุ้นเคย</string>
+    <string name="brainwallet_walkthrough_description">ลองใช้ฟีเจอร์ทั้งหมดของ Brainwallet ตั้งแต่การส่งและรับคริปโตไปจนถึงการจัดการคีย์ของคุณ</string>
+    <string name="send_tutorial_description">ทำตามขั้นตอนง่าย ๆ เพื่อส่ง LTC ไปยังกระเป๋าของคนอื่น พวกเขาจะได้รับภายในไม่กี่วินาที!</string>
+    <string name="walkthrough_title_1">1. ตรวจสอบยอดคงเหลือของคุณ</string>
+    <string name="walkthrough_description_1">คุณไม่สามารถส่งได้หากเป็นศูนย์หรือกำลังซิงค์ อัปเกรดใน 5 นาทีด้วย MoonPay หากจำเป็น</string>
+    <string name="tap_moonpay_callout_title">แตะที่นี่และอัปเกรด!</string>
+    <string name="walkthrough_title_2">2. การตั้งค่าและโหมดมืด</string>
+    <string name="walkthrough_description_2">ปรับแต่งโดยแตะการตั้งค่าที่มุมขวาบน ตั้งค่าความชอบโหมดมืดของคุณโดยแตะ ที่มุมซ้ายบน</string>
+    <string name="walkthrough_title_3">ตรวจสอบธุรกรรมของคุณ</string>
+    <string name="walkthrough_description_3">เมื่อคุณได้รับธุรกรรม ธุรกรรมเหล่านั้นจะแสดงที่นี่ เลื่อนขึ้นและลงเพื่อตรวจสอบ แตะตัวกรองเพื่อสลับระหว่างทั้งหมด รับหรือส่ง</string>
+    <string name="walkthrough_title_3a">เจาะลึก!</string>
+    <string name="walkthrough_description_3a">แตะประวัติเพื่อแสดงรายละเอียดเพิ่มเติมและขยายมุมมอง เลื่อนขึ้นหรือลงเพื่อดูข้อมูลทั้งหมด</string>
+    <string name="walkthrough_title_4">ตรวจสอบราคา LTC</string>
+    <string name="walkthrough_description_4">Brainwallet อัปเดตราคา Litecoin (LTC) อย่างสม่ำเสมอ เลือกสกุลเงินท้องถิ่นของคุณเพื่อรับอัตราโดยการเลื่อน ใช้ธงของคุณเป็นแนวทาง!</string>
+    <string name="send_tutorial_title_1a">2. แตะแท็บส่ง</string>
+    <string name="send_tutorial_description_1a">ยอดคงเหลือมากกว่าศูนย์? สลับไปยังสกุลเงินหรือ LTC เพื่อคำนวณจำนวนที่จะส่ง ปรับค่าธรรมเนียมเครือข่ายในการตั้งค่า</string>
+    <string name="send_tutorial_title_3a">3. ตั้งค่าจำนวนเงิน</string>
+    <string name="send_tutorial_description_3a">คุณมี LTC หรือไม่ เปลี่ยนตัวเลขเงินฟิแอตท้องถิ่นของคุณเพื่อคำนวณจำนวนที่คุณสามารถส่งได้ หรือคำนวณใน LTC ไปที่การตั้งค่าเพื่อปรับค่าธรรมเนียมเครือข่ายที่คุณต้องการ</string>
+    <string name="send_tutorial_title_3b">ตรวจสอบก่อนส่ง!</string>
+    <string name="send_tutorial_description_3b">สแกนหรือวาง address ปลายทาง ตรวจสอบอีกครั้ง! เปลี่ยนตัวเลขเงินฟิแอตท้องถิ่นของคุณเพื่อคำนวณจำนวนที่คุณสามารถส่งได้ เพิ่มบันทึกเป็นการเตือนที่มีประโยชน์ แตะ ดำเนินการต่อ</string>
+    <string name="Send.cameraUnavailabeMessage.android">อนุญาตการเข้าถึงกล้องในการตั้งค่า</string>
 </resources>

@@ -180,7 +180,7 @@ class BWSenderTest {
                 any()
             )
         } answers {
-            Thread.sleep(200)
+            Thread.sleep(500)
             validSerializedTx
         }
 

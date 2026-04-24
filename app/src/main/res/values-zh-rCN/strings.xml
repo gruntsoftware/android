@@ -278,7 +278,6 @@
     <!-- Balance: $4.00 -->
     <string name="Send.balance">余额：%1$s</string>
     <!-- Instructions how to allow the camera access for the app -->
-    <string name="Send.cameraUnavailabeMessage.android">在“设置”&gt;“应用”&gt;“Loaf”&gt;“权限”中允许访问相机</string>
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">Loaf 没有访问相机的权限</string>
     <!-- Camera not allowed message -->
@@ -644,4 +643,26 @@
     <string name="ltc_price_label">LTC 价格</string>
     <string name="tx_id_label">"交易 ID: "</string>
     <string name="txns_label">笔交易</string>
+    <string name="send_tutorial_title">如何发送 Litecoin</string>
+    <string name="brainwallet_walkthrough_title">Brainwallet 使用指南</string>
+    <string name="brainwallet_walkthrough_description">体验 Brainwallet 的所有功能，从发送和接收加密货币到管理您的密钥。</string>
+    <string name="send_tutorial_description">按照简单步骤将 LTC 发送到他人的钱包。瞬间到账！</string>
+    <string name="walkthrough_title_1">1. 检查您的余额</string>
+    <string name="walkthrough_description_1">如果余额为零或正在同步，您无法发送。如需要，使用 MoonPay 在 5 分钟内充值。</string>
+    <string name="tap_moonpay_callout_title">点击这里充值！</string>
+    <string name="walkthrough_title_2">2. 设置与深色模式</string>
+    <string name="walkthrough_description_2">点击右上角的设置进行微调。点击左上角的 设置您的深色模式偏好。</string>
+    <string name="walkthrough_title_3">查看您的交易</string>
+    <string name="walkthrough_description_3">当您收到交易时，它们会显示在这里。向上或向下滑动查看。点击筛选以切换全部、接收或已发送。</string>
+    <string name="walkthrough_title_3a">深入了解！</string>
+    <string name="walkthrough_description_3a">点击历史记录以显示更多详情并展开视图。向上或向下滑动滚动查看所有信息。</string>
+    <string name="walkthrough_title_4">查看 LTC 价格</string>
+    <string name="walkthrough_description_4">Brainwallet 定期更新 Litecoin (LTC) 的价格。滑动选择您的本地货币以获取汇率。使用您的国旗作为指南！</string>
+    <string name="send_tutorial_title_1a">2. 点击发送标签</string>
+    <string name="send_tutorial_description_1a">余额大于零？切换到货币或 LTC 以计算发送金额。在设置中调整网络费用</string>
+    <string name="send_tutorial_title_3a">3. 设置金额</string>
+    <string name="send_tutorial_description_3a">您有一些 LTC 吗？更改您的本地法币以计算可以发送的金额。或者用 LTC 计算。进入设置以调整您的首选网络费用</string>
+    <string name="send_tutorial_title_3b">发送前验证！</string>
+    <string name="send_tutorial_description_3b">扫描或粘贴目标地址。仔细检查！更改您的本地法币以计算可以发送的金额。添加备忘录作为便捷提醒。点击继续。</string>
+    <string name="Send.cameraUnavailabeMessage.android">在设置中允许摄像头访问</string>
 </resources>

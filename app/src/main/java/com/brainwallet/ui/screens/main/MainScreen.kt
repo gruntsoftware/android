@@ -75,7 +75,9 @@ import com.brainwallet.ui.bentosections.favouritesbento.FavouritesBentoScreen
 import com.brainwallet.ui.bentosections.gamehubbento.GameHubBentoPagerScreen
 import com.brainwallet.ui.bentosections.ltcpickerbento.LTCPickerBentoScreen
 import com.brainwallet.ui.bentosections.transactionbento.TransactionsBentoScreen
-import com.brainwallet.ui.bentosections.tutorials.TutorialsBentoScreen
+import com.brainwallet.ui.bentosections.tutorials.TutorialsBentoPagerScreen
+import com.brainwallet.ui.bentosections.tutorials.send.TutorialSendPagerScreen
+import com.brainwallet.ui.bentosections.tutorials.walkthrough.TutorialWalkthroughPagerScreen
 import com.brainwallet.ui.composable.BentoBottomNavBar
 import com.brainwallet.ui.screens.main.MainScreenEvent
 import com.brainwallet.ui.screens.main.MainViewModel
@@ -86,6 +88,7 @@ import com.brainwallet.ui.screens.settings.settingsrows.HomeSettingDrawerSheet
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.ui.theme.bentoClearGradient
 import com.brainwallet.ui.theme.bentoModalDarkGradient
+import com.brainwallet.ui.theme.bentoSemiWhiteGradient
 import com.brainwallet.ui.theme.blurAnimatedWith
 import com.brainwallet.ui.theme.mainScreenDarkSurfaceGradient
 import com.brainwallet.ui.theme.mainScreenLightSurfaceGradient
@@ -117,7 +120,12 @@ fun MainScreen(
     val showTransactionDetail = state.showTransactionDetail
     val noTxItemsPresent = state.transactionItems.isEmpty()
     val blurRadiusWhen by animateFloatAsState(
-        targetValue = if (isSheetOpen) 40f else 0f,
+        targetValue = when {
+            !isSheetOpen -> 0f
+            modalContentRoute == Route.TutorialSend ||
+                modalContentRoute == Route.TutorialWalkthrough -> 0f
+            else -> 40f
+        },
         animationSpec = tween(durationMillis = 400),
         label = "blurRadius"
     )
@@ -295,7 +303,18 @@ fun MainScreen(
                                 exit = fadeOut(tween(FADE_OUT_DURATION)),
                             ) {
                                 Box(modifier = Modifier.height(availableHeight)) {
-                                    TutorialsBentoScreen()
+                                    TutorialsBentoPagerScreen(onClick = { page ->
+                                        when (page) {
+                                            0 -> {
+                                                modalContentRoute = Route.TutorialWalkthrough
+                                                isSheetOpen = true
+                                            }
+                                            1 -> {
+                                                modalContentRoute = Route.TutorialSend
+                                                isSheetOpen = true
+                                            }
+                                        }
+                                    })
                                 }
                             }
                         }
@@ -372,12 +391,24 @@ fun MainScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentWidth()
-                        .fillMaxHeight(0.85f)
+                        .fillMaxHeight(
+                            if (modalContentRoute == Route.TutorialSend ||
+                                modalContentRoute == Route.TutorialWalkthrough
+                            ) {
+                                1f
+                            } else {
+                                0.85f
+                            }
+                        )
                         .background(
                             brush = if (modalContentRoute == Route.BuyReceive) {
                                 bentoClearGradient
                             } else if (isDarkMode && modalContentRoute == Route.Send) {
                                 bentoModalDarkGradient
+                            } else if (modalContentRoute == Route.TutorialSend ||
+                                modalContentRoute == Route.TutorialWalkthrough
+                            ) {
+                                bentoSemiWhiteGradient
                             } else {
                                 mainScreenLightSurfaceGradient
                             },
@@ -405,6 +436,16 @@ fun MainScreen(
                                 .fillMaxWidth(0.9f)
                                 .align(Alignment.Center),
                             onDismissRequest = { isSheetOpen = false }
+                        )
+
+                        Route.TutorialSend -> TutorialSendPagerScreen(
+                            onNavigate = onNavigate,
+                            onDismissTutorialSendModal = { isSheetOpen = false }
+                        )
+
+                        Route.TutorialWalkthrough -> TutorialWalkthroughPagerScreen(
+                            onNavigate = onNavigate,
+                            onDismissTutorialWalkthroughModal = { isSheetOpen = false }
                         )
                         else -> {}
                     }

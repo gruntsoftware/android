@@ -278,7 +278,6 @@
     <!-- Balance: $4.00 -->
     <string name="Send.balance">残高: %1$s</string>
     <!-- Instructions how to allow the camera access for the app -->
-    <string name="Send.cameraUnavailabeMessage.android">「設定」 &gt; 「アプリ」 &gt; 「ブレッド」 &gt; 「許可」でカメラへのアクセスを許可してください</string>
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">ブレッドはカメラへのアクセスを許可されていません</string>
     <!-- Camera not allowed message -->
@@ -644,4 +643,26 @@
     <string name="grant_for_notifications_message">"通知の許可をお願いします "</string>
     <string name="tx_id_label">"TX ID: "</string>
     <string name="txns_label">トランザクション</string>
+    <string name="send_tutorial_title">Litecoinの送信方法</string>
+    <string name="brainwallet_walkthrough_title">Brainwallet チュートリアル</string>
+    <string name="brainwallet_walkthrough_description">送受信からキー管理まで、Brainwalletのすべての機能をお試しください。</string>
+    <string name="send_tutorial_description">簡単なステップに従って、LTCを他のウォレットに送信します。数秒で到着します！</string>
+    <string name="walkthrough_title_1">1. 残高を確認</string>
+    <string name="walkthrough_description_1">残高がゼロまたは同期中の場合は送信できません。必要に応じてMoonPayで5分でチャージしてください。</string>
+    <string name="tap_moonpay_callout_title">ここをタップしてチャージ！</string>
+    <string name="walkthrough_title_2">2. 設定とダークモード</string>
+    <string name="walkthrough_description_2">右上の設定をタップして調整します。左上の☀をタップしてダークモードの設定を行います。</string>
+    <string name="walkthrough_title_3">トランザクションを確認</string>
+    <string name="walkthrough_description_3">トランザクションがここに表示されます。上下にスワイプして確認できます。フィルターをタップして、すべて、受信、送信を切り替えます。</string>
+    <string name="walkthrough_title_3a">詳細を確認！</string>
+    <string name="walkthrough_description_3a">履歴をタップして詳細を表示し、ビューを展開します。上下にスワイプしてすべての情報をスクロールできます。</string>
+    <string name="walkthrough_title_4">LTC価格をチェック</string>
+    <string name="walkthrough_description_4">Brainwalletは定期的にLitecoin（LTC）の価格を更新します。スワイプして現地通貨を選択してレートを確認できます。フラグを参考にしてください！</string>
+    <string name="send_tutorial_title_1a">2. 送信タブをタップ</string>
+    <string name="send_tutorial_description_1a">残高がゼロ以上ですか？通貨またはLTCに切り替えて、送信額を計算します。設定でネットワーク手数料を調整できます</string>
+    <string name="send_tutorial_title_3a">3. 金額を設定</string>
+    <string name="send_tutorial_description_3a">LTCをお持ちですか？現地通貨で計算して送信可能な金額を確認できます。または、LTCで計算してください。設定で希望のネットワーク手数料を調整できます</string>
+    <string name="send_tutorial_title_3b">送信前に確認！</string>
+    <string name="send_tutorial_description_3b">宛先アドレスをスキャンまたは貼り付けます。よく確認してください！現地通貨で計算して送信可能な金額を確認します。メモを追加して便利に管理できます。続けるをタップします。</string>
+    <string name="Send.cameraUnavailabeMessage.android">設定からカメラへのアクセスを許可してください</string>
 </resources>

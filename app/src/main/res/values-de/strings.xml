@@ -139,7 +139,6 @@
     <!-- Balance: $4.00 -->
     <string name="Send.balance">Guthaben: %1$s</string>
     <!-- Instructions how to allow the camera access for the app -->
-    <string name="Send.cameraUnavailabeMessage.android">Erlauben Sie den Kamerazugriff unter „Einstellungen” &gt; „Apps” &gt; „Loaf” &gt; „Berechtigungen”</string>
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">Loaf hat keine Berechtigung für Kamerazugriff</string>
     <string name="Send.containsAddress">Das Ziel ist deine eigene Adresse. Du kannst nichts an dich selbst senden.</string>
@@ -418,4 +417,26 @@
     <string name="grant_for_notifications_message">"Bitte akzeptieren Sie die Berechtigung für unsere Benachrichtigungen "</string>
     <string name="tx_id_label">"TX ID: "</string>
     <string name="txns_label">Txns</string>
+    <string name="send_tutorial_title">Wie man Litecoin sendet</string>
+    <string name="brainwallet_walkthrough_title">Brainwallet Anleitung</string>
+    <string name="brainwallet_walkthrough_description">Probiere alle Funktionen von Brainwallet aus – vom Senden und Empfangen von Kryptowährungen bis zur Verwaltung deiner Schlüssel.</string>
+    <string name="send_tutorial_description">Folge den einfachen Schritten, um LTC an die Wallet eines anderen zu senden. Er erhält es in Sekunden!</string>
+    <string name="walkthrough_title_1">1. Überprüfe deinen Saldo</string>
+    <string name="walkthrough_description_1">Du kannst nicht senden, wenn er null ist oder synchronisiert wird. Stocke bei Bedarf in 5 Minuten mit MoonPay auf.</string>
+    <string name="tap_moonpay_callout_title">Hier tippen &amp; aufladen!</string>
+    <string name="walkthrough_title_2">2. Einstellungen &amp; Dunkler Modus</string>
+    <string name="walkthrough_description_2">Passe deine Einstellungen an, indem du oben rechts auf Einstellungen tippst. Stelle deine Dunkelmodus-Voreinstellung ein, indem du oben links auf das  tippst.</string>
+    <string name="walkthrough_title_3">Überprüfe deine Transaktionen</string>
+    <string name="walkthrough_description_3">Wenn du Transaktionen erhältst, werden sie hier angezeigt. Wische nach oben und unten, um sie zu überprüfen. Tippe auf Filter, um zwischen Alle, Empfangen oder Gesendet zu wechseln.</string>
+    <string name="walkthrough_title_3a">Tiefer einsteigen!</string>
+    <string name="walkthrough_description_3a">Tippe auf Verlauf, um mehr Details anzuzeigen und die Ansicht zu erweitern. Wische nach oben oder unten, um durch alle Informationen zu blättern.</string>
+    <string name="walkthrough_title_4">Überprüfe den LTC-Preis</string>
+    <string name="walkthrough_description_4">Brainwallet aktualisiert den Litecoin-Preis (LTC) regelmäßig. Wähle deine Landeswährung, um den Kurs zu sehen, indem du wischst. Verwende deine Flagge als Orientierungshilfe!</string>
+    <string name="send_tutorial_title_1a">2. Tippe auf den Senden-Tab</string>
+    <string name="send_tutorial_description_1a">Saldo größer null? Wechsle zwischen Währung und LTC, um herauszufinden, wie viel du senden möchtest. Passe die Netzwerkgebühr in den Einstellungen an.</string>
+    <string name="send_tutorial_title_3a">3. Gib die Werte ein</string>
+    <string name="send_tutorial_description_3a">Hast du etwas LTC? Ändere deine lokale Währung, um herauszufinden, wie viel du senden kannst. Oder berechne in LTC. Gehe zu den Einstellungen, um deine bevorzugte Netzwerkgebühr anzupassen.</string>
+    <string name="send_tutorial_title_3b">Überprüfe vor dem Senden!</string>
+    <string name="send_tutorial_description_3b">Scanne oder füge die Zieladresse ein. Überprüfe sie genau! Ändere deine lokale Währung, um herauszufinden, wie viel du senden kannst. Füge eine Notiz als praktische Erinnerung hinzu. Tippe auf Weiter.</string>
+    <string name="Send.cameraUnavailabeMessage.android">Kamerazugriff in den Einstellungen aktivieren</string>
 </resources>

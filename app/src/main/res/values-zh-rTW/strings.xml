@@ -277,7 +277,6 @@
     <!-- Balance: $4.00 -->
     <string name="Send.balance">餘額：%1$s</string>
     <!-- Instructions how to allow the camera access for the app -->
-    <string name="Send.cameraUnavailabeMessage.android">到「設定」 &gt; 「應用程式」 &gt; 「Loaf」 &gt; 「權限」允許相機存取</string>
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">Loaf 尚未獲准存取相機</string>
     <!-- Camera not allowed message -->
@@ -644,4 +643,26 @@
     <string name="ltc_price_label">LTC 價格</string>
     <string name="tx_id_label">"交易 ID："</string>
     <string name="txns_label">交易</string>
+    <string name="send_tutorial_title">如何發送Litecoin</string>
+    <string name="brainwallet_walkthrough_title">Brainwallet 功能導覽</string>
+    <string name="brainwallet_walkthrough_description">探索Brainwallet的所有功能，從發送和接收加密貨幣到管理您的密鑰。</string>
+    <string name="send_tutorial_description">按照簡單步驟將LTC發送到他人的錢包。幾秒鐘內即可完成！</string>
+    <string name="walkthrough_title_1">1. 檢查您的餘額</string>
+    <string name="walkthrough_description_1">餘額為零或正在同步時無法發送。如果需要，可透過MoonPay在5分鐘內充值。</string>
+    <string name="tap_moonpay_callout_title">點擊這裡進行充值！</string>
+    <string name="walkthrough_title_2">2. 設定與深色模式</string>
+    <string name="walkthrough_description_2">點擊右上角的設定進行調整。點擊左上角的 圖示可設定深色模式偏好。</string>
+    <string name="walkthrough_title_3">檢查您的交易</string>
+    <string name="walkthrough_description_3">交易會顯示在這裡。向上或向下滑動查看。點擊篩選器可切換全部、接收或已發送。</string>
+    <string name="walkthrough_title_3a">深入瞭解！</string>
+    <string name="walkthrough_description_3a">點擊歷史記錄以顯示更多詳細資訊並展開檢視。向上或向下滑動以瀏覽所有資訊。</string>
+    <string name="walkthrough_title_4">查看LTC價格</string>
+    <string name="walkthrough_description_4">Brainwallet會定期更新Litecoin (LTC)的價格。滑動選擇您的本地貨幣以取得匯率。使用旗幟作為參考！</string>
+    <string name="send_tutorial_title_1a">2. 點擊發送標籤</string>
+    <string name="send_tutorial_description_1a">餘額大於零？切換至本地貨幣或LTC以確定發送金額。在設定中調整網絡費用。</string>
+    <string name="send_tutorial_title_3a">3. 設定金額</string>
+    <string name="send_tutorial_description_3a">您有LTC嗎？將本地法幣轉換為LTC以確定可發送金額。或以LTC計算。進入設定以調整您的首選網絡費用。</string>
+    <string name="send_tutorial_title_3b">發送前驗證！</string>
+    <string name="send_tutorial_description_3b">掃描或貼上目標地址。仔細核實！將本地法幣轉換為LTC以確定可發送金額。新增備忘錄作為方便的提醒。點擊繼續。</string>
+    <string name="Send.cameraUnavailabeMessage.android">在設定中允許相機存取</string>
 </resources>

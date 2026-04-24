@@ -508,7 +508,6 @@
     <string name="ManageWallet.balance">Баланс</string>
     <string name="Login.currentLtcPrice">Поточне значення LTC в %1$s</string>
     <string name="Settings.languages">Мови</string>
-    <string name="Send.cameraUnavailabeMessage.android">Дозволити доступ до камери в \"Налаштуваннях\" &gt; \"Програми\" &gt; \\Brainwallet\" &gt; \"Дозволи\"</string>
     <string name="UnlockScreen.touchIdTitle.android">Потрібна автентифікація</string>
     <string name="PaymentProtocol.Errors.badPaymentRequest">Поганий запит на оплату</string>
     <string name="NodeSelector.connected">Підключено</string>
@@ -646,4 +645,26 @@
     <string name="ltc_price_label">Ціна LTC</string>
     <string name="tx_id_label">"ID транзакції: "</string>
     <string name="txns_label">транз.</string>
+    <string name="send_tutorial_title">Як відправити Litecoin</string>
+    <string name="brainwallet_walkthrough_title">Огляд Brainwallet</string>
+    <string name="brainwallet_walkthrough_description">Спробуйте всі функції Brainwallet: від відправлення та отримання криптовалюти до управління вашими ключами.</string>
+    <string name="send_tutorial_description">Виконайте прості кроки, щоб відправити LTC на гаманець іншої людини. Вони отримають це за кілька секунд!</string>
+    <string name="walkthrough_title_1">1. Перевірте свій баланс</string>
+    <string name="walkthrough_description_1">Ви не можете відправити, якщо баланс нульовий або синхронізується. За потреби поповніть його за 5 хвилин через MoonPay.</string>
+    <string name="tap_moonpay_callout_title">Натисніть сюди й поповніть!</string>
+    <string name="walkthrough_title_2">2. Налаштування та темний режим</string>
+    <string name="walkthrough_description_2">Налаштуйте параметри, натиснувши «Налаштування» у верхньому правому куті. Установіть режим темної тематики, натиснувши на у верхньому лівому куті.</string>
+    <string name="walkthrough_title_3">Переглядайте ваші транзакції</string>
+    <string name="walkthrough_description_3">Коли ви отримуєте транзакції, вони відображаються тут. Проведіть пальцем вгору та вниз для перевірки. Натисніть на фільтр, щоб переключатися між «Усі», «Отримані» або «Відправлені».</string>
+    <string name="walkthrough_title_3a">Дивіться детальніше!</string>
+    <string name="walkthrough_description_3a">Натисніть на «Історія», щоб показати більше деталей та розширити вид. Проведіть пальцем вгору або вниз для перегляду всієї інформації.</string>
+    <string name="walkthrough_title_4">Перевірте ціну LTC</string>
+    <string name="walkthrough_description_4">Brainwallet регулярно оновлює ціну Litecoin (LTC). Виберіть вашу місцеву валюту, щоб дізнатися курс, проведіть пальцем. Використовуйте вашу країну як орієнтир!</string>
+    <string name="send_tutorial_title_1a">2. Натисніть на вкладку «Відправити»</string>
+    <string name="send_tutorial_description_1a">Баланс більший за нуль? Перейдіть на вашу валюту або LTC, щоб визначити суму для відправлення. Відрегулюйте комісію мережі в налаштуваннях</string>
+    <string name="send_tutorial_title_3a">3. Установіть суми</string>
+    <string name="send_tutorial_description_3a">У вас є деякі LTC? Змініть вашу місцеву валюту на фіатну, щоб дізнатися, скільки можна відправити. Або розраховуйте в LTC. Перейдіть у налаштування, щоб відрегулювати бажану комісію мережі</string>
+    <string name="send_tutorial_title_3b">Перевірте перед відправленням!</string>
+    <string name="send_tutorial_description_3b">Відсканюйте або вставте адресу призначення. Перевірте двічі! Змініть вашу місцеву валюту на фіатну, щоб дізнатися, скільки можна відправити. Додайте замітку як корисне нагадування. Натисніть «Продовжити».</string>
+    <string name="Send.cameraUnavailabeMessage.android">Дозвольте доступ до камери в Налаштуваннях</string>
 </resources>

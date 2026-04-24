@@ -85,7 +85,6 @@
     <string name="SecurityCenter.title">Beveiligingscentrum</string>
     <string name="Send.amountLabel">Bedrag</string>
     <string name="Send.balance">Saldo: %1$s</string>
-    <string name="Send.cameraUnavailabeMessage.android">Sta cameratoegang toe in \"Instellingen\" &gt; \"Apps\" &gt; \"Brainwallet\" &gt; \"Machtigingen\"</string>
     <string name="Send.cameraUnavailabeTitle.android">Brainwallet mag niet op de camera zugreifen</string>
     <string name="Send.containsAddress">Het doeladdres is je eigen adres. Je kunt niet naar jezelf versturen.</string>
     <string name="Send.descriptionLabel">Notitie</string>
@@ -288,4 +287,26 @@
     <string name="ltc_price_label">LTC Prijs</string>
     <string name="tx_id_label">"TX ID: "</string>
     <string name="txns_label">txns</string>
+    <string name="send_tutorial_title">Hoe u Litecoin verzendt</string>
+    <string name="brainwallet_walkthrough_title">Brainwallet-rondleiding</string>
+    <string name="brainwallet_walkthrough_description">Probeer alle functies van Brainwallet uit, van het verzenden en ontvangen van crypto tot het beheren van uw sleutels.</string>
+    <string name="send_tutorial_description">Volg de eenvoudige stappen om LTC naar de portemonnee van iemand anders te verzenden. Ze ontvangen het in enkele seconden!</string>
+    <string name="walkthrough_title_1">1. Controleer uw saldo</string>
+    <string name="walkthrough_description_1">U kunt niet verzenden als het nul is of als het synchroniseert. Vul indien nodig in 5 minuten bij met MoonPay.</string>
+    <string name="tap_moonpay_callout_title">Tik hier en vul aan!</string>
+    <string name="walkthrough_title_2">2. Instellingen &amp; Donkere modus</string>
+    <string name="walkthrough_description_2">Verfijn de instellingen door rechtsboven op Instellingen te tikken. Stel uw voorkeur voor donkere modus in door linksboven op de te tikken.</string>
+    <string name="walkthrough_title_3">Controleer uw transacties</string>
+    <string name="walkthrough_description_3">Wanneer u transacties ontvangt, worden deze hier weergegeven. Veeg omhoog en omlaag om te controleren. Tik op filter om tussen Alles, Ontvangen of Verzonden te schakelen.</string>
+    <string name="walkthrough_title_3a">Duik dieper!</string>
+    <string name="walkthrough_description_3a">Tik op Geschiedenis om meer details weer te geven en de weergave uit te breiden. Veeg omhoog of omlaag om door alle informatie te scrollen.</string>
+    <string name="walkthrough_title_4">Controleer de LTC-prijs</string>
+    <string name="walkthrough_description_4">Brainwallet werkt de prijs van Litecoin (LTC) regelmatig bij. Kies uw lokale valuta om het tarief te zien door te vegen. Gebruik uw vlag als gids!</string>
+    <string name="send_tutorial_title_1a">2. Tik op het tabblad Verzenden</string>
+    <string name="send_tutorial_description_1a">Saldo groter dan nul? Schakel tussen valuta of LTC om uit te rekenen hoeveel u wilt verzenden. Pas de netwerkvergoeding aan in de instellingen</string>
+    <string name="send_tutorial_title_3a">3. Stel de waarden in</string>
+    <string name="send_tutorial_description_3a">Heeft u wat LTC? Wijzig uw lokale bedrag in fiat om uit te rekenen hoeveel u kunt verzenden. Of bereken in LTC. Ga naar instellingen om uw voorkeursnetwerkvergoeding aan te passen</string>
+    <string name="send_tutorial_title_3b">Verifieer voordat u verzendt!</string>
+    <string name="send_tutorial_description_3b">Scan of plak het doeladdres. Dubbel controleren! Wijzig uw lokale fiat om uit te rekenen hoeveel u kunt verzenden. Voeg een memo toe als handige herinnering. Tik op Doorgaan.</string>
+    <string name="Send.cameraUnavailabeMessage.android">Sta cameratoegang toe in Instellingen</string>
 </resources>

@@ -142,6 +142,18 @@ val bentoClearGradient: Brush
         start = Offset(Float.MIN_VALUE, Float.POSITIVE_INFINITY),
         end = Offset(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY),
     )
+
+val bentoSemiWhiteGradient: Brush
+
+    @Composable
+    get() = Brush.linearGradient(
+        colors = listOf(
+            Color(0xFFFFFFFF).copy(alpha = 0.2f),
+            Color(0xFFFFFFFF).copy(alpha = 0.2f)
+        ),
+        start = Offset(Float.MIN_VALUE, Float.POSITIVE_INFINITY),
+        end = Offset(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY),
+    )
 val bentoBalanceGameDarkBorderGradient: Brush
 
     @Composable

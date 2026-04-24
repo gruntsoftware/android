@@ -278,7 +278,6 @@
     <!-- Balance: $4.00 -->
     <string name="Send.balance">توازن: %1$s</string>
     <!-- Instructions how to allow the camera access for the app -->
-    <string name="Send.cameraUnavailabeMessage.android">"سیٹنگز" &gt; "ایپس" &gt; "برین والٹ" &gt; "پرمیشرز" وچ کیمرہ رسائی دی اجازت دو۔</string>
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">برین والٹ کو کیمرے تک رسائی کی اجازت نہیں ہے۔</string>
     <!-- Camera not allowed message -->
@@ -654,4 +653,26 @@
     <string name="grant_for_notifications_message">"ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੀਆਂ ਸੂਚਨਾਵਾਂ ਲਈ ਅਨੁਮਤੀ ਦਿਓ "</string>
     <string name="tx_id_label">"TX ID: "</string>
     <string name="txns_label">ਲੈਣ-ਦੇਣ</string>
+    <string name="send_tutorial_title">Litecoin ਭੇਜਣਾ ਕਿਵੇਂ ਹੈ</string>
+    <string name="brainwallet_walkthrough_title">Brainwallet ਵਾਕਥਰੂ</string>
+    <string name="brainwallet_walkthrough_description">Brainwallet ਦੀਆਂ ਸਾਰੀਆਂ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਆਜ਼ਮਾਓ, ਕ੍ਰਿਪਟੋ ਭੇਜਣ ਅਤੇ ਪ੍ਰਾਪਤ ਕਰਨ ਤੋਂ ਲੈ ਕੇ ਆਪਣੀਆਂ ਕੁੰਜੀਆਂ ਦਾ ਪ੍ਰਬੰਧਨ ਕਰਨ ਤੱਕ।</string>
+    <string name="send_tutorial_description">LTC ਕਿਸੇ ਹੋਰ ਦੇ ਵਾਲਟ ਵਿੱਚ ਭੇਜਣ ਲਈ ਆਸਾਨ ਕਦਮਾਂ ਦੀ ਪਾਲਣਾ ਕਰੋ। ਉਹਨਾਂ ਨੂੰ ਸਕਿੰਟਾਂ ਵਿੱਚ ਮਿਲ ਜਾਂਦਾ ਹੈ!</string>
+    <string name="walkthrough_title_1">1. ਆਪਣਾ ਬਕਾਇਆ ਚੈਕ ਕਰੋ</string>
+    <string name="walkthrough_description_1">ਜੇ ਇਹ ਜ਼ੀਰੋ ਹੈ ਜਾਂ ਸਿੰਕ ਹੋ ਰਿਹਾ ਹੈ ਤਾਂ ਤੁਸੀਂ ਭੇਜ ਨਹੀਂ ਸਕ ਸਕਦੇ। ਲੋੜ ਪਵੇ ਤਾਂ MoonPay ਨਾਲ 5 ਮਿੰਟਾਂ ਵਿੱਚ ਟੌਪ ਅੱਪ ਕਰੋ।</string>
+    <string name="tap_moonpay_callout_title">ਇੱਥੇ ਟੈਪ ਕਰੋ ਅਤੇ ਟੌਪ ਅੱਪ ਕਰੋ!</string>
+    <string name="walkthrough_title_2">2. ਸੈਟਿੰਗਸ ਅਤੇ ਡਾਰਕ ਮੋਡ</string>
+    <string name="walkthrough_description_2">ਸੱਜੇ ਪਾਸੇ ਸਟੀਕ ਅਪਣਾਉਣ ਲਈ ਸੈਟਿੰਗਸ \'ਤੇ ਟੈਪ ਕਰੋ। ਉੱਪਰ ਖੱਬੇ ਪਾਸੇ \'ਤੇ ਟੈਪ ਕਰ ਕੇ ਆਪਣੀ ਡਾਰਕ ਮੋਡ ਤਰਜੀਹ ਸੈਟ ਕਰੋ।</string>
+    <string name="walkthrough_title_3">ਆਪਣੀਆਂ ਲੈਣ-ਦੇਣ ਦੀ ਸਮੀਖਿਆ ਕਰੋ</string>
+    <string name="walkthrough_description_3">ਜਦੋਂ ਤੁਹਾਨੂੰ ਲੈਣ-ਦੇਣ ਮਿਲਦੀ ਹੈ, ਉਹ ਇੱਥੇ ਦਿਖਾਈ ਦਿੰਦੀ ਹੈ। ਚੈਕ ਕਰਨ ਲਈ ਉੱਪਰ ਅਤੇ ਹੇਠਾਂ ਸਵਾਈਪ ਕਰੋ। ਸਭ, ਪ੍ਰਾਪਤ ਜਾਂ ਭੇਜੇ ਗਏ ਨੂੰ ਟੋਗਲ ਕਰਨ ਲਈ ਫਿਲਟਰ \'ਤੇ ਟੈਪ ਕਰੋ।</string>
+    <string name="walkthrough_title_3a">ਡੂੰਘੇ ਹੋ ਜਾਓ!</string>
+    <string name="walkthrough_description_3a">ਹੋਰ ਵਿਸਥਾਰ ਦਿਖਾਉਣ ਅਤੇ ਵਿਊ ਨੂੰ ਵਿਸਤਾਰ ਕਰਨ ਲਈ ਹਿਸਟਰੀ \'ਤੇ ਟੈਪ ਕਰੋ। ਸਾਰੀ ਜਾਣਕਾਰੀ ਵਿਚੋਂ ਸਕ੍ਰੋਲ ਕਰਨ ਲਈ ਉੱਪਰ ਜਾਂ ਹੇਠਾਂ ਸਵਾਈਪ ਕਰੋ।</string>
+    <string name="walkthrough_title_4">LTC ਮੁੱਲ ਦੀ ਜਾਂਚ ਕਰੋ</string>
+    <string name="walkthrough_description_4">Brainwallet ਨਿਯਮਿਤ ਰੂਪ ਨਾਲ Litecoin (LTC) ਦੀ ਕੀਮਤ ਅਪਡੇਟ ਕਰਦਾ ਹੈ। ਦਰ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਸਵਾਈਪ ਕਰ ਕੇ ਆਪਣੀ ਸਥਾਨਕ ਮੁਦਰਾ ਚੁਣੋ। ਆਪਣਾ ਝੰਡਾ ਗਾਈਡ ਦੇ ਰੂਪ ਵਿੱਚ ਵਰਤੋ!</string>
+    <string name="send_tutorial_title_1a">2. ਭੇਜੋ ਟੈਬ \'ਤੇ ਟੈਪ ਕਰੋ</string>
+    <string name="send_tutorial_description_1a">ਬਕਾਇਆ ਜ਼ੀਰੋ ਤੋਂ ਵੱਧ ਹੈ? ਇਹ ਪਤਾ ਲਗਾਉਣ ਲਈ ਮੁਦਰਾ ਜਾਂ LTC ਵਿੱਚ ਸਵਿੱਚ ਕਰੋ ਕਿ ਕਿੰਨਾ ਭੇਜਣਾ ਹੈ। ਸੈਟਿੰਗਸ ਵਿੱਚ ਨੈਟਵਰਕ ਫੀਸ ਨੂੰ ਸਮਾਯੋਜਿਤ ਕਰੋ</string>
+    <string name="send_tutorial_title_3a">3. ਮੁੱਲ ਸੈਟ ਕਰੋ</string>
+    <string name="send_tutorial_description_3a">ਕੀ ਤੁਹਾਡੇ ਕੋਲ ਕੁਝ LTC ਹੈ? ਇਹ ਪਤਾ ਲਗਾਉਣ ਲਈ ਆਪਣੀ ਸਥਾਨਕ ਫਿਆਟ ਸੰਖਿਆ ਨੂੰ ਬਦਲੋ ਕਿ ਤੁਸੀਂ ਕਿੰਨਾ ਭੇਜ ਸਕਦੇ ਹੋ। ਜਾਂ, LTC ਵਿੱਚ ਗਣਨਾ ਕਰੋ। ਆਪਣੀ ਪਸੰਦ ਦੀ ਨੈਟਵਰਕ ਫੀਸ ਨੂੰ ਸਮਾਯੋਜਿਤ ਕਰਨ ਲਈ ਸੈਟਿੰਗਸ ਵਿੱਚ ਜਾਓ</string>
+    <string name="send_tutorial_title_3b">ਭੇਜਣ ਤੋਂ ਪਹਿਲਾਂ ਤਸਦੀਕ ਕਰੋ!</string>
+    <string name="send_tutorial_description_3b">ਮੰਜ਼ਿਲ ਦਾ ਪਤਾ ਸਕੈਨ ਕਰੋ ਜਾਂ ਚਿਪਕਾਓ। ਦੋ ਵਾਰ ਚੈਕ ਕਰੋ! ਇਹ ਪਤਾ ਲਗਾਉਣ ਲਈ ਆਪਣੀ ਸਥਾਨਕ ਫਿਆਟ ਨੂੰ ਬਦਲੋ ਕਿ ਤੁਸੀਂ ਕਿੰਨਾ ਭੇਜ ਸਕਦੇ ਹੋ। ਆਸਾਨ ਯਾਦ ਦਿਖਾਉਣ ਲਈ ਇੱਕ ਯਾਦ ਸ਼ਾਮਲ ਕਰੋ। ਜਾਰੀ ਰੱਖੋ \'ਤੇ ਟੈਪ ਕਰੋ।</string>
+    <string name="Send.cameraUnavailabeMessage.android">ਸੈਟਿੰਗਜ਼ ਵਿੱਚ ਕੈਮਰੇ ਦੀ ਅਨੁਮਤੀ ਦਿਓ</string>
 </resources>
