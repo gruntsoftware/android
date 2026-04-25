@@ -1,8 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="About.blog">वेबसाइट</string>
-    <string name="About.privacy">गोपनीयता नीति</string>
-    <string name="About.title">के बारे में</string>
     <string name="AccessibilityLabels.close">बंद करना</string>
     <string name="Alert.error">गलती</string>
     <string name="Alert.keystore.invalidated.android">आपका ब्रेनवॉलेट एन्क्रिप्टेड डेटा हाल ही में अमान्य कर दिया गया था क्योंकि आपकी एंड्रॉइड लॉक स्क्रीन अक्षम कर दी गई थी।</string>
@@ -285,8 +282,6 @@
     <string name="ltc_price_label">LTC मूल्य</string>
     <string name="sign_up_messaging_title">अपडेट, समाचार और प्रतियोगिताओं के लिए साइन अप करें!</string>
     <string name="grant_for_notifications_message">"कृपया हमारी सूचनाओं के लिए अनुमति स्वीकार करें "</string>
-    <string name="tx_id_label">"TX ID: "</string>
-    <string name="txns_label">लेनदेन</string>
     <string name="send_tutorial_title">Litecoin कैसे भेजें</string>
     <string name="brainwallet_walkthrough_title">Brainwallet वॉकथ्रू</string>
     <string name="brainwallet_walkthrough_description">Brainwallet की सभी सुविधाओं को आजमाएं, क्रिप्टो भेजने और प्राप्त करने से लेकर अपनी कुंजियों को प्रबंधित करने तक।</string>

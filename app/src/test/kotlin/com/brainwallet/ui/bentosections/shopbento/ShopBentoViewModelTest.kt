@@ -82,10 +82,10 @@ class ShopBentoViewModelTest {
             val turbine = viewModel.state.testIn(backgroundScope)
 
             settingsFlow.emit(AppSetting())
-            advanceTimeBy(100)
+            advanceTimeBy(200)
 
             viewModel.onEvent(ShopBentoEvent.OnTapShop)
-            advanceTimeBy(100)
+            advanceTimeBy(200)
 
             assertEquals(true, turbine.expectMostRecentItem().shouldSlide)
             turbine.cancelAndIgnoreRemainingEvents()

@@ -2,14 +2,11 @@
 <resources>
     <!-- App name -->
     <!-- About screen blog label -->
-    <string name="About.blog">Блог</string>
     <!-- About screen footer -->
     <!-- Privay Policy button label -->
-    <string name="About.privacy">Политика конфиденциальности</string>
     <!-- About screen Instagram label -->
     <!-- Terms of Use button label -->
     <!-- About screen title -->
-    <string name="About.title">О нас</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">Закрыть</string>
     <!-- Support center accessibiliy label -->
@@ -641,8 +638,6 @@
     <string name="ltc_price_label">Цена LTC</string>
     <string name="sign_up_messaging_title">Подпишитесь на обновления, новости и конкурсы!</string>
     <string name="grant_for_notifications_message">"Пожалуйста, разрешите отправку уведомлений "</string>
-    <string name="tx_id_label">"ID транзакции: "</string>
-    <string name="txns_label">транзакции</string>
     <string name="send_tutorial_title">Как отправить Litecoin</string>
     <string name="brainwallet_walkthrough_title">Обзор Brainwallet</string>
     <string name="brainwallet_walkthrough_description">Попробуйте все возможности Brainwallet: отправку и получение криптовалюты, управление ключами.</string>

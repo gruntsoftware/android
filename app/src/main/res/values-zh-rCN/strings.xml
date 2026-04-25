@@ -2,14 +2,11 @@
 <resources>
     <!-- App name -->
     <!-- About screen blog label -->
-    <string name="About.blog">博客</string>
     <!-- About screen footer -->
     <!-- Privay Policy button label -->
-    <string name="About.privacy">隐私政策</string>
     <!-- About screen Instagram label -->
     <!-- Terms of Use button label -->
     <!-- About screen title -->
-    <string name="About.title">关于</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">关闭</string>
     <!-- Support center accessibiliy label -->
@@ -641,8 +638,6 @@
     <string name="received_label">已接收</string>
     <string name="sent_label">已发送</string>
     <string name="ltc_price_label">LTC 价格</string>
-    <string name="tx_id_label">"交易 ID: "</string>
-    <string name="txns_label">笔交易</string>
     <string name="send_tutorial_title">如何发送 Litecoin</string>
     <string name="brainwallet_walkthrough_title">Brainwallet 使用指南</string>
     <string name="brainwallet_walkthrough_description">体验 Brainwallet 的所有功能，从发送和接收加密货币到管理您的密钥。</string>

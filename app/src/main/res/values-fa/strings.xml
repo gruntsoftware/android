@@ -2,15 +2,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- App name -->
     <!-- About screen blog label -->
-    <string name="About.blog">وب‌سایت</string>
     <!-- About screen footer -->
     <!-- About app version -->
     <!-- Privay Policy button label -->
-    <string name="About.privacy">سیاست حفظ حریم خصوصی</string>
     <!-- About screen Instagram label -->
     <!-- Terms of Use button label -->
     <!-- About screen title -->
-    <string name="About.title">درباره</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">بستن</string>
     <string name="Alert.error">خطا</string>
@@ -625,9 +622,7 @@
     <string name="ltc_price_label">قیمت LTC</string>
     <string name="sign_up_messaging_title">برای دریافت به‌روزرسانی‌ها، اخبار و مسابقات ثبت‌نام کنید!</string>
     <string name="grant_for_notifications_message">"لطفاً اجازه برای اعلان‌های ما را بپذیرید "</string>
-    <string name="tx_id_label">"شناسه تراکنش: "</string>
     <string name="no_transaction_detail_row">هنوز چیزی نیست. همین الآن شارژ کنید!</string>
-    <string name="txns_label">تراکنش‌ها</string>
     <string name="send_tutorial_title">نحوه ارسال Litecoin</string>
     <string name="brainwallet_walkthrough_title">آموزش Brainwallet</string>
     <string name="brainwallet_walkthrough_description">تمامی ویژگی‌های Brainwallet را امتحان کنید، از ارسال و دریافت رمزارز تا مدیریت کلیدهای خود.</string>
