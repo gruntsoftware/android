@@ -304,4 +304,8 @@
     <string name="send_tutorial_title_3b">ตรวจสอบก่อนส่ง!</string>
     <string name="send_tutorial_description_3b">สแกนหรือวาง address ปลายทาง ตรวจสอบอีกครั้ง! เปลี่ยนตัวเลขเงินฟิแอตท้องถิ่นของคุณเพื่อคำนวณจำนวนที่คุณสามารถส่งได้ เพิ่มบันทึกเป็นการเตือนที่มีประโยชน์ แตะ ดำเนินการต่อ</string>
     <string name="Send.cameraUnavailabeMessage.android">อนุญาตการเข้าถึงกล้องในการตั้งค่า</string>
+    <string name="tx_id_label">"TX ID: "</string>
+    <string name="txns_label">รายการ</string>
+    <string name="shop_title">ร้านค้า</string>
+    <string name="shop_tagline">ซื้อบัตรของขวัญด้วย LTC!</string>
 </resources>

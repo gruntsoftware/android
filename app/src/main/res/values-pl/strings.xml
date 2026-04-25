@@ -665,4 +665,8 @@
     <string name="send_tutorial_title_3b">Sprawdź przed wysłaniem!</string>
     <string name="send_tutorial_description_3b">Zeskanuj lub wklej adres docelowy. Sprawdź dokładnie! Zmień swoją lokalną walutę fiat, aby sprawdzić, ile możesz wysłać. Dodaj notatkę jako przydatne przypomnienie. Dotknij Kontynuuj.</string>
     <string name="Send.cameraUnavailabeMessage.android">Zezwól na dostęp do aparatu w Ustawieniach</string>
+    <string name="tx_id_label">"ID transakcji: "</string>
+    <string name="txns_label">transakcje</string>
+    <string name="shop_title">Sklep</string>
+    <string name="shop_tagline">Kupuj karty podarunkowe za LTC!</string>
 </resources>

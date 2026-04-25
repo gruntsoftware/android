@@ -304,4 +304,8 @@
     <string name="send_tutorial_title_3b">تحقق قبل الإرسال!</string>
     <string name="send_tutorial_description_3b">امسح أو الصق عنوان الوجهة. تحقق مرتين! غيّر قيمتك بالعملة المحلية لمعرفة المبلغ الذي يمكنك إرساله. أضف ملاحظة كتذكير مفيد. اضغط متابعة.</string>
     <string name="Send.cameraUnavailabeMessage.android">السماح بالوصول إلى الكاميرا من الإعدادات</string>
+    <string name="tx_id_label">"معرّف المعاملة: "</string>
+    <string name="txns_label">معاملات</string>
+    <string name="shop_title">المتجر</string>
+    <string name="shop_tagline">شراء بطاقات هدايا باستخدام LTC!</string>
 </resources>

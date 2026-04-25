@@ -660,4 +660,8 @@
     <string name="send_tutorial_title_3b">보내기 전에 확인하세요!</string>
     <string name="send_tutorial_description_3b">수신자 주소를 스캔하거나 붙여넣기하세요. 확인하세요! 현지 통화로 변경하여 보낼 수 있는 금액을 계산하세요. 편리한 참고를 위해 메모를 추가하세요. 계속을 탭하세요.</string>
     <string name="Send.cameraUnavailabeMessage.android">설정에서 카메라 접근을 허용해주세요</string>
+    <string name="tx_id_label">"TX ID: "</string>
+    <string name="txns_label">거래</string>
+    <string name="shop_title">Shop</string>
+    <string name="shop_tagline">LTC로 기프트 카드를 구매하세요!</string>
 </resources>

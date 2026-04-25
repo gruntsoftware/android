@@ -509,4 +509,8 @@
     <string name="send_tutorial_title_3b">¡Verifica antes de enviar!</string>
     <string name="send_tutorial_description_3b">Escanea o pega la dirección de destino. ¡Verifica dos veces! Cambia tu moneda fiduciaria local para determinar cuánto puedes enviar. Añade una nota como recordatorio útil. Toca Continuar.</string>
     <string name="Send.cameraUnavailabeMessage.android">Permitir acceso a la cámara en Configuración</string>
+    <string name="tx_id_label">"ID de transacción: "</string>
+    <string name="txns_label">txns</string>
+    <string name="shop_title">Tienda</string>
+    <string name="shop_tagline">¡Compra tarjetas de regalo con LTC!</string>
 </resources>

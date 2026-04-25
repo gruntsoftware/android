@@ -660,4 +660,8 @@
     <string name="send_tutorial_title_3b">Verifica prima di inviare!</string>
     <string name="send_tutorial_description_3b">Scansiona o incolla l\'indirizzo di destinazione. Verifica! Cambia la tua valuta fiat locale per capire quanto puoi inviare. Aggiungi una nota come promemoria utile. Tocca Continua.</string>
     <string name="Send.cameraUnavailabeMessage.android">Consenti l\'accesso alla fotocamera in Impostazioni</string>
+    <string name="tx_id_label">"ID TX: "</string>
+    <string name="txns_label">transazioni</string>
+    <string name="shop_title">Negozio</string>
+    <string name="shop_tagline">Acquista Gift Card con LTC!</string>
 </resources>

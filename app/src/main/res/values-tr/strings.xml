@@ -679,4 +679,8 @@
     <string name="send_tutorial_title_3b">Göndermeden Önce Doğrulayın!</string>
     <string name="send_tutorial_description_3b">Hedef adresini tarayın veya yapıştırın. İki kez kontrol edin! Ne kadar gönderebileceğinizi öğrenmek için yerel para biriminizi değiştirin. Hatırlatıcı olması için not ekleyin. Devam Et\'e dokunun.</string>
     <string name="Send.cameraUnavailabeMessage.android">Ayarlar\'da kamera erişimine izin verin</string>
+    <string name="tx_id_label">"TX ID: "</string>
+    <string name="txns_label">işlem</string>
+    <string name="shop_title">Mağaza</string>
+    <string name="shop_tagline">LTC ile Hediye Kartı Satın Al!</string>
 </resources>
