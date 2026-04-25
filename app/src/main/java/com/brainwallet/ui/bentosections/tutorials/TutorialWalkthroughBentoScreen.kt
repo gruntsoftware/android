@@ -28,18 +28,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.brainwallet.R
 import com.brainwallet.ui.theme.IBMPlexSans
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun TutorialGeneralBentoScreen(
-    tutorialBentoState: TutorialBentoState,
+fun TutorialWalkthroughBentoScreen(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
+    viewModel: TutorialsBentoViewModel = koinViewModel(),
 ) {
     val hubPageCount = 3
     val pagerState = rememberPagerState(pageCount = { hubPageCount })
     var resizedDescriptionFontSize by remember { mutableStateOf(12.sp) }
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     Card(
         modifier = modifier.fillMaxSize(),
@@ -65,7 +68,7 @@ fun TutorialGeneralBentoScreen(
             ) {
                 Text(
                     text = stringResource(com.brainwallet.R.string.brainwallet_walkthrough_title),
-                    color = if (tutorialBentoState.darkMode) Color.White else Color.Black,
+                    color = if (state.darkMode) Color.White else Color.Black,
                     modifier = Modifier
                         .padding(
                             top = 35.dp,
@@ -83,7 +86,7 @@ fun TutorialGeneralBentoScreen(
 
                 Text(
                     text = stringResource(com.brainwallet.R.string.brainwallet_walkthrough_description),
-                    color = if (tutorialBentoState.darkMode) Color.White else Color.Black,
+                    color = if (state.darkMode) Color.White else Color.Black,
                     modifier = Modifier
                         .padding(
                             top = 10.dp,
@@ -113,9 +116,8 @@ fun TutorialGeneralBentoScreen(
 @Composable
 private fun TutorialGeneralBentoScreenPreview() {
     Box(modifier = Modifier) {
-        TutorialGeneralBentoScreen(
-            modifier = Modifier,
-            tutorialBentoState = TutorialBentoState()
+        TutorialWalkthroughBentoScreen(
+            modifier = Modifier
         )
     }
 }

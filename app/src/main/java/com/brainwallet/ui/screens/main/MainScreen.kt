@@ -75,7 +75,7 @@ import com.brainwallet.ui.bentosections.gamehubbento.GameHubBentoPagerScreen
 import com.brainwallet.ui.bentosections.ltcpickerbento.LTCPickerBentoScreen
 import com.brainwallet.ui.bentosections.shopbento.ShopBentoScreen
 import com.brainwallet.ui.bentosections.transactionbento.TransactionsBentoScreen
-import com.brainwallet.ui.bentosections.tutorials.TutorialsBentoPagerScreen
+import com.brainwallet.ui.bentosections.tutorials.TutorialsBentoScreen
 import com.brainwallet.ui.bentosections.tutorials.send.TutorialSendPagerScreen
 import com.brainwallet.ui.bentosections.tutorials.walkthrough.TutorialWalkthroughPagerScreen
 import com.brainwallet.ui.composable.BentoBottomNavBar
@@ -303,7 +303,7 @@ fun MainScreen(
                                 exit = fadeOut(tween(FADE_OUT_DURATION)),
                             ) {
                                 Box(modifier = Modifier.height(availableHeight)) {
-                                    TutorialsBentoPagerScreen(onClick = { page ->
+                                    TutorialsBentoScreen(onClick = { page ->
                                         when (page) {
                                             0 -> {
                                                 modalContentRoute = Route.TutorialWalkthrough

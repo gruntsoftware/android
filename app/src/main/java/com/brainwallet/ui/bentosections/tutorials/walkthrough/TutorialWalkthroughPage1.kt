@@ -18,7 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brainwallet.ui.composable.CalloutWithPointers
@@ -26,6 +26,7 @@ import com.brainwallet.ui.theme.IBMPlexSans
 
 @Composable
 fun TutorialWalkthroughPage1(
+    darkMode: Boolean,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -39,7 +40,7 @@ fun TutorialWalkthroughPage1(
         ) {
             Text(
                 text = stringResource(com.brainwallet.R.string.brainwallet_walkthrough_title),
-                color = Color.White,
+                color = if (darkMode) Color.White else Color.Black,
                 modifier = Modifier.fillMaxWidth()
                     .padding(
                         top = 30.dp,
@@ -72,10 +73,11 @@ fun TutorialWalkthroughPage1(
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun TutorialWalkthroughPage1Preview() {
     Column {
-        TutorialWalkthroughPage1()
+        TutorialWalkthroughPage1(darkMode = true)
+        TutorialWalkthroughPage1(darkMode = false)
     }
 }

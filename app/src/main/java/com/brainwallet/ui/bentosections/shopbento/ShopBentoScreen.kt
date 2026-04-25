@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
@@ -30,7 +29,6 @@ import com.brainwallet.constants.bentoCornerRadius
 import com.brainwallet.ui.theme.IBMPlexSans
 import com.brainwallet.ui.theme.balanceGameBentoSurface
 import org.koin.compose.viewmodel.koinViewModel
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -57,12 +55,14 @@ fun ShopBentoScreen(
     viewModel: ShopBentoViewModel = koinViewModel()
 ) {
     val storeBackground = R.drawable.store_05
-    val logotypeBitrefill = R.drawable.logotype_bitrefill
+    val logotypeBlack = R.drawable.logotype_bitrefill_blk
+    val logotypeWhite = R.drawable.logotype_bitrefill_wht
 
+    val logotypeBitrefill = if (state.darkMode) logotypeWhite else logotypeBlack
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .balanceGameBentoSurface(isDarkMode = true)
+            .balanceGameBentoSurface(isDarkMode = state.darkMode)
             .clickable(onClick = onClick)
     ) {
         Image(
@@ -71,6 +71,7 @@ fun ShopBentoScreen(
             modifier = Modifier.fillMaxSize()
                 .clip(RoundedCornerShape(bentoCornerRadius)),
             contentScale = ContentScale.Crop,
+            alpha = if (state.darkMode) 1f else 0.0f
         )
 
         Row(modifier = Modifier.fillMaxWidth()) {
@@ -83,7 +84,7 @@ fun ShopBentoScreen(
 
                 Text(
                     text = stringResource(R.string.shop_tagline),
-                    color = Color.White,
+                    color = if (state.darkMode) Color.White else Color.Black,
                     modifier = Modifier
                         .padding(12.dp),
                     style = TextStyle(
@@ -92,7 +93,7 @@ fun ShopBentoScreen(
                         fontSize = 11.sp,
                         textAlign = TextAlign.Start,
                         shadow = Shadow(
-                            color = Color.Black.copy(alpha = 0.5f),
+                            color = Color.Black.copy(alpha = 0.4f),
                             offset = Offset(x = 3f, y = 3f),
                             blurRadius = 3f
                         )
@@ -101,7 +102,7 @@ fun ShopBentoScreen(
                 Spacer(modifier = Modifier.weight(0.2f))
                 Image(
                     painter = painterResource(logotypeBitrefill),
-                    contentDescription = "store_background",
+                    contentDescription = "shop_logotype",
                     modifier = Modifier.fillMaxWidth(0.8f)
                         .padding(12.dp),
                     contentScale = ContentScale.Fit,
@@ -111,18 +112,11 @@ fun ShopBentoScreen(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxHeight()
-                    .background(Color.Red.copy(0.4f))
             ) {
-                Text(
-                    text = state.countryIso,
-                    color = Color.White,
-                    modifier = Modifier,
-                    style = TextStyle(
-                        fontFamily = IBMPlexSans,
-                        fontWeight = FontWeight.Normal,
-                        fontSize = 22.sp,
-                        textAlign = TextAlign.Start
-                    )
+                GiftCardsComposable(
+                    modifier =
+                    Modifier.fillMaxSize(),
+                    cardData = "acr"
                 )
             }
         }

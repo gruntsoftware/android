@@ -26,7 +26,8 @@ import com.brainwallet.ui.theme.IBMPlexSans
 
 @Composable
 fun TutorialWalkthroughPage2(
-    modifier: Modifier = Modifier
+    darkMode: Boolean,
+    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = Modifier
@@ -39,7 +40,7 @@ fun TutorialWalkthroughPage2(
         ) {
             Text(
                 text = stringResource(com.brainwallet.R.string.brainwallet_walkthrough_title),
-                color = Color.White,
+                color = if (darkMode) Color.White else Color.Black,
                 modifier = Modifier.fillMaxWidth()
                     .padding(
                         top = 30.dp,
@@ -78,6 +79,6 @@ fun TutorialWalkthroughPage2(
 @Composable
 private fun TutorialWalkthroughPage2Preview() {
     Column {
-        TutorialWalkthroughPage2()
+        TutorialWalkthroughPage2(darkMode = true)
     }
 }

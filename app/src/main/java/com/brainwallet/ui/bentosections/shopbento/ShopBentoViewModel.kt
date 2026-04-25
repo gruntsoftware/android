@@ -12,9 +12,12 @@ import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import java.util.Locale
 import android.telephony.TelephonyManager
+import com.brainwallet.data.repository.SettingRepository
+
 @KoinViewModel
 class ShopBentoViewModel(
     private val app: Application,
+    private val settingRepository: SettingRepository,
 ) : BrainwalletViewModel<ShopBentoEvent>() {
 
     private val _state = MutableStateFlow(ShopBentoState())
@@ -22,10 +25,13 @@ class ShopBentoViewModel(
 
     init {
         viewModelScope.launch {
-            _state.update {
-                it.copy(
-                    countryIso = getCountryIso()
-                )
+            settingRepository.settings.collect { setting ->
+                _state.update {
+                    it.copy(
+                        darkMode = setting.isDarkMode,
+                        countryIso = getCountryIso()
+                    )
+                }
             }
         }
     }
