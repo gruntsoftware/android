@@ -71,9 +71,9 @@ import com.brainwallet.tools.animation.BRAnimator
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.ui.bentosections.balancebento.BalanceBentoScreen
 import com.brainwallet.ui.bentosections.buyreceivebento.receive.ReceiveDialog
-import com.brainwallet.ui.bentosections.favouritesbento.FavouritesBentoScreen
 import com.brainwallet.ui.bentosections.gamehubbento.GameHubBentoPagerScreen
 import com.brainwallet.ui.bentosections.ltcpickerbento.LTCPickerBentoScreen
+import com.brainwallet.ui.bentosections.shopbento.ShopBentoScreen
 import com.brainwallet.ui.bentosections.transactionbento.TransactionsBentoScreen
 import com.brainwallet.ui.bentosections.tutorials.TutorialsBentoPagerScreen
 import com.brainwallet.ui.bentosections.tutorials.send.TutorialSendPagerScreen
@@ -224,7 +224,7 @@ fun MainScreen(
                     gameHubHt
                 val transactionsDetailHeight = availableHeight + gameHubHt + balanceGameBentoHt
                 val ltcPickerBentoHeight = (availableHeight * 0.7f) - (bentoSpacer / 2)
-                val favoritesBentoHeight = (availableHeight * 0.3f) - (bentoSpacer / 2)
+                val storeBentoHeight = (availableHeight * 0.3f) - (bentoSpacer / 2)
                 val transactionBentoHeight by animateDpAsState(
                     targetValue = if (showTransactionDetail) transactionsDetailHeight else transactionRowHt,
                     animationSpec = tween(EXPAND_DURATION),
@@ -328,8 +328,8 @@ fun MainScreen(
                                     Box(modifier = Modifier.height(ltcPickerBentoHeight)) {
                                         LTCPickerBentoScreen()
                                     }
-                                    Box(modifier = Modifier.height(favoritesBentoHeight)) {
-                                        FavouritesBentoScreen()
+                                    Box(modifier = Modifier.height(storeBentoHeight)) {
+                                        ShopBentoScreen()
                                     }
                                 }
                             }

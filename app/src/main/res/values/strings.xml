@@ -498,5 +498,7 @@
     <string name="send_tutorial_description_3a">Do you have some LTC? Change your local figure fiat to figure out how much you can send. Or, calculate in LTC. Go to settings to adjust your preferred network fee</string>
     <string name="send_tutorial_title_3b">Verify before sending!</string>
     <string name="send_tutorial_description_3b">Scan or paste the destination address. Double check! Change your local fiat to figure out how much you can send. Add a memo as a handy reminder. Tap Continue.</string>
+    <string name="shop_title">Shop</string>
+    <string name="shop_tagline">Buy Gift Cards with LTC!</string>
 
 </resources>
