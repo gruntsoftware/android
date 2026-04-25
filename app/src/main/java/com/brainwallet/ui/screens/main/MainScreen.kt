@@ -1,7 +1,5 @@
 package com.brainwallet.ui.screens.home
 
-import android.net.Uri
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -83,6 +81,7 @@ import com.brainwallet.ui.screens.main.MainScreenEvent
 import com.brainwallet.ui.screens.main.MainViewModel
 import com.brainwallet.ui.screens.main.SettingsButton
 import com.brainwallet.ui.screens.main.ThemeButton
+import com.brainwallet.ui.screens.main.WebModalScreen
 import com.brainwallet.ui.screens.send.SendScreen
 import com.brainwallet.ui.screens.settings.settingsrows.HomeSettingDrawerSheet
 import com.brainwallet.ui.theme.BrainwalletAppTheme
@@ -289,7 +288,7 @@ fun MainScreen(
                                 shouldShowFiatValues = state.shouldShowFiatValues,
                                 onBentoTap = {
                                     if (noTxItemsPresent) {
-                                        onNavigate.invoke(UiEffect.Navigate(Route.MoonPayWeb))
+                                        onNavigate.invoke(UiEffect.Navigate(Route.MoonPayBuy))
                                     } else {
                                         viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail)
                                     }
@@ -329,7 +328,10 @@ fun MainScreen(
                                         LTCPickerBentoScreen()
                                     }
                                     Box(modifier = Modifier.height(storeBentoHeight)) {
-                                        ShopBentoScreen()
+                                        ShopBentoScreen(onClick = {
+                                            modalContentRoute = Route.BitrefillWeb
+                                            isSheetOpen = true
+                                        })
                                     }
                                 }
                             }
@@ -352,14 +354,8 @@ fun MainScreen(
                                                 AnalyticsManager.logCustomEvent("user_did_tap_mp_in_gh")
                                             }
                                             2 -> {
-                                                val builder = CustomTabsIntent.Builder()
-                                                val customTabsIntent = builder.build()
-                                                customTabsIntent.launchUrl(
-                                                    context,
-                                                    Uri.parse(BWConstants.LINKTREE_URL)
-                                                )
-
-                                                AnalyticsManager.logCustomEvent("user_did_tap_linktree")
+                                                modalContentRoute = Route.LinktreeWeb
+                                                isSheetOpen = true
                                             }
                                         }
                                     })
@@ -393,7 +389,9 @@ fun MainScreen(
                         .wrapContentWidth()
                         .fillMaxHeight(
                             if (modalContentRoute == Route.TutorialSend ||
-                                modalContentRoute == Route.TutorialWalkthrough
+                                modalContentRoute == Route.TutorialWalkthrough ||
+                                modalContentRoute == Route.BitrefillWeb ||
+                                modalContentRoute == Route.LinktreeWeb
                             ) {
                                 1f
                             } else {
@@ -446,6 +444,18 @@ fun MainScreen(
                         Route.TutorialWalkthrough -> TutorialWalkthroughPagerScreen(
                             onNavigate = onNavigate,
                             onDismissTutorialWalkthroughModal = { isSheetOpen = false }
+                        )
+
+                        Route.LinktreeWeb -> WebModalScreen(
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            onNavigate = onNavigate,
+                            url = BWConstants.LINKTREE_URL
+                        )
+
+                        Route.BitrefillWeb -> WebModalScreen(
+                            onNavigate = onNavigate,
+                            url = BWConstants.BITREFILL_URL
                         )
                         else -> {}
                     }

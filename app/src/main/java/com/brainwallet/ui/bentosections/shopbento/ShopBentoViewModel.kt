@@ -51,6 +51,11 @@ class ShopBentoViewModel(
             is ShopBentoEvent.OnLoad -> {
             }
             is ShopBentoEvent.OnTapShop -> {
+                _state.update {
+                    it.copy(
+                        shouldSlide = true
+                    )
+                }
             }
         }
     }

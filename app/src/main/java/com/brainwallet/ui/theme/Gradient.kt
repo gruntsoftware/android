@@ -192,3 +192,39 @@ val bentoModalDarkGradient: Brush
         start = Offset(Float.MIN_VALUE, Float.POSITIVE_INFINITY),
         end = Offset(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY),
     )
+
+fun giftCardGradient1(size: androidx.compose.ui.geometry.Size): Brush {
+    return Brush.radialGradient(
+        colors = listOf(
+            Color(0xFF475A96).copy(alpha = 1f),
+            Color(0xFF1F263F).copy(alpha = 1f)
+        ),
+        center = Offset(size.width / 2.2f, size.height / 2.2f),
+        radius = 500 / 2.0f,
+        tileMode = TileMode.Clamp
+    )
+}
+
+fun giftCardGradient2(size: androidx.compose.ui.geometry.Size): Brush {
+    return Brush.radialGradient(
+        colors = listOf(
+            Color(0xFF575971).copy(alpha = 1f),
+            Color(0xFF1E202D).copy(alpha = 1f)
+        ),
+        Offset(size.width / 2.5f, size.height / 2.5f),
+        radius = 300 / 2.0f,
+        tileMode = TileMode.Clamp
+    )
+}
+
+fun giftCardGradient3(size: androidx.compose.ui.geometry.Size): Brush {
+    return Brush.radialGradient(
+        colors = listOf(
+            Color(0xFFFB6E36).copy(alpha = 1f),
+            Color(0xFFD43603).copy(alpha = 1f)
+        ),
+        Offset(size.width / 1.5f, size.height / 1.5f),
+        radius = 200 / 2.0f,
+        tileMode = TileMode.Clamp
+    )
+}

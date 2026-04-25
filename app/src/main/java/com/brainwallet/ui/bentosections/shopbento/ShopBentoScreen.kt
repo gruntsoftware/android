@@ -38,17 +38,19 @@ import androidx.compose.ui.tooling.preview.Preview
 @Composable
 fun ShopBentoScreen(
     modifier: Modifier = Modifier,
+    onClick: () -> Unit = {},
     viewModel: ShopBentoViewModel = koinViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
     ShopBentoScreen(
         state = state,
-        modifier = modifier
+        modifier = modifier,
+        onClick = onClick,
     )
 }
 
 @Composable
-fun ShopBentoScreen(
+private fun ShopBentoScreen(
     state: ShopBentoState,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
@@ -112,11 +114,14 @@ fun ShopBentoScreen(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxHeight()
+                    .clip(RoundedCornerShape(bentoCornerRadius))
+
             ) {
                 GiftCardsComposable(
+                    state = state,
                     modifier =
                     Modifier.fillMaxSize(),
-                    cardData = "acr"
+                    cardData = "test-json"
                 )
             }
         }
@@ -127,6 +132,6 @@ fun ShopBentoScreen(
 @Composable
 private fun ShopBentoScreenPreview() {
     Box(modifier = Modifier) {
-        ShopBentoScreen(state = ShopBentoState())
+        ShopBentoScreen()
     }
 }

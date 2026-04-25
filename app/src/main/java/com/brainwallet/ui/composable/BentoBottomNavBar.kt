@@ -12,8 +12,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -21,9 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.brainwallet.BuildConfig
 import com.brainwallet.R
 import com.brainwallet.navigation.Route
 import com.brainwallet.constants.bentoBottomNavBarHt
@@ -53,21 +49,12 @@ fun BentoBottomNavBar(
 ) {
     val surfaceColor = if (isDarkMode) Color.Black else Color.White
     val contentsColor = if (isDarkMode) Color.White else colorMidnite
-    val debugLayoutGuideColor: Color = if (BuildConfig.DEBUG) Color.Red else Color.Transparent
 
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .navigationBarsPadding()
             .height(bentoBottomNavBarHt)
-            .drawBehind {
-                drawLine(
-                    color = debugLayoutGuideColor,
-                    start = Offset(0f, 0f),
-                    end = Offset(size.width, 0f),
-                    strokeWidth = 1.dp.toPx()
-                )
-            }
     ) {
         NavigationBar(
             containerColor = surfaceColor,
