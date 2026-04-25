@@ -660,4 +660,6 @@
     <string name="send_tutorial_title_3b">Vérifiez avant d\'envoyer!</string>
     <string name="send_tutorial_description_3b">Scannez ou collez l\'adresse de destination. Vérifiez bien! Convertissez en devise locale pour déterminer le montant à envoyer. Ajoutez un mémo comme aide-mémoire. Appuyez sur Continuer.</string>
     <string name="Send.cameraUnavailabeMessage.android">Autoriser l\'accès à la caméra dans les Paramètres</string>
+    <string name="shop_title">Boutique</string>
+    <string name="shop_tagline">Achetez des Cartes Cadeaux avec LTC!</string>
 </resources>

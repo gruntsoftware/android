@@ -434,4 +434,6 @@
     <string name="send_tutorial_title_3b">Überprüfe vor dem Senden!</string>
     <string name="send_tutorial_description_3b">Scanne oder füge die Zieladresse ein. Überprüfe sie genau! Ändere deine lokale Währung, um herauszufinden, wie viel du senden kannst. Füge eine Notiz als praktische Erinnerung hinzu. Tippe auf Weiter.</string>
     <string name="Send.cameraUnavailabeMessage.android">Kamerazugriff in den Einstellungen aktivieren</string>
+    <string name="shop_title">Shop</string>
+    <string name="shop_tagline">Kaufe Geschenkkarten mit LTC!</string>
 </resources>

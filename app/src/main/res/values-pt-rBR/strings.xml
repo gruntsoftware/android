@@ -304,4 +304,6 @@
     <string name="send_tutorial_title_3b">Verifique antes de enviar!</string>
     <string name="send_tutorial_description_3b">Escaneie ou cole o endereço de destino. Verifique bem! Mude sua moeda fiduciária local para calcular quanto pode enviar. Adicione um memorando como lembrete útil. Toque em Continuar.</string>
     <string name="Send.cameraUnavailabeMessage.android">Permita o acesso à câmera nas Configurações</string>
+    <string name="shop_title">Loja</string>
+    <string name="shop_tagline">Compre Cartões-Presente com LTC!</string>
 </resources>
