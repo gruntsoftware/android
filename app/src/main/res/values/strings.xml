@@ -440,10 +440,10 @@
     <string name="date_label">"Date: "</string>
     <string name="amount_label">"Amount: "</string>
     <string name="fees_label">"Fees: "</string>
-    <string name="tx_id_label">"TX ID: "</string>
+    <string name="tx_id_label" translatable="false">"TX ID: "</string>
     <string name="no_transaction_detail_row">Nothing yet. Top up now!</string>
     <string name="no_transaction_title_row">TRANSACTION HISTORY</string>
-    <string name="txns_label">txns</string>
+    <string name="txns_label" translatable="false">txns</string>
     <string name="enter_passcode">Enter passcode</string>
     <string name="recipient_label">Recipient:</string>
     <string name="send_litecoin_label">Send Litecoin</string>
