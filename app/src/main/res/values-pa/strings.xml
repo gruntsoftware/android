@@ -2,15 +2,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- App name -->
     <!-- About screen blog label -->
-    <string name="About.blog">ویب سائٹ</string>
     <!-- About screen footer -->
     <!-- About app version -->
     <!-- Privay Policy button label -->
-    <string name="About.privacy">پرائیویسی پالیسی</string>
     <!-- About screen Instagram label -->
     <!-- Terms of Use button label -->
     <!-- About screen title -->
-    <string name="About.title">متعلق</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">بند کرو</string>
     <!-- Support center accessibiliy label -->
@@ -651,8 +648,6 @@
     <string name="ltc_price_label">LTC ਕੀਮਤ</string>
     <string name="sign_up_messaging_title">ਅਪਡੇਟ, ਖ਼ਬਰਾਂ ਅਤੇ ਮੁਕਾਬਲਿਆਂ ਲਈ ਸਾਈਨ ਅਪ ਕਰੋ!</string>
     <string name="grant_for_notifications_message">"ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੀਆਂ ਸੂਚਨਾਵਾਂ ਲਈ ਅਨੁਮਤੀ ਦਿਓ "</string>
-    <string name="tx_id_label">"TX ID: "</string>
-    <string name="txns_label">ਲੈਣ-ਦੇਣ</string>
     <string name="send_tutorial_title">Litecoin ਭੇਜਣਾ ਕਿਵੇਂ ਹੈ</string>
     <string name="brainwallet_walkthrough_title">Brainwallet ਵਾਕਥਰੂ</string>
     <string name="brainwallet_walkthrough_description">Brainwallet ਦੀਆਂ ਸਾਰੀਆਂ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਆਜ਼ਮਾਓ, ਕ੍ਰਿਪਟੋ ਭੇਜਣ ਅਤੇ ਪ੍ਰਾਪਤ ਕਰਨ ਤੋਂ ਲੈ ਕੇ ਆਪਣੀਆਂ ਕੁੰਜੀਆਂ ਦਾ ਪ੍ਰਬੰਧਨ ਕਰਨ ਤੱਕ।</string>

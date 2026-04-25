@@ -4,11 +4,9 @@
     <!-- About screen blog label -->
     <!-- About screen footer -->
     <!-- Privay Policy button label -->
-    <string name="About.privacy">隱私政策</string>
     <!-- About screen reddit label -->
     <!-- Terms of Use button label -->
     <!-- About screen title -->
-    <string name="About.title">關於</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">關閉</string>
     <!-- Support center accessibiliy label -->
@@ -570,7 +568,6 @@
     <string name="settings_title_theme">主题</string>
     <string name="settings_title_app_version">应用程序版本:</string>
     <string name="settings_blockchain_litecoin_button">同步</string>
-    <string name="About.blog">博客</string>
     <string name="settings_blockchain_litecoin_description">同步時間：&gt;20 分鐘</string>
     <string name="game_title">遊戲 %1$d：</string>
     <string name="security_seed_phrase_title">助記詞</string>
@@ -641,8 +638,6 @@
     <string name="received_label">已接收</string>
     <string name="sent_label">已傳送</string>
     <string name="ltc_price_label">LTC 價格</string>
-    <string name="tx_id_label">"交易 ID："</string>
-    <string name="txns_label">交易</string>
     <string name="send_tutorial_title">如何發送Litecoin</string>
     <string name="brainwallet_walkthrough_title">Brainwallet 功能導覽</string>
     <string name="brainwallet_walkthrough_description">探索Brainwallet的所有功能，從發送和接收加密貨幣到管理您的密鑰。</string>

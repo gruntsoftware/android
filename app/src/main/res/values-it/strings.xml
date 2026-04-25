@@ -2,14 +2,11 @@
 <resources>
     <!-- App name -->
     <!-- About screen blog label -->
-    <string name="About.blog">Blog</string>
     <!-- About screen footer -->
     <!-- Privay Policy button label -->
-    <string name="About.privacy">Informativa sulla Privacy</string>
     <!-- About screen reddit label -->
     <!-- Terms of Use button label -->
     <!-- About screen title -->
-    <string name="About.title">Chi siamo</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">Chiudi</string>
     <!-- Support center accessibiliy label -->
@@ -641,8 +638,6 @@
     <string name="ltc_price_label">Prezzo LTC</string>
     <string name="sign_up_messaging_title">Iscriviti per ricevere aggiornamenti, notizie e concorsi!</string>
     <string name="grant_for_notifications_message">"Accetta l'autorizzazione per le nostre notifiche "</string>
-    <string name="tx_id_label">"ID TX: "</string>
-    <string name="txns_label">txns</string>
     <string name="send_tutorial_title">Come inviare Litecoin</string>
     <string name="brainwallet_walkthrough_title">Brainwallet Walkthrough</string>
     <string name="brainwallet_walkthrough_description">Prova tutte le funzionalità di Brainwallet, dall\'invio e ricezione di criptovalute alla gestione delle tue chiavi.</string>

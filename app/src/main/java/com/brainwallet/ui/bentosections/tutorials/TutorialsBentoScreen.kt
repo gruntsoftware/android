@@ -19,12 +19,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -40,15 +38,13 @@ import com.brainwallet.ui.theme.mainBentoSurface
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun TutorialsBentoPagerScreen(
+fun TutorialsBentoScreen(
     modifier: Modifier = Modifier,
     onClick: (Int) -> Unit = {},
     viewModel: MainViewModel = koinViewModel()
 ) {
     val hubPageCount = 2
     val pagerState = rememberPagerState(pageCount = { hubPageCount })
-    val context = LocalContext.current
-    val tutorialBentoState = TutorialBentoState()
     val appSetting by viewModel.appSetting.collectAsStateWithLifecycle()
     val isDarkMode = appSetting.isDarkMode
 
@@ -91,8 +87,7 @@ fun TutorialsBentoPagerScreen(
         ) { page ->
 
             when (page) {
-                0 -> TutorialGeneralBentoScreen(
-                    tutorialBentoState = tutorialBentoState,
+                0 -> TutorialWalkthroughBentoScreen(
                     onClick = {
                         AnalyticsManager.logCustomAdHocEvent("user_tapped_walkthrough_tutorial")
                         onClick(page)
@@ -131,8 +126,8 @@ fun TutorialsBentoPagerScreen(
 
 @PreviewLightDark
 @Composable
-private fun TutorialsBentoPagerScreenPreview() {
+private fun TutorialsBentoScreenPreview() {
     Box(modifier = Modifier) {
-        TutorialsBentoPagerScreen()
+        TutorialsBentoScreen()
     }
 }

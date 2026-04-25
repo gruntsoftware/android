@@ -1,10 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-    <string name="About.blog">Blog</string>
     <!-- About screen footer -->
     <!-- Privay Policy button label -->
-    <string name="About.privacy">Datenschutzerklärung</string>
-    <string name="About.title">Info</string>
     <string name="AccessibilityLabels.close">Schließen</string>
     <string name="Alert.error">Fehler</string>
     <!-- Keystore error -->
@@ -415,8 +412,6 @@
     <string name="ltc_price_label">LTC-Preis</string>
     <string name="sign_up_messaging_title">Melden Sie sich für Updates, Nachrichten und Gewinnspiele an!</string>
     <string name="grant_for_notifications_message">"Bitte akzeptieren Sie die Berechtigung für unsere Benachrichtigungen "</string>
-    <string name="tx_id_label">"TX ID: "</string>
-    <string name="txns_label">Txns</string>
     <string name="send_tutorial_title">Wie man Litecoin sendet</string>
     <string name="brainwallet_walkthrough_title">Brainwallet Anleitung</string>
     <string name="brainwallet_walkthrough_description">Probiere alle Funktionen von Brainwallet aus – vom Senden und Empfangen von Kryptowährungen bis zur Verwaltung deiner Schlüssel.</string>

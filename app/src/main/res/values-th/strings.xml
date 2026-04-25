@@ -2,9 +2,6 @@
 <resources>
     <string name="send_title">ส่ง</string>
     <string name="MenuViewController.createButton">สร้างกระเป๋าเงินใหม่</string>
-    <string name="About.blog">เว็บไซต์</string>
-    <string name="About.privacy">นโยบายความเป็นส่วนตัว</string>
-    <string name="About.title">เกี่ยวกับ</string>
     <string name="AccessibilityLabels.close">ปิด</string>
     <string name="Alert.error">ข้อผิดพลาด</string>
     <string name="Alert.keystore.invalidated.android">ข้อมูลเข้ารหัส Brainwallet ของคุณถูกยกเลิกเมื่อเร็ว ๆ นี้เนื่องจากปิดใช้งานหน้าจอล็อกของ Android</string>
@@ -285,8 +282,6 @@
     <string name="received_label">รับได้</string>
     <string name="sent_label">ส่งแล้ว</string>
     <string name="ltc_price_label">ราคา LTC</string>
-    <string name="tx_id_label">"TX ID: "</string>
-    <string name="txns_label">รายการทำธุรกรรม</string>
     <string name="send_tutorial_title">วิธีการส่ง Litecoin</string>
     <string name="brainwallet_walkthrough_title">Brainwallet ทำความคุ้นเคย</string>
     <string name="brainwallet_walkthrough_description">ลองใช้ฟีเจอร์ทั้งหมดของ Brainwallet ตั้งแต่การส่งและรับคริปโตไปจนถึงการจัดการคีย์ของคุณ</string>

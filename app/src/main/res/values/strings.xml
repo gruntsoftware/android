@@ -2,16 +2,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- App name -->
     <string name="app_name" translatable="false">Brainwallet</string>
-    <!-- About screen blog label -->
-    <string name="About.blog">Website</string>
     <!-- About app version -->
     <string name="About.appVersion" translatable="false">%1$s</string>
-    <!-- Privay Policy button label -->
-    <string name="About.privacy">Privacy Policy</string>
-    <!-- About screen Instagram label -->
-    <string name="About.instagram" translatable="false">Instagram</string>
-    <!-- About screen title -->
-    <string name="About.title">About</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">Close</string>
     <!-- Error alert title -->
@@ -448,10 +440,10 @@
     <string name="date_label">"Date: "</string>
     <string name="amount_label">"Amount: "</string>
     <string name="fees_label">"Fees: "</string>
-    <string name="tx_id_label">"TX ID: "</string>
+    <string name="tx_id_label" translatable="false">"TX ID: "</string>
     <string name="no_transaction_detail_row">Nothing yet. Top up now!</string>
     <string name="no_transaction_title_row">TRANSACTION HISTORY</string>
-    <string name="txns_label">txns</string>
+    <string name="txns_label" translatable="false">txns</string>
     <string name="enter_passcode">Enter passcode</string>
     <string name="recipient_label">Recipient:</string>
     <string name="send_litecoin_label">Send Litecoin</string>
@@ -498,5 +490,7 @@
     <string name="send_tutorial_description_3a">Do you have some LTC? Change your local figure fiat to figure out how much you can send. Or, calculate in LTC. Go to settings to adjust your preferred network fee</string>
     <string name="send_tutorial_title_3b">Verify before sending!</string>
     <string name="send_tutorial_description_3b">Scan or paste the destination address. Double check! Change your local fiat to figure out how much you can send. Add a memo as a handy reminder. Tap Continue.</string>
+    <string name="shop_title">Shop</string>
+    <string name="shop_tagline">Buy Gift Cards with LTC!</string>
 
 </resources>

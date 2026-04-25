@@ -1,8 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-    <string name="About.blog">موقع إلكتروني</string>
-    <string name="About.privacy">سياسة الخصوصية</string>
-    <string name="About.title">عن</string>
     <string name="AccessibilityLabels.close">يغلق</string>
     <string name="Alert.error">خطأ</string>
     <string name="Alert.keystore.invalidated.android">تم إبطال صلاحية بيانات Brainwallet المشفرة الخاصة بك مؤخرًا بسبب تعطيل شاشة قفل Android.</string>
@@ -285,8 +282,6 @@
     <string name="ltc_price_label">سعر LTC</string>
     <string name="sign_up_messaging_title">اشترك للحصول على التحديثات والأخبار والمسابقات!</string>
     <string name="grant_for_notifications_message">"يرجى قبول إذن إشعاراتنا "</string>
-    <string name="tx_id_label">"معرّف المعاملة: "</string>
-    <string name="txns_label">معاملات</string>
     <string name="send_tutorial_title">كيفية إرسال Litecoin</string>
     <string name="brainwallet_walkthrough_title">جولة Brainwallet التعريفية</string>
     <string name="brainwallet_walkthrough_description">جرّب جميع ميزات Brainwallet، من إرسال واستقبال العملات المشفرة إلى إدارة مفاتيحك.</string>

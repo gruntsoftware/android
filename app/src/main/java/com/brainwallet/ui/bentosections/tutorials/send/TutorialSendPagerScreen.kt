@@ -21,8 +21,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.ui.theme.DesignTheme
 import org.koin.compose.viewmodel.koinViewModel
@@ -36,7 +36,7 @@ fun TutorialSendPagerScreen(
 ) {
     val hubPageCount = 3
     val pagerState = rememberPagerState(pageCount = { hubPageCount })
-    val context = LocalContext.current
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     Box(
         modifier = Modifier
@@ -49,9 +49,9 @@ fun TutorialSendPagerScreen(
             modifier = modifier.fillMaxSize()
         ) { page ->
             when (page) {
-                0 -> TutorialSendPage1()
-                1 -> TutorialSendPage2()
-                2 -> TutorialSendPage3()
+                0 -> TutorialSendPage1(darkMode = state.darkMode)
+                1 -> TutorialSendPage2(darkMode = state.darkMode)
+                2 -> TutorialSendPage3(darkMode = state.darkMode)
             }
         }
 

@@ -33,6 +33,7 @@ import com.brainwallet.ui.theme.IBMPlexSans
 
 @Composable
 fun TutorialSendPage3(
+    darkMode: Boolean,
     modifier: Modifier = Modifier
 ) {
     val sendSetupImage = R.drawable.sendsetup
@@ -49,7 +50,7 @@ fun TutorialSendPage3(
         ) {
             Text(
                 text = stringResource(com.brainwallet.R.string.send_tutorial_title),
-                color = Color.White,
+                color = if (darkMode) Color.White else Color.Black,
                 modifier = Modifier.fillMaxWidth()
                     .padding(
                         top = 30.dp,
@@ -119,6 +120,6 @@ fun TutorialSendPage3(
 @Composable
 private fun TutorialSendPage3Preview() {
     Column {
-        TutorialSendPage3()
+        TutorialSendPage3(darkMode = false)
     }
 }

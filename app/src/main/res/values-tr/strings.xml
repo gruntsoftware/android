@@ -5,11 +5,9 @@
     <!-- About screen footer -->
     <!-- About app version -->
     <!-- Privay Policy button label -->
-    <string name="About.privacy">Gizlilik Politikası</string>
     <!-- About screen Instagram label -->
     <!-- Terms of Use button label -->
     <!-- About screen title -->
-    <string name="About.title">hakkında</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">Kapat</string>
     <!-- Support center accessibiliy label -->
@@ -659,8 +657,6 @@
     <string name="received_label">Alınan</string>
     <string name="sent_label">Gönderilen</string>
     <string name="ltc_price_label">LTC Fiyatı</string>
-    <string name="tx_id_label">"İŞLEM KİMLİĞİ: "</string>
-    <string name="txns_label">işlem</string>
     <string name="send_tutorial_title">Litecoin Nasıl Gönderilir</string>
     <string name="brainwallet_walkthrough_title">Brainwallet Rehberi</string>
     <string name="brainwallet_walkthrough_description">Brainwallet\'ın tüm özelliklerini deneyin: kripto gönderme ve alma işlemlerinden anahtar yönetimine kadar.</string>

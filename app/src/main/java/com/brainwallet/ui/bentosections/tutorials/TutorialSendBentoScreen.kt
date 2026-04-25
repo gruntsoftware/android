@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -31,19 +30,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.brainwallet.R
 import com.brainwallet.constants.bentoCornerRadius
 import com.brainwallet.ui.theme.IBMPlexSans
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun TutorialSendBentoScreen(
     modifier: Modifier = Modifier,
-    tutorialBentoState: TutorialBentoState = TutorialBentoState(),
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
+    viewModel: TutorialsBentoViewModel = koinViewModel()
 ) {
-    val hubPageCount = 3
-    val pagerState = rememberPagerState(pageCount = { hubPageCount })
     var resizedDescriptionFontSize by remember { mutableStateOf(12.sp) }
+
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     Card(
         modifier = modifier.fillMaxSize(),
@@ -73,7 +74,7 @@ fun TutorialSendBentoScreen(
             ) {
                 Text(
                     text = stringResource(com.brainwallet.R.string.send_tutorial_title),
-                    color = if (tutorialBentoState.darkMode) Color.White else Color.Black,
+                    color = if (state.darkMode) Color.White else Color.Black,
                     modifier = Modifier
                         .padding(
                             top = 35.dp,
@@ -91,7 +92,7 @@ fun TutorialSendBentoScreen(
 
                 Text(
                     text = stringResource(com.brainwallet.R.string.send_tutorial_description),
-                    color = if (tutorialBentoState.darkMode) Color.White else Color.Black,
+                    color = if (state.darkMode) Color.White else Color.Black,
                     modifier = Modifier
                         .padding(
                             top = 10.dp,

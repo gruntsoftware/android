@@ -26,6 +26,7 @@ import com.brainwallet.ui.theme.IBMPlexSans
 
 @Composable
 fun TutorialSendPage1(
+    darkMode: Boolean,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -39,7 +40,7 @@ fun TutorialSendPage1(
         ) {
             Text(
                 text = stringResource(com.brainwallet.R.string.send_tutorial_title),
-                color = Color.White,
+                color = if (darkMode) Color.White else Color.Black,
                 modifier = Modifier.fillMaxWidth()
                     .padding(
                         top = 30.dp,
@@ -76,6 +77,6 @@ fun TutorialSendPage1(
 @Composable
 private fun TutorialSendPage1Preview() {
     Column {
-        TutorialSendPage1()
+        TutorialSendPage1(darkMode = false)
     }
 }

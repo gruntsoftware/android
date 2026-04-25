@@ -1,8 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="About.blog">Webbplats</string>
-    <string name="About.privacy">Sekretesspolicy</string>
-    <string name="About.title">Om</string>
     <string name="AccessibilityLabels.close">Nära</string>
     <string name="Alert.error">Fel</string>
     <string name="Alert.keystore.invalidated.android">Din Brainwallet-krypterade data ogiltigförklarades nyligen eftersom din Android-låsskärm var inaktiverad.</string>
@@ -285,8 +282,6 @@
     <string name="received_label">Mottaget</string>
     <string name="sent_label">Skickat</string>
     <string name="ltc_price_label">LTC-pris</string>
-    <string name="tx_id_label">"TX-ID: "</string>
-    <string name="txns_label">transaktioner</string>
     <string name="send_tutorial_title">Hur du skickar Litecoin</string>
     <string name="brainwallet_walkthrough_title">Brainwallet Genomgång</string>
     <string name="brainwallet_walkthrough_description">Prova alla funktioner i Brainwallet, från att skicka och ta emot krypto till att hantera dina nycklar.</string>

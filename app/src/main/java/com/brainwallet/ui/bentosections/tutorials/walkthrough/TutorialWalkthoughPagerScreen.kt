@@ -1,6 +1,5 @@
 package com.brainwallet.ui.bentosections.tutorials.walkthrough
 
-import com.brainwallet.ui.bentosections.tutorials.TutorialsBentoViewModel
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,13 +14,15 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.brainwallet.navigation.OnNavigate
+import com.brainwallet.ui.bentosections.tutorials.TutorialsBentoViewModel
 import com.brainwallet.ui.theme.DesignTheme
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -34,7 +35,7 @@ fun TutorialWalkthroughPagerScreen(
 ) {
     val hubPageCount = 4
     val pagerState = rememberPagerState(pageCount = { hubPageCount })
-    val context = LocalContext.current
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     Box(
         modifier = Modifier
@@ -47,10 +48,10 @@ fun TutorialWalkthroughPagerScreen(
             modifier = modifier.fillMaxSize()
         ) { page ->
             when (page) {
-                0 -> TutorialWalkthroughPage1()
-                1 -> TutorialWalkthroughPage2()
-                2 -> TutorialWalkthroughPage3()
-                3 -> TutorialWalkthroughPage4()
+                0 -> TutorialWalkthroughPage1(darkMode = state.darkMode)
+                1 -> TutorialWalkthroughPage2(darkMode = state.darkMode)
+                2 -> TutorialWalkthroughPage3(darkMode = state.darkMode)
+                3 -> TutorialWalkthroughPage4(darkMode = state.darkMode)
             }
         }
 

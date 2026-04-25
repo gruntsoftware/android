@@ -7,10 +7,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.brainwallet.constants.BWConstants
 import com.brainwallet.ui.screens.buyreceive.BuyReceiveScreen
 import com.brainwallet.ui.screens.gamehub.GameHubScreen
 import com.brainwallet.ui.screens.home.MainScreen
 import com.brainwallet.ui.bentosections.buyreceivebento.receive.ReceiveDialog
+import com.brainwallet.ui.screens.main.WebModalScreen
 import com.brainwallet.ui.screens.restore.RestoreScreen
 import com.brainwallet.ui.screens.ready.ReadyScreen
 import com.brainwallet.ui.screens.send.SendScreen
@@ -132,8 +134,24 @@ fun NavGraphBuilder.mainNavGraph(
         val route: Route.GameHub = navBackStackEntry.toRoute()
         GameHubScreen(onNavigate = onNavigate)
     }
-    composable<Route.MoonPayWeb> { navBackStackEntry ->
+    composable<Route.MoonPayBuy> { navBackStackEntry ->
         val route: Route.GameHub = navBackStackEntry.toRoute()
         BuyReceiveScreen(onNavigate = onNavigate)
+    }
+
+    composable<Route.LinktreeWeb> { navBackStackEntry ->
+        val route: Route.LinktreeWeb = navBackStackEntry.toRoute()
+        WebModalScreen(
+            onNavigate = onNavigate,
+            url = BWConstants.LINKTREE_URL
+        )
+    }
+
+    composable<Route.BitrefillWeb> { navBackStackEntry ->
+        val route: Route.LinktreeWeb = navBackStackEntry.toRoute()
+        WebModalScreen(
+            onNavigate = onNavigate,
+            url = BWConstants.BITREFILL_URL
+        )
     }
 }
