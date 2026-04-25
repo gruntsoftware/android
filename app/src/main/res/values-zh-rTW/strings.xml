@@ -660,4 +660,6 @@
     <string name="send_tutorial_title_3b">發送前驗證！</string>
     <string name="send_tutorial_description_3b">掃描或貼上目標地址。仔細核實！將本地法幣轉換為LTC以確定可發送金額。新增備忘錄作為方便的提醒。點擊繼續。</string>
     <string name="Send.cameraUnavailabeMessage.android">在設定中允許相機存取</string>
+    <string name="shop_title">商店</string>
+    <string name="shop_tagline">使用 LTC 購買禮卡！</string>
 </resources>

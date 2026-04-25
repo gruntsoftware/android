@@ -645,4 +645,6 @@
     <string name="send_tutorial_title_3b">قبل از ارسال تأیید کنید!</string>
     <string name="send_tutorial_description_3b">آدرس مقصد را اسکن یا جایگذاری کنید. دوبار بررسی کنید! ارز محلی خود را تغییر دهید تا بفهمید چقدر می‌توانید ارسال کنید. یادداشتی به عنوان یادآوری اضافه کنید. بر روی ادامه ضربه بزنید.</string>
     <string name="Send.cameraUnavailabeMessage.android">دسترسی دوربین را در تنظیمات فعال کنید</string>
+    <string name="shop_title">فروشگاه</string>
+    <string name="shop_tagline">خریداری کارت هدیه با LTC!</string>
 </resources>

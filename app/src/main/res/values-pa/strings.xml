@@ -670,4 +670,6 @@
     <string name="send_tutorial_title_3b">ਭੇਜਣ ਤੋਂ ਪਹਿਲਾਂ ਤਸਦੀਕ ਕਰੋ!</string>
     <string name="send_tutorial_description_3b">ਮੰਜ਼ਿਲ ਦਾ ਪਤਾ ਸਕੈਨ ਕਰੋ ਜਾਂ ਚਿਪਕਾਓ। ਦੋ ਵਾਰ ਚੈਕ ਕਰੋ! ਇਹ ਪਤਾ ਲਗਾਉਣ ਲਈ ਆਪਣੀ ਸਥਾਨਕ ਫਿਆਟ ਨੂੰ ਬਦਲੋ ਕਿ ਤੁਸੀਂ ਕਿੰਨਾ ਭੇਜ ਸਕਦੇ ਹੋ। ਆਸਾਨ ਯਾਦ ਦਿਖਾਉਣ ਲਈ ਇੱਕ ਯਾਦ ਸ਼ਾਮਲ ਕਰੋ। ਜਾਰੀ ਰੱਖੋ \'ਤੇ ਟੈਪ ਕਰੋ।</string>
     <string name="Send.cameraUnavailabeMessage.android">ਸੈਟਿੰਗਜ਼ ਵਿੱਚ ਕੈਮਰੇ ਦੀ ਅਨੁਮਤੀ ਦਿਓ</string>
+    <string name="shop_title">ਦੁਕਾਨ</string>
+    <string name="shop_tagline">LTC ਨਾਲ ਗਿਫ਼ਟ ਕਾਰਡ ਖਰੀਦੋ!</string>
 </resources>
