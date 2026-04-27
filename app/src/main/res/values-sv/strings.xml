@@ -304,4 +304,6 @@
     <string name="send_tutorial_title_3b">Verifiera innan du skickar!</string>
     <string name="send_tutorial_description_3b">Skanna eller klistra in destinationsadressen. Dubbelkolla! Ändra din lokala fiat-valuta för att räkna ut hur mycket du kan skicka. Lägg till en anteckning som en praktisk påminnelse. Tryck Fortsätt.</string>
     <string name="Send.cameraUnavailabeMessage.android">Tillåt kameraåtkomst i Inställningar</string>
+    <string name="shop_title">Butik</string>
+    <string name="shop_tagline">Köp presentkort med LTC!</string>
 </resources>

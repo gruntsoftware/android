@@ -660,4 +660,6 @@
     <string name="send_tutorial_title_3b">送信前に確認！</string>
     <string name="send_tutorial_description_3b">宛先アドレスをスキャンまたは貼り付けます。よく確認してください！現地通貨で計算して送信可能な金額を確認します。メモを追加して便利に管理できます。続けるをタップします。</string>
     <string name="Send.cameraUnavailabeMessage.android">設定からカメラへのアクセスを許可してください</string>
+    <string name="shop_title">ショップ</string>
+    <string name="shop_tagline">LTCでギフトカードを購入！</string>
 </resources>

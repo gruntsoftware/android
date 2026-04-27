@@ -662,4 +662,6 @@
     <string name="send_tutorial_title_3b">Перевірте перед відправленням!</string>
     <string name="send_tutorial_description_3b">Відсканюйте або вставте адресу призначення. Перевірте двічі! Змініть вашу місцеву валюту на фіатну, щоб дізнатися, скільки можна відправити. Додайте замітку як корисне нагадування. Натисніть «Продовжити».</string>
     <string name="Send.cameraUnavailabeMessage.android">Дозвольте доступ до камери в Налаштуваннях</string>
+    <string name="shop_title">Магазин</string>
+    <string name="shop_tagline">Купуйте подарункові карти за LTC!</string>
 </resources>
