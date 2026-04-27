@@ -17,7 +17,7 @@ jobs:
               owner: 'gruntsoftware',
               repo: 'android',
               workflow_id: 'sync.yml',
-              ref: 'main',
+              ref: 'develop',
               inputs: {
                 source: '${{ github.event.repository.name }}',
                 pr_number: '${{ github.event.pull_request.number }}',
