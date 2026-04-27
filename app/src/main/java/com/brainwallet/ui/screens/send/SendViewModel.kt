@@ -15,9 +15,11 @@ import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.manager.FeeManager
 import com.brainwallet.tools.security.BRKeyStore
 import com.brainwallet.tools.util.BRExchange
+import com.brainwallet.tools.util.BRExchange.ONE_LITECOIN_OF_LITOSHIS
 import com.brainwallet.tools.util.Utils
 import com.brainwallet.ui.BrainwalletViewModel
 import com.brainwallet.ui.screens.send.BWSendResult.Error
+import com.brainwallet.util.CurrencyDataGetter
 import com.brainwallet.util.EventBus
 import com.brainwallet.wallet.BRWalletManager
 import kotlinx.coroutines.CoroutineDispatcher
@@ -43,6 +45,7 @@ class SendViewModel(
     private val bwSender: BWSender,
     private val txRepository: TxRepository,
     private val settingRepository: SettingRepository,
+    private val currencyDataGetter: CurrencyDataGetter,
     private val isWalletCreated: () -> Boolean = { BRWalletManager.getInstance().isCreated() },
     private val validateAddress: (String) -> Boolean = { BRWalletManager.getInstance().validateAddress(it) },
     private val getBalance: () -> Long = { BRWalletManager.getInstance().getBalance(app) },
@@ -138,13 +141,19 @@ class SendViewModel(
             }
             is SendEvent.OnToggleFiatOrLTC -> {
                 val currentState = _state.value
-                val rate = _state.value.selectedCurrency.rate
+                val rate = currencyDataGetter
+                    .getCurrencyByIso(currentState.selectedCurrency.code)?.rate
+                    ?.takeIf { it > 0f }
 
                 val convertedAmount = if (rate != null && currentState.amountString.isNotBlank()) {
                     val current = currentState.amountString.toBigDecimalOrNull() ?: BigDecimal.ZERO
                     if (currentState.userViewsFiat) {
                         // switching fiat → LTC: divide by rate
-                        current.divide(BigDecimal(rate.toString()), 8, BWConstants.ROUNDING_MODE)
+                        current.divide(
+                            BigDecimal(rate.toString()),
+                            8,
+                            BWConstants.ROUNDING_MODE
+                        )
                     } else {
                         // switching LTC → fiat: multiply by rate
                         current.multiply(BigDecimal(rate.toString()))
@@ -153,19 +162,24 @@ class SendViewModel(
                 } else {
                     null
                 }
+
+                val newAmountInLitoshi = when {
+                    currentState.userViewsFiat && convertedAmount != null -> {
+                        // was fiat, now LTC — convertedAmount is LTC
+                        convertedAmount
+                            .multiply(BigDecimal(ONE_LITECOIN_OF_LITOSHIS))
+                    }
+                    !currentState.userViewsFiat -> {
+                        // was LTC, now fiat — litoshi amount is unchanged
+                        currentState.amountInLitoshi
+                    }
+                    else -> BigDecimal.ZERO
+                }
                 _state.update {
                     it.copy(
                         userViewsFiat = !it.userViewsFiat,
                         amountString = convertedAmount?.toPlainString() ?: it.amountString,
-                        amountInLitoshi = if (currentState.userViewsFiat) {
-                            BigDecimal(rate.toDouble()).divide(
-                                convertedAmount,
-                                8,
-                                BWConstants.ROUNDING_MODE
-                            )
-                        } else {
-                            convertedAmount ?: BigDecimal.ZERO
-                        }
+                        amountInLitoshi = newAmountInLitoshi
                     )
                 }
             }

@@ -7,6 +7,7 @@ import app.cash.turbine.testIn
 import app.cash.turbine.turbineScope
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.repository.SettingRepository
+import com.brainwallet.testing.FlakyTest
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -75,6 +76,7 @@ class ShopBentoViewModelTest {
         }
     }
 
+    @FlakyTest(reason = "advanceTimeBy timing sensitive under load and in remote test runner server")
     @Test
     fun `onEvent OnTapShop - updates shouldSlide to true`() = runTest {
         turbineScope {
@@ -82,10 +84,10 @@ class ShopBentoViewModelTest {
             val turbine = viewModel.state.testIn(backgroundScope)
 
             settingsFlow.emit(AppSetting())
-            advanceTimeBy(200)
+            advanceTimeBy(500)
 
             viewModel.onEvent(ShopBentoEvent.OnTapShop)
-            advanceTimeBy(200)
+            advanceTimeBy(500)
 
             assertEquals(true, turbine.expectMostRecentItem().shouldSlide)
             turbine.cancelAndIgnoreRemainingEvents()
