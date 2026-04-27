@@ -5,6 +5,7 @@ import com.brainwallet.data.model.GlobalCurrency
 import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.tools.sqlite.CurrencyDataSource
+import com.brainwallet.util.CurrencyDataGetter
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
@@ -38,6 +39,7 @@ class LTCPickerBentoViewModelTest {
         every { settings } returns settingsFlow
     }
     private val currencyDataSource: CurrencyDataSource = mockk()
+    private val currencyDataGetter: CurrencyDataGetter = mockk()
 
     private lateinit var viewModel: LTCPickerBentoViewModel
     private val mockCrashlytics: FirebaseCrashlytics = mockk(relaxed = true)
@@ -52,6 +54,7 @@ class LTCPickerBentoViewModelTest {
         viewModel = LTCPickerBentoViewModel(
             settingRepository,
             currencyDataSource,
+            currencyDataGetter,
             ltcRepository
         )
     }
