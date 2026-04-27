@@ -1,4 +1,4 @@
-name: Notify Mirror on PR
+name: Notify 🪞 on PR
 
 on:
   pull_request:
