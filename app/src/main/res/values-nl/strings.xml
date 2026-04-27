@@ -304,4 +304,6 @@
     <string name="send_tutorial_title_3b">Verifieer voordat u verzendt!</string>
     <string name="send_tutorial_description_3b">Scan of plak het doeladdres. Dubbel controleren! Wijzig uw lokale fiat om uit te rekenen hoeveel u kunt verzenden. Voeg een memo toe als handige herinnering. Tik op Doorgaan.</string>
     <string name="Send.cameraUnavailabeMessage.android">Sta cameratoegang toe in Instellingen</string>
+    <string name="shop_title">Winkel</string>
+    <string name="shop_tagline">Koop cadeaukaarten met LTC!</string>
 </resources>

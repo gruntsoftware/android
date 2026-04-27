@@ -12,11 +12,13 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 
@@ -90,16 +92,13 @@ fun PasscodeKeypad(
 
         _root_ide_package_.com.brainwallet.ui.composable.CircleButton(
             modifier = modifierCircleButton,
-            onClick = {
-                onEvent.invoke(PasscodeKeypadEvent.OnDelete)
-            },
-            colors = IconButtonDefaults.filledIconButtonColors(
-                containerColor = Color.Transparent
-            ),
+            onClick = { onEvent.invoke(PasscodeKeypadEvent.OnDelete) },
         ) {
             Icon(
                 Icons.AutoMirrored.Filled.ArrowBack,
                 contentDescription = "Delete",
+                tint = MaterialTheme.typography.headlineMedium.color
+                    .takeOrElse { LocalContentColor.current }
             )
         }
     }
