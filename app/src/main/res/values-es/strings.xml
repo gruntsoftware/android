@@ -1,11 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
     <!-- About screen blog label -->
-    <string name="About.blog">Blog</string>
     <!-- Privay Policy button label -->
-    <string name="About.privacy">Política de privacidad</string>
     <!-- About screen title -->
-    <string name="About.title">Acerca de nosotros</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">Cerrar</string>
     <!-- Error alert title -->
@@ -238,7 +235,6 @@
     <!-- Balance: $4.00 -->
     <string name="Send.balance">Saldo: %1$s</string>
     <!-- Instructions how to allow the camera access for the app -->
-    <string name="Send.cameraUnavailabeMessage.android">Para permitir el acceso a la cámara, ve a «Ajustes», selecciona «Aplicaciones», busca la aplicación «Loaf» y selecciona la opción «Permisos»</string>
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">Loaf no tiene permitido el acceso a la cámara</string>
     <string name="Send.containsAddress">El destino es tu propia dirección. No puedes hacerte un envío a ti mismo.</string>
@@ -367,12 +363,10 @@
     <string name="radio_low_privacy">Baja privacidad (~19 minutos)</string>
     <string name="radio_semi_private">Semiprivado (~42 minutos)</string>
     <string name="radio_anonymous">Anónimo (~77 minutos)</string>
-
     <!-- Announce Updates View -->
     <string name="Fees.Service">Servicio</string>
     <string name="Network.feeLabel">Red</string>
     <string name="ConfirmationAllFees.Label">Honorarios:</string>
-
     <string name="cancel">Cancelar</string>
     <string name="ok">De acuerdo</string>
     <string name="please_grant_notification_permission">Por favor conceda permiso de notificación</string>
@@ -483,5 +477,36 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Tutoriales</string>
     <string name="coming_soon">¡Próximamente!</string>
-<string name="rice_partner_03_tagline">¡Recarga en 5 minutos con nuestro socio!</string><string name="unagi_social_01_tagline">¡Haz clic y síguenos!</string><string name="export_transaction_button_title">Exportar todas las transacciones</string><string name="copy_tx_details">Copiar detalles de la transacción</string><string name="all_label">Todas</string><string name="received_label">Recibidas</string><string name="sent_label">Enviadas</string><string name="ltc_price_label">Precio LTC</string>
-    <string name="sign_up_messaging_title">¡Suscríbete a actualizaciones, noticias y concursos!</string><string name="grant_for_notifications_message">"Por favor, acepta el permiso para nuestras notificaciones "</string></resources>
+    <string name="rice_partner_03_tagline">¡Recarga en 5 minutos con nuestro socio!</string>
+    <string name="unagi_social_01_tagline">¡Haz clic y síguenos!</string>
+    <string name="export_transaction_button_title">Exportar todas las transacciones</string>
+    <string name="copy_tx_details">Copiar detalles de la transacción</string>
+    <string name="all_label">Todas</string>
+    <string name="received_label">Recibidas</string>
+    <string name="sent_label">Enviadas</string>
+    <string name="ltc_price_label">Precio LTC</string>
+    <string name="sign_up_messaging_title">¡Suscríbete a actualizaciones, noticias y concursos!</string>
+    <string name="grant_for_notifications_message">"Por favor, acepta el permiso para nuestras notificaciones "</string>
+    <string name="send_tutorial_title">Cómo enviar Litecoin</string>
+    <string name="brainwallet_walkthrough_title">Tutorial de Brainwallet</string>
+    <string name="brainwallet_walkthrough_description">Prueba todas las características de Brainwallet, desde enviar y recibir criptomonedas hasta gestionar tus claves.</string>
+    <string name="send_tutorial_description">Sigue los pasos sencillos para enviar LTC a la cartera de otra persona. ¡Lo recibirá en segundos!</string>
+    <string name="walkthrough_title_1">1. Verifica tu saldo</string>
+    <string name="walkthrough_description_1">No puedes enviar si es cero o se está sincronizando. Recarga en 5 minutos con MoonPay si es necesario.</string>
+    <string name="tap_moonpay_callout_title">¡Toca aquí y recarga!</string>
+    <string name="walkthrough_title_2">2. Configuración y Modo Oscuro</string>
+    <string name="walkthrough_description_2">Personaliza tocando Configuración en la esquina superior derecha. Establece tu preferencia de Modo Oscuro tocando el  en la esquina superior izquierda.</string>
+    <string name="walkthrough_title_3">Revisa tus transacciones</string>
+    <string name="walkthrough_description_3">Cuando recibas transacciones, aparecerán aquí. Desliza hacia arriba y hacia abajo para verificar. Toca el filtro para alternar entre Todas, Recibidas o Enviadas.</string>
+    <string name="walkthrough_title_3a">¡Profundiza!</string>
+    <string name="walkthrough_description_3a">Toca Historial para mostrar más detalles y expandir la vista. Desliza hacia arriba o hacia abajo para desplazarte por toda la información.</string>
+    <string name="walkthrough_title_4">Comprueba el precio de LTC</string>
+    <string name="walkthrough_description_4">Brainwallet actualiza el precio de Litecoin (LTC) regularmente. Elige tu moneda local para obtener la tasa deslizando. ¡Usa tu bandera como guía!</string>
+    <string name="send_tutorial_title_1a">2. Toca la pestaña Enviar</string>
+    <string name="send_tutorial_description_1a">¿Saldo superior a cero? Cambia entre moneda local o LTC para determinar cuánto enviar. Ajusta la comisión de red en configuración</string>
+    <string name="send_tutorial_title_3a">3. Establece los valores</string>
+    <string name="send_tutorial_description_3a">¿Tienes algo de LTC? Cambia tu moneda fiduciaria local para determinar cuánto puedes enviar. O calcula en LTC. Ve a configuración para ajustar tu comisión de red preferida</string>
+    <string name="send_tutorial_title_3b">¡Verifica antes de enviar!</string>
+    <string name="send_tutorial_description_3b">Escanea o pega la dirección de destino. ¡Verifica dos veces! Cambia tu moneda fiduciaria local para determinar cuánto puedes enviar. Añade una nota como recordatorio útil. Toca Continuar.</string>
+    <string name="Send.cameraUnavailabeMessage.android">Permitir acceso a la cámara en Configuración</string>
+</resources>

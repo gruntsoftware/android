@@ -1,7 +1,5 @@
 package com.brainwallet.ui.screens.home
 
-import android.net.Uri
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -71,21 +69,25 @@ import com.brainwallet.tools.animation.BRAnimator
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.ui.bentosections.balancebento.BalanceBentoScreen
 import com.brainwallet.ui.bentosections.buyreceivebento.receive.ReceiveDialog
-import com.brainwallet.ui.bentosections.favouritesbento.FavouritesBentoScreen
 import com.brainwallet.ui.bentosections.gamehubbento.GameHubBentoPagerScreen
 import com.brainwallet.ui.bentosections.ltcpickerbento.LTCPickerBentoScreen
+import com.brainwallet.ui.bentosections.shopbento.ShopBentoScreen
 import com.brainwallet.ui.bentosections.transactionbento.TransactionsBentoScreen
 import com.brainwallet.ui.bentosections.tutorials.TutorialsBentoScreen
+import com.brainwallet.ui.bentosections.tutorials.send.TutorialSendPagerScreen
+import com.brainwallet.ui.bentosections.tutorials.walkthrough.TutorialWalkthroughPagerScreen
 import com.brainwallet.ui.composable.BentoBottomNavBar
 import com.brainwallet.ui.screens.main.MainScreenEvent
 import com.brainwallet.ui.screens.main.MainViewModel
 import com.brainwallet.ui.screens.main.SettingsButton
 import com.brainwallet.ui.screens.main.ThemeButton
+import com.brainwallet.ui.screens.main.WebModalScreen
 import com.brainwallet.ui.screens.send.SendScreen
 import com.brainwallet.ui.screens.settings.settingsrows.HomeSettingDrawerSheet
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.ui.theme.bentoClearGradient
 import com.brainwallet.ui.theme.bentoModalDarkGradient
+import com.brainwallet.ui.theme.bentoSemiWhiteGradient
 import com.brainwallet.ui.theme.blurAnimatedWith
 import com.brainwallet.ui.theme.mainScreenDarkSurfaceGradient
 import com.brainwallet.ui.theme.mainScreenLightSurfaceGradient
@@ -117,7 +119,12 @@ fun MainScreen(
     val showTransactionDetail = state.showTransactionDetail
     val noTxItemsPresent = state.transactionItems.isEmpty()
     val blurRadiusWhen by animateFloatAsState(
-        targetValue = if (isSheetOpen) 40f else 0f,
+        targetValue = when {
+            !isSheetOpen -> 0f
+            modalContentRoute == Route.TutorialSend ||
+                modalContentRoute == Route.TutorialWalkthrough -> 0f
+            else -> 40f
+        },
         animationSpec = tween(durationMillis = 400),
         label = "blurRadius"
     )
@@ -216,7 +223,7 @@ fun MainScreen(
                     gameHubHt
                 val transactionsDetailHeight = availableHeight + gameHubHt + balanceGameBentoHt
                 val ltcPickerBentoHeight = (availableHeight * 0.7f) - (bentoSpacer / 2)
-                val favoritesBentoHeight = (availableHeight * 0.3f) - (bentoSpacer / 2)
+                val storeBentoHeight = (availableHeight * 0.3f) - (bentoSpacer / 2)
                 val transactionBentoHeight by animateDpAsState(
                     targetValue = if (showTransactionDetail) transactionsDetailHeight else transactionRowHt,
                     animationSpec = tween(EXPAND_DURATION),
@@ -281,7 +288,7 @@ fun MainScreen(
                                 shouldShowFiatValues = state.shouldShowFiatValues,
                                 onBentoTap = {
                                     if (noTxItemsPresent) {
-                                        onNavigate.invoke(UiEffect.Navigate(Route.MoonPayWeb))
+                                        onNavigate.invoke(UiEffect.Navigate(Route.MoonPayBuy))
                                     } else {
                                         viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail)
                                     }
@@ -295,7 +302,18 @@ fun MainScreen(
                                 exit = fadeOut(tween(FADE_OUT_DURATION)),
                             ) {
                                 Box(modifier = Modifier.height(availableHeight)) {
-                                    TutorialsBentoScreen()
+                                    TutorialsBentoScreen(onClick = { page ->
+                                        when (page) {
+                                            0 -> {
+                                                modalContentRoute = Route.TutorialWalkthrough
+                                                isSheetOpen = true
+                                            }
+                                            1 -> {
+                                                modalContentRoute = Route.TutorialSend
+                                                isSheetOpen = true
+                                            }
+                                        }
+                                    })
                                 }
                             }
                         }
@@ -309,8 +327,11 @@ fun MainScreen(
                                     Box(modifier = Modifier.height(ltcPickerBentoHeight)) {
                                         LTCPickerBentoScreen()
                                     }
-                                    Box(modifier = Modifier.height(favoritesBentoHeight)) {
-                                        FavouritesBentoScreen()
+                                    Box(modifier = Modifier.height(storeBentoHeight)) {
+                                        ShopBentoScreen(onClick = {
+                                            modalContentRoute = Route.BitrefillWeb
+                                            isSheetOpen = true
+                                        })
                                     }
                                 }
                             }
@@ -333,14 +354,8 @@ fun MainScreen(
                                                 AnalyticsManager.logCustomEvent("user_did_tap_mp_in_gh")
                                             }
                                             2 -> {
-                                                val builder = CustomTabsIntent.Builder()
-                                                val customTabsIntent = builder.build()
-                                                customTabsIntent.launchUrl(
-                                                    context,
-                                                    Uri.parse(BWConstants.LINKTREE_URL)
-                                                )
-
-                                                AnalyticsManager.logCustomEvent("user_did_tap_linktree")
+                                                modalContentRoute = Route.LinktreeWeb
+                                                isSheetOpen = true
                                             }
                                         }
                                     })
@@ -372,12 +387,26 @@ fun MainScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentWidth()
-                        .fillMaxHeight(0.85f)
+                        .fillMaxHeight(
+                            if (modalContentRoute == Route.TutorialSend ||
+                                modalContentRoute == Route.TutorialWalkthrough ||
+                                modalContentRoute == Route.BitrefillWeb ||
+                                modalContentRoute == Route.LinktreeWeb
+                            ) {
+                                1f
+                            } else {
+                                0.85f
+                            }
+                        )
                         .background(
                             brush = if (modalContentRoute == Route.BuyReceive) {
                                 bentoClearGradient
                             } else if (isDarkMode && modalContentRoute == Route.Send) {
                                 bentoModalDarkGradient
+                            } else if (modalContentRoute == Route.TutorialSend ||
+                                modalContentRoute == Route.TutorialWalkthrough
+                            ) {
+                                bentoSemiWhiteGradient
                             } else {
                                 mainScreenLightSurfaceGradient
                             },
@@ -405,6 +434,28 @@ fun MainScreen(
                                 .fillMaxWidth(0.9f)
                                 .align(Alignment.Center),
                             onDismissRequest = { isSheetOpen = false }
+                        )
+
+                        Route.TutorialSend -> TutorialSendPagerScreen(
+                            onNavigate = onNavigate,
+                            onDismissTutorialSendModal = { isSheetOpen = false }
+                        )
+
+                        Route.TutorialWalkthrough -> TutorialWalkthroughPagerScreen(
+                            onNavigate = onNavigate,
+                            onDismissTutorialWalkthroughModal = { isSheetOpen = false }
+                        )
+
+                        Route.LinktreeWeb -> WebModalScreen(
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            onNavigate = onNavigate,
+                            url = BWConstants.LINKTREE_URL
+                        )
+
+                        Route.BitrefillWeb -> WebModalScreen(
+                            onNavigate = onNavigate,
+                            url = BWConstants.BITREFILL_URL
                         )
                         else -> {}
                     }

@@ -2,14 +2,11 @@
 <resources>
     <!-- App name -->
     <!-- About screen blog label -->
-    <string name="About.blog">Situs web</string>
     <!-- About screen footer -->
     <!-- Privay Policy button label -->
-    <string name="About.privacy">Kebijakan pribadi</string>
     <!-- About screen Instagram label -->
     <!-- Terms of Use button label -->
     <!-- About screen title -->
-    <string name="About.title">Tentang</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">Menutup</string>
     <!-- Support center accessibiliy label -->
@@ -278,7 +275,6 @@
     <!-- Balance: $4.00 -->
     <string name="Send.balance">Keseimbangan: %1$s</string>
     <!-- Instructions how to allow the camera access for the app -->
-    <string name="Send.cameraUnavailabeMessage.android">Izinkan akses kamera di \"Pengaturan\" &gt; \"Aplikasi\" &gt; \"Brainwallet\" &gt; \"Izin\"</string>
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">Brainwallet tidak diizinkan untuk mengakses kamera</string>
     <!-- Camera not allowed message -->
@@ -314,12 +310,10 @@
     <string name="Send.title">Kirim</string>
     <!-- Send money to label -->
     <string name="Send.toLabel">Masukkan alamat Litecoin</string>
-
     <!-- Enter to match domain name to LTC Address -->
     <!-- Or -->
     <!-- Lookup -->
     <!-- Your address was resolved! -->
-
     <!-- Adress already used alert message - first part -->
     <string name="Send.UsedAddress.firstLine">Alamat Litecoin hanya ditujukan untuk penggunaan tunggal.</string>
     <!-- Adress already used alert message - second part -->
@@ -510,7 +504,6 @@
     <!-- button label -->
     <!-- button label -->
     <!-- 1 of 3 -->
-
     <string name="BottomNavItem.History.title">Sejarah</string>
     <string name="ManageWallet.balance">Saldo Kartu</string>
     <string name="Login.currentLtcPrice">Nilai LTC saat ini di %1$s</string>
@@ -521,12 +514,10 @@
     <string name="radio_low_privacy">Privasi rendah (~19 menit)</string>
     <string name="radio_semi_private">Semi-pribadi (~42 menit)</string>
     <string name="radio_anonymous">Anonim (~77 menit)</string>
-
     <!-- Announce Updates View -->
     <string name="Fees.Service">Melayani</string>
     <string name="Network.feeLabel">Jaringan</string>
     <string name="ConfirmationAllFees.Label">Biaya:</string>
-
     <string name="cancel">Batal</string>
     <string name="ok">OK</string>
     <string name="please_grant_notification_permission">Harap berikan izin pemberitahuan</string>
@@ -637,5 +628,36 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Tutorial</string>
     <string name="coming_soon">Segera hadir!</string>
-<string name="rice_partner_03_tagline">Top up dalam 5 menit dengan mitra kami</string><string name="unagi_social_01_tagline">Klik dan ikuti kami!</string><string name="export_transaction_button_title">Ekspor Semua Transaksi</string><string name="copy_tx_details">Salin detail transaksi</string><string name="all_label">Semua</string><string name="received_label">Diterima</string><string name="sent_label">Dikirim</string><string name="ltc_price_label">Harga LTC</string>
-    <string name="sign_up_messaging_title">Daftar untuk mendapatkan update, berita, dan kontes!</string><string name="grant_for_notifications_message">"Mohon izinkan notifikasi dari kami "</string></resources>
+    <string name="rice_partner_03_tagline">Top up dalam 5 menit dengan mitra kami</string>
+    <string name="unagi_social_01_tagline">Klik dan ikuti kami!</string>
+    <string name="export_transaction_button_title">Ekspor Semua Transaksi</string>
+    <string name="copy_tx_details">Salin detail transaksi</string>
+    <string name="all_label">Semua</string>
+    <string name="received_label">Diterima</string>
+    <string name="sent_label">Dikirim</string>
+    <string name="ltc_price_label">Harga LTC</string>
+    <string name="sign_up_messaging_title">Daftar untuk mendapatkan update, berita, dan kontes!</string>
+    <string name="grant_for_notifications_message">"Mohon izinkan notifikasi dari kami "</string>
+    <string name="send_tutorial_title">Cara mengirim Litecoin</string>
+    <string name="brainwallet_walkthrough_title">Panduan Brainwallet</string>
+    <string name="brainwallet_walkthrough_description">Coba semua fitur Brainwallet, dari mengirim dan menerima crypto hingga mengelola kunci Anda.</string>
+    <string name="send_tutorial_description">Ikuti langkah-langkah mudah untuk mengirim LTC ke dompet orang lain. Mereka akan menerimanya dalam hitungan detik!</string>
+    <string name="walkthrough_title_1">1. Periksa saldo Anda</string>
+    <string name="walkthrough_description_1">Anda tidak dapat mengirim jika saldo nol atau sedang sinkronisasi. Isi ulang dalam 5 menit dengan MoonPay jika diperlukan.</string>
+    <string name="tap_moonpay_callout_title">Ketuk di sini &amp; isi ulang!</string>
+    <string name="walkthrough_title_2">2. Pengaturan &amp; Mode Gelap</string>
+    <string name="walkthrough_description_2">Sesuaikan dengan mengetuk Pengaturan di pojok kanan atas. Atur preferensi Mode Gelap dengan mengetuk di pojok kiri atas.</string>
+    <string name="walkthrough_title_3">Tinjau transaksi Anda</string>
+    <string name="walkthrough_description_3">Ketika Anda mendapatkan transaksi, mereka muncul di sini. Geser ke atas dan ke bawah untuk memeriksa. Ketuk filter untuk beralih antara Semua, Terima, atau Kirim.</string>
+    <string name="walkthrough_title_3a">Lihat Lebih Detail!</string>
+    <string name="walkthrough_description_3a">Ketuk Riwayat untuk menampilkan detail lebih lanjut dan memperluas tampilan. Geser ke atas atau ke bawah untuk scroll melalui semua informasi.</string>
+    <string name="walkthrough_title_4">Periksa Harga LTC</string>
+    <string name="walkthrough_description_4">Brainwallet memperbarui harga Litecoin (LTC) secara teratur. Pilih mata uang lokal Anda untuk mendapatkan kurs dengan menggeser. Gunakan bendera Anda sebagai panduan!</string>
+    <string name="send_tutorial_title_1a">2. Ketuk tab Kirim</string>
+    <string name="send_tutorial_description_1a">Saldo lebih dari nol? Alihkan ke mata uang atau LTC untuk mengetahui jumlah yang akan dikirim. Sesuaikan biaya jaringan di pengaturan</string>
+    <string name="send_tutorial_title_3a">3. Atur nilai</string>
+    <string name="send_tutorial_description_3a">Apakah Anda memiliki beberapa LTC? Ubah angka fiat lokal Anda untuk mengetahui berapa banyak yang dapat Anda kirim. Atau, hitung dalam LTC. Buka pengaturan untuk menyesuaikan biaya jaringan pilihan Anda</string>
+    <string name="send_tutorial_title_3b">Verifikasi sebelum mengirim!</string>
+    <string name="send_tutorial_description_3b">Pindai atau tempel alamat tujuan. Periksa dua kali! Ubah fiat lokal Anda untuk mengetahui berapa banyak yang dapat Anda kirim. Tambahkan memo sebagai pengingat praktis. Ketuk Lanjutkan.</string>
+    <string name="Send.cameraUnavailabeMessage.android">Izinkan akses kamera di Pengaturan</string>
+</resources>

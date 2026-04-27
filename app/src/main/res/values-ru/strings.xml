@@ -2,14 +2,11 @@
 <resources>
     <!-- App name -->
     <!-- About screen blog label -->
-    <string name="About.blog">Блог</string>
     <!-- About screen footer -->
     <!-- Privay Policy button label -->
-    <string name="About.privacy">Политика конфиденциальности</string>
     <!-- About screen Instagram label -->
     <!-- Terms of Use button label -->
     <!-- About screen title -->
-    <string name="About.title">О нас</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">Закрыть</string>
     <!-- Support center accessibiliy label -->
@@ -278,7 +275,6 @@
     <!-- Balance: $4.00 -->
     <string name="Send.balance">Баланс: %1$s</string>
     <!-- Instructions how to allow the camera access for the app -->
-    <string name="Send.cameraUnavailabeMessage.android">Разрешить доступ к камере в: \"Настройки\" &gt; \"Приложения\" &gt; \"Loaf\" &gt; \"Разрешения\"</string>
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">Приложению Loaf не разрешен доступ к камере</string>
     <!-- Camera not allowed message -->
@@ -314,12 +310,10 @@
     <string name="Send.title">Отправить</string>
     <!-- Send money to label -->
     <string name="Send.toLabel">Введите адрес Litecoin</string>
-
     <!-- Enter to match domain name to LTC Address -->
     <!-- Or -->
     <!-- Lookup -->
     <!-- Your address was resolved! -->
-
     <!-- Adress already used alert message - first part -->
     <string name="Send.UsedAddress.firstLine">Биткойн-адреса предназначены исключительно для однократного использования.</string>
     <!-- Adress already used alert message - second part -->
@@ -520,12 +514,10 @@
     <string name="radio_low_privacy">"Низкая конфиденциальность (~ 19 минут) "</string>
     <string name="radio_semi_private">"Полуприватный (~ 42 минуты) "</string>
     <string name="radio_anonymous">"Аноним (~77 минут) "</string>
-
     <!-- Announce Updates View -->
     <string name="Fees.Service">Услуга</string>
     <string name="Network.feeLabel">Сеть</string>
     <string name="ConfirmationAllFees.Label">Сборы:</string>
-
     <string name="cancel">Отмена</string>
     <string name="ok">Хорошо</string>
     <string name="please_grant_notification_permission">Пожалуйста, предоставьте разрешение на уведомление</string>
@@ -636,5 +628,36 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Обучающие материалы</string>
     <string name="coming_soon">Скоро!</string>
-<string name="rice_partner_03_tagline">Пополните счет за 5 минут с нашим партнером</string><string name="unagi_social_01_tagline">Нажмите и подпишитесь на нас!</string><string name="export_transaction_button_title">Экспортировать все транзакции</string><string name="copy_tx_details">Копировать детали транзакции</string><string name="all_label">Все</string><string name="received_label">Получено</string><string name="sent_label">Отправлено</string><string name="ltc_price_label">Цена LTC</string>
-    <string name="sign_up_messaging_title">Подпишитесь на обновления, новости и конкурсы!</string><string name="grant_for_notifications_message">"Пожалуйста, разрешите отправку уведомлений "</string></resources>
+    <string name="rice_partner_03_tagline">Пополните счет за 5 минут с нашим партнером</string>
+    <string name="unagi_social_01_tagline">Нажмите и подпишитесь на нас!</string>
+    <string name="export_transaction_button_title">Экспортировать все транзакции</string>
+    <string name="copy_tx_details">Копировать детали транзакции</string>
+    <string name="all_label">Все</string>
+    <string name="received_label">Получено</string>
+    <string name="sent_label">Отправлено</string>
+    <string name="ltc_price_label">Цена LTC</string>
+    <string name="sign_up_messaging_title">Подпишитесь на обновления, новости и конкурсы!</string>
+    <string name="grant_for_notifications_message">"Пожалуйста, разрешите отправку уведомлений "</string>
+    <string name="send_tutorial_title">Как отправить Litecoin</string>
+    <string name="brainwallet_walkthrough_title">Обзор Brainwallet</string>
+    <string name="brainwallet_walkthrough_description">Попробуйте все возможности Brainwallet: отправку и получение криптовалюты, управление ключами.</string>
+    <string name="send_tutorial_description">Следуйте простым шагам для отправки LTC на кошелек другого пользователя. Он получит это за секунды!</string>
+    <string name="walkthrough_title_1">1. Проверьте баланс</string>
+    <string name="walkthrough_description_1">Вы не сможете отправить, если баланс равен нулю или идет синхронизация. При необходимости пополните через MoonPay за 5 минут.</string>
+    <string name="tap_moonpay_callout_title">Нажмите и пополните!</string>
+    <string name="walkthrough_title_2">2. Настройки и тёмный режим</string>
+    <string name="walkthrough_description_2">Настройте параметры, нажав на Настройки в верхнем правом углу. Выберите тёмный режим, нажав в верхнем левом углу.</string>
+    <string name="walkthrough_title_3">Проверьте ваши транзакции</string>
+    <string name="walkthrough_description_3">Транзакции отображаются здесь. Проведите вверх и вниз для просмотра. Нажмите фильтр для переключения между Всеми, Полученными или Отправленными.</string>
+    <string name="walkthrough_title_3a">Узнайте подробнее!</string>
+    <string name="walkthrough_description_3a">Нажмите на История для более подробного просмотра. Проведите вверх или вниз для прокрутки всей информации.</string>
+    <string name="walkthrough_title_4">Проверьте цену LTC</string>
+    <string name="walkthrough_description_4">Brainwallet регулярно обновляет цену Litecoin (LTC). Выберите вашу местную валюту, проведя пальцем. Используйте флаг как ориентир!</string>
+    <string name="send_tutorial_title_1a">2. Нажмите вкладку Отправить</string>
+    <string name="send_tutorial_description_1a">Баланс больше нуля? Переключайтесь между валютой и LTC, чтобы рассчитать сумму отправки. Настройте комиссию сети в параметрах</string>
+    <string name="send_tutorial_title_3a">3. Установите значения</string>
+    <string name="send_tutorial_description_3a">У вас есть LTC? Конвертируйте между фиатом и LTC, чтобы узнать, сколько вы можете отправить. Или рассчитывайте в LTC. Перейдите в настройки для выбора предпочитаемой комиссии сети</string>
+    <string name="send_tutorial_title_3b">Проверьте перед отправкой!</string>
+    <string name="send_tutorial_description_3b">Отсканируйте или вставьте адрес получателя. Проверьте дважды! Конвертируйте между фиатом и LTC, чтобы узнать сумму отправки. Добавьте заметку в качестве напоминания. Нажмите Продолжить.</string>
+    <string name="Send.cameraUnavailabeMessage.android">Разрешите доступ к камере в Настройках</string>
+</resources>

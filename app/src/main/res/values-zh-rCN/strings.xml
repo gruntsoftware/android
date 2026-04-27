@@ -2,14 +2,11 @@
 <resources>
     <!-- App name -->
     <!-- About screen blog label -->
-    <string name="About.blog">博客</string>
     <!-- About screen footer -->
     <!-- Privay Policy button label -->
-    <string name="About.privacy">隐私政策</string>
     <!-- About screen Instagram label -->
     <!-- Terms of Use button label -->
     <!-- About screen title -->
-    <string name="About.title">关于</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">关闭</string>
     <!-- Support center accessibiliy label -->
@@ -278,7 +275,6 @@
     <!-- Balance: $4.00 -->
     <string name="Send.balance">余额：%1$s</string>
     <!-- Instructions how to allow the camera access for the app -->
-    <string name="Send.cameraUnavailabeMessage.android">在“设置”&gt;“应用”&gt;“Loaf”&gt;“权限”中允许访问相机</string>
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">Loaf 没有访问相机的权限</string>
     <!-- Camera not allowed message -->
@@ -314,12 +310,10 @@
     <string name="Send.title">发送</string>
     <!-- Send money to label -->
     <string name="Send.toLabel">输入一个Litecoin地址</string>
-
     <!-- Enter to match domain name to LTC Address -->
     <!-- Or -->
     <!-- Lookup -->
     <!-- Your address was resolved! -->
-
     <!-- Adress already used alert message - first part -->
     <string name="Send.UsedAddress.firstLine">莱特币地址仅供一次性使用。</string>
     <!-- Adress already used alert message - second part -->
@@ -520,12 +514,10 @@
     <string name="radio_low_privacy">低隐私（约 19 分钟）</string>
     <string name="radio_semi_private">半私人（约 42 分钟）</string>
     <string name="radio_anonymous">匿名（约 77 分钟）</string>
-
     <!-- Announce Updates View -->
     <string name="Fees.Service">服务</string>
     <string name="Network.feeLabel">网络</string>
     <string name="ConfirmationAllFees.Label">费用：</string>
-
     <string name="cancel">取消</string>
     <string name="ok">好的</string>
     <string name="please_grant_notification_permission">请授予通知权限</string>
@@ -636,5 +628,36 @@
     <string name="favourites_label">最高机密</string>
     <string name="tutorials_label">教程</string>
     <string name="coming_soon">敬请期待！</string>
-<string name="rice_partner_03_tagline">通过我们的合作伙伴5分钟内充值</string><string name="unagi_social_01_tagline">点击关注我们！</string><string name="sign_up_messaging_title">注册以获取更新、新闻和竞赛信息！</string><string name="grant_for_notifications_message">"请允许我们的通知权限"</string>
-    <string name="export_transaction_button_title">导出所有交易</string><string name="copy_tx_details">复制交易详情</string><string name="all_label">全部</string><string name="received_label">已接收</string><string name="sent_label">已发送</string><string name="ltc_price_label">LTC 价格</string></resources>
+    <string name="rice_partner_03_tagline">通过我们的合作伙伴5分钟内充值</string>
+    <string name="unagi_social_01_tagline">点击关注我们！</string>
+    <string name="sign_up_messaging_title">注册以获取更新、新闻和竞赛信息！</string>
+    <string name="grant_for_notifications_message">"请允许我们的通知权限"</string>
+    <string name="export_transaction_button_title">导出所有交易</string>
+    <string name="copy_tx_details">复制交易详情</string>
+    <string name="all_label">全部</string>
+    <string name="received_label">已接收</string>
+    <string name="sent_label">已发送</string>
+    <string name="ltc_price_label">LTC 价格</string>
+    <string name="send_tutorial_title">如何发送 Litecoin</string>
+    <string name="brainwallet_walkthrough_title">Brainwallet 使用指南</string>
+    <string name="brainwallet_walkthrough_description">体验 Brainwallet 的所有功能，从发送和接收加密货币到管理您的密钥。</string>
+    <string name="send_tutorial_description">按照简单步骤将 LTC 发送到他人的钱包。瞬间到账！</string>
+    <string name="walkthrough_title_1">1. 检查您的余额</string>
+    <string name="walkthrough_description_1">如果余额为零或正在同步，您无法发送。如需要，使用 MoonPay 在 5 分钟内充值。</string>
+    <string name="tap_moonpay_callout_title">点击这里充值！</string>
+    <string name="walkthrough_title_2">2. 设置与深色模式</string>
+    <string name="walkthrough_description_2">点击右上角的设置进行微调。点击左上角的 设置您的深色模式偏好。</string>
+    <string name="walkthrough_title_3">查看您的交易</string>
+    <string name="walkthrough_description_3">当您收到交易时，它们会显示在这里。向上或向下滑动查看。点击筛选以切换全部、接收或已发送。</string>
+    <string name="walkthrough_title_3a">深入了解！</string>
+    <string name="walkthrough_description_3a">点击历史记录以显示更多详情并展开视图。向上或向下滑动滚动查看所有信息。</string>
+    <string name="walkthrough_title_4">查看 LTC 价格</string>
+    <string name="walkthrough_description_4">Brainwallet 定期更新 Litecoin (LTC) 的价格。滑动选择您的本地货币以获取汇率。使用您的国旗作为指南！</string>
+    <string name="send_tutorial_title_1a">2. 点击发送标签</string>
+    <string name="send_tutorial_description_1a">余额大于零？切换到货币或 LTC 以计算发送金额。在设置中调整网络费用</string>
+    <string name="send_tutorial_title_3a">3. 设置金额</string>
+    <string name="send_tutorial_description_3a">您有一些 LTC 吗？更改您的本地法币以计算可以发送的金额。或者用 LTC 计算。进入设置以调整您的首选网络费用</string>
+    <string name="send_tutorial_title_3b">发送前验证！</string>
+    <string name="send_tutorial_description_3b">扫描或粘贴目标地址。仔细检查！更改您的本地法币以计算可以发送的金额。添加备忘录作为便捷提醒。点击继续。</string>
+    <string name="Send.cameraUnavailabeMessage.android">在设置中允许摄像头访问</string>
+</resources>

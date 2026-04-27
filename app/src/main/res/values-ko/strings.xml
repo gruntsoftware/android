@@ -2,14 +2,11 @@
 <resources>
     <!-- App name -->
     <!-- About screen blog label -->
-    <string name="About.blog">블로그</string>
     <!-- About screen footer -->
     <!-- Privay Policy button label -->
-    <string name="About.privacy">개인정보 보호정책</string>
     <!-- About screen reddit label -->
     <!-- Terms of Use button label -->
     <!-- About screen title -->
-    <string name="About.title">관련 사항</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">닫기</string>
     <!-- Support center accessibiliy label -->
@@ -278,7 +275,6 @@
     <!-- Balance: $4.00 -->
     <string name="Send.balance">잔액: %1$s</string>
     <!-- Instructions how to allow the camera access for the app -->
-    <string name="Send.cameraUnavailabeMessage.android">\"설정\" &gt; \"앱\" &gt; \"Loaf\" &gt; \"허용\"에서 카메라 접속을 허용해 주세요</string>
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">Loaf의 카메라 접속이 허용되지 않았습니다</string>
     <!-- Camera not allowed message -->
@@ -314,12 +310,10 @@
     <string name="Send.title">보내기</string>
     <!-- Send money to label -->
     <string name="Send.toLabel">라이트 코인 주소를 입력하세요</string>
-
     <!-- Enter to match domain name to LTC Address -->
     <!-- Or -->
     <!-- Lookup -->
     <!-- Your address was resolved! -->
-
     <!-- Adress already used alert message - first part -->
     <string name="Send.UsedAddress.firstLine">라이트코인 주소는 일회용입니다.</string>
     <!-- Adress already used alert message - second part -->
@@ -520,12 +514,10 @@
     <string name="radio_low_privacy">낮은 프라이버시(~19분)</string>
     <string name="radio_semi_private">세미 프라이빗(~42분)</string>
     <string name="radio_anonymous">익명(~77분)</string>
-
     <!-- Announce Updates View -->
     <string name="Fees.Service">서비스</string>
     <string name="Network.feeLabel">회로망</string>
     <string name="ConfirmationAllFees.Label">수수료:</string>
-
     <string name="cancel">취소</string>
     <string name="ok">좋아요</string>
     <string name="please_grant_notification_permission">알림 권한을 부여해 주세요</string>
@@ -636,5 +628,36 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">튜토리얼</string>
     <string name="coming_soon">곧 출시됩니다!</string>
-<string name="rice_partner_03_tagline">파트너와 함께 5분 안에 충전하세요</string><string name="unagi_social_01_tagline">클릭하고 우리를 팔로우하세요!</string><string name="export_transaction_button_title">모든 거래 내역 내보내기</string><string name="copy_tx_details">거래 상세정보 복사</string><string name="all_label">전체</string><string name="received_label">받음</string><string name="sent_label">보냄</string><string name="ltc_price_label">LTC 가격</string>
-    <string name="sign_up_messaging_title">업데이트, 뉴스 및 이벤트 소식을 받아보세요!</string><string name="grant_for_notifications_message">"알림 권한을 허용해 주세요 "</string></resources>
+    <string name="rice_partner_03_tagline">파트너와 함께 5분 안에 충전하세요</string>
+    <string name="unagi_social_01_tagline">클릭하고 우리를 팔로우하세요!</string>
+    <string name="export_transaction_button_title">모든 거래 내역 내보내기</string>
+    <string name="copy_tx_details">거래 상세정보 복사</string>
+    <string name="all_label">전체</string>
+    <string name="received_label">받음</string>
+    <string name="sent_label">보냄</string>
+    <string name="ltc_price_label">LTC 가격</string>
+    <string name="sign_up_messaging_title">업데이트, 뉴스 및 이벤트 소식을 받아보세요!</string>
+    <string name="grant_for_notifications_message">"알림 권한을 허용해 주세요 "</string>
+    <string name="send_tutorial_title">Litecoin을 보내는 방법</string>
+    <string name="brainwallet_walkthrough_title">Brainwallet 둘러보기</string>
+    <string name="brainwallet_walkthrough_description">암호화폐 송수신부터 키 관리까지 Brainwallet의 모든 기능을 체험해보세요.</string>
+    <string name="send_tutorial_description">간단한 단계에 따라 LTC를 다른 사람의 지갑으로 보내세요. 몇 초 안에 도착합니다!</string>
+    <string name="walkthrough_title_1">1. 잔액 확인</string>
+    <string name="walkthrough_description_1">잔액이 0이거나 동기화 중이면 보낼 수 없습니다. 필요하면 MoonPay로 5분 안에 충전하세요.</string>
+    <string name="tap_moonpay_callout_title">여기를 탭하고 충전하세요!</string>
+    <string name="walkthrough_title_2">2. 설정 및 다크 모드</string>
+    <string name="walkthrough_description_2">우측 상단의 설정을 탭하여 조정하세요. 좌측 상단의 를 탭하여 다크 모드 설정을 변경하세요.</string>
+    <string name="walkthrough_title_3">거래내역 확인</string>
+    <string name="walkthrough_description_3">거래가 발생하면 여기에 표시됩니다. 위아래로 스와이프하여 확인하세요. 필터를 탭하여 모두, 수신 또는 발송을 전환하세요.</string>
+    <string name="walkthrough_title_3a">자세히 보기!</string>
+    <string name="walkthrough_description_3a">히스토리를 탭하면 더 자세한 정보가 표시되고 보기가 확장됩니다. 위아래로 스와이프하여 모든 정보를 살펴보세요.</string>
+    <string name="walkthrough_title_4">LTC 가격 확인</string>
+    <string name="walkthrough_description_4">Brainwallet은 Litecoin(LTC) 가격을 정기적으로 업데이트합니다. 스와이프로 현지 통화를 선택하여 환율을 확인하세요. 국기를 참고하세요!</string>
+    <string name="send_tutorial_title_1a">2. 보내기 탭 탭하기</string>
+    <string name="send_tutorial_description_1a">잔액이 0보다 많나요? 통화 또는 LTC로 전환하여 보낼 금액을 계산하세요. 설정에서 네트워크 수수료를 조정하세요.</string>
+    <string name="send_tutorial_title_3a">3. 금액 설정</string>
+    <string name="send_tutorial_description_3a">LTC를 보유하고 있나요? 현지 통화로 변경하여 보낼 수 있는 금액을 계산하세요. 또는 LTC로 계산하세요. 설정에서 선호하는 네트워크 수수료를 조정하세요.</string>
+    <string name="send_tutorial_title_3b">보내기 전에 확인하세요!</string>
+    <string name="send_tutorial_description_3b">수신자 주소를 스캔하거나 붙여넣기하세요. 확인하세요! 현지 통화로 변경하여 보낼 수 있는 금액을 계산하세요. 편리한 참고를 위해 메모를 추가하세요. 계속을 탭하세요.</string>
+    <string name="Send.cameraUnavailabeMessage.android">설정에서 카메라 접근을 허용해주세요</string>
+</resources>

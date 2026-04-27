@@ -5,11 +5,9 @@
     <!-- About screen footer -->
     <!-- About app version -->
     <!-- Privay Policy button label -->
-    <string name="About.privacy">Gizlilik Politikası</string>
     <!-- About screen Instagram label -->
     <!-- Terms of Use button label -->
     <!-- About screen title -->
-    <string name="About.title">hakkında</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">Kapat</string>
     <!-- Support center accessibiliy label -->
@@ -293,7 +291,6 @@
     <!-- Balance: $4.00 -->
     <string name="Send.balance">Denge: %1$s</string>
     <!-- Instructions how to allow the camera access for the app -->
-    <string name="Send.cameraUnavailabeMessage.android">İçinde kamera erişimine izin ver \"Ayarlar\" &gt; \"Uygulamalar\" &gt; \"Brainwallet\" &gt; \"İzinler\"</string>
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">Brainwallet\'in kameraya erişmesine izin verilmiyor</string>
     <!-- Camera not allowed message -->
@@ -329,12 +326,10 @@
     <string name="Send.title">Gönder</string>
     <!-- Send money to label -->
     <string name="Send.toLabel">Bir Litecoin adresi girin</string>
-
     <!-- Enter to match domain name to LTC Address -->
     <!-- Or -->
     <!-- Lookup -->
     <!-- Your address was resolved! -->
-
     <!-- Address already used alert message - first part -->
     <string name="Send.UsedAddress.firstLine">Litecoin adresleri yalnızca tek kullanımlıktır.</string>
     <!-- Address already used alert message - second part -->
@@ -526,11 +521,8 @@
     <!-- button label -->
     <!-- button label -->
     <!-- 1 of 3 -->
-
     <!--Buy center - partners-->
-
     <string name="BottomNavItem.History.title">Tarih</string>
-
     <!-- Balance -->
     <string name="ManageWallet.balance">Denge</string>
     <string name="Login.currentLtcPrice">%1$s cinsinden geçerli LTC değeri</string>
@@ -541,12 +533,10 @@
     <string name="radio_low_privacy">Düşük gizlilik (~19 dakika)</string>
     <string name="radio_semi_private">Yarı özel (~42 dakika)</string>
     <string name="radio_anonymous">Anonim (~77 dakika)</string>
-
     <!-- Announce Updates View -->
     <string name="Fees.Service">Hizmet</string>
     <string name="Network.feeLabel">Ağ</string>
     <string name="ConfirmationAllFees.Label">Ücretler:</string>
-
     <string name="cancel">İptal etmek</string>
     <string name="ok">Tamam</string>
     <string name="please_grant_notification_permission">Lütfen bildirim izni verin</string>
@@ -583,7 +573,6 @@
     <string name="toggle_dark_mode">karanlık moda geçiş</string>
     <string name="tap_drag_a_word">Bir kelimeye dokunun ve yerine sürükleyin</string>
     <string name="top_up_title">Tamamlansın mı?\n</string>
-    <string name="About.blog">Tamamlansın mı?</string>
     <string name="top_up_detail_1">5 dakikada Litecoin\'i edinin</string>
     <string name="top_up_button_1">Biraz Litecoin alın!</string>
     <string name="top_up_button_2">Belki daha sonra.</string>
@@ -658,5 +647,36 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Eğitimler</string>
     <string name="coming_soon">Çok yakında!</string>
-<string name="rice_partner_03_tagline">Ortağımız ile 5 dakikada bakiye yükleyin</string><string name="unagi_social_01_tagline">Tıklayın ve bizi takip edin!</string><string name="sign_up_messaging_title">Güncellemeler, yenilikler ve yarışmalar için kaydolun!</string><string name="grant_for_notifications_message">"Lütfen bildirimlerimiz için izin verin "</string>
-    <string name="export_transaction_button_title">Tüm İşlemleri Dışa Aktar</string><string name="copy_tx_details">İşlem detaylarını kopyala</string><string name="all_label">Tümü</string><string name="received_label">Alınan</string><string name="sent_label">Gönderilen</string><string name="ltc_price_label">LTC Fiyatı</string></resources>
+    <string name="rice_partner_03_tagline">Ortağımız ile 5 dakikada bakiye yükleyin</string>
+    <string name="unagi_social_01_tagline">Tıklayın ve bizi takip edin!</string>
+    <string name="sign_up_messaging_title">Güncellemeler, yenilikler ve yarışmalar için kaydolun!</string>
+    <string name="grant_for_notifications_message">"Lütfen bildirimlerimiz için izin verin "</string>
+    <string name="export_transaction_button_title">Tüm İşlemleri Dışa Aktar</string>
+    <string name="copy_tx_details">İşlem detaylarını kopyala</string>
+    <string name="all_label">Tümü</string>
+    <string name="received_label">Alınan</string>
+    <string name="sent_label">Gönderilen</string>
+    <string name="ltc_price_label">LTC Fiyatı</string>
+    <string name="send_tutorial_title">Litecoin Nasıl Gönderilir</string>
+    <string name="brainwallet_walkthrough_title">Brainwallet Rehberi</string>
+    <string name="brainwallet_walkthrough_description">Brainwallet\'ın tüm özelliklerini deneyin: kripto gönderme ve alma işlemlerinden anahtar yönetimine kadar.</string>
+    <string name="send_tutorial_description">LTC\'yi başka birinin cüzdanına göndermek için basit adımları izleyin. Saniyeler içinde ulaşır!</string>
+    <string name="walkthrough_title_1">1. Bakiyenizi Kontrol Edin</string>
+    <string name="walkthrough_description_1">Bakiye sıfırsa veya senkronize oluyorsa gönderemezsiniz. Gerekirse MoonPay ile 5 dakikada yükleyin.</string>
+    <string name="tap_moonpay_callout_title">Buraya Dokunun &amp; Yükleyin!</string>
+    <string name="walkthrough_title_2">2. Ayarlar &amp; Koyu Mod</string>
+    <string name="walkthrough_description_2">Sağ üst köşedeki Ayarlar\'a dokunarak ayrıntılı ayarlamalar yapın. Sol üst köşedeki simgesine dokunarak Koyu Mod tercihini ayarlayın.</string>
+    <string name="walkthrough_title_3">İşlemlerinizi Gözden Geçirin</string>
+    <string name="walkthrough_description_3">İşlem aldığınızda burada görüntülenir. Kontrol etmek için yukarı ve aşağı kaydırın. Filtre seçeneğini kullanarak Tüm, Al veya Gönder\'i değiştirin.</string>
+    <string name="walkthrough_title_3a">Daha Derine İn!</string>
+    <string name="walkthrough_description_3a">Daha ayrıntılı bilgi görmek ve görünümü genişletmek için Geçmiş\'e dokunun. Tüm bilgileri görmek için yukarı veya aşağı kaydırın.</string>
+    <string name="walkthrough_title_4">LTC Fiyatını Kontrol Edin</string>
+    <string name="walkthrough_description_4">Brainwallet, Litecoin (LTC) fiyatını düzenli olarak günceller. Kaydırarak yerel para biriminizi seçin ve oranı öğrenin. Rehberiniz olarak bayrağınızı kullanın!</string>
+    <string name="send_tutorial_title_1a">2. Gönder Sekmesine Dokunun</string>
+    <string name="send_tutorial_description_1a">Bakiye sıfırdan fazla mı? Ne kadar göndereceğinizi öğrenmek için para birimini veya LTC\'ye değiştirin. Ayarlardan ağ ücretini ayarlayın.</string>
+    <string name="send_tutorial_title_3a">3. Değerleri Ayarlayın</string>
+    <string name="send_tutorial_description_3a">Biraz LTC\'niz var mı? Ne kadar gönderebileceğinizi öğrenmek için yerel para biriminizi değiştirin. Veya LTC cinsinden hesaplayın. Tercih ettiğiniz ağ ücretini ayarlamak için Ayarlar\'a gidin.</string>
+    <string name="send_tutorial_title_3b">Göndermeden Önce Doğrulayın!</string>
+    <string name="send_tutorial_description_3b">Hedef adresini tarayın veya yapıştırın. İki kez kontrol edin! Ne kadar gönderebileceğinizi öğrenmek için yerel para biriminizi değiştirin. Hatırlatıcı olması için not ekleyin. Devam Et\'e dokunun.</string>
+    <string name="Send.cameraUnavailabeMessage.android">Ayarlar\'da kamera erişimine izin verin</string>
+</resources>

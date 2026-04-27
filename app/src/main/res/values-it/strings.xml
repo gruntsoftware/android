@@ -2,14 +2,11 @@
 <resources>
     <!-- App name -->
     <!-- About screen blog label -->
-    <string name="About.blog">Blog</string>
     <!-- About screen footer -->
     <!-- Privay Policy button label -->
-    <string name="About.privacy">Informativa sulla Privacy</string>
     <!-- About screen reddit label -->
     <!-- Terms of Use button label -->
     <!-- About screen title -->
-    <string name="About.title">Chi siamo</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">Chiudi</string>
     <!-- Support center accessibiliy label -->
@@ -278,7 +275,6 @@
     <!-- Balance: $4.00 -->
     <string name="Send.balance">Saldo: %1$s</string>
     <!-- Instructions how to allow the camera access for the app -->
-    <string name="Send.cameraUnavailabeMessage.android">Consenti l’accesso alla fotocamera in “Impostazioni” &gt; “Apps” &gt; “Loaf” &gt; “Permessi”</string>
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">L’accesso alla fotocamera non è consentito a Loaf.</string>
     <!-- Camera not allowed message -->
@@ -314,12 +310,10 @@
     <string name="Send.title">Invia</string>
     <!-- Send money to label -->
     <string name="Send.toLabel">Inserire un indirizzo Litecoin</string>
-
     <!-- Enter to match domain name to LTC Address -->
     <!-- Or -->
     <!-- Lookup -->
     <!-- Your address was resolved! -->
-
     <!-- Adress already used alert message - first part -->
     <string name="Send.UsedAddress.firstLine">Gli indirizzi Litecoin dovrebbero essere utilizzati una sola volta.</string>
     <!-- Adress already used alert message - second part -->
@@ -520,12 +514,10 @@
     <string name="radio_low_privacy">Bassa privacy (~19 minuti)</string>
     <string name="radio_semi_private">Semi-privato (~42 minuti)</string>
     <string name="radio_anonymous">Anonimo (~77 minuti)</string>
-
     <!-- Announce Updates View -->
     <string name="Fees.Service">Servizio</string>
     <string name="Network.feeLabel">Rete</string>
     <string name="ConfirmationAllFees.Label">Commissioni:</string>
-
     <string name="cancel">Cancellare</string>
     <string name="ok">OK</string>
     <string name="please_grant_notification_permission">Concedere l\'autorizzazione alla notifica</string>
@@ -636,5 +628,36 @@
     <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Tutorial</string>
     <string name="coming_soon">Presto disponibile!</string>
-<string name="rice_partner_03_tagline">Ricarica in 5 minuti con il nostro partner</string><string name="unagi_social_01_tagline">Clicca e seguici!</string><string name="export_transaction_button_title">Esporta tutte le transazioni</string><string name="copy_tx_details">Copia dettagli transazione</string><string name="all_label">Tutto</string><string name="received_label">Ricevuto</string><string name="sent_label">Inviato</string><string name="ltc_price_label">Prezzo LTC</string>
-    <string name="sign_up_messaging_title">Iscriviti per ricevere aggiornamenti, notizie e concorsi!</string><string name="grant_for_notifications_message">"Accetta l'autorizzazione per le nostre notifiche "</string></resources>
+    <string name="rice_partner_03_tagline">Ricarica in 5 minuti con il nostro partner</string>
+    <string name="unagi_social_01_tagline">Clicca e seguici!</string>
+    <string name="export_transaction_button_title">Esporta tutte le transazioni</string>
+    <string name="copy_tx_details">Copia dettagli transazione</string>
+    <string name="all_label">Tutto</string>
+    <string name="received_label">Ricevuto</string>
+    <string name="sent_label">Inviato</string>
+    <string name="ltc_price_label">Prezzo LTC</string>
+    <string name="sign_up_messaging_title">Iscriviti per ricevere aggiornamenti, notizie e concorsi!</string>
+    <string name="grant_for_notifications_message">"Accetta l'autorizzazione per le nostre notifiche "</string>
+    <string name="send_tutorial_title">Come inviare Litecoin</string>
+    <string name="brainwallet_walkthrough_title">Brainwallet Walkthrough</string>
+    <string name="brainwallet_walkthrough_description">Prova tutte le funzionalità di Brainwallet, dall\'invio e ricezione di criptovalute alla gestione delle tue chiavi.</string>
+    <string name="send_tutorial_description">Segui i semplici passaggi per inviare LTC al portafoglio di qualcun altro. Lo ricevono in pochi secondi!</string>
+    <string name="walkthrough_title_1">1. Controlla il tuo saldo</string>
+    <string name="walkthrough_description_1">Non puoi inviare se è zero o se è in sincronizzazione. Se necessario, ricarica in 5 minuti con MoonPay.</string>
+    <string name="tap_moonpay_callout_title">Tocca qui e ricarica!</string>
+    <string name="walkthrough_title_2">2. Impostazioni e Modalità Scura</string>
+    <string name="walkthrough_description_2">Perfeziona toccando le Impostazioni in alto a destra. Imposta la tua preferenza di Modalità Scura toccando il in alto a sinistra.</string>
+    <string name="walkthrough_title_3">Rivedi le tue transazioni</string>
+    <string name="walkthrough_description_3">Quando ricevi transazioni, vengono visualizzate qui. Scorri verso l\'alto e verso il basso per verificare. Tocca filtro per alternare Tutte, Ricevute o Inviate.</string>
+    <string name="walkthrough_title_3a">Vai più a fondo!</string>
+    <string name="walkthrough_description_3a">Tocca Cronologia per mostrare più dettagli e ampliare la visualizzazione. Scorri verso l\'alto o verso il basso per navigare tra tutte le informazioni.</string>
+    <string name="walkthrough_title_4">Controlla il prezzo del LTC</string>
+    <string name="walkthrough_description_4">Brainwallet aggiorna regolarmente il prezzo di Litecoin (LTC). Scegli la tua valuta locale per ottenere il tasso scorrendo. Usa la tua bandiera come guida!</string>
+    <string name="send_tutorial_title_1a">2. Tocca la scheda Invia</string>
+    <string name="send_tutorial_description_1a">Saldo maggiore di zero? Passa a valuta o LTC per capire quanto inviare. Regola la commissione di rete nelle impostazioni</string>
+    <string name="send_tutorial_title_3a">3. Imposta i valori</string>
+    <string name="send_tutorial_description_3a">Hai un po\' di LTC? Cambia da valuta fiat locale per capire quanto puoi inviare. Oppure, calcola in LTC. Vai alle impostazioni per regolare la commissione di rete preferita</string>
+    <string name="send_tutorial_title_3b">Verifica prima di inviare!</string>
+    <string name="send_tutorial_description_3b">Scansiona o incolla l\'indirizzo di destinazione. Verifica! Cambia la tua valuta fiat locale per capire quanto puoi inviare. Aggiungi una nota come promemoria utile. Tocca Continua.</string>
+    <string name="Send.cameraUnavailabeMessage.android">Consenti l\'accesso alla fotocamera in Impostazioni</string>
+</resources>

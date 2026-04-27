@@ -1,8 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-    <string name="About.blog">موقع إلكتروني</string>
-    <string name="About.privacy">سياسة الخصوصية</string>
-    <string name="About.title">عن</string>
     <string name="AccessibilityLabels.close">يغلق</string>
     <string name="Alert.error">خطأ</string>
     <string name="Alert.keystore.invalidated.android">تم إبطال صلاحية بيانات Brainwallet المشفرة الخاصة بك مؤخرًا بسبب تعطيل شاشة قفل Android.</string>
@@ -85,7 +82,6 @@
     <string name="SecurityCenter.title">مركز الأمن</string>
     <string name="Send.amountLabel">كمية</string>
     <string name="Send.balance">الرصيد: %1$s</string>
-    <string name="Send.cameraUnavailabeMessage.android">السماح بالوصول إلى الكاميرا في \الإعدادات\" &gt; \""التطبيقات\"" &gt; \""Brainwallet\"" &gt; \""الأذونات\"""""</string>
     <string name="Send.cameraUnavailabeTitle.android">لا يُسمح لـ Brainwallet بالوصول إلى الكاميرا</string>
     <string name="Send.containsAddress">الوجهة هي عنوانك الخاص. لا يمكنك أن ترسل لنفسك.</string>
     <string name="Send.descriptionLabel">مذكرة</string>
@@ -275,5 +271,37 @@
     <string name="enter_pin">أدخل PIN</string>
     <string name="favourites_label">سري جداً</string>
     <string name="tutorials_label">البرامج التعليمية</string>
-    <string name="coming_soon">قريباً جداً!</string><string name="rice_partner_03_tagline">أضف رصيداً في 5 دقائق مع شريكنا</string><string name="unagi_social_01_tagline">انقر واتبعنا!</string><string name="export_transaction_button_title">تصدير جميع المعاملات</string><string name="copy_tx_details">نسخ تفاصيل المعاملة</string><string name="all_label">الكل</string><string name="received_label">مستقبل</string><string name="sent_label">مرسل</string><string name="ltc_price_label">سعر LTC</string>
-    <string name="sign_up_messaging_title">اشترك للحصول على التحديثات والأخبار والمسابقات!</string><string name="grant_for_notifications_message">"يرجى قبول إذن إشعاراتنا "</string></resources>
+    <string name="coming_soon">قريباً جداً!</string>
+    <string name="rice_partner_03_tagline">أضف رصيداً في 5 دقائق مع شريكنا</string>
+    <string name="unagi_social_01_tagline">انقر واتبعنا!</string>
+    <string name="export_transaction_button_title">تصدير جميع المعاملات</string>
+    <string name="copy_tx_details">نسخ تفاصيل المعاملة</string>
+    <string name="all_label">الكل</string>
+    <string name="received_label">مستقبل</string>
+    <string name="sent_label">مرسل</string>
+    <string name="ltc_price_label">سعر LTC</string>
+    <string name="sign_up_messaging_title">اشترك للحصول على التحديثات والأخبار والمسابقات!</string>
+    <string name="grant_for_notifications_message">"يرجى قبول إذن إشعاراتنا "</string>
+    <string name="send_tutorial_title">كيفية إرسال Litecoin</string>
+    <string name="brainwallet_walkthrough_title">جولة Brainwallet التعريفية</string>
+    <string name="brainwallet_walkthrough_description">جرّب جميع ميزات Brainwallet، من إرسال واستقبال العملات المشفرة إلى إدارة مفاتيحك.</string>
+    <string name="send_tutorial_description">اتبع الخطوات السهلة لإرسال LTC إلى محفظة شخص آخر. سيتلقاها في ثوانٍ!</string>
+    <string name="walkthrough_title_1">1. تحقق من رصيدك</string>
+    <string name="walkthrough_description_1">لا يمكنك الإرسال إذا كان الرصيد صفراً أو جاري المزامنة. أضف أموالاً في 5 دقائق باستخدام MoonPay إذا لزم الأمر.</string>
+    <string name="tap_moonpay_callout_title">اضغط هنا وأضف أموالاً!</string>
+    <string name="walkthrough_title_2">2. الإعدادات والوضع الليلي</string>
+    <string name="walkthrough_description_2">اضبط الإعدادات بالضغط على خيار الإعدادات في أعلى اليمين. اضبط تفضيل الوضع الليلي بالضغط على☀️ في أعلى اليسار.</string>
+    <string name="walkthrough_title_3">راجع معاملاتك</string>
+    <string name="walkthrough_description_3">عندما تتلقى معاملات، تظهر هنا. مرّر لأعلى ولأسفل للتحقق. اضغط على الفلتر لتبديل بين الكل والاستقبال والإرسال.</string>
+    <string name="walkthrough_title_3a">انغمس أعمق!</string>
+    <string name="walkthrough_description_3a">اضغط على السجل لعرض المزيد من التفاصيل وتوسيع العرض. مرّر لأعلى أو لأسفل للتمرير عبر كل المعلومات.</string>
+    <string name="walkthrough_title_4">تحقق من سعر LTC</string>
+    <string name="walkthrough_description_4">يحدّث Brainwallet سعر Litecoin (LTC) بانتظام. اختر عملتك المحلية للحصول على السعر بالتمرير. استخدم العلم كدليل لك!</string>
+    <string name="send_tutorial_title_1a">2. اضغط على تبويب الإرسال</string>
+    <string name="send_tutorial_description_1a">الرصيد أكبر من صفر؟ بدّل إلى العملة المحلية أو LTC لمعرفة المبلغ المراد إرساله. اضبط رسوم الشبكة في الإعدادات</string>
+    <string name="send_tutorial_title_3a">3. عيّن القيم</string>
+    <string name="send_tutorial_description_3a">هل لديك بعض LTC؟ غيّر قيمتك بالعملة المحلية لمعرفة المبلغ الذي يمكنك إرساله. أو احسبها بـ LTC. انتقل إلى الإعدادات لضبط رسوم الشبكة المفضلة لديك</string>
+    <string name="send_tutorial_title_3b">تحقق قبل الإرسال!</string>
+    <string name="send_tutorial_description_3b">امسح أو الصق عنوان الوجهة. تحقق مرتين! غيّر قيمتك بالعملة المحلية لمعرفة المبلغ الذي يمكنك إرساله. أضف ملاحظة كتذكير مفيد. اضغط متابعة.</string>
+    <string name="Send.cameraUnavailabeMessage.android">السماح بالوصول إلى الكاميرا من الإعدادات</string>
+</resources>
