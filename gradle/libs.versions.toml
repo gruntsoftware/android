@@ -33,6 +33,7 @@ runtime = "1.10.6"
 foundation = "1.10.6"
 animation = "1.10.6"
 play-services-games = "24.0.0"
+benchmark-traceprocessor = "1.4.1"
 
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
@@ -107,6 +108,7 @@ androidx-runtime = { group = "androidx.compose.runtime", name = "runtime", versi
 androidx-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "foundation" }
 androidx-animation = { group = "androidx.compose.animation", name = "animation", version.ref = "animation" }
 play-services-games = { group = "com.google.android.gms", name = "play-services-games", version.ref = "play-services-games" }
+androidx-benchmark-traceprocessor = { group = "androidx.benchmark", name = "benchmark-traceprocessor", version.ref = "benchmark-traceprocessor" }
 
 [bundles]
 androidx-lifecycle = ["androidx-lifecycle-runtime", "androidx-lifecycle-viewmodel", "androidx-lifecycle-viewmodel-compose"]

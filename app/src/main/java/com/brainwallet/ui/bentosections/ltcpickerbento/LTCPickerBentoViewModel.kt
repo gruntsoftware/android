@@ -1,10 +1,12 @@
 package com.brainwallet.ui.bentosections.ltcpickerbento
 
 import androidx.lifecycle.viewModelScope
+import com.brainwallet.constants.BWConstants
 import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.tools.sqlite.CurrencyDataSource
 import com.brainwallet.ui.BrainwalletViewModel
+import com.brainwallet.util.CurrencyDataGetter
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,18 +16,20 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import timber.log.Timber
+import java.math.BigDecimal
 
 @KoinViewModel
 class LTCPickerBentoViewModel(
     private val settingRepository: SettingRepository,
     private val currencyDataSource: CurrencyDataSource,
+    private val currencyDataGetter: CurrencyDataGetter,
     private val ltcRepository: LtcRepository
 ) : BrainwalletViewModel<LTCPickerBentoEvent>() {
 
     private val _state = MutableStateFlow(LTCPickerBentoState())
     val state: StateFlow<LTCPickerBentoState> = _state.asStateFlow()
     val formatter = java.text.SimpleDateFormat(
-        "MMM dd, yyyy h:mm:ss a",
+        "MMM dd, h:mm:ss a",
         java.util.Locale.getDefault()
     )
 
@@ -66,16 +70,26 @@ class LTCPickerBentoViewModel(
     ) {
         val rates = ltcRepository.fetchRates()
         val selectedFiat = rates.find { it.code == currencyCode }
-        var formattedFiat = ""
-        val msg = "||fetchRates ${selectedFiat?.rate} fetch ltc stats: $state.ltcStats.currentBlockHeight"
-        Timber.d("timber: ltcStats: $state.ltcStats.value")
-        Timber.d(msg)
-        FirebaseCrashlytics.getInstance().log(msg)
+        val iso = currencyDataGetter.getIsoSymbol()
 
+        var formattedCurrency: String? = null
+        val currency = currencyDataGetter.getCurrencyByIso(iso)
+        if (currency != null) {
+            val roundedPriceAmount: BigDecimal =
+                BigDecimal(currency.rate.toDouble()).multiply(BigDecimal(100))
+                    .divide(BigDecimal(100), 2, BWConstants.ROUNDING_MODE)
+            formattedCurrency =
+                currencyDataGetter.getFormattedCurrencyString(
+                    iso,
+                    roundedPriceAmount
+                )
+        } else {
+            Timber.w("The currency related to %s is NULL", iso)
+        }
         _state.update {
             it.copy(
                 selectedCurrency = selectedFiat ?: return@update it,
-                formattedFiat = "${selectedFiat.symbol} ${"%6.2f".format(selectedFiat.rate)}",
+                formattedFiat = formattedCurrency ?: "",
                 formattedTimeStamp = formatter.format(java.util.Date()),
                 ltcStats = ltcRepository.ltcStats.value
             )
