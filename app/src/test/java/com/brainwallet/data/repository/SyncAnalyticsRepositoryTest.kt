@@ -83,7 +83,7 @@ class SyncAnalyticsRepositoryTest {
 
     @Test
     fun `given accumulated duration when completeSync called then metadata persisted and event logged`() {
-        prefs.edit().putLong("accumulated_sync_duration", 5000L).apply()
+        prefs.edit().putLong("accumulated_sync_duration", 5000000L).apply()
         every { peerManagerSource.getLastBlockTimestamp() } returns 6000L
         every { peerManagerSource.getCurrentBlockHeight() } returns 456
 
@@ -98,7 +98,8 @@ class SyncAnalyticsRepositoryTest {
         val accumulatedCleared = prefs.getLong("accumulated_sync_duration", -1L)
 
         assert(lastUuid == "uuid-123") { "expected uuid-123 but was $lastUuid" }
-        assert(lastDuration == 5000000L) { "expected duration=5000000 but was $lastDuration" }
+        assert(lastDuration == 5_000_000_000L) { "expected duration=5000000000 but was $lastDuration" }
+
         assert(lastEnd == 6000L) { "expected end=6000 but was $lastEnd" }
         assert(accumulatedCleared == -1L) { "expected accumulated_sync_duration removed" }
 
@@ -115,7 +116,7 @@ class SyncAnalyticsRepositoryTest {
         println("captured: $captured")
 
         assert(captured["uuid"] == "uuid-123") { "uuid should match" }
-        assert(captured["duration_millis"] == 5000000L) { "duration should match" }
+        assert(captured["duration_millis"] == 5_000_000_000L) { "duration should match" }
         assert(captured["end_timestamp"] == 6000L) { "end timestamp should match" }
         assert(captured["end_block_height"] == 456) { "end block height should match" }
     }

@@ -97,7 +97,6 @@ class BrainwalletActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AnalyticsManager.logCustomEvent(BWConstants._BW_MAIN_OPEN)
 
         onConnectionChanged(InternetManager.getInstance().isConnected(this))
         BRSharedPrefs.getLTCViewingPreference(application)
@@ -364,7 +363,7 @@ class BrainwalletActivity :
         if (AuthManager.getInstance().checkAuth(passcode.joinToString(""), this)) {
             AuthManager.getInstance().authSuccess(this)
 
-            AnalyticsManager.logCustomEvent(BWConstants._20200217_DUWB)
+            AnalyticsManager.logCustomEvent(BWConstants._20200217_DU)
             LegacyNavigation.startBrainwalletActivity(this, false)
         } else {
             // Auth fail toast
