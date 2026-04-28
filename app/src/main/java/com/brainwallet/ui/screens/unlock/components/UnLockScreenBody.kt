@@ -68,7 +68,7 @@ fun UnLockScreenBody(
                 AuthManager.getInstance().checkAuth(pin, context).also { isValid ->
                     if (isValid) {
                         AuthManager.getInstance().authSuccess(context)
-                        AnalyticsManager.logCustomEvent(BWConstants._20200217_DUWB)
+                        AnalyticsManager.logCustomEvent(BWConstants._20200217_DU)
                     } else {
                         Toast.makeText(context, R.string.incorrect_passcode, Toast.LENGTH_SHORT).show()
                     }
