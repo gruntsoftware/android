@@ -1,19 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <defaults>
-  <entry>
+<entry>
     <key>feature_selected_peers_enabled</key>
     <value>true</value>
-  </entry>
-  <entry>
+</entry>
+<entry>
     <key>update_debounce_interval</key>
     <value>3.0</value>
-  </entry>
-  <entry>
+</entry>
+<entry>
     <key>progress_update_interval</key>
     <value>1.0</value>
-  </entry>
-  <entry>
+</entry>
+<entry>
     <key>feature_menu_hidden_example</key>
     <value>{"enabled":true,"title":"brainwallet-android repository","url":"https://github.com/brainwallet-co/android"}</value>
-  </entry>
+</entry>
+<entry>
+    <key>key_sync_poller</key>
+    <value>{"delays":{"sync_delay":60000,"non_sync_delay":4000}</value>
+</entry>
+<entry>
+    <key>path_shop_content</key>
+    <value>https://www.bitrefill.com/?ref=bAshL935</value>
+</entry>
+<entry>
+    <key>key_api_baseurl_prod_new_enabled</key>
+    <value>true</value>
+</entry>
+<entry>
+    <key>feature_ltc_browser_content</key>
+    <value>{ "browsers": [ { "name" : "blockchair", "urlstub" : "https://blockchair.com/litecoin/transaction/" }, { "name" : "blockcypher", "urlstub" : "https://blockchair.com/litecoin/transaction/" }, { "name" : "litecoinspace", "urlstub" : "https://litecoinspace.org/address/" }, { "name" : "sochain", "urlstub" : "https://chain.so/address/LTC/" } ] }</value>
+</entry>
+<entry>
+    <key>feature_gamehub_content</key>
+    <value>{ "hubcontent": [ { "content_name": "rice_partner_05", "asset_url": "https://storage.googleapis.com/1756210308-bw-public/rice_partner_05.jpg", "title": "MoonPay", "subtitle": "Top up in 5 minutes!", "id": 10000 }, { "content_name": "unagi_social_02", "asset_url": "https://storage.googleapis.com/1756210308-bw-public/unagi_social_02.jpg", "title": "Social media background", "subtitle": "Follow us on socials!", "id": 20000 } ] }</value>
+</entry>
+<entry>
+    <key>key_keystore_manager_enabled</key>
+    <value>true</value>
+</entry>
+<entry>
+    <key>key_dev_api_baseurl</key>
+    <value>https://dev.apigsltd.net/</value>
+</entry>
+<entry>
+    <key>key_api_baseurl_dev_new_enabled</key>
+    <value>true</value>
+</entry>
+<entry>
+    <key>key_prod_api_baseurl</key>
+    <value>https://prod.apigsltd.net/</value>
+</entry>
 </defaults>
