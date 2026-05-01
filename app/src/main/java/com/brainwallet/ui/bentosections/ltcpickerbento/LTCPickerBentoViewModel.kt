@@ -7,8 +7,6 @@ import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.tools.sqlite.CurrencyDataSource
 import com.brainwallet.ui.BrainwalletViewModel
 import com.brainwallet.util.CurrencyDataGetter
-import com.google.firebase.crashlytics.FirebaseCrashlytics
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -35,15 +33,6 @@ class LTCPickerBentoViewModel(
 
     init {
         viewModelScope.launch {
-            while (true) {
-                try { fetchAndUpdateRates() } catch (e: Exception) {
-                    Timber.e(e, "fetchRates failed")
-                    FirebaseCrashlytics.getInstance().recordException(e)
-                }
-                delay(5000L)
-            }
-        }
-        viewModelScope.launch {
             settingRepository.settings.collect { setting ->
                 _state.update {
                     it.copy(
@@ -64,37 +53,38 @@ class LTCPickerBentoViewModel(
                 }
             }
         }
-    }
-    private suspend fun fetchAndUpdateRates(
-        currencyCode: String = settingRepository.currentSettings.value.currency.code
-    ) {
-        val rates = ltcRepository.fetchRates()
-        val selectedFiat = rates.find { it.code == currencyCode }
-        val iso = currencyDataGetter.getIsoSymbol()
 
-        var formattedCurrency: String? = null
-        val currency = currencyDataGetter.getCurrencyByIso(iso)
-        if (currency != null) {
-            val roundedPriceAmount: BigDecimal =
-                BigDecimal(currency.rate.toDouble()).multiply(BigDecimal(100))
-                    .divide(BigDecimal(100), 2, BWConstants.ROUNDING_MODE)
-            formattedCurrency =
-                currencyDataGetter.getFormattedCurrencyString(
-                    iso,
-                    roundedPriceAmount
-                )
-        } else {
-            Timber.w("The currency related to %s is NULL", iso)
-        }
-        _state.update {
-            it.copy(
-                selectedCurrency = selectedFiat ?: return@update it,
-                formattedFiat = formattedCurrency ?: "",
-                formattedTimeStamp = formatter.format(java.util.Date()),
-                ltcStats = ltcRepository.ltcStats.value
-            )
+        viewModelScope.launch {
+            ltcRepository.rates.collect { rates ->
+                runCatching {
+                    Timber.d("timber|| rates in fetching $rates")
+                    val currencyCode = _state.value.selectedCurrency.code
+                    val selectedFiat = rates.find { it.code == currencyCode }
+                    val iso = currencyDataGetter.getIsoSymbol()
+                    val currency = currencyDataGetter.getCurrencyByIso(iso)
+
+                    val formattedCurrency = currency?.let {
+                        val rounded = BigDecimal(it.rate.toDouble())
+                            .multiply(BigDecimal(100))
+                            .divide(BigDecimal(100), 2, BWConstants.ROUNDING_MODE)
+                        currencyDataGetter.getFormattedCurrencyString(iso, rounded)
+                    }
+
+                    if (selectedFiat != null) {
+                        _state.update {
+                            it.copy(
+                                selectedCurrency = selectedFiat,
+                                formattedFiat = formattedCurrency ?: "",
+                                formattedTimeStamp = formatter.format(java.util.Date()),
+                                ltcStats = ltcRepository.ltcStats.value
+                            )
+                        }
+                    }
+                }.onFailure { Timber.e(it, "timber|| rates collector crashed") }
+            }
         }
     }
+
     override fun onEvent(event: LTCPickerBentoEvent) {
         when (event) {
             is LTCPickerBentoEvent.OnGlobalCurrencyChange -> {
@@ -102,7 +92,6 @@ class LTCPickerBentoViewModel(
                 if (newCurrency != null) {
                     viewModelScope.launch {
                         settingRepository.save(settingRepository.currentSettings.value.copy(currency = newCurrency))
-                        fetchAndUpdateRates(newCurrency.code)
                     }
                 } else {
                     Timber.w("Currency not found for code: ${event.globalCurrency.code}")
