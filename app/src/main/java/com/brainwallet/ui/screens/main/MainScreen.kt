@@ -454,6 +454,8 @@ fun MainScreen(
                         )
 
                         Route.BitrefillWeb -> WebModalScreen(
+                            modifier = Modifier
+                                .fillMaxSize(),
                             onNavigate = onNavigate,
                             url = BWConstants.BITREFILL_URL
                         )
