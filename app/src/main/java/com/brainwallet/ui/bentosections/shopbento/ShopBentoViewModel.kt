@@ -13,11 +13,13 @@ import org.koin.android.annotation.KoinViewModel
 import java.util.Locale
 import android.telephony.TelephonyManager
 import com.brainwallet.data.repository.SettingRepository
+import com.brainwallet.data.repository.ShopProxyRepository
 
 @KoinViewModel
 class ShopBentoViewModel(
     private val app: Application,
     private val settingRepository: SettingRepository,
+    private val shopProxyRepository: ShopProxyRepository
 ) : BrainwalletViewModel<ShopBentoEvent>() {
 
     private val _state = MutableStateFlow(ShopBentoState())
@@ -31,6 +33,15 @@ class ShopBentoViewModel(
                         darkMode = setting.isDarkMode,
                         countryIso = getCountryIso()
                     )
+                }
+            }
+        }
+        viewModelScope.launch {
+            shopProxyRepository.refresh()
+            shopProxyRepository.shopProxy.collect { shopList ->
+                val widget = shopList.firstOrNull()?.widget.orEmpty()
+                _state.update {
+                    it.copy(shopBaseUrl = widget)
                 }
             }
         }
