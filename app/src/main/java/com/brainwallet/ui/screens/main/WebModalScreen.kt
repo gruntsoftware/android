@@ -26,7 +26,7 @@ fun WebModalScreen(
     modifier: Modifier = Modifier,
 ) {
     val eventString = if (url.contains("bitrefill")) {
-        "user_did_tap_bitrefill"
+        "user_did_tap_shop_bento"
     } else {
         "user_did_tap_linktree"
     }
