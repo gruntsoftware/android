@@ -22,7 +22,7 @@
 </entry>
 <entry>
     <key>path_shop_content</key>
-    <value>https://www.bitrefill.com/?ref=bAshL935</value>
+    <value>{"shop_data":[{ "widget_url":"https://www.bitrefill.com/?ref=2h186s7q"}]}</value>
 </entry>
 <entry>
     <key>key_api_baseurl_prod_new_enabled</key>
