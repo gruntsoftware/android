@@ -7,6 +7,7 @@ import app.cash.turbine.testIn
 import app.cash.turbine.turbineScope
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.repository.SettingRepository
+import com.brainwallet.data.repository.ShopProxyRepository
 import com.brainwallet.testing.FlakyTest
 import io.mockk.every
 import io.mockk.mockk
@@ -21,12 +22,15 @@ class ShopBentoViewModelTest {
 
     private lateinit var app: Application
     private lateinit var settingRepository: SettingRepository
+    private lateinit var shopProxyRepository: ShopProxyRepository
+
     private lateinit var telephonyManager: TelephonyManager
     private lateinit var settingsFlow: MutableStateFlow<AppSetting>
 
     private fun buildViewModel() = ShopBentoViewModel(
         app = app,
         settingRepository = settingRepository,
+        shopProxyRepository = shopProxyRepository
     )
 
     @Before
