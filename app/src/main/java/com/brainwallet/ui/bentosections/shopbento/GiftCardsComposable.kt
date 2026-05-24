@@ -12,23 +12,22 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.brainwallet.ui.bentosections.shopbento.cards.CardAmazonComposable
-import com.brainwallet.ui.bentosections.shopbento.cards.CardJustEatComposable
 import com.brainwallet.ui.bentosections.shopbento.cards.CardVisaComposable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.geometry.Offset
+import com.brainwallet.ui.bentosections.shopbento.cards.SingleCardComposable
 
 @Composable
 fun GiftCardsComposable(
     state: ShopBentoState,
-    cardData: String,
     modifier: Modifier = Modifier,
 ) {
-    val cornerRadius = 4.dp
     var appeared by remember { mutableStateOf(false) }
 
+    var cards = state.cardData
     LaunchedEffect(Unit) {
         appeared = true
     }
@@ -88,15 +87,7 @@ fun GiftCardsComposable(
                 .offset(x = offsetJE.dp, y = 15.dp)
 
         ) {
-            CardJustEatComposable(rotation = -30f)
+            SingleCardComposable(rotation = -30f, modelString = "", offset = Offset(14f, 22f))
         }
-    }
-}
-
-@Preview
-@Composable
-private fun GiftCardsComposablePreview() {
-    Box(modifier = Modifier) {
-        GiftCardsComposable(state = ShopBentoState(), cardData = "acr")
     }
 }

@@ -14,6 +14,7 @@ import java.util.Locale
 import android.telephony.TelephonyManager
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.repository.ShopProxyRepository
+import com.brainwallet.presenter.entities.ShopCard
 
 @KoinViewModel
 class ShopBentoViewModel(
@@ -31,7 +32,8 @@ class ShopBentoViewModel(
                 _state.update {
                     it.copy(
                         darkMode = setting.isDarkMode,
-                        countryIso = getCountryIso()
+                        countryIso = getCountryIso(),
+                        shopCards = loadCards()
                     )
                 }
             }
@@ -57,6 +59,11 @@ class ShopBentoViewModel(
             else -> Locale.getDefault().country.ifEmpty { "US" }
         }
     }
+
+    private fun loadCards(): List<ShopCard> {
+        return emptyList()
+    }
+
     override fun onEvent(event: ShopBentoEvent) {
         when (event) {
             is ShopBentoEvent.OnLoad -> {

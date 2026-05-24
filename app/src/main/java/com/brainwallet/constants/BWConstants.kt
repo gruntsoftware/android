@@ -104,7 +104,7 @@ object BWConstants {
     const val SUPPORT_WEB_LINK: String = "https://www.brainwallet.co/support"
     const val TOS_LINK: String = "https://www.brainwallet.co/privacypolicy"
     const val LINKTREE_URL: String = "https://linktr.ee/brainwallet"
-    const val BITREFILL_URL: String = "https://www.bitrefill.com/?ref=2h186s7q"
+    const val BITREFILL_URL: String = "https://www.bitrefill.com/?ref=bw_tk_26"
 
     /**
      * API Hosts

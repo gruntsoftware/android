@@ -61,6 +61,7 @@ private fun ShopBentoScreen(
     val logotypeWhite = R.drawable.logotype_bitrefill_wht
 
     val logotypeBitrefill = if (state.darkMode) logotypeWhite else logotypeBlack
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -119,9 +120,7 @@ private fun ShopBentoScreen(
             ) {
                 GiftCardsComposable(
                     state = state,
-                    modifier =
-                    Modifier.fillMaxSize(),
-                    cardData = "test-json"
+                    modifier = Modifier.fillMaxSize()
                 )
             }
         }

@@ -21,8 +21,51 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import coil.compose.rememberAsyncImagePainter
 import com.brainwallet.ui.theme.giftCardGradient1
 import com.brainwallet.ui.theme.giftCardGradient3
+
+@Composable
+fun SingleCardComposable(
+    rotation: Float,
+    modelString: String,
+    offset: Offset,
+    modifier: Modifier = Modifier,
+) {
+    val cornerRadius = 4.dp
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        Canvas(
+            modifier = Modifier
+                .fillMaxSize()
+                .offset(x = offset.x.dp, y = offset.y.dp)
+                .clip(RoundedCornerShape(cornerRadius))
+        ) {
+            rotate(degrees = 20f) {
+                val cardWidth = size.width * 0.7f
+                val cardHeight = cardWidth / 1.586f
+                drawRoundRect(
+                    brush = giftCardGradient2(size),
+                    size = Size(cardWidth, cardHeight),
+                    topLeft = Offset(
+                        x = (size.width - cardWidth) / 2f,
+                        y = (size.height - cardHeight) / 2f
+                    ),
+                    cornerRadius = CornerRadius(cornerRadius.toPx())
+                )
+            }
+        }
+        Image(
+            painter = rememberAsyncImagePainter(modelString),
+            contentDescription = null,
+            modifier = Modifier
+                .size(50.dp)
+                .align(Alignment.Center)
+                .offset(x = 30.dp, y = -10.dp)
+                .rotate(rotation)
+        )
+    }
+}
 
 @Composable
 fun CardAmazonComposable(

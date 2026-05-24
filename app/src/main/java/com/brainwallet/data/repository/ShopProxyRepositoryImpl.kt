@@ -1,5 +1,7 @@
 package com.brainwallet.data.repository
 import com.brainwallet.data.source.RemoteConfigSource
+import com.brainwallet.presenter.entities.ShopCard
+import com.brainwallet.presenter.entities.ShopConfig
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -10,11 +12,13 @@ import timber.log.Timber
 
 @Serializable
 data class ShopProxy(
-    @SerialName("widget_url") val widget: String = ""
+    @SerialName("widget_url") val widget: String = "",
+    @SerialName("cards") val shopCards: List<ShopCard> = emptyList()
 )
 
 interface ShopProxyRepository {
     val shopProxy: StateFlow<List<ShopProxy>>
+    val shopCards: StateFlow<List<ShopCard>>
     suspend fun refresh()
 }
 
@@ -26,6 +30,9 @@ class ShopProxyRepositoryImpl(
     private val _shopProxy = MutableStateFlow<List<ShopProxy>>(emptyList())
     override val shopProxy: StateFlow<List<ShopProxy>> = _shopProxy.asStateFlow()
 
+    private val _shopCards = MutableStateFlow<List<ShopCard>>(emptyList())
+    override val shopCards: StateFlow<List<ShopCard>> = _shopCards.asStateFlow()
+
     override suspend fun refresh() {
         runCatching { remoteConfigSource.fetchAndActivate() }
             .onFailure { Timber.e(it, "RemoteConfig fetch failed") }
@@ -34,14 +41,10 @@ class ShopProxyRepositoryImpl(
         Timber.d("ShopProxy rawJson: '$rawJson'")
 
         runCatching {
-            val wrapper = json.decodeFromString<ShopProxyWrapper>(rawJson)
-            Timber.d("ShopProxy parsed: ${wrapper.shopProxy}")
-            _shopProxy.value = wrapper.shopProxy
+            val shopConfig = json.decodeFromString<ShopConfig>(rawJson)
+            Timber.d("ShopConfig parsed: ${shopConfig.shopData}")
+            _shopProxy.value = listOf(shopConfig.shopData.widgetUrl).map { ShopProxy(widget = it) }
+            _shopCards.value = shopConfig.shopData.cards
         }.onFailure { Timber.e(it, "RemoteConfig parse failed") }
     }
-
-    @Serializable
-    private data class ShopProxyWrapper(
-        @SerialName("shop_data") val shopProxy: List<ShopProxy> = emptyList()
-    )
 }
