@@ -14,6 +14,10 @@ import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.util.Utils
 import com.brainwallet.constants.BWConstants
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 import timber.log.Timber.DebugTree
@@ -24,6 +28,12 @@ import java.util.concurrent.atomic.AtomicInteger
 open class BrainwalletApp : Application() {
 
     private val notificationHandler: NotificationHandler by inject()
+    val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+
+    override fun onTerminate() {
+        super.onTerminate()
+        applicationScope.cancel()
+    }
 
     override fun onCreate() {
         super.onCreate()

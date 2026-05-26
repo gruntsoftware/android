@@ -22,5 +22,11 @@ val remoteConfigModule = module {
     }
     single<RemoteConfigSource> { FirebaseRemoteConfigRepositoryImpl(get()) }
     single<HubContentRepository> { HubContentRepositoryImpl(get(), get()) }
-    single<ShopProxyRepository> { ShopProxyRepositoryImpl(get(), get()) }
+    single<ShopProxyRepository> {
+        ShopProxyRepositoryImpl(
+            remoteConfigSource = get(),
+            json = get(),
+            scope = get(),
+        )
+    }
 }
