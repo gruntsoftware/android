@@ -13,30 +13,28 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.brainwallet.ui.bentosections.shopbento.cards.CardAmazonComposable
-import com.brainwallet.ui.bentosections.shopbento.cards.CardVisaComposable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.geometry.Offset
 import com.brainwallet.ui.bentosections.shopbento.cards.SingleCardComposable
 
 @Composable
 fun GiftCardsComposable(
-    state: ShopBentoState,
+    imageURLOne: String,
+    imageURLTwo: String,
+    imageURLThree: String,
     modifier: Modifier = Modifier,
 ) {
     var appeared by remember { mutableStateOf(false) }
 
-    var cards = state.shopCards
     LaunchedEffect(Unit) {
         appeared = true
     }
 
     val offsetCardOne by animateFloatAsState(
-        targetValue = if (appeared) -10f else 100f,
+        targetValue = if (appeared) 5f else 100f,
         animationSpec = tween(
             500,
-            delayMillis = 200
+            delayMillis = 400
         ),
         label = "cardOneSlide"
     )
@@ -45,16 +43,16 @@ fun GiftCardsComposable(
         targetValue = if (appeared) 30f else 100f,
         animationSpec = tween(
             600,
-            delayMillis = 200
+            delayMillis = 400
         ),
         label = "cardTwoSlide"
     )
 
     val offsetCardThree by animateFloatAsState(
-        targetValue = if (appeared) -12f else 50f,
+        targetValue = if (appeared) 30f else 50f,
         animationSpec = tween(
             400,
-            delayMillis = 200
+            delayMillis = 400
         ),
         label = "cardThreeSlide"
     )
@@ -69,25 +67,25 @@ fun GiftCardsComposable(
                 .fillMaxHeight()
                 .offset(x = offsetCardOne.dp, y = 5.dp)
         ) {
-            CardVisaComposable(rotation = 20f)
+            SingleCardComposable(rotation = 20f, modelString = imageURLOne)
         }
 
         Column(
             modifier = Modifier
                 .fillMaxHeight()
-                .offset(x = offsetCardTwo.dp, y = -15.dp)
+                .offset(x = offsetCardTwo.dp, y = -20.dp)
 
         ) {
-            CardAmazonComposable(rotation = 20f)
+            SingleCardComposable(rotation = 20f, modelString = imageURLTwo)
         }
 
         Column(
             modifier = Modifier
                 .fillMaxHeight()
-                .offset(x = offsetCardThree.dp, y = 15.dp)
+                .offset(x = offsetCardThree.dp, y = 35.dp)
 
         ) {
-            SingleCardComposable(rotation = -30f, modelString = "", offset = Offset(0F, 0F))
+            SingleCardComposable(rotation = -30f, modelString = imageURLThree)
         }
     }
 }

@@ -9,5 +9,8 @@ data class ShopBentoState(
     val countryIso: String = "US",
     val darkMode: Boolean = true,
     val shouldSlide: Boolean = false,
-    val shopBaseUrl: String = ""
+    val shopBaseUrl: String = "",
+    val cardImageURL1: String = "",
+    val cardImageURL2: String = "",
+    val cardImageURL3: String = ""
 )

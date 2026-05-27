@@ -18,7 +18,6 @@ data class ShopProxy(
 
 interface ShopProxyRepository {
     val shopProxy: StateFlow<List<ShopProxy>>
-    val shopCards: StateFlow<List<ShopCard>>
     suspend fun refresh()
 }
 
@@ -29,9 +28,6 @@ class ShopProxyRepositoryImpl(
 
     private val _shopProxy = MutableStateFlow<List<ShopProxy>>(emptyList())
     override val shopProxy: StateFlow<List<ShopProxy>> = _shopProxy.asStateFlow()
-
-    private val _shopCards = MutableStateFlow<List<ShopCard>>(emptyList())
-    override val shopCards: StateFlow<List<ShopCard>> = _shopCards.asStateFlow()
 
     override suspend fun refresh() {
         runCatching { remoteConfigSource.fetchAndActivate() }

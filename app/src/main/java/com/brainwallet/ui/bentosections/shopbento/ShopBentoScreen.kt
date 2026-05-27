@@ -34,6 +34,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
 fun ShopBentoScreen(
@@ -61,6 +62,7 @@ private fun ShopBentoScreen(
     val logotypeWhite = R.drawable.logotype_bitrefill_wht
 
     val logotypeBitrefill = if (state.darkMode) logotypeWhite else logotypeBlack
+    val shopBentoState by viewModel.state.collectAsStateWithLifecycle()
 
     Box(
         modifier = Modifier
@@ -119,7 +121,9 @@ private fun ShopBentoScreen(
 
             ) {
                 GiftCardsComposable(
-                    state = state,
+                    imageURLOne = shopBentoState.cardImageURL1,
+                    imageURLTwo = shopBentoState.cardImageURL2,
+                    imageURLThree = shopBentoState.cardImageURL3,
                     modifier = Modifier.fillMaxSize()
                 )
             }
