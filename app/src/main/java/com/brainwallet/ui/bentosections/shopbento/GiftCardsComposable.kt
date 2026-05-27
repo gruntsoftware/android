@@ -27,36 +27,36 @@ fun GiftCardsComposable(
 ) {
     var appeared by remember { mutableStateOf(false) }
 
-    var cards = state.cardData
+    var cards = state.shopCards
     LaunchedEffect(Unit) {
         appeared = true
     }
 
-    val offsetVisa by animateFloatAsState(
+    val offsetCardOne by animateFloatAsState(
         targetValue = if (appeared) -10f else 100f,
         animationSpec = tween(
             500,
             delayMillis = 200
         ),
-        label = "visaSlide"
+        label = "cardOneSlide"
     )
 
-    val offsetJE by animateFloatAsState(
+    val offsetCardTwo by animateFloatAsState(
         targetValue = if (appeared) 30f else 100f,
         animationSpec = tween(
             600,
             delayMillis = 200
         ),
-        label = "jeSlide"
+        label = "cardTwoSlide"
     )
 
-    val offsetAmazon by animateFloatAsState(
+    val offsetCardThree by animateFloatAsState(
         targetValue = if (appeared) -12f else 50f,
         animationSpec = tween(
             400,
             delayMillis = 200
         ),
-        label = "amazonSlide"
+        label = "cardThreeSlide"
     )
 
     Box(
@@ -67,7 +67,7 @@ fun GiftCardsComposable(
         Column(
             modifier = Modifier
                 .fillMaxHeight()
-                .offset(x = offsetVisa.dp, y = 5.dp)
+                .offset(x = offsetCardOne.dp, y = 5.dp)
         ) {
             CardVisaComposable(rotation = 20f)
         }
@@ -75,7 +75,7 @@ fun GiftCardsComposable(
         Column(
             modifier = Modifier
                 .fillMaxHeight()
-                .offset(x = offsetAmazon.dp, y = -15.dp)
+                .offset(x = offsetCardTwo.dp, y = -15.dp)
 
         ) {
             CardAmazonComposable(rotation = 20f)
@@ -84,7 +84,7 @@ fun GiftCardsComposable(
         Column(
             modifier = Modifier
                 .fillMaxHeight()
-                .offset(x = offsetJE.dp, y = 15.dp)
+                .offset(x = offsetCardThree.dp, y = 15.dp)
 
         ) {
             SingleCardComposable(rotation = -30f, modelString = "", offset = Offset(0F, 0F))
