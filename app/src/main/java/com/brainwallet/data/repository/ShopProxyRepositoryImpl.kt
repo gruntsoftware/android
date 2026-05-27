@@ -43,8 +43,12 @@ class ShopProxyRepositoryImpl(
         runCatching {
             val shopConfig = json.decodeFromString<ShopConfig>(rawJson)
             Timber.d("ShopConfig parsed: ${shopConfig.shopData}")
-            _shopProxy.value = listOf(shopConfig.shopData.widgetUrl).map { ShopProxy(widget = it) }
-            _shopCards.value = shopConfig.shopData.cards
+            _shopProxy.value = listOf(shopConfig.shopData).map {
+                ShopProxy(
+                    widget = it.widgetUrl,
+                    shopCards = it.cards
+                )
+            }
         }.onFailure { Timber.e(it, "RemoteConfig parse failed") }
     }
 }
