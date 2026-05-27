@@ -87,7 +87,7 @@ fun GiftCardsComposable(
                 .offset(x = offsetJE.dp, y = 15.dp)
 
         ) {
-            SingleCardComposable(rotation = -30f, modelString = "", offset = Offset(14f, 22f))
+            SingleCardComposable(rotation = -30f, modelString = "", offset = Offset(0F, 0F))
         }
     }
 }
