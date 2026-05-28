@@ -67,6 +67,7 @@ import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
 import com.brainwallet.tools.animation.BRAnimator
 import com.brainwallet.tools.manager.AnalyticsManager
+import com.brainwallet.tools.util.withTheme
 import com.brainwallet.ui.bentosections.balancebento.BalanceBentoScreen
 import com.brainwallet.ui.bentosections.buyreceivebento.receive.ReceiveDialog
 import com.brainwallet.ui.bentosections.gamehubbento.GameHubBentoPagerScreen
@@ -458,7 +459,9 @@ fun MainScreen(
                         is Route.BitrefillWeb -> WebModalScreen(
                             modifier = Modifier.fillMaxSize(),
                             onNavigate = onNavigate,
-                            url = (modalContentRoute as Route.BitrefillWeb).url
+                            url = (modalContentRoute as Route.BitrefillWeb).url.withTheme(
+                                if (isDarkMode) "dark" else "light"
+                            )
                         )
                         else -> {}
                     }

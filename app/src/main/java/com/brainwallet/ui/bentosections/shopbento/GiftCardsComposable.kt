@@ -65,7 +65,7 @@ fun GiftCardsComposable(
         Column(
             modifier = Modifier
                 .fillMaxHeight()
-                .offset(x = offsetCardOne.dp, y = 5.dp)
+                .offset(x = offsetCardOne.dp, y = 10.dp)
         ) {
             SingleCardComposable(rotation = 20f, modelString = imageURLOne)
         }

@@ -1,7 +1,6 @@
 package com.brainwallet.ui.bentosections.shopbento
 
 import android.app.Application
-import android.content.Context
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.ui.BrainwalletViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,7 +10,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import java.util.Locale
-import android.telephony.TelephonyManager
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.repository.ShopProxyRepository
 
@@ -24,7 +22,8 @@ class ShopBentoViewModel(
 
     private val _state = MutableStateFlow(ShopBentoState())
     val state: StateFlow<ShopBentoState> = _state.asStateFlow()
-    val currentCountryISO = getCountryIso()
+
+    val currentCountryISO: String = Locale.getDefault().country.ifEmpty { "US" }
     init {
         viewModelScope.launch {
             settingRepository.settings.collect { setting ->
@@ -61,17 +60,6 @@ class ShopBentoViewModel(
                     )
                 }
             }
-        }
-    }
-    private fun getCountryIso(): String {
-        val telephonyManager = app.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-        val simCountry = telephonyManager.simCountryIso
-        val networkCountry = telephonyManager.networkCountryIso
-
-        return when {
-            simCountry.isNotEmpty() -> simCountry.uppercase()
-            networkCountry.isNotEmpty() -> networkCountry.uppercase()
-            else -> Locale.getDefault().country.ifEmpty { "US" }
         }
     }
 
