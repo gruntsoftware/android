@@ -43,7 +43,6 @@ public class BRNotificationBar extends androidx.appcompat.widget.Toolbar {
             @Override
             public void onClick(View v) {
                 if (getContext() instanceof BreadActivity) {
-                    ((BreadActivity) getContext()).removeNotificationBar();
                 }
             }
         });

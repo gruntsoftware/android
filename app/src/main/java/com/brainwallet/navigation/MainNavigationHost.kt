@@ -148,10 +148,10 @@ fun NavGraphBuilder.mainNavGraph(
     }
 
     composable<Route.BitrefillWeb> { navBackStackEntry ->
-        val route: Route.LinktreeWeb = navBackStackEntry.toRoute()
+        val route: Route.BitrefillWeb = navBackStackEntry.toRoute()
         WebModalScreen(
             onNavigate = onNavigate,
-            url = BWConstants.BITREFILL_URL
+            url = route.url
         )
     }
 }

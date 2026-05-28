@@ -35,7 +35,7 @@ android {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 35
-        versionCode = 202506331
+        versionCode = 202506333
         versionName = "v4.9.2"
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
@@ -258,6 +258,7 @@ dependencies {
     implementation(libs.android.installreferrer)
     implementation("androidx.compose.animation:animation:1.5.0")
     implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.7")
+    implementation("io.coil-kt:coil-compose:2.0.0-rc01")
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
     testImplementation(libs.turbine)

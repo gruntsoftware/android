@@ -65,7 +65,7 @@ sealed class Route : JavaSerializable {
     object MoonPayBuy : Route()
 
     @Serializable
-    object BitrefillWeb : Route()
+    data class BitrefillWeb(val url: String) : Route()
 
     @Serializable
     object LinktreeWeb : Route()
