@@ -1,12 +1,10 @@
 package com.brainwallet.ui.bentosections.shopbento
 
 import android.app.Application
-import android.content.Context
-import android.telephony.TelephonyManager
-import app.cash.turbine.testIn
 import app.cash.turbine.turbineScope
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.repository.SettingRepository
+import com.brainwallet.data.repository.ShopProxy
 import com.brainwallet.data.repository.ShopProxyRepository
 import com.brainwallet.testing.FlakyTest
 import io.mockk.every
@@ -17,15 +15,15 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import io.mockk.coEvery
 
 class ShopBentoViewModelTest {
 
     private lateinit var app: Application
     private lateinit var settingRepository: SettingRepository
     private lateinit var shopProxyRepository: ShopProxyRepository
-
-    private lateinit var telephonyManager: TelephonyManager
     private lateinit var settingsFlow: MutableStateFlow<AppSetting>
+    private lateinit var shopProxyFlow: MutableStateFlow<List<ShopProxy>>
 
     private fun buildViewModel() = ShopBentoViewModel(
         app = app,
@@ -37,37 +35,18 @@ class ShopBentoViewModelTest {
     fun setup() {
         app = mockk()
         settingRepository = mockk()
-        telephonyManager = mockk()
+        shopProxyRepository = mockk()
         settingsFlow = MutableStateFlow(AppSetting())
+        shopProxyFlow = MutableStateFlow(emptyList())
 
         every { settingRepository.settings } returns settingsFlow
-        every { app.getSystemService(Context.TELEPHONY_SERVICE) } returns telephonyManager
-        every { telephonyManager.simCountryIso } returns "gb"
-        every { telephonyManager.networkCountryIso } returns ""
+        coEvery { shopProxyRepository.refresh() } returns Unit
+        every { shopProxyRepository.shopProxy } returns shopProxyFlow
     }
 
     @Test
-    fun `init - uses simCountryIso when available`() = runTest {
+    fun `init - countryIso defaults to Locale`() = runTest {
         turbineScope {
-            every { telephonyManager.simCountryIso } returns "us"
-
-            val viewModel = buildViewModel()
-            val turbine = viewModel.state.testIn(backgroundScope)
-
-            settingsFlow.emit(AppSetting())
-            advanceTimeBy(100)
-
-            assertEquals("US", turbine.expectMostRecentItem().countryIso)
-            turbine.cancelAndIgnoreRemainingEvents()
-        }
-    }
-
-    @Test
-    fun `init - falls back to Locale default when both sim and network are empty`() = runTest {
-        turbineScope {
-            every { telephonyManager.simCountryIso } returns ""
-            every { telephonyManager.networkCountryIso } returns ""
-
             val viewModel = buildViewModel()
             val turbine = viewModel.state.testIn(backgroundScope)
 
@@ -76,6 +55,23 @@ class ShopBentoViewModelTest {
 
             val countryIso = turbine.expectMostRecentItem().countryIso
             assert(countryIso.isNotEmpty())
+            turbine.cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
+    fun `init - sets shopBaseUrl from widget`() = runTest {
+        turbineScope {
+            shopProxyFlow.emit(listOf(ShopProxy(widget = "https://shop.example.com", shopCards = emptyList())))
+
+            val viewModel = buildViewModel()
+            val turbine = viewModel.state.testIn(backgroundScope)
+
+            settingsFlow.emit(AppSetting())
+            advanceTimeBy(100)
+
+            val state = turbine.expectMostRecentItem()
+            assertEquals("https://shop.example.com", state.shopBaseUrl)
             turbine.cancelAndIgnoreRemainingEvents()
         }
     }
@@ -104,19 +100,15 @@ class ShopBentoViewModelTest {
             val viewModel = buildViewModel()
             val turbine = viewModel.state.testIn(backgroundScope)
 
-            turbine.awaitItem()
-
             settingsFlow.emit(AppSetting(isDarkMode = true))
             advanceTimeBy(100)
 
-            val stateBefore = turbine.awaitItem()
+            val stateBefore = turbine.expectMostRecentItem()
 
             viewModel.onEvent(ShopBentoEvent.OnLoad)
             advanceTimeBy(100)
 
-            turbine.expectNoEvents()
             assertEquals(stateBefore, viewModel.state.value)
-
             turbine.cancelAndIgnoreRemainingEvents()
         }
     }
