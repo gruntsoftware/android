@@ -12,6 +12,7 @@ import org.koin.android.annotation.KoinViewModel
 import java.util.Locale
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.repository.ShopProxyRepository
+import com.brainwallet.tools.manager.AnalyticsManager
 
 @KoinViewModel
 class ShopBentoViewModel(
@@ -73,6 +74,13 @@ class ShopBentoViewModel(
                         shouldSlide = true
                     )
                 }
+            }
+            is ShopBentoEvent.InvoiceCreated -> {
+                AnalyticsManager
+                    .logCustomEventWithParams(
+                        "user_shop_invoice_created",
+                        null
+                    )
             }
         }
     }

@@ -2,6 +2,7 @@ package com.brainwallet.ui.screens.main
 
 import android.graphics.Bitmap
 import android.view.ViewGroup
+import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.foundation.background
@@ -30,6 +31,8 @@ fun WebModalScreen(
     onNavigate: OnNavigate,
     url: String,
     modifier: Modifier = Modifier,
+    invoiceCreated: (invoiceId: String, paymentUri: String) -> Unit = { _, _ -> }
+
 ) {
     val eventString = if (url.contains("bitrefill")) {
         "user_did_tap_shop_bento"
@@ -64,7 +67,6 @@ fun WebModalScreen(
                         settings.javaScriptEnabled = true
                         settings.domStorageEnabled = true
                         settings.useWideViewPort = true
-
                         webViewClient = object : WebViewClient() {
                             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                                 super.onPageStarted(view, url, favicon)
@@ -74,8 +76,35 @@ fun WebModalScreen(
                             override fun onPageFinished(view: WebView?, url: String?) {
                                 super.onPageFinished(view, url)
                                 isLoading = false
+
+                                view?.evaluateJavascript(
+                                    """
+                                    (function() {
+                                    function handleMessage(event) {
+                                    try {
+                                        var data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
+                                        if (data && data.event === 'invoice_created') {
+                                            BitrefillAndroid.invoiceCreated(JSON.stringify(data));
+                                        }
+                                    } catch(e) {
+                                        console.log('parse error:', e);
+                                    }
+                                    }
+                                    window.addEventListener('message', handleMessage);
+                                    document.addEventListener('message', handleMessage);
+                                    })();
+                                    """.trimIndent(),
+                                    null
+                                )
                             }
                         }
+
+                        addJavascriptInterface(
+                            WebAppInterface { invoiceId, paymentUri ->
+                                invoiceCreated(invoiceId, paymentUri)
+                            },
+                            "BitrefillAndroid"
+                        )
                     }
                 },
                 update = { it.loadUrl(url) }
@@ -86,6 +115,22 @@ fun WebModalScreen(
                     modifier = Modifier.align(Alignment.Center)
                 )
             }
+        }
+    }
+}
+
+class WebAppInterface(
+    private val onInvoiceCreated: (invoiceId: String, paymentUri: String) -> Unit
+) {
+    @JavascriptInterface
+    fun invoiceCreated(dataJson: String) {
+        try {
+            val obj = org.json.JSONObject(dataJson)
+            val invoiceId = obj.getString("invoiceId")
+            val paymentUri = obj.getString("paymentUri")
+            onInvoiceCreated(invoiceId, paymentUri)
+        } catch (e: Exception) {
+            android.util.Log.e("WebAppInterface", "Failed to parse invoice data", e)
         }
     }
 }
