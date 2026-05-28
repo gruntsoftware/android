@@ -72,6 +72,7 @@ import com.brainwallet.ui.bentosections.balancebento.BalanceBentoScreen
 import com.brainwallet.ui.bentosections.buyreceivebento.receive.ReceiveDialog
 import com.brainwallet.ui.bentosections.gamehubbento.GameHubBentoPagerScreen
 import com.brainwallet.ui.bentosections.ltcpickerbento.LTCPickerBentoScreen
+import com.brainwallet.ui.bentosections.shopbento.ShopBentoEvent
 import com.brainwallet.ui.bentosections.shopbento.ShopBentoScreen
 import com.brainwallet.ui.bentosections.shopbento.ShopBentoViewModel
 import com.brainwallet.ui.bentosections.transactionbento.TransactionsBentoScreen
@@ -461,7 +462,10 @@ fun MainScreen(
                             onNavigate = onNavigate,
                             url = (modalContentRoute as Route.BitrefillWeb).url.withTheme(
                                 if (isDarkMode) "dark" else "light"
-                            )
+                            ),
+                            invoiceCreated = { _, _ ->
+                                shopBentoViewModel.onEvent(ShopBentoEvent.InvoiceCreated)
+                            }
                         )
                         else -> {}
                     }
