@@ -5,11 +5,12 @@ import com.brainwallet.data.model.Fee
 import com.brainwallet.data.model.LtcStats
 import com.brainwallet.data.model.MoonpayCurrencyLimit
 import com.brainwallet.data.source.response.GetMoonpayBuyQuoteResponse
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 
 interface LtcRepository {
 
-    val rates: StateFlow<List<CurrencyEntity>>
+    val rates: SharedFlow<List<CurrencyEntity>>
     val ltcStats: StateFlow<LtcStats>
 
     suspend fun fetchRates(): List<CurrencyEntity>

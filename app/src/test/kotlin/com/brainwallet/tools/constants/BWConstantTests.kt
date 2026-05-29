@@ -168,7 +168,7 @@ class BWConstantsTests {
         assertSame(BWConstants._20200112_ERR, "brainwallet_android_error")
         assertSame(BWConstants._20200112_DSR, "did_start_resync")
         assertSame(BWConstants._20201118_DTGS, "did_tap_get_support")
-        assertSame(BWConstants._20200217_DUWB, "did_unlock_with_biometrics")
+        assertSame(BWConstants._20200217_DU, "did_unlock")
     }
 
     @Test

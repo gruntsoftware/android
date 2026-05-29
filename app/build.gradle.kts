@@ -35,8 +35,8 @@ android {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 35
-        versionCode = 202506326
-        versionName = "v4.9.1"
+        versionCode = 202506335
+        versionName = "v4.9.3"
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -86,14 +86,14 @@ android {
                 isDebuggable = true
                 isMinifyEnabled = false
             }
+            resValue("string", "firebase_analytics_collection_enabled", "false")
         }
-
         val release by getting {
             signingConfig = signingConfigs.getByName("release")
             isDebuggable = false
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-
+            resValue("string", "firebase_analytics_collection_enabled", "true")
             ndk {
                 isDebuggable = false
                 isMinifyEnabled = true
@@ -200,6 +200,7 @@ dependencies {
     implementation(project(":iap"))
     implementation(project(":core"))
     implementation("androidx.webkit:webkit:1.9.0")
+    implementation(libs.androidx.benchmark.traceprocessor)
     testImplementation(testFixtures(project(":app")))
     androidTestImplementation(testFixtures(project(":app")))
     implementation(grunt.androidx.core.ktx)
@@ -257,6 +258,7 @@ dependencies {
     implementation(libs.android.installreferrer)
     implementation("androidx.compose.animation:animation:1.5.0")
     implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.7")
+    implementation("io.coil-kt:coil-compose:2.0.0-rc01")
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
     testImplementation(libs.turbine)

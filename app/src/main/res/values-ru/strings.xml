@@ -660,4 +660,6 @@
     <string name="send_tutorial_title_3b">Проверьте перед отправкой!</string>
     <string name="send_tutorial_description_3b">Отсканируйте или вставьте адрес получателя. Проверьте дважды! Конвертируйте между фиатом и LTC, чтобы узнать сумму отправки. Добавьте заметку в качестве напоминания. Нажмите Продолжить.</string>
     <string name="Send.cameraUnavailabeMessage.android">Разрешите доступ к камере в Настройках</string>
+    <string name="shop_title">Магазин</string>
+    <string name="shop_tagline">Покупайте подарочные карты за LTC!</string>
 </resources>

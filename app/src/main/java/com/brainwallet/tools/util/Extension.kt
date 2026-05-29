@@ -1,6 +1,7 @@
 package com.brainwallet.tools.util
 
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Build
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
@@ -57,6 +58,20 @@ fun String.Companion.join(
     }
     stringBuilder.append(array[array.size - 1])
     return stringBuilder.toString()
+}
+
+fun String.withTheme(theme: String): String {
+    val uri = Uri.parse(this)
+    return uri.buildUpon()
+        .clearQuery()
+        .apply {
+            uri.queryParameterNames.forEach { key ->
+                val value = if (key == "theme") theme else uri.getQueryParameter(key)
+                appendQueryParameter(key, value)
+            }
+        }
+        .build()
+        .toString()
 }
 
 /**

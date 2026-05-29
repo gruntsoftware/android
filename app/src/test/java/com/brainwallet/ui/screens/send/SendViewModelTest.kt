@@ -9,6 +9,7 @@ import com.brainwallet.presenter.entities.TransactionItem
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.security.BRKeyStore
 import com.brainwallet.tools.util.Utils
+import com.brainwallet.util.CurrencyDataGetter
 import com.brainwallet.util.EventBus
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -33,15 +34,6 @@ import org.junit.Before
 import org.junit.Test
 import java.math.BigDecimal
 
-/**
- * Regression tests for the Send flow. These cover the state transitions that,
- * if broken, would leave the Send button disabled or cause a crash before a
- * transaction could be submitted — matching the production incident.
- *
- * JNI-backed methods (BRWalletManager.validateAddress, getBalance, FeeManager,
- * Utils.tieredOpsFee) are injected as lambdas so these tests never trigger the
- * native linker.
- */
 @OptIn(ExperimentalCoroutinesApi::class)
 class SendViewModelTest {
 
@@ -51,21 +43,16 @@ class SendViewModelTest {
     private lateinit var bwSender: BWSender
     private lateinit var txRepository: TxRepository
     private lateinit var settingRepository: SettingRepository
+    private lateinit var currencyDataGetter: CurrencyDataGetter
+
+    private val usdCurrency = CurrencyEntity("USD", "US Dollar", 100f, "$")
 
     private val settingsFlow = MutableStateFlow(
-        AppSetting(
-            isDarkMode = false,
-            currency = CurrencyEntity("USD", "US Dollar", 100f, "$")
-        )
+        AppSetting(isDarkMode = false, currency = usdCurrency)
     )
 
-    /**
-     * Build a ViewModel with sensible test defaults. Individual tests override
-     * whatever they need to exercise specific branches.
-     */
-
     private fun TestScope.buildViewModel(
-        getBalance: () -> Long = { 1_000_000_000L }, // 10 LTC in litoshis
+        getBalance: () -> Long = { 1_000_000_000L },
         validateAddress: (String) -> Boolean = { it.startsWith("L") },
         getCurrentFee: () -> Long = { 2_000L },
         getOpsFee: (Long) -> Long = { 500L },
@@ -80,6 +67,7 @@ class SendViewModelTest {
         getBalance = getBalance,
         getCurrentFee = getCurrentFee,
         getOpsFee = getOpsFee,
+        currencyDataGetter = currencyDataGetter
     ).also { advanceUntilIdle() }
 
     @Before
@@ -96,10 +84,14 @@ class SendViewModelTest {
             every { currentSettings } returns settingsFlow
         }
 
+        // Default: getCurrencyByIso returns USD at 100f
+        currencyDataGetter = mockk {
+            every { getCurrencyByIso("USD") } returns usdCurrency
+        }
+
         mockkStatic(BRKeyStore::class)
         every { BRKeyStore.getPinCode(any()) } returns "1234"
 
-        // Stub the asset/Firebase boundary that OnSend hits.
         mockkStatic(Utils::class)
         every { Utils.fetchServiceItem(any(), any()) } returns "LOpsAddr"
         every { Utils.tieredOpsFee(any(), any()) } returns 500L
@@ -133,6 +125,7 @@ class SendViewModelTest {
     fun `settings update propagates currency and darkMode`() = runTest {
         val vm = buildViewModel()
         val newCurrency = CurrencyEntity("GBP", "Pound", 80f, "£")
+        every { currencyDataGetter.getCurrencyByIso("GBP") } returns newCurrency
 
         settingsFlow.value = AppSetting(isDarkMode = true, currency = newCurrency)
         advanceUntilIdle()
@@ -142,35 +135,45 @@ class SendViewModelTest {
     }
 
     // -------------------------------------------------------------------------
-    // REGRESSION: OnToggleFiatOrLTC null / negative rate handling
+    // OnToggleFiatOrLTC — uses currencyDataGetter (not selectedCurrency.rate)
     // -------------------------------------------------------------------------
 
     @Test
-    fun `toggle does not crash when rate is negative sentinel`() = runTest {
-        // The default CurrencyEntity in SendState has rate = -1f. If the user
-        // toggles before rates load, the VM must not crash.
-        settingsFlow.value = AppSetting(
-            currency = CurrencyEntity("USD", "US Dollar", -1f, "$")
-        )
-        val vm = buildViewModel()
+    fun `toggle does not crash when currencyDataGetter returns no rate`() = runTest {
+        // Simulates the case where rates haven't loaded yet — getCurrencyByIso
+        // returns null, so the takeIf guard fires and convertedAmount stays null.
+        every { currencyDataGetter.getCurrencyByIso(any()) } returns null
 
+        val vm = buildViewModel()
         vm.onEvent(SendEvent.OnAmountChanged("0.5"))
         advanceUntilIdle()
         vm.onEvent(SendEvent.OnToggleFiatOrLTC)
         advanceUntilIdle()
 
-        // Expectation: no crash. The amount string should either stay put or
-        // clear — but the VM must remain functional.
+        // amountString must be unchanged; VM must remain functional
+        assertEquals("0.5", vm.state.value.amountString)
         assertFalse(vm.state.value.brainwalletIsPublishing)
     }
 
     @Test
-    fun `toggle LTC to fiat multiplies by rate with 2dp rounding`() = runTest {
-        settingsFlow.value = AppSetting(
-            currency = CurrencyEntity("USD", "US Dollar", 100f, "$")
-        )
+    fun `toggle does not crash when rate is zero`() = runTest {
+        // rate = 0f fails the takeIf { it > 0f } guard — same safe path as null
+        every { currencyDataGetter.getCurrencyByIso("USD") } returns
+            CurrencyEntity("USD", "US Dollar", 0f, "$")
+
         val vm = buildViewModel()
-        // Start in LTC view, enter 0.5 LTC.
+        vm.onEvent(SendEvent.OnAmountChanged("0.5"))
+        advanceUntilIdle()
+        vm.onEvent(SendEvent.OnToggleFiatOrLTC)
+        advanceUntilIdle()
+
+        assertEquals("0.5", vm.state.value.amountString)
+    }
+
+    @Test
+    fun `toggle LTC to fiat multiplies by rate with 2dp rounding`() = runTest {
+        val vm = buildViewModel()
+        // Start in LTC view, enter 0.5 LTC
         vm.onEvent(SendEvent.OnAmountChanged("0.5"))
         advanceUntilIdle()
 
@@ -184,11 +187,9 @@ class SendViewModelTest {
 
     @Test
     fun `toggle fiat to LTC divides by rate with 8dp precision`() = runTest {
-        settingsFlow.value = AppSetting(
-            currency = CurrencyEntity("USD", "US Dollar", 100f, "$")
-        )
         val vm = buildViewModel()
         vm.onEvent(SendEvent.OnToggleFiatOrLTC) // → fiat view
+        advanceUntilIdle()
         vm.onEvent(SendEvent.OnAmountChanged("50"))
         advanceUntilIdle()
 
@@ -200,14 +201,44 @@ class SendViewModelTest {
         assertEquals(BigDecimal("0.50000000"), BigDecimal(vm.state.value.amountString))
     }
 
+    @Test
+    fun `toggle LTC to fiat preserves amountInLitoshi`() = runTest {
+        val vm = buildViewModel()
+        vm.onEvent(SendEvent.OnAmountChanged("1")) // 1 LTC = 100_000_000 litoshis
+        advanceUntilIdle()
+        val litoshiBefore = vm.state.value.amountInLitoshi
+
+        vm.onEvent(SendEvent.OnToggleFiatOrLTC) // → fiat, litoshi unchanged
+        advanceUntilIdle()
+
+        assertEquals(litoshiBefore, vm.state.value.amountInLitoshi)
+    }
+
+    @Test
+    fun `toggle fiat to LTC updates amountInLitoshi`() = runTest {
+        val vm = buildViewModel()
+        vm.onEvent(SendEvent.OnToggleFiatOrLTC) // → fiat
+        advanceUntilIdle()
+        vm.onEvent(SendEvent.OnAmountChanged("100")) // 100 USD / 100 rate = 1 LTC
+        advanceUntilIdle()
+
+        vm.onEvent(SendEvent.OnToggleFiatOrLTC) // → LTC
+        advanceUntilIdle()
+
+        // 1 LTC = 100_000_000 litoshis
+        assertEquals(
+            0,
+            BigDecimal("100000000").compareTo(vm.state.value.amountInLitoshi)
+        )
+    }
+
     // -------------------------------------------------------------------------
-    // REGRESSION: Amount validation drives isReadyToSend
+    // OnAmountChanged — uses selectedCurrency.rate (Float, always present)
     // -------------------------------------------------------------------------
 
     @Test
     fun `valid address alone does not enable send`() = runTest {
         val vm = buildViewModel()
-
         vm.onEvent(SendEvent.OnRecipientAddressChanged("LValidAddr"))
         advanceUntilIdle()
 
@@ -221,23 +252,19 @@ class SendViewModelTest {
     @Test
     fun `valid address plus valid amount enables send`() = runTest {
         val vm = buildViewModel()
-
         vm.onEvent(SendEvent.OnRecipientAddressChanged("LValidAddr"))
         vm.onEvent(SendEvent.OnAmountChanged("0.1"))
         advanceUntilIdle()
 
-        // Note: this asserts the intended contract. It will currently fail
-        // unless the getBalance/getCurrentFee/getOpsFee lambdas are wired into
-        // the ViewModel — which is exactly the point of this regression test.
         assertTrue(vm.state.value.isReadyToSend)
     }
 
     @Test
     fun `amount exceeding balance disables send`() = runTest {
-        val vm = buildViewModel(getBalance = { 1000L }) // 1000 litoshis ~ tiny
+        val vm = buildViewModel(getBalance = { 1000L })
 
         vm.onEvent(SendEvent.OnRecipientAddressChanged("LValidAddr"))
-        vm.onEvent(SendEvent.OnAmountChanged("100")) // 100 LTC — way over
+        vm.onEvent(SendEvent.OnAmountChanged("100"))
         advanceUntilIdle()
 
         assertFalse(vm.state.value.isAmountBelowBalance)
@@ -247,7 +274,6 @@ class SendViewModelTest {
     @Test
     fun `invalid address disables send even with valid amount`() = runTest {
         val vm = buildViewModel(validateAddress = { false })
-
         vm.onEvent(SendEvent.OnRecipientAddressChanged("not-a-real-addr"))
         vm.onEvent(SendEvent.OnAmountChanged("0.1"))
         advanceUntilIdle()
@@ -259,7 +285,6 @@ class SendViewModelTest {
     @Test
     fun `zero amount does not enable send`() = runTest {
         val vm = buildViewModel()
-
         vm.onEvent(SendEvent.OnRecipientAddressChanged("LValidAddr"))
         vm.onEvent(SendEvent.OnAmountChanged("0"))
         advanceUntilIdle()
@@ -273,7 +298,6 @@ class SendViewModelTest {
     @Test
     fun `empty amount string does not enable send`() = runTest {
         val vm = buildViewModel()
-
         vm.onEvent(SendEvent.OnRecipientAddressChanged("LValidAddr"))
         vm.onEvent(SendEvent.OnAmountChanged(""))
         advanceUntilIdle()
@@ -281,8 +305,23 @@ class SendViewModelTest {
         assertFalse(vm.state.value.isReadyToSend)
     }
 
+    @Test
+    fun `fiat amount converts to litoshis correctly for balance check`() = runTest {
+        // 50 USD / 100 rate = 0.5 LTC = 50_000_000 litoshis
+        // balance = 1_000_000_000 litoshis (10 LTC) → should be valid
+        val vm = buildViewModel()
+        vm.onEvent(SendEvent.OnToggleFiatOrLTC) // → fiat
+        advanceUntilIdle()
+        vm.onEvent(SendEvent.OnRecipientAddressChanged("LValidAddr"))
+        vm.onEvent(SendEvent.OnAmountChanged("50"))
+        advanceUntilIdle()
+
+        assertTrue(vm.state.value.isAmountBelowBalance)
+        assertTrue(vm.state.value.isReadyToSend)
+    }
+
     // -------------------------------------------------------------------------
-    // REGRESSION: Send button lock-up (isSending never clears)
+    // Send result handling — brainwalletIsPublishing always clears
     // -------------------------------------------------------------------------
 
     @Test
@@ -293,17 +332,11 @@ class SendViewModelTest {
         vm.onEvent(SendEvent.OnSend(dummyTransactionItem()))
         advanceUntilIdle()
 
-        assertFalse(
-            "brainwalletIsPublishing must be cleared after success",
-            vm.state.value.brainwalletIsPublishing
-        )
+        assertFalse(vm.state.value.brainwalletIsPublishing)
     }
 
     @Test
     fun `send AlreadySending clears publishing flag`() = runTest {
-        // This is the core regression: if AlreadySending leaves the VM in
-        // brainwalletIsPublishing = true, the Send button never re-enables
-        // and the user is permanently blocked.
         coEvery { bwSender.prepareTransaction(any()) } returns BWSendResult.Error.AlreadySending
         val vm = buildViewModel()
 
@@ -342,6 +375,19 @@ class SendViewModelTest {
     fun `send AmountTooSmall surfaces error and clears publishing`() = runTest {
         coEvery { bwSender.prepareTransaction(any()) } returns
             BWSendResult.Error.AmountTooSmall(minAmount = 10_000L)
+        val vm = buildViewModel()
+
+        vm.onEvent(SendEvent.OnSend(dummyTransactionItem()))
+        advanceUntilIdle()
+
+        assertFalse(vm.state.value.brainwalletIsPublishing)
+        assertTrue(vm.state.value.errorResultString.isNotEmpty())
+    }
+
+    @Test
+    fun `send InsufficientFunds surfaces error and clears publishing`() = runTest {
+        coEvery { bwSender.prepareTransaction(any()) } returns
+            BWSendResult.Error.InsufficientFunds
         val vm = buildViewModel()
 
         vm.onEvent(SendEvent.OnSend(dummyTransactionItem()))
@@ -417,13 +463,12 @@ class SendViewModelTest {
     }
 
     // -------------------------------------------------------------------------
-    // QR scan / EventBus wiring
+    // QR scan / EventBus
     // -------------------------------------------------------------------------
 
     @Test
     fun `QR scan event populates recipient address`() = runTest {
         val vm = buildViewModel()
-
         EventBus.emit(EventBus.Event.QRCodeScanned(url = "LQRScannedAddr"))
         advanceUntilIdle()
 
@@ -433,7 +478,6 @@ class SendViewModelTest {
     @Test
     fun `QR scan with null url sets empty string not crash`() = runTest {
         val vm = buildViewModel()
-
         EventBus.emit(EventBus.Event.QRCodeScanned(url = null))
         advanceUntilIdle()
 

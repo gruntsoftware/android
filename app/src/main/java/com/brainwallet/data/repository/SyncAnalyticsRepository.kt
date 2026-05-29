@@ -40,7 +40,7 @@ class SyncAnalyticsRepository(
         stopSync()
 
         val totalDuration = prefs.getLong(KEY_ACCUMULATED_DURATION, 0L)
-        if (totalDuration == 0L) return
+        if (totalDuration <= 8000L) return
 
         val endTimestamp = peerManagerSource.getLastBlockTimestamp()
         val endBlockHeight = peerManagerSource.getCurrentBlockHeight()

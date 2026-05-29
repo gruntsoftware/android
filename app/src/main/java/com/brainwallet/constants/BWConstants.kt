@@ -24,8 +24,6 @@ object BWConstants {
      */
     const val NATIVE_LIB_NAME: String = "core-lib"
 
-    const val _BW_MAIN_OPEN: String = "bw_main_open"
-
     /**
      * Permissions
      */
@@ -106,8 +104,7 @@ object BWConstants {
     const val SUPPORT_WEB_LINK: String = "https://www.brainwallet.co/support"
     const val TOS_LINK: String = "https://www.brainwallet.co/privacypolicy"
     const val LINKTREE_URL: String = "https://linktr.ee/brainwallet"
-
-    const val BITREFILL_URL: String = "https://www.bitrefill.com/?ref=bAshL935"
+    const val BITREFILL_URL: String = "https://www.bitrefill.com/?ref=bw_tk_26"
 
     /**
      * API Hosts
@@ -128,7 +125,7 @@ object BWConstants {
     const val _20200112_ERR: String = "brainwallet_android_error"
     const val _20200112_DSR: String = "did_start_resync"
     const val _20201118_DTGS: String = "did_tap_get_support"
-    const val _20200217_DUWB: String = "did_unlock_with_biometrics"
+    const val _20200217_DU: String = "did_unlock"
 
     const val _20250303_DSTU: String = "did_skip_top_up"
     const val _20250517_WCINFO: String = "wallet_callback_info"

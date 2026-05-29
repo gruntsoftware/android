@@ -67,11 +67,14 @@ import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
 import com.brainwallet.tools.animation.BRAnimator
 import com.brainwallet.tools.manager.AnalyticsManager
+import com.brainwallet.tools.util.withTheme
 import com.brainwallet.ui.bentosections.balancebento.BalanceBentoScreen
 import com.brainwallet.ui.bentosections.buyreceivebento.receive.ReceiveDialog
 import com.brainwallet.ui.bentosections.gamehubbento.GameHubBentoPagerScreen
 import com.brainwallet.ui.bentosections.ltcpickerbento.LTCPickerBentoScreen
+import com.brainwallet.ui.bentosections.shopbento.ShopBentoEvent
 import com.brainwallet.ui.bentosections.shopbento.ShopBentoScreen
+import com.brainwallet.ui.bentosections.shopbento.ShopBentoViewModel
 import com.brainwallet.ui.bentosections.transactionbento.TransactionsBentoScreen
 import com.brainwallet.ui.bentosections.tutorials.TutorialsBentoScreen
 import com.brainwallet.ui.bentosections.tutorials.send.TutorialSendPagerScreen
@@ -104,7 +107,8 @@ import timber.log.Timber
 fun MainScreen(
     onNavigate: OnNavigate,
     modifier: Modifier = Modifier,
-    viewModel: MainViewModel = koinViewModel()
+    viewModel: MainViewModel = koinViewModel(),
+    shopBentoViewModel: ShopBentoViewModel = koinViewModel()
 ) {
     val context = LocalContext.current
     var currentRoute by remember { mutableStateOf<Route>(Route.Main) }
@@ -113,6 +117,7 @@ fun MainScreen(
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var isSheetOpen by remember { mutableStateOf(false) }
     var modalContentRoute by remember { mutableStateOf<Route?>(null) }
+    val shopBentoState by shopBentoViewModel.state.collectAsStateWithLifecycle()
     val appSetting by viewModel.appSetting.collectAsStateWithLifecycle()
     val isDarkMode = appSetting.isDarkMode
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -329,7 +334,7 @@ fun MainScreen(
                                     }
                                     Box(modifier = Modifier.height(storeBentoHeight)) {
                                         ShopBentoScreen(onClick = {
-                                            modalContentRoute = Route.BitrefillWeb
+                                            modalContentRoute = Route.BitrefillWeb(url = shopBentoState.shopBaseUrl)
                                             isSheetOpen = true
                                         })
                                     }
@@ -390,7 +395,7 @@ fun MainScreen(
                         .fillMaxHeight(
                             if (modalContentRoute == Route.TutorialSend ||
                                 modalContentRoute == Route.TutorialWalkthrough ||
-                                modalContentRoute == Route.BitrefillWeb ||
+                                modalContentRoute is Route.BitrefillWeb ||
                                 modalContentRoute == Route.LinktreeWeb
                             ) {
                                 1f
@@ -452,10 +457,15 @@ fun MainScreen(
                             onNavigate = onNavigate,
                             url = BWConstants.LINKTREE_URL
                         )
-
-                        Route.BitrefillWeb -> WebModalScreen(
+                        is Route.BitrefillWeb -> WebModalScreen(
+                            modifier = Modifier.fillMaxSize(),
                             onNavigate = onNavigate,
-                            url = BWConstants.BITREFILL_URL
+                            url = (modalContentRoute as Route.BitrefillWeb).url.withTheme(
+                                if (isDarkMode) "dark" else "light"
+                            ),
+                            invoiceCreated = { _, _ ->
+                                shopBentoViewModel.onEvent(ShopBentoEvent.InvoiceCreated)
+                            }
                         )
                         else -> {}
                     }

@@ -12,52 +12,49 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.brainwallet.ui.bentosections.shopbento.cards.CardAmazonComposable
-import com.brainwallet.ui.bentosections.shopbento.cards.CardJustEatComposable
-import com.brainwallet.ui.bentosections.shopbento.cards.CardVisaComposable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import com.brainwallet.ui.bentosections.shopbento.cards.SingleCardComposable
 
 @Composable
 fun GiftCardsComposable(
-    state: ShopBentoState,
-    cardData: String,
+    imageURLOne: String,
+    imageURLTwo: String,
+    imageURLThree: String,
     modifier: Modifier = Modifier,
 ) {
-    val cornerRadius = 4.dp
     var appeared by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         appeared = true
     }
 
-    val offsetVisa by animateFloatAsState(
-        targetValue = if (appeared) -10f else 100f,
+    val offsetCardOne by animateFloatAsState(
+        targetValue = if (appeared) 5f else 100f,
         animationSpec = tween(
             500,
-            delayMillis = 200
+            delayMillis = 400
         ),
-        label = "visaSlide"
+        label = "cardOneSlide"
     )
 
-    val offsetJE by animateFloatAsState(
+    val offsetCardTwo by animateFloatAsState(
         targetValue = if (appeared) 30f else 100f,
         animationSpec = tween(
             600,
-            delayMillis = 200
+            delayMillis = 400
         ),
-        label = "jeSlide"
+        label = "cardTwoSlide"
     )
 
-    val offsetAmazon by animateFloatAsState(
-        targetValue = if (appeared) -12f else 50f,
+    val offsetCardThree by animateFloatAsState(
+        targetValue = if (appeared) 30f else 50f,
         animationSpec = tween(
             400,
-            delayMillis = 200
+            delayMillis = 400
         ),
-        label = "amazonSlide"
+        label = "cardThreeSlide"
     )
 
     Box(
@@ -68,35 +65,27 @@ fun GiftCardsComposable(
         Column(
             modifier = Modifier
                 .fillMaxHeight()
-                .offset(x = offsetVisa.dp, y = 5.dp)
+                .offset(x = offsetCardOne.dp, y = 10.dp)
         ) {
-            CardVisaComposable(rotation = 20f)
+            SingleCardComposable(rotation = 20f, modelString = imageURLOne)
         }
 
         Column(
             modifier = Modifier
                 .fillMaxHeight()
-                .offset(x = offsetAmazon.dp, y = -15.dp)
+                .offset(x = offsetCardTwo.dp, y = -20.dp)
 
         ) {
-            CardAmazonComposable(rotation = 20f)
+            SingleCardComposable(rotation = 20f, modelString = imageURLTwo)
         }
 
         Column(
             modifier = Modifier
                 .fillMaxHeight()
-                .offset(x = offsetJE.dp, y = 15.dp)
+                .offset(x = offsetCardThree.dp, y = 35.dp)
 
         ) {
-            CardJustEatComposable(rotation = -30f)
+            SingleCardComposable(rotation = -30f, modelString = imageURLThree)
         }
-    }
-}
-
-@Preview
-@Composable
-private fun GiftCardsComposablePreview() {
-    Box(modifier = Modifier) {
-        GiftCardsComposable(state = ShopBentoState(), cardData = "acr")
     }
 }

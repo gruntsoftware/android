@@ -27,7 +27,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
@@ -38,7 +37,6 @@ import com.brainwallet.ui.composable.WheelPickerFocusVertical
 import com.brainwallet.ui.composable.rememberWheelPickerState
 import com.brainwallet.ui.theme.IBMPlexSans
 import com.brainwallet.ui.theme.mainBentoSurface
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
@@ -68,18 +66,15 @@ fun LTCPickerBentoScreen(
     }
 
     val wheelPickerState = rememberWheelPickerState(initialIndex = 0)
-    var resizedFiatFontSize by remember { mutableStateOf(16.sp) }
-    var resizedCurrencyNameFontSize by remember { mutableStateOf(18.sp) }
-    var resizedAsOfTimestampFontSize by remember { mutableStateOf(12.sp) }
+    var resizedFiatFontSize by remember { mutableStateOf(26.sp) }
+    var resizedAsOfTimestampFontSize by remember { mutableStateOf(13.sp) }
     val context = LocalContext.current
 
-    // Set the initial index to the selected fiat currency
-    LaunchedEffect(Unit) {
-        delay(500)
-        wheelPickerState.scrollToIndex(state.getSelectedFiatRateIndex())
+    val selectedIndex = state.getSelectedFiatRateIndex()
+    LaunchedEffect(selectedIndex) {
+        wheelPickerState.scrollToIndex(selectedIndex)
     }
 
-    // Listen for changes in the selected fiat currency index
     LaunchedEffect(wheelPickerState) {
         snapshotFlow { wheelPickerState.currentIndex }
             .filter { it > -1 }
@@ -117,7 +112,43 @@ fun LTCPickerBentoScreen(
                     )
                     .padding(horizontal = 6.dp, vertical = 2.dp)
             )
-            Spacer(modifier = Modifier.weight(0.5f))
+            Text(
+                text = state.formattedFiat,
+                modifier = Modifier.fillMaxWidth().padding(top = 4.dp),
+                onTextLayout = { textLayoutResult ->
+                    if (textLayoutResult.hasVisualOverflow) {
+                        resizedFiatFontSize *= 0.95f
+                    }
+                },
+                style = TextStyle(
+                    fontFamily = IBMPlexSans,
+                    fontWeight = FontWeight.Normal,
+                    fontSize = resizedFiatFontSize,
+                    color = if (state.darkMode) Color.White else Color.Black
+                ),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+
+            Text(
+                text = state.formattedTimeStamp,
+                modifier = Modifier.fillMaxWidth().padding(top = 4.dp),
+                onTextLayout = { textLayoutResult ->
+                    if (textLayoutResult.hasVisualOverflow) {
+                        resizedAsOfTimestampFontSize *= 0.95f
+                    }
+                },
+                style = TextStyle(
+                    fontFamily = IBMPlexSans,
+                    fontWeight = FontWeight.Normal,
+                    fontSize = resizedAsOfTimestampFontSize,
+                    color = if (state.darkMode) Color.White else Color.Black
+                ),
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
             VerticalWheelPicker(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -151,65 +182,6 @@ fun LTCPickerBentoScreen(
                     )
                 )
             }
-            Text(
-                text = "${state.selectedCurrency.name}",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp),
-                onTextLayout = { textLayoutResult ->
-                    if (textLayoutResult.hasVisualOverflow) {
-                        resizedCurrencyNameFontSize *= 0.95f
-                    }
-                },
-                style = TextStyle(
-                    fontFamily = IBMPlexSans,
-                    fontWeight = FontWeight.Light,
-                    fontSize = resizedCurrencyNameFontSize,
-                    color = if (state.darkMode) Color.White else Color.Black
-                ),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-            Text(
-                text = state.formattedFiat,
-                modifier = Modifier.fillMaxWidth().padding(bottom = 4.dp),
-                onTextLayout = { textLayoutResult ->
-                    if (textLayoutResult.hasVisualOverflow) {
-                        resizedFiatFontSize *= 0.95f
-                    }
-                },
-                style = TextStyle(
-                    fontFamily = IBMPlexSans,
-                    fontWeight = FontWeight.Normal,
-                    fontSize = resizedFiatFontSize,
-                    color = if (state.darkMode) Color.White else Color.Black
-                ),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-            Text(
-                text = stringResource(
-                    com.brainwallet.R.string.ltc_ticker_as_of_timestamp,
-                    state.formattedTimeStamp
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 2.dp, bottom = 4.dp),
-                onTextLayout = { textLayoutResult ->
-                    if (textLayoutResult.hasVisualOverflow) {
-                        resizedAsOfTimestampFontSize *= 0.95f
-                    }
-                },
-                style = TextStyle(
-                    fontFamily = IBMPlexSans,
-                    fontWeight = FontWeight.Normal,
-                    fontSize = resizedAsOfTimestampFontSize,
-                    color = if (state.darkMode) Color.White else Color.Black,
-                    textAlign = TextAlign.Start
-                ),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
         }
     }
 }
