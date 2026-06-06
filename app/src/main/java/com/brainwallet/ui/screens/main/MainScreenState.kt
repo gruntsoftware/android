@@ -36,7 +36,7 @@ data class MainScreenState(
     val selectedCurrency: CurrencyEntity = CurrencyEntity(
         "USD",
         "US Dollar",
-        -1f,
+        0f,
         "$"
     ),
     val isInternetReachable: Boolean = true,
