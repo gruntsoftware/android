@@ -111,6 +111,7 @@ fun BalanceBentoScreen(
     val context = LocalContext.current
     val infiniteTransition = rememberInfiniteTransition()
     var previousBalance by remember { mutableStateOf(BigDecimal.ZERO) }
+    val boingAudioPlayer = remember { MediaPlayer.create(context, R.raw.boingspringmouthharp042013) }
 
     val throbOpacity by infiniteTransition.animateFloat(
         initialValue = 0.5f,
@@ -180,6 +181,7 @@ fun BalanceBentoScreen(
                         indication = null
                     ) {
                         isSwapped = !isSwapped
+                        boingAudioPlayer.start()
                         AnalyticsManager.logCustomEventWithParams("did_toggle_fiat_ltc", null)
                     }
             ) {

@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.brainwallet.R
 import com.brainwallet.constants.BWConstants
 import com.brainwallet.data.model.AppSetting
+import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.GlobalCurrency
 import com.brainwallet.data.model.GlobalCurrency.entries
 import com.brainwallet.data.repository.ConnectivityRepository
@@ -25,7 +26,6 @@ import com.brainwallet.util.CurrencyDataGetter
 import com.brainwallet.util.VersionCodeProvider
 import com.brainwallet.wallet.BRPeerManager
 import com.brainwallet.wallet.BRWalletManager
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -97,18 +97,23 @@ class MainViewModel(
         viewModelScope.launch {
             ltcRepository.rates
                 .combine(appSetting) { currencies, setting ->
-                    currencies.firstOrNull { it.code == setting.currency.code }
+                    currencies.firstOrNull {
+                        it.code == setting.currency.code && it.symbol == setting.currency.symbol
+                    }
                 }
                 .filterNotNull()
                 .collect { selectedCurrency ->
-                    val msg = String.format("selectedCurrency — Name: %s", selectedCurrency.name)
-                    Timber.d("ISO: %s", msg)
-                    FirebaseCrashlytics.getInstance().log(msg)
                     _state.update {
                         it.copy(
                             fiatSymbol = selectedCurrency.symbol,
                             fiatiSOCode = selectedCurrency.code,
                             fiatRate = BigDecimal(selectedCurrency.rate.toDouble()),
+                            selectedCurrency = CurrencyEntity(
+                                code = selectedCurrency.code,
+                                name = selectedCurrency.name,
+                                rate = selectedCurrency.rate,
+                                symbol = selectedCurrency.symbol,
+                            ),
                         )
                     }
                 }
@@ -180,12 +185,16 @@ class MainViewModel(
             }
             if (isWalletCreated()) {
                 addObservers()
-                val balance = BigDecimal(BRSharedPrefs.getCachedBalance(app).toDouble())
+                val balance = BRSharedPrefs.getCachedBalance(app)
                 _state.update {
                     it.copy(
-                        ltcBalance = balance,
-                        litoshiBalance = balance
-                            .divide(BigDecimal(ONE_LITECOIN_OF_LITOSHIS)),
+                        ltcBalance = BigDecimal(balance),
+                        litoshiBalance = BigDecimal(balance)
+                            .divide(
+                                BigDecimal(ONE_LITECOIN_OF_LITOSHIS),
+                                8,
+                                BWConstants.ROUNDING_MODE
+                            )
                     )
                 }
                 txRepository.refresh()
@@ -219,9 +228,13 @@ class MainViewModel(
     override fun onBalanceChanged(balance: Long) {
         _state.update {
             it.copy(
-                ltcBalance = BigDecimal(balance.toDouble()),
-                litoshiBalance = BigDecimal(balance.toDouble())
-                    .divide(BigDecimal(ONE_LITECOIN_OF_LITOSHIS)),
+                ltcBalance = BigDecimal(balance),
+                litoshiBalance = BigDecimal(balance)
+                    .divide(
+                        BigDecimal(ONE_LITECOIN_OF_LITOSHIS),
+                        8,
+                        BWConstants.ROUNDING_MODE
+                    ),
             )
         }
         viewModelScope.launch(Dispatchers.IO) {
