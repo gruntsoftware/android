@@ -213,6 +213,9 @@ fun MainScreen(
                             } else if (route == Route.History) {
                                 viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail)
                                 if (showTransactionDetail) currentRoute = Route.Main
+                            } else if (route == Route.GameHub) {
+                                currentRoute = Route.GameHub
+                                isGameHubOpen = !isGameHubOpen
                             } else {
                                 modalContentRoute = route
                                 isSheetOpen = true
@@ -368,7 +371,7 @@ fun MainScreen(
                                     GameHubBentoScreen(
                                         onClick = {
                                             modalContentRoute = Route.GameHub
-                                            showGame = true
+                                            isGameHubOpen = !isGameHubOpen
                                         },
                                         isGameHubOpen = isGameHubOpen,
                                         onGameHubOpenChange = { isGameHubOpen = it }

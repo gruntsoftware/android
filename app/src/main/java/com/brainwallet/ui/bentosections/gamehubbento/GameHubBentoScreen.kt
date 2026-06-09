@@ -10,6 +10,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -37,9 +38,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brainwallet.R
+import com.brainwallet.constants.BWConstants.EXPAND_DURATION
 import com.brainwallet.constants.BWConstants.FADE_IN_DURATION
 import com.brainwallet.constants.BWConstants.FADE_OUT_DURATION
+import com.brainwallet.constants.BWConstants.SHRINK_DURATION
 import com.brainwallet.constants.bentoCornerRadius
+import com.brainwallet.ui.screens.gamehub.ExitGameButton
 import com.brainwallet.ui.theme.IBMPlexSans
 import com.brainwallet.ui.theme.LilitaOne
 import com.brainwallet.ui.theme.balanceGameBentoSurface
@@ -67,11 +71,30 @@ fun GameHubBentoScreen(
         Image(
             painter = painterResource(gameHubBackground),
             contentDescription = "game_hub_background",
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
                 .clip(RoundedCornerShape(bentoCornerRadius)),
             contentScale = ContentScale.Crop,
         )
         val textWidthRatio = 0.85f
+
+        AnimatedVisibility(
+            visible = isGameHubOpen,
+            enter = fadeIn(tween(EXPAND_DURATION)),
+            exit = fadeOut(tween(SHRINK_DURATION)),
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize(),
+                horizontalAlignment = Alignment.Start
+            ) {
+                Spacer(modifier = Modifier.weight(1f))
+
+                ExitGameButton(onClick = {
+                    onGameHubOpenChange(!isGameHubOpen)
+                })
+            }
+        }
 
         AnimatedVisibility(
             visible = !isGameHubOpen,
