@@ -6,7 +6,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,7 +15,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,6 +28,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -49,24 +48,21 @@ import com.brainwallet.ui.theme.LilitaOne
 import com.brainwallet.ui.theme.balanceGameBentoSurface
 import com.brainwallet.ui.theme.gameTaglineGradient
 import com.brainwallet.ui.theme.gameTitleGradient
+import timber.log.Timber
 
 @Composable
 fun GameHubBentoScreen(
     isGameHubOpen: Boolean,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
-    onGameHubOpenChange: (Boolean) -> Unit,
+    onToggle: () -> Unit = {},
 ) {
     val gameHubBackground = R.drawable.game_hub_bk
     var resizedTaglineFontSize by remember { mutableStateOf(14.sp) }
-    val hubPageCount = 3
-    val pagerState = rememberPagerState(pageCount = { hubPageCount })
 
     Box(
         modifier = Modifier
             .fillMaxSize()
             .balanceGameBentoSurface(isDarkMode = true)
-            .clickable(onClick = onClick)
     ) {
         Image(
             painter = painterResource(gameHubBackground),
@@ -80,6 +76,7 @@ fun GameHubBentoScreen(
 
         AnimatedVisibility(
             visible = isGameHubOpen,
+            modifier = Modifier.fillMaxSize(),
             enter = fadeIn(tween(EXPAND_DURATION)),
             exit = fadeOut(tween(SHRINK_DURATION)),
         ) {
@@ -89,9 +86,9 @@ fun GameHubBentoScreen(
                 horizontalAlignment = Alignment.Start
             ) {
                 Spacer(modifier = Modifier.weight(1f))
-
                 ExitGameButton(onClick = {
-                    onGameHubOpenChange(!isGameHubOpen)
+                    Timber.d("ExitGameButton tapped")
+                    onToggle()
                 })
             }
         }
@@ -105,7 +102,8 @@ fun GameHubBentoScreen(
                 modifier = Modifier
                     .fillMaxWidth(textWidthRatio)
                     .fillMaxHeight(1f)
-                    .align(Alignment.CenterEnd),
+                    .align(Alignment.CenterEnd)
+                    .pointerInput(Unit) {},
                 dotQuantity = 14
             )
             Column(
