@@ -58,7 +58,7 @@ import com.brainwallet.ui.composable.bottomsheet.LanguageSelectorBottomSheet
 import com.brainwallet.constants.BWConstants
 import com.brainwallet.constants.bentoCornerRadius
 import com.brainwallet.ui.bentosections.gamehubbento.FallinScene
-import com.brainwallet.ui.theme.BoldenVan
+import com.brainwallet.ui.theme.LilitaOne
 import com.brainwallet.ui.theme.DesignTheme
 import com.brainwallet.ui.theme.gameTitleGradient
 import kotlinx.coroutines.delay
@@ -162,7 +162,7 @@ fun WelcomeScreen(
                     Text(
                         text = displayedText,
                         style = TextStyle(
-                            fontFamily = BoldenVan,
+                            fontFamily = LilitaOne,
                             fontWeight = FontWeight.Normal,
                             fontSize = 60.sp,
                             shadow = Shadow(
@@ -177,7 +177,7 @@ fun WelcomeScreen(
                         text = displayedText,
                         style = TextStyle(
                             brush = gameTitleGradient,
-                            fontFamily = BoldenVan,
+                            fontFamily = LilitaOne,
                             fontWeight = FontWeight.Normal,
                             fontSize = 60.sp
                         ),
