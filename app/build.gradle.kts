@@ -196,10 +196,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":games"))
     implementation(project(":iap"))
     implementation(project(":core"))
-    implementation(project(":gamegdx"))
+    implementation(project(":bw-gdlib"))
     implementation("androidx.webkit:webkit:1.9.0")
     implementation(libs.androidx.benchmark.traceprocessor)
     testImplementation(testFixtures(project(":app")))
