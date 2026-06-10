@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.project
+
 pluginManagement {
     includeBuild("android-build-logic")
     repositories {
@@ -29,7 +31,8 @@ dependencyResolutionManagement {
 rootProject.name = "Brainwallet Android"
 include(":app")
 include(":install_time_asset_pack")
-include(":core", ":iap", ":general-purpose-app")
+include(":core",":iap",":bw-gdlib:core",":general-purpose-app")
 project(":general-purpose-app").projectDir = file("modules/private-general-purpose/app")
 project(":core").projectDir = file("modules/private-general-purpose/core")
 project(":iap").projectDir = file("modules/private-general-purpose/iap")
+project(":bw-gdlib:core").projectDir = file("modules/private-general-purpose/bw-gdlib/core")

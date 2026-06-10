@@ -198,7 +198,7 @@ android {
 dependencies {
     implementation(project(":iap"))
     implementation(project(":core"))
-    implementation(project(":bw-gdlib"))
+    implementation(project(":bw-gdlib:core"))
     implementation("androidx.webkit:webkit:1.9.0")
     implementation(libs.androidx.benchmark.traceprocessor)
     testImplementation(testFixtures(project(":app")))
