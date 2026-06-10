@@ -3,8 +3,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration
-import com.badlogic.gdx.backends.android.AndroidFragmentApplication
+import com.grunt.brainwallet
+
+import com.grunt.brainwallet.
 
 class GdxFallinmojiGameFragment : AndroidFragmentApplication() {
         override fun onCreateView(
@@ -17,7 +18,6 @@ class GdxFallinmojiGameFragment : AndroidFragmentApplication() {
                 useGL30 = false        // match what your game targets
             }
             // Swap in your actual ApplicationListener / Game subclass:
-            return initializeForView(FallinmojiGame(), config)
+            return initializeForView(Main(), config)
         }
     }
-}

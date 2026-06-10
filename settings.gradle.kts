@@ -29,8 +29,7 @@ dependencyResolutionManagement {
 rootProject.name = "Brainwallet Android"
 include(":app")
 include(":install_time_asset_pack")
-include(":core", ":games", ":iap", ":general-purpose-app")
+include(":core", ":iap", ":general-purpose-app")
 project(":general-purpose-app").projectDir = file("modules/private-general-purpose/app")
 project(":core").projectDir = file("modules/private-general-purpose/core")
-project(":games").projectDir = file("modules/private-general-purpose/games")
 project(":iap").projectDir = file("modules/private-general-purpose/iap")

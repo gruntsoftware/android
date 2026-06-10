@@ -199,6 +199,7 @@ dependencies {
     implementation(project(":games"))
     implementation(project(":iap"))
     implementation(project(":core"))
+    implementation(project(":gamegdx"))
     implementation("androidx.webkit:webkit:1.9.0")
     implementation(libs.androidx.benchmark.traceprocessor)
     testImplementation(testFixtures(project(":app")))
@@ -278,6 +279,13 @@ dependencies {
     androidTestImplementation("androidx.test:rules:1.5.0")
     androidTestImplementation("io.mockk:mockk-android:1.13.8")
     androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    val gdxVersion = "1.13.1"
+    implementation("com.badlogicgames.gdx:gdx-backend-android:${gdxVersion}")
+    implementation("com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a")
+    implementation("com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a")
+    implementation("com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86")
+    implementation("com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64")
+
 }
 
 tasks.withType<Test> {
