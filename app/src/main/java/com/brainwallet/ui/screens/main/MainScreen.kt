@@ -1,6 +1,4 @@
 package com.brainwallet.ui.screens.home
-
-import android.R.attr.maxHeight
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -46,6 +44,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
@@ -57,7 +56,6 @@ import com.brainwallet.constants.BWConstants
 import com.brainwallet.constants.BWConstants.EXPAND_DURATION
 import com.brainwallet.constants.BWConstants.FADE_IN_DURATION
 import com.brainwallet.constants.BWConstants.FADE_OUT_DURATION
-import com.brainwallet.constants.BWConstants.SHRINK_DURATION
 import com.brainwallet.constants.balanceGameBentoHt
 import com.brainwallet.constants.bentoSpacer
 import com.brainwallet.constants.gameHubHt
@@ -65,6 +63,7 @@ import com.brainwallet.constants.topNavButtonSize
 import com.brainwallet.constants.topNavStartEndPadding
 import com.brainwallet.constants.transactionRowHt
 import com.brainwallet.data.model.AppSetting
+import com.brainwallet.game.contract.LocalGameSlot
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
@@ -82,6 +81,7 @@ import com.brainwallet.ui.bentosections.tutorials.TutorialsBentoScreen
 import com.brainwallet.ui.bentosections.tutorials.send.TutorialSendPagerScreen
 import com.brainwallet.ui.bentosections.tutorials.walkthrough.TutorialWalkthroughPagerScreen
 import com.brainwallet.ui.composable.BentoBottomNavBar
+import com.brainwallet.ui.gameclasses.GameSplash
 import com.brainwallet.ui.screens.main.MainScreenEvent
 import com.brainwallet.ui.screens.main.MainViewModel
 import com.brainwallet.ui.screens.main.SettingsButton
@@ -98,6 +98,7 @@ import com.brainwallet.ui.theme.mainScreenDarkSurfaceGradient
 import com.brainwallet.ui.theme.mainScreenLightSurfaceGradient
 import com.brainwallet.util.EventBus
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -125,6 +126,17 @@ fun MainScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     val showTransactionDetail = state.showTransactionDetail
     val noTxItemsPresent = state.transactionItems.isEmpty()
+
+    // / Splash setup vars
+    var splashAlpha by remember { mutableStateOf(0f) }
+    val animatedSplashAlpha by animateFloatAsState(
+        targetValue = splashAlpha,
+        animationSpec = tween(durationMillis = 2000),
+        label = "splashAlpha"
+    )
+    var gameVisible by remember { mutableStateOf(false) }
+    var isFirstComposition by remember { mutableStateOf(true) }
+
     val blurRadiusWhen by animateFloatAsState(
         targetValue = when {
             !isSheetOpen -> 0f
@@ -156,6 +168,32 @@ fun MainScreen(
             }
     }
 
+    // / Splash setup animation
+    // / sequence the open/close whenever isGameHubOpen flips
+    LaunchedEffect(state.isGameHubOpen) {
+        if (isFirstComposition) {
+            isFirstComposition = false
+            gameVisible = state.isGameHubOpen
+            return@LaunchedEffect
+        }
+        if (state.isGameHubOpen) {
+            splashAlpha = 1f
+            delay(50)
+            gameVisible = true
+            delay(700)
+            splashAlpha = 0f
+        } else {
+            splashAlpha = 1f
+            delay(750)
+            gameVisible = false
+            delay(50)
+            splashAlpha = 0f
+            Timber.d(
+                "timber splashAlpha=$splashAlpha"
+            )
+        }
+    }
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         gesturesEnabled = drawerState.isOpen,
@@ -172,23 +210,19 @@ fun MainScreen(
             )
         }
     ) {
-        Scaffold(
-            modifier = modifier
-                .background(
-                    if (isDarkMode) {
-                        mainScreenDarkSurfaceGradient
-                    } else {
-                        mainScreenLightSurfaceGradient
-                    }
-                )
-                .blurAnimatedWith(blurRadiusWhen),
-            containerColor = Color.Transparent,
-            bottomBar = {
-                AnimatedVisibility(
-                    visible = !state.isGameHubOpen,
-                    enter = fadeIn(tween(FADE_IN_DURATION)),
-                    exit = fadeOut(tween(FADE_OUT_DURATION)),
-                ) {
+        Box(Modifier.fillMaxSize()) {
+            Scaffold(
+                modifier = modifier
+                    .background(
+                        if (isDarkMode) {
+                            mainScreenDarkSurfaceGradient
+                        } else {
+                            mainScreenLightSurfaceGradient
+                        }
+                    )
+                    .blurAnimatedWith(blurRadiusWhen),
+                containerColor = Color.Transparent,
+                bottomBar = {
                     BentoBottomNavBar(
                         isDarkMode = appSetting.isDarkMode,
                         currentRoute = currentRoute,
@@ -222,34 +256,29 @@ fun MainScreen(
                         },
                     )
                 }
-            }
 
-        ) { padding ->
-            BoxWithConstraints(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding)
-            ) {
-                val topNavRowHt = topNavButtonSize + (topNavStartEndPadding * 2)
-                val availableHeight = maxHeight -
-                    topNavRowHt -
-                    (bentoSpacer * 5) -
-                    balanceGameBentoHt -
-                    transactionRowHt -
-                    gameHubHt
-                val transactionsDetailHeight = availableHeight + gameHubHt + balanceGameBentoHt
-                val ltcPickerBentoHeight = (availableHeight * 0.7f) - (bentoSpacer / 2)
-                val storeBentoHeight = (availableHeight * 0.3f) - (bentoSpacer / 2)
-                val transactionBentoHeight by animateDpAsState(
-                    targetValue = if (showTransactionDetail) transactionsDetailHeight else transactionRowHt,
-                    animationSpec = tween(EXPAND_DURATION),
-                    label = "transactionHeight"
-                )
-                Timber.d(
-                    "bento layout maxHeight=$maxHeight "
-                )
-                Column {
-                    if (!state.isGameHubOpen) {
+            ) { padding ->
+                BoxWithConstraints(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(padding)
+                ) {
+                    val topNavRowHt = topNavButtonSize + (topNavStartEndPadding * 2)
+                    val availableHeight = maxHeight -
+                        topNavRowHt -
+                        (bentoSpacer * 5) -
+                        balanceGameBentoHt -
+                        transactionRowHt -
+                        gameHubHt
+                    val transactionsDetailHeight = availableHeight + gameHubHt + balanceGameBentoHt
+                    val ltcPickerBentoHeight = (availableHeight * 0.7f) - (bentoSpacer / 2)
+                    val storeBentoHeight = (availableHeight * 0.3f) - (bentoSpacer / 2)
+                    val transactionBentoHeight by animateDpAsState(
+                        targetValue = if (showTransactionDetail) transactionsDetailHeight else transactionRowHt,
+                        animationSpec = tween(EXPAND_DURATION),
+                        label = "transactionHeight"
+                    )
+                    Column {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -277,129 +306,139 @@ fun MainScreen(
                                 }
                             )
                         }
-                    }
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2),
-                        modifier = Modifier
-                            .padding(
-                                horizontal = bentoSpacer,
-                                vertical = 1.dp
-                            )
-                            .weight(1f),
-                        horizontalArrangement = Arrangement.spacedBy(bentoSpacer),
-                        verticalArrangement = Arrangement.spacedBy(bentoSpacer),
-                        userScrollEnabled = false
-                    ) {
-                        item(span = { GridItemSpan(2) }) {
-                            Box(modifier = Modifier.height(if (state.isGameHubOpen) 0.dp else balanceGameBentoHt)) {
-                                BalanceBentoScreen(transactions = state.transactionItems.toImmutableList())
-                            }
-                        }
-                        item(span = { GridItemSpan(2) }) {
-                            TransactionsBentoScreen(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(if (state.isGameHubOpen) 0.dp else transactionBentoHeight),
-                                transactions = state.transactionItems.toImmutableList(),
-                                toggleState = state.filterState,
-                                showTransactionDetail = state.showTransactionDetail,
-                                shouldShowFiatValues = state.shouldShowFiatValues,
-                                onBentoTap = {
-                                    if (noTxItemsPresent) {
-                                        onNavigate.invoke(UiEffect.Navigate(Route.MoonPayBuy))
-                                    } else {
-                                        viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail)
-                                    }
+                        LazyVerticalGrid(
+                            columns = GridCells.Fixed(2),
+                            modifier = Modifier
+                                .padding(
+                                    horizontal = bentoSpacer,
+                                    vertical = 1.dp
+                                )
+                                .weight(1f),
+                            horizontalArrangement = Arrangement.spacedBy(bentoSpacer),
+                            verticalArrangement = Arrangement.spacedBy(bentoSpacer),
+                            userScrollEnabled = false
+                        ) {
+                            item(span = { GridItemSpan(2) }) {
+                                Box(modifier = Modifier.height(balanceGameBentoHt)) {
+                                    BalanceBentoScreen(transactions = state.transactionItems.toImmutableList())
                                 }
-                            )
-                        }
-                        item(span = { GridItemSpan(1) }) {
-                            AnimatedVisibility(
-                                visible = !showTransactionDetail,
-                                enter = fadeIn(tween(FADE_IN_DURATION)),
-                                exit = fadeOut(tween(FADE_OUT_DURATION)),
-                            ) {
-                                Box(modifier = Modifier.height(if (state.isGameHubOpen) 0.dp else availableHeight)) {
-                                    TutorialsBentoScreen(onClick = { page ->
-                                        when (page) {
-                                            0 -> {
-                                                modalContentRoute = Route.TutorialWalkthrough
-                                                isSheetOpen = true
-                                            }
-                                            1 -> {
-                                                modalContentRoute = Route.TutorialSend
-                                                isSheetOpen = true
-                                            }
+                            }
+                            item(span = { GridItemSpan(2) }) {
+                                TransactionsBentoScreen(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(transactionBentoHeight),
+                                    transactions = state.transactionItems.toImmutableList(),
+                                    toggleState = state.filterState,
+                                    showTransactionDetail = state.showTransactionDetail,
+                                    shouldShowFiatValues = state.shouldShowFiatValues,
+                                    onBentoTap = {
+                                        if (noTxItemsPresent) {
+                                            onNavigate.invoke(UiEffect.Navigate(Route.MoonPayBuy))
+                                        } else {
+                                            viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail)
                                         }
-                                    })
-                                }
-                            }
-                        }
-                        item(span = { GridItemSpan(1) }) {
-                            AnimatedVisibility(
-                                visible = !showTransactionDetail,
-                                enter = fadeIn(tween(FADE_IN_DURATION)),
-                                exit = fadeOut(tween(FADE_OUT_DURATION)),
-                            ) {
-                                Column(verticalArrangement = Arrangement.spacedBy(bentoSpacer)) {
-                                    Box(
-                                        modifier = Modifier.height(
-                                            if (state.isGameHubOpen) 0.dp else ltcPickerBentoHeight
-                                        )
-                                    ) {
-                                        LTCPickerBentoScreen()
                                     }
+                                )
+                            }
+                            item(span = { GridItemSpan(1) }) {
+                                AnimatedVisibility(
+                                    visible = !showTransactionDetail,
+                                    enter = fadeIn(tween(FADE_IN_DURATION)),
+                                    exit = fadeOut(tween(FADE_OUT_DURATION)),
+                                ) {
                                     Box(
-                                        modifier = Modifier.height(if (state.isGameHubOpen) 0.dp else storeBentoHeight)
+                                        modifier = Modifier.height(availableHeight)
                                     ) {
-                                        ShopBentoScreen(onClick = {
-                                            modalContentRoute = Route.BitrefillWeb(url = shopBentoState.shopBaseUrl)
-                                            isSheetOpen = true
+                                        TutorialsBentoScreen(onClick = { page ->
+                                            when (page) {
+                                                0 -> {
+                                                    modalContentRoute = Route.TutorialWalkthrough
+                                                    isSheetOpen = true
+                                                }
+
+                                                1 -> {
+                                                    modalContentRoute = Route.TutorialSend
+                                                    isSheetOpen = true
+                                                }
+                                            }
                                         })
                                     }
                                 }
                             }
-                        }
-                        item(span = { GridItemSpan(2) }) {
-                            AnimatedVisibility(
-                                visible = !showTransactionDetail,
-                                enter = fadeIn(tween(FADE_IN_DURATION)),
-                                exit = fadeOut(tween(FADE_OUT_DURATION)),
-                            ) {
-                                Box(
-                                    modifier = Modifier.height(gameHubHt)
-                                        .clickable {
-                                            viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
-                                            modalContentRoute = Route.GameHub
-                                        }
+                            item(span = { GridItemSpan(1) }) {
+                                AnimatedVisibility(
+                                    visible = !showTransactionDetail,
+                                    enter = fadeIn(tween(FADE_IN_DURATION)),
+                                    exit = fadeOut(tween(FADE_OUT_DURATION)),
                                 ) {
-                                    GameHubBentoScreen(
-                                        isGameHubOpen = false,
-                                        onToggle = {
-                                            viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
-                                            modalContentRoute = Route.GameHub
+                                    Column(verticalArrangement = Arrangement.spacedBy(bentoSpacer)) {
+                                        Box(
+                                            modifier = Modifier.height(
+                                                ltcPickerBentoHeight
+                                            )
+                                        ) {
+                                            LTCPickerBentoScreen()
                                         }
-                                    )
+                                        Box(
+                                            modifier = Modifier.height(
+                                                storeBentoHeight
+                                            )
+                                        ) {
+                                            ShopBentoScreen(onClick = {
+                                                modalContentRoute =
+                                                    Route.BitrefillWeb(url = shopBentoState.shopBaseUrl)
+                                                isSheetOpen = true
+                                            })
+                                        }
+                                    }
+                                }
+                            }
+                            item(span = { GridItemSpan(2) }) {
+                                AnimatedVisibility(
+                                    visible = !showTransactionDetail,
+                                    enter = fadeIn(tween(FADE_IN_DURATION)),
+                                    exit = fadeOut(tween(FADE_OUT_DURATION)),
+                                ) {
+                                    Box(
+                                        modifier = Modifier.height(gameHubHt)
+                                            .clickable {
+                                                viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
+                                                modalContentRoute = Route.GameHub
+                                            }
+                                    ) {
+                                        GameHubBentoScreen(
+                                            isGameHubOpen = false,
+                                            onToggle = {
+                                                viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
+                                                modalContentRoute = Route.GameHub
+                                            }
+                                        )
+                                    }
                                 }
                             }
                         }
                     }
-
-                    AnimatedVisibility(
-                        visible = state.isGameHubOpen,
-                        modifier = Modifier.fillMaxSize(),
-                        enter = fadeIn(tween(EXPAND_DURATION)),
-                        exit = fadeOut(tween(SHRINK_DURATION)),
-                    ) {
-                        GameHubBentoScreen(
-                            isGameHubOpen = true,
-                            onToggle = {
-                                viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
-                                modalContentRoute = Route.GameHub
-                            }
-                        )
-                    }
                 }
+            }
+
+            val gameSlot = LocalGameSlot.current
+            gameSlot?.Render(
+                modifier = Modifier.fillMaxSize(),
+                visible = gameVisible,
+                onExit = {
+                    viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
+                    modalContentRoute = Route.GameHub
+                }
+            )
+
+            // splash overlay — fades in/out OVER the surface, masking the snap & first frame
+            if (animatedSplashAlpha > 0f) {
+                GameSplash(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .graphicsLayer { alpha = animatedSplashAlpha }
+                )
             }
         }
 

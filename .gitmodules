@@ -9,4 +9,7 @@
 	url = https://github.com/gruntsoftware/android-private-general-purpose.git
 [submodule "android-build-logic"]
 	path = android-build-logic
-	url = https://github.com/gruntsoftware/android-build-logic.git 
+	url = https://github.com/gruntsoftware/android-build-logic.git
+[submodule "bw-gdlib"]
+	path = bw-gdlib
+	url = https://github.com/gruntsoftware/bw-gdlib.git

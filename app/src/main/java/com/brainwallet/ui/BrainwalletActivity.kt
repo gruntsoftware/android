@@ -65,7 +65,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import timber.log.Timber
-
+import com.badlogic.gdx.backends.android.AndroidFragmentApplication
 /**
  * Compose entry point here
  */
@@ -74,7 +74,11 @@ class BrainwalletActivity :
     BRWalletManager.OnBalanceChanged,
     BRPeerManager.OnTxStatusUpdate,
     TransactionDataSource.OnTxAddedListener,
-    InternetManager.ConnectionReceiverListener {
+    InternetManager.ConnectionReceiverListener,
+    AndroidFragmentApplication.Callbacks {
+
+    override fun exit() { android.util.Log.d("GDX", "Callbacks.exit() called") }
+
     private val settingRepository by inject<SettingRepository>()
     private var mConnectionReceiver: InternetManager? = null
     var appVisible: Boolean = false

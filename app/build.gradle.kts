@@ -18,7 +18,7 @@ val localProperties = gradleLocalProperties(rootDir, providers)
 
 android {
     namespace = "com.brainwallet"
-    compileSdk = 35
+    compileSdk = 36
 
     firebaseCrashlytics {
         nativeSymbolUploadEnabled = true
@@ -35,8 +35,8 @@ android {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 35
-        versionCode = 202506335
-        versionName = "v4.9.3"
+        versionCode = 202506336
+        versionName = "v4.10.0"
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -92,7 +92,7 @@ android {
             signingConfig = signingConfigs.getByName("release")
             isDebuggable = false
             isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             resValue("string", "firebase_analytics_collection_enabled", "true")
             ndk {
                 isDebuggable = false
@@ -198,9 +198,11 @@ android {
 dependencies {
     implementation(project(":iap"))
     implementation(project(":core"))
-    implementation(project(":bw-gdlib:core"))
+    implementation(project(":game-bridge"))
+    implementation(project(":game-contract"))
     implementation("androidx.webkit:webkit:1.9.0")
     implementation(libs.androidx.benchmark.traceprocessor)
+    implementation(libs.androidx.ui.graphics)
     testImplementation(testFixtures(project(":app")))
     androidTestImplementation(testFixtures(project(":app")))
     implementation(grunt.androidx.core.ktx)
@@ -278,7 +280,7 @@ dependencies {
     androidTestImplementation("androidx.test:rules:1.5.0")
     androidTestImplementation("io.mockk:mockk-android:1.13.8")
     androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-    val gdxVersion = "1.13.1"
+    val gdxVersion = "1.14.1"
     implementation("com.badlogicgames.gdx:gdx-backend-android:${gdxVersion}")
     implementation("com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a")
     implementation("com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a")

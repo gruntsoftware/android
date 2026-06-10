@@ -9,7 +9,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -37,18 +36,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brainwallet.R
-import com.brainwallet.constants.BWConstants.EXPAND_DURATION
 import com.brainwallet.constants.BWConstants.FADE_IN_DURATION
 import com.brainwallet.constants.BWConstants.FADE_OUT_DURATION
-import com.brainwallet.constants.BWConstants.SHRINK_DURATION
 import com.brainwallet.constants.bentoCornerRadius
-import com.brainwallet.ui.screens.gamehub.ExitGameButton
+import com.brainwallet.game.contract.LocalGameSlot
 import com.brainwallet.ui.theme.IBMPlexSans
 import com.brainwallet.ui.theme.LilitaOne
-import com.brainwallet.ui.theme.balanceGameBentoSurface
 import com.brainwallet.ui.theme.gameTaglineGradient
 import com.brainwallet.ui.theme.gameTitleGradient
-import timber.log.Timber
 
 @Composable
 fun GameHubBentoScreen(
@@ -58,46 +53,35 @@ fun GameHubBentoScreen(
 ) {
     val gameHubBackground = R.drawable.game_hub_bk
     var resizedTaglineFontSize by remember { mutableStateOf(14.sp) }
+    var slot = LocalGameSlot.current
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .balanceGameBentoSurface(isDarkMode = true)
     ) {
-        Image(
-            painter = painterResource(gameHubBackground),
-            contentDescription = "game_hub_background",
-            modifier = Modifier
-                .fillMaxSize()
-                .clip(RoundedCornerShape(bentoCornerRadius)),
-            contentScale = ContentScale.Crop,
-        )
-        val textWidthRatio = 0.85f
-
-        AnimatedVisibility(
-            visible = isGameHubOpen,
-            modifier = Modifier.fillMaxSize(),
-            enter = fadeIn(tween(EXPAND_DURATION)),
-            exit = fadeOut(tween(SHRINK_DURATION)),
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize(),
-                horizontalAlignment = Alignment.Start
-            ) {
-                Spacer(modifier = Modifier.weight(1f))
-                ExitGameButton(onClick = {
-                    Timber.d("ExitGameButton tapped")
-                    onToggle()
-                })
+        if (isGameHubOpen) {
+            Box(Modifier.fillMaxSize()) {
+                slot?.Render(
+                    Modifier.fillMaxSize(),
+                    visible = isGameHubOpen,
+                    onExit = { onToggle() }
+                )
             }
         }
-
         AnimatedVisibility(
             visible = !isGameHubOpen,
             enter = fadeIn(tween(FADE_IN_DURATION)),
             exit = fadeOut(tween(FADE_OUT_DURATION)),
         ) {
+            Image(
+                painter = painterResource(gameHubBackground),
+                contentDescription = "game_hub_background",
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clip(RoundedCornerShape(bentoCornerRadius)),
+                contentScale = ContentScale.Crop,
+            )
+            val textWidthRatio = 0.85f
             FallinScene(
                 modifier = Modifier
                     .fillMaxWidth(textWidthRatio)
