@@ -22,6 +22,7 @@ data class MainScreenState(
     val showTransactionDetail: Boolean = false,
     val shouldShowFiatValues: Boolean = false,
     val brainwalletIsSyncing: Boolean = false,
+    val isGameHubOpen: Boolean = false,
     val transactionItems: ImmutableList<TxItem> = persistentListOf(),
     val filterState: TransactionFilterState = TransactionFilterState.ALL,
     val allTransactionItems: ImmutableList<TxItem> = persistentListOf(),

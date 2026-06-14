@@ -382,6 +382,10 @@ class MainViewModel(
             is MainScreenEvent.OnExportTransactions -> {
                 // TODO: Implement
             }
+            is MainScreenEvent.OnToggleGameHub -> {
+                val willOpen = !_state.value.isGameHubOpen
+                _state.update { it.copy(isGameHubOpen = willOpen) }
+            }
             is MainScreenEvent.OnCopyTransactions -> {
                 val currentTransaction = event.transactionItem
 

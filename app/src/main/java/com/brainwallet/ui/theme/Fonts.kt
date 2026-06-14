@@ -6,8 +6,8 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import com.brainwallet.R
 
-val BoldenVan = FontFamily(
-    Font(R.font.bolden_van, FontWeight.Normal)
+val LilitaOne = FontFamily(
+    Font(R.font.lilita_one_regular, FontWeight.Normal)
 )
 
 val IBMPlexSans = FontFamily(
