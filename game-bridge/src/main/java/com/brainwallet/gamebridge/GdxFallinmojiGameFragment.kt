@@ -5,16 +5,18 @@ import android.view.View
 import android.view.ViewGroup
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication
-import ltd.grunt.brainwallet.gamegdx.Main
+import ltd.grunt.brainwallet.gamegdx.FallinmojiMainApplication
 import android.os.Handler
 import android.os.Looper
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.backends.android.AndroidGraphics
 
 class GdxFallinmojiGameFragment (
-    private val onExit: () -> Unit = {}
+    var onExit: (ByteArray?) -> Unit = {},
 ) : AndroidFragmentApplication() {
     private val mainHandler = Handler(Looper.getMainLooper())
+    private val launchParams: String
+        get() = arguments?.getString(ARG_LAUNCH_PARAMS).orEmpty()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,10 +29,10 @@ class GdxFallinmojiGameFragment (
         }
 
         return initializeForView(
-            Main {
-                // GL thread returns immediately; exit handled on a fresh UI message
-                mainHandler.post { onExit() }
-            },
+            FallinmojiMainApplication(
+                { data -> mainHandler.post { onExit(data) } },
+                launchParams
+            ),
             config
         )
 
@@ -58,5 +60,11 @@ class GdxFallinmojiGameFragment (
             mainHandler.post(pump)
         }
         super.onPause()
+    }
+    companion object {
+        private const val ARG_LAUNCH_PARAMS = "launch_params"
+        fun newInstance(launchParams: String) = GdxFallinmojiGameFragment().apply {
+            arguments = Bundle().apply { putString(ARG_LAUNCH_PARAMS, launchParams) }
+        }
     }
 }

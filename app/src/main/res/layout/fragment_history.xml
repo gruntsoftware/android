@@ -33,7 +33,7 @@
             app:layout_constraintBottom_toTopOf="@id/composeView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:fontFamily="@font/open_sauce_one_regular"
+            android:fontFamily="@font/ibm_plex_sans_regular"
             android:text="@string/TransactionDetails.emptyMessage"
             android:textColor="@color/cheddar"
             android:textSize="18sp"

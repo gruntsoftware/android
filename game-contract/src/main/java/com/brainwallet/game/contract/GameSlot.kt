@@ -6,7 +6,7 @@ import androidx.compose.ui.Modifier
 
 
 interface GameSlot {
-    @Composable fun Render(modifier: Modifier, visible: Boolean, onExit: () -> Unit)
+    @Composable fun Render(modifier: Modifier, visible: Boolean, launchParams: String,onExit: (ByteArray?) -> Unit)
 }
 
 val LocalGameSlot = staticCompositionLocalOf<GameSlot?> { null }

@@ -426,6 +426,7 @@ fun MainScreen(
             gameSlot?.Render(
                 modifier = Modifier.fillMaxSize(),
                 visible = gameVisible,
+                launchParams = "TEST",
                 onExit = {
                     viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
                     modalContentRoute = Route.GameHub

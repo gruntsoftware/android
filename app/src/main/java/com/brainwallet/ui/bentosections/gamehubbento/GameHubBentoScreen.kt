@@ -55,6 +55,8 @@ fun GameHubBentoScreen(
     var resizedTaglineFontSize by remember { mutableStateOf(14.sp) }
     var slot = LocalGameSlot.current
 
+    var testString = "TESTS"
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -64,6 +66,7 @@ fun GameHubBentoScreen(
                 slot?.Render(
                     Modifier.fillMaxSize(),
                     visible = isGameHubOpen,
+                    launchParams = testString,
                     onExit = { onToggle() }
                 )
             }

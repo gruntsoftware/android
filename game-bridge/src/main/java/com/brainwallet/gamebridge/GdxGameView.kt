@@ -14,13 +14,12 @@ import androidx.compose.runtime.getValue
 import androidx.fragment.app.commit
 import com.badlogic.gdx.Gdx
 
-
-
 @Composable
 fun GdxGameView(
     modifier: Modifier,
     visible: Boolean,
-    onExit: () -> Unit
+    launchParams: String,
+    onExit: (ByteArray?) -> Unit
 ) {
     val activity = LocalContext.current as FragmentActivity
     val fm = activity.supportFragmentManager
@@ -33,13 +32,12 @@ fun GdxGameView(
         factory = { ctx ->
             FragmentContainerView(ctx).apply {
                 id = containerId
-                // add the fragment once the container is attached to the window
                 post {
                     if (fm.findFragmentByTag(tag) == null && !fm.isStateSaved) {
-                        fm.commit {
-                            add(containerId,
-                                GdxFallinmojiGameFragment { currentOnExit() }, tag)
-                        }
+                        val fragment = GdxFallinmojiGameFragment
+                            .newInstance(launchParams)
+                            .apply { this.onExit = { data -> currentOnExit(data) } }
+                        fm.commit { add(containerId, fragment, tag) }
                     }
                 }
             }
@@ -52,7 +50,6 @@ fun GdxGameView(
             } catch (_: Throwable) { }
         }
     )
-
     DisposableEffect(Unit) {
         onDispose {
             val frag = fm.findFragmentByTag(tag)
