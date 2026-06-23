@@ -67,7 +67,12 @@ fun GameHubBentoScreen(
                     Modifier.fillMaxSize(),
                     visible = isGameHubOpen,
                     launchParams = testString,
-                    onExit = { onToggle() }
+                    onExit = { gameData: ByteArray? ->
+                        gameData?.let { bytes ->
+                            val json = bytes.toString(Charsets.UTF_8)
+                        }
+                        onToggle()
+                    }
                 )
             }
         }
