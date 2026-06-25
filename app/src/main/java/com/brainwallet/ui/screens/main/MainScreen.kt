@@ -435,7 +435,8 @@ fun MainScreen(
                 }
             )
 
-            // splash overlay — fades in/out OVER the surface, masking the snap & first frame
+            // splash overlay — fades in/out OVER the surface,
+            // masking the snap & first frame
             if (animatedSplashAlpha > 0f) {
                 GameSplash(
                     modifier = Modifier

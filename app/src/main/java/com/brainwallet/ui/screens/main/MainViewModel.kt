@@ -173,7 +173,6 @@ class MainViewModel(
                 }
         }
     }
-
     fun produceLaunchParams(): String {
         val address = BRSharedPrefs.getReceiveAddress(app)
         val timestamp = java.util.Date().time
