@@ -68,6 +68,7 @@ import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
 import com.brainwallet.tools.animation.BRAnimator
+import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.util.withTheme
 import com.brainwallet.ui.bentosections.balancebento.BalanceBentoScreen
 import com.brainwallet.ui.bentosections.buyreceivebento.receive.ReceiveDialog
@@ -126,6 +127,7 @@ fun MainScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     val showTransactionDetail = state.showTransactionDetail
     val noTxItemsPresent = state.transactionItems.isEmpty()
+    val address = BRSharedPrefs.getReceiveAddress(context)
 
     // / Splash setup vars
     var splashAlpha by remember { mutableStateOf(0f) }
@@ -426,7 +428,7 @@ fun MainScreen(
             gameSlot?.Render(
                 modifier = Modifier.fillMaxSize(),
                 visible = gameVisible,
-                launchParams = "TEST",
+                launchParams = viewModel.produceLaunchParams(),
                 onExit = {
                     viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
                     modalContentRoute = Route.GameHub

@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -40,6 +41,7 @@ import com.brainwallet.constants.BWConstants.FADE_IN_DURATION
 import com.brainwallet.constants.BWConstants.FADE_OUT_DURATION
 import com.brainwallet.constants.bentoCornerRadius
 import com.brainwallet.game.contract.LocalGameSlot
+import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.ui.theme.IBMPlexSans
 import com.brainwallet.ui.theme.LilitaOne
 import com.brainwallet.ui.theme.gameTaglineGradient
@@ -54,9 +56,8 @@ fun GameHubBentoScreen(
     val gameHubBackground = R.drawable.game_hub_bk
     var resizedTaglineFontSize by remember { mutableStateOf(14.sp) }
     var slot = LocalGameSlot.current
-
-    var testString = "TESTS"
-
+    val context = LocalContext.current
+    val address = BRSharedPrefs.getReceiveAddress(context)
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -66,7 +67,7 @@ fun GameHubBentoScreen(
                 slot?.Render(
                     Modifier.fillMaxSize(),
                     visible = isGameHubOpen,
-                    launchParams = testString,
+                    launchParams = address,
                     onExit = { gameData: ByteArray? ->
                         gameData?.let { bytes ->
                             val json = bytes.toString(Charsets.UTF_8)

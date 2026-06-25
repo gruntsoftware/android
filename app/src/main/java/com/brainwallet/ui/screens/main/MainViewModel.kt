@@ -17,6 +17,7 @@ import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.repository.TxRepository
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.manager.BRSharedPrefs
+import com.brainwallet.tools.security.BRKeyStore
 import com.brainwallet.tools.sqlite.TransactionDataSource
 import com.brainwallet.tools.util.BRExchange.ONE_LITECOIN_OF_LITOSHIS
 import com.brainwallet.ui.BrainwalletViewModel
@@ -43,6 +44,7 @@ import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 import org.koin.android.annotation.KoinViewModel
 import timber.log.Timber
 import java.math.BigDecimal
@@ -170,6 +172,16 @@ class MainViewModel(
                     _state.update { it.copy(brainwalletIsSyncing = brainwalletIsSyncing) }
                 }
         }
+    }
+
+    fun produceLaunchParams(): String {
+        val address = BRSharedPrefs.getReceiveAddress(app)
+        val timestamp = java.util.Date().time
+        val emojis = runCatching { BRKeyStore.getEmojis(app, 0) }
+            .getOrNull()?.decodeToString() ?: "NO_EMOJIS"
+        val obj =
+            JSONObject("""{"launchParameters":{"address":"$address", "timestamp":$timestamp,"emojis": "$emojis" }}""")
+        return obj.toString()
     }
 
     fun onResume(
