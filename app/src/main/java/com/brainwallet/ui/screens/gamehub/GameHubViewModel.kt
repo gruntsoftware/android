@@ -26,7 +26,6 @@ class GameHubViewModel(
                 event.endData?.let { endData ->
                     print("endData: $endData")
 
-
                     // Then read it back as bytes
 //                    val pngBytes: ByteArray? = Gdx.files.external("end_game_screenshot.png")
 //                        .readBytes()

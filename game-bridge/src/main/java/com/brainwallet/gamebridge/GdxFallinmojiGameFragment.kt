@@ -12,7 +12,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.backends.android.AndroidGraphics
 
 class GdxFallinmojiGameFragment (
-    var onExit: (ByteArray?) -> Unit = {},
+    var onExit: (String, ByteArray?) -> Unit = { _, _ -> },
 ) : AndroidFragmentApplication() {
     private val mainHandler = Handler(Looper.getMainLooper())
     private val launchParams: String
@@ -29,13 +29,11 @@ class GdxFallinmojiGameFragment (
         }
 
         return initializeForView(
-            FallinmojiMainApplication(
-                { data -> mainHandler.post { onExit(data) } },
-                launchParams
-            ),
+            FallinmojiMainApplication( {
+                jsonString, data -> mainHandler.post { onExit(jsonString, data) } },
+                launchParams),
             config
         )
-
     }
 
     override fun onPause() {

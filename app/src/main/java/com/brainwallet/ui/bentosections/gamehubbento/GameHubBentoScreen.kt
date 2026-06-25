@@ -36,6 +36,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.work.Data
 import com.brainwallet.R
 import com.brainwallet.constants.BWConstants.FADE_IN_DURATION
 import com.brainwallet.constants.BWConstants.FADE_OUT_DURATION
@@ -72,11 +73,14 @@ fun GameHubBentoScreen(
                     Modifier.fillMaxSize(),
                     visible = isGameHubOpen,
                     launchParams = address,
-                    onExit = { bytes: ByteArray? ->
+                    onExit = { jsonString: String, bytes: ByteArray? ->
+                        print(jsonString)
                         bytes?.let {
-                            val json = it.decodeToString()
-                            viewModel.onEvent(GameHubEvent.OnGameExited(json, endData = ))
-                        } ?: viewModel.onEvent(GameHubEvent.OnGameExited(null, endData = null))
+                            print("${bytes.size}")
+                        }
+                        // / DEV
+                        val testData = Data.EMPTY
+                        viewModel.onEvent(GameHubEvent.OnGameExited(jsonString, endData = testData))
                     }
                 )
             }

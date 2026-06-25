@@ -429,7 +429,9 @@ fun MainScreen(
                 modifier = Modifier.fillMaxSize(),
                 visible = gameVisible,
                 launchParams = viewModel.produceLaunchParams(),
-                onExit = {
+                onExit = { jsonString, bytes ->
+                    print(jsonString)
+                    print(bytes?.size)
                     viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
                     modalContentRoute = Route.GameHub
                 }

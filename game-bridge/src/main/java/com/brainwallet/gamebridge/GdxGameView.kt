@@ -19,7 +19,7 @@ fun GdxGameView(
     modifier: Modifier,
     visible: Boolean,
     launchParams: String,
-    onExit: (ByteArray?) -> Unit
+    onExit: (String, ByteArray?) -> Unit
 ) {
     val activity = LocalContext.current as FragmentActivity
     val fm = activity.supportFragmentManager
@@ -36,8 +36,8 @@ fun GdxGameView(
                     if (fm.findFragmentByTag(tag) == null && !fm.isStateSaved) {
                         val fragment = GdxFallinmojiGameFragment
                             .newInstance(launchParams)
-                            .apply { this.onExit = { data ->
-                                currentOnExit(data)
+                            .apply { this.onExit = { jsonString, data ->
+                                currentOnExit(jsonString, data)
                             }
                             }
                         fm.commit { add(containerId, fragment, tag) }

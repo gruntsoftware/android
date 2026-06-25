@@ -8,7 +8,7 @@ class GdxGameSlot : GameSlot {
         modifier: Modifier,
         visible: Boolean,
         launchParams: String,
-        onExit: (ByteArray?) -> Unit
+        onExit: (String, ByteArray?) -> Unit
     ) {
         GdxGameView(modifier, visible, launchParams, onExit)
     }
