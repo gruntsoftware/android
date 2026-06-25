@@ -75,8 +75,8 @@ fun GameHubBentoScreen(
                     onExit = { bytes: ByteArray? ->
                         bytes?.let {
                             val json = it.decodeToString()
-                            viewModel.onEvent(GameHubEvent.OnGameExited(json))
-                        } ?: viewModel.onEvent(GameHubEvent.OnGameExited(null))
+                            viewModel.onEvent(GameHubEvent.OnGameExited(json, endData = ))
+                        } ?: viewModel.onEvent(GameHubEvent.OnGameExited(null, endData = null))
                     }
                 )
             }

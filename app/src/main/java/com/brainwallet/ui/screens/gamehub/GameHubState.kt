@@ -3,5 +3,5 @@ import androidx.work.Data
 
 data class GameHubState(
     val languageISO: String = "en_US",
-    val lastGameResult: Data? = null
+    val lastGameResultTuple: Pair<String?, Data?> = Pair(null, null)
 )

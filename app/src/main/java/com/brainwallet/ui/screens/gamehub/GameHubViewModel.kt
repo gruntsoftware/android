@@ -11,7 +11,6 @@ import org.koin.android.annotation.KoinViewModel
 class GameHubViewModel(
     private val ltcRepository: LtcRepository
 ) : BrainwalletViewModel<GameHubEvent>() {
-
     private val _state =
         MutableStateFlow(GameHubState())
     val state: StateFlow<GameHubState> = _state.asStateFlow()
@@ -19,6 +18,19 @@ class GameHubViewModel(
     override fun onEvent(event: GameHubEvent) {
         when (event) {
             is GameHubEvent.OnLoad -> {
+            }
+            is GameHubEvent.OnGameExited -> {
+                event.jsonPayload?.let { jsonString ->
+                    print("jsonString: $jsonString")
+                }
+                event.endData?.let { endData ->
+                    print("endData: $endData")
+
+
+                    // Then read it back as bytes
+//                    val pngBytes: ByteArray? = Gdx.files.external("end_game_screenshot.png")
+//                        .readBytes()
+                }
             }
         }
     }
