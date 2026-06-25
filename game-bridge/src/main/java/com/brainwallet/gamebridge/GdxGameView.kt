@@ -36,7 +36,10 @@ fun GdxGameView(
                     if (fm.findFragmentByTag(tag) == null && !fm.isStateSaved) {
                         val fragment = GdxFallinmojiGameFragment
                             .newInstance(launchParams)
-                            .apply { this.onExit = { data -> currentOnExit(data) } }
+                            .apply { this.onExit = { data ->
+                                currentOnExit(data)
+                            }
+                            }
                         fm.commit { add(containerId, fragment, tag) }
                     }
                 }

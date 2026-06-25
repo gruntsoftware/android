@@ -1,8 +1,7 @@
 package com.brainwallet.ui.screens.gamehub
+import androidx.work.Data
 
 data class GameHubState(
-    val biometricEnabled: Boolean = false,
-    val iso: String = "USD",
-    val formattedCurrency: String = "",
-    val formattedVersion: String = ""
+    val languageISO: String = "en_US",
+    val lastGameResult: Data? = null
 )

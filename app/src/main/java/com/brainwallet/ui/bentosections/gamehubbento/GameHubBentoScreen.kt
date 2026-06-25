@@ -42,16 +42,20 @@ import com.brainwallet.constants.BWConstants.FADE_OUT_DURATION
 import com.brainwallet.constants.bentoCornerRadius
 import com.brainwallet.game.contract.LocalGameSlot
 import com.brainwallet.tools.manager.BRSharedPrefs
+import com.brainwallet.ui.screens.gamehub.GameHubEvent
+import com.brainwallet.ui.screens.gamehub.GameHubViewModel
 import com.brainwallet.ui.theme.IBMPlexSans
 import com.brainwallet.ui.theme.LilitaOne
 import com.brainwallet.ui.theme.gameTaglineGradient
 import com.brainwallet.ui.theme.gameTitleGradient
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun GameHubBentoScreen(
     isGameHubOpen: Boolean,
     modifier: Modifier = Modifier,
     onToggle: () -> Unit = {},
+    viewModel: GameHubViewModel = koinViewModel()
 ) {
     val gameHubBackground = R.drawable.game_hub_bk
     var resizedTaglineFontSize by remember { mutableStateOf(14.sp) }
@@ -68,11 +72,11 @@ fun GameHubBentoScreen(
                     Modifier.fillMaxSize(),
                     visible = isGameHubOpen,
                     launchParams = address,
-                    onExit = { gameData: ByteArray? ->
-                        gameData?.let { bytes ->
-                            val json = bytes.toString(Charsets.UTF_8)
-                        }
-                        onToggle()
+                    onExit = { bytes: ByteArray? ->
+                        bytes?.let {
+                            val json = it.decodeToString()
+                            viewModel.onEvent(GameHubEvent.OnGameExited(json))
+                        } ?: viewModel.onEvent(GameHubEvent.OnGameExited(null))
                     }
                 )
             }

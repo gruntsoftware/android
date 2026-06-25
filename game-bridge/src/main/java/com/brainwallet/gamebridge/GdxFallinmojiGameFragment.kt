@@ -64,7 +64,9 @@ class GdxFallinmojiGameFragment (
     companion object {
         private const val ARG_LAUNCH_PARAMS = "launch_params"
         fun newInstance(launchParams: String) = GdxFallinmojiGameFragment().apply {
-            arguments = Bundle().apply { putString(ARG_LAUNCH_PARAMS, launchParams) }
+            arguments = Bundle().apply {
+                putString(ARG_LAUNCH_PARAMS, launchParams)
+            }
         }
     }
 }
