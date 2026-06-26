@@ -15,6 +15,5 @@ sealed class MainScreenEvent {
     data object OnToggleTransactionsFilter : MainScreenEvent()
     data object OnExportTransactions : MainScreenEvent()
     data class OnCopyTransactions(val transactionItem: TxItem) : MainScreenEvent()
-
     data object OnToggleGameHub : MainScreenEvent()
 }
