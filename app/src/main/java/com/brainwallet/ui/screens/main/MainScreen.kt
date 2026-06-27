@@ -133,7 +133,7 @@ fun MainScreen(
     var splashAlpha by remember { mutableStateOf(0f) }
     val animatedSplashAlpha by animateFloatAsState(
         targetValue = splashAlpha,
-        animationSpec = tween(durationMillis = 2000),
+        animationSpec = tween(durationMillis = 800),
         label = "splashAlpha"
     )
     var gameVisible by remember { mutableStateOf(false) }
@@ -182,11 +182,11 @@ fun MainScreen(
             splashAlpha = 1f
             delay(50)
             gameVisible = true
-            delay(700)
+            delay(600)
             splashAlpha = 0f
         } else {
             splashAlpha = 1f
-            delay(750)
+            delay(550)
             gameVisible = false
             delay(50)
             splashAlpha = 0f

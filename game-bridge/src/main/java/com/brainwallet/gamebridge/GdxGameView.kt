@@ -37,6 +37,14 @@ fun GdxGameView(
                         val fragment = GdxFallinmojiGameFragment
                             .newInstance(launchParams)
                             .apply { this.onExit = { jsonString, data ->
+                                // Remove fragment first so libGDX is torn down
+                                // and GdxFallinmojiGameFragment can be GC'd
+                                val frag = fm.findFragmentByTag(tag)
+                                if (frag != null && !fm.isStateSaved) {
+                                    fm.commit(allowStateLoss = true) {
+                                        remove(frag)
+                                    }
+                                }
                                 currentOnExit(jsonString, data)
                             }
                             }
