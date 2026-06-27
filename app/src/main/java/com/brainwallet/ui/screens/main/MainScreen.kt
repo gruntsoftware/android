@@ -120,6 +120,7 @@ fun MainScreen(
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var isSheetOpen by remember { mutableStateOf(false) }
+
     var modalContentRoute by remember { mutableStateOf<Route?>(null) }
     val shopBentoState by shopBentoViewModel.state.collectAsStateWithLifecycle()
     val appSetting by viewModel.appSetting.collectAsStateWithLifecycle()
@@ -424,14 +425,15 @@ fun MainScreen(
                 }
             }
 
-            val gameSlot = LocalGameSlot.current
-            gameSlot?.Render(
+            val openGameSlot = LocalGameSlot.current
+            openGameSlot?.Render(
                 modifier = Modifier.fillMaxSize(),
                 visible = gameVisible,
                 launchParams = viewModel.produceLaunchParams(),
                 onExit = { jsonString, bytes ->
                     print(jsonString)
                     print(bytes?.size)
+                    print(":::gameslot openGameSlot: $jsonString ${bytes?.size}")
                     viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
                     modalContentRoute = Route.GameHub
                 }
