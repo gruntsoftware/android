@@ -29,7 +29,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -40,8 +39,6 @@ import com.brainwallet.R
 import com.brainwallet.constants.BWConstants.FADE_IN_DURATION
 import com.brainwallet.constants.BWConstants.FADE_OUT_DURATION
 import com.brainwallet.constants.bentoCornerRadius
-import com.brainwallet.game.contract.LocalGameSlot
-import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.ui.screens.gamehub.GameHubViewModel
 import com.brainwallet.ui.theme.IBMPlexSans
 import com.brainwallet.ui.theme.LilitaOne
@@ -58,30 +55,10 @@ fun GameHubBentoScreen(
 ) {
     val gameHubBackground = R.drawable.game_hub_bk
     var resizedTaglineFontSize by remember { mutableStateOf(14.sp) }
-    var closeGameSlot = LocalGameSlot.current
-    val context = LocalContext.current
-    val address = BRSharedPrefs.getReceiveAddress(context)
     Box(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        if (isGameHubOpen) {
-            Box(Modifier.fillMaxSize()) {
-                closeGameSlot?.Render(
-                    Modifier.fillMaxSize(),
-                    visible = isGameHubOpen,
-                    launchParams = address,
-                    onExit = { jsonString: String, bytes: ByteArray? ->
-                        print(jsonString)
-                        print(":::gameslot closeGameSlot: $jsonString ${bytes?.size}")
-                        bytes?.let {
-                            print("${bytes.size}")
-                        }
-                        onToggle()
-                    }
-                )
-            }
-        }
         AnimatedVisibility(
             visible = !isGameHubOpen,
             enter = fadeIn(tween(FADE_IN_DURATION)),

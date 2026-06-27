@@ -132,11 +132,17 @@ fun MainScreen(
 
     // / Splash setup vars
     var splashAlpha by remember { mutableStateOf(0f) }
-    val animatedSplashAlpha by animateFloatAsState(
+    val animatedSplashAlphaOn by animateFloatAsState(
         targetValue = splashAlpha,
         animationSpec = tween(durationMillis = 800),
         label = "splashAlpha"
     )
+    val animatedSplashAlphaOff by animateFloatAsState(
+        targetValue = splashAlpha,
+        animationSpec = tween(durationMillis = 200),
+        label = "splashAlpha"
+    )
+
     var gameVisible by remember { mutableStateOf(false) }
     var isFirstComposition by remember { mutableStateOf(true) }
 
@@ -407,14 +413,12 @@ fun MainScreen(
                                         modifier = Modifier.height(gameHubHt)
                                             .clickable {
                                                 viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
-                                                modalContentRoute = Route.GameHub
                                             }
                                     ) {
                                         GameHubBentoScreen(
                                             isGameHubOpen = false,
                                             onToggle = {
                                                 viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
-                                                modalContentRoute = Route.GameHub
                                             }
                                         )
                                     }
@@ -435,17 +439,26 @@ fun MainScreen(
                     print(bytes?.size)
                     print(":::gameslot openGameSlot: $jsonString ${bytes?.size}")
                     viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
-                    modalContentRoute = Route.GameHub
+                    modalContentRoute = null
+                    currentRoute = Route.Main
                 }
             )
 
             // splash overlay — fades in/out OVER the surface,
             // masking the snap & first frame
-            if (animatedSplashAlpha > 0f) {
+            if (animatedSplashAlphaOff > 0f) {
                 GameSplash(
                     modifier = Modifier
                         .fillMaxSize()
-                        .graphicsLayer { alpha = animatedSplashAlpha }
+                        .graphicsLayer { alpha = animatedSplashAlphaOn }
+                )
+            }
+
+            if (animatedSplashAlphaOn == 0f) {
+                GameSplash(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .graphicsLayer { alpha = animatedSplashAlphaOff }
                 )
             }
         }
