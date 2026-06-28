@@ -1,7 +1,6 @@
-package com.brainwallet.gamebridge
+package com.brainwallet.gameinterface
 
 import androidx.compose.runtime.Composable
-import com.brainwallet.game.contract.GameSlot
 import androidx.compose.ui.Modifier
 class GdxGameSlot : GameSlot {
     @Composable override fun Render(
@@ -10,6 +9,6 @@ class GdxGameSlot : GameSlot {
         launchParams: String,
         onExit: (String, ByteArray?) -> Unit
     ) {
-        GdxGameView(modifier, visible, launchParams, onExit)
+        GdxGameView(visible, launchParams, onExit, modifier)
     }
 }

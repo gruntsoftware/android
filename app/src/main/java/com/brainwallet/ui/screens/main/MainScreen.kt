@@ -63,7 +63,7 @@ import com.brainwallet.constants.topNavButtonSize
 import com.brainwallet.constants.topNavStartEndPadding
 import com.brainwallet.constants.transactionRowHt
 import com.brainwallet.data.model.AppSetting
-import com.brainwallet.game.contract.LocalGameSlot
+import com.brainwallet.gameinterface.LocalGameSlot
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
@@ -82,7 +82,8 @@ import com.brainwallet.ui.bentosections.tutorials.TutorialsBentoScreen
 import com.brainwallet.ui.bentosections.tutorials.send.TutorialSendPagerScreen
 import com.brainwallet.ui.bentosections.tutorials.walkthrough.TutorialWalkthroughPagerScreen
 import com.brainwallet.ui.composable.BentoBottomNavBar
-import com.brainwallet.ui.gameclasses.GameSplash
+import com.brainwallet.gameinterface.GameSplash
+import com.brainwallet.ui.screens.gamehub.GameHubViewModel
 import com.brainwallet.ui.screens.main.MainScreenEvent
 import com.brainwallet.ui.screens.main.MainViewModel
 import com.brainwallet.ui.screens.main.SettingsButton
@@ -112,7 +113,8 @@ fun MainScreen(
     onNavigate: OnNavigate,
     modifier: Modifier = Modifier,
     viewModel: MainViewModel = koinViewModel(),
-    shopBentoViewModel: ShopBentoViewModel = koinViewModel()
+    shopBentoViewModel: ShopBentoViewModel = koinViewModel(),
+    gameHubViewModel: GameHubViewModel = koinViewModel()
 ) {
     val context = LocalContext.current
     var currentRoute by remember { mutableStateOf<Route>(Route.Main) }
@@ -435,10 +437,6 @@ fun MainScreen(
                 visible = gameVisible,
                 launchParams = viewModel.produceLaunchParams(),
                 onExit = { jsonString, bytes ->
-                    print(jsonString)
-                    print(bytes?.size)
-                    print(":::gameslot openGameSlot: $jsonString ${bytes?.size}")
-                    viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
                     modalContentRoute = null
                     currentRoute = Route.Main
                 }

@@ -1,8 +1,5 @@
-package com.brainwallet.gamebridge
-
-import com.brainwallet.game.contract.GameSlot
+package com.brainwallet.gameinterface
 import org.koin.dsl.module
-
 
 val gameModule = module {
     single<GameSlot> { GdxGameSlot() }

@@ -16,4 +16,9 @@ sealed class MainScreenEvent {
     data object OnExportTransactions : MainScreenEvent()
     data class OnCopyTransactions(val transactionItem: TxItem) : MainScreenEvent()
     data object OnToggleGameHub : MainScreenEvent()
+
+    data class OnPostSocial(
+        val jsonString: String,
+        val screenShotData: ByteArray
+    ) : MainScreenEvent()
 }

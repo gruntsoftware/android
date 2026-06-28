@@ -1,4 +1,4 @@
-package com.brainwallet.gamebridge
+package com.brainwallet.gameinterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +11,7 @@ import android.os.Looper
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.backends.android.AndroidGraphics
 
-class GdxFallinmojiGameFragment (
+class GdxFallinmojiGameFragment(
     var onExit: (String, ByteArray?) -> Unit = { _, _ -> },
 ) : AndroidFragmentApplication() {
     private val mainHandler = Handler(Looper.getMainLooper())
@@ -29,9 +29,13 @@ class GdxFallinmojiGameFragment (
         }
 
         return initializeForView(
-            FallinmojiMainApplication( {
-                jsonString, data -> mainHandler.post { onExit(jsonString, data) } },
-                launchParams),
+            FallinmojiMainApplication(
+                {
+                        jsonString, data ->
+                    mainHandler.post { onExit(jsonString, data) }
+                },
+                launchParams
+            ),
             config
         )
     }

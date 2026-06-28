@@ -51,6 +51,7 @@ import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import kotlin.String
 
 @OptIn(FlowPreview::class)
 @KoinViewModel
@@ -354,6 +355,10 @@ class MainViewModel(
                 } finally {
                     onLoading(false)
                 }
+            }
+            is MainScreenEvent.OnPostSocial -> viewModelScope.launch {
+                val jsonString = event.jsonString
+                val screenShotData = event.screenShotData
             }
             is MainScreenEvent.OnToggleDarkMode -> viewModelScope.launch {
                 val currentSettings = appSetting.value
