@@ -25,6 +25,8 @@ import com.brainwallet.R
 import com.brainwallet.ui.bentosections.gamehubbento.FallinScene
 import com.brainwallet.ui.screens.gamehub.GameHubEvent
 import com.brainwallet.ui.screens.gamehub.GameHubViewModel
+import com.brainwallet.ui.screens.main.MainScreenEvent
+import com.brainwallet.ui.screens.main.MainViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -33,7 +35,8 @@ fun GdxGameView(
     launchParams: String,
     onExit: (String, ByteArray?) -> Unit,
     modifier: Modifier = Modifier,
-    gameHubViewModel: GameHubViewModel = koinViewModel()
+    gameHubViewModel: GameHubViewModel = koinViewModel(),
+    viewModel: MainViewModel = koinViewModel(),
 ) {
     val context = LocalContext.current
     val activity = LocalContext.current as FragmentActivity
@@ -42,6 +45,7 @@ fun GdxGameView(
     val tag = remember { "gdx_fallinmoji_$containerId" }
     val currentOnExit by rememberUpdatedState(onExit)
     val currentLaunchParams by rememberUpdatedState(launchParams)
+
     AndroidView(
         modifier = modifier,
         factory = { ctx ->
@@ -63,6 +67,7 @@ fun GdxGameView(
                                 if (frag != null && !fm.isStateSaved) {
                                     fm.commit(allowStateLoss = true) { remove(frag) }
                                 }
+                                viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
                                 print(":::gameslot openGameSlot: $jsonString ${bytes?.size}")
                                 if (jsonString.contains("NO_GAME_DATA") &&
                                     bytes?.isEmpty() == true

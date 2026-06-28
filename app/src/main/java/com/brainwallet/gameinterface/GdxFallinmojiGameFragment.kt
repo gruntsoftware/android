@@ -46,7 +46,7 @@ class GdxFallinmojiGameFragment(
             // Pump draw frames so AndroidGraphics.pause() can observe the pause
             // flag clear. lifecycleScope is dead during teardown, so use a plain
             // handler loop on the main thread instead.
-            val deadline = System.currentTimeMillis() + 1500
+            val deadline = System.currentTimeMillis() + 1000
             val pump = object : Runnable {
                 override fun run() {
                     try {

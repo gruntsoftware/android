@@ -134,14 +134,9 @@ fun MainScreen(
 
     // / Splash setup vars
     var splashAlpha by remember { mutableStateOf(0f) }
-    val animatedSplashAlphaOn by animateFloatAsState(
+    val animatedSplashAlpha by animateFloatAsState(
         targetValue = splashAlpha,
-        animationSpec = tween(durationMillis = 800),
-        label = "splashAlpha"
-    )
-    val animatedSplashAlphaOff by animateFloatAsState(
-        targetValue = splashAlpha,
-        animationSpec = tween(durationMillis = 200),
+        animationSpec = tween(durationMillis = 400),
         label = "splashAlpha"
     )
 
@@ -188,13 +183,13 @@ fun MainScreen(
             return@LaunchedEffect
         }
         if (state.isGameHubOpen) {
-            splashAlpha = 1f
+            splashAlpha = 0.6f
             delay(50)
             gameVisible = true
             delay(600)
             splashAlpha = 0f
         } else {
-            splashAlpha = 1f
+            splashAlpha = 0.6f
             delay(550)
             gameVisible = false
             delay(50)
@@ -257,9 +252,6 @@ fun MainScreen(
                             } else if (route == Route.History) {
                                 viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail)
                                 if (showTransactionDetail) currentRoute = Route.Main
-                            } else if (route == Route.GameHub) {
-                                currentRoute = Route.GameHub
-                                viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
                             } else {
                                 modalContentRoute = route
                                 isSheetOpen = true
@@ -412,13 +404,16 @@ fun MainScreen(
                                     exit = fadeOut(tween(FADE_OUT_DURATION)),
                                 ) {
                                     Box(
-                                        modifier = Modifier.height(gameHubHt)
-                                            .clickable {
+                                        modifier = Modifier
+                                            .height(gameHubHt)
+                                            .clickable(
+                                                enabled = !showTransactionDetail
+                                            ) {
                                                 viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
                                             }
                                     ) {
                                         GameHubBentoScreen(
-                                            isGameHubOpen = false,
+                                            isGameHubOpen = state.isGameHubOpen,
                                             onToggle = {
                                                 viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
                                             }
@@ -436,7 +431,7 @@ fun MainScreen(
                 modifier = Modifier.fillMaxSize(),
                 visible = gameVisible,
                 launchParams = viewModel.produceLaunchParams(),
-                onExit = { jsonString, bytes ->
+                onExit = { _, _ ->
                     modalContentRoute = null
                     currentRoute = Route.Main
                 }
@@ -444,19 +439,11 @@ fun MainScreen(
 
             // splash overlay — fades in/out OVER the surface,
             // masking the snap & first frame
-            if (animatedSplashAlphaOff > 0f) {
+            if (animatedSplashAlpha > 0f) {
                 GameSplash(
                     modifier = Modifier
                         .fillMaxSize()
-                        .graphicsLayer { alpha = animatedSplashAlphaOn }
-                )
-            }
-
-            if (animatedSplashAlphaOn == 0f) {
-                GameSplash(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .graphicsLayer { alpha = animatedSplashAlphaOff }
+                        .graphicsLayer { alpha = animatedSplashAlpha }
                 )
             }
         }
