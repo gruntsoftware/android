@@ -39,7 +39,6 @@ import com.brainwallet.R
 import com.brainwallet.constants.BWConstants.FADE_IN_DURATION
 import com.brainwallet.constants.BWConstants.FADE_OUT_DURATION
 import com.brainwallet.constants.bentoCornerRadius
-import com.brainwallet.game.contract.LocalGameSlot
 import com.brainwallet.ui.theme.IBMPlexSans
 import com.brainwallet.ui.theme.LilitaOne
 import com.brainwallet.ui.theme.gameTaglineGradient
@@ -49,25 +48,14 @@ import com.brainwallet.ui.theme.gameTitleGradient
 fun GameHubBentoScreen(
     isGameHubOpen: Boolean,
     modifier: Modifier = Modifier,
-    onToggle: () -> Unit = {},
+    onToggle: () -> Unit = {}
 ) {
     val gameHubBackground = R.drawable.game_hub_bk
     var resizedTaglineFontSize by remember { mutableStateOf(14.sp) }
-    var slot = LocalGameSlot.current
-
     Box(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        if (isGameHubOpen) {
-            Box(Modifier.fillMaxSize()) {
-                slot?.Render(
-                    Modifier.fillMaxSize(),
-                    visible = isGameHubOpen,
-                    onExit = { onToggle() }
-                )
-            }
-        }
         AnimatedVisibility(
             visible = !isGameHubOpen,
             enter = fadeIn(tween(FADE_IN_DURATION)),

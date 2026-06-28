@@ -63,11 +63,12 @@ import com.brainwallet.constants.topNavButtonSize
 import com.brainwallet.constants.topNavStartEndPadding
 import com.brainwallet.constants.transactionRowHt
 import com.brainwallet.data.model.AppSetting
-import com.brainwallet.game.contract.LocalGameSlot
+import com.brainwallet.gameinterface.LocalGameSlot
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
 import com.brainwallet.tools.animation.BRAnimator
+import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.util.withTheme
 import com.brainwallet.ui.bentosections.balancebento.BalanceBentoScreen
 import com.brainwallet.ui.bentosections.buyreceivebento.receive.ReceiveDialog
@@ -81,7 +82,8 @@ import com.brainwallet.ui.bentosections.tutorials.TutorialsBentoScreen
 import com.brainwallet.ui.bentosections.tutorials.send.TutorialSendPagerScreen
 import com.brainwallet.ui.bentosections.tutorials.walkthrough.TutorialWalkthroughPagerScreen
 import com.brainwallet.ui.composable.BentoBottomNavBar
-import com.brainwallet.ui.gameclasses.GameSplash
+import com.brainwallet.gameinterface.GameSplash
+import com.brainwallet.ui.screens.gamehub.GameHubViewModel
 import com.brainwallet.ui.screens.main.MainScreenEvent
 import com.brainwallet.ui.screens.main.MainViewModel
 import com.brainwallet.ui.screens.main.SettingsButton
@@ -111,7 +113,8 @@ fun MainScreen(
     onNavigate: OnNavigate,
     modifier: Modifier = Modifier,
     viewModel: MainViewModel = koinViewModel(),
-    shopBentoViewModel: ShopBentoViewModel = koinViewModel()
+    shopBentoViewModel: ShopBentoViewModel = koinViewModel(),
+    gameHubViewModel: GameHubViewModel = koinViewModel()
 ) {
     val context = LocalContext.current
     var currentRoute by remember { mutableStateOf<Route>(Route.Main) }
@@ -119,6 +122,7 @@ fun MainScreen(
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var isSheetOpen by remember { mutableStateOf(false) }
+
     var modalContentRoute by remember { mutableStateOf<Route?>(null) }
     val shopBentoState by shopBentoViewModel.state.collectAsStateWithLifecycle()
     val appSetting by viewModel.appSetting.collectAsStateWithLifecycle()
@@ -126,14 +130,16 @@ fun MainScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     val showTransactionDetail = state.showTransactionDetail
     val noTxItemsPresent = state.transactionItems.isEmpty()
+    val address = BRSharedPrefs.getReceiveAddress(context)
 
     // / Splash setup vars
     var splashAlpha by remember { mutableStateOf(0f) }
     val animatedSplashAlpha by animateFloatAsState(
         targetValue = splashAlpha,
-        animationSpec = tween(durationMillis = 2000),
+        animationSpec = tween(durationMillis = 400),
         label = "splashAlpha"
     )
+
     var gameVisible by remember { mutableStateOf(false) }
     var isFirstComposition by remember { mutableStateOf(true) }
 
@@ -177,14 +183,14 @@ fun MainScreen(
             return@LaunchedEffect
         }
         if (state.isGameHubOpen) {
-            splashAlpha = 1f
+            splashAlpha = 0.6f
             delay(50)
             gameVisible = true
-            delay(700)
+            delay(600)
             splashAlpha = 0f
         } else {
-            splashAlpha = 1f
-            delay(750)
+            splashAlpha = 0.6f
+            delay(550)
             gameVisible = false
             delay(50)
             splashAlpha = 0f
@@ -246,9 +252,6 @@ fun MainScreen(
                             } else if (route == Route.History) {
                                 viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail)
                                 if (showTransactionDetail) currentRoute = Route.Main
-                            } else if (route == Route.GameHub) {
-                                currentRoute = Route.GameHub
-                                viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
                             } else {
                                 modalContentRoute = route
                                 isSheetOpen = true
@@ -401,17 +404,18 @@ fun MainScreen(
                                     exit = fadeOut(tween(FADE_OUT_DURATION)),
                                 ) {
                                     Box(
-                                        modifier = Modifier.height(gameHubHt)
-                                            .clickable {
+                                        modifier = Modifier
+                                            .height(gameHubHt)
+                                            .clickable(
+                                                enabled = !showTransactionDetail
+                                            ) {
                                                 viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
-                                                modalContentRoute = Route.GameHub
                                             }
                                     ) {
                                         GameHubBentoScreen(
-                                            isGameHubOpen = false,
+                                            isGameHubOpen = state.isGameHubOpen,
                                             onToggle = {
                                                 viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
-                                                modalContentRoute = Route.GameHub
                                             }
                                         )
                                     }
@@ -422,17 +426,19 @@ fun MainScreen(
                 }
             }
 
-            val gameSlot = LocalGameSlot.current
-            gameSlot?.Render(
+            val openGameSlot = LocalGameSlot.current
+            openGameSlot?.Render(
                 modifier = Modifier.fillMaxSize(),
                 visible = gameVisible,
-                onExit = {
-                    viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
-                    modalContentRoute = Route.GameHub
+                launchParams = viewModel.produceLaunchParams(),
+                onExit = { _, _ ->
+                    modalContentRoute = null
+                    currentRoute = Route.Main
                 }
             )
 
-            // splash overlay — fades in/out OVER the surface, masking the snap & first frame
+            // splash overlay — fades in/out OVER the surface,
+            // masking the snap & first frame
             if (animatedSplashAlpha > 0f) {
                 GameSplash(
                     modifier = Modifier

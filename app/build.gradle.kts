@@ -1,6 +1,7 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import org.gradle.kotlin.dsl.androidTestImplementation
 import org.gradle.kotlin.dsl.grunt
+import org.gradle.kotlin.dsl.project
 
 plugins {
     alias(grunt.plugins.android.application)
@@ -24,6 +25,8 @@ android {
         nativeSymbolUploadEnabled = true
     }
 
+    sourceSets["main"].assets.srcDir("${rootProject.projectDir}/bw-gdlib/assets")
+
     /// For screengrab testing
     val screengrabPaperKey = localProperties
         .getProperty("SCREENGRAB_PAPERKEY", "")
@@ -35,8 +38,8 @@ android {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 35
-        versionCode = 202506337
-        versionName = "v4.10.0"
+        versionCode = 202506339
+        versionName = "v4.10.1"
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -198,8 +201,6 @@ android {
 dependencies {
     implementation(project(":iap"))
     implementation(project(":core"))
-    implementation(project(":game-bridge"))
-    implementation(project(":game-contract"))
     implementation("androidx.webkit:webkit:1.9.0")
     implementation(libs.androidx.benchmark.traceprocessor)
     implementation(libs.androidx.ui.graphics)
@@ -286,10 +287,9 @@ dependencies {
     implementation("com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a")
     implementation("com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86")
     implementation("com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64")
-
+    implementation("ltd.grunt.brainwallet.gdx:core:1.0.2")
 }
 
 tasks.withType<Test> {
     jvmArgs("-XX:+EnableDynamicAgentLoading")
 }
-

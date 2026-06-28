@@ -19,8 +19,8 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-import com.brainwallet.game.contract.GameSlot
-import com.brainwallet.game.contract.LocalGameSlot
+import com.brainwallet.gameinterface.GameSlot
+import com.brainwallet.gameinterface.LocalGameSlot
 import org.koin.compose.getKoin
 
 val LocalLanguageISOCode = staticCompositionLocalOf {

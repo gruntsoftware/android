@@ -68,5 +68,11 @@ sealed class Route : JavaSerializable {
     data class BitrefillWeb(val url: String) : Route()
 
     @Serializable
+    data class SocialsWeb(
+        val url: String,
+        val gameImageURIString: String
+    ) : Route()
+
+    @Serializable
     object LinktreeWeb : Route()
 }
