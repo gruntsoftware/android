@@ -393,7 +393,7 @@ class MainViewModel(
                         transactionItems = filteredTransactions
                     )
                 }
-                AnalyticsManager.logCustomAdHocEvent("did_toggle_txn_filter")
+                AnalyticsManager.logCustomAdHocEvent("did_toggle_txn_filter", null)
             }
             is MainScreenEvent.OnExportTransactions -> {
                 // TODO: Implement

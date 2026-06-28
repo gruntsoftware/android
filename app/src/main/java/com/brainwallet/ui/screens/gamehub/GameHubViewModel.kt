@@ -4,8 +4,10 @@ import android.app.Application
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Bundle
 import android.os.Environment
 import androidx.core.content.FileProvider
+import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.ui.BrainwalletViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -85,12 +87,16 @@ class GameHubViewModel(
                 val xWebAvailable = pm.resolveActivity(xWebIntent, 0) != null
                 val instagramAvailable = pm.resolveActivity(instagramIntent, 0) != null
 
+                val params = Bundle()
+                params.putString("social_network", socialNetworkString)
+                AnalyticsManager.logCustomAdHocEvent("user_may_post_score_to_social", params)
+
                 when (socialNetworkString) {
                     "twitter" -> when {
                         xAppAvailable -> app.startActivity(xAppIntent)
                         xWebAvailable -> app.startActivity(xWebIntent)
                         else -> app.startActivity(
-                            Intent.createChooser(genericIntent, "Share").also {
+                            Intent.createChooser(genericIntent, "Share Brainwallet Score").also {
                                 it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             }
                         )
@@ -98,13 +104,13 @@ class GameHubViewModel(
                     "instagram" -> when {
                         instagramAvailable -> app.startActivity(instagramIntent)
                         else -> app.startActivity(
-                            Intent.createChooser(genericIntent, "Share").also {
+                            Intent.createChooser(genericIntent, "Share Brainwallet Score").also {
                                 it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             }
                         )
                     }
                     else -> app.startActivity(
-                        Intent.createChooser(genericIntent, "Share your score").also {
+                        Intent.createChooser(genericIntent, "Share Brainwallet Score").also {
                             it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         }
                     )
