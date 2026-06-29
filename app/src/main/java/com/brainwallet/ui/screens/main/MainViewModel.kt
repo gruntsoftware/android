@@ -177,10 +177,18 @@ class MainViewModel(
     fun produceLaunchParams(): String {
         val address = BRSharedPrefs.getReceiveAddress(app)
         val timestamp = java.util.Date().time
+        val userLanguage = settingRepository.getCurrentLanguage().code
         val emojis = runCatching { BRKeyStore.getEmojis(app, 0) }
             .getOrNull()?.decodeToString() ?: "NO_EMOJIS"
         val obj =
-            JSONObject("""{"launchParameters":{"address":"$address", "timestamp":$timestamp,"emojis": "$emojis" }}""")
+            JSONObject(
+                """{"launchParameters":{"address":"$address",
+                |"language":$userLanguage,
+                |"timestamp":$timestamp,
+                |"emojis": "$emojis" }}
+                """.trimMargin()
+            )
+
         return obj.toString()
     }
 
