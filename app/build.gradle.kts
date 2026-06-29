@@ -27,13 +27,6 @@ android {
 
     sourceSets["main"].assets.srcDir("${rootProject.projectDir}/bw-gdlib/assets")
 
-    /// For screengrab testing
-    val screengrabPaperKey = localProperties
-        .getProperty("SCREENGRAB_PAPERKEY", "")
-        .split(" ")
-        .filter { it.isNotBlank() }
-        .joinToString(separator = ", ") { "\"$it\"" }
-
     defaultConfig {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
@@ -54,12 +47,6 @@ android {
                 arguments("-DANDROID_TOOLCHAIN=clang")
             }
         }
-
-        buildConfigField(
-            "String[]",
-            "SCREENGRAB_PAPERKEY",
-            "new String[] {$screengrabPaperKey}"
-        )
     }
 
     assetPacks.addAll(setOf(":install_time_asset_pack"))
@@ -131,24 +118,6 @@ android {
                 }
             }
         }
-
-        create("screengrab") {
-            dimension = "mode"
-
-            applicationId = "ltd.grunt.brainwallet.screengrab"
-            versionNameSuffix = "-screengrab"
-            resValue("string", "app_name", "Brainwallet (screengrab)")
-
-            externalNativeBuild {
-                cmake {
-                    // When you specify a version of CMake, as shown below,
-                    // the Android plugin searches for its binary within your
-                    // PATH environmental variable.
-                    cFlags("-DLITECOIN_TESTNET=0")
-                    targets("core-lib")
-                }
-            }
-        }
     }
 
     testOptions {
@@ -170,6 +139,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.valueOf("VERSION_${grunt.versions.jvm.target.get()}")
         targetCompatibility = JavaVersion.valueOf("VERSION_${grunt.versions.jvm.target.get()}")
+        isCoreLibraryDesugaringEnabled = true
     }
     kotlin {
         jvmToolchain(grunt.versions.jvm.target.get().toInt())
@@ -287,7 +257,9 @@ dependencies {
     implementation("com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a")
     implementation("com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86")
     implementation("com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64")
-    implementation("ltd.grunt.brainwallet.gdx:core:1.0.2")
+    implementation("ltd.grunt.brainwallet.gdx:core:1.14.1")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
+
 }
 
 tasks.withType<Test> {
