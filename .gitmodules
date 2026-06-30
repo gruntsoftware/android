@@ -13,3 +13,4 @@
 [submodule "bw-gdlib"]
 	path = bw-gdlib
 	url = https://github.com/gruntsoftware/bw-gdlib.git
+	branch = main

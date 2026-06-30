@@ -54,7 +54,7 @@
         android:theme="@style/Theme.Brainwallet"
         android:windowSoftInputMode="stateVisible|adjustResize"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute"
-        tools:replace="android:fullBackupContent,android:allowBackup">
+        tools:replace="android:theme,android:fullBackupContent,android:allowBackup">
 
         <property android:name="android.window.PROPERTY_COMPAT_ALLOW_RESTRICTED_RESIZABILITY" android:value="true" />
         <provider

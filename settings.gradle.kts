@@ -12,6 +12,14 @@ pluginManagement {
         }
         mavenCentral()
         gradlePluginPortal()
+        mavenLocal()
+        maven { url = uri("https://jitpack.io") }
+        maven { url = uri("https://central.sonatype.com/repository/maven-snapshots/") }
+    }
+}
+includeBuild("bw-gdlib") {
+    dependencySubstitution {
+        substitute(module("ltd.grunt.brainwallet.gdx:core")).using(project(":android"))
     }
 }
 
