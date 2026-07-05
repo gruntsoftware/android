@@ -252,6 +252,7 @@ dependencies {
     androidTestImplementation("io.mockk:mockk-android:1.13.8")
     androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
     val gdxVersion = "1.14.1"
+    val miniaudioVersion = "0.7"
     implementation("com.badlogicgames.gdx:gdx-backend-android:${gdxVersion}")
     implementation("com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a")
     implementation("com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a")
@@ -259,7 +260,6 @@ dependencies {
     implementation("com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64")
     implementation("ltd.grunt.brainwallet.gdx:core:1.14.1")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
-
 }
 
 tasks.withType<Test> {

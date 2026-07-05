@@ -1,20 +1,25 @@
 package com.brainwallet.gameinterface
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication
-import ltd.grunt.brainwallet.gamegdx.FallinmojiMainApplication
-import android.os.Handler
-import android.os.Looper
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.backends.android.AndroidGraphics
+import ltd.grunt.brainwallet.gamegdx.AndroidEmojiRenderer
+import ltd.grunt.brainwallet.gamegdx.FallinmojiMainApplication
+import ltd.grunt.brainwallet.gamegdx.interfaces.AudioSetup
 
 class GdxFallinmojiGameFragment(
     var onExit: (String, ByteArray?) -> Unit = { _, _ -> },
 ) : AndroidFragmentApplication() {
     private val mainHandler = Handler(Looper.getMainLooper())
+
+    private val emojiRenderer = AndroidEmojiRenderer()
+
     private val launchParams: String
         get() = arguments?.getString(ARG_LAUNCH_PARAMS).orEmpty()
 
@@ -34,7 +39,9 @@ class GdxFallinmojiGameFragment(
                         jsonString, data ->
                     mainHandler.post { onExit(jsonString, data) }
                 },
-                launchParams
+                launchParams,
+                emojiRenderer,
+                AudioSetup { miniAudio -> miniAudio.setupAndroid(requireContext().assets) }
             ),
             config
         )
