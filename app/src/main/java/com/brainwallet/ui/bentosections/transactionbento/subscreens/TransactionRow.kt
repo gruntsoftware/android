@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -40,7 +41,6 @@ import timber.log.Timber
 import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.Locale
 
 @Composable
 fun TransactionRow(
@@ -55,7 +55,7 @@ fun TransactionRow(
     val state by viewModel.state.collectAsState()
     val formatter = SimpleDateFormat(
         "MMM dd, yyyy hh:mm a",
-        Locale.getDefault()
+        LocalLocale.current.platformLocale
     )
 
     // the transactions amount

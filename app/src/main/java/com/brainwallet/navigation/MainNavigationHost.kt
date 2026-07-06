@@ -135,7 +135,7 @@ fun NavGraphBuilder.mainNavGraph(
         GameHubScreen(onNavigate = onNavigate)
     }
     composable<Route.MoonPayBuy> { navBackStackEntry ->
-        val route: Route.GameHub = navBackStackEntry.toRoute()
+        val route: Route.MoonPayBuy = navBackStackEntry.toRoute()
         BuyReceiveScreen(onNavigate = onNavigate)
     }
 

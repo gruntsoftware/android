@@ -1,6 +1,7 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import org.gradle.kotlin.dsl.androidTestImplementation
 import org.gradle.kotlin.dsl.grunt
+import org.gradle.kotlin.dsl.project
 
 plugins {
     alias(grunt.plugins.android.application)
@@ -18,25 +19,20 @@ val localProperties = gradleLocalProperties(rootDir, providers)
 
 android {
     namespace = "com.brainwallet"
-    compileSdk = 35
+    compileSdk = 36
 
     firebaseCrashlytics {
         nativeSymbolUploadEnabled = true
     }
 
-    /// For screengrab testing
-    val screengrabPaperKey = localProperties
-        .getProperty("SCREENGRAB_PAPERKEY", "")
-        .split(" ")
-        .filter { it.isNotBlank() }
-        .joinToString(separator = ", ") { "\"$it\"" }
+    sourceSets["main"].assets.srcDir("${rootProject.projectDir}/bw-gdlib/assets")
 
     defaultConfig {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 35
-        versionCode = 202506335
-        versionName = "v4.9.3"
+        versionCode = 202506339
+        versionName = "v4.10.2"
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -51,12 +47,6 @@ android {
                 arguments("-DANDROID_TOOLCHAIN=clang")
             }
         }
-
-        buildConfigField(
-            "String[]",
-            "SCREENGRAB_PAPERKEY",
-            "new String[] {$screengrabPaperKey}"
-        )
     }
 
     assetPacks.addAll(setOf(":install_time_asset_pack"))
@@ -92,7 +82,7 @@ android {
             signingConfig = signingConfigs.getByName("release")
             isDebuggable = false
             isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             resValue("string", "firebase_analytics_collection_enabled", "true")
             ndk {
                 isDebuggable = false
@@ -128,24 +118,6 @@ android {
                 }
             }
         }
-
-        create("screengrab") {
-            dimension = "mode"
-
-            applicationId = "ltd.grunt.brainwallet.screengrab"
-            versionNameSuffix = "-screengrab"
-            resValue("string", "app_name", "Brainwallet (screengrab)")
-
-            externalNativeBuild {
-                cmake {
-                    // When you specify a version of CMake, as shown below,
-                    // the Android plugin searches for its binary within your
-                    // PATH environmental variable.
-                    cFlags("-DLITECOIN_TESTNET=0")
-                    targets("core-lib")
-                }
-            }
-        }
     }
 
     testOptions {
@@ -167,6 +139,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.valueOf("VERSION_${grunt.versions.jvm.target.get()}")
         targetCompatibility = JavaVersion.valueOf("VERSION_${grunt.versions.jvm.target.get()}")
+        isCoreLibraryDesugaringEnabled = true
     }
     kotlin {
         jvmToolchain(grunt.versions.jvm.target.get().toInt())
@@ -196,11 +169,11 @@ android {
 }
 
 dependencies {
-    implementation(project(":games"))
     implementation(project(":iap"))
     implementation(project(":core"))
     implementation("androidx.webkit:webkit:1.9.0")
     implementation(libs.androidx.benchmark.traceprocessor)
+    implementation(libs.androidx.ui.graphics)
     testImplementation(testFixtures(project(":app")))
     androidTestImplementation(testFixtures(project(":app")))
     implementation(grunt.androidx.core.ktx)
@@ -278,9 +251,17 @@ dependencies {
     androidTestImplementation("androidx.test:rules:1.5.0")
     androidTestImplementation("io.mockk:mockk-android:1.13.8")
     androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    val gdxVersion = "1.14.1"
+    val miniaudioVersion = "0.7"
+    implementation("com.badlogicgames.gdx:gdx-backend-android:${gdxVersion}")
+    implementation("com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a")
+    implementation("com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a")
+    implementation("com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86")
+    implementation("com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64")
+    implementation("ltd.grunt.brainwallet.gdx:core:1.14.1")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
 }
 
 tasks.withType<Test> {
     jvmArgs("-XX:+EnableDynamicAgentLoading")
 }
-

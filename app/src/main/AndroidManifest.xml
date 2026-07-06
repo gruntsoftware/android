@@ -38,7 +38,10 @@
     <uses-feature
         android:name="android.hardware.camera.autofocus"
         android:required="false" />
-
+    <queries>
+        <package android:name="com.twitter.android" />
+        <package android:name="com.instagram.android" />
+    </queries>
     <application
         android:name=".BrainwalletApp"
         android:allowBackup="false"
@@ -51,7 +54,7 @@
         android:theme="@style/Theme.Brainwallet"
         android:windowSoftInputMode="stateVisible|adjustResize"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute"
-        tools:replace="android:fullBackupContent,android:allowBackup">
+        tools:replace="android:theme,android:fullBackupContent,android:allowBackup">
 
         <property android:name="android.window.PROPERTY_COMPAT_ALLOW_RESTRICTED_RESIZABILITY" android:value="true" />
         <provider
@@ -59,20 +62,24 @@
             android:authorities="${applicationId}.androidx-startup"
             android:exported="false"
             tools:node="merge">
-
             <meta-data
                 android:name="com.brainwallet.initializer.AppInitializer"
                 android:value="androidx.startup" />
 
-        <!-- TODO: Re-enable EmojiCompatInitializer in AndroidManifest.xml when -->
-        <!-- emoji support is implemented. -->
-        <!-- Disabled to prevent Context leak identified in Memory Profiler. -->
-        <meta-data
-            android:name="androidx.emoji2.text.EmojiCompatInitializer"
-            android:value="@string/androidx_startup"
-            tools:node="remove" />
-
-    </provider>
+            <meta-data
+                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+                android:value="@string/androidx_startup"
+                tools:node="remove" />
+        </provider>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" />
+        </provider>
     <!-- Main Compose Activity -->
         <activity
             android:name=".ui.BrainwalletActivity"

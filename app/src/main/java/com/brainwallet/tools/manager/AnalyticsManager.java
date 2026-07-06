@@ -23,8 +23,8 @@ public final class AnalyticsManager {
         return null;
     }
 
-    public static Object logCustomAdHocEvent(String adHocEvent) {
-        instance.logEvent(adHocEvent, null);
+    public static Object logCustomAdHocEvent(String adHocEvent, Bundle params) {
+        instance.logEvent(adHocEvent, params);
         return null;
     }
 

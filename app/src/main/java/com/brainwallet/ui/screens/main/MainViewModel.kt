@@ -17,6 +17,7 @@ import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.repository.TxRepository
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.manager.BRSharedPrefs
+import com.brainwallet.tools.security.BRKeyStore
 import com.brainwallet.tools.sqlite.TransactionDataSource
 import com.brainwallet.tools.util.BRExchange.ONE_LITECOIN_OF_LITOSHIS
 import com.brainwallet.ui.BrainwalletViewModel
@@ -43,12 +44,14 @@ import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 import org.koin.android.annotation.KoinViewModel
 import timber.log.Timber
 import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import kotlin.String
 
 @OptIn(FlowPreview::class)
 @KoinViewModel
@@ -170,6 +173,23 @@ class MainViewModel(
                     _state.update { it.copy(brainwalletIsSyncing = brainwalletIsSyncing) }
                 }
         }
+    }
+    fun produceLaunchParams(): String {
+        val address = BRSharedPrefs.getReceiveAddress(app)
+        val timestamp = java.util.Date().time
+        val userLanguage = settingRepository.getCurrentLanguage().code
+        val emojis = runCatching { BRKeyStore.getEmojis(app, 0) }
+            .getOrNull()?.decodeToString() ?: "NO_EMOJIS"
+        val obj =
+            JSONObject(
+                """{"launchParameters":{"address":"$address",
+                |"language":$userLanguage,
+                |"timestamp":$timestamp,
+                |"emojis": "$emojis" }}
+                """.trimMargin()
+            )
+
+        return obj.toString()
     }
 
     fun onResume(
@@ -344,6 +364,10 @@ class MainViewModel(
                     onLoading(false)
                 }
             }
+            is MainScreenEvent.OnPostSocial -> viewModelScope.launch {
+                val jsonString = event.jsonString
+                val screenShotData = event.screenShotData
+            }
             is MainScreenEvent.OnToggleDarkMode -> viewModelScope.launch {
                 val currentSettings = appSetting.value
                 settingRepository.save(
@@ -377,10 +401,13 @@ class MainViewModel(
                         transactionItems = filteredTransactions
                     )
                 }
-                AnalyticsManager.logCustomAdHocEvent("did_toggle_txn_filter")
+                AnalyticsManager.logCustomAdHocEvent("did_toggle_txn_filter", null)
             }
             is MainScreenEvent.OnExportTransactions -> {
                 // TODO: Implement
+            }
+            is MainScreenEvent.OnToggleGameHub -> {
+                _state.update { it.copy(isGameHubOpen = !it.isGameHubOpen) }
             }
             is MainScreenEvent.OnCopyTransactions -> {
                 val currentTransaction = event.transactionItem

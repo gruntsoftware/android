@@ -18,7 +18,7 @@ class CountryLanguageAdapter(context: Context, val languages: Array<IntroLanguag
     private var mCountryLang: Array<IntroLanguage>? = null
     private var mInflater: LayoutInflater? = null
     private var mSelectedItem = -1
-    private var barlowFont: Typeface? = null
+    private var ibmPlexSansFont: Typeface? = null
     private var mContext: Context? = null
     private var mediaPlayer: MediaPlayer? = null
 
@@ -34,7 +34,7 @@ class CountryLanguageAdapter(context: Context, val languages: Array<IntroLanguag
         this.mCountryLang = languages
         this.mContext = context
         this.mInflater = LayoutInflater.from(context)
-        this.barlowFont = ResourcesCompat.getFont(context, R.font.open_sauce_one_light)
+        this.ibmPlexSansFont = ResourcesCompat.getFont(context, R.font.ibm_plex_sans_regular)
         this.mediaPlayer = MediaPlayer()
     }
 
@@ -56,7 +56,7 @@ class CountryLanguageAdapter(context: Context, val languages: Array<IntroLanguag
 
         // Make text bold if it's in the center
         if (position == mSelectedItem) {
-            if (barlowFont == null) {
+            if (ibmPlexSansFont == null) {
                 Log.e("FONT", "FAILED TO LOAD")
             }
             mediaPlayer?.reset()
@@ -66,9 +66,9 @@ class CountryLanguageAdapter(context: Context, val languages: Array<IntroLanguag
             )
             mediaPlayer?.prepare()
             mediaPlayer?.start()
-            holder.txtLang.setTypeface(barlowFont, Typeface.BOLD)
+            holder.txtLang.setTypeface(ibmPlexSansFont, Typeface.BOLD)
         } else {
-            holder.txtLang.setTypeface(barlowFont, Typeface.NORMAL)
+            holder.txtLang.setTypeface(ibmPlexSansFont, Typeface.NORMAL)
         }
     }
 

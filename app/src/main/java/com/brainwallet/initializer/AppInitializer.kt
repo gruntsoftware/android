@@ -12,6 +12,7 @@ import org.koin.core.component.inject
 import org.koin.core.context.loadKoinModules
 import org.koin.ksp.generated.module
 import kotlin.concurrent.thread
+import com.brainwallet.gameinterface.gameModule
 
 class AppInitializer(
     private val componentProvider: Components = object : Components {
@@ -22,7 +23,8 @@ class AppInitializer(
                 listOf(
                     AppModule.dataModule,
                     AppModule.module,
-                    remoteConfigModule
+                    remoteConfigModule,
+                    gameModule
                 )
             )
         }

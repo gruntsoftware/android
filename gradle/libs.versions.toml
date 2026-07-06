@@ -34,6 +34,8 @@ foundation = "1.10.6"
 animation = "1.10.6"
 play-services-games = "24.0.0"
 benchmark-traceprocessor = "1.4.1"
+kotlin = "2.3.10"
+ui-graphics = "1.11.2"
 
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
@@ -109,6 +111,7 @@ androidx-foundation = { group = "androidx.compose.foundation", name = "foundatio
 androidx-animation = { group = "androidx.compose.animation", name = "animation", version.ref = "animation" }
 play-services-games = { group = "com.google.android.gms", name = "play-services-games", version.ref = "play-services-games" }
 androidx-benchmark-traceprocessor = { group = "androidx.benchmark", name = "benchmark-traceprocessor", version.ref = "benchmark-traceprocessor" }
+androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics", version.ref = "ui-graphics" }
 
 [bundles]
 androidx-lifecycle = ["androidx-lifecycle-runtime", "androidx-lifecycle-viewmodel", "androidx-lifecycle-viewmodel-compose"]
@@ -125,3 +128,6 @@ squareup-okhttp = ["squareup-okhttp", "squareup-okhttp-logging-interceptor"]
 [plugins]
 google-services = { id = "com.google.gms.google-services", version = "4.4.2" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.2" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm     = { id = "org.jetbrains.kotlin.jvm",     version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

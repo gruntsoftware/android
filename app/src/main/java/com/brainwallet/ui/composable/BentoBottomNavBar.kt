@@ -127,7 +127,6 @@ fun BentoBottomNavBar(
             NavigationBarItem(
                 selected = currentRoute is Route.GameHub,
                 onClick = { onItemClick(Route.GameHub) },
-                enabled = false, // Disabled until the game integration
                 icon = {
                     Icon(
                         painter = painterResource(R.drawable.ic_game_hub),

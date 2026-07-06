@@ -89,12 +89,12 @@ fun TutorialsBentoScreen(
             when (page) {
                 0 -> TutorialWalkthroughBentoScreen(
                     onClick = {
-                        AnalyticsManager.logCustomAdHocEvent("user_tapped_walkthrough_tutorial")
+                        AnalyticsManager.logCustomAdHocEvent("user_tapped_walkthrough_tutorial", null)
                         onClick(page)
                     }
                 )
                 1 -> TutorialSendBentoScreen(onClick = {
-                    AnalyticsManager.logCustomAdHocEvent("user_tapped_send_tutorial")
+                    AnalyticsManager.logCustomAdHocEvent("user_tapped_send_tutorial", null)
                     onClick(page)
                 })
             }

@@ -15,4 +15,7 @@ plugins {
 
 tasks.register("clean", Delete::class) {
     delete(rootProject.layout.buildDirectory)
+    delete(layout.projectDirectory.dir("bw-gdlib/core/build"))
+    delete(layout.projectDirectory.dir("bw-gdlib/android/build"))
+    dependsOn(gradle.includedBuild("bw-gdlib").task(":clean"))
 }
