@@ -26,7 +26,6 @@ import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.ui.composable.BrainwalletLoadingIndicator
 import com.brainwallet.ui.theme.bentoDarkSurfaceGradient
-
 @Composable
 fun WebModalScreen(
     onNavigate: OnNavigate,
