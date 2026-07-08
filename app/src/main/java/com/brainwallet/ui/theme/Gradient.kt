@@ -189,8 +189,8 @@ val bentoModalDarkGradient: Brush
             Color(0xFF09082B).copy(alpha = 1f),
             Color(0xFF280589).copy(alpha = 0.7f)
         ),
-        start = Offset(Float.MIN_VALUE, Float.POSITIVE_INFINITY),
-        end = Offset(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY),
+        start = Offset(Float.MIN_VALUE, Float.MIN_VALUE),
+        end = Offset(Float.MIN_VALUE, Float.POSITIVE_INFINITY),
     )
 
 fun giftCardGradient1(size: androidx.compose.ui.geometry.Size): Brush {
@@ -228,3 +228,27 @@ fun giftCardGradient3(size: androidx.compose.ui.geometry.Size): Brush {
         tileMode = TileMode.Clamp
     )
 }
+
+val bentoEmojiSectionGradient: Brush
+
+    @Composable
+    get() = Brush.linearGradient(
+        colors = listOf(
+            Color(0xFF14134c).copy(alpha = 0.8f),
+            Color(0xFF5827e2).copy(alpha = 0.1f)
+        ),
+        start = Offset(Float.MIN_VALUE, Float.POSITIVE_INFINITY),
+        end = Offset(Float.MIN_VALUE, Float.POSITIVE_INFINITY),
+    )
+
+val bentoHowToSectionGradient: Brush
+
+    @Composable
+    get() = Brush.linearGradient(
+        colors = listOf(
+            Color(0xFF14134c).copy(alpha = 0.9f),
+            Color(0xFF5827e2).copy(alpha = 0.25f)
+        ),
+        start = Offset(Float.MIN_VALUE, Float.POSITIVE_INFINITY),
+        end = Offset(Float.MIN_VALUE, Float.POSITIVE_INFINITY),
+    )

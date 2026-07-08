@@ -11,9 +11,6 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.brainwallet.R
-import com.brainwallet.notification.NotificationHandler.Companion.NOTIFICATION_CHANNEL_ID_BRAINWALLET_UPDATE
-import com.brainwallet.notification.NotificationHandler.Companion.NOTIFICATION_CHANNEL_ID_GENERAL
-import com.brainwallet.notification.NotificationHandler.Companion.NOTIFICATION_CHANNEL_ID_LITECOIN_NEWS
 import com.brainwallet.presenter.activities.BreadActivity
 import com.google.firebase.messaging.RemoteMessage
 import org.koin.core.annotation.Single
@@ -39,6 +36,59 @@ class NotificationHandler(
     }
 ) {
 
+//    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//        setupNotificationPermission()
+//    }
+//    private val requestNotificationPermissionLauncher: ActivityResultLauncher<String?> =
+//        registerForActivityResult<String?, Boolean?>(
+//            ActivityResultContracts.RequestPermission(),
+//            ActivityResultCallback { isGranted: Boolean? ->
+//                if (isGranted) {
+//                    Toast.makeText(
+//                        BreadActivity.app,
+//                        R.string.permission_notification_granted,
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            })
+//
+//    private val requestNotificationPermissionLauncher =
+//        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+//            if (isGranted) {
+//                Toast.makeText(
+//                    this,
+//                    R.string.permission_notification_granted,
+//                    Toast.LENGTH_SHORT,
+//                ).show()
+//
+//                Timber.d("Notification permission granted")
+//            } else {
+//                Timber.d("Notification permission denied")
+//                // Optionally show a message explaining reduced functionality
+//            }
+//        }
+//    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+// //    private fun setupNotificationPermission() {
+// //        if (hasPermission(this, Manifest.permission.POST_NOTIFICATIONS)) return
+// //
+// //        if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
+// //            showNotificationRationaleDialog()
+// //        } else {
+// //            requestPermission(requestNotificationPermissionLauncher, Manifest.permission.POST_NOTIFICATIONS)
+// //        }
+// //    }
+
+//    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+//    private fun showNotificationRationaleDialog() {
+// //        AlertDialog.Builder(this)
+// //            .setTitle(R.string.permission_info)
+// //            .setMessage(R.string.please_grant_notification_permission)
+// //            .setNegativeButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
+// //            .setPositiveButton(R.string.ok) { _, _ ->
+// //                requestPermission(requestNotificationPermissionLauncher, Manifest.permission.POST_NOTIFICATIONS)
+// //            }
+// //            .show()
+//    }
     fun handleMessageReceived(context: Context, remoteMessage: RemoteMessage): Boolean {
         if (remoteMessage.data.containsKey(KEY_DATA_BRAINWALLET).not()) {
             return false

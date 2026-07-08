@@ -46,6 +46,9 @@ object BWConstants {
     const val PUT_PHRASE_NEW_WALLET_REQUEST_CODE: Int = 114
     const val PUT_PHRASE_RECOVERY_WALLET_REQUEST_CODE: Int = 115
     const val PROVE_PHRASE_REQUEST: Int = 119
+    const val SHOW_EMOJIS_REQUEST_CODE: Int = 120
+
+    const val PUT_EMOJIS_REQUEST_CODE: Int = 121
 
     /**
      * Request codes for taking pictures
@@ -71,6 +74,7 @@ object BWConstants {
     const val CURRENT_UNIT: String = "currencyUnit"
     const val POSITION: String = "position"
     const val PHRASE_WRITTEN: String = "phraseWritten"
+    const val EMOJIS_CHOSEN: String = "emojisChosen"
     const val ALLOW_SPEND: String = "allowSpend"
     const val USER_ID: String = "userId"
     const val GEO_PERMISSIONS_REQUESTED: String = "geoPermissionsRequested"

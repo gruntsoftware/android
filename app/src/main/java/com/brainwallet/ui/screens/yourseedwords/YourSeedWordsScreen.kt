@@ -44,10 +44,9 @@ fun YourSeedWordsScreen(
     seedWords: List<String>,
     viewModel: YourSeedWordsViewModel = koinInject()
 ) {
-    // / Layout values
+    //  Layout values
     val columnPadding = 12
     val horizontalVerticalSpacing = 8
-    val spacerHeight = 36
     val leadingCopyPadding = 8
     val detailLineHeight = 24
 

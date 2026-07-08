@@ -213,7 +213,6 @@ dependencies {
     implementation(libs.androidx.espresso.core)
     implementation(libs.androidx.runtime)
     implementation(libs.androidx.foundation)
-    implementation(libs.androidx.animation)
     implementation(libs.play.services.games)
     ksp(grunt.koin.annotation.compiler)
     implementation(platform(libs.squareup.okhttp.bom))
@@ -229,14 +228,16 @@ dependencies {
     implementation(libs.razir.progressbutton)
     implementation(libs.appsflyer)
     implementation(libs.android.installreferrer)
-    implementation("androidx.compose.animation:animation:1.5.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.7")
-    implementation("io.coil-kt:coil-compose:2.0.0-rc01")
+    implementation(libs.androidx.material3)
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
     testImplementation(libs.turbine)
     testImplementation(libs.slf4j.android)
     testImplementation(libs.kotlinx.coroutines.tests)
+    implementation("androidx.compose.animation:animation:1.10.6")
+    implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.7")
+    implementation("io.coil-kt:coil-compose:2.0.0-rc01")
+    implementation("androidx.emoji2:emoji2-emojipicker:1.6.0")
     testImplementation("io.mockk:mockk:1.13.5")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
     testImplementation("app.cash.turbine:turbine:1.0.0")
@@ -260,6 +261,8 @@ dependencies {
     implementation("com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64")
     implementation("ltd.grunt.brainwallet.gdx:core:1.14.1")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
+
+
 }
 
 tasks.withType<Test> {

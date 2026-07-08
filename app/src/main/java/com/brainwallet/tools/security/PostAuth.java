@@ -87,6 +87,33 @@ public class PostAuth {
         app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
     }
 
+    public void onShowEmojis(Activity app, boolean authAsked) {
+        String cleanEmojis;
+        try {
+            byte[] raw = BRKeyStore.getEmojis(app, BWConstants.SHOW_EMOJIS_REQUEST_CODE);
+            if (raw == null) {
+                NullPointerException ex = new NullPointerException("onShowEmojis: getEmojis = null");
+                Timber.e(ex);
+                throw ex;
+            }
+            cleanEmojis = new String(raw);
+        } catch (UserNotAuthenticatedException e) {
+            if (authAsked) {
+                Timber.d("timber: %s: WARNING!!!! LOOP", new Object() {
+                }.getClass().getEnclosingMethod().getName());
+                isStuckWithAuthLoop = true;
+            }
+            return;
+        }
+
+        String[] emojis = cleanEmojis.split(",");
+        LegacyNavigation.openComposeScreen(
+            app,
+            new Route.YourSeedWords(Arrays.asList(emojis))
+        );
+        app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
+    }
+
     public void onPhraseProveAuth(Activity app, boolean authAsked) {
         String cleanPhrase;
         try {

@@ -17,9 +17,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import androidx.fragment.app.FragmentActivity;
-
 import com.brainwallet.BrainwalletApp;
 import com.brainwallet.R;
 import com.brainwallet.presenter.activities.BreadActivity;
@@ -30,7 +27,6 @@ import com.brainwallet.presenter.entities.BRPeerEntity;
 import com.brainwallet.presenter.entities.BWDatabaseTransactionEntity;
 import com.brainwallet.presenter.entities.ImportPrivKeyEntity;
 import com.brainwallet.presenter.entities.TxItem;
-import com.brainwallet.presenter.interfaces.BROnSignalCompletion;
 import com.brainwallet.tools.animation.BRAnimator;
 import com.brainwallet.tools.animation.SpringAnimator;
 import com.brainwallet.tools.manager.AnalyticsManager;
@@ -51,13 +47,19 @@ import com.brainwallet.tools.util.TypesConverter;
 import com.brainwallet.tools.util.Utils;
 import com.platform.entities.WalletInfo;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import kotlin.Suppress;
+import kotlinx.collections.immutable.ImmutableList;
+import kotlinx.collections.immutable.adapters.ImmutableListAdapter;
 import timber.log.Timber;
 
 public class BRWalletManager implements WalletOperations,
@@ -163,14 +165,29 @@ public class BRWalletManager implements WalletOperations,
         BRKeyStore.putWalletCreationTime(walletCreationTime, ctx);
         final WalletInfo info = new WalletInfo();
         info.creationDate = walletCreationTime;
-
         byte[] strBytes = TypesConverter.getNullTerminatedPhrase(strPhrase);
         byte[] pubKey = BRWalletManager.getInstance().getMasterPubKey(strBytes);
         BRKeyStore.putMasterPublicKey(pubKey, ctx);
-
         return true;
     }
-
+    public List<String> getSeedWords(Context context) {
+        byte[] phrase = null;
+        try {
+            phrase = BRKeyStore.getPhrase(context, 0);
+            if (phrase == null) {
+                return Collections.emptyList();
+            }
+            String[] words = new String(phrase, StandardCharsets.UTF_8).split(" ");
+            return Arrays.asList(words);
+        } catch (UserNotAuthenticatedException e) {
+            throw new RuntimeException(
+                "Failed to retrieve the phrase even though at this point the system auth was asked for sure.", e);
+        } finally {
+            if (phrase != null) {
+                Arrays.fill(phrase, (byte) 0);
+            }
+        }
+    }
     public boolean wipeKeyStore(Context context) {
         Timber.d("timber: wipeKeyStore");
         return BRKeyStore.resetWalletKeyStore(context);
@@ -547,6 +564,13 @@ public class BRWalletManager implements WalletOperations,
             phraseBytes = new byte[0];
         }
         return new String(phraseBytes);
+    }
+
+    @Override
+    public @NotNull ImmutableList<String> getSeedWords() {
+        Context context = BrainwalletApp.getBreadContext();
+        List<String> words = getSeedWords(context);
+        return new ImmutableListAdapter<>(words);
     }
 
     public interface OnBalanceChanged {

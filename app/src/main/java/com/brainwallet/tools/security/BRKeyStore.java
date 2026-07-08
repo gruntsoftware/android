@@ -85,6 +85,7 @@ public class BRKeyStore {
     public static Map<String, AliasObject> aliasObjectMap;
 
     private static final String PHRASE_IV = "ivphrase";
+    private static final String EMOJI_IV = "ivemoji";
     private static final String CANARY_IV = "ivcanary";
     private static final String PUB_KEY_IV = "ivpubkey";
     private static final String WALLET_CREATION_TIME_IV = "ivtime";
@@ -110,8 +111,8 @@ public class BRKeyStore {
     public static final String AUTH_KEY_ALIAS = "authKey";
     public static final String TOKEN_ALIAS = "token";
     public static final String PASS_TIME_ALIAS = "passTime";
-
     private static final String PHRASE_FILENAME = "my_phrase";
+    private static final String EMOJIS_FILENAME = "my_emojis";
     private static final String CANARY_FILENAME = "my_canary";
     private static final String PUB_KEY_FILENAME = "my_pub_key";
     private static final String WALLET_CREATION_TIME_FILENAME = "my_creation_time";
@@ -132,6 +133,7 @@ public class BRKeyStore {
     static {
         aliasObjectMap = new HashMap<>();
         aliasObjectMap.put(PHRASE_ALIAS, new AliasObject(PHRASE_ALIAS, PHRASE_FILENAME, PHRASE_IV));
+        aliasObjectMap.put(EMOJIS_ALIAS, new AliasObject(EMOJIS_ALIAS, EMOJIS_FILENAME, EMOJI_IV));
         aliasObjectMap.put(CANARY_ALIAS, new AliasObject(CANARY_ALIAS, CANARY_FILENAME, CANARY_IV));
         aliasObjectMap.put(PUB_KEY_ALIAS, new AliasObject(PUB_KEY_ALIAS, PUB_KEY_FILENAME, PUB_KEY_IV));
         aliasObjectMap.put(WALLET_CREATION_TIME_ALIAS, new AliasObject(WALLET_CREATION_TIME_ALIAS, WALLET_CREATION_TIME_FILENAME, WALLET_CREATION_TIME_IV));
@@ -266,16 +268,16 @@ public class BRKeyStore {
         AliasObject obj = aliasObjectMap.get(PHRASE_ALIAS);
         return _getData(context, obj.alias, obj.datafileName, obj.ivFileName, requestCode);
     }
-
-    public synchronized static boolean putEmojis(byte[] strToStore, Context context, int requestCode) throws UserNotAuthenticatedException {
+    public synchronized static boolean putEmojis(byte[] emojisStringToStore, Context context, int requestCode)
+        throws UserNotAuthenticatedException {
         if (PostAuth.isStuckWithAuthLoop) {
             showLoopBugMessage(context);
             throw new UserNotAuthenticatedException();
         }
         AliasObject obj = aliasObjectMap.get(EMOJIS_ALIAS);
-        return !(strToStore == null || strToStore.length == 0) && _setData(context, strToStore, obj.alias, obj.datafileName, obj.ivFileName, requestCode, true);
+        return !(emojisStringToStore == null || emojisStringToStore.length == 0) &&
+            _setData(context, emojisStringToStore, obj.alias, obj.datafileName, obj.ivFileName, requestCode, false);
     }
-
     public synchronized static byte[] getEmojis(final Context context, int requestCode) throws UserNotAuthenticatedException {
         if (PostAuth.isStuckWithAuthLoop) {
             showLoopBugMessage(context);
@@ -285,7 +287,8 @@ public class BRKeyStore {
         return _getData(context, obj.alias, obj.datafileName, obj.ivFileName, requestCode);
     }
 
-    public synchronized static boolean putCanary(String strToStore, Context context, int requestCode) throws UserNotAuthenticatedException {
+    public synchronized static boolean putCanary(String strToStore, Context context, int requestCode)
+        throws UserNotAuthenticatedException {
         if (PostAuth.isStuckWithAuthLoop) {
             showLoopBugMessage(context);
             throw new UserNotAuthenticatedException();
