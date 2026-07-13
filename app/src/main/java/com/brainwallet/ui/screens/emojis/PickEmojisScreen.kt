@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -67,6 +68,10 @@ fun PickEmojisScreen(
     var activeSlot by remember { mutableStateOf<Int?>(null) }
     var shouldShowSeedWords by remember { mutableStateOf(false) }
 
+    fun updateEmojiState(): Boolean {
+        return selectedEmojis.toSet().size == selectedEmojis.size
+    }
+
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -77,42 +82,46 @@ fun PickEmojisScreen(
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Row(modifier = Modifier.height(44.dp)) {
-                IconButton(
-                    onClick = { onEmojisPicked(false) },
-                ) {
-                    Icon(
-                        painter = painterResource(id = com.brainwallet.R.drawable.btn_clear),
-                        contentDescription = stringResource(R.string.clear),
-                        tint = Color.White
+            Box(
+                modifier = Modifier
+                    .padding(vertical = 8.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Row(modifier = Modifier) {
+                    IconButton(
+                        onClick = { onEmojisPicked(false) },
+                    ) {
+                        Icon(
+                            painter = painterResource(id = com.brainwallet.R.drawable.btn_clear),
+                            contentDescription = stringResource(R.string.clear),
+                            tint = Color.White
+                        )
+                    }
+                    Spacer(modifier = Modifier.weight(1f))
+                }
+
+                Row {
+                    Text(
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically)
+                            .padding(start = 30.dp, end = 30.dp),
+                        text = stringResource(R.string.pick_emojis_title),
+                        style = TextStyle(
+                            fontFamily = IBMPlexSans,
+                            fontWeight = FontWeight.SemiBold,
+                            textAlign = TextAlign.Center,
+                            fontSize = 22.sp,
+                            color = Color.White
+                        ),
                     )
                 }
-                Spacer(modifier = Modifier.weight(1f))
-            }
-
-            Row {
-                Text(
-                    modifier = Modifier
-                        .align(Alignment.CenterVertically)
-                        .padding(start = 30.dp, end = 30.dp)
-                        .padding(bottom = 10.dp),
-                    text = stringResource(R.string.pick_emojis_title),
-                    style = TextStyle(
-                        fontFamily = IBMPlexSans,
-                        fontWeight = FontWeight.SemiBold,
-                        textAlign = TextAlign.Center,
-                        fontSize = 22.sp,
-                        color = Color.White
-                    ),
-                    maxLines = 2
-                )
             }
 
             Text(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .padding(start = 30.dp, end = 30.dp)
-                    .padding(top = 5.dp, bottom = 5.dp),
+                    .padding(top = 2.dp, bottom = 2.dp),
                 text = stringResource(R.string.pick_emojis_description),
                 style = TextStyle(
                     fontFamily = IBMPlexSans,
@@ -121,7 +130,7 @@ fun PickEmojisScreen(
                     fontSize = 16.sp,
                     color = Color.White
                 ),
-                maxLines = 2
+                maxLines = 4
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -187,7 +196,7 @@ fun PickEmojisScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(0.6f)
+                    .fillMaxHeight(0.7f)
                     .padding(start = 16.dp, end = 16.dp)
                     .clip(DesignTheme.shapes.large)
                     .background(brush = bentoEmojiSectionGradient)
@@ -227,7 +236,7 @@ fun PickEmojisScreen(
                 enabled = true,
                 colors = ButtonDefaults.filledTonalButtonColors(
                     containerColor = Color.White,
-                    contentColor = if (selectedEmojis.all { it != null }) {
+                    contentColor = if (updateEmojiState()) {
                         colorMidnite
                     } else {
                         colorMidnite.copy(
@@ -236,7 +245,7 @@ fun PickEmojisScreen(
                     }
                 ),
                 onClick = {
-                    if (selectedEmojis.all { it != null }) {
+                    if (updateEmojiState()) {
                         val joined = selectedEmojis.joinToString(separator = "")
                         val bytes = joined.toByteArray(Charsets.UTF_8)
                         BRKeyStore.putEmojis(
@@ -376,6 +385,5 @@ private fun EmojiSlot(
                 }
             }
         }
-        Spacer(modifier = Modifier.height(16.dp))
     }
 }

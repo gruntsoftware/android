@@ -185,7 +185,7 @@ class MainViewModel(
         val address = BRSharedPrefs.getReceiveAddress(app)
         val timestamp = java.util.Date().time
         val userLanguage = settingRepository.getCurrentLanguage().code
-        val emojis = runCatching { BRKeyStore.getEmojis(app, 0) }
+        val emojis = runCatching { BRKeyStore.getEmojis(app, BWConstants.SHOW_EMOJIS_REQUEST_CODE) }
             .getOrNull()?.decodeToString() ?: "NO_EMOJIS"
 
         val emojiArray = JSONArray().apply {
@@ -510,6 +510,16 @@ class MainViewModel(
                 }
             }
             is MainScreenEvent.OnUserChoosesEmojis -> {
+            }
+            is MainScreenEvent.OnUserClearsEmojis -> {
+                BRSharedPrefs.putEmojisChosen(this.app, false)
+                val emptyBytes = "".toByteArray(Charsets.UTF_8)
+
+                BRKeyStore.putEmojis(
+                    emptyBytes,
+                    this.app,
+                    BWConstants.PUT_EMOJIS_REQUEST_CODE
+                )
             }
         }
     }

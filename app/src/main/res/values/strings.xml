@@ -494,7 +494,7 @@
     <string name="shop_title">Shop</string>
     <string name="shop_tagline">Buy Gift Cards with LTC!</string>
     <string name="pick_emojis_title">Pick Emojis</string>
-    <string name="pick_emojis_description">Tap a box. Show or hide words to choose your emojis. Tap an emoji.</string>
+    <string name="pick_emojis_description">Tap a box. Show or hide words to choose your emojis. Tap an emoji. Each emoji must be different.</string>
     <string name="how_to_choose_emojis_title">Choose your 3 emojis for the game</string>
     <string name="how_to_choose_emojis_description">Here is where you build your real brainwallet. Memorize your seed phrase through gaming.</string>
     <string name="how_to_choose_emojis_bullet_one_title">Pick your first 3 emojis</string>

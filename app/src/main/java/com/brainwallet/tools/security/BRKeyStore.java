@@ -275,7 +275,7 @@ public class BRKeyStore {
             throw new UserNotAuthenticatedException();
         }
         AliasObject obj = aliasObjectMap.get(EMOJIS_ALIAS);
-        return !(emojisStringToStore == null || emojisStringToStore.length == 0) &&
+        return !(emojisStringToStore == null) &&
             _setData(context, emojisStringToStore, obj.alias, obj.datafileName, obj.ivFileName, requestCode, false);
     }
     public synchronized static byte[] getEmojis(final Context context, int requestCode) throws UserNotAuthenticatedException {

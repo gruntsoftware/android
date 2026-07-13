@@ -25,7 +25,10 @@ import com.brainwallet.wallet.BRWalletManager;
 import com.platform.entities.TxMetaData;
 import com.platform.tools.KVStoreManager;
 
+import java.text.BreakIterator;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -92,9 +95,12 @@ public class PostAuth {
         try {
             byte[] raw = BRKeyStore.getEmojis(app, BWConstants.SHOW_EMOJIS_REQUEST_CODE);
             if (raw == null) {
-                NullPointerException ex = new NullPointerException("onShowEmojis: getEmojis = null");
-                Timber.e(ex);
-                throw ex;
+                LegacyNavigation.openComposeScreen(
+                    app,
+                    Route.EmojiPickerPager.INSTANCE
+                );
+                app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
+                return;
             }
             cleanEmojis = new String(raw);
         } catch (UserNotAuthenticatedException e) {
@@ -106,12 +112,27 @@ public class PostAuth {
             return;
         }
 
-        String[] emojis = cleanEmojis.split(",");
+        List<String> emojiList = splitIntoGraphemeClusters(cleanEmojis);
+
         LegacyNavigation.openComposeScreen(
             app,
-            new Route.YourSeedWords(Arrays.asList(emojis))
+            new Route.YourEmojis(emojiList)
         );
         app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
+    }
+
+    private static List<String> splitIntoGraphemeClusters(String text) {
+        List<String> clusters = new ArrayList<>();
+        BreakIterator boundary = BreakIterator.getCharacterInstance();
+        boundary.setText(text);
+        int start = boundary.first();
+        int end = boundary.next();
+        while (end != BreakIterator.DONE) {
+            clusters.add(text.substring(start, end));
+            start = end;
+            end = boundary.next();
+        }
+        return clusters;
     }
 
     public void onPhraseProveAuth(Activity app, boolean authAsked) {

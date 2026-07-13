@@ -135,6 +135,9 @@ class BrainwalletActivity :
             SettingsViewModel.LEGACY_EFFECT_ON_SEED_PHRASE -> {
                 PostAuth.getInstance().onPhraseCheckAuth(this@BrainwalletActivity, true)
             }
+            SettingsViewModel.LEGACY_EFFECT_ON_BRAINWALLET_PHRASE -> {
+                PostAuth.getInstance().onShowEmojis(this@BrainwalletActivity, true)
+            }
             SettingsViewModel.LEGACY_EFFECT_ON_SHARE_ANALYTICS_DATA_TOGGLE -> {
                 val current = BRSharedPrefs.getShareData(this)
                 BRSharedPrefs.putShareData(this, !current)
