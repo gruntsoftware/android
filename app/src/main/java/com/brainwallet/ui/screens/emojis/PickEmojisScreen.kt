@@ -267,7 +267,7 @@ fun PickEmojisScreen(
                     text = if (selectedEmojis.all { it != null }) {
                         stringResource(R.string.lets_play_label)
                     } else {
-                        stringResource(R.string.pick_emojis_title)
+                        stringResource(R.string.pick_emojis_button_title)
                     },
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
