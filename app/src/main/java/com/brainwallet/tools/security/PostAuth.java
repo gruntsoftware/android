@@ -25,7 +25,10 @@ import com.brainwallet.wallet.BRWalletManager;
 import com.platform.entities.TxMetaData;
 import com.platform.tools.KVStoreManager;
 
+import java.text.BreakIterator;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -85,6 +88,51 @@ public class PostAuth {
                 new Route.YourSeedWords(Arrays.asList(seedWords))
         );
         app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
+    }
+
+    public void onShowEmojis(Activity app, boolean authAsked) {
+        String cleanEmojis;
+        try {
+            byte[] raw = BRKeyStore.getEmojis(app, BWConstants.SHOW_EMOJIS_REQUEST_CODE);
+            if (raw == null) {
+                LegacyNavigation.openComposeScreen(
+                    app,
+                    Route.EmojiPickerPager.INSTANCE
+                );
+                app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
+                return;
+            }
+            cleanEmojis = new String(raw);
+        } catch (UserNotAuthenticatedException e) {
+            if (authAsked) {
+                Timber.d("timber: %s: WARNING!!!! LOOP", new Object() {
+                }.getClass().getEnclosingMethod().getName());
+                isStuckWithAuthLoop = true;
+            }
+            return;
+        }
+
+        List<String> emojiList = splitIntoGraphemeClusters(cleanEmojis);
+
+        LegacyNavigation.openComposeScreen(
+            app,
+            new Route.YourEmojis(emojiList)
+        );
+        app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
+    }
+
+    private static List<String> splitIntoGraphemeClusters(String text) {
+        List<String> clusters = new ArrayList<>();
+        BreakIterator boundary = BreakIterator.getCharacterInstance();
+        boundary.setText(text);
+        int start = boundary.first();
+        int end = boundary.next();
+        while (end != BreakIterator.DONE) {
+            clusters.add(text.substring(start, end));
+            start = end;
+            end = boundary.next();
+        }
+        return clusters;
     }
 
     public void onPhraseProveAuth(Activity app, boolean authAsked) {

@@ -11,10 +11,8 @@ import org.koin.core.annotation.Single;
 import org.koin.java.KoinJavaComponent;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import timber.log.Timber;
@@ -97,7 +95,6 @@ public class BRSharedPrefs {
         return syncMetadata.getString("syncMetadata", " No Sync Duration metadata");
     }
 
-
     public static boolean getPhraseWroteDown(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(BWConstants.PREFS_NAME, Context.MODE_PRIVATE);
         return prefs.getBoolean(BWConstants.PHRASE_WRITTEN, false);
@@ -107,6 +104,18 @@ public class BRSharedPrefs {
         SharedPreferences prefs = context.getSharedPreferences(BWConstants.PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(BWConstants.PHRASE_WRITTEN, check);
+        editor.apply();
+    }
+
+    public static boolean wereEmojisChosen(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(BWConstants.PREFS_NAME, Context.MODE_PRIVATE);
+        return prefs.getBoolean(BWConstants.EMOJIS_CHOSEN, false);
+    }
+
+    public static void putEmojisChosen(Context context, boolean didPickEmojis) {
+        SharedPreferences prefs = context.getSharedPreferences(BWConstants.PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(BWConstants.EMOJIS_CHOSEN, didPickEmojis);
         editor.apply();
     }
 

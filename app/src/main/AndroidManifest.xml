@@ -84,6 +84,7 @@
         <activity
             android:name=".ui.BrainwalletActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -94,6 +95,7 @@
         <activity
             android:name=".presenter.activities.BreadActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -122,41 +124,49 @@
             android:name=".presenter.activities.settings.SyncBlockchainActivity"
             android:exported="true"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             />
         <activity
             android:name=".presenter.activities.settings.NotificationActivity"
             android:exported="true"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             />
         <activity
             android:name=".presenter.activities.intro.WriteDownActivity"
             android:exported="true"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             />
         <activity
             android:name=".presenter.activities.camera.ScanQRActivity"
             android:exported="true"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             />
         <activity
             android:name=".presenter.activities.DisabledActivity"
             android:exported="true"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             />
         <activity
             android:name=".presenter.activities.settings.NodesActivity"
             android:exported="true"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             />
         <activity
             android:name=".presenter.activities.camera.CameraActivity"
             android:exported="true"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             />
         <activity
             android:name=".presenter.activities.settings.TestActivity"
             android:exported="true"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             />
 
         <service

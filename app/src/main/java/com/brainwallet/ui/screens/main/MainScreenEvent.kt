@@ -17,6 +17,10 @@ sealed class MainScreenEvent {
     data class OnCopyTransactions(val transactionItem: TxItem) : MainScreenEvent()
     data object OnToggleGameHub : MainScreenEvent()
 
+    data object OnUserClearsEmojis : MainScreenEvent()
+
+    data object OnUserChoosesEmojis : MainScreenEvent()
+
     data class OnPostSocial(
         val jsonString: String,
         val screenShotData: ByteArray

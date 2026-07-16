@@ -1,5 +1,7 @@
 package com.brainwallet.navigation
 
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -8,13 +10,15 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.brainwallet.constants.BWConstants
+import com.brainwallet.ui.bentosections.buyreceivebento.receive.ReceiveDialog
 import com.brainwallet.ui.screens.buyreceive.BuyReceiveScreen
 import com.brainwallet.ui.screens.gamehub.GameHubScreen
 import com.brainwallet.ui.screens.home.MainScreen
-import com.brainwallet.ui.bentosections.buyreceivebento.receive.ReceiveDialog
 import com.brainwallet.ui.screens.main.WebModalScreen
-import com.brainwallet.ui.screens.restore.RestoreScreen
+import com.brainwallet.ui.screens.emojis.EmojiPagerScreen
+import com.brainwallet.ui.screens.emojis.YourEmojisScreen
 import com.brainwallet.ui.screens.ready.ReadyScreen
+import com.brainwallet.ui.screens.restore.RestoreScreen
 import com.brainwallet.ui.screens.send.SendScreen
 import com.brainwallet.ui.screens.setpasscode.SetPasscodeScreen
 import com.brainwallet.ui.screens.topup.TopUpScreen
@@ -22,6 +26,7 @@ import com.brainwallet.ui.screens.unlock.UnLockScreen
 import com.brainwallet.ui.screens.welcome.WelcomeScreen
 import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItScreen
 import com.brainwallet.ui.screens.yourseedwords.YourSeedWordsScreen
+import kotlinx.collections.immutable.toImmutableList
 
 /**
  * Main Navigation Host for compose
@@ -102,6 +107,15 @@ fun NavGraphBuilder.mainNavGraph(
             seedWords = route.seedWords,
         )
     }
+
+    composable<Route.YourEmojis> { navBackStackEntry ->
+        val route: Route.YourEmojis = navBackStackEntry.toRoute()
+        YourEmojisScreen(
+            onNavigate = onNavigate,
+            emojis = route.emojis.toImmutableList(),
+        )
+    }
+
     composable<Route.YourSeedProveIt> { navBackStackEntry ->
         val route: Route.YourSeedProveIt = navBackStackEntry.toRoute()
         YourSeedProveItScreen(
@@ -153,5 +167,17 @@ fun NavGraphBuilder.mainNavGraph(
             onNavigate = onNavigate,
             url = route.url
         )
+    }
+
+    composable<Route.EmojiPickerPager>(
+        enterTransition = {
+            slideInHorizontally(
+                initialOffsetX = { fullWidth -> fullWidth },
+                animationSpec = tween(350)
+            )
+        },
+    ) { navBackStackEntry ->
+        val route: Route.EmojiPickerPager = navBackStackEntry.toRoute()
+        EmojiPagerScreen(onNavigate = onNavigate)
     }
 }

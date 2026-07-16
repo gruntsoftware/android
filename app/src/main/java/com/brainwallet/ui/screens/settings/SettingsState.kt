@@ -19,6 +19,7 @@ data class SettingsState(
         "$"
     ), // -1 = need to fetch
     val languageSelectorBottomSheetVisible: Boolean = false,
+    val brainwalletPhraseBottomSheetVisible: Boolean = false,
     val fiatSelectorBottomSheetVisible: Boolean = false,
     val shareAnalyticsDataEnabled: Boolean = false,
     val lastSyncMetadata: SyncAnalyticsRepository.SyncMetadata? = null,

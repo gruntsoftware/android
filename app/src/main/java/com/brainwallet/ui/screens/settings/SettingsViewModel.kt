@@ -183,6 +183,15 @@ class SettingsViewModel(
                 )
             }
 
+            SettingsEvent.OnSecurityBrainwalletPhraseClick -> viewModelScope.launch {
+                EventBus.emit(
+                    EventBus.Event.Message(
+                        LEGACY_EFFECT_ON_BRAINWALLET_PHRASE,
+                        address = null
+                    )
+                )
+            }
+
             SettingsEvent.OnSecurityUpdatePinClick -> viewModelScope.launch {
                 EventBus.emit(
                     EventBus.Event.Message(
@@ -216,6 +225,8 @@ class SettingsViewModel(
         const val LEGACY_EFFECT_ON_SYNC = "onSyncInvoked"
         const val LEGACY_EFFECT_ON_SEC_UPDATE_PIN = "onSecUpdatePin"
         const val LEGACY_EFFECT_ON_SEED_PHRASE = "onSeedPhrase"
+
+        const val LEGACY_EFFECT_ON_BRAINWALLET_PHRASE = "onBrainwalletPhrase"
         const val LEGACY_EFFECT_ON_SHARE_ANALYTICS_DATA_TOGGLE = "onShareAnalyticsDataToggle"
     }
 }
