@@ -686,7 +686,7 @@
     <string name="pick_emojis_button_title">3 Benzersiz Emoji Seçin</string>
     <string name="pick_emojis_description">Bir kutuya dokunun. Emojilerinizi seçmek için sözcükleri gösterin veya gizleyin. Bir emojiye dokunun. Her emoji farklı olmalıdır.</string>
     <string name="how_to_choose_emojis_title">Oyun için 3 emojinizi seçin</string>
-    <string name="how_to_choose_emojis_description">Burada gerçek brainwallet'inizi oluşturursunuz. Oyunlar aracılığıyla seed ifadenizi ezberleyin.</string>
+    <string name="how_to_choose_emojis_description">Burada gerçek brainwallet\'inizi oluşturursunuz. Oyunlar aracılığıyla seed ifadenizi ezberleyin.</string>
     <string name="how_to_choose_emojis_bullet_one_title">İlk 3 emojinizi seçin</string>
     <string name="how_to_choose_emojis_bullet_one_description">İfadenizde 12 seed kelimesi vardır. Seçmek için ilk 3 kelimeyi kullanın.</string>
     <string name="how_to_choose_emojis_bullet_two_title">Anlamı olan emojiler</string>

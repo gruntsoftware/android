@@ -669,15 +669,15 @@
     <string name="pick_emojis_button_title">Виберіть 3 унікальні емодзі</string>
     <string name="pick_emojis_description">Торкніться поля. Показуйте або приховуйте слова для вибору емодзі. Торкніться емодзі. Кожне емодзі має бути різним.</string>
     <string name="how_to_choose_emojis_title">Виберіть 3 ваших емодзі для гри</string>
-    <string name="how_to_choose_emojis_description">Тут ви будуєте свою справжню Brainwallet. Запам'ятовуйте фразу насіння через гру.</string>
+    <string name="how_to_choose_emojis_description">Тут ви будуєте свою справжню Brainwallet. Запам\'ятовуйте фразу насіння через гру.</string>
     <string name="how_to_choose_emojis_bullet_one_title">Виберіть перші 3 емодзі</string>
     <string name="how_to_choose_emojis_bullet_one_description">У вашій фразі 12 слів насіння. Використовуйте перші 3 слова для вибору.</string>
     <string name="how_to_choose_emojis_bullet_two_title">Емодзі зі значенням</string>
     <string name="how_to_choose_emojis_bullet_two_description">Використовуйте відповідності до слова, як лимон. Або жовтий. Або ні. Вибір за вами!</string>
-    <string name="how_to_choose_emojis_bullet_three_title">Насіння у вашу пам'ять</string>
-    <string name="how_to_choose_emojis_bullet_three_description">Бачите емодзі — пригадаєте слово насіння. Запам'ятайте емодзі... отримайте БАЛИ!</string>
+    <string name="how_to_choose_emojis_bullet_three_title">Насіння у вашу пам\'ять</string>
+    <string name="how_to_choose_emojis_bullet_three_description">Бачите емодзі — пригадаєте слово насіння. Запам\'ятайте емодзі... отримайте БАЛИ!</string>
     <string name="lets_play_label">Емодзі встановлені. Грайте!</string>
     <string name="your_emojis_title">Ваші емодзі Brainwallet</string>
-    <string name="your_emojis_description">Ви виbrали ці емодзі для гри, щоб допомогти запам'ятати вашу фразу насіння</string>
+    <string name="your_emojis_description">Ви виbrали ці емодзі для гри, щоб допомогти запам\'ятати вашу фразу насіння</string>
     <string name="your_emojis_reset">Очистити емодзі</string>
 </resources>
