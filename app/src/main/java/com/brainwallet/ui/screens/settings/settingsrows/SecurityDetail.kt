@@ -26,6 +26,7 @@ import com.brainwallet.ui.screens.settings.SettingsEvent
 fun SecurityDetail(
     modifier: Modifier = Modifier,
     shareAnalyticsDataEnabled: Boolean = false,
+    userSetEmojis: Boolean = false,
     onEvent: (SettingsEvent) -> Unit
 ) {
     // / Layout values
@@ -68,29 +69,31 @@ fun SecurityDetail(
                 }
             }
 
-            Row(
-                modifier = Modifier
-                    .height(contentHeight.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(stringResource(R.string.security_brainwallet_phrase_title))
-                Spacer(modifier = Modifier.weight(1f))
-                Button(onClick = {
-                    onEvent.invoke(SettingsEvent.OnSecurityBrainwalletPhraseClick)
-                }) {
-                    Text(
-                        text = "😅",
-                        style = TextStyle(
-                            fontWeight = FontWeight.Normal,
-                            fontSize = 20.sp,
-                            shadow = Shadow(
-                                color = Color.Black.copy(alpha = 0.5f),
-                                offset = Offset(x = 4f, y = 4f),
-                                blurRadius = 4f
-                            )
-                        ),
-                        maxLines = 1
-                    )
+            if (userSetEmojis) {
+                Row(
+                    modifier = Modifier
+                        .height(contentHeight.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(stringResource(R.string.security_brainwallet_phrase_title))
+                    Spacer(modifier = Modifier.weight(1f))
+                    Button(onClick = {
+                        onEvent.invoke(SettingsEvent.OnSecurityBrainwalletPhraseClick)
+                    }) {
+                        Text(
+                            text = "😅",
+                            style = TextStyle(
+                                fontWeight = FontWeight.Normal,
+                                fontSize = 20.sp,
+                                shadow = Shadow(
+                                    color = Color.Black.copy(alpha = 0.5f),
+                                    offset = Offset(x = 4f, y = 4f),
+                                    blurRadius = 4f
+                                )
+                            ),
+                            maxLines = 1
+                        )
+                    }
                 }
             }
             Row(

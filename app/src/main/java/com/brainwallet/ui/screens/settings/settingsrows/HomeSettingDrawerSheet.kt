@@ -89,6 +89,7 @@ fun HomeSettingDrawerSheet(
                         .fillMaxSize()
                         .wrapContentHeight(),
                     shareAnalyticsDataEnabled = state.shareAnalyticsDataEnabled,
+                    userSetEmojis = viewModel.hasUserSetEmojis(),
                     onEvent = {
                         viewModel.onEvent(it)
                     }
