@@ -662,4 +662,20 @@
     <string name="Send.cameraUnavailabeMessage.android">在設定中允許相機存取</string>
     <string name="shop_title">商店</string>
     <string name="shop_tagline">用 LTC 購買禮品卡！</string>
+    <string name="security_brainwallet_phrase_title">Brainwallet 助記詞</string>
+    <string name="pick_emojis_title">選擇 3 個表情符號</string>
+    <string name="pick_emojis_button_title">選擇 3 個不同的表情符號</string>
+    <string name="pick_emojis_description">點擊方框。顯示或隱藏單詞以選擇您的表情符號。點擊表情符號。每個表情符號必須不同。</string>
+    <string name="how_to_choose_emojis_title">為遊戲選擇您的 3 個表情符號</string>
+    <string name="how_to_choose_emojis_description">這是您建立真正 Brainwallet 的地方。通過遊戲記住您的助記詞。</string>
+    <string name="how_to_choose_emojis_bullet_one_title">選擇您的前 3 個表情符號</string>
+    <string name="how_to_choose_emojis_bullet_one_description">您的助記詞中有 12 個單詞。使用前 3 個單詞進行選擇。</string>
+    <string name="how_to_choose_emojis_bullet_two_title">有意義的表情符號</string>
+    <string name="how_to_choose_emojis_bullet_two_description">使用與單詞的關聯，例如檸檬。或黃色。或否。由您決定！</string>
+    <string name="how_to_choose_emojis_bullet_three_title">助記詞進入您的記憶</string>
+    <string name="how_to_choose_emojis_bullet_three_description">看到表情符號，您就會記住助記詞。記住您的表情符號...獲得積分！</string>
+    <string name="lets_play_label">表情符號已設定。讓我們開始遊戲吧！</string>
+    <string name="your_emojis_title">您的 Brainwallet 表情符號</string>
+    <string name="your_emojis_description">您為遊戲選擇的這些表情符號可幫助您記住您的助記詞</string>
+    <string name="your_emojis_reset">清除表情符號</string>
 </resources>

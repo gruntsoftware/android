@@ -306,4 +306,20 @@
     <string name="Send.cameraUnavailabeMessage.android">Tillåt kameraåtkomst i Inställningar</string>
     <string name="shop_title">Butik</string>
     <string name="shop_tagline">Köp presentkort med LTC!</string>
+    <string name="security_brainwallet_phrase_title">Brainwallet-fraser</string>
+    <string name="pick_emojis_title">Välj 3 Emojis</string>
+    <string name="pick_emojis_button_title">Välj 3 Unika Emojis</string>
+    <string name="pick_emojis_description">Tryck på en ruta. Visa eller dölj ord för att välja dina emojis. Tryck på en emoji. Varje emoji måste vara olika.</string>
+    <string name="how_to_choose_emojis_title">Välj dina 3 emojis för spelet</string>
+    <string name="how_to_choose_emojis_description">Här bygger du din riktiga brainwallet. Memorera din seed-fraser genom att spela.</string>
+    <string name="how_to_choose_emojis_bullet_one_title">Välj dina första 3 emojis</string>
+    <string name="how_to_choose_emojis_bullet_one_description">Det finns 12 seed-ord i din fraser. Använd de första 3 orden för att välja.</string>
+    <string name="how_to_choose_emojis_bullet_two_title">Emojis med betydelse</string>
+    <string name="how_to_choose_emojis_bullet_two_description">Använd matchningar till ordet som citron. Eller gul. Eller inte. Det är upp till dig!</string>
+    <string name="how_to_choose_emojis_bullet_three_title">Seed till ditt minne</string>
+    <string name="how_to_choose_emojis_bullet_three_description">Se emojin, du kommer ihåg seed-ordet. Memorera din emoji...få POÄNG!</string>
+    <string name="lets_play_label">Emojis inställda. Låt oss spela!</string>
+    <string name="your_emojis_title">Dina Brainwallet-Emojis</string>
+    <string name="your_emojis_description">Du valde dessa emojis för spelet och för att hjälpa dig komma ihåg din seed-fraser</string>
+    <string name="your_emojis_reset">Rensa emojis</string>
 </resources>

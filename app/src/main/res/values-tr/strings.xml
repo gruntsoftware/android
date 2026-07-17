@@ -681,4 +681,20 @@
     <string name="Send.cameraUnavailabeMessage.android">Ayarlar\'da kamera erişimine izin verin</string>
     <string name="shop_title">Mağaza</string>
     <string name="shop_tagline">LTC ile Hediye Kartı Satın Al!</string>
+    <string name="security_brainwallet_phrase_title">Brainwallet ifadesi</string>
+    <string name="pick_emojis_title">3 Emoji Seçin</string>
+    <string name="pick_emojis_button_title">3 Benzersiz Emoji Seçin</string>
+    <string name="pick_emojis_description">Bir kutuya dokunun. Emojilerinizi seçmek için sözcükleri gösterin veya gizleyin. Bir emojiye dokunun. Her emoji farklı olmalıdır.</string>
+    <string name="how_to_choose_emojis_title">Oyun için 3 emojinizi seçin</string>
+    <string name="how_to_choose_emojis_description">Burada gerçek brainwallet'inizi oluşturursunuz. Oyunlar aracılığıyla seed ifadenizi ezberleyin.</string>
+    <string name="how_to_choose_emojis_bullet_one_title">İlk 3 emojinizi seçin</string>
+    <string name="how_to_choose_emojis_bullet_one_description">İfadenizde 12 seed kelimesi vardır. Seçmek için ilk 3 kelimeyi kullanın.</string>
+    <string name="how_to_choose_emojis_bullet_two_title">Anlamı olan emojiler</string>
+    <string name="how_to_choose_emojis_bullet_two_description">Limon gibi kelimeyle eşleşmeleri kullanın. Veya sarı. Veya değil. Seçim sizindir!</string>
+    <string name="how_to_choose_emojis_bullet_three_title">Seed hafızanıza</string>
+    <string name="how_to_choose_emojis_bullet_three_description">Emojiye bakın, seed kelimesini hatırlayacaksınız. Emojinizi ezberleyin...PUAN kazanın!</string>
+    <string name="lets_play_label">Emojiler ayarlandı. Oynayalım!</string>
+    <string name="your_emojis_title">Brainwallet Emojileriniz</string>
+    <string name="your_emojis_description">Oyun için bu emojileri seçtiniz ve seed ifadenizi hatırlamanıza yardımcı oluyorlar</string>
+    <string name="your_emojis_reset">Emojileri temizle</string>
 </resources>

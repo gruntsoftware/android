@@ -647,4 +647,20 @@
     <string name="Send.cameraUnavailabeMessage.android">دسترسی دوربین را در تنظیمات فعال کنید</string>
     <string name="shop_title">فروشگاه</string>
     <string name="shop_tagline">خرید کارت هدیه با LTC!</string>
+    <string name="security_brainwallet_phrase_title">عبارت Brainwallet</string>
+    <string name="pick_emojis_title">انتخاب 3 ایموجی</string>
+    <string name="pick_emojis_button_title">انتخاب 3 ایموجی منحصر به فرد</string>
+    <string name="pick_emojis_description">روی یک جعبه ضربه بزنید. کلمات را نمایش یا پنهان کنید تا ایموجی خود را انتخاب کنید. روی یک ایموجی ضربه بزنید. هر ایموجی باید متفاوت باشد.</string>
+    <string name="how_to_choose_emojis_title">3 ایموجی خود را برای بازی انتخاب کنید</string>
+    <string name="how_to_choose_emojis_description">این جایی است که Brainwallet واقعی خود را می‌سازید. عبارت بذر خود را از طریق بازی به خاطر بسپارید.</string>
+    <string name="how_to_choose_emojis_bullet_one_title">3 ایموجی اول خود را انتخاب کنید</string>
+    <string name="how_to_choose_emojis_bullet_one_description">12 کلمه بذر در عبارت شما وجود دارد. از 3 کلمه اول استفاده کنید تا انتخاب کنید.</string>
+    <string name="how_to_choose_emojis_bullet_two_title">ایموجی‌هایی که معنی دارند</string>
+    <string name="how_to_choose_emojis_bullet_two_description">از تطابق‌های کلمه مانند لیمو استفاده کنید. یا زرد. یا نه. این انتخاب شماست!</string>
+    <string name="how_to_choose_emojis_bullet_three_title">بذر در حافظه شما</string>
+    <string name="how_to_choose_emojis_bullet_three_description">ایموجی را ببینید، کلمه بذر را به یاد خواهید آورد. ایموجی خود را به خاطر بسپارید...امتیاز بگیرید!</string>
+    <string name="lets_play_label">ایموجی‌ها تنظیم شدند. بیایید بازی کنیم!</string>
+    <string name="your_emojis_title">ایموجی‌های Brainwallet شما</string>
+    <string name="your_emojis_description">شما این ایموجی‌ها را برای بازی انتخاب کردید و به یادآوری عبارت بذر خود کمک می‌کنند</string>
+    <string name="your_emojis_reset">پاک کردن ایموجی‌ها</string>
 </resources>

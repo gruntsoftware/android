@@ -306,4 +306,20 @@
     <string name="Send.cameraUnavailabeMessage.android">อนุญาตการเข้าถึงกล้องในการตั้งค่า</string>
     <string name="shop_title">ร้านค้า</string>
     <string name="shop_tagline">ซื้อบัตรของขวัญด้วย LTC!</string>
+    <string name="security_brainwallet_phrase_title">วลี Brainwallet</string>
+    <string name="pick_emojis_title">เลือก Emoji 3 ตัว</string>
+    <string name="pick_emojis_button_title">เลือก Emoji ที่ต่างกัน 3 ตัว</string>
+    <string name="pick_emojis_description">แตะกล่อง แสดงหรือซ่อนคำเพื่อเลือก emoji ของคุณ แตะ emoji คำแต่ละคำต้องต่างกัน</string>
+    <string name="how_to_choose_emojis_title">เลือก emoji 3 ตัวของคุณสำหรับเกม</string>
+    <string name="how_to_choose_emojis_description">ที่นี่คือสถานที่ที่คุณสร้าง brainwallet จริง จำวลี seed ของคุณผ่านเกม</string>
+    <string name="how_to_choose_emojis_bullet_one_title">เลือก emoji 3 ตัวแรก</string>
+    <string name="how_to_choose_emojis_bullet_one_description">มีคำ seed 12 คำในวลีของคุณ ใช้คำ 3 คำแรกในการเลือก</string>
+    <string name="how_to_choose_emojis_bullet_two_title">Emoji ที่มีความหมาย</string>
+    <string name="how_to_choose_emojis_bullet_two_description">ใช้การจับคู่กับคำเช่น มะนาว หรือ สีเหลือง หรือ ไม่ ขึ้นอยู่กับคุณ!</string>
+    <string name="how_to_choose_emojis_bullet_three_title">Seed ไปยังความจำของคุณ</string>
+    <string name="how_to_choose_emojis_bullet_three_description">เห็น emoji คุณจะจำคำ seed ได้ จำ emoji ของคุณ...รับ POINTS!</string>
+    <string name="lets_play_label">ตั้งค่า Emoji แล้ว มาเล่นกัน!</string>
+    <string name="your_emojis_title">Emoji Brainwallet ของคุณ</string>
+    <string name="your_emojis_description">คุณเลือก emoji เหล่านี้สำหรับเกมและช่วยให้คุณจำวลี seed ได้</string>
+    <string name="your_emojis_reset">ล้าง emoji</string>
 </resources>
