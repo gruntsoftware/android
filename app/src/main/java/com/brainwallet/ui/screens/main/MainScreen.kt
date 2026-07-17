@@ -41,6 +41,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -200,6 +201,24 @@ fun MainScreen(
         }
     }
 
+    LaunchedEffect(state.isDrawerOpen) {
+        if (state.isDrawerOpen) {
+            if (drawerState.isClosed) drawerState.open()
+        } else {
+            if (drawerState.isOpen) drawerState.close()
+        }
+    }
+
+    LaunchedEffect(drawerState) {
+        snapshotFlow { drawerState.currentValue }
+            .collect { value ->
+                val isOpen = value == DrawerValue.Open
+                if (isOpen != state.isDrawerOpen) {
+                    viewModel.onEvent(MainScreenEvent.OnDrawerVisibilityChanged(isOpen))
+                }
+            }
+    }
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         gesturesEnabled = drawerState.isOpen,
@@ -213,6 +232,7 @@ fun MainScreen(
                             topNavStartEndPadding +
                             topNavButtonSize
                     ),
+                isDrawerOpen = drawerState.isOpen
             )
         }
     ) {
@@ -307,13 +327,7 @@ fun MainScreen(
                             Spacer(modifier = Modifier.weight(1f))
                             SettingsButton(
                                 isDarkMode = isDarkMode,
-                                onClick = {
-                                    scope.launch {
-                                        drawerState.apply {
-                                            if (isClosed) open() else close()
-                                        }
-                                    }
-                                }
+                                onClick = { viewModel.onEvent(MainScreenEvent.OnToggleDrawer) }
                             )
                         }
                         LazyVerticalGrid(

@@ -509,15 +509,22 @@ class MainViewModel(
                     Timber.e(e)
                 }
             }
+            is MainScreenEvent.OnToggleDrawer -> {
+                _state.update { it.copy(isDrawerOpen = !it.isDrawerOpen) }
+            }
+
+            is MainScreenEvent.OnDrawerVisibilityChanged -> {
+                _state.update { it.copy(isDrawerOpen = event.isOpen) }
+            }
             is MainScreenEvent.OnUserChoosesEmojis -> {
             }
             is MainScreenEvent.OnUserClearsEmojis -> {
-                BRSharedPrefs.putEmojisChosen(this.app, false)
+                BRSharedPrefs.putEmojisChosen(app, false)
                 val emptyBytes = "".toByteArray(Charsets.UTF_8)
 
                 BRKeyStore.putEmojis(
                     emptyBytes,
-                    this.app,
+                    app,
                     BWConstants.PUT_EMOJIS_REQUEST_CODE
                 )
             }

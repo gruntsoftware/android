@@ -41,6 +41,7 @@ data class MainScreenState(
         0f,
         "$"
     ),
+    val isDrawerOpen: Boolean = false,
     val isInternetReachable: Boolean = true,
     val formattedCurrency: String = "",
     val gameURLString: String = "",
