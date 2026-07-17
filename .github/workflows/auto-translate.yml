@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.TRANSLATION_PAT_GHA_CLAUDE_JUL082026 }}
+          token: ${{ secrets.TRANSLATION_KCWGRUNT_CLAUDE_JUL182027 }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
