@@ -18,6 +18,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.AbstractComposeView
@@ -44,28 +47,36 @@ import kotlinx.coroutines.flow.onEach
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.java.KoinJavaComponent.inject
+import timber.log.Timber
 
 @Composable
 fun HomeSettingDrawerSheet(
     modifier: Modifier = Modifier,
+    isDrawerOpen: Boolean = false,
     syncAnalyticsRepository: SyncAnalyticsRepository = koinInject(),
     viewModel: SettingsViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsState()
     val context = LocalContext.current
+    var hasUserSetEmojis by remember { mutableStateOf(false) }
 
-    LaunchedEffect(Unit) {
-        viewModel.onEvent(
-            SettingsEvent.OnLoad(
-                shareAnalyticsDataEnabled = BRSharedPrefs.getShareData(
-                    context
-                ), // currently just load analytics share data here
-                lastSyncMetadata = syncAnalyticsRepository.getLastSyncMetadata(), // currently just load sync metadata here
+    LaunchedEffect(isDrawerOpen) {
+        if (isDrawerOpen) {
+            Timber.d("timber drawer open")
+            viewModel.onEvent(
+                SettingsEvent.OnLoad(
+                    shareAnalyticsDataEnabled = BRSharedPrefs.getShareData(context),
+                    lastSyncMetadata = syncAnalyticsRepository.getLastSyncMetadata(),
+                )
             )
-        )
+            hasUserSetEmojis = viewModel.hasUserSetEmojis()
+        } else {
+            hasUserSetEmojis = viewModel.hasUserSetEmojis()
+            Timber.d("timber drawer closed")
+        }
     }
 
-    // / Layout values
+    // Layout values
     val headerPadding = 56
 
     ModalDrawerSheet(
@@ -89,7 +100,7 @@ fun HomeSettingDrawerSheet(
                         .fillMaxSize()
                         .wrapContentHeight(),
                     shareAnalyticsDataEnabled = state.shareAnalyticsDataEnabled,
-                    userSetEmojis = viewModel.hasUserSetEmojis(),
+                    userSetEmojis = hasUserSetEmojis,
                     onEvent = {
                         viewModel.onEvent(it)
                     }

@@ -27,6 +27,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -47,7 +48,10 @@ import com.brainwallet.ui.screens.main.MainViewModel
 import com.brainwallet.ui.theme.DesignTheme
 import com.brainwallet.ui.theme.IBMPlexSans
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
+import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 fun YourEmojisScreen(
@@ -60,6 +64,7 @@ fun YourEmojisScreen(
     val horizontalVerticalSpacing = 8
     val leadingCopyPadding = 8
     val detailLineHeight = 24
+    val coroutineScope = rememberCoroutineScope()
 
     BrainwalletScaffold(
         topBar = {
@@ -121,6 +126,10 @@ fun YourEmojisScreen(
             LargeButton(
                 onClick = {
                     viewModel.onEvent(MainScreenEvent.OnUserClearsEmojis)
+                    coroutineScope.launch {
+                        delay(200L.milliseconds)
+                        onNavigate.invoke(UiEffect.Navigate.Back())
+                    }
                 },
             ) {
                 Text(

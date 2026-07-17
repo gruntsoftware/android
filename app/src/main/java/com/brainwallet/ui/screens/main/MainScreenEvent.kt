@@ -16,6 +16,8 @@ sealed class MainScreenEvent {
     data object OnExportTransactions : MainScreenEvent()
     data class OnCopyTransactions(val transactionItem: TxItem) : MainScreenEvent()
     data object OnToggleGameHub : MainScreenEvent()
+    data object OnToggleDrawer : MainScreenEvent()
+    data class OnDrawerVisibilityChanged(val isOpen: Boolean) : MainScreenEvent()
 
     data object OnUserClearsEmojis : MainScreenEvent()
 
