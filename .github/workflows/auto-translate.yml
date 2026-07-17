@@ -58,7 +58,7 @@ jobs:
       - name: Open Pull Request
         if: steps.changes.outputs.changed == 'true'
         env:
-          GH_TOKEN: ${{ secrets.TRANSLATION_KCWGRUNT_CLAUDE_JUL182027 }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh pr create \
             --title "🌍 Auto-translations: missing strings updated" \
