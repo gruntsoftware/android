@@ -511,4 +511,20 @@
     <string name="Send.cameraUnavailabeMessage.android">Permitir acceso a la cámara en Configuración</string>
     <string name="shop_title">Tienda</string>
     <string name="shop_tagline">¡Compra Tarjetas de Regalo con LTC!</string>
+    <string name="security_brainwallet_phrase_title">Frase Brainwallet</string>
+    <string name="pick_emojis_title">Elige 3 Emojis</string>
+    <string name="pick_emojis_button_title">Elige 3 Emojis Únicos</string>
+    <string name="pick_emojis_description">Toca una casilla. Muestra u oculta palabras para elegir tus emojis. Toca un emoji. Cada emoji debe ser diferente.</string>
+    <string name="how_to_choose_emojis_title">Elige tus 3 emojis para el juego</string>
+    <string name="how_to_choose_emojis_description">Aquí es donde construyes tu Brainwallet real. Memoriza tu frase de recuperación jugando.</string>
+    <string name="how_to_choose_emojis_bullet_one_title">Elige tus primeros 3 emojis</string>
+    <string name="how_to_choose_emojis_bullet_one_description">Hay 12 palabras de recuperación en tu frase. Usa las primeras 3 palabras para elegir.</string>
+    <string name="how_to_choose_emojis_bullet_two_title">Emojis con significado</string>
+    <string name="how_to_choose_emojis_bullet_two_description">Usa coincidencias con la palabra como limón. O, amarillo. ¡O no! ¡Tú decides!</string>
+    <string name="how_to_choose_emojis_bullet_three_title">Recuperación en tu memoria</string>
+    <string name="how_to_choose_emojis_bullet_three_description">Ve el emoji, recordarás la palabra de recuperación. Memoriza tu emoji...¡consigue PUNTOS!</string>
+    <string name="lets_play_label">Emojis configurados. ¡Vamos a jugar!</string>
+    <string name="your_emojis_title">Tus Emojis Brainwallet</string>
+    <string name="your_emojis_description">Elegiste estos emojis para el juego y te ayudan a recordar tu frase de recuperación</string>
+    <string name="your_emojis_reset">Borrar emojis</string>
 </resources>

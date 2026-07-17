@@ -436,4 +436,20 @@
     <string name="Send.cameraUnavailabeMessage.android">Kamerazugriff in den Einstellungen aktivieren</string>
     <string name="shop_title">Shop</string>
     <string name="shop_tagline">Kaufe Geschenkgutscheine mit LTC!</string>
+    <string name="security_brainwallet_phrase_title">Brainwallet-Phrase</string>
+    <string name="pick_emojis_title">Wähle 3 Emojis</string>
+    <string name="pick_emojis_button_title">Wähle 3 unterschiedliche Emojis</string>
+    <string name="pick_emojis_description">Tippe auf ein Feld. Blende Wörter ein oder aus, um deine Emojis auszuwählen. Tippe auf ein Emoji. Jedes Emoji muss unterschiedlich sein.</string>
+    <string name="how_to_choose_emojis_title">Wähle deine 3 Emojis für das Spiel</string>
+    <string name="how_to_choose_emojis_description">Hier erstellst du deine echte Brainwallet. Merke dir deine Seed-Phrase durch Spielen.</string>
+    <string name="how_to_choose_emojis_bullet_one_title">Wähle deine ersten 3 Emojis</string>
+    <string name="how_to_choose_emojis_bullet_one_description">Es gibt 12 Seed-Wörter in deiner Phrase. Nutze die ersten 3 Wörter zur Auswahl.</string>
+    <string name="how_to_choose_emojis_bullet_two_title">Emojis mit Bedeutung</string>
+    <string name="how_to_choose_emojis_bullet_two_description">Nutze Ähnlichkeiten zum Wort wie Zitrone. Oder gelb. Oder nicht. Du entscheidest!</string>
+    <string name="how_to_choose_emojis_bullet_three_title">Seed in deinem Gedächtnis</string>
+    <string name="how_to_choose_emojis_bullet_three_description">Siehst du das Emoji, wirst du dich an das Seed-Wort erinnern. Merke dir das Emoji...sammle PUNKTE!</string>
+    <string name="lets_play_label">Emojis gespeichert. Lass uns spielen!</string>
+    <string name="your_emojis_title">Deine Brainwallet-Emojis</string>
+    <string name="your_emojis_description">Du hast diese Emojis für das Spiel gewählt, um dir deine Seed-Phrase zu merken</string>
+    <string name="your_emojis_reset">Emojis löschen</string>
 </resources>

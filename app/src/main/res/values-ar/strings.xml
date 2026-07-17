@@ -306,4 +306,20 @@
     <string name="Send.cameraUnavailabeMessage.android">السماح بالوصول إلى الكاميرا من الإعدادات</string>
     <string name="shop_title">المتجر</string>
     <string name="shop_tagline">اشترِ بطاقات هدايا باستخدام LTC!</string>
+    <string name="security_brainwallet_phrase_title">عبارة Brainwallet</string>
+    <string name="pick_emojis_title">اختر 3 رموز تعبيرية</string>
+    <string name="pick_emojis_button_title">اختر 3 رموز تعبيرية فريدة</string>
+    <string name="pick_emojis_description">اضغط على صندوق. أظهر أو أخف الكلمات لاختيار رموزك التعبيرية. اضغط على رمز تعبيري. يجب أن يكون كل رمز تعبيري مختلفاً.</string>
+    <string name="how_to_choose_emojis_title">اختر 3 رموز تعبيرية خاصة بك للعبة</string>
+    <string name="how_to_choose_emojis_description">هنا حيث تبني محفظتك الحقيقية. احفظ عبارة البذرة الخاصة بك من خلال اللعب.</string>
+    <string name="how_to_choose_emojis_bullet_one_title">اختر أول 3 رموز تعبيرية</string>
+    <string name="how_to_choose_emojis_bullet_one_description">هناك 12 كلمة بذرة في عبارتك. استخدم أول 3 كلمات للاختيار.</string>
+    <string name="how_to_choose_emojis_bullet_two_title">رموز تعبيرية ذات معنى</string>
+    <string name="how_to_choose_emojis_bullet_two_description">استخدم تطابقات الكلمة مثل الليمون. أو الأصفر. أو لا. الأمر متروك لك!</string>
+    <string name="how_to_choose_emojis_bullet_three_title">البذرة في ذاكرتك</string>
+    <string name="how_to_choose_emojis_bullet_three_description">شاهد الرمز التعبيري، ستتذكر كلمة البذرة. احفظ رمزك التعبيري...احصل على نقاط!</string>
+    <string name="lets_play_label">تم تعيين الرموز التعبيرية. لننطلق!</string>
+    <string name="your_emojis_title">رموز Brainwallet التعبيرية الخاصة بك</string>
+    <string name="your_emojis_description">اخترت هذه الرموز التعبيرية للعبة لمساعدتك على تذكر عبارة البذرة الخاصة بك</string>
+    <string name="your_emojis_reset">مسح الرموز التعبيرية</string>
 </resources>

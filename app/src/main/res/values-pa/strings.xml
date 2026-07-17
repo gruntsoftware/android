@@ -672,4 +672,20 @@
     <string name="Send.cameraUnavailabeMessage.android">ਸੈਟਿੰਗਜ਼ ਵਿੱਚ ਕੈਮਰੇ ਦੀ ਅਨੁਮਤੀ ਦਿਓ</string>
     <string name="shop_title">ਦੁਕਾਨ</string>
     <string name="shop_tagline">LTC ਨਾਲ ਗਿਫ਼ਟ ਕਾਰਡ ਖਰੀਦੋ!</string>
+    <string name="security_brainwallet_phrase_title">Brainwallet ਵਾਕਾਂਸ਼</string>
+    <string name="pick_emojis_title">3 Emojis ਚੁਣੋ</string>
+    <string name="pick_emojis_button_title">3 ਵਿਲੱਖਣ Emojis ਚੁਣੋ</string>
+    <string name="pick_emojis_description">ਇੱਕ ਬਾਕਸ ਨੂੰ ਟੈਪ ਕਰੋ। ਆਪਣੇ emojis ਚੁਣਨ ਲਈ ਸ਼ਬਦ ਦਿਖਾਓ ਜਾਂ ਲੁਕਾਓ। ਇੱਕ emoji ਨੂੰ ਟੈਪ ਕਰੋ। ਹਰ emoji ਵੱਖਰਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।</string>
+    <string name="how_to_choose_emojis_title">ਆਪਣੇ 3 emojis ਖੇਲ ਲਈ ਚੁਣੋ</string>
+    <string name="how_to_choose_emojis_description">ਇਹ ਉਹ ਥਾਂ ਹੈ ਜਿੱਥੇ ਤੁਸੀਂ ਆਪਣੇ ਅਸਲ Brainwallet ਨੂੰ ਬਣਾਉਂਦੇ ਹੋ। ਖੇਲ ਦੇ ਮਾਧਿਅਮ ਨਾਲ ਆਪਣੇ ਸੀਡ ਵਾਕਾਂਸ਼ ਨੂੰ ਯਾਦ ਰੱਖੋ।</string>
+    <string name="how_to_choose_emojis_bullet_one_title">ਆਪਣੇ ਪਹਿਲੇ 3 emojis ਚੁਣੋ</string>
+    <string name="how_to_choose_emojis_bullet_one_description">ਆਪਣੇ ਵਾਕਾਂਸ਼ ਵਿੱਚ 12 ਸੀਡ ਸ਼ਬਦ ਹਨ। ਚੁਣਨ ਲਈ ਪਹਿਲੇ 3 ਸ਼ਬਦਾਂ ਦੀ ਵਰਤੋਂ ਕਰੋ।</string>
+    <string name="how_to_choose_emojis_bullet_two_title">Emojis ਜਿਨ੍ਹਾਂ ਦਾ ਅਰਥ ਹੈ</string>
+    <string name="how_to_choose_emojis_bullet_two_description">ਸ਼ਬਦ ਦੇ ਅਨੁਸਾਰ ਮੇਲ ਵਰਤੋਂ, ਜਿਵੇਂ ਨਿੰਬੂ। ਜਾਂ, ਪੀਲਾ। ਜਾਂ, ਨਹੀਂ। ਇਹ ਤੁਹਾਡੇ ਉਤੇ ਹੈ!</string>
+    <string name="how_to_choose_emojis_bullet_three_title">ਆਪਣੀ ਯਾਦ ਨੂੰ ਸੀਡ ਕਰੋ</string>
+    <string name="how_to_choose_emojis_bullet_three_description">emoji ਨੂੰ ਦੇਖੋ, ਤੁਸੀਂ ਸੀਡ ਸ਼ਬਦ ਯਾਦ ਕਰੋਗੇ। ਆਪਣੇ emoji ਨੂੰ ਯਾਦ ਰੱਖੋ...ਪੁਆਇੰਟ ਪ੍ਰਾਪਤ ਕਰੋ!</string>
+    <string name="lets_play_label">Emojis ਸੈਟ ਕੀਤੇ ਗਏ। ਚਲੋ ਖੇਡੀਏ!</string>
+    <string name="your_emojis_title">ਤੁਹਾਡੇ Brainwallet Emojis</string>
+    <string name="your_emojis_description">ਤੁਸੀਂ ਇਹ emojis ਖੇਲ ਲਈ ਚੁਣੇ ਹਨ ਅਤੇ ਆਪਣੇ ਸੀਡ ਵਾਕਾਂਸ਼ ਨੂੰ ਯਾਦ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ</string>
+    <string name="your_emojis_reset">Emojis ਨੂੰ ਸਾਫ਼ ਕਰੋ</string>
 </resources>

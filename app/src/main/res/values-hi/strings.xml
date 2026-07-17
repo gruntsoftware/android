@@ -306,4 +306,20 @@
     <string name="Send.cameraUnavailabeMessage.android">सेटिंग्स में कैमरा एक्सेस की अनुमति दें</string>
     <string name="shop_title">दुकान</string>
     <string name="shop_tagline">LTC के साथ गिफ्ट कार्ड खरीदें!</string>
+    <string name="security_brainwallet_phrase_title">Brainwallet phrase</string>
+    <string name="pick_emojis_title">3 Emojis चुनें</string>
+    <string name="pick_emojis_button_title">3 अद्वितीय Emojis चुनें</string>
+    <string name="pick_emojis_description">एक बॉक्स पर टैप करें। शब्दों को दिखाने या छिपाने के लिए टैप करें अपने emojis चुनने के लिए। एक emoji पर टैप करें। प्रत्येक emoji अलग होना चाहिए।</string>
+    <string name="how_to_choose_emojis_title">गेम के लिए अपने 3 emojis चुनें</string>
+    <string name="how_to_choose_emojis_description">यहाँ आप अपना असली Brainwallet बनाते हैं। गेमिंग के माध्यम से अपने seed phrase को याद रखें।</string>
+    <string name="how_to_choose_emojis_bullet_one_title">अपने पहले 3 emojis चुनें</string>
+    <string name="how_to_choose_emojis_bullet_one_description">आपके phrase में 12 seed words हैं। चुनने के लिए पहले 3 words का उपयोग करें।</string>
+    <string name="how_to_choose_emojis_bullet_two_title">Emojis जिनका अर्थ है</string>
+    <string name="how_to_choose_emojis_bullet_two_description">शब्द से मेल खाएं जैसे नींबू। या, पीला। या, नहीं। यह आप पर निर्भर है!</string>
+    <string name="how_to_choose_emojis_bullet_three_title">अपनी स्मृति के लिए Seed</string>
+    <string name="how_to_choose_emojis_bullet_three_description">emoji देखें, आप seed word को याद रखेंगे। अपने emoji को याद रखें...POINTS प्राप्त करें!</string>
+    <string name="lets_play_label">Emojis सेट हो गए। चलिए खेलते हैं!</string>
+    <string name="your_emojis_title">आपके Brainwallet Emojis</string>
+    <string name="your_emojis_description">आपने गेम के लिए ये emojis चुने हैं और अपने seed phrase को याद रखने में मदद करते हैं</string>
+    <string name="your_emojis_reset">Emojis साफ़ करें</string>
 </resources>

@@ -662,4 +662,20 @@
     <string name="Send.cameraUnavailabeMessage.android">Разрешите доступ к камере в Настройках</string>
     <string name="shop_title">Магазин</string>
     <string name="shop_tagline">Покупайте подарочные карты за LTC!</string>
+    <string name="security_brainwallet_phrase_title">Фраза Brainwallet</string>
+    <string name="pick_emojis_title">Выберите 3 эмодзи</string>
+    <string name="pick_emojis_button_title">Выберите 3 уникальных эмодзи</string>
+    <string name="pick_emojis_description">Нажмите на поле. Показывайте или скрывайте слова, чтобы выбрать эмодзи. Нажмите на эмодзи. Каждый эмодзи должен быть разным.</string>
+    <string name="how_to_choose_emojis_title">Выберите 3 эмодзи для игры</string>
+    <string name="how_to_choose_emojis_description">Здесь вы создаёте свой настоящий Brainwallet. Запомните фразу-семя через игру.</string>
+    <string name="how_to_choose_emojis_bullet_one_title">Выберите первые 3 эмодзи</string>
+    <string name="how_to_choose_emojis_bullet_one_description">В вашей фразе 12 слов-семян. Используйте первые 3 слова для выбора.</string>
+    <string name="how_to_choose_emojis_bullet_two_title">Эмодзи со смыслом</string>
+    <string name="how_to_choose_emojis_bullet_two_description">Подберите эмодзи к слову, как лимон. Или жёлтый. Или нет. Решайте сами!</string>
+    <string name="how_to_choose_emojis_bullet_three_title">Фраза-семя в памяти</string>
+    <string name="how_to_choose_emojis_bullet_three_description">Видите эмодзи — вспомните слово-семя. Запомните эмодзи...получайте ОЧКИ!</string>
+    <string name="lets_play_label">Эмодзи готовы. Играем!</string>
+    <string name="your_emojis_title">Ваши эмодзи Brainwallet</string>
+    <string name="your_emojis_description">Вы выбрали эти эмодзи для игры, чтобы помочь себе запомнить фразу-семя</string>
+    <string name="your_emojis_reset">Очистить эмодзи</string>
 </resources>
