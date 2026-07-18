@@ -19,6 +19,9 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import com.brainwallet.gameinterface.GameSlot
+import com.brainwallet.gameinterface.LocalGameSlot
+import org.koin.compose.getKoin
 
 val LocalLanguageISOCode = staticCompositionLocalOf {
     "en"
@@ -59,6 +62,7 @@ fun DesignTheme(
         LocalBWColors provides colors,
         LocalLanguageISOCode provides languageCode,
         LocalIsDarkModeFlag provides isDarkMode,
+        LocalGameSlot provides getKoin().getOrNull<GameSlot>()
     ) {
         MaterialTheme(
             typography = BWTypography,

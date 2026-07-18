@@ -73,7 +73,7 @@ class SetPasscodeViewModel : BrainwalletViewModel<SetPasscodeEvent>() {
                     )
                 }
 
-                // if passcode confirm all filled, then goto your seed words
+                // if passcode confirm all filled
                 if (it.isMatchPasscode()) {
                     viewModelScope.launch {
                         EventBus.emit(

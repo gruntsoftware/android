@@ -1,5 +1,6 @@
 package com.brainwallet.ui.screens.settings
 
+import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.viewModelScope
@@ -9,6 +10,7 @@ import com.brainwallet.data.model.toFeeOptions
 import com.brainwallet.data.repository.LtcRepository
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.domain.LanguageSwitcherUseCase
+import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.manager.FeeManager
 import com.brainwallet.ui.BrainwalletViewModel
 import com.brainwallet.util.EventBus
@@ -34,6 +36,7 @@ class SettingsViewModel(
     private val languageSwitcherUseCase: LanguageSwitcherUseCase,
     private val ltcRepository: LtcRepository,
     versionCodeProvider: VersionCodeProvider,
+    private val app: Application,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : BrainwalletViewModel<SettingsEvent>() {
 
@@ -86,6 +89,9 @@ class SettingsViewModel(
                 delay(4000)
             }
         }
+    }
+    fun hasUserSetEmojis(): Boolean {
+        return BRSharedPrefs.wereEmojisChosen(app)
     }
 
     override fun onEvent(event: SettingsEvent) {
@@ -183,6 +189,15 @@ class SettingsViewModel(
                 )
             }
 
+            SettingsEvent.OnSecurityBrainwalletPhraseClick -> viewModelScope.launch {
+                EventBus.emit(
+                    EventBus.Event.Message(
+                        LEGACY_EFFECT_ON_BRAINWALLET_PHRASE,
+                        address = null
+                    )
+                )
+            }
+
             SettingsEvent.OnSecurityUpdatePinClick -> viewModelScope.launch {
                 EventBus.emit(
                     EventBus.Event.Message(
@@ -216,6 +231,8 @@ class SettingsViewModel(
         const val LEGACY_EFFECT_ON_SYNC = "onSyncInvoked"
         const val LEGACY_EFFECT_ON_SEC_UPDATE_PIN = "onSecUpdatePin"
         const val LEGACY_EFFECT_ON_SEED_PHRASE = "onSeedPhrase"
+
+        const val LEGACY_EFFECT_ON_BRAINWALLET_PHRASE = "onBrainwalletPhrase"
         const val LEGACY_EFFECT_ON_SHARE_ANALYTICS_DATA_TOGGLE = "onShareAnalyticsDataToggle"
     }
 }

@@ -44,7 +44,6 @@ fun SendScreen(
     onOpenScanner: () -> Unit = {},
     onDimissSendModal: () -> Unit = {},
     viewModel: SendViewModel = koinViewModel(),
-    mainViewModel: MainViewModel = koinViewModel()
 ) {
     val uiState by viewModel.state.collectAsState()
     val context = LocalContext.current

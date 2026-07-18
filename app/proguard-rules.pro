@@ -43,6 +43,9 @@
 -dontwarn java.lang.reflect.AnnotatedType
 -dontwarn com.google.api.client.http.**
 -dontwarn org.joda.time.**
+-dontwarn com.badlogic.gdx.maps.tiled.AtlasTmxMapLoader$AtlasTiledMapLoaderParameters
+-dontwarn com.badlogic.gdx.maps.tiled.TmxMapLoader$Parameters
+-dontwarn com.badlogic.gdx.utils.StringBuilder
 
 -keepclasseswithmembernames class * {
  native <methods>;

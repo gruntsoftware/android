@@ -24,19 +24,22 @@ import com.brainwallet.R
 import com.brainwallet.constants.BWConstants
 import com.brainwallet.constants.bentoSpacer
 import com.brainwallet.constants.transactionQRSize
+import com.brainwallet.presenter.entities.ServiceItems
 import com.brainwallet.presenter.entities.TxItem
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.qrcode.QRUtils
 import com.brainwallet.tools.util.BRCurrency
 import com.brainwallet.tools.util.BRExchange
 import com.brainwallet.tools.util.BRExchange.ONE_LITECOIN_OF_LITOSHIS
+import com.brainwallet.tools.util.Utils
 import com.brainwallet.ui.theme.IBMPlexSans
 import com.brainwallet.ui.theme.mainBentoSurface
 import timber.log.Timber
 import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.Locale
+import kotlin.collections.toHashSet
+import androidx.compose.ui.platform.LocalLocale
 
 @Composable
 fun TransactionDetail(
@@ -45,10 +48,33 @@ fun TransactionDetail(
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
-    val ltcAddressString = currentTransaction?.to?.firstOrNull() ?: ""
+
+    // LTC address to recipient or Brainwallet user
+    val ltcAddress: String?
+
+    // determine sent vs received state
+    val wasSentVsReceived = ((currentTransaction?.received ?: 0L) - (currentTransaction?.sent ?: 0L)) < 0
+
+    // Output addresses
+    val outputAddressSet = currentTransaction?.to?.toHashSet()
+    val opsSet = Utils.fetchServiceItem(context, ServiceItems.OPSALL)
+        .split(",")
+        .toHashSet()
+
+    ltcAddress = outputAddressSet
+        ?.filter { it !in opsSet }
+        ?.filterNotNull()
+        ?.firstOrNull() ?: "ERROR-ADDRESS"
+
+    val toFromAddressFormatting: String = if (wasSentVsReceived) {
+        String.format(stringResource(R.string.TransactionDetails_to), ltcAddress)
+    } else {
+        String.format(stringResource(R.string.TransactionDetails_from), ltcAddress)
+    }
+
     val formatter = SimpleDateFormat(
         "MMM dd, yyyy hh:mm a",
-        Locale.getDefault()
+        LocalLocale.current.platformLocale
     )
     val dateTimestamp = formatter.format(Date(currentTransaction?.timeStamp?.times(1000L) ?: 0L))
     val wasReceived = currentTransaction?.getSent() == 0L
@@ -99,7 +125,7 @@ fun TransactionDetail(
     val combinedFees = BigDecimal(currentTransaction?.fee ?: 0L) + BigDecimal(opsAmount)
     val feesLitoshis = combinedFees.divide(BigDecimal(ONE_LITECOIN_OF_LITOSHIS))
     val feesTotal = String.format("-Ł $feesLitoshis")
-    val qrBitmap = QRUtils.generateQR(context, "litecoin:$ltcAddressString").asImageBitmap()
+    val qrBitmap = QRUtils.generateQR(context, "litecoin:$ltcAddress").asImageBitmap()
     val txIDBrowserURL: String = run {
         "${BWConstants.BLOCKCHAIR_EXPLORER_BASE_URL}${currentTransaction?.txHashHexReversed ?: ""}"
     }
@@ -282,7 +308,7 @@ fun TransactionDetail(
                     modifier = Modifier
                         .fillMaxWidth(0.5f)
                         .padding(4.dp),
-                    text = ltcAddressString,
+                    text = ltcAddress,
                     style = TextStyle(
                         fontFamily = IBMPlexSans,
                         fontWeight = FontWeight.SemiBold,

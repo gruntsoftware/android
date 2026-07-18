@@ -52,7 +52,7 @@ class BalanceBentoViewModel(
                         currentBlockHeight = blockInfo.blockHeight,
                         lastTimeStamp = formatter.format(Date(blockInfo.timestamp * 1000L)),
                         syncProgress = blockInfo.syncProgress,
-                        brainwalletIsSyncing = blockInfo.syncProgress <= 0.99f,
+                        brainwalletIsSyncing = blockInfo.syncProgress <= 0.999f,
                     )
                 }
                 Timber.d("brainwalletIsSyncing Collecting PeerManager %s", state.value.brainwalletIsSyncing)
@@ -137,7 +137,7 @@ class BalanceBentoViewModel(
                         fiatCode = currentSettings.currency.code,
                         symbol = currentSettings.currency.symbol,
                         syncProgress = syncProgress,
-                        brainwalletIsSyncing = syncProgress <= 0.99f
+                        brainwalletIsSyncing = syncProgress <= 0.999f
                     )
                 }
             }

@@ -8,6 +8,7 @@ import com.brainwallet.ui.bentosections.transactionbento.TransactionFilterState
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import java.math.BigDecimal
+import java.net.URI
 
 data class MainScreenState(
     val moonpayCurrencyLimit: MoonpayCurrencyLimit = MoonpayCurrencyLimit(),
@@ -22,6 +23,7 @@ data class MainScreenState(
     val showTransactionDetail: Boolean = false,
     val shouldShowFiatValues: Boolean = false,
     val brainwalletIsSyncing: Boolean = false,
+    val isGameHubOpen: Boolean = false,
     val transactionItems: ImmutableList<TxItem> = persistentListOf(),
     val filterState: TransactionFilterState = TransactionFilterState.ALL,
     val allTransactionItems: ImmutableList<TxItem> = persistentListOf(),
@@ -39,8 +41,11 @@ data class MainScreenState(
         0f,
         "$"
     ),
+    val isDrawerOpen: Boolean = false,
     val isInternetReachable: Boolean = true,
-    val formattedCurrency: String = ""
+    val formattedCurrency: String = "",
+    val gameURLString: String = "",
+    val gameImageURI: URI = URI.create("")
 ) {
     val fiatBalance: BigDecimal
         get() = litoshiBalance

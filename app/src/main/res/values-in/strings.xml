@@ -662,4 +662,20 @@
     <string name="Send.cameraUnavailabeMessage.android">Izinkan akses kamera di Pengaturan</string>
     <string name="shop_title">Toko</string>
     <string name="shop_tagline">Beli Kartu Hadiah dengan LTC!</string>
+    <string name="security_brainwallet_phrase_title">Frasa Brainwallet</string>
+    <string name="pick_emojis_title">Pilih 3 Emoji</string>
+    <string name="pick_emojis_button_title">Pilih 3 Emoji Unik</string>
+    <string name="pick_emojis_description">Ketuk kotak. Tampilkan atau sembunyikan kata untuk memilih emoji Anda. Ketuk emoji. Setiap emoji harus berbeda.</string>
+    <string name="how_to_choose_emojis_title">Pilih 3 emoji Anda untuk permainan</string>
+    <string name="how_to_choose_emojis_description">Di sini Anda membangun brainwallet asli Anda. Hafalkan frasa seed Anda melalui permainan.</string>
+    <string name="how_to_choose_emojis_bullet_one_title">Pilih 3 emoji pertama Anda</string>
+    <string name="how_to_choose_emojis_bullet_one_description">Ada 12 kata seed dalam frasa Anda. Gunakan 3 kata pertama untuk memilih.</string>
+    <string name="how_to_choose_emojis_bullet_two_title">Emoji yang memiliki makna</string>
+    <string name="how_to_choose_emojis_bullet_two_description">Gunakan kecocokan dengan kata seperti lemon. Atau, kuning. Atau, tidak. Serah pada Anda!</string>
+    <string name="how_to_choose_emojis_bullet_three_title">Seed ke memori Anda</string>
+    <string name="how_to_choose_emojis_bullet_three_description">Lihat emoji, Anda akan mengingat kata seed. Hafalkan emoji Anda...dapatkan POIN!</string>
+    <string name="lets_play_label">Emoji sudah diatur. Mari bermain!</string>
+    <string name="your_emojis_title">Emoji Brainwallet Anda</string>
+    <string name="your_emojis_description">Anda memilih emoji ini untuk permainan dan membantu Anda mengingat frasa seed Anda</string>
+    <string name="your_emojis_reset">Hapus emoji</string>
 </resources>

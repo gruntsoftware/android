@@ -17,6 +17,7 @@ import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.repository.TxRepository
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.manager.BRSharedPrefs
+import com.brainwallet.tools.security.BRKeyStore
 import com.brainwallet.tools.sqlite.TransactionDataSource
 import com.brainwallet.tools.util.BRExchange.ONE_LITECOIN_OF_LITOSHIS
 import com.brainwallet.ui.BrainwalletViewModel
@@ -26,6 +27,8 @@ import com.brainwallet.util.CurrencyDataGetter
 import com.brainwallet.util.VersionCodeProvider
 import com.brainwallet.wallet.BRPeerManager
 import com.brainwallet.wallet.BRWalletManager
+import com.brainwallet.wallet.WalletOperations
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -43,12 +46,16 @@ import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.json.JSONArray
+import org.json.JSONObject
 import org.koin.android.annotation.KoinViewModel
 import timber.log.Timber
 import java.math.BigDecimal
+import java.text.BreakIterator
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import kotlin.String
 
 @OptIn(FlowPreview::class)
 @KoinViewModel
@@ -59,6 +66,7 @@ class MainViewModel(
     private val txRepository: TxRepository,
     private val connectivityRepository: ConnectivityRepository,
     private val balanceBentoViewModel: BalanceBentoViewModel,
+    private val getWalletManager: () -> WalletOperations = { BRWalletManager.getInstance() },
     versionCodeProvider: VersionCodeProvider,
 ) : BrainwalletViewModel<MainScreenEvent>(),
     BRWalletManager.OnBalanceChanged,
@@ -74,6 +82,8 @@ class MainViewModel(
         )
     val state: StateFlow<MainScreenState> = _state.asStateFlow()
     val appSetting: StateFlow<AppSetting> = settingRepository.currentSettings
+    val walletManager = getWalletManager()
+    val seedWords: ImmutableList<String> = walletManager.getSeedWords()
 
     init {
 
@@ -170,6 +180,38 @@ class MainViewModel(
                     _state.update { it.copy(brainwalletIsSyncing = brainwalletIsSyncing) }
                 }
         }
+    }
+    fun produceLaunchParams(): String {
+        val address = BRSharedPrefs.getReceiveAddress(app)
+        val timestamp = java.util.Date().time
+        val userLanguage = settingRepository.getCurrentLanguage().code
+        val emojis = runCatching { BRKeyStore.getEmojis(app, BWConstants.SHOW_EMOJIS_REQUEST_CODE) }
+            .getOrNull()?.decodeToString() ?: "NO_EMOJIS"
+
+        val emojiArray = JSONArray().apply {
+            val boundary = BreakIterator.getCharacterInstance()
+            boundary.setText(emojis)
+            var start = boundary.first()
+            var end = boundary.next()
+            while (end != BreakIterator.DONE) {
+                put(emojis.substring(start, end))
+                start = end
+                end = boundary.next()
+            }
+        }
+
+        val launchParameters = JSONObject().apply {
+            put("address", address)
+            put("language", userLanguage)
+            put("timestamp", timestamp)
+            put("emojis", emojiArray)
+        }
+
+        val obj = JSONObject().apply {
+            put("launchParameters", launchParameters)
+        }
+
+        return obj.toString()
     }
 
     fun onResume(
@@ -344,6 +386,10 @@ class MainViewModel(
                     onLoading(false)
                 }
             }
+            is MainScreenEvent.OnPostSocial -> viewModelScope.launch {
+                val jsonString = event.jsonString
+                val screenShotData = event.screenShotData
+            }
             is MainScreenEvent.OnToggleDarkMode -> viewModelScope.launch {
                 val currentSettings = appSetting.value
                 settingRepository.save(
@@ -377,10 +423,13 @@ class MainViewModel(
                         transactionItems = filteredTransactions
                     )
                 }
-                AnalyticsManager.logCustomAdHocEvent("did_toggle_txn_filter")
+                AnalyticsManager.logCustomAdHocEvent("did_toggle_txn_filter", null)
             }
             is MainScreenEvent.OnExportTransactions -> {
                 // TODO: Implement
+            }
+            is MainScreenEvent.OnToggleGameHub -> {
+                _state.update { it.copy(isGameHubOpen = !it.isGameHubOpen) }
             }
             is MainScreenEvent.OnCopyTransactions -> {
                 val currentTransaction = event.transactionItem
@@ -459,6 +508,25 @@ class MainViewModel(
                 } catch (e: java.lang.Exception) {
                     Timber.e(e)
                 }
+            }
+            is MainScreenEvent.OnToggleDrawer -> {
+                _state.update { it.copy(isDrawerOpen = !it.isDrawerOpen) }
+            }
+
+            is MainScreenEvent.OnDrawerVisibilityChanged -> {
+                _state.update { it.copy(isDrawerOpen = event.isOpen) }
+            }
+            is MainScreenEvent.OnUserChoosesEmojis -> {
+            }
+            is MainScreenEvent.OnUserClearsEmojis -> {
+                BRSharedPrefs.putEmojisChosen(app, false)
+                val emptyBytes = "".toByteArray(Charsets.UTF_8)
+
+                BRKeyStore.putEmojis(
+                    emptyBytes,
+                    app,
+                    BWConstants.PUT_EMOJIS_REQUEST_CODE
+                )
             }
         }
     }

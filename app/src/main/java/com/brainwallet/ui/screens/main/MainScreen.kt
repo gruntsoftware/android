@@ -1,5 +1,4 @@
 package com.brainwallet.ui.screens.home
-
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -7,6 +6,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -41,9 +41,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
@@ -62,15 +64,16 @@ import com.brainwallet.constants.topNavButtonSize
 import com.brainwallet.constants.topNavStartEndPadding
 import com.brainwallet.constants.transactionRowHt
 import com.brainwallet.data.model.AppSetting
+import com.brainwallet.gameinterface.LocalGameSlot
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
 import com.brainwallet.tools.animation.BRAnimator
-import com.brainwallet.tools.manager.AnalyticsManager
+import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.util.withTheme
 import com.brainwallet.ui.bentosections.balancebento.BalanceBentoScreen
 import com.brainwallet.ui.bentosections.buyreceivebento.receive.ReceiveDialog
-import com.brainwallet.ui.bentosections.gamehubbento.GameHubBentoPagerScreen
+import com.brainwallet.ui.bentosections.gamehubbento.GameHubBentoScreen
 import com.brainwallet.ui.bentosections.ltcpickerbento.LTCPickerBentoScreen
 import com.brainwallet.ui.bentosections.shopbento.ShopBentoEvent
 import com.brainwallet.ui.bentosections.shopbento.ShopBentoScreen
@@ -80,11 +83,14 @@ import com.brainwallet.ui.bentosections.tutorials.TutorialsBentoScreen
 import com.brainwallet.ui.bentosections.tutorials.send.TutorialSendPagerScreen
 import com.brainwallet.ui.bentosections.tutorials.walkthrough.TutorialWalkthroughPagerScreen
 import com.brainwallet.ui.composable.BentoBottomNavBar
+import com.brainwallet.gameinterface.GameSplash
+import com.brainwallet.ui.screens.gamehub.GameHubViewModel
 import com.brainwallet.ui.screens.main.MainScreenEvent
 import com.brainwallet.ui.screens.main.MainViewModel
 import com.brainwallet.ui.screens.main.SettingsButton
 import com.brainwallet.ui.screens.main.ThemeButton
 import com.brainwallet.ui.screens.main.WebModalScreen
+import com.brainwallet.ui.screens.emojis.EmojiPagerScreen
 import com.brainwallet.ui.screens.send.SendScreen
 import com.brainwallet.ui.screens.settings.settingsrows.HomeSettingDrawerSheet
 import com.brainwallet.ui.theme.BrainwalletAppTheme
@@ -96,6 +102,7 @@ import com.brainwallet.ui.theme.mainScreenDarkSurfaceGradient
 import com.brainwallet.ui.theme.mainScreenLightSurfaceGradient
 import com.brainwallet.util.EventBus
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -108,7 +115,8 @@ fun MainScreen(
     onNavigate: OnNavigate,
     modifier: Modifier = Modifier,
     viewModel: MainViewModel = koinViewModel(),
-    shopBentoViewModel: ShopBentoViewModel = koinViewModel()
+    shopBentoViewModel: ShopBentoViewModel = koinViewModel(),
+    gameHubViewModel: GameHubViewModel = koinViewModel()
 ) {
     val context = LocalContext.current
     var currentRoute by remember { mutableStateOf<Route>(Route.Main) }
@@ -123,6 +131,19 @@ fun MainScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     val showTransactionDetail = state.showTransactionDetail
     val noTxItemsPresent = state.transactionItems.isEmpty()
+    val address = BRSharedPrefs.getReceiveAddress(context)
+
+    // / Splash setup vars
+    var splashAlpha by remember { mutableStateOf(0f) }
+    val animatedSplashAlpha by animateFloatAsState(
+        targetValue = splashAlpha,
+        animationSpec = tween(durationMillis = 400),
+        label = "splashAlpha"
+    )
+
+    var gameVisible by remember { mutableStateOf(false) }
+    var isFirstComposition by remember { mutableStateOf(true) }
+
     val blurRadiusWhen by animateFloatAsState(
         targetValue = when {
             !isSheetOpen -> 0f
@@ -154,6 +175,50 @@ fun MainScreen(
             }
     }
 
+    // / Splash setup animation
+    // / sequence the open/close whenever isGameHubOpen flips
+    LaunchedEffect(state.isGameHubOpen) {
+        if (isFirstComposition) {
+            isFirstComposition = false
+            gameVisible = state.isGameHubOpen
+            return@LaunchedEffect
+        }
+        if (state.isGameHubOpen) {
+            splashAlpha = 0.6f
+            delay(50)
+            gameVisible = true
+            delay(600)
+            splashAlpha = 0f
+        } else {
+            splashAlpha = 0.6f
+            delay(550)
+            gameVisible = false
+            delay(50)
+            splashAlpha = 0f
+            Timber.d(
+                "timber splashAlpha=$splashAlpha"
+            )
+        }
+    }
+
+    LaunchedEffect(state.isDrawerOpen) {
+        if (state.isDrawerOpen) {
+            if (drawerState.isClosed) drawerState.open()
+        } else {
+            if (drawerState.isOpen) drawerState.close()
+        }
+    }
+
+    LaunchedEffect(drawerState) {
+        snapshotFlow { drawerState.currentValue }
+            .collect { value ->
+                val isOpen = value == DrawerValue.Open
+                if (isOpen != state.isDrawerOpen) {
+                    viewModel.onEvent(MainScreenEvent.OnDrawerVisibilityChanged(isOpen))
+                }
+            }
+    }
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         gesturesEnabled = drawerState.isOpen,
@@ -167,208 +232,245 @@ fun MainScreen(
                             topNavStartEndPadding +
                             topNavButtonSize
                     ),
+                isDrawerOpen = drawerState.isOpen
             )
         }
     ) {
-        Scaffold(
-            modifier = modifier
-                .background(
-                    if (isDarkMode) {
-                        mainScreenDarkSurfaceGradient
-                    } else {
-                        mainScreenLightSurfaceGradient
-                    }
-                )
-                .blurAnimatedWith(blurRadiusWhen),
-            containerColor = Color.Transparent,
-            bottomBar = {
-                BentoBottomNavBar(
-                    isDarkMode = appSetting.isDarkMode,
-                    currentRoute = currentRoute,
-                    isShowingTransactionDetail = showTransactionDetail,
-                    canUserSend = canUserSend,
-                    noTxItemsPresent = noTxItemsPresent,
-                    onToggleTransactionDetail = {
-                        viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail)
-                        if (showTransactionDetail) currentRoute = Route.Main
-                    },
-                    onItemClick = { route: Route ->
-                        currentRoute = route
-
-                        if (route == Route.Main) {
-                            scope.launch { sheetState.hide() }.invokeOnCompletion {
-                                if (!sheetState.isVisible) {
-                                    isSheetOpen = false
-                                }
-                            }
-                            onNavigate.invoke(UiEffect.Navigate(route))
-                        } else if (route == Route.History) {
+        Box(Modifier.fillMaxSize()) {
+            Scaffold(
+                modifier = modifier
+                    .background(
+                        if (isDarkMode) {
+                            mainScreenDarkSurfaceGradient
+                        } else {
+                            mainScreenLightSurfaceGradient
+                        }
+                    )
+                    .blurAnimatedWith(blurRadiusWhen),
+                containerColor = Color.Transparent,
+                bottomBar = {
+                    BentoBottomNavBar(
+                        isDarkMode = appSetting.isDarkMode,
+                        currentRoute = currentRoute,
+                        isShowingTransactionDetail = showTransactionDetail,
+                        canUserSend = canUserSend,
+                        noTxItemsPresent = noTxItemsPresent,
+                        onToggleTransactionDetail = {
                             viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail)
                             if (showTransactionDetail) currentRoute = Route.Main
-                        } else {
-                            modalContentRoute = route
-                            isSheetOpen = true
-                        }
-                    },
-                )
-            }
+                        },
+                        onItemClick = { route: Route ->
+                            currentRoute = route
 
-        ) { padding ->
-            BoxWithConstraints(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding)
-            ) {
-                val topNavRowHt = topNavButtonSize + (topNavStartEndPadding * 2)
-                val availableHeight = maxHeight -
-                    topNavRowHt -
-                    (bentoSpacer * 5) -
-                    balanceGameBentoHt -
-                    transactionRowHt -
-                    gameHubHt
-                val transactionsDetailHeight = availableHeight + gameHubHt + balanceGameBentoHt
-                val ltcPickerBentoHeight = (availableHeight * 0.7f) - (bentoSpacer / 2)
-                val storeBentoHeight = (availableHeight * 0.3f) - (bentoSpacer / 2)
-                val transactionBentoHeight by animateDpAsState(
-                    targetValue = if (showTransactionDetail) transactionsDetailHeight else transactionRowHt,
-                    animationSpec = tween(EXPAND_DURATION),
-                    label = "transactionHeight"
-                )
-                Timber.d(
-                    "bento layout maxHeight=$maxHeight "
-                )
-                Column {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(
-                                horizontal = topNavStartEndPadding,
-                                vertical = topNavStartEndPadding
-                            ),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        ThemeButton(
-                            isDarkMode = isDarkMode,
-                            onClick = {
-                                viewModel.onEvent(MainScreenEvent.OnToggleDarkMode)
-                            }
-                        )
-                        Spacer(modifier = Modifier.weight(1f))
-                        SettingsButton(
-                            isDarkMode = isDarkMode,
-                            onClick = {
-                                scope.launch {
-                                    drawerState.apply {
-                                        if (isClosed) open() else close()
+                            if (route == Route.Main) {
+                                scope.launch { sheetState.hide() }.invokeOnCompletion {
+                                    if (!sheetState.isVisible) {
+                                        isSheetOpen = false
                                     }
                                 }
+                                onNavigate.invoke(UiEffect.Navigate(route))
+                            } else if (route == Route.History) {
+                                viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail)
+                                if (showTransactionDetail) currentRoute = Route.Main
+                            } else if (route == Route.GameHub) {
+                                if (!BRSharedPrefs.wereEmojisChosen(context)) {
+                                    modalContentRoute = Route.EmojiPickerPager
+                                    isSheetOpen = true
+                                } else {
+                                    viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
+                                }
+                            } else {
+                                modalContentRoute = route
+                                isSheetOpen = true
                             }
-                        )
-                    }
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2),
-                        modifier = Modifier
-                            .padding(
-                                horizontal = bentoSpacer,
-                                vertical = 1.dp
-                            )
-                            .weight(1f),
-                        horizontalArrangement = Arrangement.spacedBy(bentoSpacer),
-                        verticalArrangement = Arrangement.spacedBy(bentoSpacer),
-                        userScrollEnabled = false
-                    ) {
-                        item(span = { GridItemSpan(2) }) {
-                            Box(modifier = Modifier.height(balanceGameBentoHt)) {
-                                BalanceBentoScreen(transactions = state.transactionItems.toImmutableList())
-                            }
-                        }
-                        item(span = { GridItemSpan(2) }) {
-                            TransactionsBentoScreen(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(transactionBentoHeight),
-                                transactions = state.transactionItems.toImmutableList(),
-                                toggleState = state.filterState,
-                                showTransactionDetail = state.showTransactionDetail,
-                                shouldShowFiatValues = state.shouldShowFiatValues,
-                                onBentoTap = {
-                                    if (noTxItemsPresent) {
-                                        onNavigate.invoke(UiEffect.Navigate(Route.MoonPayBuy))
-                                    } else {
-                                        viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail)
-                                    }
+                        },
+                    )
+                }
+
+            ) { padding ->
+                BoxWithConstraints(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(padding)
+                ) {
+                    val topNavRowHt = topNavButtonSize + (topNavStartEndPadding * 2)
+                    val availableHeight = maxHeight -
+                        topNavRowHt -
+                        (bentoSpacer * 5) -
+                        balanceGameBentoHt -
+                        transactionRowHt -
+                        gameHubHt
+                    val transactionsDetailHeight = availableHeight + gameHubHt + balanceGameBentoHt
+                    val ltcPickerBentoHeight = (availableHeight * 0.7f) - (bentoSpacer / 2)
+                    val storeBentoHeight = (availableHeight * 0.3f) - (bentoSpacer / 2)
+                    val transactionBentoHeight by animateDpAsState(
+                        targetValue = if (showTransactionDetail) transactionsDetailHeight else transactionRowHt,
+                        animationSpec = tween(EXPAND_DURATION),
+                        label = "transactionHeight"
+                    )
+                    Column {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(
+                                    horizontal = topNavStartEndPadding,
+                                    vertical = topNavStartEndPadding
+                                ),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            ThemeButton(
+                                isDarkMode = isDarkMode,
+                                onClick = {
+                                    viewModel.onEvent(MainScreenEvent.OnToggleDarkMode)
                                 }
                             )
+                            Spacer(modifier = Modifier.weight(1f))
+                            SettingsButton(
+                                isDarkMode = isDarkMode,
+                                onClick = { viewModel.onEvent(MainScreenEvent.OnToggleDrawer) }
+                            )
                         }
-                        item(span = { GridItemSpan(1) }) {
-                            AnimatedVisibility(
-                                visible = !showTransactionDetail,
-                                enter = fadeIn(tween(FADE_IN_DURATION)),
-                                exit = fadeOut(tween(FADE_OUT_DURATION)),
-                            ) {
-                                Box(modifier = Modifier.height(availableHeight)) {
-                                    TutorialsBentoScreen(onClick = { page ->
-                                        when (page) {
-                                            0 -> {
-                                                modalContentRoute = Route.TutorialWalkthrough
-                                                isSheetOpen = true
-                                            }
-                                            1 -> {
-                                                modalContentRoute = Route.TutorialSend
-                                                isSheetOpen = true
-                                            }
+                        LazyVerticalGrid(
+                            columns = GridCells.Fixed(2),
+                            modifier = Modifier
+                                .padding(
+                                    horizontal = bentoSpacer,
+                                    vertical = 1.dp
+                                )
+                                .weight(1f),
+                            horizontalArrangement = Arrangement.spacedBy(bentoSpacer),
+                            verticalArrangement = Arrangement.spacedBy(bentoSpacer),
+                            userScrollEnabled = false
+                        ) {
+                            item(span = { GridItemSpan(2) }) {
+                                Box(modifier = Modifier.height(balanceGameBentoHt)) {
+                                    BalanceBentoScreen(transactions = state.transactionItems.toImmutableList())
+                                }
+                            }
+                            item(span = { GridItemSpan(2) }) {
+                                TransactionsBentoScreen(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(transactionBentoHeight),
+                                    transactions = state.transactionItems.toImmutableList(),
+                                    toggleState = state.filterState,
+                                    showTransactionDetail = state.showTransactionDetail,
+                                    shouldShowFiatValues = state.shouldShowFiatValues,
+                                    onBentoTap = {
+                                        if (noTxItemsPresent) {
+                                            onNavigate.invoke(UiEffect.Navigate(Route.MoonPayBuy))
+                                        } else {
+                                            viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail)
                                         }
-                                    })
-                                }
-                            }
-                        }
-                        item(span = { GridItemSpan(1) }) {
-                            AnimatedVisibility(
-                                visible = !showTransactionDetail,
-                                enter = fadeIn(tween(FADE_IN_DURATION)),
-                                exit = fadeOut(tween(FADE_OUT_DURATION)),
-                            ) {
-                                Column(verticalArrangement = Arrangement.spacedBy(bentoSpacer)) {
-                                    Box(modifier = Modifier.height(ltcPickerBentoHeight)) {
-                                        LTCPickerBentoScreen()
                                     }
-                                    Box(modifier = Modifier.height(storeBentoHeight)) {
-                                        ShopBentoScreen(onClick = {
-                                            modalContentRoute = Route.BitrefillWeb(url = shopBentoState.shopBaseUrl)
-                                            isSheetOpen = true
+                                )
+                            }
+                            item(span = { GridItemSpan(1) }) {
+                                AnimatedVisibility(
+                                    visible = !showTransactionDetail,
+                                    enter = fadeIn(tween(FADE_IN_DURATION)),
+                                    exit = fadeOut(tween(FADE_OUT_DURATION)),
+                                ) {
+                                    Box(
+                                        modifier = Modifier.height(availableHeight)
+                                    ) {
+                                        TutorialsBentoScreen(onClick = { page ->
+                                            when (page) {
+                                                0 -> {
+                                                    modalContentRoute = Route.TutorialWalkthrough
+                                                    isSheetOpen = true
+                                                }
+
+                                                1 -> {
+                                                    modalContentRoute = Route.TutorialSend
+                                                    isSheetOpen = true
+                                                }
+                                            }
                                         })
                                     }
                                 }
                             }
-                        }
-                        item(span = { GridItemSpan(2) }) {
-                            AnimatedVisibility(
-                                visible = !showTransactionDetail,
-                                enter = fadeIn(tween(FADE_IN_DURATION)),
-                                exit = fadeOut(tween(FADE_OUT_DURATION)),
-                            ) {
-                                Box(modifier = Modifier.height(gameHubHt)) {
-                                    GameHubBentoPagerScreen(onClick = { page ->
-                                        when (page) {
-                                            0 -> {
-                                                AnalyticsManager.logCustomEvent("user_did_tap_fallinmoji_no_op")
-                                            }
-                                            1 -> {
-                                                modalContentRoute = Route.BuyReceive
-                                                isSheetOpen = true
-                                                AnalyticsManager.logCustomEvent("user_did_tap_mp_in_gh")
-                                            }
-                                            2 -> {
-                                                modalContentRoute = Route.LinktreeWeb
-                                                isSheetOpen = true
-                                            }
+                            item(span = { GridItemSpan(1) }) {
+                                AnimatedVisibility(
+                                    visible = !showTransactionDetail,
+                                    enter = fadeIn(tween(FADE_IN_DURATION)),
+                                    exit = fadeOut(tween(FADE_OUT_DURATION)),
+                                ) {
+                                    Column(verticalArrangement = Arrangement.spacedBy(bentoSpacer)) {
+                                        Box(
+                                            modifier = Modifier.height(
+                                                ltcPickerBentoHeight
+                                            )
+                                        ) {
+                                            LTCPickerBentoScreen()
                                         }
-                                    })
+                                        Box(
+                                            modifier = Modifier.height(
+                                                storeBentoHeight
+                                            )
+                                        ) {
+                                            ShopBentoScreen(onClick = {
+                                                modalContentRoute =
+                                                    Route.BitrefillWeb(url = shopBentoState.shopBaseUrl)
+                                                isSheetOpen = true
+                                            })
+                                        }
+                                    }
+                                }
+                            }
+                            item(span = { GridItemSpan(2) }) {
+                                AnimatedVisibility(
+                                    visible = !showTransactionDetail,
+                                    enter = fadeIn(tween(FADE_IN_DURATION)),
+                                    exit = fadeOut(tween(FADE_OUT_DURATION)),
+                                ) {
+                                    Box(
+                                        modifier = Modifier
+                                            .height(gameHubHt)
+                                            .clickable(
+                                                enabled = !showTransactionDetail
+                                            ) {
+                                                if (BRSharedPrefs.wereEmojisChosen(context)) {
+                                                    viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
+                                                } else {
+                                                    modalContentRoute = Route.EmojiPickerPager
+                                                    isSheetOpen = true
+                                                }
+                                            }
+                                    ) {
+                                        GameHubBentoScreen(
+                                            isGameHubOpen = state.isGameHubOpen,
+                                            onToggle = {
+                                                viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
+                                            }
+                                        )
+                                    }
                                 }
                             }
                         }
                     }
                 }
+            }
+
+            val openGameSlot = LocalGameSlot.current
+            openGameSlot?.Render(
+                modifier = Modifier.fillMaxSize(),
+                visible = gameVisible,
+                launchParams = viewModel.produceLaunchParams(),
+                onExit = { _, _ ->
+                    modalContentRoute = null
+                    currentRoute = Route.Main
+                }
+            )
+
+            // splash overlay — fades in/out OVER the surface,
+            // masking the snap & first frame
+            if (animatedSplashAlpha > 0f) {
+                GameSplash(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .graphicsLayer { alpha = animatedSplashAlpha }
+                )
             }
         }
 
@@ -386,7 +488,8 @@ fun MainScreen(
                 } else {
                     Color.Black.copy(0.1f)
                 },
-                shape = RoundedCornerShape(24.dp)
+                shape = RoundedCornerShape(24.dp),
+                sheetGesturesEnabled = modalContentRoute != Route.EmojiPickerPager,
             ) {
                 Box(
                     modifier = Modifier
@@ -395,8 +498,9 @@ fun MainScreen(
                         .fillMaxHeight(
                             if (modalContentRoute == Route.TutorialSend ||
                                 modalContentRoute == Route.TutorialWalkthrough ||
-                                modalContentRoute is Route.BitrefillWeb ||
-                                modalContentRoute == Route.LinktreeWeb
+                                modalContentRoute == Route.BitrefillWeb ||
+                                modalContentRoute == Route.LinktreeWeb ||
+                                modalContentRoute == Route.EmojiPickerPager
                             ) {
                                 1f
                             } else {
@@ -404,7 +508,9 @@ fun MainScreen(
                             }
                         )
                         .background(
-                            brush = if (modalContentRoute == Route.BuyReceive) {
+                            brush = if (modalContentRoute == Route.BuyReceive ||
+                                modalContentRoute == Route.EmojiPickerPager
+                            ) {
                                 bentoClearGradient
                             } else if (isDarkMode && modalContentRoute == Route.Send) {
                                 bentoModalDarkGradient
@@ -467,7 +573,19 @@ fun MainScreen(
                                 shopBentoViewModel.onEvent(ShopBentoEvent.InvoiceCreated)
                             }
                         )
-                        else -> {}
+                        is Route.EmojiPickerPager -> EmojiPagerScreen(
+                            modifier = Modifier.fillMaxSize(),
+                            onNavigate = onNavigate,
+                            onDismissPickEmojis = {
+                                isSheetOpen = false
+                                viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
+                            },
+                            onDismiss = {
+                                isSheetOpen = false
+                            }
+                        )
+                        else
+                        -> {}
                     }
                 }
             }

@@ -1,18 +1,13 @@
 package com.brainwallet.ui
 
-import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
-import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.lifecycleScope
@@ -51,21 +46,15 @@ import com.brainwallet.ui.screens.settings.SettingsViewModel
 import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItViewModel.Companion.LEGACY_EFFECT_ON_PAPERKEY_PROVED
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.util.EventBus
-import com.brainwallet.util.PermissionUtil.hasPermission
-import com.brainwallet.util.PermissionUtil.requestPermission
 import com.brainwallet.wallet.BRPeerManager
 import com.brainwallet.wallet.BRWalletManager
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
-import com.google.android.play.core.review.ReviewInfo
-import com.google.android.play.core.review.ReviewManagerFactory
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import timber.log.Timber
-
+import com.badlogic.gdx.backends.android.AndroidFragmentApplication
 /**
  * Compose entry point here
  */
@@ -74,33 +63,21 @@ class BrainwalletActivity :
     BRWalletManager.OnBalanceChanged,
     BRPeerManager.OnTxStatusUpdate,
     TransactionDataSource.OnTxAddedListener,
-    InternetManager.ConnectionReceiverListener {
+    InternetManager.ConnectionReceiverListener,
+    AndroidFragmentApplication.Callbacks {
+
+    override fun exit() { android.util.Log.d("GDX", "Callbacks.exit() called") }
+
     private val settingRepository by inject<SettingRepository>()
     private var mConnectionReceiver: InternetManager? = null
     var appVisible: Boolean = false
-
-    private val requestNotificationPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted) {
-                Toast.makeText(
-                    this,
-                    R.string.permission_notification_granted,
-                    Toast.LENGTH_SHORT,
-                ).show()
-
-                Timber.d("Notification permission granted")
-            } else {
-                Timber.d("Notification permission denied")
-                // Optionally show a message explaining reduced functionality
-            }
-        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         onConnectionChanged(InternetManager.getInstance().isConnected(this))
         BRSharedPrefs.getLTCViewingPreference(application)
-        showInAppReviewDialogIfNeeded()
+
         val startDestination =
             intent.getSerializableExtra(EXTRA_START_DESTINATION) ?: Route.Welcome
 
@@ -157,6 +134,9 @@ class BrainwalletActivity :
             }
             SettingsViewModel.LEGACY_EFFECT_ON_SEED_PHRASE -> {
                 PostAuth.getInstance().onPhraseCheckAuth(this@BrainwalletActivity, true)
+            }
+            SettingsViewModel.LEGACY_EFFECT_ON_BRAINWALLET_PHRASE -> {
+                PostAuth.getInstance().onShowEmojis(this@BrainwalletActivity, true)
             }
             SettingsViewModel.LEGACY_EFFECT_ON_SHARE_ANALYTICS_DATA_TOGGLE -> {
                 val current = BRSharedPrefs.getShareData(this)
@@ -215,62 +195,6 @@ class BrainwalletActivity :
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    private fun setupNotificationPermission() {
-        if (hasPermission(this, Manifest.permission.POST_NOTIFICATIONS)) return
-
-        if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
-            showNotificationRationaleDialog()
-        } else {
-            requestPermission(requestNotificationPermissionLauncher, Manifest.permission.POST_NOTIFICATIONS)
-        }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    private fun showNotificationRationaleDialog() {
-        AlertDialog.Builder(this)
-            .setTitle(R.string.permission_info)
-            .setMessage(R.string.please_grant_notification_permission)
-            .setNegativeButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
-            .setPositiveButton(R.string.ok) { _, _ ->
-                requestPermission(requestNotificationPermissionLauncher, Manifest.permission.POST_NOTIFICATIONS)
-            }
-            .show()
-    }
-
-    private fun showInAppReviewDialogIfNeeded() {
-        if (!BRSharedPrefs.isInAppReviewDone(this) && BRSharedPrefs.getSendTransactionCount(this) > 2) {
-            val manager = ReviewManagerFactory.create(this)
-            val request = manager.requestReviewFlow()
-            request.addOnCompleteListener(
-                OnCompleteListener { task: Task<ReviewInfo>? ->
-                    AnalyticsManager.logCustomEvent(BWConstants._20241006_DRR)
-                    if (task!!.isSuccessful()) {
-                        val reviewInfo = task.getResult()
-                        val flow = manager.launchReviewFlow(this@BrainwalletActivity, reviewInfo)
-                        flow.addOnCompleteListener(
-                            OnCompleteListener { task1: Task<Void?>? ->
-                                // The flow has finished. The API does not indicate whether the user
-                                // reviewed or not, or even whether the review dialog was shown. Thus, no
-                                // matter the result, we continue our app flow.
-                                Timber.i(
-                                    "timber: In-app LaunchReviewFlow completed successful (%s)",
-                                    task1!!.isSuccessful()
-                                )
-                                if (task1.isSuccessful()) {
-                                    BRSharedPrefs.inAppReviewDone(this@BrainwalletActivity)
-                                    AnalyticsManager.logCustomEvent(BWConstants._20241006_UCR)
-                                }
-                            }
-                        )
-                    } else {
-                        Timber.e(task.getException(), "In-app request review flow failed")
-                    }
-                }
-            )
-        }
-    }
-
     private fun setupNetworking() {
         if (mConnectionReceiver == null) mConnectionReceiver = InternetManager.getInstance()
         val mNetworkStateFilter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
@@ -313,9 +237,6 @@ class BrainwalletActivity :
      * then should go to setpasscode
      */
     private fun onCheckPin() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            setupNotificationPermission()
-        }
         val pin = BRKeyStore.getPinCode(this)
         if (pin.isEmpty() && pin.length != BW_PIN_LENGTH) {
             lifecycleScope.launch {
@@ -337,9 +258,6 @@ class BrainwalletActivity :
      */
 
     private fun onLegacyLogic() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            setupNotificationPermission()
-        }
         if (Utils.isEmulatorOrDebug(this)) Utils.printPhoneSpecs()
 
         val masterPubKey = BRKeyStore.getMasterPublicKey(this)

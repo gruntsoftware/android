@@ -10,8 +10,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.brainwallet.R
 import com.brainwallet.ui.screens.settings.SettingsEvent
 
@@ -20,6 +26,7 @@ import com.brainwallet.ui.screens.settings.SettingsEvent
 fun SecurityDetail(
     modifier: Modifier = Modifier,
     shareAnalyticsDataEnabled: Boolean = false,
+    userSetEmojis: Boolean = false,
     onEvent: (SettingsEvent) -> Unit
 ) {
     // / Layout values
@@ -62,18 +69,33 @@ fun SecurityDetail(
                 }
             }
 
-//            Row(
-//                modifier = Modifier
-//                    .height(contentHeight.dp),
-//                verticalAlignment = Alignment.CenterVertically
-//            ) {
-//                Text(stringResource(R.string.security_brainwallet_phrase_title))
-//                Spacer(modifier = Modifier.weight(1f))
-//                Button(onClick = {
-//                }) {
-//                    Text(stringResource(R.string.security_phrase_button))
-//                }
-//            }
+            if (userSetEmojis) {
+                Row(
+                    modifier = Modifier
+                        .height(contentHeight.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(stringResource(R.string.security_brainwallet_phrase_title))
+                    Spacer(modifier = Modifier.weight(1f))
+                    Button(onClick = {
+                        onEvent.invoke(SettingsEvent.OnSecurityBrainwalletPhraseClick)
+                    }) {
+                        Text(
+                            text = "😅",
+                            style = TextStyle(
+                                fontWeight = FontWeight.Normal,
+                                fontSize = 20.sp,
+                                shadow = Shadow(
+                                    color = Color.Black.copy(alpha = 0.5f),
+                                    offset = Offset(x = 4f, y = 4f),
+                                    blurRadius = 4f
+                                )
+                            ),
+                            maxLines = 1
+                        )
+                    }
+                }
+            }
             Row(
                 modifier = Modifier
                     .height(contentHeight.dp),

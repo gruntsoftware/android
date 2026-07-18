@@ -306,4 +306,20 @@
     <string name="Send.cameraUnavailabeMessage.android">Permita o acesso à câmera nas Configurações</string>
     <string name="shop_title">Loja</string>
     <string name="shop_tagline">Compre Cartões Presentes com LTC!</string>
+    <string name="security_brainwallet_phrase_title">Frase Brainwallet</string>
+    <string name="pick_emojis_title">Escolha 3 Emojis</string>
+    <string name="pick_emojis_button_title">Escolha 3 Emojis Únicos</string>
+    <string name="pick_emojis_description">Toque em uma caixa. Mostre ou oculte palavras para escolher seus emojis. Toque em um emoji. Cada emoji deve ser diferente.</string>
+    <string name="how_to_choose_emojis_title">Escolha seus 3 emojis para o jogo</string>
+    <string name="how_to_choose_emojis_description">Aqui é onde você constrói sua Brainwallet real. Memorize sua frase-semente jogando.</string>
+    <string name="how_to_choose_emojis_bullet_one_title">Escolha seus primeiros 3 emojis</string>
+    <string name="how_to_choose_emojis_bullet_one_description">Há 12 palavras-semente em sua frase. Use as 3 primeiras palavras para escolher.</string>
+    <string name="how_to_choose_emojis_bullet_two_title">Emojis que têm significado</string>
+    <string name="how_to_choose_emojis_bullet_two_description">Use correspondências com a palavra, como limão. Ou amarelo. Ou não. Fica a seu critério!</string>
+    <string name="how_to_choose_emojis_bullet_three_title">Semente para sua memória</string>
+    <string name="how_to_choose_emojis_bullet_three_description">Veja o emoji, você lembrará da palavra-semente. Memorize seu emoji...ganhe PONTOS!</string>
+    <string name="lets_play_label">Emojis definidos. Vamos jogar!</string>
+    <string name="your_emojis_title">Seus Emojis Brainwallet</string>
+    <string name="your_emojis_description">Você escolheu esses emojis para o jogo e para ajudá-lo a lembrar sua frase-semente</string>
+    <string name="your_emojis_reset">Limpar emojis</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.brainwallet.navigation
 
+import androidx.compose.runtime.Immutable
 import kotlinx.serialization.Serializable
 import java.io.Serializable as JavaSerializable
 
@@ -38,6 +39,10 @@ sealed class Route : JavaSerializable {
     data class YourSeedProveIt(val seedWords: List<String>) : Route()
 
     @Serializable
+    @Immutable
+    data class YourEmojis(val emojis: List<String>) : Route()
+
+    @Serializable
     object Main : Route()
 
     @Serializable
@@ -66,6 +71,15 @@ sealed class Route : JavaSerializable {
 
     @Serializable
     data class BitrefillWeb(val url: String) : Route()
+
+    @Serializable
+    object EmojiPickerPager : Route()
+
+    @Serializable
+    object HowToSetEmojis : Route()
+
+    @Serializable
+    object PickEmojis : Route()
 
     @Serializable
     object LinktreeWeb : Route()

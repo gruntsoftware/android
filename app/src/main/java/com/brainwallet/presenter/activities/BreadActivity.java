@@ -105,12 +105,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         return app;
     }
 
-    private final ActivityResultLauncher<String> requestNotificationPermissionLauncher =
-            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-                if (isGranted) {
-                    Toast.makeText(app, R.string.permission_notification_granted, Toast.LENGTH_SHORT).show();
-                }
-            });
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

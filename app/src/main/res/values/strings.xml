@@ -402,6 +402,7 @@
     <string name="security_PIN_title" translatable="false">PIN</string>
     <string name="security_seed_phrase_title">Seed phrase</string>
     <string name="security_share_data_title">Share analytics data</string>
+    <string name="security_brainwallet_phrase_title">Brainwallet phrase</string>
     <string name="security_PIN_button">Update PIN</string>
     <string name="security_phrase_button">Show</string>
     <string name="buy_ltc">Buy LTC</string>
@@ -492,5 +493,19 @@
     <string name="send_tutorial_description_3b">Scan or paste the destination address. Double check! Change your local fiat to figure out how much you can send. Add a memo as a handy reminder. Tap Continue.</string>
     <string name="shop_title">Shop</string>
     <string name="shop_tagline">Buy Gift Cards with LTC!</string>
-
+    <string name="pick_emojis_title">Pick 3 Emojis</string>
+    <string name="pick_emojis_button_title">Pick 3 Unique Emojis</string>
+    <string name="pick_emojis_description">Tap a box. Show or hide words to choose your emojis. Tap an emoji. Each emoji must be different.</string>
+    <string name="how_to_choose_emojis_title">Choose your 3 emojis for the game</string>
+    <string name="how_to_choose_emojis_description">Here is where you build your real brainwallet. Memorize your seed phrase through gaming.</string>
+    <string name="how_to_choose_emojis_bullet_one_title">Pick your first 3 emojis</string>
+    <string name="how_to_choose_emojis_bullet_one_description">There are 12 seed words in your phrase. Use the first 3 words to choose.</string>
+    <string name="how_to_choose_emojis_bullet_two_title">Emojis that have meaning</string>
+    <string name="how_to_choose_emojis_bullet_two_description">Use matches to the word like lemon. Or, yellow. Or, not. It\'s up to you!</string>
+    <string name="how_to_choose_emojis_bullet_three_title">Seed to your memory</string>
+    <string name="how_to_choose_emojis_bullet_three_description">See the emoji, you\'ll remember the seed word. Memorize your emoji...get POINTS!</string>
+    <string name="lets_play_label">Emojis set. Let\'s play!</string>
+    <string name="your_emojis_title">Your Brainwallet Emojis</string>
+    <string name="your_emojis_description">You choose these emojis for the game and help you remember your seed phrase</string>
+    <string name="your_emojis_reset">Clear emojis</string>
 </resources>

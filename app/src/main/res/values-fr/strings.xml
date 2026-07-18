@@ -662,4 +662,20 @@
     <string name="Send.cameraUnavailabeMessage.android">Autoriser l\'accès à la caméra dans les Paramètres</string>
     <string name="shop_title">Boutique</string>
     <string name="shop_tagline">Achetez des Cartes Cadeaux avec LTC !</string>
+    <string name="security_brainwallet_phrase_title">Phrase Brainwallet</string>
+    <string name="pick_emojis_title">Choisir 3 Emojis</string>
+    <string name="pick_emojis_button_title">Choisir 3 Emojis Uniques</string>
+    <string name="pick_emojis_description">Appuyez sur une case. Affichez ou masquez les mots pour choisir vos emojis. Appuyez sur un emoji. Chaque emoji doit être différent.</string>
+    <string name="how_to_choose_emojis_title">Choisissez vos 3 emojis pour le jeu</string>
+    <string name="how_to_choose_emojis_description">C\'est ici que vous construisez votre vrai Brainwallet. Mémorisez votre phrase de départ en jouant.</string>
+    <string name="how_to_choose_emojis_bullet_one_title">Choisissez vos 3 premiers emojis</string>
+    <string name="how_to_choose_emojis_bullet_one_description">Il y a 12 mots de départ dans votre phrase. Utilisez les 3 premiers mots pour choisir.</string>
+    <string name="how_to_choose_emojis_bullet_two_title">Emojis qui ont du sens</string>
+    <string name="how_to_choose_emojis_bullet_two_description">Utilisez des correspondances avec le mot, comme citron. Ou, jaune. Ou, non. C\'est à vous de décider !</string>
+    <string name="how_to_choose_emojis_bullet_three_title">Graine pour votre mémoire</string>
+    <string name="how_to_choose_emojis_bullet_three_description">Voyez l\'emoji, vous vous souviendrez du mot de départ. Mémorisez votre emoji...obtenez des POINTS !</string>
+    <string name="lets_play_label">Emojis configurés. C\'est parti !</string>
+    <string name="your_emojis_title">Vos Emojis Brainwallet</string>
+    <string name="your_emojis_description">Vous avez choisi ces emojis pour le jeu et ils vous aident à vous souvenir de votre phrase de départ</string>
+    <string name="your_emojis_reset">Effacer les emojis</string>
 </resources>
