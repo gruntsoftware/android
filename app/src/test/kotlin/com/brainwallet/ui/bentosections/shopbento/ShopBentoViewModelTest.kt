@@ -7,17 +7,23 @@ import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.repository.ShopProxy
 import com.brainwallet.data.repository.ShopProxyRepository
 import com.brainwallet.testing.FlakyTest
+import com.brainwallet.util.MainDispatcherRule
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.advanceTimeBy
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import io.mockk.coEvery
 
 class ShopBentoViewModelTest {
+
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
 
     private lateinit var app: Application
     private lateinit var settingRepository: SettingRepository
@@ -62,16 +68,16 @@ class ShopBentoViewModelTest {
     @Test
     fun `init - sets shopBaseUrl from widget`() = runTest {
         turbineScope {
-            shopProxyFlow.emit(listOf(ShopProxy(widget = "https://shop.example.com", shopCards = emptyList())))
+            shopProxyFlow.emit(listOf(ShopProxy(widget = "https://embed.bitrefill.com", shopCards = emptyList())))
 
             val viewModel = buildViewModel()
             val turbine = viewModel.state.testIn(backgroundScope)
 
             settingsFlow.emit(AppSetting())
-            advanceTimeBy(100)
+            advanceUntilIdle()
 
             val state = turbine.expectMostRecentItem()
-            assertEquals("https://shop.example.com", state.shopBaseUrl)
+            assertEquals("https://embed.bitrefill.com", state.shopBaseUrl)
             turbine.cancelAndIgnoreRemainingEvents()
         }
     }
