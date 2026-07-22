@@ -1,11 +1,6 @@
 name: 🤖 Copilot PR Summary
 
 on:
-  pull_request:
-    types: [opened, reopened]
-    branches:
-      - develop
-      - main
   workflow_dispatch:
 
 permissions:
