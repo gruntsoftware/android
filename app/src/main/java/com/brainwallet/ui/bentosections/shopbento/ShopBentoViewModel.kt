@@ -6,6 +6,7 @@ import com.brainwallet.ui.BrainwalletViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
@@ -27,40 +28,36 @@ class ShopBentoViewModel(
     val currentCountryISO: String = Locale.getDefault().country.ifEmpty { "US" }
     init {
         viewModelScope.launch {
-            settingRepository.settings.collect { setting ->
-                _state.update {
-                    it.copy(
-                        darkMode = setting.isDarkMode,
-                        countryIso = currentCountryISO
-                    )
-                }
-            }
-        }
-        viewModelScope.launch {
             shopProxyRepository.refresh()
-            shopProxyRepository.shopProxy.collect { shopList ->
-                val widget = shopList.firstOrNull()?.widget.orEmpty()
-                val cards = shopList.firstOrNull()?.shopCards.orEmpty()
-                    .filter { it.countryCode == currentCountryISO }
-                var imageUrl1 = ""
-                var imageUrl2 = ""
-                var imageUrl3 = ""
+            combine(
+                settingRepository.settings,
+                shopProxyRepository.shopProxy
+            ) { setting, shopList -> setting to shopList }
+                .collect { (setting, shopList) ->
+                    val widget = shopList.firstOrNull()?.widget.orEmpty()
+                    val cards = shopList.firstOrNull()?.shopCards.orEmpty()
+                        .filter { it.countryCode == currentCountryISO }
+                    var imageUrl1 = ""
+                    var imageUrl2 = ""
+                    var imageUrl3 = ""
 
-                if (cards.count() >= 3) {
-                    imageUrl1 = cards[0].cardImageWebP
-                    imageUrl2 = cards[1].cardImageWebP
-                    imageUrl3 = cards[2].cardImageWebP
+                    if (cards.count() >= 3) {
+                        imageUrl1 = cards[0].cardImageWebP
+                        imageUrl2 = cards[1].cardImageWebP
+                        imageUrl3 = cards[2].cardImageWebP
+                    }
+                    _state.update {
+                        it.copy(
+                            darkMode = setting.isDarkMode,
+                            countryIso = currentCountryISO,
+                            shopBaseUrl = widget,
+                            shopCards = cards,
+                            cardImageURL1 = imageUrl1,
+                            cardImageURL2 = imageUrl2,
+                            cardImageURL3 = imageUrl3
+                        )
+                    }
                 }
-                _state.update {
-                    it.copy(
-                        shopBaseUrl = widget,
-                        shopCards = cards,
-                        cardImageURL1 = imageUrl1,
-                        cardImageURL2 = imageUrl2,
-                        cardImageURL3 = imageUrl3
-                    )
-                }
-            }
         }
     }
 
