@@ -81,7 +81,14 @@ jobs:
       - setup_environment
       - run:
           name: "Execute Unit Tests"
-          command: ./gradlew testBrainwalletDebugUnitTest --no-daemon --max-workers=1
+          # -x detekt: android-build-logic's DetektSetup.attachDetektTask() wires
+          # `detekt` (autoCorrect=true, parallel=true, HTML/XML/TXT/SARIF/MD reports)
+          # as a dependency of every compile*/assemble* task project-wide, so a plain
+          # test run was also paying for 3-4 full static-analysis passes it doesn't
+          # need — real CPU/memory competing with compilation and the forked test
+          # JVMs on this resource-constrained executor. Excluding it here only
+          # affects this CI job, not local dev/lint workflows.
+          command: ./gradlew testBrainwalletDebugUnitTest --no-daemon --max-workers=1 -x detekt
       - android/save_gradle_cache
       - run:
           name: Save test results
