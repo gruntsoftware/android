@@ -19,39 +19,16 @@
 
 - Self-custodial Litecoin wallet — your seed phrase never leaves your device
 - Send/receive LTC with real-time fee estimation and fiat conversion
-- PIN and biometric app lock
+- Games to help you memorize your seed phrase (Check out Fallinmoji!)
+- PIN app lock
 - Buy/sell LTC and gift cards via in-app widgets
-- In-app mini-games (built on a shared LibGDX library, [`bw-gdlib`](https://github.com/gruntsoftware/bw-gdlib))
 - Modern Jetpack Compose UI, with a legacy Java/UIKit-era codebase still being progressively migrated
 
-## Getting Started
+## Auditing code
 
 ### Prerequisites
 - Android Studio (current stable) with SDK 36 installed, NDK `25.1.8937393`, CMake `3.22.1`
 - `minSdk 29`, `targetSdk 35`
-
-### Clone with submodules
-
-This repo pulls in several git submodules (`android-build-logic`, `bw-gdlib`, `modules/private-general-purpose`, native wallet code under `app/src/main/jni/core` and `app/src/main/secp/secp256k1`). Clone with:
-
-```bash
-git clone --recurse-submodules https://github.com/gruntsoftware/android.git
-# or, if already cloned:
-git submodule update --init --recursive
-```
-
-### Local configuration
-
-Some values (signing keystores, Firebase config) are pulled from `local.properties`, which is gitignored and not included in this repo. On CI these are materialized from encrypted environment variables at build time (see `.circleci/config.yml`). To build locally you'll need to supply your own debug keystore and a `local.properties` with matching `DEBUG_STORE_FILE`/`DEBUG_STORE_PASSWORD`/`DEBUG_KEY_ALIAS`/`DEBUG_KEY_PASSWORD` entries, plus your own `app/google-services.json` from a Firebase project.
-
-### Build & run
-
-```bash
-./gradlew assembleDebug      # build a debug APK
-./gradlew installDebug       # install on a connected device/emulator
-./gradlew test               # run unit tests
-./gradlew detekt             # static analysis
-```
 
 ## Architecture
 
@@ -69,9 +46,6 @@ Unit tests live under `app/src/test/{java,kotlin}`. Run them with `./gradlew tes
 
 Found a security vulnerability? Please **do not** open a public issue — see [SECURITY.md](SECURITY.md) for how to report it privately.
 
-## Contributing
-
-Pull requests are welcome — please target the `develop` branch. The [PR template](.github/PULL_REQUEST_TEMPLATE.md) will guide you through what to include (platform, type of change, tests, etc.).
 
 ## License
 
