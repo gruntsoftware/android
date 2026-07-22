@@ -70,12 +70,18 @@ jobs:
       tag: 2024.07.1-ndk
       resource_class: large
     environment:
-      GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=512m -Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
+      # Lowered from -Xmx4g/workers.max=2: the Gradle daemon heap plus forked
+      # unit-test worker JVMs plus OS/container overhead were exceeding the
+      # `large` resource class's available RAM, causing the daemon to be
+      # OOM-killed mid-build ("daemon has disappeared"). Reducing the daemon
+      # heap and worker parallelism leaves more headroom for the AGP-forked
+      # test JVMs without changing the resource class.
+      GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx3g -XX:MaxMetaspaceSize=512m -Dorg.gradle.daemon=false -Dorg.gradle.workers.max=1"
     steps:
       - setup_environment
       - run:
           name: "Execute Unit Tests"
-          command: ./gradlew testBrainwalletDebugUnitTest --no-daemon --max-workers=2
+          command: ./gradlew testBrainwalletDebugUnitTest --no-daemon --max-workers=1
       - android/save_gradle_cache
       - run:
           name: Save test results
