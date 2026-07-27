@@ -13,6 +13,7 @@ import com.brainwallet.tools.listeners.SyncReceiver
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.util.Utils
 import com.brainwallet.constants.BWConstants
+import com.getkeepsafe.relinker.ReLinker
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.koin.android.ext.android.inject
 import timber.log.Timber
@@ -27,6 +28,7 @@ open class BrainwalletApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        ReLinker.loadLibrary(this, BWConstants.NATIVE_LIB_NAME)
         val enableCrashlytics = !Utils.isEmulatorOrDebug(this)
         notificationHandler.setupNotificationChannels(this)
 

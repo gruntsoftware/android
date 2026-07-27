@@ -33,10 +33,6 @@ import timber.log.Timber;
 /// TBD
 public class BRActivity extends AppCompatActivity {
 
-    static {
-        System.loadLibrary(BWConstants.NATIVE_LIB_NAME);
-    }
-
     private SettingRepository settingRepository = (SettingRepository) KoinJavaComponent.inject(SettingRepository.class).getValue();
 
     @Override

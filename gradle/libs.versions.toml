@@ -36,8 +36,10 @@ play-services-games = "24.0.0"
 benchmark-traceprocessor = "1.4.1"
 kotlin = "2.3.10"
 ui-graphics = "1.11.2"
+keepsafe-relinker = "1.4.5"
 
 [libraries]
+keepsafe-relinker = { module = "com.getkeepsafe.relinker:relinker", version.ref = "keepsafe-relinker" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 androidx-legacy-support = { module = "androidx.legacy:legacy-support-v13", version.ref = "androidx-legacy-support" }
 androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidx-navigation" }
