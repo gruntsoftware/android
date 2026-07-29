@@ -4,18 +4,12 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 
-import com.brainwallet.constants.BWConstants;
 import com.brainwallet.wallet.BRWalletManager;
 
 public class SyncReceiver extends IntentService {
     public final String TAG = SyncReceiver.class.getSimpleName();
     public final static String SYNC_RECEIVER = "SYNC_RECEIVER";
     public static Context app;
-
-    //    private Calendar c = Calendar.getInstance();
-    static {
-        System.loadLibrary(BWConstants.NATIVE_LIB_NAME);
-    }
 
     public SyncReceiver() {
         super("SyncReceiver");

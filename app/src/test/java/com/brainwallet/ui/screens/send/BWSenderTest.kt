@@ -10,6 +10,8 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.unmockkAll
 import io.mockk.verify
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
@@ -171,7 +173,15 @@ class BWSenderTest {
 
     @Test
     fun `second concurrent prepareTransaction returns AlreadySending`() = runTest {
-        // Block the first call inside tryTransactionWithOps by making it slow.
+        // prepareTransaction hops onto the real Dispatchers.IO internally, which the
+        // StandardTestDispatcher/advanceUntilIdle() cannot see or control. A fixed
+        // Thread.sleep() plus advanceUntilIdle() is therefore a real-time race between
+        // this thread and the sleeping IO thread. These latches instead deterministically
+        // block until the first call has actually flipped isSending = true and entered
+        // tryTransactionWithOps before the second call is issued.
+        val firstCallEntered = CountDownLatch(1)
+        val releaseFirstCall = CountDownLatch(1)
+
         every {
             walletManager.tryTransactionWithOps(
                 any(),
@@ -180,17 +190,27 @@ class BWSenderTest {
                 any()
             )
         } answers {
-            Thread.sleep(500)
+            firstCallEntered.countDown()
+            releaseFirstCall.await(5, TimeUnit.SECONDS)
             validSerializedTx
         }
 
         val first = async { sender.prepareTransaction(buildTx()) }
-        // Give the first call a chance to flip isSending = true.
+        // Dispatch the queued coroutine off the StandardTestDispatcher and onto the
+        // real Dispatchers.IO thread; from there the latch takes over.
         advanceUntilIdle()
+
+        assertTrue(
+            "first call never reached tryTransactionWithOps",
+            firstCallEntered.await(5, TimeUnit.SECONDS)
+        )
+
         val second = sender.prepareTransaction(buildTx())
 
         // Second call must be rejected without touching the wallet again.
         assertEquals(BWSendResult.Error.AlreadySending, second)
+
+        releaseFirstCall.countDown()
         first.await()
     }
 

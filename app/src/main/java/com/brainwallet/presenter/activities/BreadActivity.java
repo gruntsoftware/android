@@ -14,8 +14,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.ViewTreeObserver;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -27,7 +25,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.app.ActivityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.transition.ChangeBounds;
 import androidx.transition.Fade;
 import androidx.transition.TransitionManager;
@@ -40,7 +37,6 @@ import com.brainwallet.presenter.activities.settings.SyncBlockchainActivity;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.presenter.customviews.BRNotificationBar;
 import com.brainwallet.presenter.history.HistoryFragment;
-import com.brainwallet.tools.animation.BRAnimator;
 import com.brainwallet.tools.animation.TextSizeTransition;
 import com.brainwallet.tools.manager.AnalyticsManager;
 import com.brainwallet.tools.manager.BRSharedPrefs;
@@ -63,7 +59,6 @@ import com.brainwallet.util.PermissionUtil;
 import com.brainwallet.wallet.BRPeerManager;
 import com.brainwallet.wallet.BRWalletManager;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
@@ -77,15 +72,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         TransactionDataSource.OnTxAddedListener, InternetManager.ConnectionReceiverListener {
 
     public static final Point screenParametersPoint = new Point();
-    private static final float PRIMARY_TEXT_SIZE = 24f;
-    private static final float SECONDARY_TEXT_SIZE = 12.8f;
-    private int mSelectedBottomNavItem = -1;
 
     private InternetManager mConnectionReceiver;
-    private Button primaryPrice;
-    private Button secondaryPrice;
     private TextView equals;
-    private ImageButton menuBut;
     private TextView balanceTxtV;
 
     public static boolean appVisible = false;
@@ -94,11 +83,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     private boolean uiIsDone;
 
     private static BreadActivity app;
-    private BottomNavigationView bottomNav;
 
     private Handler mHandler = new Handler();
     private NavigationView navigationDrawer;
-    private DrawerLayout drawerLayout;
     private HomeSettingDrawerComposeView homeSettingDrawerComposeView;
 
     public static BreadActivity getApp() {
@@ -115,12 +102,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         app = this;
         getWindowManager().getDefaultDisplay().getSize(screenParametersPoint);
 
-        setListeners();
-
-        primaryPrice.setTextSize(PRIMARY_TEXT_SIZE);
-        secondaryPrice.setTextSize(SECONDARY_TEXT_SIZE);
         onConnectionChanged(InternetManager.getInstance().isConnected(this));
-        bottomNav.setSelectedItemId(R.id.nav_history);
     }
 
     private void addObservers() {
@@ -145,25 +127,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setUrlHandler(intent);
-    }
-
-    private void setListeners() {
-        bottomNav.setOnNavigationItemSelectedListener(item -> handleNavigationItemSelected(item.getItemId()));
-
-        menuBut.setOnClickListener(v -> {
-            if (BRAnimator.isClickAllowed()) {
-                drawerLayout.open();
-            }
-        });
-    }
-
-    public boolean handleNavigationItemSelected(int menuItemId) {
-        if (mSelectedBottomNavItem == menuItemId) return true;
-        mSelectedBottomNavItem = menuItemId;
-        //TODO: Removal as Compose Send workflow is live and in Production
-        // Will remove as cruft as a backlog item
-
-        return true;
     }
 
     @Override

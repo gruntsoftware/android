@@ -31,8 +31,8 @@ android {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 35
-        versionCode = 202506342
-        versionName = "v4.10.4"
+        versionCode = 202506345
+        versionName = "v4.10.6"
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -172,6 +172,7 @@ dependencies {
     implementation(project(":iap"))
     implementation(project(":core"))
     implementation("androidx.webkit:webkit:1.9.0")
+    implementation(libs.keepsafe.relinker)
     implementation(libs.androidx.benchmark.traceprocessor)
     implementation(libs.androidx.ui.graphics)
     testImplementation(testFixtures(project(":app")))
