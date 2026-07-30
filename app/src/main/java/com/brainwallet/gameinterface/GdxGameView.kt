@@ -35,7 +35,7 @@ import org.koin.compose.viewmodel.koinViewModel
 import timber.log.Timber
 
 @Serializable
-private data class GameExitData(
+internal data class GameExitData(
     @SerialName("social_network") val socialNetwork: String = "none",
     val timestamp: Long = 0L,
     @SerialName("total_score") val totalScore: Int = 0,
@@ -102,7 +102,7 @@ private fun removeFragment(fm: FragmentManager, tag: String) {
     }
 }
 
-private fun handleGameExit(
+internal fun handleGameExit(
     jsonString: String,
     bytes: ByteArray?,
     gameHubViewModel: GameHubViewModel,
