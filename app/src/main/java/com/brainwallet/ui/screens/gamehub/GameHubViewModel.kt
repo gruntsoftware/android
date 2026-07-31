@@ -36,6 +36,13 @@ class GameHubViewModel(
         when (event) {
             is GameHubEvent.OnLoad -> {
             }
+            is GameHubEvent.OnGameFinished -> {
+                AnalyticsManager.logCustomEventWithParams("did_play_game", null)
+                viewModelScope.launch {
+                    delay(3_000L)
+                    inAppReviewService.showInAppReviewDialogIfNeeded()
+                }
+            }
             is GameHubEvent.OnGameExited -> {
                 val unixTimestamp = System.currentTimeMillis() / 1000
                 val bitmap = BitmapFactory.decodeByteArray(event.byteArray, 0, event.byteArray.size)
@@ -119,12 +126,6 @@ class GameHubViewModel(
                             it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         }
                     )
-                }
-
-                AnalyticsManager.logCustomEventWithParams("did_play_game", null)
-                viewModelScope.launch {
-                    delay(800L)
-                    inAppReviewService.showInAppReviewDialogIfNeeded()
                 }
             }
         }
