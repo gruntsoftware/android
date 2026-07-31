@@ -20,7 +20,7 @@ class InAppReviewService(
     public fun showInAppReviewDialogIfNeeded() {
         val activity = activityProvider() ?: return
         if (!BRSharedPrefs.isInAppReviewDone(app) &&
-            BRSharedPrefs.getSendTransactionCount(app) > 2
+            BRSharedPrefs.getSendTransactionCount(app) > 1
         ) {
             val manager = ReviewManagerFactory.create(app)
             val request = manager.requestReviewFlow()

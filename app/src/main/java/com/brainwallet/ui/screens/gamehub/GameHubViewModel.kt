@@ -7,11 +7,15 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Environment
 import androidx.core.content.FileProvider
+import androidx.lifecycle.viewModelScope
+import com.brainwallet.appreview.InAppReviewService
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.ui.BrainwalletViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -22,6 +26,7 @@ import java.io.FileOutputStream
 @KoinViewModel
 class GameHubViewModel(
     private val app: Application,
+    private val inAppReviewService: InAppReviewService,
 ) : BrainwalletViewModel<GameHubEvent>() {
     private val _state =
         MutableStateFlow(GameHubState())
@@ -114,6 +119,12 @@ class GameHubViewModel(
                             it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         }
                     )
+                }
+
+                AnalyticsManager.logCustomEventWithParams("did_play_game", null)
+                viewModelScope.launch {
+                    delay(800L)
+                    inAppReviewService.showInAppReviewDialogIfNeeded()
                 }
             }
         }
