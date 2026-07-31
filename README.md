@@ -5,6 +5,7 @@
 ### CircleCI status  
 [![Release](https://img.shields.io/github/v/release/gruntsoftware/android?style=plastic)](https://github.com/gruntsoftware/android/releases)
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/gruntsoftware/android/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/gruntsoftware/android/tree/main)
+[![Tests](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/grunt-claude-bot/ae4830cb1b5da4611598d20a517fd933/raw/tests-badge.json)](https://dl.circleci.com/status-badge/redirect/gh/gruntsoftware/android/tree/develop)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ## Play Store

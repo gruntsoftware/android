@@ -100,6 +100,54 @@ jobs:
           path: ~/test-results
       - store_artifacts:
           path: ~/test-results/junit
+      - run:
+          name: "Update tests-passed badge (shields.io gist endpoint)"
+          # Only the primary branch's run should own the badge state - a feature
+          # branch with fewer/broken tests shouldn't flap the README badge.
+          # Requires GIST_TOKEN (a PAT with only the `gist` scope) and GIST_ID
+          # to be set as CircleCI project env vars.
+          when: always
+          command: |
+            if [ "$CIRCLE_BRANCH" != "develop" ]; then
+              echo "Not on develop, skipping badge update."
+              exit 0
+            fi
+            if [ -z "$GIST_TOKEN" ] || [ -z "$GIST_ID" ]; then
+              echo "GIST_TOKEN/GIST_ID not set, skipping badge update."
+              exit 0
+            fi
+
+            total=0
+            failures=0
+            skipped=0
+            for f in ~/test-results/junit/*.xml; do
+              [ -f "$f" ] || continue
+              t=$(grep -o 'tests="[0-9]*"' "$f" | head -1 | grep -o '[0-9]*')
+              fl=$(grep -o 'failures="[0-9]*"' "$f" | head -1 | grep -o '[0-9]*')
+              sk=$(grep -o 'skipped="[0-9]*"' "$f" | head -1 | grep -o '[0-9]*')
+              total=$((total + ${t:-0}))
+              failures=$((failures + ${fl:-0}))
+              skipped=$((skipped + ${sk:-0}))
+            done
+            passed=$((total - failures - skipped))
+
+            if [ "$failures" -gt 0 ]; then
+              message="${passed} passed, ${failures} failed"
+              color="red"
+            else
+              message="${passed} passed"
+              color="brightgreen"
+            fi
+
+            payload=$(printf '{"files":{"tests-badge.json":{"content":"{\\"schemaVersion\\":1,\\"label\\":\\"tests\\",\\"message\\":\\"%s\\",\\"color\\":\\"%s\\"}"}}}' "$message" "$color")
+
+            curl -s -X PATCH \
+              -H "Authorization: token ${GIST_TOKEN}" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/gists/${GIST_ID}" \
+              -d "$payload" > /dev/null
+
+            echo "Badge updated: ${message}"
 
   screengrab:
     executor:
