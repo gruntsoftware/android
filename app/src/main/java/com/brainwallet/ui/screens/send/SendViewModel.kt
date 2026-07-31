@@ -3,6 +3,7 @@ package com.brainwallet.ui.screens.send
 import android.app.Application
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.R
+import com.brainwallet.appreview.InAppReviewService
 import com.brainwallet.constants.BWConstants
 import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.data.repository.TxRepository
@@ -46,6 +47,7 @@ class SendViewModel(
     private val txRepository: TxRepository,
     private val settingRepository: SettingRepository,
     private val currencyDataGetter: CurrencyDataGetter,
+    private val inAppReviewService: InAppReviewService,
     private val isWalletCreated: () -> Boolean = { BRWalletManager.getInstance().isCreated() },
     private val validateAddress: (String) -> Boolean = { BRWalletManager.getInstance().validateAddress(it) },
     private val getBalance: () -> Long = { BRWalletManager.getInstance().getBalance(app) },
@@ -57,7 +59,6 @@ class SendViewModel(
     val state: StateFlow<SendState> = _state.asStateFlow()
     private val _effect = MutableSharedFlow<SendEffect>(extraBufferCapacity = 1)
     val effect: SharedFlow<SendEffect> = _effect.asSharedFlow()
-
     init {
         viewModelScope.launch {
             settingRepository.currentSettings.collect { currentSettings ->
@@ -281,8 +282,10 @@ class SendViewModel(
                             _effect.emit(SendEffect.DismissSheet)
                             AnalyticsManager.logCustomEvent(BWConstants._20191105_DSL)
                             BRSharedPrefs.incrementSendTransactionCount(app)
+                            delay(800L)
+                            inAppReviewService.showInAppReviewDialogIfNeeded()
                         }
-                        is BWSendResult.Error.InsufficientFunds -> {
+                        is Error.InsufficientFunds -> {
                             _state.update {
                                 it.copy(
                                     errorResultString = String.format(
@@ -293,7 +296,7 @@ class SendViewModel(
                                 )
                             }
                         }
-                        is BWSendResult.Error.AmountTooSmall -> {
+                        is Error.AmountTooSmall -> {
                             _state.update {
                                 it.copy(
                                     errorResultString = String.format(
@@ -304,9 +307,9 @@ class SendViewModel(
                                 )
                             }
                         }
-                        BWSendResult.Error.AlreadySending,
-                        BWSendResult.Error.TimedOut,
-                        is BWSendResult.Error.Unknown -> {
+                        Error.AlreadySending,
+                        Error.TimedOut,
+                        is Error.Unknown -> {
                             Timber.e("Send unknown error: $result")
                             _state.update {
                                 it.copy(

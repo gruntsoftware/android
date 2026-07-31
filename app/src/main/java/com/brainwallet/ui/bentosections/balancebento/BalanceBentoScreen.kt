@@ -32,6 +32,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -51,6 +52,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.brainwallet.R
+import com.brainwallet.appreview.InAppReviewService
 import com.brainwallet.presenter.entities.TxItem
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.ui.screens.main.MainScreenEvent
@@ -61,6 +63,9 @@ import com.brainwallet.ui.theme.IBMPlexSans
 import com.brainwallet.ui.theme.balanceGameBentoSurface
 import com.brainwallet.ui.theme.blurWhen
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import java.math.BigDecimal
 
@@ -107,8 +112,10 @@ fun BalanceBentoScreen(
     onDebugStatusUpdate: () -> Unit = {},
     onDebugTxAdded: () -> Unit = {},
     onDebugBalanceChanged: () -> Unit = {},
+    inAppReviewService: InAppReviewService = koinInject(),
 ) {
     val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
     val infiniteTransition = rememberInfiniteTransition()
     var previousBalance by remember { mutableStateOf(BigDecimal.ZERO) }
     val boingAudioPlayer = remember { MediaPlayer.create(context, R.raw.boingspringmouthharp042013) }
@@ -183,6 +190,12 @@ fun BalanceBentoScreen(
                         isSwapped = !isSwapped
                         boingAudioPlayer.start()
                         AnalyticsManager.logCustomEventWithParams("did_toggle_fiat_ltc", null)
+                        if (isSwapped) {
+                            coroutineScope.launch {
+                                delay(800L)
+                                inAppReviewService.showInAppReviewDialogIfNeeded()
+                            }
+                        }
                     }
             ) {
                 // ──────── MY BALANCE LABEL ────────
@@ -255,9 +268,14 @@ fun BalanceBentoScreen(
                         .clickable(
                             interactionSource = remember { MutableInteractionSource() },
                         ) {
-                            AnalyticsManager.logCustomEventWithParams("did_toggle_balance_visibility", null)
-
                             onEvent(BalanceBentoEvent.OnToggleBalanceVisibility)
+                            AnalyticsManager.logCustomEventWithParams("did_toggle_balance_visibility", null)
+                            if (state.balanceHidden) {
+                                coroutineScope.launch {
+                                    delay(800L)
+                                    inAppReviewService.showInAppReviewDialogIfNeeded()
+                                }
+                            }
                         }
                         .blurWhen(!mainState.isInternetReachable),
                     painter = iconImage,
