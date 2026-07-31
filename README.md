@@ -73,6 +73,29 @@ For the full, up-to-date changelog see [GitHub Releases](https://github.com/grun
 
 ---
 
+### **v4.11.0**  [PR [#259](https://github.com/gruntsoftware/android/pull/259)]
+---
+#### 🎮 Fallinmoji v1.6.0 — Ready, Set, GO!
+Tapping **Play** (or **Play Again** from the end screen) now runs a short intro sequence before the round begins instead of dropping straight into gameplay:
+- **Ready dialog** — shows the round's 3 target emojis on star icons alongside the bonus-scoring rules for ~4.8s
+- **3-2-1-GO! countdown** — a rewired full-screen countdown over a looping 6-frame ray-burst flipbook and center star accent, replacing the old libGDX `ParticleEffect`-driven burst for more reliable screen coverage and consistent timing
+- Main menu button artwork polished (Play / How-To buttons)
+
+#### 🧪 Test Coverage
+Added 48 new unit tests across 7 new test classes, closing coverage gaps on previously-untested pure-logic utilities and the `gameinterface` package:
+- `Base58Test`, `TypesConverterTest`, `BytesUtilTest`, `BRCompressorTest`, `BRDateUtilTest` — encode/decode round-trips, gzip/bz2 compression round-trips, and relative-time formatting edge cases
+- `GameKoinModuleTest` — verifies the `gameModule` Koin DI wiring resolves `GameSlot` to `GdxGameSlot` as a singleton
+- `GdxGameViewTest` — covers `GameExitData` JSON parsing (defaults, unknown-key tolerance) and the social-share dispatch logic in `handleGameExit` (Twitter/Instagram screenshot sharing, missing/empty screenshots, malformed JSON, unrecognized networks)
+
+#### 🔧 Chores
+- Added `skills-lock.json` to track installed Claude Code skills (`aso`, `mobile-android-design`)
+- `.gitignore`: also exclude `CLAUDE.local.md`
+- Version bumped: **v4.10.6 (202506345) → v4.11.0 (202506346)**
+
+**Full Changelog**: https://github.com/gruntsoftware/android/compare/v4.10.6...v4.11.0
+
+---
+
 ### **v4.10.6**  [PR [#253](https://github.com/gruntsoftware/android/pull/253)]
 ---
 #### 🐛 Crash Fixes
