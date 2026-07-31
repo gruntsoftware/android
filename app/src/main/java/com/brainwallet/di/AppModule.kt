@@ -1,8 +1,11 @@
 package com.brainwallet.di
 
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import com.brainwallet.BrainwalletApp
 import com.brainwallet.BuildConfig
+import com.brainwallet.appreview.InAppReviewService
 import com.brainwallet.data.repository.TxRepository
 import com.brainwallet.data.source.RemoteApiSource
 import com.brainwallet.tools.sqlite.CurrencyDataSource
@@ -45,6 +48,7 @@ object AppModule {
         single<SharedPreferences> { provideSharedPreferences(context = androidApplication()) }
         single<TxRepository> { TxRepositoryImpl(get()) }
         single { SyncThreadManager(get(), get()) }
+        single { InAppReviewService(androidApplication()) { BrainwalletApp.breadContext as? Activity } }
     }
 
     private fun provideSharedPreferences(

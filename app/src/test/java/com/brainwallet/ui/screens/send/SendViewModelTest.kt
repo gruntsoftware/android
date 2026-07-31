@@ -1,6 +1,7 @@
 package com.brainwallet.ui.screens.send
 
 import android.app.Application
+import com.brainwallet.appreview.InAppReviewService
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.repository.SettingRepository
@@ -44,6 +45,7 @@ class SendViewModelTest {
     private lateinit var txRepository: TxRepository
     private lateinit var settingRepository: SettingRepository
     private lateinit var currencyDataGetter: CurrencyDataGetter
+    private lateinit var inAppReviewService: InAppReviewService
 
     private val usdCurrency = CurrencyEntity("USD", "US Dollar", 100f, "$")
 
@@ -67,7 +69,8 @@ class SendViewModelTest {
         getBalance = getBalance,
         getCurrentFee = getCurrentFee,
         getOpsFee = getOpsFee,
-        currencyDataGetter = currencyDataGetter
+        currencyDataGetter = currencyDataGetter,
+        inAppReviewService = inAppReviewService
     ).also { advanceUntilIdle() }
 
     @Before
@@ -88,6 +91,7 @@ class SendViewModelTest {
         currencyDataGetter = mockk {
             every { getCurrencyByIso("USD") } returns usdCurrency
         }
+        inAppReviewService = mockk(relaxed = true)
 
         mockkStatic(BRKeyStore::class)
         every { BRKeyStore.getPinCode(any()) } returns "1234"
