@@ -45,14 +45,21 @@ class ReceiveDialogViewModel(
 
     override fun onEvent(event: ReceiveDialogEvent) {
         when (event) {
-            is ReceiveDialogEvent.OnLoad -> _state.update {
-                val address = BRSharedPrefs.getReceiveAddress(event.context)
-                it.copy(
-                    address = address,
-                    qrBitmap = QRUtils.generateQR(event.context, "litecoin:$address"),
-                    fiatCurrencies = CurrencyDataSource.getInstance(event.context)
-                        .getCurrenciesForBuy(),
-                )
+            is ReceiveDialogEvent.OnLoad -> {
+                _state.update {
+                    val address = BRSharedPrefs.getReceiveAddress(event.context)
+                    it.copy(
+                        address = address,
+                        qrBitmap = QRUtils.generateQR(event.context, "litecoin:$address"),
+                        fiatCurrencies = CurrencyDataSource.getInstance(event.context)
+                            .getCurrenciesForBuy(),
+                    )
+                }
+
+                viewModelScope.launch {
+                    val userIPAddress = ltcRepository.fetchUserIpAddress()
+                    _state.update { it.copy(userIPAddress = userIPAddress) }
+                }
             }
 
             is ReceiveDialogEvent.OnCopyClick -> BRClipboardManager.putClipboard(
@@ -156,6 +163,7 @@ class ReceiveDialogViewModel(
                             "baseCurrencyAmount" to currentState.fiatAmount.toString(),
                             "language" to currentSettings.languageCode,
                             "walletAddress" to currentState.address,
+                            "ipAddress" to currentState.userIPAddress,
                             "theme" to if (currentSettings.isDarkMode) "dark" else "light"
                         )
                     )

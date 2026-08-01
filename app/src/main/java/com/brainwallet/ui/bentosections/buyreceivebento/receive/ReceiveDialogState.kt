@@ -11,6 +11,7 @@ import java.util.Locale
 
 data class ReceiveDialogState(
     val address: String = "",
+    val userIPAddress: String = "",
     val qrBitmap: Bitmap? = null,
     val fiatCurrencies: List<CurrencyEntity> = listOf(),
     val selectedFiatCurrency: CurrencyEntity = CurrencyEntity(

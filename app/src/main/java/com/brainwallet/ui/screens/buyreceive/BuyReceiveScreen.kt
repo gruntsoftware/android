@@ -150,8 +150,7 @@ fun BuyReceiveScreen(
                             "baseCurrencyAmount" to state.fiatAmount.toString(),
                             "language" to appSetting.languageCode,
                             "walletAddress" to state.address
-                        ),
-
+                        )
                     )
                 }
             ) {

@@ -116,6 +116,7 @@ object BWConstants {
      * API Hosts
      */
     const val BW_API_PROD_HOST: String = "https://api.grunt.ltd"
+    const val IPIFY_API_HOST: String = "https://api.ipify.org?format=text"
 
     const val BLOCKCHAIR_EXPLORER_BASE_URL: String = "https://blockchair.com/litecoin/transaction/"
     const val BLOCKCYPHER_EXPLORER_BASE_URL: String = "https://live.blockcypher.com/ltc/"

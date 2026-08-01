@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.net.toUri
 import com.brainwallet.BuildConfig
+import com.brainwallet.constants.BWConstants
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.Fee
 import com.brainwallet.data.model.LtcStats
@@ -33,8 +34,11 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import org.koin.core.annotation.Single
 import timber.log.Timber
 
@@ -47,6 +51,7 @@ class LtcRepositoryImpl(
     private val peerManagerSource: PeerManagerSource,
     private val repositoryScope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO),
     private val sharedPreferences: SharedPreferences,
+    private val okHttpClient: OkHttpClient,
 ) : LtcRepository {
 
 //    private val _rates = MutableStateFlow<List<CurrencyEntity>>(
@@ -181,5 +186,22 @@ class LtcRepositoryImpl(
             }
             .build()
             .toString()
+    }
+
+    override suspend fun fetchUserIpAddress(): String = withContext(Dispatchers.IO) {
+        runCatching {
+            val request = Request.Builder()
+                .url(BWConstants.IPIFY_API_HOST)
+                .build()
+            okHttpClient.newCall(request).execute().use { response ->
+                if (response.isSuccessful) {
+                    response.body?.string()?.trim().orEmpty()
+                } else {
+                    ""
+                }
+            }
+        }.onFailure {
+            Timber.e(it, "fetchUserIpAddress failed")
+        }.getOrDefault("")
     }
 }
