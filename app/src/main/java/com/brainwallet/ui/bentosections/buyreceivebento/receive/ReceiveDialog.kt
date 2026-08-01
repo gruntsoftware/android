@@ -210,19 +210,6 @@ private fun ReceiveDialog(
                 }
             )
 
-            // moonpay widget
-            // todo: revisit this later
-//        AnimatedVisibility(visible = state.moonpayWidgetVisible()) {
-//            state.moonpayBuySignedUrl?.let { signedUrl ->
-//                MoonpayBuyWidget(
-//                    modifier = Modifier.height(500.dp),
-//                    signedUrl = signedUrl
-//                )
-//            }
-//        }
-
-            // buy / receive
-//        AnimatedVisibility(visible = state.moonpayWidgetVisible().not()) {
             Column {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -418,15 +405,12 @@ private fun ReceiveDialog(
                     modifier = Modifier.fillMaxWidth(),
                     enabled = loadingState.visible.not(),
                     onClick = {
-                        // todo: revisit this later
-                        // viewModel.onEvent(ReceiveDialogEvent.OnMoonpayButtonClick)
                         onMoonPayLaunch(
                             mapOf(
                                 "baseCurrencyCode" to state.selectedFiatCurrency.code,
                                 "baseCurrencyAmount" to state.fiatAmount.toString(),
                                 "language" to appSetting.languageCode,
-                                "walletAddress" to state.address,
-                                "ipAddress" to state.userIPAddress
+                                "walletAddress" to state.address
                             )
                         )
                     },

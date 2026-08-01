@@ -13,9 +13,11 @@ import com.brainwallet.ui.bentosections.buyreceivebento.receive.ReceiveDialogVie
 import com.brainwallet.ui.bentosections.buyreceivebento.receive.ReceiveDialogEvent
 import com.brainwallet.ui.bentosections.buyreceivebento.receive.getQuickFiatAmountOptions
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkStatic
+import io.mockk.slot
 import io.mockk.unmockkAll
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -43,6 +45,7 @@ class ReceiveDialogViewModelTest {
     private lateinit var viewModel: ReceiveDialogViewModel
 
     private val settingsFlow = MutableStateFlow(AppSetting())
+    private val currentSettingsFlow = MutableStateFlow(AppSetting())
     private val fakeCurrencyEntity = CurrencyEntity(code = "USD", name = "US Dollar", rate = 1.0f, symbol = "USD")
     private val fakeFiatCurrencies = listOf(fakeCurrencyEntity)
 
@@ -68,9 +71,11 @@ class ReceiveDialogViewModelTest {
         every { BRSharedPrefs.getReceiveAddress(any()) } returns "LTC_FAKE_ADDRESS"
         every { QRUtils.generateQR(any(), any()) } returns null
         every { settingRepository.settings } returns settingsFlow
+        every { settingRepository.currentSettings } returns currentSettingsFlow
 
         coEvery { ltcRepository.fetchLimits(any()) } returns mockk(relaxed = true)
         coEvery { ltcRepository.fetchBuyQuote(any()) } returns mockk(relaxed = true)
+        coEvery { ltcRepository.fetchMoonpaySignedUrl(any()) } returns "https://buy.moonpay.com/signed"
 
         viewModel = ReceiveDialogViewModel(
             settingRepository = settingRepository,
@@ -174,6 +179,44 @@ class ReceiveDialogViewModelTest {
         advanceUntilIdle()
 
         assertEquals(0, viewModel.state.value.selectedQuickFiatAmountOptionIndex)
+    }
+
+    // ── OnMoonpayButtonClick ───────────────────────────────────────────────
+
+    @Test
+    fun `OnMoonpayButtonClick sets moonpayBuySignedUrl from ltcRepository`() = runTest {
+        viewModel.onEvent(ReceiveDialogEvent.OnLoad(context))
+        advanceUntilIdle()
+
+        viewModel.onEvent(ReceiveDialogEvent.OnMoonpayButtonClick)
+        advanceUntilIdle()
+
+        assertEquals("https://buy.moonpay.com/signed", viewModel.state.value.moonpayBuySignedUrl)
+    }
+
+    @Test
+    fun `OnMoonpayButtonClick includes walletAddress from state`() = runTest {
+        val paramsSlot = slot<Map<String, String>>()
+        coEvery { ltcRepository.fetchMoonpaySignedUrl(capture(paramsSlot)) } returns "https://buy.moonpay.com/signed"
+
+        viewModel.onEvent(ReceiveDialogEvent.OnLoad(context))
+        advanceUntilIdle()
+
+        viewModel.onEvent(ReceiveDialogEvent.OnMoonpayButtonClick)
+        advanceUntilIdle()
+
+        assertEquals("LTC_FAKE_ADDRESS", paramsSlot.captured["walletAddress"])
+    }
+
+    @Test
+    fun `OnMoonpayButtonClick calls fetchMoonpaySignedUrl exactly once`() = runTest {
+        viewModel.onEvent(ReceiveDialogEvent.OnLoad(context))
+        advanceUntilIdle()
+
+        viewModel.onEvent(ReceiveDialogEvent.OnMoonpayButtonClick)
+        advanceUntilIdle()
+
+        coVerify(exactly = 1) { ltcRepository.fetchMoonpaySignedUrl(any()) }
     }
 
     // ── OnSignedUrlClear ───────────────────────────────────────────────────

@@ -175,6 +175,7 @@ class LtcRepositoryImpl(
             "externalTransactionId" to externalTransactionID,
             "currencyCode" to "ltc",
             "themeId" to "main-v1.0.0",
+            "ipAddress" to fetchUserIpAddress(),
         )
         return remoteApiSource.getMoonpaySignedUrl(finalParams)
             .signedUrl.toUri()
