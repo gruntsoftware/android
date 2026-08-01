@@ -25,6 +25,8 @@ interface LtcRepository {
 
     suspend fun fetchMoonpaySignedUrl(params: Map<String, String>): String
 
+    suspend fun fetchUserIpAddress(): String
+
     companion object {
         const val PREF_KEY_NETWORK_FEE_PER_KB = "network_fee_per_kb"
         const val PREF_KEY_NETWORK_FEE_PER_KB_CACHED_AT = "${PREF_KEY_NETWORK_FEE_PER_KB}_cached_at"
