@@ -21,7 +21,9 @@ import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
-import java.security.spec.X509EncodedKeySpec;
+import java.security.spec.RSAPublicKeySpec;
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 import javax.crypto.BadPaddingException;
@@ -198,24 +200,12 @@ public class Utils {
 
         try {
 
-            // Convert base64 public key string to PublicKey object
-            byte[] keyBytes;
+            // Convert the base64-encoded OpenSSH "ssh-rsa <base64-blob> <comment>" public key
+            // string into an RSAPublicKeySpec
+            RSAPublicKeySpec keySpec;
             try {
                 String pubkey = Utils.fetchServiceItem(app, ServiceItems.AGENTPUBKEY).toString();
-                keyBytes = Base64.getDecoder().decode(pubkey);
-
-                // Decode the base64 to get the PEM string
-                byte[] pemBytes = Base64.getDecoder().decode(pubkey);
-                String pemString = new String(pemBytes, "UTF-8");
-
-                // Extract just the key data (remove PEM headers and whitespace)
-                String keyData = pemString
-                        .replace("-----BEGIN PUBLIC KEY-----", "")
-                        .replace("-----END PUBLIC KEY-----", "")
-                        .replaceAll("\\s+", "");
-
-                // Decode the clean base64 key data
-                keyBytes = Base64.getDecoder().decode(keyData);
+                keySpec = parseOpenSshRsaPublicKey(pubkey);
             } catch (IllegalArgumentException e) {
                 Timber.d("Invalid base64 public key format: %s", e.toString());
                 return "ERROR-CANNOT-KEYBYTES-DO-CONVERSION";
@@ -232,7 +222,7 @@ public class Utils {
             // Generate PublicKey object
             PublicKey publicKey;
             try {
-                publicKey = keyFactory.generatePublic(new X509EncodedKeySpec(keyBytes));
+                publicKey = keyFactory.generatePublic(keySpec);
             } catch (InvalidKeySpecException e) {
                 Timber.d("Invalid public key specification: %s", e.toString());
                 return "ERROR-CANNOT-INVALID-PUBLIC-KEY-SPEC";
@@ -273,6 +263,42 @@ public class Utils {
             Timber.d("Unexpected error during encryption: %s", e.toString());
             return "ERROR-UNEXPECTED-DURING-ENCRYPTION";
         }
+    }
+
+    // Parses a base64-encoded OpenSSH "ssh-rsa <base64-blob> <comment>" public key line
+    // (as provisioned in service-data.json's agent-base64-pubkey) into an RSAPublicKeySpec.
+    // Package-private so it can be unit-tested directly without needing a Context.
+    static RSAPublicKeySpec parseOpenSshRsaPublicKey(String base64EncodedOpenSshLine) {
+        String opensshLine = new String(Base64.getDecoder().decode(base64EncodedOpenSshLine), StandardCharsets.UTF_8);
+
+        // OpenSSH format: "ssh-rsa <base64-encoded-key-blob> [comment]"
+        String[] parts = opensshLine.trim().split("\\s+");
+        if (parts.length < 2) {
+            throw new IllegalArgumentException("Unexpected OpenSSH public key format");
+        }
+        byte[] keyBlob = Base64.getDecoder().decode(parts[1]);
+        return parseSshRsaPublicKeyBlob(keyBlob);
+    }
+
+    // Parses an RFC 4253 "ssh-rsa" wire-format key blob (as found in an OpenSSH
+    // public key line's second field) into the modulus/exponent RSA needs.
+    static RSAPublicKeySpec parseSshRsaPublicKeyBlob(byte[] keyBlob) {
+        ByteBuffer buffer = ByteBuffer.wrap(keyBlob);
+        String keyType = new String(readSshField(buffer), StandardCharsets.UTF_8);
+        if (!"ssh-rsa".equals(keyType)) {
+            throw new IllegalArgumentException("Unsupported SSH key type: " + keyType);
+        }
+        BigInteger exponent = new BigInteger(readSshField(buffer));
+        BigInteger modulus = new BigInteger(readSshField(buffer));
+        return new RSAPublicKeySpec(modulus, exponent);
+    }
+
+    // Each SSH wire-format field is a 4-byte big-endian length followed by that many bytes.
+    private static byte[] readSshField(ByteBuffer buffer) {
+        int length = buffer.getInt();
+        byte[] data = new byte[length];
+        buffer.get(data);
+        return data;
     }
 
     public static String reverseHex(String hex) {
