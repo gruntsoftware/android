@@ -43,7 +43,7 @@
 
 ### Prerequisites
 - Android Studio (current stable) with SDK 36 installed, NDK `25.1.8937393`, CMake `3.22.1`
-- `minSdk 29`, `targetSdk 35`
+- `minSdk 29`, `targetSdk 36`
 
 ## Architecture
 
