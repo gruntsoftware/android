@@ -134,8 +134,6 @@ object BWConstants {
     const val _20200217_DU: String = "did_unlock"
 
     const val _20250517_WCINFO: String = "wallet_callback_info"
-    const val _20241006_DRR: String = "did_request_rating"
-    const val _20241006_UCR: String = "user_completed_rating"
 
     /**
      * Analytics keys

@@ -172,8 +172,6 @@ class BWConstantsTests {
 
     @Test
     fun `validate recent Firebase analytics event constants`() {
-        assertSame(BWConstants._20241006_DRR, "did_request_rating")
-        assertSame(BWConstants._20241006_UCR, "user_completed_rating")
         assertSame(BWConstants._20250517_WCINFO, "wallet_callback_info")
     }
 

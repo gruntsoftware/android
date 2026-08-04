@@ -301,8 +301,6 @@ class BWConstantsTest {
             BWConstants._20201118_DTGS,
             BWConstants._20200217_DU,
             BWConstants._20250517_WCINFO,
-            BWConstants._20241006_DRR,
-            BWConstants._20241006_UCR,
         ).forEach { key ->
             assertTrue("Analytics key should not be empty", key.isNotEmpty())
         }
@@ -322,9 +320,7 @@ class BWConstantsTest {
             BWConstants._20200112_DSR,
             BWConstants._20201118_DTGS,
             BWConstants._20200217_DU,
-            BWConstants._20250517_WCINFO,
-            BWConstants._20241006_DRR,
-            BWConstants._20241006_UCR,
+            BWConstants._20250517_WCINFO, 
         )
         assertEquals(keys.size, keys.toSet().size)
     }

@@ -26,7 +26,6 @@ class InAppReviewService(
             val request = manager.requestReviewFlow()
             request.addOnCompleteListener(
                 OnCompleteListener { task: Task<ReviewInfo>? ->
-                    AnalyticsManager.logCustomEvent(BWConstants._20241006_DRR)
                     if (task!!.isSuccessful()) {
                         val reviewInfo = task.getResult()
                         val flow = manager.launchReviewFlow(activity, reviewInfo)
@@ -41,7 +40,6 @@ class InAppReviewService(
                                 )
                                 if (task1.isSuccessful()) {
                                     BRSharedPrefs.inAppReviewDone(app)
-                                    AnalyticsManager.logCustomEvent(BWConstants._20241006_UCR)
                                 }
                             }
                         )

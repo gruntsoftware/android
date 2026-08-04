@@ -67,6 +67,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
+import timber.log.Timber
 import java.math.BigDecimal
 
 @Composable
@@ -194,6 +195,7 @@ fun BalanceBentoScreen(
                             coroutineScope.launch {
                                 delay(800L)
                                 inAppReviewService.showInAppReviewDialogIfNeeded()
+                                Timber.d("did_request_rating");
                             }
                         }
                     }
@@ -274,6 +276,7 @@ fun BalanceBentoScreen(
                                 coroutineScope.launch {
                                     delay(800L)
                                     inAppReviewService.showInAppReviewDialogIfNeeded()
+                                    Timber.d("did_request_rating")
                                 }
                             }
                         }
