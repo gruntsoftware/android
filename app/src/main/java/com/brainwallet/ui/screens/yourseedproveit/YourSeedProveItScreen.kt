@@ -52,13 +52,11 @@ import androidx.compose.ui.unit.dp
 import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.UiEffect
-import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
 import com.brainwallet.ui.composable.LargeButton
 import com.brainwallet.ui.composable.SeedWordItem
 import com.brainwallet.ui.composable.SeedWordsLayout
-import com.brainwallet.constants.BWConstants
 import com.brainwallet.navigation.Route
 import org.koin.compose.koinInject
 
@@ -89,7 +87,6 @@ fun YourSeedProveItScreen(
         if (state.orderCorrected) {
             coinAudioPlayer.start()
             viewModel.onEvent(YourSeedProveItEvent.OnCompletedPaperKey)
-            AnalyticsManager.logCustomEvent(BWConstants._20250303_DSTU)
         }
     }
 

@@ -50,7 +50,6 @@ class DatabaseTests
 //    }
 //    @Test
 //    public void testFirebaseAnalyticsConstants() {
-//        Assert.assertSame(BWConstants._20191105_AL,"app_launched");
 //        Assert.assertSame(BWConstants._20191105_VSC,"visit_send_controller");
 //        Assert.assertSame(BWConstants._20202116_VRC,"visit_receive_controller");
 //        Assert.assertSame(BWConstants._20191105_DSL,"did_send_ltc");
