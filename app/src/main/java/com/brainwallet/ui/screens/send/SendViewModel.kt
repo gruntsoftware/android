@@ -284,6 +284,7 @@ class SendViewModel(
                             BRSharedPrefs.incrementSendTransactionCount(app)
                             delay(800L)
                             inAppReviewService.showInAppReviewDialogIfNeeded()
+                            Timber.d("did_request_rating")
                         }
                         is Error.InsufficientFunds -> {
                             _state.update {
@@ -371,21 +372,3 @@ class SendViewModel(
         data object DismissSheet : SendEffect()
     }
 }
-
-// if (allFilled) {
-//    BRSender.getInstance().sendTransaction(
-//        context,
-//        TransactionItem(
-//            sendAddress,
-//            Utils.fetchServiceItem(context, ServiceItems.WALLETOPS),
-//            null,
-//            litoshiAmount.toLong(),
-//            getOpsFee(litoshiAmount.toLong()),
-//            null,
-//            false,
-//            comment
-//        ),
-//    )
-//    AnalyticsManager.logCustomEvent(BWConstants._20191105_DSL)
-//    BRSharedPrefs.incrementSendTransactionCount(context)
-// }

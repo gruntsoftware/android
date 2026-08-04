@@ -38,7 +38,6 @@ import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.presenter.customviews.BRNotificationBar;
 import com.brainwallet.presenter.history.HistoryFragment;
 import com.brainwallet.tools.animation.TextSizeTransition;
-import com.brainwallet.tools.manager.AnalyticsManager;
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.manager.InternetManager;
 import com.brainwallet.tools.manager.sync.SyncManager;
@@ -46,7 +45,6 @@ import com.brainwallet.tools.security.BitcoinUrlHandler;
 import com.brainwallet.tools.security.PostAuth;
 import com.brainwallet.tools.sqlite.TransactionDataSource;
 import com.brainwallet.tools.threads.BRExecutor;
-import com.brainwallet.constants.BWConstants;
 import com.brainwallet.tools.util.BRCurrency;
 import com.brainwallet.tools.util.BRExchange;
 import com.brainwallet.tools.util.ExtensionKt;
@@ -98,7 +96,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bread);
-        AnalyticsManager.logCustomEvent(BWConstants._HOME_OPEN);
         app = this;
         getWindowManager().getDefaultDisplay().getSize(screenParametersPoint);
 

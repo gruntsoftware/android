@@ -31,11 +31,9 @@ import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.Route
 import com.brainwallet.navigation.UiEffect
-import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.ui.composable.BorderedLargeButton
 import com.brainwallet.ui.composable.BrainwalletScaffold
 import com.brainwallet.ui.composable.BrainwalletTopAppBar
-import com.brainwallet.constants.BWConstants
 import com.brainwallet.ui.screens.yourseedproveit.YourSeedProveItViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -117,7 +115,6 @@ fun TopUpScreen(
             }
             BorderedLargeButton(
                 onClick = {
-                    AnalyticsManager.logCustomEvent(BWConstants._20250303_DSTU)
                     onNavigate.invoke(
                         UiEffect.Navigate(
                             destinationRoute = Route.Main,
