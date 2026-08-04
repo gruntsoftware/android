@@ -2,8 +2,6 @@ package com.brainwallet.appreview
 
 import android.app.Activity
 import android.app.Application
-import com.brainwallet.constants.BWConstants
-import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
@@ -58,8 +56,6 @@ class InAppReviewServiceTest {
         }
 
         mockkStatic(BRSharedPrefs::class)
-        mockkStatic(AnalyticsManager::class)
-        every { AnalyticsManager.logCustomEvent(any()) } returns Unit
     }
 
     @After
@@ -108,7 +104,7 @@ class InAppReviewServiceTest {
     }
 
     @Test
-    fun `given eligible user and successful review flow, when showInAppReviewDialogIfNeeded, then marks review done and logs both analytics events`() {
+    fun `given eligible user and successful review flow, when showInAppReviewDialogIfNeeded, then marks review done`() {
         every { BRSharedPrefs.isInAppReviewDone(app) } returns false
         every { BRSharedPrefs.getSendTransactionCount(app) } returns 5
         every { requestTask.isSuccessful() } returns true
@@ -120,8 +116,6 @@ class InAppReviewServiceTest {
 
         verify { manager.launchReviewFlow(activity, reviewInfo) }
         verify { BRSharedPrefs.inAppReviewDone(app) }
-        verify { AnalyticsManager.logCustomEvent(BWConstants._20241006_DRR) }
-        verify { AnalyticsManager.logCustomEvent(BWConstants._20241006_UCR) }
     }
 
     @Test
@@ -135,12 +129,10 @@ class InAppReviewServiceTest {
 
         verify(exactly = 0) { manager.launchReviewFlow(any(), any()) }
         verify(exactly = 0) { BRSharedPrefs.inAppReviewDone(app) }
-        verify { AnalyticsManager.logCustomEvent(BWConstants._20241006_DRR) }
-        verify(exactly = 0) { AnalyticsManager.logCustomEvent(BWConstants._20241006_UCR) }
     }
 
     @Test
-    fun `given launch review flow fails, when showInAppReviewDialogIfNeeded, then does not mark done or log completion event`() {
+    fun `given launch review flow fails, when showInAppReviewDialogIfNeeded, then does not mark done`() {
         every { BRSharedPrefs.isInAppReviewDone(app) } returns false
         every { BRSharedPrefs.getSendTransactionCount(app) } returns 5
         every { requestTask.isSuccessful() } returns true
@@ -151,7 +143,5 @@ class InAppReviewServiceTest {
 
         verify { manager.launchReviewFlow(activity, reviewInfo) }
         verify(exactly = 0) { BRSharedPrefs.inAppReviewDone(app) }
-        verify { AnalyticsManager.logCustomEvent(BWConstants._20241006_DRR) }
-        verify(exactly = 0) { AnalyticsManager.logCustomEvent(BWConstants._20241006_UCR) }
     }
 }

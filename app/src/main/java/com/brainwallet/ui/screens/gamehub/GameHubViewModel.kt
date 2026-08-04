@@ -20,6 +20,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import org.koin.android.annotation.KoinViewModel
+import timber.log.Timber
 import java.io.File
 import java.io.FileOutputStream
 
@@ -41,6 +42,7 @@ class GameHubViewModel(
                 viewModelScope.launch {
                     delay(3_000L)
                     inAppReviewService.showInAppReviewDialogIfNeeded()
+                    Timber.d("did_request_rating");
                 }
             }
             is GameHubEvent.OnGameExited -> {
