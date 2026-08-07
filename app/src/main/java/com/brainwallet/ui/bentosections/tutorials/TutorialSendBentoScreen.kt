@@ -48,7 +48,7 @@ fun TutorialSendBentoScreen(
 
     Card(
         modifier = modifier.fillMaxSize(),
-        shape = RoundedCornerShape(18.dp),
+        shape = RoundedCornerShape(bentoCornerRadius),
         colors = CardDefaults.cardColors(containerColor = Color.Transparent),
         onClick = onClick
     ) {
