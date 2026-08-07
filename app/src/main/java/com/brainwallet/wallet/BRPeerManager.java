@@ -16,6 +16,7 @@ import com.brainwallet.tools.sqlite.MerkleBlockDataSource;
 import com.brainwallet.tools.sqlite.PeerDataSource;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.tools.util.TrustedNode;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import org.koin.java.KoinJavaComponent;
 
@@ -107,6 +108,13 @@ public class BRPeerManager {
                 updateLastBlockHeight(getCurrentBlockHeight());
             }
         });
+    }
+    @Suppress(names = "unused") // called via BRPeerManager callback
+    public static void onIntegrityWarning(String warning) {
+        Timber.e("timber: native integrity warning: %s", warning);
+        FirebaseCrashlytics.getInstance().recordException(
+                new RuntimeException("BRPeerManager native integrity warning: " + warning)
+        );
     }
     @Suppress(names = "unused") // called via BRPeerManager callback
     public static void saveBlocks(final BlockEntity[] blockEntities, final boolean replace) {
