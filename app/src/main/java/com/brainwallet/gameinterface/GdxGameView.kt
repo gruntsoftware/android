@@ -77,6 +77,7 @@ fun GdxGameView(
                             this.onExit = { jsonString, bytes ->
                                 removeFragment(fm, tag)
                                 viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
+                                gameHubViewModel.onEvent(GameHubEvent.OnGameFinished)
                                 handleGameExit(jsonString, bytes, gameHubViewModel)
                                 currentOnExit(jsonString, bytes)
                             }

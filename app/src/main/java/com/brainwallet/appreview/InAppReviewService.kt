@@ -2,8 +2,6 @@ package com.brainwallet.appreview
 
 import android.app.Activity
 import android.app.Application
-import com.brainwallet.constants.BWConstants
-import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
@@ -26,7 +24,6 @@ class InAppReviewService(
             val request = manager.requestReviewFlow()
             request.addOnCompleteListener(
                 OnCompleteListener { task: Task<ReviewInfo>? ->
-                    AnalyticsManager.logCustomEvent(BWConstants._20241006_DRR)
                     if (task!!.isSuccessful()) {
                         val reviewInfo = task.getResult()
                         val flow = manager.launchReviewFlow(activity, reviewInfo)
@@ -41,7 +38,6 @@ class InAppReviewService(
                                 )
                                 if (task1.isSuccessful()) {
                                     BRSharedPrefs.inAppReviewDone(app)
-                                    AnalyticsManager.logCustomEvent(BWConstants._20241006_UCR)
                                 }
                             }
                         )

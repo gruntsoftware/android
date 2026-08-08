@@ -289,7 +289,6 @@ class BWConstantsTest {
     @Test
     fun `all analytics event keys are non-empty`() {
         listOf(
-            BWConstants._20191105_AL,
             BWConstants._20191105_VSC,
             BWConstants._20202116_VRC,
             BWConstants._20191105_DSL,
@@ -301,11 +300,7 @@ class BWConstantsTest {
             BWConstants._20200112_DSR,
             BWConstants._20201118_DTGS,
             BWConstants._20200217_DU,
-            BWConstants._20250303_DSTU,
             BWConstants._20250517_WCINFO,
-            BWConstants._20241006_DRR,
-            BWConstants._20241006_UCR,
-            BWConstants._HOME_OPEN,
         ).forEach { key ->
             assertTrue("Analytics key should not be empty", key.isNotEmpty())
         }
@@ -314,7 +309,6 @@ class BWConstantsTest {
     @Test
     fun `all analytics event keys are distinct`() {
         val keys = listOf(
-            BWConstants._20191105_AL,
             BWConstants._20191105_VSC,
             BWConstants._20202116_VRC,
             BWConstants._20191105_DSL,
@@ -326,11 +320,7 @@ class BWConstantsTest {
             BWConstants._20200112_DSR,
             BWConstants._20201118_DTGS,
             BWConstants._20200217_DU,
-            BWConstants._20250303_DSTU,
             BWConstants._20250517_WCINFO,
-            BWConstants._20241006_DRR,
-            BWConstants._20241006_UCR,
-            BWConstants._HOME_OPEN,
         )
         assertEquals(keys.size, keys.toSet().size)
     }

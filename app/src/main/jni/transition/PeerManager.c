@@ -122,6 +122,24 @@ static void txStatusUpdate(void *info) {
     (*env)->CallStaticVoidMethod(env, _peerManagerClass, mid);
 }
 
+// called by core when it detects and recovers from unexpected internal state (e.g. a missing checkpoint
+// block) instead of crashing. warning is a short, static, human-readable C string with no dynamic/sensitive
+// content. See BRPeerManagerSetIntegrityWarningCallback() in core/BRPeerManager.h.
+static void integrityWarning(void *info, const char *warning) {
+    __android_log_print(ANDROID_LOG_ERROR, "Message from C: ", "integrityWarning: %s", warning);
+    if (!_peerManager) return;
+
+    JNIEnv *env = getEnv();
+    jmethodID mid;
+
+    if (!env) return;
+
+    jstring jWarning = (*env)->NewStringUTF(env, warning);
+    mid = (*env)->GetStaticMethodID(env, _peerManagerClass, "onIntegrityWarning", "(Ljava/lang/String;)V");
+    (*env)->CallStaticVoidMethod(env, _peerManagerClass, mid, jWarning);
+    (*env)->DeleteLocalRef(env, jWarning);
+}
+
 static void saveBlocks(void *info, int replace, BRMerkleBlock *blocks[], size_t count) {
     __android_log_print(ANDROID_LOG_DEBUG, "Message from C: ", "saveBlocks");
     if (!_peerManager) return;
@@ -386,6 +404,7 @@ Java_com_brainwallet_wallet_BRPeerManager_create(JNIEnv *env, jobject thiz,
         BRPeerManagerSetCallbacks(_peerManager, NULL, syncStarted, syncStopped,
                                   txStatusUpdate,
                                   saveBlocks, savePeers, networkIsReachable, threadCleanup);
+        BRPeerManagerSetIntegrityWarningCallback(_peerManager, integrityWarning);
     }
 
     if (_peerManager == NULL) {

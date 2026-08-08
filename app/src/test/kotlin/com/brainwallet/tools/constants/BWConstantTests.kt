@@ -157,7 +157,6 @@ class BWConstantsTests {
 
     @Test
     fun `validate active Firebase analytics event constants`() {
-        assertSame(BWConstants._20191105_AL, "app_launched")
         assertSame(BWConstants._20191105_VSC, "visit_send_controller")
         assertSame(BWConstants._20202116_VRC, "visit_receive_controller")
         assertSame(BWConstants._20191105_DSL, "did_send_ltc")
@@ -173,10 +172,6 @@ class BWConstantsTests {
 
     @Test
     fun `validate recent Firebase analytics event constants`() {
-        assertSame(BWConstants._20241006_DRR, "did_request_rating")
-        assertSame(BWConstants._20241006_UCR, "user_completed_rating")
-        assertSame(BWConstants._HOME_OPEN, "home_open")
-        assertSame(BWConstants._20250303_DSTU, "did_skip_top_up")
         assertSame(BWConstants._20250517_WCINFO, "wallet_callback_info")
     }
 

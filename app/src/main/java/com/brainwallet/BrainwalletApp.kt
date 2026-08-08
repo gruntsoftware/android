@@ -37,7 +37,6 @@ open class BrainwalletApp : Application() {
             FirebaseCrashlytics.getInstance().setCustomKey("build_type", "debug")
             FirebaseCrashlytics.getInstance().setUserId("debug_bw_devices")
         }
-        AnalyticsManager.logCustomEvent(BWConstants._20191105_AL)
 
         if (BuildConfig.DEBUG) Timber.plant(DebugTree())
 

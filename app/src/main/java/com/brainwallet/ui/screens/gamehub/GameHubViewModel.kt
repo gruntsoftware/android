@@ -20,6 +20,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import org.koin.android.annotation.KoinViewModel
+import timber.log.Timber
 import java.io.File
 import java.io.FileOutputStream
 
@@ -35,6 +36,14 @@ class GameHubViewModel(
     override fun onEvent(event: GameHubEvent) {
         when (event) {
             is GameHubEvent.OnLoad -> {
+            }
+            is GameHubEvent.OnGameFinished -> {
+                AnalyticsManager.logCustomEventWithParams("did_play_game", null)
+                viewModelScope.launch {
+                    delay(3_000L)
+                    inAppReviewService.showInAppReviewDialogIfNeeded()
+                    Timber.d("did_request_rating")
+                }
             }
             is GameHubEvent.OnGameExited -> {
                 val unixTimestamp = System.currentTimeMillis() / 1000

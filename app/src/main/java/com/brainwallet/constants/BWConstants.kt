@@ -116,11 +116,11 @@ object BWConstants {
      * API Hosts
      */
     const val BW_API_PROD_HOST: String = "https://api.grunt.ltd"
+    const val IPIFY_API_HOST: String = "https://api.ipify.org?format=text"
 
     const val BLOCKCHAIR_EXPLORER_BASE_URL: String = "https://blockchair.com/litecoin/transaction/"
     const val BLOCKCYPHER_EXPLORER_BASE_URL: String = "https://live.blockcypher.com/ltc/"
 
-    const val _20191105_AL: String = "app_launched"
     const val _20191105_VSC: String = "visit_send_controller"
     const val _20202116_VRC: String = "visit_receive_controller"
     const val _20191105_DSL: String = "did_send_ltc"
@@ -133,11 +133,7 @@ object BWConstants {
     const val _20201118_DTGS: String = "did_tap_get_support"
     const val _20200217_DU: String = "did_unlock"
 
-    const val _20250303_DSTU: String = "did_skip_top_up"
     const val _20250517_WCINFO: String = "wallet_callback_info"
-    const val _20241006_DRR: String = "did_request_rating"
-    const val _20241006_UCR: String = "user_completed_rating"
-    const val _HOME_OPEN: String = "home_open"
 
     /**
      * Analytics keys

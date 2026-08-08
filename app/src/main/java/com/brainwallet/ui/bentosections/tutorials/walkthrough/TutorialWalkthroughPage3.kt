@@ -26,6 +26,7 @@ import com.brainwallet.ui.composable.CalloutWithPointers
 import com.brainwallet.ui.composable.Pointer
 import com.brainwallet.ui.theme.IBMPlexSans
 import org.koin.compose.koinInject
+import timber.log.Timber
 
 @Composable
 fun TutorialWalkthroughPage3(
@@ -35,6 +36,7 @@ fun TutorialWalkthroughPage3(
 ) {
     LaunchedEffect(Unit) {
         inAppReviewService.showInAppReviewDialogIfNeeded()
+        Timber.d("did_request_rating")
     }
 
     Box(

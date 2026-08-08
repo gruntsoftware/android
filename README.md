@@ -5,6 +5,7 @@
 ### CircleCI status  
 [![Release](https://img.shields.io/github/v/release/gruntsoftware/android?style=plastic)](https://github.com/gruntsoftware/android/releases)
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/gruntsoftware/android/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/gruntsoftware/android/tree/main)
+[![Tests](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/grunt-claude-bot/ae4830cb1b5da4611598d20a517fd933/raw/tests-badge.json)](https://dl.circleci.com/status-badge/redirect/gh/gruntsoftware/android/tree/develop)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ## Play Store
@@ -42,7 +43,7 @@
 
 ### Prerequisites
 - Android Studio (current stable) with SDK 36 installed, NDK `25.1.8937393`, CMake `3.22.1`
-- `minSdk 29`, `targetSdk 35`
+- `minSdk 29`, `targetSdk 36`
 
 ## Architecture
 
@@ -70,6 +71,33 @@ Brainwallet Android is released under the [MIT License](LICENSE).
 ## Release Notes
 
 For the full, up-to-date changelog see [GitHub Releases](https://github.com/gruntsoftware/android/releases) and the [compare view](https://github.com/gruntsoftware/android/compare). Highlights from recent versions:
+
+---
+
+### **v4.12.0**  [PR [#270](https://github.com/gruntsoftware/android/pull/270)]
+---
+#### ✨ In-App Review Activated
+Google Play's in-app review prompt is now actually wired up after sitting dormant — `InAppReviewService` is registered in Koin and `showInAppReviewDialogIfNeeded()` is called from five placements: after a successful send, the game hub exit flow, the balance-visibility toggle, and two tutorial pages (#260). A follow-up fix decouples the prompt from the social-share flow so it fires on every game exit, not just when the player taps Twitter/Instagram share (#263).
+
+#### 🐛 Bug Fixes
+- **Native `SIGSEGV` crash in `BRPeerManager`** — several accessors (`BRPeerManagerEstimatedBlockHeight`, `LastBlockHeight`, `LastBlockTimestamp`, `SyncProgress`) dereferenced `lastBlock` without a null check, crashing the process if a checkpoint block was ever missing from the persisted block set. `core`'s `BRPeerManager.c` now guards every access and reports the recovery back to the app via a new `BRPeerManagerSetIntegrityWarningCallback`, surfaced through `BRPeerManager.onIntegrityWarning()` to Crashlytics instead of crashing (#269).
+- **RSA public key parsing in `getEncryptedAgentString`** — the provisioned key is an OpenSSH `ssh-rsa <base64-blob> <comment>` line, not base64-encoded PEM; the old PEM-stripping logic corrupted the payload by merging the `ssh-rsa` prefix and comment into it, failing on every call. Now parses the OpenSSH wire format (RFC 4253) directly (#265).
+- **MoonPay signed-url `ipAddress` race** — the Buy button in `ReceiveDialog` could reach MoonPay's signed-url request before the async ipify lookup resolved, sending an empty `ipAddress`. The lookup now happens fresh inside `fetchMoonpaySignedUrl` itself, awaited right before use (#264).
+
+#### 🎮 Fallinmoji v1.6.2
+"How To Play" screen update and a bento corner-radius fix, plus a bw-gdlib bump to pick it up (#268).
+
+#### 📊 Analytics Cleanup
+Removed excess/duplicate events (`app_launched`, `home_open`, a double-firing `did_skip_top_up`) and stopped logging `did_request_rating`/`user_completed_rating` as Firebase events — the Play Core API gives no guarantee a review request actually shows the dialog, so these overstated what happened. Replaced with local `Timber.d` traces (#266).
+
+#### 🧪 Test Coverage
+Added coverage for `InAppReviewService` (gating + Play Core success/failure branches), `UtilsAgentString`'s new OpenSSH parsing path, MoonPay ip-fetch success/failure, and `BRPeerManager.onIntegrityWarning`'s Crashlytics reporting.
+
+#### 🔧 Chores
+- Bumped `targetSdk` to 36 (#267)
+- Version bumped: **v4.11.0 (202506346) → v4.12.0 (202506350)**
+
+**Full Changelog**: https://github.com/gruntsoftware/android/compare/v4.11.0...v4.12.0
 
 ---
 
