@@ -129,6 +129,12 @@ class GameHubViewModel(
                         }
                     )
                 }
+
+                AnalyticsManager.logCustomEventWithParams("did_play_game", null)
+                viewModelScope.launch {
+                    delay(800L)
+                    inAppReviewService.showInAppReviewDialogIfNeeded()
+                }
             }
         }
     }
