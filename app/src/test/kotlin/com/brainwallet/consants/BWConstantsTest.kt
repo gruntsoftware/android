@@ -26,23 +26,47 @@ class BWConstantsTest {
     // ── animation durations ────────────────────────────────────────────────
 
     @Test
-    fun `FADE_IN_DURATION is 400`() {
-        assertEquals(400, BWConstants.FADE_IN_DURATION)
+    fun `FADE_IN_DURATION is 200`() {
+        assertEquals(200, BWConstants.FADE_IN_DURATION)
     }
 
     @Test
-    fun `FADE_OUT_DURATION is 400`() {
-        assertEquals(400, BWConstants.FADE_OUT_DURATION)
+    fun `FADE_OUT_DURATION is 200`() {
+        assertEquals(200, BWConstants.FADE_OUT_DURATION)
     }
 
     @Test
-    fun `SHRINK_DURATION is 700`() {
-        assertEquals(700, BWConstants.SHRINK_DURATION)
+    fun `SHRINK_DURATION is 400`() {
+        assertEquals(400, BWConstants.SHRINK_DURATION)
     }
 
     @Test
-    fun `EXPAND_DURATION is 700`() {
-        assertEquals(700, BWConstants.EXPAND_DURATION)
+    fun `EXPAND_DURATION is 400`() {
+        assertEquals(400, BWConstants.EXPAND_DURATION)
+    }
+
+    @Test
+    fun `fade durations are shorter than expand-shrink durations`() {
+        assertTrue(BWConstants.FADE_IN_DURATION < BWConstants.EXPAND_DURATION)
+        assertTrue(BWConstants.FADE_OUT_DURATION < BWConstants.SHRINK_DURATION)
+    }
+
+    @Test
+    fun `fade in and out durations match`() {
+        assertEquals(BWConstants.FADE_IN_DURATION, BWConstants.FADE_OUT_DURATION)
+    }
+
+    @Test
+    fun `shrink and expand durations match`() {
+        assertEquals(BWConstants.SHRINK_DURATION, BWConstants.EXPAND_DURATION)
+    }
+
+    @Test
+    fun `all animation durations are positive`() {
+        assertTrue(BWConstants.FADE_IN_DURATION > 0)
+        assertTrue(BWConstants.FADE_OUT_DURATION > 0)
+        assertTrue(BWConstants.SHRINK_DURATION > 0)
+        assertTrue(BWConstants.EXPAND_DURATION > 0)
     }
 
     // ── pin length ─────────────────────────────────────────────────────────

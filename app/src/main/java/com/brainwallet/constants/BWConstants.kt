@@ -32,10 +32,10 @@ object BWConstants {
     /**
      * Animation values
      */
-    const val FADE_IN_DURATION: Int = 400
-    const val FADE_OUT_DURATION: Int = 400
-    const val SHRINK_DURATION: Int = 700
-    const val EXPAND_DURATION: Int = 700
+    const val FADE_IN_DURATION: Int = 200
+    const val FADE_OUT_DURATION: Int = 200
+    const val SHRINK_DURATION: Int = 400
+    const val EXPAND_DURATION: Int = 400
 
     /**
      * Request codes for auth
