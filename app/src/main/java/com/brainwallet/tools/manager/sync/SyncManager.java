@@ -62,12 +62,12 @@ public class SyncManager {
     }
 
     private synchronized void updateStartSyncData(Context app) {
-        final double progress = BRPeerManager.syncProgress(BRSharedPrefs.getStartHeight(app));
+        final double progress = BRPeerManager.getInstance().syncProgress(BRSharedPrefs.getStartHeight(app));
     }
 
     private synchronized void markFinishedSyncData(Context app) {
         Timber.d("timber: || SYNC ELAPSE markFinish threadname:%s", Thread.currentThread().getName());
-        final double progress = BRPeerManager.syncProgress(BRSharedPrefs.getStartHeight(app));
+        final double progress = BRPeerManager.getInstance().syncProgress(BRSharedPrefs.getStartHeight(app));
         getSyncAnalyticsRepository().completeSync();
     }
 

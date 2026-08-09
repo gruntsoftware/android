@@ -221,7 +221,7 @@ class BrainwalletActivity :
         if (isConnected) {
             BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
                 Runnable {
-                    val progress = BRPeerManager.syncProgress(startHeight)
+                    val progress = BRPeerManager.getInstance().syncProgress(startHeight)
                     if (progress > 0 && progress < 1) {
                         SyncThreadManager.getInstance().startSyncing(startHeight)
                     }

@@ -33,9 +33,11 @@ data class BlockInfo(
 class PeerManagerSourceImpl(
     private val app: Application,
     private val proxy: BRPeerManagerProxy = object : BRPeerManagerProxy {
-        override fun getCurrentBlockHeight(): Int = BRPeerManager.getCurrentBlockHeight()
+        override fun getCurrentBlockHeight(): Int = BRPeerManager.getInstance().currentBlockHeight
         override fun getLastBlockTimestamp(): Long = BRPeerManager.getInstance().lastBlockTimestamp
-        override fun getSyncProgress(): Double = BRPeerManager.syncProgress(BRSharedPrefs.getStartHeight(app))
+        override fun getSyncProgress(): Double = BRPeerManager.getInstance().syncProgress(
+            BRSharedPrefs.getStartHeight(app)
+        )
     }
 ) : PeerManagerSource, BRPeerManagerProxy by proxy {
 
