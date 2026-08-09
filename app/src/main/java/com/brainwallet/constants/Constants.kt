@@ -5,6 +5,8 @@ val balanceGameBentoHt = 125.dp
 val gameHubHt = 120.dp
 val transactionRowHt = 70.dp
 
+val exportTxRowHt = 60.dp
+
 val transactionActionHt = 40.dp
 
 val transactionDetailHt = 240.dp
@@ -28,6 +30,6 @@ val bentoBorderWidth = 1.0.dp
 
 val mainBentoBorderWidth = 0.8.dp
 val bentoCornerRadius = 16.dp
-
+val buttonCornerRadius = 10.dp
 val bentoSpacer = 6.dp
 val tripleBentoSpacer = 18.dp
