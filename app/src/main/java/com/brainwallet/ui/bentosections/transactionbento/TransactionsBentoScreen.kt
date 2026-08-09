@@ -211,27 +211,29 @@ fun TransactionsBentoScreen(
                     }
                     Spacer(modifier = Modifier.padding(bentoSpacer))
 
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(transactionActionHt)
-                    ) {
-                        Box(
+                    if (!noTxItemsPresent) {
+                        Row(
                             modifier = Modifier
-                                .weight(1f)
-                                .clickable(
-                                    interactionSource = remember { MutableInteractionSource() }
-                                ) {
-                                    // Call the ExportTrxSheet
-                                    showExportSheet = true
-                                }
+                                .fillMaxWidth()
+                                .height(transactionActionHt)
                         ) {
-                            ExportTxDataRow(
-                                isDarkMode = state.darkMode,
+                            Box(
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(exportTxRowHt)
-                            )
+                                    .weight(1f)
+                                    .clickable(
+                                        interactionSource = remember { MutableInteractionSource() }
+                                    ) {
+                                        // Call the ExportTrxSheet
+                                        showExportSheet = true
+                                    }
+                            ) {
+                                ExportTxDataRow(
+                                    isDarkMode = state.darkMode,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(exportTxRowHt)
+                                )
+                            }
                         }
                     }
                 }
