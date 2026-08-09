@@ -98,7 +98,7 @@ public class TxManager {
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
             @Override
             public void run() {
-                final double progress = BRPeerManager.syncProgress(BRSharedPrefs.getStartHeight(app));
+                final double progress = BRPeerManager.getInstance().syncProgress(BRSharedPrefs.getStartHeight(app));
                 BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable() {
                     @Override
                     public void run() {

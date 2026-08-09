@@ -52,9 +52,9 @@ class SyncThreadManager(
 
             try {
                 while (isActive) {
-                    val progress = BRPeerManager.syncProgress(startHeight).toFloat()
+                    val progress = BRPeerManager.getInstance().syncProgress(startHeight).toFloat()
                     val lastBlockTimestamp = BRPeerManager.getInstance().getLastBlockTimestamp() * 1000L
-                    val currentBlockHeight = BRPeerManager.getCurrentBlockHeight()
+                    val currentBlockHeight = BRPeerManager.getInstance().getCurrentBlockHeight()
 
                     if (progress >= 1f) {
                         val endTimestamp = System.currentTimeMillis()

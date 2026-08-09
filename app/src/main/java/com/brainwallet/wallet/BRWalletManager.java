@@ -536,7 +536,7 @@ public class BRWalletManager implements WalletOperations,
                 BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
                     @Override
                     public void run() {
-                        BRSharedPrefs.putStartHeight(ctx, BRPeerManager.getCurrentBlockHeight());
+                        BRSharedPrefs.putStartHeight(ctx, pm.getCurrentBlockHeight());
                     }
                 });
             }
