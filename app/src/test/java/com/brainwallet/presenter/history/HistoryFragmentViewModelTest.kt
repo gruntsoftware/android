@@ -1,5 +1,6 @@
 package com.brainwallet.presenter.history
 
+import com.brainwallet.domain.ExportedTransactionsMapper
 import com.brainwallet.presenter.entities.TxItem
 import io.mockk.every
 import io.mockk.mockk
