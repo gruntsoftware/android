@@ -25,6 +25,8 @@ import com.brainwallet.ui.theme.BrainwalletAppTheme
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 import com.brainwallet.ui.theme.DesignTheme
+import com.brainwallet.ui.theme.LocalIsDarkModeFlag
+import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import com.grunt.brainwallet.core.presentation.util.BaseViewModel
 import com.grunt.brainwallet.iap.presentation.model.ExportedTransaction
 import com.grunt.brainwallet.iap.presentation.screen.ExportTrxSheet
@@ -90,10 +92,15 @@ fun HistoryFooter(
             contentColor = DesignTheme.colors.content,
             onDismissRequest = onClick
         ) {
-            ExportTrxSheet(
-                transactions = exportedTransactions,
-                modifier = Modifier.fillMaxWidth()
-            )
+            // ExportTrxSheet reads colors/typography from the core module's own
+            // BrainwalletTheme composition locals, which are only populated inside
+            // this wrapper - without it those resolve to Color.Unspecified.
+            BrainwalletTheme(darkTheme = LocalIsDarkModeFlag.current) {
+                ExportTrxSheet(
+                    transactions = exportedTransactions,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
         }
     }
 }

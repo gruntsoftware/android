@@ -63,6 +63,7 @@ import com.brainwallet.ui.composable.screenHeightPercent
 import com.brainwallet.ui.screens.main.MainScreenEvent
 import com.brainwallet.ui.screens.main.MainViewModel
 import com.brainwallet.ui.theme.DesignTheme
+import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
 import com.grunt.brainwallet.iap.presentation.screen.ExportTrxSheet
 import kotlinx.collections.immutable.ImmutableList
 import org.koin.compose.koinInject
@@ -299,10 +300,15 @@ fun TransactionsBentoScreen(
             contentColor = DesignTheme.colors.content,
             onDismissRequest = { showExportSheet = false }
         ) {
-            ExportTrxSheet(
-                transactions = exportedTransactions,
-                modifier = Modifier.fillMaxWidth()
-            )
+            // ExportTrxSheet reads colors/typography from the core module's own
+            // BrainwalletTheme composition locals, which are only populated inside
+            // this wrapper - without it those resolve to Color.Unspecified.
+            BrainwalletTheme(darkTheme = state.darkMode) {
+                ExportTrxSheet(
+                    transactions = exportedTransactions,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
         }
     }
 }
