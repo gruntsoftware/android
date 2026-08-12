@@ -19,6 +19,7 @@ class GdxFallinmojiGameFragment(
     private val mainHandler = Handler(Looper.getMainLooper())
 
     private val emojiRenderer = AndroidEmojiRenderer()
+    private var debugFeaturesEnabled: Boolean = false
 
     private val launchParams: String
         get() = arguments?.getString(ARG_LAUNCH_PARAMS).orEmpty()
@@ -41,7 +42,8 @@ class GdxFallinmojiGameFragment(
                 },
                 launchParams,
                 emojiRenderer,
-                AudioSetup { miniAudio -> miniAudio.setupAndroid(requireContext().assets) }
+                AudioSetup { miniAudio -> miniAudio.setupAndroid(requireContext().assets) },
+                debugFeaturesEnabled
             ),
             config
         )
