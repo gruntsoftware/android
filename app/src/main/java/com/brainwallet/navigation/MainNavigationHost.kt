@@ -141,7 +141,7 @@ fun NavGraphBuilder.mainNavGraph(
 
     composable<Route.Send> { navBackStackEntry ->
         val route: Route.Send = navBackStackEntry.toRoute()
-        SendScreen(onNavigate = onNavigate)
+        SendScreen(onNavigate = onNavigate, address = route.address)
     }
 
     composable<Route.GameHub> { navBackStackEntry ->

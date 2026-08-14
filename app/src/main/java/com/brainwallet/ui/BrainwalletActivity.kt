@@ -72,14 +72,18 @@ class BrainwalletActivity :
     private var mConnectionReceiver: InternetManager? = null
     var appVisible: Boolean = false
 
+    // The route this activity was started with - held onto (rather than a local val in
+    // onCreate) so onUnlock can read a pending Send address off it once the PIN is verified.
+    private var startDestination: Route = Route.Welcome
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         onConnectionChanged(InternetManager.getInstance().isConnected(this))
         BRSharedPrefs.getLTCViewingPreference(application)
 
-        val startDestination =
-            intent.getSerializableExtra(EXTRA_START_DESTINATION) ?: Route.Welcome
+        startDestination =
+            intent.getSerializableExtra(EXTRA_START_DESTINATION) as? Route ?: Route.Welcome
 
         if (startDestination is Route.UnLock) {
             onCheckPin()
@@ -282,11 +286,29 @@ class BrainwalletActivity :
             AuthManager.getInstance().authSuccess(this)
 
             AnalyticsManager.logCustomEvent(BWConstants._20200217_DU)
-            LegacyNavigation.startBrainwalletActivity(this, false)
+
+            // A litecoin: QR scan routes through here with the address it wants to send
+            // to (see LitecoinURIHandler.tryLitecoinURL) - only continue on to Send if
+            // the wallet is fully synced *now*, at the moment the PIN was verified, not
+            // whenever the QR code was originally scanned. Otherwise this is a normal
+            // unlock and nothing else happens beyond the usual restart into Main.
+            val pendingSendAddress = (startDestination as? Route.UnLock)?.pendingSendAddress
+            val destination = if (pendingSendAddress != null && isWalletFullySynced()) {
+                Route.Send(pendingSendAddress)
+            } else {
+                Route.Main
+            }
+            LegacyNavigation.restartBrainwalletActivity(this, destination)
         } else {
             // Auth fail toast
             Toast.makeText(this, R.string.incorrect_passcode, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun isWalletFullySynced(): Boolean {
+        val startHeight = BRSharedPrefs.getStartHeight(this)
+        val progress = BRPeerManager.getInstance().syncProgress(startHeight)
+        return progress >= BWConstants.WALLET_FULLY_SYNCED_PROGRESS_THRESHOLD
     }
 
     private fun onPasscodeVerified(passcode: List<Int>) {
