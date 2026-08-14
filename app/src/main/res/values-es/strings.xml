@@ -15,10 +15,6 @@
     <string name="Alerts.pinSet">Conjunto de PIN</string>
     <!-- Send failure alert header label (the send failed to happen) -->
     <string name="Alerts.sendFailure">Error en el envío</string>
-    <!-- Send success alert header label (confirmation that the send happened) -->
-    <string name="Alerts.sendSuccess">Confirmación de envío</string>
-    <!-- Send success alert subheader label (e.g. the money was sent) -->
-    <string name="Alerts.sendSuccessSubheader">¡El dinero se ha enviado!</string>
     <!-- Fingerprint was recognized by the scanner -->
     <string name="Alerts.touchIdSucceeded.android">Huella digital reconocida</string>
     <!-- JSON Serialization error message -->
@@ -51,10 +47,6 @@
     <string name="Confirmation.totalLabel">Costo total:</string>
     <!-- Confirm paper phrase view label. -->
     <!-- Word label eg. Word #1, Word #2 -->
-    <!-- Litecoin denomination picker label -->
-    <string name="DefaultCurrency.litecoinLabel">Unidad de visualización Litecoin</string>
-    <!-- Exchange rate label -->
-    <string name="DefaultCurrency.rateLabel">Tasa de cambio</string>
     <!-- Email unavailable alert title -->
     <!-- Messaging unavailable alert title -->
     <string name="ErrorMessages.loopingLockScreen.android">Brainwallet no se puede autenticar debido a un error en su versión de Android. [Toque aquí para obtener más información.]</string>
@@ -110,37 +102,11 @@
     <!-- Change Wallet name textfield label -->
     <!-- Manage wallet modal title -->
     <!-- Buy bitcoin title -->
-    <!-- Menu button title -->
-    <string name="MenuButton.lock">Bloquear cartera</string>
-    <!-- Menu button title -->
-    <string name="MenuButton.security">Centro de seguridad</string>
-    <!-- Menu button title -->
-    <string name="MenuButton.settings">Ajustes</string>
-    <!-- Menu button title -->
-    <string name="MenuButton.support">Atención al cliente</string>
     <!-- button label -->
     <string name="MenuViewController.createButton">Crear nueva cartera</string>
-    <!-- Menu modal title -->
-    <string name="MenuViewController.modalTitle">Menú</string>
     <!-- button label -->
-    <!-- Switch to automatic mode button label -->
-    <string name="NodeSelector.automaticButton">Cambiar al modo automático</string>
-    <!-- Node is connected label -->
-    <string name="NodeSelector.connected">Conectado</string>
-    <!-- Enter node ip address view body -->
-    <string name="NodeSelector.enterBody">Introduce el puerto y la dirección IP del nodo (opcional)</string>
-    <!-- Enter Node ip address view title -->
-    <string name="NodeSelector.enterTitle">Introducir nodo</string>
-    <!-- Switch to manual mode button label -->
-    <string name="NodeSelector.manualButton">Cambiar al modo manual</string>
-    <!-- Node address label -->
-    <string name="NodeSelector.nodeLabel">Nodo principal actual</string>
     <!-- Node is not connected label -->
     <string name="NodeSelector.notConnected">No conectado</string>
-    <!-- Node status label -->
-    <string name="NodeSelector.statusLabel">Estado de la conexión del nodo</string>
-    <!-- Node Selector view title -->
-    <string name="NodeSelector.title">Nodos Litecoin</string>
     <!-- Bad Payment request alert title -->
     <string name="PaymentProtocol.Errors.badPaymentRequest">Solicitud de pago incorrecta</string>
     <!-- Error opening payment protocol file message -->
@@ -177,14 +143,8 @@
     <string name="Prompts.UpgradePin.body">Loaf se ha actualizado y ahora utiliza un PIN de 6 dígitos. Toca aquí para actualizar.</string>
     <!-- Upgrade PIN prompt title. -->
     <string name="Prompts.UpgradePin.title">Actualizar PIN</string>
-    <!-- Notifications will be added later but users can set their preferences now, which is why we specify "in the future". -->
-    <string name="PushNotifications.body">Activa las notificaciones para recibir mensajes especiales de Loaf en el futuro.</string>
-    <!-- Push notifications toggle switch label -->
-    <string name="PushNotifications.label">Notificaciones push</string>
     <!-- Push notifications are off label -->
     <!-- Push notifications are on label -->
-    <!-- Push notifications settings view title label -->
-    <string name="PushNotifications.title">Notificaciones</string>
     <!-- Address copied message. -->
     <string name="Receive.copied">Copiado en el portapapeles.</string>
     <!-- Share via email button label -->
@@ -195,14 +155,8 @@
     <!-- Share via text message (SMS) -->
     <!-- Receive modal title -->
     <string name="Receive.title">Recibir</string>
-    <!-- Done button text -->
-    <string name="RecoverWallet.done">Listo</string>
-    <!-- Recover wallet header -->
-    <string name="RecoverWallet.header">Recuperar cartera</string>
     <!-- Reset PIN with paper key: header -->
     <!-- Enter paper key instruction -->
-    <!-- Recover wallet intro -->
-    <string name="RecoverWallet.intro">Recupera tu Loaf con la clave en papel.</string>
     <!-- Invalid paper key message -->
     <string name="RecoverWallet.invalid">La clave en papel que acabas de introducir no es válida. Vuelve a comprobar cada palabra e inténtalo de nuevo.</string>
     <string name="RecoverWallet.next">Siguiente</string>
@@ -220,70 +174,25 @@
     <!-- Sync blockchain view footer -->
     <string name="ReScan.footer">No podrás enviar dinero mientras se realiza la sincronización con la cadena de bloques.</string>
     <string name="ReScan.subheader2">¿Cuándo sincronizar?</string>
-    <string name="SecurityCenter.info">Activa todas las funciones de seguridad para una protección máxima.</string>
-    <!-- Paper Key button description -->
-    <string name="SecurityCenter.paperKeyDescription">La única manera de acceder a tu Litecoin si pierdes o actualizas tu teléfono.</string>
     <!-- Paper Key button title -->
     <string name="SecurityCenter.paperKeyTitle">Clave en papel</string>
-    <!-- PIN button description -->
-    <string name="SecurityCenter.pinDescription">Protege tu Loaf de usuarios no autorizados.</string>
-    <!-- PIN button title -->
-    <string name="SecurityCenter.pinTitle">PIN de 4 dígitos</string>
-    <!-- Security Center Title -->
-    <string name="SecurityCenter.title">Centro de seguridad</string>
-    <string name="Send.amountLabel">Cantidad</string>
-    <!-- Balance: $4.00 -->
-    <string name="Send.balance">Saldo: %1$s</string>
     <!-- Instructions how to allow the camera access for the app -->
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">Loaf no tiene permitido el acceso a la cámara</string>
-    <string name="Send.containsAddress">El destino es tu propia dirección. No puedes hacerte un envío a ti mismo.</string>
-    <string name="Send.descriptionLabel">Memo</string>
-    <!-- Emtpy pasteboard error message -->
-    <string name="Send.emptyPasteboard">Pasteboard está vacío</string>
     <string name="Send.invalidAddressTitle">Dirección inválida</string>
     <!-- Is rescanning error message -->
     <string name="Send.isRescanning">El envío se inhabilita durante un reescaneado completo.</string>
-    <string name="Send.pasteLabel">Pegar</string>
     <string name="Send.remoteRequestError">No se pudo cargar la solicitud de pago</string>
-    <!-- Scan button label -->
-    <string name="Send.scanLabel">Escanear</string>
-    <!-- Send button label (the action, "press here to send") -->
-    <string name="Send.sendLabel">Enviar</string>
     <!-- Send screen title (as in "this is the screen for sending money") -->
     <string name="Send.title">Enviar</string>
-    <!-- Send money to label -->
-    <string name="Send.toLabel">Introduzca una dirección de Litecoin</string>
-    <string name="Send.UsedAddress.firstLine">Las direcciones Litecoin están diseñadas para un solo uso.</string>
-    <!-- Adress already used alert message - second part -->
-    <string name="Send.UsedAddress.secondLIne">La reutilización reduce la privacidad tanto para ti como para el destinatario y puede resultar en pérdida si el destinatario no controla la dirección directamente.</string>
-    <!-- Adress already used alert title -->
-    <!-- About label -->
-    <string name="Settings.about">Acerca de nosotros</string>
-    <!-- Advanced Settings title -->
-    <string name="Settings.advancedTitle">Ajustes avanzados</string>
-    <!-- i.e. the currency which will be displayed -->
-    <string name="Settings.currency">Mostrar moneda</string>
-    <string name="Settings.manage">Gestionar</string>
-    <string name="Settings.shareData">Compartir datos anónimos</string>
     <!-- Sync blockchain label -->
     <string name="Settings.sync">Sincronizar cadena de bloques</string>
-    <string name="Settings.wallet">Cartera</string>
-    <string name="ShareData.body">Ayuda a mejorar Loaf compartiendo tus datos anónimos con nosotros. Esto no incluye ninguna información financiera. Respetamos tu privacidad financiera.</string>
-    <!-- Share data header -->
-    <string name="ShareData.header">¿Compartir datos?</string>
-    <!-- Share data switch label. -->
-    <string name="ShareData.toggleLabel">¿Compartir datos anónimos?</string>
     <!-- button label -->
     <!-- Paper key explanation text. -->
     <string name="StartPaperPhrase.body">Tu clave de papel es la única manera de restaurar tu Loaf si pierdes tu teléfono, o te lo roban, se rompe o se actualiza.\n\nTe mostraremos una lista de palabras para apuntar en un trozo de papel y guardarlo en un sitio seguro.</string>
     <!-- button label -->
     <string name="StartPaperPhrase.buttonTitle">Apuntar la clave en papel</string>
     <string name="SyncingView.header">Sincronizando</string>
-    <string name="TouchIdSpendingLimit">Pedir siempre el código de acceso</string>
-    <!-- Touch ID spending limit screen body -->
-    <string name="TouchIdSpendingLimit.body">Se te pedirá que introduzcas tu PIN de 6 dígitos para enviar cualquier transacción que supere tu límite de gasto y cada 48 horas desde la última vez que hayas introducido tu PIN de 6 dígitos.</string>
-    <string name="TouchIdSpendingLimit.title.android">Límite de gasto de autorización de huella digital</string>
     <!-- Availability status text -->
     <string name="Transaction.available">Disponible para gastar</string>
     <!-- Transaction complete label -->
@@ -320,8 +229,6 @@
     <!-- Reset PIN with Paper Key button label. -->
     <string name="UnlockScreen.resetPin">Restablecer PIN</string>
     <!-- Scan button title -->
-    <!-- Unlock Screen sub-header -->
-    <string name="UnlockScreen.subheader">Introduce tu PIN</string>
     <!-- Instruction to touch the sensor for fingerprint authentication -->
     <string name="UnlockScreen.touchIdInstructions.android">Toca el sensor</string>
     <!-- TouchID prompt text -->
@@ -329,49 +236,23 @@
     <string name="UnlockScreen.touchIdPrompt.android">Desbloquea tu dispositivo Android para continuar.</string>
     <string name="ViewOnBlockchain">Ver en cadena de bloques</string>
     <string name="UnlockScreen.touchIdTitle.android">Se requiere autenticación</string>
-    <!-- Wallet unlocked message -->
-    <string name="UnlockScreen.unlocked">Cartera desbloqueada</string>
-    <!-- Forget Seed Phrase or PIN -->
-    <string name="UnlockScreen.forgetSeedPhraseOrPIN">¿Olvidó su frase inicial o PIN?</string>
-    <!-- Update PIN caption text -->
-    <string name="UpdatePin.caption">Recuerda este PIN. Si lo olvidas, no podrás acceder a tu Litecoin.</string>
     <!-- PIN creation info. -->
     <string name="UpdatePin.createInstruction">Tu PIN se usará para desbloquear Loaf y enviar dinero.</string>
-    <!-- Update PIN title -->
-    <string name="UpdatePin.createTitle">Establecer PIN</string>
-    <!-- Update PIN title -->
-    <string name="UpdatePin.createTitleConfirm">Vuelve a introducir el PIN</string>
     <!-- Enter current PIN instruction -->
     <string name="UpdatePin.enterCurrent">Introduce tu PIN actual.</string>
-    <!-- Enter new PIN instruction -->
-    <string name="UpdatePin.enterNew">Introduce tu nuevo PIN.</string>
-    <!-- Re-Enter new PIN instruction -->
-    <string name="UpdatePin.reEnterNew">Vuelve a introducir tu nuevo PIN.</string>
-    <string name="UpdatePin.updateTitle">Actualizar PIN</string>
     <string name="URLHandling.copy">Copiar</string>
-    <string name="Webview.updating">Actualizando...</string>
     <string name="WipeWallet.alertMessage">¿Seguro que quieres eliminar esta cartera?</string>
     <string name="WipeWallet.alertTitle">¿Borrar cartera?</string>
     <string name="WipeWallet.wipe">Borrar</string>
-    <string name="BottomNavItem.History.title">Historia</string>
     <string name="ManageWallet.balance">Saldo</string>
-    <string name="Login.currentLtcPrice">Valor actual de LTC en %1$s</string>
-    <string name="Settings.languages">Idiomas</string>
     <string name="show_seed_label">Espectáculo</string>
     <string name="settings_show_seed">Mostrar mi frase inicial</string>
     <string name="sync_preferences">Preferencia de sincronización: %1$s falsos positivos</string>
     <string name="radio_low_privacy">Baja privacidad (~19 minutos)</string>
     <string name="radio_semi_private">Semiprivado (~42 minutos)</string>
     <string name="radio_anonymous">Anónimo (~77 minutos)</string>
-    <!-- Announce Updates View -->
-    <string name="Fees.Service">Servicio</string>
-    <string name="Network.feeLabel">Red</string>
     <string name="ConfirmationAllFees.Label">Honorarios:</string>
-    <string name="cancel">Cancelar</string>
     <string name="ok">De acuerdo</string>
-    <string name="please_grant_notification_permission">Por favor conceda permiso de notificación</string>
-    <string name="permission_info">Información de permiso</string>
-    <string name="permission_notification_granted">Permiso de notificación concedido</string>
     <string name="back">Atrás</string>
     <string name="your_seed_words">Tus palabras semilla</string>
     <string name="your_seed_words_desc">"Sólo para ti. \n Es el que te permite enviar."</string>
@@ -448,7 +329,6 @@
     <string name="game_hub_tab_description">control de videojuegos</string>
     <string name="history_tab_description">flecha circular girando en sentido antihorario</string>
     <string name="history_title">Historial</string>
-    <string name="ltc_ticker_as_of_timestamp">al %1$s</string>
     <string name="my_balance">MI SALDO</string>
     <string name="no_internet_dialog_title">¡Sincronización no disponible sin internet!</string>
     <string name="no_internet_dialog_subtitle">Por favor, reconéctate para completar la sincronización.</string>
@@ -462,7 +342,6 @@
     <string name="fees_label">"Comisiones: "</string>
     <string name="no_transaction_detail_row">Nada aún. ¡Recarga ahora!</string>
     <string name="no_transaction_title_row">HISTORIAL DE TRANSACCIONES</string>
-    <string name="enter_passcode">Ingresa el código de acceso</string>
     <string name="recipient_label">Destinatario:</string>
     <string name="send_litecoin_label">Enviar Litecoin</string>
     <string name="confirm_send_label">Confirma los detalles del envío:</string>
@@ -474,9 +353,7 @@
     <string name="exchange_rate_label">Tipo de cambio:</string>
     <string name="send_error_message">Ingresa una dirección LTC y una cantidad válidas para continuar</string>
     <string name="enter_pin">Ingresa el PIN</string>
-    <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Tutoriales</string>
-    <string name="coming_soon">¡Próximamente!</string>
     <string name="rice_partner_03_tagline">¡Recarga en 5 minutos con nuestro socio!</string>
     <string name="unagi_social_01_tagline">¡Haz clic y síguenos!</string>
     <string name="export_transaction_button_title">Exportar todas las transacciones</string>
@@ -485,8 +362,6 @@
     <string name="received_label">Recibidas</string>
     <string name="sent_label">Enviadas</string>
     <string name="ltc_price_label">Precio LTC</string>
-    <string name="sign_up_messaging_title">¡Suscríbete a actualizaciones, noticias y concursos!</string>
-    <string name="grant_for_notifications_message">"Por favor, acepta el permiso para nuestras notificaciones "</string>
     <string name="send_tutorial_title">Cómo enviar Litecoin</string>
     <string name="brainwallet_walkthrough_title">Tutorial de Brainwallet</string>
     <string name="brainwallet_walkthrough_description">Prueba todas las características de Brainwallet, desde enviar y recibir criptomonedas hasta gestionar tus claves.</string>
@@ -509,7 +384,6 @@
     <string name="send_tutorial_title_3b">¡Verifica antes de enviar!</string>
     <string name="send_tutorial_description_3b">Escanea o pega la dirección de destino. ¡Verifica dos veces! Cambia tu moneda fiduciaria local para determinar cuánto puedes enviar. Añade una nota como recordatorio útil. Toca Continuar.</string>
     <string name="Send.cameraUnavailabeMessage.android">Permitir acceso a la cámara en Configuración</string>
-    <string name="shop_title">Tienda</string>
     <string name="shop_tagline">¡Compra Tarjetas de Regalo con LTC!</string>
     <string name="security_brainwallet_phrase_title">Frase Brainwallet</string>
     <string name="pick_emojis_title">Elige 3 Emojis</string>
