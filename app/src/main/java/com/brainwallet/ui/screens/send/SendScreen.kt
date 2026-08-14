@@ -41,6 +41,7 @@ import timber.log.Timber
 fun SendScreen(
     onNavigate: OnNavigate,
     modifier: Modifier = Modifier,
+    address: String? = null,
     onOpenScanner: () -> Unit = {},
     onDimissSendModal: () -> Unit = {},
     viewModel: SendViewModel = koinViewModel(),
@@ -51,6 +52,7 @@ fun SendScreen(
         uiState = uiState,
         onNavigate = onNavigate,
         modifier = modifier,
+        address = address,
         onEvent = viewModel::onEvent,
         onOpenScanner = onOpenScanner,
         onDimissSendModal = onDimissSendModal
@@ -62,6 +64,7 @@ private fun SendScreen(
     uiState: SendState,
     onNavigate: OnNavigate,
     modifier: Modifier = Modifier,
+    address: String? = null,
     onOpenScanner: () -> Unit = {},
     onDimissSendModal: () -> Unit = {},
     onEvent: (SendEvent) -> Unit = {},
@@ -79,6 +82,11 @@ private fun SendScreen(
 
     LaunchedEffect(Unit) {
         viewModel.onEvent(SendEvent.OnLoad)
+        // Deep-linked / QR-scanned address (e.g. litecoin: URI from another app,
+        // or navigated straight to this screen) - paste it into the recipient field.
+        if (!address.isNullOrBlank()) {
+            viewModel.onEvent(SendEvent.OnRecipientAddressChanged(address))
+        }
         viewModel.uiEffect.collect { effect ->
             when (effect) {
                 is UiEffect.Navigate -> onNavigate.invoke(effect)

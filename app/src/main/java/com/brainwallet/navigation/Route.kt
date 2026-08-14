@@ -55,7 +55,7 @@ sealed class Route : JavaSerializable {
     object History : Route()
 
     @Serializable
-    object Send : Route()
+    data class Send(val address: String? = null) : Route()
 
     @Serializable
     object TutorialWalkthrough : Route()

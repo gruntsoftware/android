@@ -100,6 +100,10 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         getWindowManager().getDefaultDisplay().getSize(screenParametersPoint);
 
         onConnectionChanged(InternetManager.getInstance().isConnected(this));
+
+        // Handle a litecoin: deep link (e.g. a QR code scanned by another app) on a
+        // cold start too, not just when this activity is already running (onNewIntent).
+        setUrlHandler(getIntent());
     }
 
     private void addObservers() {

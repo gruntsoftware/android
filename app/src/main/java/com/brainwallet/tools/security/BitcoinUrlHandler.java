@@ -3,6 +3,8 @@ import androidx.fragment.app.FragmentActivity;
 import com.brainwallet.tools.animation.BRDialog;
 import com.brainwallet.tools.threads.PaymentProtocolTask;
 import com.brainwallet.R;
+import com.brainwallet.navigation.LegacyNavigation;
+import com.brainwallet.navigation.Route;
 import com.brainwallet.presenter.customviews.BRDialogView;
 import com.brainwallet.presenter.entities.PaymentRequestWrapper;
 import com.brainwallet.presenter.entities.RequestObject;
@@ -149,7 +151,14 @@ public class BitcoinUrlHandler {
             app.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    // Keep posting this in case the Send screen is already open and
+                    // collecting (e.g. address scanned via the in-app camera flow).
                     EventBus.INSTANCE.postQRCodeScanned(requestObject.address);
+                    // Deep link straight to the Send screen with the address pasted
+                    // in, so scanning this QR code from another app (camera, another
+                    // wallet, etc.) reliably lands there instead of wherever the app
+                    // happened to be, or nowhere at all on a cold start.
+                    LegacyNavigation.openComposeScreen(app, new Route.Send(requestObject.address));
                 }
             });
         }
