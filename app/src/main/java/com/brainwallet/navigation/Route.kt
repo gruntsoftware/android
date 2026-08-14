@@ -46,7 +46,13 @@ sealed class Route : JavaSerializable {
     object Main : Route()
 
     @Serializable
-    data class UnLock(val isUpdatePin: Boolean = false) : Route()
+    data class UnLock @JvmOverloads constructor(
+        val isUpdatePin: Boolean = false,
+        // Address from a scanned litecoin: QR code, carried through the unlock flow so
+        // it can be pasted into Send once the PIN is verified - but only if the wallet
+        // is fully synced by then (see BrainwalletActivity.onUnlock).
+        val pendingSendAddress: String? = null
+    ) : Route()
 
     @Serializable
     object BuyReceive : Route()

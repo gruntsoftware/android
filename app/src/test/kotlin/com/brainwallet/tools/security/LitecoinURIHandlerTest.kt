@@ -10,12 +10,10 @@ import com.brainwallet.navigation.Route
 import com.brainwallet.presenter.customviews.BRDialogView
 import com.brainwallet.tools.animation.BRDialog
 import com.brainwallet.tools.manager.BRClipboardManager
-import com.brainwallet.util.EventBus
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
-import io.mockk.mockkObject
 import io.mockk.mockkStatic
 import io.mockk.slot
 import io.mockk.unmockkAll
@@ -42,14 +40,12 @@ class LitecoinURIHandlerTest {
         var validAddresses: Set<String> = emptySet(),
         var bip38Keys: Set<String> = emptySet(),
         var privateKeys: Set<String> = emptySet(),
-        var sweepConfirmed: Boolean = false,
-        var walletFullySynced: Boolean = true
+        var sweepConfirmed: Boolean = false
     ) : LitecoinURIHandler.AddressResolver {
         override fun validateAddress(address: String) = address in validAddresses
         override fun isValidBitcoinBIP38Key(key: String) = key in bip38Keys
         override fun isValidBitcoinPrivateKey(key: String) = key in privateKeys
         override fun confirmSweep(ctx: Context, privKey: String) = sweepConfirmed
-        override fun isWalletFullySynced() = walletFullySynced
     }
 
     private lateinit var resolver: FakeAddressResolver
@@ -73,9 +69,6 @@ class LitecoinURIHandlerTest {
                 any<Int>()
             )
         } just Runs
-
-        mockkObject(EventBus)
-        every { EventBus.postQRCodeScanned(any()) } returns Unit
 
         // openComposeScreen is @JvmStatic, which generates a real static forwarding
         // method that mockkObject's instance-based interception doesn't cover -
@@ -301,7 +294,7 @@ class LitecoinURIHandlerTest {
 
         assertTrue(LitecoinURIHandler.processRequest(activity, "someSweepKey", resolver))
 
-        verify(exactly = 0) { EventBus.postQRCodeScanned(any()) }
+        verify(exactly = 0) { BRClipboardManager.putClipboard(any(), any()) }
         verify(exactly = 0) { LegacyNavigation.openComposeScreen(any(), any()) }
     }
 
@@ -327,38 +320,26 @@ class LitecoinURIHandlerTest {
     }
 
     @Test
-    fun `processRequest copies the address, toasts, and deep links to Send when the wallet is fully synced`() {
+    fun `processRequest always copies the address and toasts, then deep links to UnLock carrying it`() {
+        // Sync state is no longer checked here at all - it's checked later, at the moment
+        // the PIN is verified in BrainwalletActivity.onUnlock, not now (which could be
+        // stale by the time the user actually unlocks). This scan-time step always copies
+        // the address, always toasts, and always routes through the real unlock flow.
         val activity = mockActivity()
-        resolver.walletFullySynced = true
 
         val result = LitecoinURIHandler.processRequest(activity, "litecoin:LQRScannedAddr", resolver)
 
         assertTrue(result)
         verify(exactly = 1) { BRClipboardManager.putClipboard(activity, "LQRScannedAddr") }
         verify(exactly = 1) { Toast.makeText(activity, R.string.Send_qrAddressCopied, Toast.LENGTH_LONG) }
-        verify(exactly = 1) { EventBus.postQRCodeScanned("LQRScannedAddr") }
 
         val routeSlot = slot<Route>()
         verify(exactly = 1) { LegacyNavigation.openComposeScreen(activity, capture(routeSlot)) }
-        assertEquals(Route.Send("LQRScannedAddr"), routeSlot.captured)
+        assertEquals(Route.UnLock(pendingSendAddress = "LQRScannedAddr"), routeSlot.captured)
     }
 
     @Test
-    fun `processRequest still copies the address and toasts, but does not navigate, when the wallet is not fully synced`() {
-        val activity = mockActivity()
-        resolver.walletFullySynced = false
-
-        val result = LitecoinURIHandler.processRequest(activity, "litecoin:LQRScannedAddr", resolver)
-
-        assertTrue(result)
-        verify(exactly = 1) { BRClipboardManager.putClipboard(activity, "LQRScannedAddr") }
-        verify(exactly = 1) { Toast.makeText(activity, R.string.Send_qrAddressCopied, Toast.LENGTH_LONG) }
-        verify(exactly = 0) { EventBus.postQRCodeScanned(any()) }
-        verify(exactly = 0) { LegacyNavigation.openComposeScreen(any(), any()) }
-    }
-
-    @Test
-    fun `processRequest does not paste the address or navigate when an amount is present`() {
+    fun `processRequest does not copy, toast, or navigate when an amount is present`() {
         // Pinning existing behavior: a BIP21 URI with a non-zero amount is currently a
         // silent no-op beyond returning true - see tryLitecoinURL's amount guard.
         val activity = mockActivity()
@@ -366,7 +347,7 @@ class LitecoinURIHandlerTest {
         val result = LitecoinURIHandler.processRequest(activity, "litecoin:LQRScannedAddr?amount=1", resolver)
 
         assertTrue(result)
-        verify(exactly = 0) { EventBus.postQRCodeScanned(any()) }
+        verify(exactly = 0) { BRClipboardManager.putClipboard(any(), any()) }
         verify(exactly = 0) { LegacyNavigation.openComposeScreen(any(), any()) }
     }
 
@@ -377,7 +358,7 @@ class LitecoinURIHandlerTest {
         val result = LitecoinURIHandler.processRequest(activity, "litecoin:?r=https://example.com/pay", resolver)
 
         assertTrue(result)
-        verify(exactly = 0) { EventBus.postQRCodeScanned(any()) }
+        verify(exactly = 0) { BRClipboardManager.putClipboard(any(), any()) }
         verify(exactly = 0) { LegacyNavigation.openComposeScreen(any(), any()) }
     }
 }

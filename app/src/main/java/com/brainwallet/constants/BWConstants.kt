@@ -9,6 +9,13 @@ object BWConstants {
     const val MIN_MASTERPUBKEY_LENGTH = 33
 
     /**
+     * Minimum blockchain sync progress (0.0-1.0) required before the wallet's balance/fee
+     * data can be trusted enough to send with - see BrainwalletActivity.onUnlock, where a
+     * litecoin: QR scan only continues on to the Send screen once this is met.
+     */
+    const val WALLET_FULLY_SYNCED_PROGRESS_THRESHOLD: Double = 0.99
+
+    /**
      * App Version and Version Code
      */
     @JvmField

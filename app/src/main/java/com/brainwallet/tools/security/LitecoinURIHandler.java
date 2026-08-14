@@ -6,7 +6,6 @@ import android.widget.Toast;
 import androidx.annotation.VisibleForTesting;
 import androidx.fragment.app.FragmentActivity;
 
-import com.brainwallet.BrainwalletApp;
 import com.brainwallet.R;
 import com.brainwallet.navigation.LegacyNavigation;
 import com.brainwallet.navigation.Route;
@@ -15,10 +14,7 @@ import com.brainwallet.presenter.entities.PaymentRequestWrapper;
 import com.brainwallet.presenter.entities.RequestObject;
 import com.brainwallet.tools.animation.BRDialog;
 import com.brainwallet.tools.manager.BRClipboardManager;
-import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.threads.PaymentProtocolTask;
-import com.brainwallet.util.EventBus;
-import com.brainwallet.wallet.BRPeerManager;
 import com.brainwallet.wallet.BRWalletManager;
 
 import java.io.UnsupportedEncodingException;
@@ -41,20 +37,12 @@ public class LitecoinURIHandler {
     private static final Object lockObject = new Object();
 
     /**
-     * Minimum blockchain sync progress (0.0-1.0) required before a scanned address is
-     * treated as ready to send to - below this the wallet's balance/fee data can't be
-     * trusted yet, so we copy the address instead of opening Send with it.
-     */
-    private static final double SYNC_PROGRESS_THRESHOLD = 0.99;
-
-    /**
-     * The address/key/sync checks this class needs from {@link BRWalletManager} and
-     * {@link BRPeerManager} - the underlying calls are native methods, which mockk cannot
-     * intercept on a mocked instance in a plain JVM unit test (unlike regular methods,
-     * there's no bytecode body to override - see {@link com.brainwallet.wallet.WalletManager}
-     * for the same problem solved for validateAddress/isCreated elsewhere). Package-private
-     * overloads below accept this seam so tests can supply a plain fake instead of the real
-     * wallet/peer managers.
+     * The address/key checks this class needs from {@link BRWalletManager} - all four are
+     * native methods, which mockk cannot intercept on a mocked BRWalletManager instance in
+     * a plain JVM unit test (unlike regular methods, there's no bytecode body to override -
+     * see {@link com.brainwallet.wallet.WalletManager} for the same problem solved for
+     * validateAddress/isCreated elsewhere). Package-private overloads below accept this
+     * seam so tests can supply a plain fake instead of a real BRWalletManager.
      */
     @VisibleForTesting
     interface AddressResolver {
@@ -65,8 +53,6 @@ public class LitecoinURIHandler {
         boolean isValidBitcoinPrivateKey(String key);
 
         boolean confirmSweep(Context ctx, String privKey);
-
-        boolean isWalletFullySynced();
 
         static AddressResolver usingWalletManager() {
             BRWalletManager manager = BRWalletManager.getInstance();
@@ -89,14 +75,6 @@ public class LitecoinURIHandler {
                 @Override
                 public boolean confirmSweep(Context ctx, String privKey) {
                     return manager.confirmSweep(ctx, privKey);
-                }
-
-                @Override
-                public boolean isWalletFullySynced() {
-                    Context context = BrainwalletApp.getBreadContext();
-                    int startHeight = BRSharedPrefs.getStartHeight(context);
-                    double progress = BRPeerManager.getInstance().syncProgress(startHeight);
-                    return progress >= SYNC_PROGRESS_THRESHOLD;
                 }
             };
         }
@@ -261,26 +239,17 @@ public class LitecoinURIHandler {
                 @Override
                 public void run() {
                     // Always copy the scanned address to the clipboard and let the user
-                    // know, regardless of sync state - useful even when we also go on to
-                    // open Send below.
+                    // know, regardless of sync state - it's still useful once the wallet
+                    // reaches Send below, and it's all the user gets if it doesn't.
                     BRClipboardManager.putClipboard(app, requestObject.address);
                     Toast.makeText(app, R.string.Send_qrAddressCopied, Toast.LENGTH_LONG).show();
 
-                    if (!resolver.isWalletFullySynced()) {
-                        // The wallet isn't ready to send yet - dropping the user into a
-                        // Send screen that can't reliably show balance/fees would be worse
-                        // than just handing them the address (copied above) to use once
-                        // synced.
-                        return;
-                    }
-                    // Keep posting this in case the Send screen is already open and
-                    // collecting (e.g. address scanned via the in-app camera flow).
-                    EventBus.INSTANCE.postQRCodeScanned(requestObject.address);
-                    // Deep link straight to the Send screen with the address pasted
-                    // in, so scanning this QR code from another app (camera, another
-                    // wallet, etc.) reliably lands there instead of wherever the app
-                    // happened to be, or nowhere at all on a cold start.
-                    LegacyNavigation.openComposeScreen(app, new Route.Send(requestObject.address));
+                    // Always go through the real unlock flow rather than jumping straight
+                    // to Send - this both enforces auth on a scan-triggered deep link and
+                    // gives BrainwalletActivity.onUnlock a chance to check sync progress
+                    // *at the moment the PIN is verified* (not now, which could be stale)
+                    // before deciding whether to continue on to Send with this address.
+                    LegacyNavigation.openComposeScreen(app, new Route.UnLock(false, requestObject.address));
                 }
             });
         }

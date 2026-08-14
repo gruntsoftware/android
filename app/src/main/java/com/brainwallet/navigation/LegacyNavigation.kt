@@ -21,6 +21,16 @@ object LegacyNavigation {
         Timber.i("timber: startBrainwalletActivity: %s", from.javaClass.name)
 
         val destination = if (auth) Route.UnLock() else Route.Main
+        restartBrainwalletActivity(from, destination)
+    }
+
+    /**
+     * Restarts BrainwalletActivity with an arbitrary start destination, clearing the back
+     * stack - same clear-task/finish pattern as startBrainwalletActivity/restartBreadActivity,
+     * just parameterized for callers that need to land somewhere other than Main/UnLock.
+     */
+    @JvmStatic
+    fun restartBrainwalletActivity(from: Activity, destination: Route) {
         BrainwalletActivity.createIntent(from, destination).apply {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         }.also {
