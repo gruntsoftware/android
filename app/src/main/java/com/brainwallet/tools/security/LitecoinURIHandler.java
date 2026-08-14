@@ -260,12 +260,17 @@ public class LitecoinURIHandler {
             app.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    // Always copy the scanned address to the clipboard and let the user
+                    // know, regardless of sync state - useful even when we also go on to
+                    // open Send below.
+                    BRClipboardManager.putClipboard(app, requestObject.address);
+                    Toast.makeText(app, R.string.Send_qrAddressCopied, Toast.LENGTH_LONG).show();
+
                     if (!resolver.isWalletFullySynced()) {
                         // The wallet isn't ready to send yet - dropping the user into a
                         // Send screen that can't reliably show balance/fees would be worse
-                        // than just handing them the address to use once synced.
-                        BRClipboardManager.putClipboard(app, requestObject.address);
-                        Toast.makeText(app, R.string.Send_qrAddressCopiedWhileSyncing, Toast.LENGTH_LONG).show();
+                        // than just handing them the address (copied above) to use once
+                        // synced.
                         return;
                     }
                     // Keep posting this in case the Send screen is already open and

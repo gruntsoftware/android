@@ -327,12 +327,15 @@ class LitecoinURIHandlerTest {
     }
 
     @Test
-    fun `processRequest pastes the scanned address and deep links to Send when there is no amount`() {
+    fun `processRequest copies the address, toasts, and deep links to Send when the wallet is fully synced`() {
         val activity = mockActivity()
+        resolver.walletFullySynced = true
 
         val result = LitecoinURIHandler.processRequest(activity, "litecoin:LQRScannedAddr", resolver)
 
         assertTrue(result)
+        verify(exactly = 1) { BRClipboardManager.putClipboard(activity, "LQRScannedAddr") }
+        verify(exactly = 1) { Toast.makeText(activity, R.string.Send_qrAddressCopied, Toast.LENGTH_LONG) }
         verify(exactly = 1) { EventBus.postQRCodeScanned("LQRScannedAddr") }
 
         val routeSlot = slot<Route>()
@@ -341,7 +344,7 @@ class LitecoinURIHandlerTest {
     }
 
     @Test
-    fun `processRequest copies the address and toasts instead of navigating when the wallet is not fully synced`() {
+    fun `processRequest still copies the address and toasts, but does not navigate, when the wallet is not fully synced`() {
         val activity = mockActivity()
         resolver.walletFullySynced = false
 
@@ -349,21 +352,9 @@ class LitecoinURIHandlerTest {
 
         assertTrue(result)
         verify(exactly = 1) { BRClipboardManager.putClipboard(activity, "LQRScannedAddr") }
-        verify(exactly = 1) {
-            Toast.makeText(activity, R.string.Send_qrAddressCopiedWhileSyncing, Toast.LENGTH_LONG)
-        }
+        verify(exactly = 1) { Toast.makeText(activity, R.string.Send_qrAddressCopied, Toast.LENGTH_LONG) }
         verify(exactly = 0) { EventBus.postQRCodeScanned(any()) }
         verify(exactly = 0) { LegacyNavigation.openComposeScreen(any(), any()) }
-    }
-
-    @Test
-    fun `processRequest does not copy to clipboard when the wallet is fully synced`() {
-        val activity = mockActivity()
-        resolver.walletFullySynced = true
-
-        LitecoinURIHandler.processRequest(activity, "litecoin:LQRScannedAddr", resolver)
-
-        verify(exactly = 0) { BRClipboardManager.putClipboard(any(), any()) }
     }
 
     @Test
