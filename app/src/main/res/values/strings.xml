@@ -118,6 +118,8 @@
     <string name="Send.invalidAddressTitle">Invalid Address</string>
     <!-- Is rescanning error message -->
     <string name="Send.isRescanning">Sending is disabled during a full rescan.</string>
+    <!-- Toast shown when a litecoin: QR code is scanned while the wallet is still syncing, so the address is copied instead of opening Send -->
+    <string name="Send.qrAddressCopiedWhileSyncing">Wallet is still syncing. The scanned Litecoin address was copied to your clipboard.</string>
     <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
     <string name="Send.remoteRequestError">Could not load payment request</string>
