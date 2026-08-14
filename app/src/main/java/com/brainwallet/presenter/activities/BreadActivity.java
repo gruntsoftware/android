@@ -41,7 +41,7 @@ import com.brainwallet.tools.animation.TextSizeTransition;
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.manager.InternetManager;
 import com.brainwallet.tools.manager.sync.SyncManager;
-import com.brainwallet.tools.security.BitcoinUrlHandler;
+import com.brainwallet.tools.security.LitecoinURIHandler;
 import com.brainwallet.tools.security.PostAuth;
 import com.brainwallet.tools.sqlite.TransactionDataSource;
 import com.brainwallet.tools.threads.BRExecutor;
@@ -120,7 +120,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         String scheme = data.getScheme();
         if (scheme != null && scheme.startsWith("litecoin")) {
             String str = intent.getDataString();
-            BitcoinUrlHandler.processRequest(this, str);
+            LitecoinURIHandler.processRequest(this, str);
         }
     }
 

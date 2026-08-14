@@ -16,7 +16,7 @@ import com.brainwallet.tools.animation.BRAnimator;
 import com.brainwallet.tools.manager.InternetManager;
 import com.brainwallet.tools.security.AuthManager;
 import com.brainwallet.tools.security.BRKeyStore;
-import com.brainwallet.tools.security.BitcoinUrlHandler;
+import com.brainwallet.tools.security.LitecoinURIHandler;
 import com.brainwallet.tools.security.PostAuth;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.constants.BWConstants;
@@ -107,8 +107,8 @@ public class BRActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             String result = data.getStringExtra("result");
-                            if (BitcoinUrlHandler.isBitcoinUrl(result))
-                                BitcoinUrlHandler.processRequest(BRActivity.this, result);
+                            if (LitecoinURIHandler.isValidLitecoinURI(result))
+                                LitecoinURIHandler.processRequest(BRActivity.this, result);
                             else
                                 Timber.i("timber: onActivityResult: not litecoin address NOR bitID");
                         }
