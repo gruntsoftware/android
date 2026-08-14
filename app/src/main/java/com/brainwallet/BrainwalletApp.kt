@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.res.Resources
+import android.os.Build
 import com.appsflyer.AppsFlyerLib
 import com.brainwallet.notification.NotificationHandler
 import com.brainwallet.presenter.activities.util.BRActivity
@@ -28,7 +29,7 @@ open class BrainwalletApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        ReLinker.loadLibrary(this, BWConstants.NATIVE_LIB_NAME)
+        loadNativeLibrary()
         val enableCrashlytics = !Utils.isEmulatorOrDebug(this)
         notificationHandler.setupNotificationChannels(this)
 
@@ -63,6 +64,41 @@ open class BrainwalletApp : Application() {
             appsFlyerLib.init(afID, null, this)
             appsFlyerLib.setCollectAndroidID(true)
             appsFlyerLib.start(this)
+        }
+    }
+
+    /**
+     * Loads the native wallet-crypto library (secp256k1 etc.).
+     *
+     * Tries the standard system loader first - it's the most reliable path on modern
+     * Android and sidesteps some known ReLinker/APK-extraction quirks on API 31+ - then
+     * falls back to ReLinker (kept for older/buggy OEM loaders it was originally added
+     * to work around). If both fail, the wallet cannot perform any crypto operations, so
+     * we record rich diagnostics (installer source + supported ABIs) as a non-fatal before
+     * rethrowing, since a totally missing native lib is otherwise indistinguishable from a
+     * tampered/repackaged APK installed outside the Play Store.
+     */
+    private fun loadNativeLibrary() {
+        try {
+            System.loadLibrary(BWConstants.NATIVE_LIB_NAME)
+        } catch (systemLoadError: UnsatisfiedLinkError) {
+            Timber.w(systemLoadError, "timber: System.loadLibrary failed, falling back to ReLinker")
+            try {
+                ReLinker.loadLibrary(this, BWConstants.NATIVE_LIB_NAME)
+            } catch (reLinkerError: Throwable) {
+                @Suppress("DEPRECATION")
+                val installerPackageName = try {
+                    packageManager.getInstallerPackageName(packageName)
+                } catch (e: IllegalArgumentException) {
+                    null
+                }
+                FirebaseCrashlytics.getInstance().apply {
+                    setCustomKey("native_lib_installer_package", installerPackageName ?: "unknown")
+                    setCustomKey("native_lib_supported_abis", Build.SUPPORTED_ABIS.joinToString())
+                    recordException(reLinkerError)
+                }
+                throw reLinkerError
+            }
         }
     }
 
