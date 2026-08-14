@@ -2,8 +2,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- App name -->
     <string name="app_name" translatable="false">Brainwallet</string>
-    <!-- About app version -->
-    <string name="About.appVersion" translatable="false">%1$s</string>
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">Close</string>
     <!-- Error alert title -->
@@ -16,10 +14,6 @@
     <string name="Alerts.pinSet">PIN Set</string>
     <!-- Send failure alert header label (the send failed to happen) -->
     <string name="Alerts.sendFailure">Send failed</string>
-    <!-- Send success alert header label (confirmation that the send happened) -->
-    <string name="Alerts.sendSuccess">Send Confirmation</string>
-    <!-- Send success alert subheader label (e.g. the money was sent) -->
-    <string name="Alerts.sendSuccessSubheader">Money Sent!</string>
     <!-- Fingerprint was recognized by the scanner -->
     <string name="Alerts.touchIdSucceeded.android">Fingerprint recognized</string>
     <!-- Cancel button label -->
@@ -34,16 +28,10 @@
     <string name="Button.yes">Yes</string>
     <!-- Amount to Send: ($1.00) -->
     <string name="Confirmation.amountLabel">Amount to Send:</string>
-    <!-- Network-->
-    <string name="Network.feeLabel">Network</string>
     <!-- To: (address) -->
     <string name="Confirmation.to">To</string>
     <!-- Total Cost: ($5.00) -->
     <string name="Confirmation.totalLabel">Total Cost:</string>
-    <!-- Litecoin denomination picker label -->
-    <string name="DefaultCurrency.litecoinLabel">Litecoin Display Unit</string>
-    <!-- Exchange rate label -->
-    <string name="DefaultCurrency.rateLabel">Exchange Rate</string>
     <!-- Message that gets shown when we've detected the user has encountered the looping lock-screen bug. (preserve [ ] characters) -->
     <string name="ErrorMessages.loopingLockScreen.android">Brainwallet can not be authenticated due to a bug in your version of Android. [Please tap here for more information.]</string>
     <!-- Fingerprint was not recognized by the scanner, please try scanning again -->
@@ -66,37 +54,11 @@
     <string name="JailbreakWarnings.ignore">Ignore</string>
     <!-- Jailbreak warning title -->
     <string name="JailbreakWarnings.title">WARNING</string>
-    <!-- Menu button title -->
-    <string name="MenuButton.lock">Lock Wallet</string>
-    <!-- Menu button title -->
-    <string name="MenuButton.security">Security Center</string>
-    <!-- Menu button title -->
-    <string name="MenuButton.settings">Settings</string>
-    <!-- Menu button title -->
-    <string name="MenuButton.support">Customer support</string>
     <!-- button label -->
     <string name="MenuViewController.createButton">Create New Wallet</string>
-    <!-- Menu modal title -->
-    <string name="MenuViewController.modalTitle">Menu</string>
     <!-- button label -->
-    <!-- Switch to automatic mode button label -->
-    <string name="NodeSelector.automaticButton">Switch to Automatic Mode</string>
-    <!-- Node is connected label -->
-    <string name="NodeSelector.connected">Connected</string>
-    <!-- Enter node ip address view body -->
-    <string name="NodeSelector.enterBody">Enter Node IP address and port (optional)</string>
-    <!-- Enter Node ip address view title -->
-    <string name="NodeSelector.enterTitle">Enter Node</string>
-    <!-- Switch to manual mode button label -->
-    <string name="NodeSelector.manualButton">Switch to Manual Mode</string>
-    <!-- Node address label -->
-    <string name="NodeSelector.nodeLabel">Current Primary Node</string>
     <!-- Node is not connected label -->
     <string name="NodeSelector.notConnected">Not Connected</string>
-    <!-- Node status label -->
-    <string name="NodeSelector.statusLabel">Node Connection Status</string>
-    <!-- Node Selector view title -->
-    <string name="NodeSelector.title">Litecoin Nodes</string>
     <!-- Bad Payment request alert title -->
     <string name="PaymentProtocol.Errors.badPaymentRequest">Bad Payment Request</string>
     <!-- Error opening payment protocol file message -->
@@ -117,12 +79,6 @@
     <string name="Prompts.UpgradePin.body">Brainwallet has upgraded to using a 6-digit PIN. Tap here to upgrade.</string>
     <!-- Upgrade PIN prompt title. -->
     <string name="Prompts.UpgradePin.title">Upgrade PIN</string>
-    <!-- Notifications will be added later but users can set their preferences now, which is why we specify "in the future". -->
-    <string name="PushNotifications.body">Turn on notifications to receive special messages from Brainwallet in the future.</string>
-    <!-- Push notifications toggle switch label -->
-    <string name="PushNotifications.label">Push Notifications</string>
-    <!-- Push notifications settings view title label -->
-    <string name="PushNotifications.title">Notifications</string>
     <!-- Address copied message. -->
     <string name="Receive.copied">Copied to clipboard.</string>
     <!-- Share via email button label -->
@@ -131,12 +87,6 @@
     <string name="Receive.share">Share</string>
     <!-- Receive modal title -->
     <string name="Receive.title">Receive</string>
-    <!-- Done button text -->
-    <string name="RecoverWallet.done">Done</string>
-    <!-- Recover wallet header -->
-    <string name="RecoverWallet.header">Recover Wallet</string>
-    <!-- Recover wallet intro -->
-    <string name="RecoverWallet.intro">Recover your Brainwallet with your paper key.</string>
     <!-- Invalid paper key message -->
     <string name="RecoverWallet.invalid">The paper key you entered is invalid. Please double-check each word and try again.</string>
     <!-- Next button label -->
@@ -157,74 +107,24 @@
     <string name="ReScan.footer">You will not be able to send money while syncing with the blockchain.</string>
     <!-- Subheader label -->
     <string name="ReScan.subheader2">When to Sync?</string>
-    <!-- Security Center Info -->
-    <string name="SecurityCenter.info">Enable all security features for maximum protection.</string>
-    <!-- Paper Key button description -->
-    <string name="SecurityCenter.paperKeyDescription">The only way to access your Litecoin if you lose or upgrade your phone.</string>
     <!-- Paper Key button title -->
     <string name="SecurityCenter.paperKeyTitle">Paper Key</string>
-    <!-- PIN button description -->
-    <string name="SecurityCenter.pinDescription">Protects your Brainwallet from unauthorized users.</string>
-    <!-- PIN button title -->
-    <string name="SecurityCenter.pinTitle">4-Digit PIN</string>
-    <!-- Security Center Title -->
-    <string name="SecurityCenter.title">Security Center</string>
-    <!-- Send money amount label -->
-    <string name="Send.amountLabel">Amount</string>
-    <!-- Balance: $4.00 -->
-    <string name="Send.balance">Balance: %1$s</string>
     <!-- Instructions how to allow the camera access for the app -->
     <string name="Send.cameraUnavailabeMessage.android">Allow camera access in Settings</string>
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">Brainwallet is not allowed to access the camera</string>
-    <!-- Warning when sending to self. -->
-    <string name="Send.containsAddress">The destination is your own address. You cannot send to yourself.</string>
     <!-- Could not create transaction alert title -->
-    <!-- Description for sending money label -->
-    <string name="Send.descriptionLabel">Memo</string>
-    <!-- Emtpy pasteboard error message -->
-    <string name="Send.emptyPasteboard">Pasteboard is empty</string>
     <!-- Invalid address alert title -->
     <string name="Send.invalidAddressTitle">Invalid Address</string>
     <!-- Is rescanning error message -->
     <string name="Send.isRescanning">Sending is disabled during a full rescan.</string>
-    <!-- Paste button label -->
-    <string name="Send.pasteLabel">Paste</string>
     <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
     <string name="Send.remoteRequestError">Could not load payment request</string>
-    <!-- Scan button label -->
-    <string name="Send.scanLabel">Scan</string>
-    <!-- Send button label (the action, "press here to send") -->
-    <string name="Send.sendLabel">Send</string>
     <!-- Send screen title (as in "this is the screen for sending money") -->
     <string name="Send.title">Send</string>
-    <!-- Send money to label -->
-    <string name="Send.toLabel">Enter a Litecoin address</string>
-    <!-- Address already used alert message - first part -->
-    <string name="Send.UsedAddress.firstLine">Litecoin addresses are intended for single use only.</string>
-    <!-- Address already used alert message - second part -->
-    <string name="Send.UsedAddress.secondLIne">Re-use reduces privacy for both you and the recipient and can result in loss if the recipient doesn\'t directly control the address.</string>
-    <!-- About label -->
-    <string name="Settings.about">About</string>
-    <!-- Advanced Settings title -->
-    <string name="Settings.advancedTitle">Advanced Settings</string>
-    <!-- i.e. the currency which will be displayed -->
-    <string name="Settings.currency">Display Currency</string>
-    <!-- Manage settings section header -->
-    <string name="Settings.manage">Manage</string>
-    <!-- Share anonymous data label -->
-    <string name="Settings.shareData">Share Anonymous Data</string>
     <!-- Sync blockchain label -->
     <string name="Settings.sync">Sync Blockchain</string>
-    <!-- Wallet Settings section header -->
-    <string name="Settings.wallet">Wallet</string>
-    <!-- Share data view body -->
-    <string name="ShareData.body">Help improve Brainwallet by sharing your anonymous data with us. This does not include any financial information. We respect your financial privacy.</string>
-    <!-- Share data header -->
-    <string name="ShareData.header">Share Data?</string>
-    <!-- Share data switch label. -->
-    <string name="ShareData.toggleLabel">Share Anonymous Data?</string>
     <!-- button label -->
     <!-- Paper key explanation text. -->
     <string name="StartPaperPhrase.body">Your paper key is the only way to restore your Brainwallet if your phone is lost, stolen, broken, or upgraded.\n\nWe will show you a list of words to write down on a piece of paper and keep safe.</string>
@@ -232,13 +132,7 @@
     <string name="StartPaperPhrase.buttonTitle">Write Down Paper Key</string>
     <!-- Syncing view header text -->
     <string name="SyncingView.header">Syncing</string>
-    <!-- Always require passcode option -->
-    <string name="TouchIdSpendingLimit">Always require passcode</string>
-    <!-- Touch ID spending limit screen body -->
-    <string name="TouchIdSpendingLimit.body">You will be asked to enter your 6-digit PIN to send any transaction over your spending limit, and every 48 hours since the last time you entered your 6-digit PIN.</string>
     <!-- Touch Id spending limit screen title -->
-    <!-- name of spending limit when using fingerprint authorization -->
-    <string name="TouchIdSpendingLimit.title.android">Fingerprint Authorization Spending Limit</string>
     <!-- Availability status text -->
     <string name="Transaction.available">Available to Spend</string>
     <!-- Transaction complete label -->
@@ -279,8 +173,6 @@
     <!-- Reset PIN with Paper Key button label. -->
     <string name="UnlockScreen.resetPin">Reset PIN</string>
     <!-- Scan button title -->
-    <!-- Unlock Screen sub-header -->
-    <string name="UnlockScreen.subheader">Enter PIN</string>
     <!-- Instruction to touch the sensor for fingerprint authentication -->
     <string name="UnlockScreen.touchIdInstructions.android">Touch Sensor</string>
     <!-- TouchID prompt text -->
@@ -291,36 +183,17 @@
     <string name="ViewOnBlockchain">View on blockchain</string>
     <!-- Device authentication title -->
     <string name="UnlockScreen.touchIdTitle.android">Authentication required</string>
-    <!-- Wallet unlocked message -->
-    <string name="UnlockScreen.unlocked">Wallet Unlocked</string>
-    <!-- Forget Seed Phrase or PIN -->
-    <string name="UnlockScreen.forgetSeedPhraseOrPIN">Forget your seed Phrase or PIN?</string>
-  <!-- Update PIN caption text -->
-    <string name="UpdatePin.caption">Remember this PIN. If you forget it, you won\'t be able to access your Litecoin.</string>
     <!-- PIN creation info. -->
     <string name="UpdatePin.createInstruction">Your PIN will be used to unlock your Brainwallet and send money.</string>
-    <!-- Update PIN title -->
-    <string name="UpdatePin.createTitle">Set PIN</string>
-    <!-- Update PIN title -->
-    <string name="UpdatePin.createTitleConfirm">Re-Enter PIN</string>
     <!-- Enter current PIN instruction -->
     <string name="UpdatePin.enterCurrent">Enter your current PIN.</string>
-    <!-- Enter new PIN instruction -->
-    <string name="UpdatePin.enterNew">Enter your new PIN.</string>
-    <!-- Re-Enter new PIN instruction -->
-    <string name="UpdatePin.reEnterNew">Re-Enter your new PIN.</string>
-    <string name="UpdatePin.updateTitle">Update PIN</string>
     <string name="URLHandling.copy">Copy</string>
-    <string name="Webview.updating">Updating...</string>
     <string name="WipeWallet.alertMessage">Are you sure you want to delete this wallet?</string>
     <string name="WipeWallet.alertTitle">Wipe Wallet?</string>
     <string name="WipeWallet.wipe">Wipe</string>
-    <string name="BottomNavItem.History.title">History</string>
     <!-- Balance -->
     <string name="ManageWallet.balance">Balance</string>
   <string name="Login.ltcPrice" translatable="false">%1$s = 1Ł</string>
-  <string name="Login.currentLtcPrice">Current LTC value in %1$s</string>
-  <string name="Settings.languages">Languages</string>
 
     <!-- donation dialog -->
     <string name="seed_phrase.label" translatable="false">1: %s 2: %s 3: %s 4: %s \\n5: %s 6: %s 7: %s 8: %s%s \\n9: %s 10: %s 11: %s 12: %s  %s</string>
@@ -331,19 +204,12 @@
   <string name="radio_semi_private">Semi-private (~60 minutes)</string>
   <string name="radio_anonymous">Anonymous (~77 minutes)</string>
 
-    <!-- Announce Updates View -->
-    <string name="Fees.Service">Service</string>
     <string name="ConfirmationAllFees.Label">Fees:</string>
 
   <string name="notification_channel_name_general" translatable="false">General</string>
   <string name="notification_channel_name_litecoin_news" translatable="false">Litecoin News</string>
   <string name="notification_channel_name_brainwallet_update" translatable="false">Brainwallet Update</string>
-  <string name="cancel">Cancel</string>
   <string name="ok">Ok</string>
-  <string name="please_grant_notification_permission">Please grant notification permission</string>
-  <string name="permission_info">Permission Info</string>
-  <string name="permission_notification_granted">Notification Permission Granted</string>
-
 
     <!-- New Strings -->
     <string name="empty_string" translatable="false"> </string>
@@ -429,7 +295,6 @@
     <string name="history_tab_description">circular arrow rotating counter clockwise</string>
     <string name="game_hub_title">Game Hub</string>
     <string name="history_title">History</string>
-    <string name="ltc_ticker_as_of_timestamp">as of %1$s</string>
     <string name="my_balance">MY BALANCE</string>
     <string name="no_internet_dialog_title">Sync not possible without internet!</string>
     <string name="no_internet_dialog_subtitle">Please, reconnect to complete sync.</string>
@@ -445,7 +310,6 @@
     <string name="no_transaction_detail_row">Nothing yet. Top up now!</string>
     <string name="no_transaction_title_row">TRANSACTION HISTORY</string>
     <string name="txns_label" translatable="false">txns</string>
-    <string name="enter_passcode">Enter passcode</string>
     <string name="recipient_label">Recipient:</string>
     <string name="send_litecoin_label">Send Litecoin</string>
     <string name="confirm_send_label">Confirm send details:</string>
@@ -457,9 +321,7 @@
     <string name="exchange_rate_label">Exchange rate:</string>
     <string name="send_error_message">Enter a valid LTC address and amount to continue</string>
     <string name="enter_pin">Enter PIN</string>
-    <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Tutorials</string>
-    <string name="coming_soon">Coming soon!</string>
     <string name="rice_partner_03_tagline">Top up in 5 minutes with our partner</string>
     <string name="unagi_social_01_tagline">Click and follow us!</string>
     <string name="export_transaction_button_title">Export All Transactions</string>
@@ -468,8 +330,6 @@
     <string name="received_label">Received</string>
     <string name="sent_label">Sent</string>
     <string name="ltc_price_label">LTC Price</string>
-    <string name="sign_up_messaging_title">Sign up to updates, news and contests!</string>
-    <string name="grant_for_notifications_message">"Please accept permission for our notifications "</string>
     <string name="send_tutorial_title">How to send Litecoin</string>
     <string name="brainwallet_walkthrough_title">Brainwallet Walkthrough</string>
     <string name="brainwallet_walkthrough_description">Try all the features of Brainwallet, from sending and receiving crypto to managing your keys.</string>
@@ -491,7 +351,6 @@
     <string name="send_tutorial_description_3a">Do you have some LTC? Change your local figure fiat to figure out how much you can send. Or, calculate in LTC. Go to settings to adjust your preferred network fee</string>
     <string name="send_tutorial_title_3b">Verify before sending!</string>
     <string name="send_tutorial_description_3b">Scan or paste the destination address. Double check! Change your local fiat to figure out how much you can send. Add a memo as a handy reminder. Tap Continue.</string>
-    <string name="shop_title">Shop</string>
     <string name="shop_tagline">Buy Gift Cards with LTC!</string>
     <string name="pick_emojis_title">Pick 3 Emojis</string>
     <string name="pick_emojis_button_title">Pick 3 Unique Emojis</string>

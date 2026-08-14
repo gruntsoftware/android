@@ -31,10 +31,6 @@
     <string name="Alerts.pinSet">PIN Ayarı</string>
     <!-- Send failure alert header label (the send failed to happen) -->
     <string name="Alerts.sendFailure">Gönderilemedi</string>
-    <!-- Send success alert header label (confirmation that the send happened) -->
-    <string name="Alerts.sendSuccess">Onay Gönder</string>
-    <!-- Send success alert subheader label (e.g. the money was sent) -->
-    <string name="Alerts.sendSuccessSubheader">Para gönderildi!</string>
     <!-- Fingerprint was recognized by the scanner -->
     <string name="Alerts.touchIdSucceeded.android">Parmak izi tanındı</string>
     <!-- JSON Serialization error message -->
@@ -85,10 +81,6 @@
     <string name="Confirmation.totalLabel">Toplam tutar:</string>
     <!-- Confirm paper phrase view label. -->
     <!-- Word label eg. Word #1, Word #2 -->
-    <!-- Litecoin denomination picker label -->
-    <string name="DefaultCurrency.litecoinLabel">Litecoin Görüntü Birimi</string>
-    <!-- Exchange rate label -->
-    <string name="DefaultCurrency.rateLabel">Döviz kuru</string>
     <!-- Email unavailable alert title -->
     <!-- Email unavailable alert title -->
     <!-- Message that gets shown when we've detected the user has encountered the looping lock-screen bug. (preserve [ ] characters) -->
@@ -144,37 +136,11 @@
     <!-- Change Wallet name textfield label -->
     <!-- Manage wallet modal title -->
     <!-- Buy litecoin title -->
-    <!-- Menu button title -->
-    <string name="MenuButton.lock">Cüzdanı Kilitle</string>
-    <!-- Menu button title -->
-    <string name="MenuButton.security">Güvenlik Merkezi</string>
-    <!-- Menu button title -->
-    <string name="MenuButton.settings">Ayarlar</string>
-    <!-- Menu button title -->
-    <string name="MenuButton.support">Müşteri desteği</string>
     <!-- button label -->
     <string name="MenuViewController.createButton">Yeni Cüzdan Oluşturun</string>
-    <!-- Menu modal title -->
-    <string name="MenuViewController.modalTitle">Menü</string>
     <!-- button label -->
-    <!-- Switch to automatic mode button label -->
-    <string name="NodeSelector.automaticButton">Otomatik Moda Geç</string>
-    <!-- Node is connected label -->
-    <string name="NodeSelector.connected">Bağlandı</string>
-    <!-- Enter node ip address view body -->
-    <string name="NodeSelector.enterBody">Düğüm IP adresini ve bağlantı noktasını girin (isteğe bağlı)</string>
-    <!-- Enter Node ip address view title -->
-    <string name="NodeSelector.enterTitle">Düğüm Girin</string>
-    <!-- Switch to manual mode button label -->
-    <string name="NodeSelector.manualButton">Manuel Moda Geç</string>
-    <!-- Node address label -->
-    <string name="NodeSelector.nodeLabel">Geçerli Birincil Düğüm</string>
     <!-- Node is not connected label -->
     <string name="NodeSelector.notConnected">Bağlı değil</string>
-    <!-- Node status label -->
-    <string name="NodeSelector.statusLabel">Düğüm Bağlantı Durumu</string>
-    <!-- Node Selector view title -->
-    <string name="NodeSelector.title">Litecoin Düğümleri</string>
     <!-- Bad Payment request alert title -->
     <string name="PaymentProtocol.Errors.badPaymentRequest">Kötü Ödeme İsteği</string>
     <!-- Error opening payment protocol file message -->
@@ -211,14 +177,8 @@
     <string name="Prompts.UpgradePin.body">Brainwallet, 6 basamaklı bir PIN kullanarak yükseltildi. Yükseltmek için buraya dokunun.</string>
     <!-- Upgrade PIN prompt title. -->
     <string name="Prompts.UpgradePin.title">PIN\'i yükselt</string>
-    <!-- Notifications will be added later but users can set their preferences now, which is why we specify "in the future". -->
-    <string name="PushNotifications.body">Turn on notifications to receive special messages from Brainwallet in the future.</string>
-    <!-- Push notifications toggle switch label -->
-    <string name="PushNotifications.label">Push bildirimleri</string>
     <!-- Push notifications are off label -->
     <!-- Push notifications are on label -->
-    <!-- Push notifications settings view title label -->
-    <string name="PushNotifications.title">Bildirimler</string>
     <!-- Address copied message. -->
     <string name="Receive.copied">Panoya kopyalandı.</string>
     <!-- Share via email button label -->
@@ -229,14 +189,8 @@
     <!-- Share via text message (SMS) -->
     <!-- Receive modal title -->
     <string name="Receive.title">Teslim almak</string>
-    <!-- Done button text -->
-    <string name="RecoverWallet.done">Bitti</string>
-    <!-- Recover wallet header -->
-    <string name="RecoverWallet.header">Cüzdanı Kurtar</string>
     <!-- Reset PIN with paper key: header -->
     <!-- Enter paper key instruction -->
-    <!-- Recover wallet intro -->
-    <string name="RecoverWallet.intro">Brainwallet\'inizi kağıt anahtarınızla kurtarın.</string>
     <!-- Invalid paper key message -->
     <string name="RecoverWallet.invalid">Girdiğiniz kağıt anahtarı geçersiz. Lütfen her kelimeyi iki kez kontrol edin ve tekrar deneyin.</string>
     <!-- Previous button accessibility label -->
@@ -271,37 +225,17 @@
     <!-- Pending filter label -->
     <!-- Received filter label -->
     <!-- Sent filter label -->
-    <!-- Security Center Info -->
-    <string name="SecurityCenter.info">Maksimum koruma için tüm güvenlik özelliklerini etkinleştirin.</string>
-    <!-- Paper Key button description -->
-    <string name="SecurityCenter.paperKeyDescription">Telefonunuzu kaybederseniz veya yükseltirseniz Litecoin\'e erişmenin tek yolu.</string>
     <!-- Paper Key button title -->
     <string name="SecurityCenter.paperKeyTitle">Kağıt Anahtarı</string>
-    <!-- PIN button description -->
-    <string name="SecurityCenter.pinDescription">Brainwallet\'inizi yetkisiz kullanıcılardan korur.</string>
-    <!-- PIN button title -->
-    <string name="SecurityCenter.pinTitle">4 Haneli PIN</string>
-    <!-- Security Center Title -->
-    <string name="SecurityCenter.title">Güvenlik Merkezi</string>
     <!-- Touch ID button description -->
     <!-- Touch ID button title -->
     <!-- Security center fingerprint authentication button -->
-    <!-- Send money amount label -->
-    <string name="Send.amountLabel">Miktar</string>
-    <!-- Balance: $4.00 -->
-    <string name="Send.balance">Denge: %1$s</string>
     <!-- Instructions how to allow the camera access for the app -->
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">Brainwallet\'in kameraya erişmesine izin verilmiyor</string>
     <!-- Camera not allowed message -->
     <!-- Camera not allowed alert title -->
-    <!-- Warning when sending to self. -->
-    <string name="Send.containsAddress">Hedef, kendi adresinizdir. Kendinize gönderemezsiniz.</string>
     <!-- Could not create transaction alert title -->
-    <!-- Description for sending money label -->
-    <string name="Send.descriptionLabel">Not</string>
-    <!-- Emtpy pasteboard error message -->
-    <string name="Send.emptyPasteboard">Çalışma alanı boş</string>
     <!-- Network Fee: $0.01 -->
     <!-- Payee identity not certified alert title. -->
     <!-- Invalid address alert message -->
@@ -313,57 +247,27 @@
     <!-- We are loading the request (now) -->
     <!-- Empty address alert message -->
     <!-- Emtpy amount alert message -->
-    <!-- Paste button label -->
-    <string name="Send.pasteLabel">Yapıştırmak</string>
     <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
     <string name="Send.remoteRequestError">Ödeme talebi yüklenemedi</string>
-    <!-- Scan button label -->
-    <string name="Send.scanLabel">Tarama</string>
-    <!-- Send button label (the action, "press here to send") -->
-    <string name="Send.sendLabel">Gönder</string>
     <!-- Send screen title (as in "this is the screen for sending money") -->
     <string name="Send.title">Gönder</string>
-    <!-- Send money to label -->
-    <string name="Send.toLabel">Bir Litecoin adresi girin</string>
     <!-- Enter to match domain name to LTC Address -->
     <!-- Or -->
     <!-- Lookup -->
     <!-- Your address was resolved! -->
-    <!-- Address already used alert message - first part -->
-    <string name="Send.UsedAddress.firstLine">Litecoin adresleri yalnızca tek kullanımlıktır.</string>
-    <!-- Address already used alert message - second part -->
-    <string name="Send.UsedAddress.secondLIne">Yeniden kullanım, hem sizin hem de alıcı için gizliliği azaltır ve alıcının adresi doğrudan kontrol etmemesi durumunda kayba neden olabilir.</string>
     <!-- Address already used alert title -->
-    <!-- About label -->
-    <string name="Settings.about">Hakkında</string>
-    <!-- Advanced Settings title -->
-    <string name="Settings.advancedTitle">Gelişmiş Ayarlar</string>
-    <!-- i.e. the currency which will be displayed -->
-    <string name="Settings.currency">Para Birimi Görüntüle</string>
     <!-- Join Early access label -->
     <!-- Are you enjoying loaf alert message body -->
     <!-- Import wallet label -->
-    <!-- Manage settings section header -->
-    <string name="Settings.manage">Yönetin</string>
     <!-- Notifications label -->
     <!-- Leave review button label -->
-    <!-- Share anonymous data label -->
-    <string name="Settings.shareData">Anonim Verileri Paylaşın</string>
     <!-- Sync blockchain label -->
     <string name="Settings.sync">Blok Zincirini Senkronize Et</string>
     <!-- Settings title -->
     <!-- Touch ID spending limit label -->
     <!-- The fingerprint spending limit -->
-    <!-- Wallet Settings section header -->
-    <string name="Settings.wallet">Cüzdan</string>
     <!-- Start or recover another wallet menu label. -->
-    <!-- Share data view body -->
-    <string name="ShareData.body">Anonim verilerinizi bizimle paylaşarak Brainwallet\'in geliştirilmesine yardımcı olun. Bu herhangi bir finansal bilgi içermez. Finansal gizliliğinize saygı duyuyoruz.</string>
-    <!-- Share data header -->
-    <string name="ShareData.header">Veriler Paylaşılsın mı?</string>
-    <!-- Share data switch label. -->
-    <string name="ShareData.toggleLabel">Anonim Veriler Paylaşılsın mı?</string>
     <!-- button label -->
     <!-- Paper key explanation text. -->
     <string name="StartPaperPhrase.body">Telefonunuzun kaybolması, çalınması, kırılması veya yükseltilmesi durumunda Brainwallet\'inizi geri yüklemenin tek yolu kağıt anahtarınızdır. \n\ nBir kağıda yazıp güvende tutmanız için size bir kelime listesi göstereceğiz.</string>
@@ -393,13 +297,7 @@
     <!-- Fingerprint authentication label -->
     <!-- Touch ID unavailable alert message -->
     <!-- Touch ID unavailable alert title -->
-    <!-- Always require passcode option -->
-    <string name="TouchIdSpendingLimit">Her zaman şifre gerektir</string>
-    <!-- Touch ID spending limit screen body -->
-    <string name="TouchIdSpendingLimit.body">Harcama limitinizi aşan herhangi bir işlemi göndermek için 6 haneli PIN kodunuzu girmeniz ve 6 haneli PIN kodunuzu en son girdiğinizden bu yana 48 saatte bir girmeniz istenecektir.</string>
     <!-- Touch Id spending limit screen title -->
-    <!-- name of spending limit when using fingerprint authorization -->
-    <string name="TouchIdSpendingLimit.title.android">Parmak İzi Yetkilendirme Harcama Sınırı</string>
     <!-- Availability status text -->
     <string name="Transaction.available">Harcamak için uygun</string>
     <!-- Transaction complete label -->
@@ -454,12 +352,8 @@
     <!-- Reset PIN with Paper Key button label. -->
     <string name="UnlockScreen.resetPin">PIN\'i sıfırla</string>
     <!-- Scan button title -->
-    <!-- Unlock Screen sub-header -->
-    <string name="UnlockScreen.subheader">PIN girin</string>
     <!-- Instruction to touch the sensor for fingerprint authentication -->
     <string name="UnlockScreen.touchIdInstructions.android">Dokunma Sensörü</string>
-    <!-- Forget Seed Phrase or PIN -->
-    <string name="UnlockScreen.forgetSeedPhraseOrPIN">Tohum cümlenizi veya PIN kodunuzu mu unuttunuz?</string>
     <!-- TouchID prompt text -->
     <!-- Device authentication body -->
     <string name="UnlockScreen.touchIdPrompt.android">Devam etmek için lütfen Android cihazınızın kilidini açın.</string>
@@ -468,26 +362,12 @@
     <string name="ViewOnBlockchain">Blockchain\'de görüntüle</string>
     <!-- Device authentication title -->
     <string name="UnlockScreen.touchIdTitle.android">Kimlik doğrulama gerekli</string>
-    <!-- Wallet unlocked message -->
-    <string name="UnlockScreen.unlocked">Cüzdan Kilidi Açıldı</string>
-    <!-- Update PIN caption text -->
-    <string name="UpdatePin.caption">Bu PIN kodunu unutmayın. Unutursanız, Litecoin\'inize erişemezsiniz.</string>
     <!-- PIN creation info. -->
     <string name="UpdatePin.createInstruction">PIN kodunuz Brainwallet\'inizin kilidini açmak ve para göndermek için kullanılacaktır.</string>
-    <!-- Update PIN title -->
-    <string name="UpdatePin.createTitle">PIN ayarla</string>
-    <!-- Update PIN title -->
-    <string name="UpdatePin.createTitleConfirm">PIN\'i Yeniden Girin</string>
     <!-- Enter current PIN instruction -->
     <string name="UpdatePin.enterCurrent">Mevcut PIN kodunuzu girin.</string>
-    <!-- Enter new PIN instruction -->
-    <string name="UpdatePin.enterNew">Yeni PIN kodunuzu girin.</string>
-    <!-- Re-Enter new PIN instruction -->
-    <string name="UpdatePin.reEnterNew">Yeni PIN kodunuzu tekrar girin.</string>
     <!-- Update PIN failure error message. -->
     <!-- Update PIN failure alert view title -->
-    <!-- Update PIN title -->
-    <string name="UpdatePin.updateTitle">PIN\'i güncelle</string>
     <!-- Authorize to copy wallet addresses alert message -->
     <!-- Authorize to copy wallet address PIN view prompt. -->
     <!-- Authorize to copy wallet address alert title -->
@@ -500,8 +380,6 @@
     <!-- 'No wallet' warning for watch app -->
     <!-- Dismiss button label -->
     <!-- Webview loading error message -->
-    <!-- Updating webview message -->
-    <string name="Webview.updating">Güncelleniyor...</string>
     <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
     <!-- Top title of welcome screen -->
     <!-- Wipe wallet alert message -->
@@ -521,27 +399,16 @@
     <!-- button label -->
     <!-- button label -->
     <!-- 1 of 3 -->
-    <!--Buy center - partners-->
-    <string name="BottomNavItem.History.title">Tarih</string>
     <!-- Balance -->
     <string name="ManageWallet.balance">Denge</string>
-    <string name="Login.currentLtcPrice">%1$s cinsinden geçerli LTC değeri</string>
-    <string name="Settings.languages">Diller</string>
     <string name="show_seed_label">Göstermek</string>
     <string name="settings_show_seed">" Tohum ifademi göster"</string>
     <string name="sync_preferences">Senkronizasyon Tercihi: %1$s yanlış pozitifler</string>
     <string name="radio_low_privacy">Düşük gizlilik (~19 dakika)</string>
     <string name="radio_semi_private">Yarı özel (~42 dakika)</string>
     <string name="radio_anonymous">Anonim (~77 dakika)</string>
-    <!-- Announce Updates View -->
-    <string name="Fees.Service">Hizmet</string>
-    <string name="Network.feeLabel">Ağ</string>
     <string name="ConfirmationAllFees.Label">Ücretler:</string>
-    <string name="cancel">İptal etmek</string>
     <string name="ok">Tamam</string>
-    <string name="please_grant_notification_permission">Lütfen bildirim izni verin</string>
-    <string name="permission_info">İzin Bilgisi</string>
-    <string name="permission_notification_granted">Bildirim İzni Verildi</string>
     <string name="back">Geri</string>
     <string name="your_seed_words">Tohum sözleriniz</string>
     <string name="your_seed_words_desc">"Sadece senin için. \n Göndermeni sağlayan şey budur."</string>
@@ -618,7 +485,6 @@
     <string name="game_hub_tab_description">oyun kumandası</string>
     <string name="history_tab_description">saat yönünün tersine dönen dairesel ok</string>
     <string name="history_title">Geçmiş</string>
-    <string name="ltc_ticker_as_of_timestamp">%1$s itibarıyla</string>
     <string name="my_balance">BAKİYEM</string>
     <string name="no_internet_dialog_title">İnternet olmadan senkronizasyon mümkün değil!</string>
     <string name="no_internet_dialog_subtitle">Senkronizasyonu tamamlamak için lütfen yeniden bağlanın.</string>
@@ -632,7 +498,6 @@
     <string name="fees_label">"Ücretler: "</string>
     <string name="no_transaction_detail_row">Henüz yok. Hemen yükle!</string>
     <string name="no_transaction_title_row">İŞLEM GEÇMİŞİ</string>
-    <string name="enter_passcode">Şifre girin</string>
     <string name="recipient_label">Alıcı:</string>
     <string name="send_litecoin_label">Litecoin gönder</string>
     <string name="confirm_send_label">Gönderme detaylarını onayla:</string>
@@ -644,13 +509,9 @@
     <string name="exchange_rate_label">Döviz kuru:</string>
     <string name="send_error_message">Devam etmek için geçerli bir LTC adresi ve tutar girin</string>
     <string name="enter_pin">PIN girin</string>
-    <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">Eğitimler</string>
-    <string name="coming_soon">Çok yakında!</string>
     <string name="rice_partner_03_tagline">Ortağımız ile 5 dakikada bakiye yükleyin</string>
     <string name="unagi_social_01_tagline">Tıklayın ve bizi takip edin!</string>
-    <string name="sign_up_messaging_title">Güncellemeler, yenilikler ve yarışmalar için kaydolun!</string>
-    <string name="grant_for_notifications_message">"Lütfen bildirimlerimiz için izin verin "</string>
     <string name="export_transaction_button_title">Tüm İşlemleri Dışa Aktar</string>
     <string name="copy_tx_details">İşlem detaylarını kopyala</string>
     <string name="all_label">Tümü</string>
@@ -679,7 +540,6 @@
     <string name="send_tutorial_title_3b">Göndermeden Önce Doğrulayın!</string>
     <string name="send_tutorial_description_3b">Hedef adresini tarayın veya yapıştırın. İki kez kontrol edin! Ne kadar gönderebileceğinizi öğrenmek için yerel para biriminizi değiştirin. Hatırlatıcı olması için not ekleyin. Devam Et\'e dokunun.</string>
     <string name="Send.cameraUnavailabeMessage.android">Ayarlar\'da kamera erişimine izin verin</string>
-    <string name="shop_title">Mağaza</string>
     <string name="shop_tagline">LTC ile Hediye Kartı Satın Al!</string>
     <string name="security_brainwallet_phrase_title">Brainwallet ifadesi</string>
     <string name="pick_emojis_title">3 Emoji Seçin</string>

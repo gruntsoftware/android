@@ -12,23 +12,6 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
-
-    <style name="Send_ActionButStyle">
-        <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:paddingStart">4dp</item>
-        <item name="android:paddingEnd">4dp</item>
-        <item name="android:textSize">11sp</item>
-    </style>
-
-    <style name="BottomNavTheme" parent="Widget.MaterialComponents.BottomNavigationView">
-        <item name="android:textAllCaps">true</item>
-        <item name="android:textSize">12sp</item>
-        <item name="fontFamily">@font/ibm_plex_sans_medium</item>
-        <item name="android:fontFamily">@font/ibm_plex_sans_medium</item>
-        <item name="itemIconTint">?attr/colorOnSurface</item>
-        <item name="itemTextColor">?attr/colorOnSurface</item>
-    </style>
-
     <!--    &lt;!&ndash; set the rounded drawable as background to your bottom sheet &ndash;&gt;-->
 
     <style name="LoginButStyle">

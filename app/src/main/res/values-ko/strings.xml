@@ -32,10 +32,6 @@
     <string name="Alerts.pinSet">PIN 준비</string>
     <!-- Send failure alert header label (the send failed to happen) -->
     <string name="Alerts.sendFailure">보내기 실패함</string>
-    <!-- Send success alert header label (confirmation that the send happened) -->
-    <string name="Alerts.sendSuccess">보내기 확인</string>
-    <!-- Send success alert subheader label (e.g. the money was sent) -->
-    <string name="Alerts.sendSuccessSubheader">돈을 보냈어요!</string>
     <!-- Fingerprint was recognized by the scanner -->
     <string name="Alerts.touchIdSucceeded.android">지문 인식됨</string>
     <!-- JSON Serialization error message -->
@@ -68,10 +64,6 @@
     <string name="Confirmation.totalLabel">총 금액:</string>
     <!-- Confirm paper phrase view label. -->
     <!-- Word label eg. Word #1, Word #2 -->
-    <!-- Litecoin denomination picker label -->
-    <string name="DefaultCurrency.litecoinLabel">Litecoin Display Unit</string>
-    <!-- Exchange rate label -->
-    <string name="DefaultCurrency.rateLabel">환율</string>
     <!-- Email unavailable alert title -->
     <!-- Email unavailable alert title -->
     <!-- Messaging unavailable alert title -->
@@ -128,37 +120,11 @@
     <!-- Change Wallet name textfield label -->
     <!-- Manage wallet modal title -->
     <!-- Buy bitcoin title -->
-    <!-- Menu button title -->
-    <string name="MenuButton.lock">지갑 잠그기</string>
-    <!-- Menu button title -->
-    <string name="MenuButton.security">보안 센터</string>
-    <!-- Menu button title -->
-    <string name="MenuButton.settings">설정</string>
-    <!-- Menu button title -->
-    <string name="MenuButton.support">고객 지원</string>
     <!-- button label -->
     <string name="MenuViewController.createButton">새 지갑 만들기</string>
-    <!-- Menu modal title -->
-    <string name="MenuViewController.modalTitle">메뉴</string>
     <!-- button label -->
-    <!-- Switch to automatic mode button label -->
-    <string name="NodeSelector.automaticButton">자동 모드로 전환</string>
-    <!-- Node is connected label -->
-    <string name="NodeSelector.connected">연결됨</string>
-    <!-- Enter node ip address view body -->
-    <string name="NodeSelector.enterBody">노드 IP 주소와 포트를 입력하십시오(선택)</string>
-    <!-- Enter Node ip address view title -->
-    <string name="NodeSelector.enterTitle">노드를 입력하십시오</string>
-    <!-- Switch to manual mode button label -->
-    <string name="NodeSelector.manualButton">수동 모드로 전환</string>
-    <!-- Node address label -->
-    <string name="NodeSelector.nodeLabel">현재 주요 모드</string>
     <!-- Node is not connected label -->
     <string name="NodeSelector.notConnected">연결되지 않음</string>
-    <!-- Node status label -->
-    <string name="NodeSelector.statusLabel">노드 연결 상태</string>
-    <!-- Node Selector view title -->
-    <string name="NodeSelector.title">라이트코인 노드</string>
     <!-- Bad Payment request alert title -->
     <string name="PaymentProtocol.Errors.badPaymentRequest">틀린 결제 요청</string>
     <!-- Error opening payment protocol file message -->
@@ -195,14 +161,8 @@
     <string name="Prompts.UpgradePin.body">6자리 PIN을 사용하도록 브레드가 업그레이드되었습니다. 업그레이드하려면 여기를 탭하세요.</string>
     <!-- Upgrade PIN prompt title. -->
     <string name="Prompts.UpgradePin.title">PIN 업그레이드</string>
-    <!-- Notifications will be added later but users can set their preferences now, which is why we specify "in the future". -->
-    <string name="PushNotifications.body">알림을 켜두시면, 향후 브레드의 특별 메시지를 수신할 수 있습니다.</string>
-    <!-- Push notifications toggle switch label -->
-    <string name="PushNotifications.label">푸시 알림</string>
     <!-- Push notifications are off label -->
     <!-- Push notifications are on label -->
-    <!-- Push notifications settings view title label -->
-    <string name="PushNotifications.title">알림</string>
     <!-- Address copied message. -->
     <string name="Receive.copied">클립보드에 복사되었습니다.</string>
     <!-- Share via email button label -->
@@ -213,14 +173,8 @@
     <!-- Share via text message (SMS) -->
     <!-- Receive modal title -->
     <string name="Receive.title">수신</string>
-    <!-- Done button text -->
-    <string name="RecoverWallet.done">완료</string>
-    <!-- Recover wallet header -->
-    <string name="RecoverWallet.header">지갑 복구하기</string>
     <!-- Reset PIN with paper key: header -->
     <!-- Enter paper key instruction -->
-    <!-- Recover wallet intro -->
-    <string name="RecoverWallet.intro">페이퍼 키를 사용해 브레드를 복구해 주세요.</string>
     <!-- Invalid paper key message -->
     <string name="RecoverWallet.invalid">올바르지 않은 페이퍼 키를 입력하셨습니다. 각 단어를 재확인한 후 다시 시도해 주세요.</string>
     <!-- Previous button accessibility label -->
@@ -255,37 +209,17 @@
     <!-- Pending filter label -->
     <!-- Received filter label -->
     <!-- Sent filter label -->
-    <!-- Security Center Info -->
-    <string name="SecurityCenter.info">최대한의 보호를 위해 모든 보안 기능을 사용하시기 바랍니다.</string>
-    <!-- Paper Key button description -->
-    <string name="SecurityCenter.paperKeyDescription">전화를 분실하거나 업그레이드하는 경우, 라이트코인에 액세스할 수 있는 유일한 방법입니다.</string>
     <!-- Paper Key button title -->
     <string name="SecurityCenter.paperKeyTitle">페이퍼 키</string>
-    <!-- PIN button description -->
-    <string name="SecurityCenter.pinDescription">허가받지 않은 사용자로부터 브레드를 보호하세요.</string>
-    <!-- PIN button title -->
-    <string name="SecurityCenter.pinTitle">4자리 PIN</string>
-    <!-- Security Center Title -->
-    <string name="SecurityCenter.title">보안 센터</string>
     <!-- Touch ID button description -->
     <!-- Touch ID button title -->
     <!-- Security center fingerprint authentication button -->
-    <!-- Send money amount label -->
-    <string name="Send.amountLabel">금액</string>
-    <!-- Balance: $4.00 -->
-    <string name="Send.balance">잔액: %1$s</string>
     <!-- Instructions how to allow the camera access for the app -->
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">Loaf의 카메라 접속이 허용되지 않았습니다</string>
     <!-- Camera not allowed message -->
     <!-- Camera not allowed alert title -->
-    <!-- Warning when sending to self. -->
-    <string name="Send.containsAddress">여러분의 주소를 입력해 주세요. 본인에게 전송할 수 없습니다.</string>
     <!-- Could not create transaction alert title -->
-    <!-- Description for sending money label -->
-    <string name="Send.descriptionLabel">메모</string>
-    <!-- Emtpy pasteboard error message -->
-    <string name="Send.emptyPasteboard">클립보드가 비어 있습니다</string>
     <!-- Network Fee: $0.01 -->
     <!-- Payee identity not certified alert title. -->
     <!-- Invalid address alert message -->
@@ -297,57 +231,27 @@
     <!-- We are loading the request (now) -->
     <!-- Empty address alert message -->
     <!-- Emtpy amount alert message -->
-    <!-- Paste button label -->
-    <string name="Send.pasteLabel">붙여넣기</string>
     <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
     <string name="Send.remoteRequestError">결제 요청을 불러올 수 없었습니다</string>
-    <!-- Scan button label -->
-    <string name="Send.scanLabel">스캔</string>
-    <!-- Send button label (the action, "press here to send") -->
-    <string name="Send.sendLabel">보내기</string>
     <!-- Send screen title (as in "this is the screen for sending money") -->
     <string name="Send.title">보내기</string>
-    <!-- Send money to label -->
-    <string name="Send.toLabel">라이트 코인 주소를 입력하세요</string>
     <!-- Enter to match domain name to LTC Address -->
     <!-- Or -->
     <!-- Lookup -->
     <!-- Your address was resolved! -->
-    <!-- Adress already used alert message - first part -->
-    <string name="Send.UsedAddress.firstLine">라이트코인 주소는 일회용입니다.</string>
-    <!-- Adress already used alert message - second part -->
-    <string name="Send.UsedAddress.secondLIne">주소를 재사용할 경우 귀하와 받는 사람 모두의 개인 정보 보호가 약해지며, 받는 사람이 직접 주소를 관리하지 않을 경우 분실을 초래할 수 있습니다.</string>
     <!-- Adress already used alert title -->
-    <!-- About label -->
-    <string name="Settings.about">관련 사항</string>
-    <!-- Advanced Settings title -->
-    <string name="Settings.advancedTitle">고급 설정</string>
-    <!-- i.e. the currency which will be displayed -->
-    <string name="Settings.currency">통화 보기</string>
     <!-- Join Early access label -->
     <!-- Are you enjoying Loaf alert message body -->
     <!-- Import wallet label -->
-    <!-- Manage settings section header -->
-    <string name="Settings.manage">관리</string>
     <!-- Notifications label -->
     <!-- Leave review button label -->
-    <!-- Share anonymous data label -->
-    <string name="Settings.shareData">익명 데이터 공유</string>
     <!-- Sync blockchain label -->
     <string name="Settings.sync">블록체인 동기화</string>
     <!-- Settings title -->
     <!-- Touch ID spending limit label -->
     <!-- The fingerprint spending limit -->
-    <!-- Wallet Settings section header -->
-    <string name="Settings.wallet">지갑</string>
     <!-- Start or recover another wallet menu label. -->
-    <!-- Share data view body -->
-    <string name="ShareData.body">브레드 기능 향상을 위해 여러분의 익명 데이터를 공유해 주세요. 금융 정보는 포함되지 않습니다. 여러분의 금융 관련 개인정보는 안전하게 보호됩니다.</string>
-    <!-- Share data header -->
-    <string name="ShareData.header">데이터를 공유하시겠습니까?</string>
-    <!-- Share data switch label. -->
-    <string name="ShareData.toggleLabel">익명 데이터를 공유하시겠습니까?</string>
     <!-- button label -->
     <!-- Paper key explanation text. -->
     <string name="StartPaperPhrase.body">페이퍼 키는 핸드폰을 분실하거나, 도난당하거나, 망가지거나, 업그레이드한 경우 브레드를 다시 살릴 수 있는 유일한 방법입니다.\n\n저희가 제시하는 단어 목록을 잘 적어서 안전하게 보관해 주세요.</string>
@@ -377,13 +281,7 @@
     <!-- Fingerprint authentication label -->
     <!-- Touch ID unavailable alert message -->
     <!-- Touch ID unavailable alert title -->
-    <!-- Always require passcode option -->
-    <string name="TouchIdSpendingLimit">항상 비밀번호 요구</string>
-    <!-- Touch ID spending limit screen body -->
-    <string name="TouchIdSpendingLimit.body">지출 한도를 넘는 트랜잭션을 보내실 경우, 그리고 마지막으로 6자리 PIN 코드를 입력하시고 48시간이 경과한 경우에는 6자리 PIN 코드를 입력하셔야 합니다.</string>
     <!-- Touch Id spending limit screen title -->
-    <!-- name of spending limit when using fingerprint authorization -->
-    <string name="TouchIdSpendingLimit.title.android">지문 본인확인 사용 한계</string>
     <!-- Availability status text -->
     <string name="Transaction.available">지출 가능</string>
     <!-- Transaction complete label -->
@@ -438,8 +336,6 @@
     <!-- Reset PIN with Paper Key button label. -->
     <string name="UnlockScreen.resetPin">PIN 재설정</string>
     <!-- Scan button title -->
-    <!-- Unlock Screen sub-header -->
-    <string name="UnlockScreen.subheader">PIN 입력</string>
     <!-- Instruction to touch the sensor for fingerprint authentication -->
     <string name="UnlockScreen.touchIdInstructions.android">터치 센서</string>
     <!-- TouchID prompt text -->
@@ -449,28 +345,12 @@
     <!-- Device authentication title -->
     <string name="ViewOnBlockchain">블록체인에서 보기</string>
     <string name="UnlockScreen.touchIdTitle.android">본인확인 필요</string>
-    <!-- Wallet unlocked message -->
-    <string name="UnlockScreen.unlocked">월렛의 잠금이 해제됨</string>
-    <!-- Forget Seed Phrase or PIN -->
-    <string name="UnlockScreen.forgetSeedPhraseOrPIN">시드 문구나 PIN을 잊으셨나요?</string>
-    <!-- Update PIN caption text -->
-    <string name="UpdatePin.caption">이 PIN 코드를 기억하세요. PIN 코드를 잊어버리면 자신의 라이트코인을 사용할 수 없게 됩니다.</string>
     <!-- PIN creation info. -->
     <string name="UpdatePin.createInstruction">귀하의 PIN 코드는 Loaf의 잠금을 해제하고 돈을 송금하는 데 사용됩니다.</string>
-    <!-- Update PIN title -->
-    <string name="UpdatePin.createTitle">PIN 설정</string>
-    <!-- Update PIN title -->
-    <string name="UpdatePin.createTitleConfirm">PIN 코드를 다시 입력</string>
     <!-- Enter current PIN instruction -->
     <string name="UpdatePin.enterCurrent">현재의 PIN 코드를 입력하세요.</string>
-    <!-- Enter new PIN instruction -->
-    <string name="UpdatePin.enterNew">새 PIN 코드를 입력하세요.</string>
-    <!-- Re-Enter new PIN instruction -->
-    <string name="UpdatePin.reEnterNew">새 PIN 코드를 다시 입력하세요.</string>
     <!-- Update PIN failure error message. -->
     <!-- Update PIN failure alert view title -->
-    <!-- Update PIN title -->
-    <string name="UpdatePin.updateTitle">PIN 코드 업데이트</string>
     <!-- Authorize to copy wallet addresses alert message -->
     <!-- Authorize to copy wallet address PIN view prompt. -->
     <!-- Authorize to copy wallet address alert title -->
@@ -483,8 +363,6 @@
     <!-- 'No wallet' warning for watch app -->
     <!-- Dismiss button label -->
     <!-- Webview loading error message -->
-    <!-- Updating webview message -->
-    <string name="Webview.updating">업데이트 중...</string>
     <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
     <!-- Top title of welcome screen -->
     <!-- Wipe wallet alert message -->
@@ -503,26 +381,15 @@
     <!-- Paper key instructions. -->
     <!-- button label -->
     <!-- button label -->
-    <!-- 1 of 3 -->
-    <string name="BottomNavItem.History.title">역사</string>
     <string name="ManageWallet.balance">밸런스</string>
-    <string name="Login.currentLtcPrice">현재 LTC 값 %1$s</string>
-    <string name="Settings.languages">언어</string>
     <string name="show_seed_label">보여주다</string>
     <string name="settings_show_seed">내 시드 문구 표시</string>
     <string name="sync_preferences">동기화 기본 설정: %1$s 오탐지</string>
     <string name="radio_low_privacy">낮은 프라이버시(~19분)</string>
     <string name="radio_semi_private">세미 프라이빗(~42분)</string>
     <string name="radio_anonymous">익명(~77분)</string>
-    <!-- Announce Updates View -->
-    <string name="Fees.Service">서비스</string>
-    <string name="Network.feeLabel">회로망</string>
     <string name="ConfirmationAllFees.Label">수수료:</string>
-    <string name="cancel">취소</string>
     <string name="ok">좋아요</string>
-    <string name="please_grant_notification_permission">알림 권한을 부여해 주세요</string>
-    <string name="permission_info">권한 정보</string>
-    <string name="permission_notification_granted">알림 권한이 부여됨</string>
     <string name="back">뒤쪽에</string>
     <string name="your_seed_words">당신의 씨앗 단어</string>
     <string name="your_seed_words_desc">"당신만을 위한 것입니다. \n 당신이 보낼 수 있게 해주는 것이 바로 이 것입니다."</string>
@@ -599,7 +466,6 @@
     <string name="game_hub_tab_description">게임 컨트롤러</string>
     <string name="history_tab_description">반시계 방향으로 회전하는 원형 화살표</string>
     <string name="history_title">거래 내역</string>
-    <string name="ltc_ticker_as_of_timestamp">%1$s 기준</string>
     <string name="my_balance">내 잔액</string>
     <string name="no_internet_dialog_title">인터넷 없이는 동기화할 수 없습니다!</string>
     <string name="no_internet_dialog_subtitle">동기화를 완료하려면 다시 연결해 주세요.</string>
@@ -613,7 +479,6 @@
     <string name="fees_label">"수수료: "</string>
     <string name="no_transaction_detail_row">아직 없습니다. 지금 충전하세요!</string>
     <string name="no_transaction_title_row">거래 내역</string>
-    <string name="enter_passcode">암호를 입력하세요</string>
     <string name="recipient_label">받는 사람:</string>
     <string name="send_litecoin_label">Litecoin 전송</string>
     <string name="confirm_send_label">전송 정보 확인:</string>
@@ -625,9 +490,7 @@
     <string name="exchange_rate_label">환율:</string>
     <string name="send_error_message">유효한 LTC 주소와 금액을 입력하여 계속하세요</string>
     <string name="enter_pin">PIN을 입력하세요</string>
-    <string name="favourites_label">Top Secret</string>
     <string name="tutorials_label">튜토리얼</string>
-    <string name="coming_soon">곧 출시됩니다!</string>
     <string name="rice_partner_03_tagline">파트너와 함께 5분 안에 충전하세요</string>
     <string name="unagi_social_01_tagline">클릭하고 우리를 팔로우하세요!</string>
     <string name="export_transaction_button_title">모든 거래 내역 내보내기</string>
@@ -636,8 +499,6 @@
     <string name="received_label">받음</string>
     <string name="sent_label">보냄</string>
     <string name="ltc_price_label">LTC 가격</string>
-    <string name="sign_up_messaging_title">업데이트, 뉴스 및 이벤트 소식을 받아보세요!</string>
-    <string name="grant_for_notifications_message">"알림 권한을 허용해 주세요 "</string>
     <string name="send_tutorial_title">Litecoin을 보내는 방법</string>
     <string name="brainwallet_walkthrough_title">Brainwallet 둘러보기</string>
     <string name="brainwallet_walkthrough_description">암호화폐 송수신부터 키 관리까지 Brainwallet의 모든 기능을 체험해보세요.</string>
@@ -660,7 +521,6 @@
     <string name="send_tutorial_title_3b">보내기 전에 확인하세요!</string>
     <string name="send_tutorial_description_3b">수신자 주소를 스캔하거나 붙여넣기하세요. 확인하세요! 현지 통화로 변경하여 보낼 수 있는 금액을 계산하세요. 편리한 참고를 위해 메모를 추가하세요. 계속을 탭하세요.</string>
     <string name="Send.cameraUnavailabeMessage.android">설정에서 카메라 접근을 허용해주세요</string>
-    <string name="shop_title">상점</string>
     <string name="shop_tagline">LTC로 기프트 카드를 구매하세요!</string>
     <string name="security_brainwallet_phrase_title">Brainwallet 문구</string>
     <string name="pick_emojis_title">이모지 3개 선택</string>
