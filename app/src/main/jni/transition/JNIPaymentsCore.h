@@ -1,7 +1,7 @@
 #include "jni.h"
 
-#ifndef BRAINWALLET_CORE_H
-#define BRAINWALLET_CORE_H
+#ifndef BRAINWALLET_JNIPAYMENTSCORE_H
+#define BRAINWALLET_JNIPAYMENTSCORE_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -21,4 +21,4 @@ Java_com_brainwallet_tools_security_LitecoinURIHandler_parsePaymentACK(JNIEnv *e
 }
 #endif
 
-#endif //BRAINWALLETWALLET_CORE_H
+#endif //BRAINWALLET_JNIPAYMENTSCORE_H

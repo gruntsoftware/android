@@ -1,5 +1,5 @@
 
-#include "core.h"
+#include "JNIPaymentsCore.h"
 #include "wallet.h"
 #include <stdio.h>
 #include <android/log.h>
