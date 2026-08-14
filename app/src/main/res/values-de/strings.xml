@@ -255,7 +255,7 @@
     <string name="cta_export_transaction">Transaktionsdaten exportieren</string>
     <string name="game_hub_title">Spiele-Hub</string>
     <string name="game_hub_tagline">Bist du gut genug, um Nummer 1 zu sein?</string>
-    <string name="send_tab_description">Papierflieger-Symbol für die Aktion „Senden"</string>
+    <string name="send_tab_description">Papierflieger-Symbol für die Aktion \„Senden\“</string>
     <string name="buy_receive_tab_description">Zwei Pfeile, die den Kauf und Empfang von Litecoin darstellen</string>
     <string name="game_hub_tab_description">Spielcontroller</string>
     <string name="history_tab_description">Kreisförmiger Pfeil, der sich gegen den Uhrzeigersinn dreht</string>
