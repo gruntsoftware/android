@@ -29,7 +29,7 @@ import timber.log.Timber;
  * BIP21-style amount/label/message params, and BIP70 payment-protocol requests (r=).
  *
  * The BIP70 native methods below are implemented in
- * app/src/main/jni/transition/core.c, resolved by the JNI runtime via their exact
+ * app/src/main/jni/transition/JNIPaymentsCore.c, resolved by the JNI runtime via their exact
  * symbol name (Java_com_brainwallet_tools_security_LitecoinURIHandler_...) - keep the
  * class/method names here and the JNIEXPORT function names there in sync.
  */
