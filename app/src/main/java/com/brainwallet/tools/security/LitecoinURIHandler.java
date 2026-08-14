@@ -6,6 +6,7 @@ import com.brainwallet.R;
 import com.brainwallet.navigation.LegacyNavigation;
 import com.brainwallet.navigation.Route;
 import com.brainwallet.presenter.customviews.BRDialogView;
+import com.brainwallet.presenter.entities.PaymentRequestWrapper;
 import com.brainwallet.presenter.entities.RequestObject;
 import com.brainwallet.tools.animation.BRDialog;
 import com.brainwallet.tools.threads.PaymentProtocolTask;
@@ -23,9 +24,10 @@ import timber.log.Timber;
  * Handles incoming litecoin: URIs (deep links, QR scans) - address-only requests,
  * BIP21-style amount/label/message params, and BIP70 payment-protocol requests (r=).
  *
- * This is the Litecoin-named entry point for that logic; use it instead of
- * {@link BitcoinUrlHandler}, which now exists only to hold the payment-protocol
- * native method declarations (see that class for why).
+ * The BIP70 native methods below are implemented in
+ * app/src/main/jni/transition/core.c, resolved by the JNI runtime via their exact
+ * symbol name (Java_com_brainwallet_tools_security_LitecoinURIHandler_...) - keep the
+ * class/method names here and the JNIEXPORT function names there in sync.
  */
 public class LitecoinURIHandler {
     private static final Object lockObject = new Object();
@@ -181,4 +183,10 @@ public class LitecoinURIHandler {
         }
         return true;
     }
+
+    public static native PaymentRequestWrapper parsePaymentRequest(byte[] req);
+
+    public static native String parsePaymentACK(byte[] req);
+
+    public static native byte[] getCertificatesFromPaymentRequest(byte[] req, int index);
 }
