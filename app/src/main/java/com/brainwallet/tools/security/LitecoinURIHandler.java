@@ -1,5 +1,8 @@
 package com.brainwallet.tools.security;
 
+import android.content.Context;
+
+import androidx.annotation.VisibleForTesting;
 import androidx.fragment.app.FragmentActivity;
 
 import com.brainwallet.R;
@@ -32,14 +35,63 @@ import timber.log.Timber;
 public class LitecoinURIHandler {
     private static final Object lockObject = new Object();
 
+    /**
+     * The address/key checks this class needs from {@link BRWalletManager} - all four are
+     * native methods, which mockk cannot intercept on a mocked BRWalletManager instance in
+     * a plain JVM unit test (unlike regular methods, there's no bytecode body to override -
+     * see {@link com.brainwallet.wallet.WalletManager} for the same problem solved for
+     * validateAddress/isCreated elsewhere). Package-private overloads below accept this
+     * seam so tests can supply a plain fake instead of a real BRWalletManager.
+     */
+    @VisibleForTesting
+    interface AddressResolver {
+        boolean validateAddress(String address);
+
+        boolean isValidBitcoinBIP38Key(String key);
+
+        boolean isValidBitcoinPrivateKey(String key);
+
+        boolean confirmSweep(Context ctx, String privKey);
+
+        static AddressResolver usingWalletManager() {
+            BRWalletManager manager = BRWalletManager.getInstance();
+            return new AddressResolver() {
+                @Override
+                public boolean validateAddress(String address) {
+                    return manager.validateAddress(address);
+                }
+
+                @Override
+                public boolean isValidBitcoinBIP38Key(String key) {
+                    return manager.isValidBitcoinBIP38Key(key);
+                }
+
+                @Override
+                public boolean isValidBitcoinPrivateKey(String key) {
+                    return manager.isValidBitcoinPrivateKey(key);
+                }
+
+                @Override
+                public boolean confirmSweep(Context ctx, String privKey) {
+                    return manager.confirmSweep(ctx, privKey);
+                }
+            };
+        }
+    }
+
     public static synchronized boolean processRequest(FragmentActivity app, String url) {
+        return processRequest(app, url, AddressResolver.usingWalletManager());
+    }
+
+    @VisibleForTesting
+    static synchronized boolean processRequest(FragmentActivity app, String url, AddressResolver resolver) {
         if (url == null) {
             Timber.d("timber: processRequest: url is null");
             return false;
         }
 
-        RequestObject requestObject = getRequestFromString(url);
-        if (BRWalletManager.getInstance().confirmSweep(app, url)) {
+        RequestObject requestObject = getRequestFromString(url, resolver);
+        if (resolver.confirmSweep(app, url)) {
             return true;
         }
         if (requestObject == null) {
@@ -57,7 +109,7 @@ public class LitecoinURIHandler {
         if (requestObject.r != null) {
             return tryPaymentRequest(requestObject);
         } else if (requestObject.address != null) {
-            return tryLitecoinURL(url, app);
+            return tryLitecoinURL(url, app, resolver);
         } else {
             if (app != null) {
                 BRDialog.showCustomDialog(app, app.getString(R.string.JailbreakWarnings_title),
@@ -73,6 +125,11 @@ public class LitecoinURIHandler {
     }
 
     public static RequestObject getRequestFromString(String str) {
+        return getRequestFromString(str, AddressResolver.usingWalletManager());
+    }
+
+    @VisibleForTesting
+    static RequestObject getRequestFromString(String str, AddressResolver resolver) {
         if (str == null || str.isEmpty()) return null;
         RequestObject obj = new RequestObject();
 
@@ -95,7 +152,7 @@ public class LitecoinURIHandler {
         String host = uri.getHost();
         if (host != null) {
             String addrs = host.trim();
-            if (BRWalletManager.getInstance().validateAddress(addrs)) {
+            if (resolver.validateAddress(addrs)) {
                 obj.address = addrs;
             }
         }
@@ -131,15 +188,25 @@ public class LitecoinURIHandler {
      * valid Litecoin BIP38/private key.
      */
     public static boolean isValidLitecoinURI(String url) {
-        RequestObject requestObject = getRequestFromString(url);
+        return isValidLitecoinURI(url, AddressResolver.usingWalletManager());
+    }
+
+    @VisibleForTesting
+    static boolean isValidLitecoinURI(String url, AddressResolver resolver) {
+        RequestObject requestObject = getRequestFromString(url, resolver);
         return (requestObject != null && (requestObject.r != null || requestObject.address != null)
-                || BRWalletManager.getInstance().isValidBitcoinBIP38Key(url)
-                || BRWalletManager.getInstance().isValidBitcoinPrivateKey(url));
+                || resolver.isValidBitcoinBIP38Key(url)
+                || resolver.isValidBitcoinPrivateKey(url));
     }
 
     public static boolean isValidLitecoinUrl(String url) {
-        if (isValidLitecoinURI(url)) {
-            return BRWalletManager.getInstance().validateAddress(url);
+        return isValidLitecoinUrl(url, AddressResolver.usingWalletManager());
+    }
+
+    @VisibleForTesting
+    static boolean isValidLitecoinUrl(String url, AddressResolver resolver) {
+        if (isValidLitecoinURI(url, resolver)) {
+            return resolver.validateAddress(url);
         }
         return false;
     }
@@ -159,8 +226,8 @@ public class LitecoinURIHandler {
         return true;
     }
 
-    private static boolean tryLitecoinURL(final String url, final FragmentActivity app) {
-        RequestObject requestObject = getRequestFromString(url);
+    private static boolean tryLitecoinURL(final String url, final FragmentActivity app, AddressResolver resolver) {
+        RequestObject requestObject = getRequestFromString(url, resolver);
         if (requestObject == null || requestObject.address == null || requestObject.address.isEmpty())
             return false;
 
