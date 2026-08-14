@@ -538,4 +538,5 @@
     <string name="your_emojis_title">당신의 Brainwallet 이모지</string>
     <string name="your_emojis_description">게임을 위해 선택한 이모지로 시드 문구를 기억하는 데 도움이 됩니다</string>
     <string name="your_emojis_reset">이모지 초기화</string>
+    <string name="Send.qrAddressCopied">Litecoin 주소가 클립보드에 복사되었습니다.</string>
 </resources>

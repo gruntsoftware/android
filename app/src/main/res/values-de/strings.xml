@@ -332,4 +332,5 @@
     <string name="your_emojis_title">Deine Brainwallet-Emojis</string>
     <string name="your_emojis_description">Du hast diese Emojis für das Spiel gewählt, um dir deine Seed-Phrase zu merken</string>
     <string name="your_emojis_reset">Emojis löschen</string>
+    <string name="Send.qrAddressCopied">Litecoin-Adresse in deine Zwischenablage kopiert.</string>
 </resources>

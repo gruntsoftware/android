@@ -245,4 +245,5 @@
     <string name="your_emojis_title">Dina Brainwallet-Emojis</string>
     <string name="your_emojis_description">Du valde dessa emojis för spelet och för att hjälpa dig komma ihåg din seed-fraser</string>
     <string name="your_emojis_reset">Rensa emojis</string>
+    <string name="Send.qrAddressCopied">Litecoin-adressen kopierades till urklipp.</string>
 </resources>

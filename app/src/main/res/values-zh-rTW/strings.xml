@@ -538,4 +538,5 @@
     <string name="your_emojis_title">您的 Brainwallet 表情符號</string>
     <string name="your_emojis_description">您為遊戲選擇的這些表情符號可幫助您記住您的助記詞</string>
     <string name="your_emojis_reset">清除表情符號</string>
+    <string name="Send.qrAddressCopied">Litecoin 地址已複製到您的剪貼簿。</string>
 </resources>
