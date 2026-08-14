@@ -48,84 +48,104 @@ class SyncAnalyticsRepositoryTest {
     }
 
     @Test
-    fun `given sync started when startSync called then start timestamp stored`() {
-        every { peerManagerSource.getLastBlockTimestamp() } returns 1000L
-
+    fun `given sync started while backgrounded when stopSync called then no time accumulated`() {
+        // Foreground segments only open while the app is in the foreground
+        // (BrainwalletApp#activityCounter is 0 in a bare unit-test process), so
+        // startSync/stopSync alone -- with no foreground signal -- should not accumulate
+        // any duration.
         repository.startSync()
-
-        val stored = prefs.getLong("current_sync_start_timestamp", -1L)
-        assert(stored == 1000L) { "expected 1000L but was $stored" }
-    }
-
-    @Test
-    fun `given sync started and stopped when stopSync called then duration accumulated`() {
-        prefs.edit().putLong("current_sync_start_timestamp", 1000L).apply()
-        prefs.edit().putLong("accumulated_sync_duration", 200L).apply()
-        every { peerManagerSource.getLastBlockTimestamp() } returns 1500L
-
         repository.stopSync()
 
-        val accumulated = prefs.getLong("accumulated_sync_duration", 0L)
-        val startRemoved = prefs.getLong("current_sync_start_timestamp", -1L)
-        assert(accumulated == 700L) { "expected 700L but was $accumulated" }
-        assert(startRemoved == -1L) { "expected current_sync_start_timestamp to be removed" }
+        val accumulated = prefs.getLong("accumulated_foreground_sync_seconds", -1L)
+        assert(accumulated == -1L) { "expected no accumulation but was $accumulated" }
     }
 
     @Test
-    fun `given sync never started when stopSync called then nothing stored`() {
-        prefs.edit().putLong("current_sync_start_timestamp", 0L).apply()
+    fun `given app foregrounded then backgrounded outside of a sync when nothing happens then no time accumulated`() {
+        repository.onAppForegrounded()
+        repository.onAppBackgrounded()
 
-        repository.stopSync()
-
-        val accumulated = prefs.getLong("accumulated_sync_duration", 0L)
-        assert(accumulated == 0L) { "expected no accumulation but was $accumulated" }
+        val accumulated = prefs.getLong("accumulated_foreground_sync_seconds", -1L)
+        assert(accumulated == -1L) { "expected no accumulation outside of an active sync but was $accumulated" }
     }
 
     @Test
-    fun `given accumulated duration when completeSync called then metadata persisted and event logged`() {
-        prefs.edit().putLong("accumulated_sync_duration", 5000000L).apply()
+    fun `given progress below threshold when onProgressUpdate called then nothing logged`() {
+        repository.onProgressUpdate(0.5f)
+
+        assert(!prefs.getBoolean("has_logged_initial_sync_duration", false)) {
+            "should not be marked logged below the threshold"
+        }
+        verify(exactly = 0) { analyticsSource.logEventWithParams(any(), any()) }
+    }
+
+    @Test
+    fun `given accumulated duration when progress crosses threshold then event logged once with sync_duration_seconds`() {
+        prefs.edit().putLong("accumulated_foreground_sync_seconds", 42L).apply()
         every { peerManagerSource.getLastBlockTimestamp() } returns 6000L
         every { peerManagerSource.getCurrentBlockHeight() } returns 456
 
         mockkStatic(UUID::class)
         every { UUID.randomUUID().toString() } returns "uuid-123"
 
-        repository.completeSync()
+        repository.onProgressUpdate(0.98f)
 
-        val lastUuid = prefs.getString("last_sync_uuid", null)
-        val lastDuration = prefs.getLong("last_sync_duration", 0L)
-        val lastEnd = prefs.getLong("last_sync_end_timestamp", 0L)
-        val accumulatedCleared = prefs.getLong("accumulated_sync_duration", -1L)
-
-        assert(lastUuid == "uuid-123") { "expected uuid-123 but was $lastUuid" }
-        assert(lastDuration == 5_000_000_000L) { "expected duration=5000000000 but was $lastDuration" }
-
-        assert(lastEnd == 6000L) { "expected end=6000 but was $lastEnd" }
-        assert(accumulatedCleared == -1L) { "expected accumulated_sync_duration removed" }
+        assert(prefs.getBoolean("has_logged_initial_sync_duration", false)) {
+            "expected the one-shot flag to be set"
+        }
 
         val paramsSlot = slot<Map<String, Any?>>()
-
-        verify {
-            analyticsSource.logEventWithParams(
-                "user_did_complete_sync",
-                capture(paramsSlot)
-            )
+        verify(exactly = 1) {
+            analyticsSource.logEventWithParams("user_did_complete_sync", capture(paramsSlot))
         }
 
         val captured = paramsSlot.captured
-        println("captured: $captured")
-
         assert(captured["uuid"] == "uuid-123") { "uuid should match" }
-        assert(captured["duration_millis"] == 5_000_000_000L) { "duration should match" }
+        assert(
+            captured["sync_duration_seconds"] == 42
+        ) { "duration should match, was ${captured["sync_duration_seconds"]}" }
         assert(captured["end_timestamp"] == 6000L) { "end timestamp should match" }
         assert(captured["end_block_height"] == 456) { "end block height should match" }
+
+        // A second crossing tick must not log again.
+        repository.onProgressUpdate(0.99f)
+        verify(exactly = 1) { analyticsSource.logEventWithParams(any(), any()) }
+    }
+
+    @Test
+    fun `given duration past the outlier cap when progress crosses threshold then event not logged`() {
+        prefs.edit().putLong("accumulated_foreground_sync_seconds", 25 * 60 * 60L).apply()
+
+        repository.onProgressUpdate(1f)
+
+        assert(prefs.getBoolean("has_logged_initial_sync_duration", false)) {
+            "wallet should still be marked evaluated so it isn't rechecked"
+        }
+        verify(exactly = 0) { analyticsSource.logEventWithParams(any(), any()) }
+    }
+
+    @Test
+    fun `given metric already logged when reset called then keys cleared`() {
+        prefs.edit()
+            .putLong("accumulated_foreground_sync_seconds", 42L)
+            .putBoolean("has_logged_initial_sync_duration", true)
+            .putString("last_sync_uuid", "uuid-999")
+            .putLong("last_sync_duration_seconds", 42L)
+            .putLong("last_sync_end_timestamp", 9999L)
+            .apply()
+
+        repository.reset()
+
+        assert(prefs.getLong("accumulated_foreground_sync_seconds", -1L) == -1L)
+        assert(!prefs.getBoolean("has_logged_initial_sync_duration", false))
+        assert(repository.getLastSyncMetadata() == null)
     }
 
     @Test
     fun `given metadata stored when getLastSyncMetadata called then correct SyncMetadata returned`() {
         prefs.edit()
             .putString("last_sync_uuid", "uuid-999")
-            .putLong("last_sync_duration", 8888L)
+            .putLong("last_sync_duration_seconds", 8888L)
             .putLong("last_sync_end_timestamp", 9999L)
             .apply()
 
@@ -133,7 +153,7 @@ class SyncAnalyticsRepositoryTest {
 
         assert(metadata != null) { "expected metadata to be not null" }
         assert(metadata!!.uuid == "uuid-999") { "expected uuid=uuid-999 but was ${metadata.uuid}" }
-        assert(metadata.durationMillis == 8888L) { "expected duration=8888 but was ${metadata.durationMillis}" }
+        assert(metadata.durationSeconds == 8888L) { "expected duration=8888 but was ${metadata.durationSeconds}" }
         assert(metadata.endTimestamp == 9999L) { "expected endTimestamp=9999 but was ${metadata.endTimestamp}" }
     }
 
@@ -141,31 +161,6 @@ class SyncAnalyticsRepositoryTest {
     fun `given no metadata stored when getLastSyncMetadata called then null returned`() {
         val metadata = repository.getLastSyncMetadata()
         assert(metadata == null) { "expected metadata to be null" }
-    }
-
-    @Test
-    fun `given sync metadata when format then return formatted string containing correct duration and timestamp`() {
-        val fixedDateFormat = SimpleDateFormat("MMMM dd, yyyy h:mm:ss a", Locale.US).apply {
-            timeZone = TimeZone.getTimeZone("UTC")
-        }
-        val formatter = SyncAnalyticsRepository.SyncMetadata.Formatter(fixedDateFormat)
-
-        val syncMetadata = SyncAnalyticsRepository.SyncMetadata(
-            uuid = "1234",
-            durationMillis = 2500L,
-            endTimestamp = 1633072800L
-        )
-
-        val formattedOutput = formatter.format(syncMetadata)
-
-        assert(formattedOutput.contains("Duration: 2.5 seconds")) {
-            "Expected formatted string to contain 'Duration: 2.5 seconds' but got '$formattedOutput'"
-        }
-
-        val expectedDatePart = fixedDateFormat.format(Date(syncMetadata.endTimestamp * 1000))
-        assert(formattedOutput.contains(expectedDatePart)) {
-            "Expected formatted string to contain '$expectedDatePart' but got '$formattedOutput'"
-        }
     }
 
     @Test
@@ -177,14 +172,14 @@ class SyncAnalyticsRepositoryTest {
 
         val syncMetadata = SyncAnalyticsRepository.SyncMetadata(
             uuid = "1234",
-            durationMillis = 2500L,
+            durationSeconds = 42L,
             endTimestamp = 1633072800L
         )
 
         val actual = formatter.format(syncMetadata)
 
         val expectedDate = fixedDateFormat.format(Date(syncMetadata.endTimestamp * 1000))
-        val expected = "Duration: 2.5 seconds\nTimestamp: $expectedDate"
+        val expected = "Duration: 42 seconds\nTimestamp: $expectedDate"
 
         assert(actual == expected) {
             "Expected exactly '$expected' but got '$actual'"

@@ -56,6 +56,8 @@ class SyncThreadManager(
                     val lastBlockTimestamp = BRPeerManager.getInstance().getLastBlockTimestamp() * 1000L
                     val currentBlockHeight = BRPeerManager.getInstance().getCurrentBlockHeight()
 
+                    syncAnalyticsRepository.onProgressUpdate(progress)
+
                     if (progress >= 1f) {
                         val endTimestamp = System.currentTimeMillis()
                         putEndSyncTimestamp(endTimestamp)
@@ -65,7 +67,6 @@ class SyncThreadManager(
                             putSyncMetadata(runTimestamp, endTimestamp)
                         }
                         _syncState.value = SyncState.Complete
-                        syncAnalyticsRepository.completeSync()
                         break
                     }
 
@@ -78,11 +79,13 @@ class SyncThreadManager(
                     delay(100)
                 }
             } catch (e: CancellationException) {
-                Timber.d("SyncManager: job cancelled")
+                Timber.d("SyncThreadManager: job cancelled")
                 throw e
             } finally {
+                // Always close out any open foreground-sync segment, whether we finished
+                // normally or were cancelled (e.g. app backgrounded mid-sync).
+                syncAnalyticsRepository.stopSync()
                 if (_syncState.value !is SyncState.Complete) {
-                    syncAnalyticsRepository.stopSync()
                     _syncState.value = SyncState.Idle
                 }
             }

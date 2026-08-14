@@ -112,6 +112,41 @@ class BrainwalletAppTest {
         BrainwalletApp.fireListeners()
     }
 
+    // ── addOnForegroundedListener / fireForegroundListeners ──────────────────
+
+    @Test
+    fun `addOnForegroundedListener registers listener and fireForegroundListeners invokes it`() {
+        var callCount = 0
+
+        val listener = object : BrainwalletApp.OnAppForegrounded {
+            override fun onForegrounded() { callCount++ }
+        }
+
+        BrainwalletApp.addOnForegroundedListener(listener)
+        BrainwalletApp.fireForegroundListeners()
+
+        assertEquals(1, callCount)
+    }
+
+    @Test
+    fun `addOnForegroundedListener does not register the same listener twice`() {
+        var callCount = 0
+        val listener = object : BrainwalletApp.OnAppForegrounded {
+            override fun onForegrounded() { callCount++ }
+        }
+        BrainwalletApp.addOnForegroundedListener(listener)
+        BrainwalletApp.addOnForegroundedListener(listener)
+        BrainwalletApp.fireForegroundListeners()
+
+        assertEquals(1, callCount)
+    }
+
+    @Test
+    fun `fireForegroundListeners does nothing when no listeners are registered`() {
+        // Should not throw — foregroundListeners list is null at this point
+        BrainwalletApp.fireForegroundListeners()
+    }
+
     // ── setBreadContext / activityCounter ────────────────────────────────────
 
     @Test
@@ -157,11 +192,12 @@ class BrainwalletAppTest {
     private fun resetCompanionState() {
         try {
             val companionClass = Class.forName("com.brainwallet.BrainwalletApp\$Companion")
-            val listenersField: Field = companionClass.getDeclaredField("listeners")
-            listenersField.isAccessible = true
-            // listeners is on the companion object instance
             val companion = BrainwalletApp.Companion
-            listenersField.set(companion, null)
+            for (fieldName in listOf("listeners", "foregroundListeners")) {
+                val field: Field = companionClass.getDeclaredField(fieldName)
+                field.isAccessible = true
+                field.set(companion, null)
+            }
         } catch (_: Exception) {
             // Field name may differ with Kotlin compiler — fall back to
             // direct activityCounter reset only (listener tests still isolated

@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.brainwallet.BrainwalletApp;
 import com.brainwallet.R;
+import com.brainwallet.data.repository.SyncAnalyticsRepository;
 import com.brainwallet.presenter.activities.BreadActivity;
 import com.brainwallet.presenter.activities.util.ActivityUTILS;
 import com.brainwallet.presenter.customviews.BRToast;
@@ -48,6 +49,7 @@ import com.brainwallet.tools.util.Utils;
 import com.platform.entities.WalletInfo;
 
 import org.jetbrains.annotations.NotNull;
+import org.koin.java.KoinJavaComponent;
 
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
@@ -252,6 +254,12 @@ public class BRWalletManager implements WalletOperations,
             public void run() {
                 Timber.d("timber: Running peerManagerFreeEverything");
                 BRSharedPrefs.clearAllPrefs(ctx);
+                // Sync-duration analytics keys live in a separate SharedPreferences file
+                // (Koin-provided, shared with unrelated settings) not covered by
+                // clearAllPrefs above, so a fresh/restored wallet gets a fresh
+                // measurement window rather than inheriting the previous wallet's.
+                SyncAnalyticsRepository syncAnalyticsRepository = KoinJavaComponent.get(SyncAnalyticsRepository.class);
+                syncAnalyticsRepository.reset();
                 BRPeerManager.getInstance().peerManagerFreeEverything();
                 walletFreeEverything();
                 TransactionDataSource.getInstance(ctx).deleteAllTransactions();

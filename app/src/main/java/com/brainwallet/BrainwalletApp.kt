@@ -106,6 +106,17 @@ open class BrainwalletApp : Application() {
         fun onBackgrounded()
     }
 
+    /**
+     * Fired the moment [activityCounter] transitions from 0 to positive, i.e. the app
+     * actually re-entering the foreground (not just navigating between two of its own
+     * activities). Used by [com.brainwallet.data.repository.SyncAnalyticsRepository] to
+     * bound its foreground-sync-duration segments, mirroring iOS's
+     * `didBecomeActiveNotification` observer in `WalletCoordinator`.
+     */
+    interface OnAppForegrounded {
+        fun onForegrounded()
+    }
+
     companion object {
         @JvmField
         var DISPLAY_HEIGHT_PX: Int = 0
@@ -113,6 +124,7 @@ open class BrainwalletApp : Application() {
         @JvmField
         var HOST: String = "apigsltd.net"
         private var listeners: MutableList<OnAppBackgrounded>? = null
+        private var foregroundListeners: MutableList<OnAppForegrounded>? = null
         private var isBackgroundChecker: Timer? = null
 
         @JvmField
@@ -141,6 +153,17 @@ open class BrainwalletApp : Application() {
         fun addOnBackgroundedListener(listener: OnAppBackgrounded) {
             if (listeners == null) listeners = ArrayList()
             if (!listeners!!.contains(listener)) listeners!!.add(listener)
+        }
+
+        @JvmStatic
+        fun fireForegroundListeners() {
+            if (foregroundListeners == null) return
+            for (lis in foregroundListeners!!) lis.onForegrounded()
+        }
+
+        fun addOnForegroundedListener(listener: OnAppForegrounded) {
+            if (foregroundListeners == null) foregroundListeners = ArrayList()
+            if (!foregroundListeners!!.contains(listener)) foregroundListeners!!.add(listener)
         }
 
         @JvmStatic
