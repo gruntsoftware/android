@@ -141,7 +141,13 @@ public class BRActivity extends AppCompatActivity {
             if (AuthManager.getInstance().isWalletDisabled(app))
                 AuthManager.getInstance().setWalletDisabled(app);
 
-        BrainwalletApp.activityCounter.incrementAndGet();
+        // getAndIncrement lets us see whether this transition is the app actually
+        // re-entering the foreground (0 -> 1) versus navigating between two of its own
+        // activities (already >= 1) -- only the former should fire foreground listeners.
+        int activitiesBeforeThis = BrainwalletApp.activityCounter.getAndIncrement();
+        if (activitiesBeforeThis == 0) {
+            BrainwalletApp.fireForegroundListeners();
+        }
         BrainwalletApp.setBreadContext(app);
         //lock wallet if 3 minutes passed (180 * 1000)
         if (BrainwalletApp.backgroundedTime != 0 && hasTimeElapsedSinceInBackground(180 * 1000) && !(app instanceof DisabledActivity)) {
