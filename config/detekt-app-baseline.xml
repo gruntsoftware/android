@@ -375,7 +375,6 @@
     <ID>Indentation:HomeSettingDrawerSheet.kt$ </ID>
     <ID>Indentation:MoonPayWidgeLauncher.kt$MoonPayWidgetLauncherViewModel$ </ID>
     <ID>Indentation:PinDotItem.kt$ </ID>
-    <ID>Indentation:RecoverActivity.kt$RecoverActivity$ </ID>
     <ID>Indentation:UnLockScreen.kt$ </ID>
     <ID>Indentation:UnLockScreenFooter.kt$ </ID>
     <ID>Indentation:UnLockViewModelTest.kt$UnLockViewModelTest$ </ID>
@@ -599,7 +598,6 @@
     <ID>Wrapping:FirebaseRemoteConfigRepositoryTest.kt$FirebaseRemoteConfigRepositoryTest$firebaseRemoteConfig.getString(any())</ID>
     <ID>Wrapping:HomeSettingDrawerSheet.kt$(</ID>
     <ID>Wrapping:MoonPayWidgeLauncher.kt$MoonPayWidgetLauncherViewModel$(</ID>
-    <ID>Wrapping:RecoverActivity.kt$RecoverActivity$(</ID>
     <ID>Wrapping:SeedWordItem.kt$(</ID>
     <ID>Wrapping:TransactionDataItem.kt$TransactionDataItem$;</ID>
     <ID>Wrapping:UnLockScreen.kt$(</ID>
