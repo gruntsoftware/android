@@ -401,4 +401,5 @@
     <string name="your_emojis_title">Tus Emojis Brainwallet</string>
     <string name="your_emojis_description">Elegiste estos emojis para el juego y te ayudan a recordar tu frase de recuperación</string>
     <string name="your_emojis_reset">Borrar emojis</string>
+    <string name="Send.qrAddressCopied">Dirección de Litecoin copiada a tu portapapeles.</string>
 </resources>

@@ -245,4 +245,5 @@
     <string name="your_emojis_title">Emoji Brainwallet ของคุณ</string>
     <string name="your_emojis_description">คุณเลือก emoji เหล่านี้สำหรับเกมและช่วยให้คุณจำวลี seed ได้</string>
     <string name="your_emojis_reset">ล้าง emoji</string>
+    <string name="Send.qrAddressCopied">คัดลอกที่อยู่ Litecoin ไปยังคลิปบอร์ดของคุณแล้ว</string>
 </resources>

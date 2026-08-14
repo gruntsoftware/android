@@ -522,4 +522,5 @@
     <string name="your_emojis_title">ایموجی‌های Brainwallet شما</string>
     <string name="your_emojis_description">شما این ایموجی‌ها را برای بازی انتخاب کردید و به یادآوری عبارت بذر خود کمک می‌کنند</string>
     <string name="your_emojis_reset">پاک کردن ایموجی‌ها</string>
+    <string name="Send.qrAddressCopied">آدرس Litecoin به کلیپ‌بوردتان کپی شد.</string>
 </resources>

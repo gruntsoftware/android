@@ -538,4 +538,5 @@
     <string name="your_emojis_title">あなたのBrainwallet絵文字</string>
     <string name="your_emojis_description">ゲーム用に選択したこれらの絵文字は、シードフレーズを覚えるのに役立ちます</string>
     <string name="your_emojis_reset">絵文字をクリア</string>
+    <string name="Send.qrAddressCopied">Litecoinアドレスをクリップボードにコピーしました。</string>
 </resources>

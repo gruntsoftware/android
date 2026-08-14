@@ -541,4 +541,5 @@
     <string name="your_emojis_title">Ваші емодзі Brainwallet</string>
     <string name="your_emojis_description">Ви виbrали ці емодзі для гри, щоб допомогти запам\'ятати вашу фразу насіння</string>
     <string name="your_emojis_reset">Очистити емодзі</string>
+    <string name="Send.qrAddressCopied">Адреса Litecoin скопійована в буфер обміну.</string>
 </resources>

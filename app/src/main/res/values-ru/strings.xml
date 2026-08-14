@@ -538,4 +538,5 @@
     <string name="your_emojis_title">Ваши эмодзи Brainwallet</string>
     <string name="your_emojis_description">Вы выбрали эти эмодзи для игры, чтобы помочь себе запомнить фразу-семя</string>
     <string name="your_emojis_reset">Очистить эмодзи</string>
+    <string name="Send.qrAddressCopied">Адрес Litecoin скопирован в буфер обмена.</string>
 </resources>
