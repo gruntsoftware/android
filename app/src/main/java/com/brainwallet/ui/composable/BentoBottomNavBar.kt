@@ -65,7 +65,7 @@ fun BentoBottomNavBar(
         ) {
             NavigationBarItem(
                 selected = currentRoute is Route.Send,
-                onClick = { onItemClick(Route.Send) },
+                onClick = { onItemClick(Route.Send()) },
                 enabled = canUserSend,
                 icon = {
                     Icon(
@@ -208,7 +208,7 @@ fun BentoBottomNavBar(
 fun BentoBottomNavBarPreview() {
     DesignTheme(isSystemInDarkTheme()) {
         BentoBottomNavBar(
-            currentRoute = Route.Send,
+            currentRoute = Route.Send(),
             onItemClick = {},
             isDarkMode = isSystemInDarkTheme(),
             isShowingTransactionDetail = false,

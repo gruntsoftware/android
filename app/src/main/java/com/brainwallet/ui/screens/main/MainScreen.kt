@@ -512,7 +512,7 @@ fun MainScreen(
                                 modalContentRoute == Route.EmojiPickerPager
                             ) {
                                 bentoClearGradient
-                            } else if (isDarkMode && modalContentRoute == Route.Send) {
+                            } else if (isDarkMode && modalContentRoute is Route.Send) {
                                 bentoModalDarkGradient
                             } else if (modalContentRoute == Route.TutorialSend ||
                                 modalContentRoute == Route.TutorialWalkthrough
@@ -526,7 +526,8 @@ fun MainScreen(
 
                 ) {
                     when (modalContentRoute) {
-                        Route.Send -> SendScreen(
+                        is Route.Send -> SendScreen(
+                            address = (modalContentRoute as Route.Send).address,
                             onNavigate = onNavigate,
                             onOpenScanner = {
                                 val activity = context as? FragmentActivity
