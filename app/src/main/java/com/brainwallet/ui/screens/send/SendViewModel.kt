@@ -74,7 +74,12 @@ class SendViewModel(
             EventBus.events
                 .filterIsInstance<EventBus.Event.QRCodeScanned>()
                 .collect { event ->
-                    _state.update { it.copy(recipientLTCAddress = event.url ?: "") }
+                    // Route through the same event as manual paste (OnRecipientAddressChanged)
+                    // so isLTCAddressValid/isReadyToSend get recomputed too, not just the
+                    // raw field - LitecoinURIHandler has already verified this address via
+                    // AddressResolver#validateAddress before posting it, but state here
+                    // needs to stay consistent regardless of where the address came from.
+                    onEvent(SendEvent.OnRecipientAddressChanged(event.url ?: ""))
                 }
         }
     }

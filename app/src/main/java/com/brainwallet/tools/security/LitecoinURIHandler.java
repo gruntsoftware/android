@@ -1,20 +1,17 @@
 package com.brainwallet.tools.security;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import androidx.annotation.VisibleForTesting;
 import androidx.fragment.app.FragmentActivity;
 
 import com.brainwallet.R;
-import com.brainwallet.navigation.LegacyNavigation;
-import com.brainwallet.navigation.Route;
 import com.brainwallet.presenter.customviews.BRDialogView;
 import com.brainwallet.presenter.entities.PaymentRequestWrapper;
 import com.brainwallet.presenter.entities.RequestObject;
 import com.brainwallet.tools.animation.BRDialog;
-import com.brainwallet.tools.manager.BRClipboardManager;
 import com.brainwallet.tools.threads.PaymentProtocolTask;
+import com.brainwallet.util.EventBus;
 import com.brainwallet.wallet.BRWalletManager;
 
 import java.io.UnsupportedEncodingException;
@@ -235,23 +232,12 @@ public class LitecoinURIHandler {
         String amount = requestObject.amount;
 
         if (amount == null || amount.isEmpty() || new BigDecimal(amount).doubleValue() == 0) {
-            app.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    // Always copy the scanned address to the clipboard and let the user
-                    // know, regardless of sync state - it's still useful once the wallet
-                    // reaches Send below, and it's all the user gets if it doesn't.
-                    BRClipboardManager.putClipboard(app, requestObject.address);
-                    Toast.makeText(app, R.string.Send_qrAddressCopied, Toast.LENGTH_LONG).show();
-
-                    // Always go through the real unlock flow rather than jumping straight
-                    // to Send - this both enforces auth on a scan-triggered deep link and
-                    // gives BrainwalletActivity.onUnlock a chance to check sync progress
-                    // *at the moment the PIN is verified* (not now, which could be stale)
-                    // before deciding whether to continue on to Send with this address.
-                    LegacyNavigation.openComposeScreen(app, new Route.UnLock(false, requestObject.address));
-                }
-            });
+            // requestObject.address has already been through AddressResolver#validateAddress
+            // (see getRequestFromString above) - just hand the verified address off to
+            // whichever screen is listening (e.g. SendViewModel, already alive and visible
+            // when this came from the Send screen's own "Scan" button). This class only
+            // parses/validates litecoin: URIs - it never navigates or starts an Activity.
+            app.runOnUiThread(() -> EventBus.INSTANCE.postQRCodeScanned(requestObject.address));
         }
         return true;
     }
