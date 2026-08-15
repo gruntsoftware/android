@@ -74,6 +74,30 @@ For the full, up-to-date changelog see [GitHub Releases](https://github.com/grun
 
 ---
 
+### **v4.12.1**  [PR [#284](https://github.com/gruntsoftware/android/pull/284)]
+---
+#### 🐛 Bug Fixes
+- **Scanned Litecoin QR codes now deep link to Send** — scanning the `litecoin:` QR code shown on the Receive screen with an external camera/QR app resolved into the app but silently did nothing useful: a cold start dropped the deep link entirely, and even a warm start never actually navigated anywhere. The scanned address is now always copied to the clipboard, routed through the existing Unlock/PIN screen, and — once the wallet is fully synced — lands on Send with the address pre-filled, so a stale/mid-sync balance is never shown (#281, #280).
+- **Hardened native library loading** — `BrainwalletApp` now tries `System.loadLibrary` first and only falls back to ReLinker if that fails, logging a non-fatal (installer package name + supported ABIs) to Crashlytics instead of crashing startup outright if both loaders fail (Crashlytics `a8879835192b57ce682e7a76f3c16a88`) (#278).
+- **Sync-duration analytics now measure real wall-clock time** — the sync-completion metric previously measured blockchain chain-time covered, not elapsed real time, and wasn't scoped to foreground time or reset on wallet wipe. It now accumulates real foreground-only elapsed time per wallet and reports `sync_duration_seconds`, matching iOS's methodology so both platforms produce directly comparable numbers (#284).
+
+#### 🧹 Dead Code Cleanup
+Removed 6 unreachable legacy Activities/Fragments (`RecoverActivity`, `TestActivity`, `NodesActivity`, `NotificationActivity`, `CameraActivity`, `FragmentMenu`) and their exclusive layouts, plus 11 orphaned layouts, 33 unused drawables, 78 unused strings across all locales, and a handful of unused styles/animations — all verified unreferenced via Android Lint's `UnusedResources` check and manual cross-referencing (#279).
+
+#### 🧪 Test Coverage
+- New `StringsXmlEscapingTest` catches unescaped `'`/`"` in `strings.xml` before they break `aapt2`'s resource compile at build time — a real risk given this repo's automated translation workflow. It also caught and fixed one pre-existing bug: mismatched German quote characters in `values-de` (#283).
+- 28 new unit tests for `LitecoinURIHandler`, covering URI parsing, address/amount validation, and the new deep-link + sync-gating behavior (#281).
+
+#### 🔧 Chores
+- `bw-gdlib` bumped to v1.6.8 (Fallinmoji font-manager crash fix on Indonesian locale) and the `core` submodule updated for a peer-thread `SIGSEGV` fix on peer disconnect (#276, #277).
+- Game-exit analytics now decode the full wrapped event payload and forward every collected event to Firebase, not just the flat exit summary (#275).
+- Routine i18n auto-translation sync (#282).
+- Version bumped: **v4.12.0 (202506353) → v4.12.1 (202506354)**
+
+**Full Changelog**: https://github.com/gruntsoftware/android/compare/v4.12.0...v4.12.1
+
+---
+
 ### **v4.12.0**  [PR [#270](https://github.com/gruntsoftware/android/pull/270)]
 ---
 #### ✨ In-App Review Activated
