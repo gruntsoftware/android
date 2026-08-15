@@ -119,7 +119,7 @@
     <!-- Is rescanning error message -->
     <string name="Send.isRescanning">Sending is disabled during a full rescan.</string>
     <!-- Toast shown whenever a litecoin: QR code is scanned - the address is always copied to the clipboard, whether or not Send also opens -->
-    <string name="Send.qrAddressCopied">Litecoin address copied to your clipboard.</string>
+    <string name="Send.unlockDeepLink">Unlock...send modal will open with this address.</string>
     <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
     <string name="Send.remoteRequestError">Could not load payment request</string>

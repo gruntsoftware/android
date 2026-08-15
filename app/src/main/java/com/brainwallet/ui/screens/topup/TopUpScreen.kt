@@ -117,7 +117,7 @@ fun TopUpScreen(
                 onClick = {
                     onNavigate.invoke(
                         UiEffect.Navigate(
-                            destinationRoute = Route.Main,
+                            destinationRoute = Route.Main(),
                             forcePopBackStack = true
                         )
                     )

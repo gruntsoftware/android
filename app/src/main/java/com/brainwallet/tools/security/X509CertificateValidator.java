@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.brainwallet.exceptions.CertificateChainNotFound;
 import com.brainwallet.presenter.entities.PaymentRequestWrapper;
+import com.brainwallet.tools.util.LitecoinURIHandler;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

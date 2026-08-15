@@ -19,6 +19,16 @@ object EventBus {
         _events.emit(event)
     }
 
+    @Deprecated(
+        "External litecoin: deep links (device camera/another app scanning a QR code) now " +
+            "route through com.brainwallet.navigation.DeepLink - Compose Navigation via " +
+            "Route.Main's pendingSendAddress, which opens MainScreen's Send modal - not " +
+            "EventBus. This remains only as the bridge for the Send screen's own in-app " +
+            "\"Scan\" button (BRActivity.onActivityResult's SCANNER_REQUEST case, posting " +
+            "into an already-open Compose screen from a legacy Java Activity callback), not " +
+            "for new deep-link-shaped navigation."
+    )
+    @Suppress("DEPRECATION")
     fun postQRCodeScanned(url: String?) {
         _events.tryEmit(Event.QRCodeScanned(url))
     }
@@ -38,6 +48,10 @@ object EventBus {
             val passcode: List<Int>,
         ) : Event()
 
+        @Deprecated(
+            "See EventBus#postQRCodeScanned's deprecation note - only the in-app Send screen " +
+                "\"Scan\" button still posts this."
+        )
         data class QRCodeScanned(val url: String?) : Event()
     }
 }

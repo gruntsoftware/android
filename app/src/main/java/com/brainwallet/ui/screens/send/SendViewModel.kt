@@ -71,6 +71,11 @@ class SendViewModel(
             }
         }
         viewModelScope.launch {
+            // Deprecated bridge, intentionally still used here - see
+            // EventBus#postQRCodeScanned's deprecation note. This is only reached by the
+            // Send screen's own in-app "Scan" button; external litecoin: deep links route
+            // through com.brainwallet.navigation.DeepLink instead.
+            @Suppress("DEPRECATION")
             EventBus.events
                 .filterIsInstance<EventBus.Event.QRCodeScanned>()
                 .collect { event ->
