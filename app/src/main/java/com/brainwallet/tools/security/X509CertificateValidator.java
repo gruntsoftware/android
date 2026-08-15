@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.brainwallet.exceptions.CertificateChainNotFound;
 import com.brainwallet.presenter.entities.PaymentRequestWrapper;
+import com.brainwallet.tools.util.LitecoinURIHandler;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -98,7 +99,7 @@ public class X509CertificateValidator {
         try {
             CertificateFactory certFact = CertificateFactory.getInstance("X.509");
             while (true) {
-                result = BitcoinUrlHandler.getCertificatesFromPaymentRequest(rawCerts, i++);
+                result = LitecoinURIHandler.getCertificatesFromPaymentRequest(rawCerts, i++);
 //                Log.e(TAG, "The result certificate #" + i + " : " + result.length);
                 if (result.length > 0) {
                     X509Certificate certForValidation = (X509Certificate)

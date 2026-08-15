@@ -1,70 +1,25 @@
 package com.brainwallet.presenter.activities;
 
-import android.Manifest;
-import android.animation.LayoutTransition;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.graphics.Point;
-import android.net.ConnectivityManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.ViewTreeObserver;
-import android.view.animation.AnimationUtils;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.core.app.ActivityCompat;
-import androidx.transition.ChangeBounds;
-import androidx.transition.Fade;
-import androidx.transition.TransitionManager;
-import androidx.transition.TransitionSet;
 
 import com.brainwallet.R;
-import com.brainwallet.navigation.LegacyNavigation;
-import com.brainwallet.navigation.Route;
-import com.brainwallet.presenter.activities.settings.SyncBlockchainActivity;
 import com.brainwallet.presenter.activities.util.BRActivity;
-import com.brainwallet.presenter.customviews.BRNotificationBar;
-import com.brainwallet.presenter.history.HistoryFragment;
-import com.brainwallet.tools.animation.TextSizeTransition;
-import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.manager.InternetManager;
-import com.brainwallet.tools.manager.sync.SyncManager;
-import com.brainwallet.tools.security.BitcoinUrlHandler;
-import com.brainwallet.tools.security.PostAuth;
+import com.brainwallet.tools.util.LitecoinURIHandler;
 import com.brainwallet.tools.sqlite.TransactionDataSource;
 import com.brainwallet.tools.threads.BRExecutor;
-import com.brainwallet.tools.util.BRCurrency;
-import com.brainwallet.tools.util.BRExchange;
-import com.brainwallet.tools.util.ExtensionKt;
-import com.brainwallet.tools.util.Utils;
-import com.brainwallet.ui.BrainwalletActivity;
-import com.brainwallet.ui.screens.settings.SettingsViewModel;
 import com.brainwallet.ui.screens.settings.settingsrows.HomeSettingDrawerComposeView;
-import com.brainwallet.ui.bentosections.buyreceivebento.receive.ReceiveDialogFragment;
-import com.brainwallet.util.PermissionUtil;
-import com.brainwallet.wallet.BRPeerManager;
 import com.brainwallet.wallet.BRWalletManager;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.play.core.review.ReviewInfo;
-import com.google.android.play.core.review.ReviewManager;
-import com.google.android.play.core.review.ReviewManagerFactory;
-
-import java.math.BigDecimal;
-
-import timber.log.Timber;
 
 public class BreadActivity extends BRActivity implements BRWalletManager.OnBalanceChanged,
         TransactionDataSource.OnTxAddedListener, InternetManager.ConnectionReceiverListener {
@@ -100,6 +55,10 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         getWindowManager().getDefaultDisplay().getSize(screenParametersPoint);
 
         onConnectionChanged(InternetManager.getInstance().isConnected(this));
+
+        // Handle a litecoin: deep link (e.g. a QR code scanned by another app) on a
+        // cold start too, not just when this activity is already running (onNewIntent).
+        setUrlHandler(getIntent());
     }
 
     private void addObservers() {
@@ -116,7 +75,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         String scheme = data.getScheme();
         if (scheme != null && scheme.startsWith("litecoin")) {
             String str = intent.getDataString();
-            BitcoinUrlHandler.processRequest(this, str);
+            LitecoinURIHandler.processRequest(this, str);
         }
     }
 

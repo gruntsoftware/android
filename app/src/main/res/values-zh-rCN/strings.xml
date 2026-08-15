@@ -32,10 +32,6 @@
     <string name="Alerts.pinSet">PIN 已设置</string>
     <!-- Send failure alert header label (the send failed to happen) -->
     <string name="Alerts.sendFailure">发送失败</string>
-    <!-- Send success alert header label (confirmation that the send happened) -->
-    <string name="Alerts.sendSuccess">发送确认</string>
-    <!-- Send success alert subheader label (e.g. the money was sent) -->
-    <string name="Alerts.sendSuccessSubheader">钱已发送！</string>
     <!-- Fingerprint was recognized by the scanner -->
     <string name="Alerts.touchIdSucceeded.android">已识别指纹</string>
     <!-- JSON Serialization error message -->
@@ -68,10 +64,6 @@
     <string name="Confirmation.totalLabel">费用总计：</string>
     <!-- Confirm paper phrase view label. -->
     <!-- Word label eg. Word #1, Word #2 -->
-    <!-- Litecoin denomination picker label -->
-    <string name="DefaultCurrency.litecoinLabel">莱特币显示单位</string>
-    <!-- Exchange rate label -->
-    <string name="DefaultCurrency.rateLabel">汇率</string>
     <!-- Email unavailable alert title -->
     <!-- Email unavailable alert title -->
     <!-- Messaging unavailable alert title -->
@@ -128,37 +120,11 @@
     <!-- Change Wallet name textfield label -->
     <!-- Manage wallet modal title -->
     <!-- Buy bitcoin title -->
-    <!-- Menu button title -->
-    <string name="MenuButton.lock">锁住钱包</string>
-    <!-- Menu button title -->
-    <string name="MenuButton.security">安全中心</string>
-    <!-- Menu button title -->
-    <string name="MenuButton.settings">设置</string>
-    <!-- Menu button title -->
-    <string name="MenuButton.support">客户支持</string>
     <!-- button label -->
     <string name="MenuViewController.createButton">创建新的钱包</string>
-    <!-- Menu modal title -->
-    <string name="MenuViewController.modalTitle">菜单</string>
     <!-- button label -->
-    <!-- Switch to automatic mode button label -->
-    <string name="NodeSelector.automaticButton">切换到自动模式</string>
-    <!-- Node is connected label -->
-    <string name="NodeSelector.connected">已连接</string>
-    <!-- Enter node ip address view body -->
-    <string name="NodeSelector.enterBody">输入节点 IP 地址和端口（可选）</string>
-    <!-- Enter Node ip address view title -->
-    <string name="NodeSelector.enterTitle">输入节点</string>
-    <!-- Switch to manual mode button label -->
-    <string name="NodeSelector.manualButton">切换到手动模式</string>
-    <!-- Node address label -->
-    <string name="NodeSelector.nodeLabel">当前主要节点</string>
     <!-- Node is not connected label -->
     <string name="NodeSelector.notConnected">未连接</string>
-    <!-- Node status label -->
-    <string name="NodeSelector.statusLabel">节点连接状态</string>
-    <!-- Node Selector view title -->
-    <string name="NodeSelector.title">莱特币节点</string>
     <!-- Bad Payment request alert title -->
     <string name="PaymentProtocol.Errors.badPaymentRequest">假的付款请求</string>
     <!-- Error opening payment protocol file message -->
@@ -195,14 +161,8 @@
     <string name="Prompts.UpgradePin.body">Loaf 已升级到使用 6 位 PIN。点击此处升级。</string>
     <!-- Upgrade PIN prompt title. -->
     <string name="Prompts.UpgradePin.title">升级 PIN</string>
-    <!-- Notifications will be added later but users can set their preferences now, which is why we specify "in the future". -->
-    <string name="PushNotifications.body">打开推送通知，以便将来从 Loaf 接收特殊消息。</string>
-    <!-- Push notifications toggle switch label -->
-    <string name="PushNotifications.label">推送通知</string>
     <!-- Push notifications are off label -->
     <!-- Push notifications are on label -->
-    <!-- Push notifications settings view title label -->
-    <string name="PushNotifications.title">通知</string>
     <!-- Address copied message. -->
     <string name="Receive.copied">已复制到剪贴板。</string>
     <!-- Share via email button label -->
@@ -213,14 +173,8 @@
     <!-- Share via text message (SMS) -->
     <!-- Receive modal title -->
     <string name="Receive.title">接收</string>
-    <!-- Done button text -->
-    <string name="RecoverWallet.done">完成</string>
-    <!-- Recover wallet header -->
-    <string name="RecoverWallet.header">恢复钱包</string>
     <!-- Reset PIN with paper key: header -->
     <!-- Enter paper key instruction -->
-    <!-- Recover wallet intro -->
-    <string name="RecoverWallet.intro">用您的纸键恢复您的 Loaf。</string>
     <!-- Invalid paper key message -->
     <string name="RecoverWallet.invalid">您输入的纸键无效。请仔细检查每个单词并重试。</string>
     <!-- Previous button accessibility label -->
@@ -255,37 +209,17 @@
     <!-- Pending filter label -->
     <!-- Received filter label -->
     <!-- Sent filter label -->
-    <!-- Security Center Info -->
-    <string name="SecurityCenter.info">启用所有安全功能以获得最大保护。</string>
-    <!-- Paper Key button description -->
-    <string name="SecurityCenter.paperKeyDescription">若您丢失或升级您的手机，访问您的莱特币的唯一方法。</string>
     <!-- Paper Key button title -->
     <string name="SecurityCenter.paperKeyTitle">纸键</string>
-    <!-- PIN button description -->
-    <string name="SecurityCenter.pinDescription">保护您的 Loaf 免遭未授权用户盗用。</string>
-    <!-- PIN button title -->
-    <string name="SecurityCenter.pinTitle">4 位 PIN</string>
-    <!-- Security Center Title -->
-    <string name="SecurityCenter.title">安全中心</string>
     <!-- Touch ID button description -->
     <!-- Touch ID button title -->
     <!-- Security center fingerprint authentication button -->
-    <!-- Send money amount label -->
-    <string name="Send.amountLabel">金额</string>
-    <!-- Balance: $4.00 -->
-    <string name="Send.balance">余额：%1$s</string>
     <!-- Instructions how to allow the camera access for the app -->
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">Loaf 没有访问相机的权限</string>
     <!-- Camera not allowed message -->
     <!-- Camera not allowed alert title -->
-    <!-- Warning when sending to self. -->
-    <string name="Send.containsAddress">目标是您自己的地址。您不能发送给您自己。</string>
     <!-- Could not create transaction alert title -->
-    <!-- Description for sending money label -->
-    <string name="Send.descriptionLabel">备忘录</string>
-    <!-- Emtpy pasteboard error message -->
-    <string name="Send.emptyPasteboard">粘贴板为空</string>
     <!-- Network Fee: $0.01 -->
     <!-- Payee identity not certified alert title. -->
     <!-- Invalid address alert message -->
@@ -297,57 +231,27 @@
     <!-- We are loading the request (now) -->
     <!-- Empty address alert message -->
     <!-- Emtpy amount alert message -->
-    <!-- Paste button label -->
-    <string name="Send.pasteLabel">粘贴</string>
     <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
     <string name="Send.remoteRequestError">无法加载支付请求</string>
-    <!-- Scan button label -->
-    <string name="Send.scanLabel">扫描</string>
-    <!-- Send button label (the action, "press here to send") -->
-    <string name="Send.sendLabel">发送</string>
     <!-- Send screen title (as in "this is the screen for sending money") -->
     <string name="Send.title">发送</string>
-    <!-- Send money to label -->
-    <string name="Send.toLabel">输入一个Litecoin地址</string>
     <!-- Enter to match domain name to LTC Address -->
     <!-- Or -->
     <!-- Lookup -->
     <!-- Your address was resolved! -->
-    <!-- Adress already used alert message - first part -->
-    <string name="Send.UsedAddress.firstLine">莱特币地址仅供一次性使用。</string>
-    <!-- Adress already used alert message - second part -->
-    <string name="Send.UsedAddress.secondLIne">重复使用会削弱您和收件人的隐私，如果收件人不直接控制地址，可能会导致损失。</string>
     <!-- Adress already used alert title -->
-    <!-- About label -->
-    <string name="Settings.about">关于</string>
-    <!-- Advanced Settings title -->
-    <string name="Settings.advancedTitle">高级设置</string>
-    <!-- i.e. the currency which will be displayed -->
-    <string name="Settings.currency">显示币种</string>
     <!-- Join Early access label -->
     <!-- Are you enjoying Loaf alert message body -->
     <!-- Import wallet label -->
-    <!-- Manage settings section header -->
-    <string name="Settings.manage">管理</string>
     <!-- Notifications label -->
     <!-- Leave review button label -->
-    <!-- Share anonymous data label -->
-    <string name="Settings.shareData">分享匿名数据</string>
     <!-- Sync blockchain label -->
     <string name="Settings.sync">同步区块链</string>
     <!-- Settings title -->
     <!-- Touch ID spending limit label -->
     <!-- The fingerprint spending limit -->
-    <!-- Wallet Settings section header -->
-    <string name="Settings.wallet">钱包</string>
     <!-- Start or recover another wallet menu label. -->
-    <!-- Share data view body -->
-    <string name="ShareData.body">同我们分享您的匿名数据来帮助改善 Loaf。这不包括任何财务信息。我们尊重您的财务隐私。</string>
-    <!-- Share data header -->
-    <string name="ShareData.header">共享数据？</string>
-    <!-- Share data switch label. -->
-    <string name="ShareData.toggleLabel">共享匿名数据？</string>
     <!-- button label -->
     <!-- Paper key explanation text. -->
     <string name="StartPaperPhrase.body">如果您的手机丢失、被盗、损坏或升级，纸上密钥是恢复 Loaf 的唯一方法。\n\n\n我们将向您显示一张单词表，请将其写在纸上并保存在安全的地方。</string>
@@ -377,13 +281,7 @@
     <!-- Fingerprint authentication label -->
     <!-- Touch ID unavailable alert message -->
     <!-- Touch ID unavailable alert title -->
-    <!-- Always require passcode option -->
-    <string name="TouchIdSpendingLimit">始终需要密码</string>
-    <!-- Touch ID spending limit screen body -->
-    <string name="TouchIdSpendingLimit.body">如需发送超过您支出金额限制的任何交易，您将需要输入您的 6 位数 PIN 码。在您输入 6 位数 PIN 码后每 48 小时您都需要重新输入该 PIN 码。</string>
     <!-- Touch Id spending limit screen title -->
-    <!-- name of spending limit when using fingerprint authorization -->
-    <string name="TouchIdSpendingLimit.title.android">指纹授权支出限额</string>
     <!-- Availability status text -->
     <string name="Transaction.available">可供支出</string>
     <!-- Transaction complete label -->
@@ -438,8 +336,6 @@
     <!-- Reset PIN with Paper Key button label. -->
     <string name="UnlockScreen.resetPin">复位 PIN</string>
     <!-- Scan button title -->
-    <!-- Unlock Screen sub-header -->
-    <string name="UnlockScreen.subheader">输入 PIN 码</string>
     <!-- Instruction to touch the sensor for fingerprint authentication -->
     <string name="UnlockScreen.touchIdInstructions.android">触控感应器</string>
     <!-- TouchID prompt text -->
@@ -449,28 +345,12 @@
     <!-- Device authentication title -->
     <string name="ViewOnBlockchain">在区块链上查看</string>
     <string name="UnlockScreen.touchIdTitle.android">需要身份认证</string>
-    <!-- Wallet unlocked message -->
-    <string name="UnlockScreen.unlocked">钱包已解锁</string>
-    <!-- Forget Seed Phrase or PIN -->
-    <string name="UnlockScreen.forgetSeedPhraseOrPIN">忘记密码或 PIN 码？</string>
-    <!-- Update PIN caption text -->
-    <string name="UpdatePin.caption">请牢记此 PIN 码。如果您忘记，您将无法访问您的莱特币。</string>
     <!-- PIN creation info. -->
     <string name="UpdatePin.createInstruction">您的 PIN 码将用于解锁您的 Loaf 并发送款项。</string>
-    <!-- Update PIN title -->
-    <string name="UpdatePin.createTitle">设置 PIN 码</string>
-    <!-- Update PIN title -->
-    <string name="UpdatePin.createTitleConfirm">重新输入 PIN 码</string>
     <!-- Enter current PIN instruction -->
     <string name="UpdatePin.enterCurrent">输入您当前的 PIN 码。</string>
-    <!-- Enter new PIN instruction -->
-    <string name="UpdatePin.enterNew">输入您的新 PIN 码。</string>
-    <!-- Re-Enter new PIN instruction -->
-    <string name="UpdatePin.reEnterNew">重新输入您的新 PIN 码。</string>
     <!-- Update PIN failure error message. -->
     <!-- Update PIN failure alert view title -->
-    <!-- Update PIN title -->
-    <string name="UpdatePin.updateTitle">更新 PIN 码</string>
     <!-- Authorize to copy wallet addresses alert message -->
     <!-- Authorize to copy wallet address PIN view prompt. -->
     <!-- Authorize to copy wallet address alert title -->
@@ -483,8 +363,6 @@
     <!-- 'No wallet' warning for watch app -->
     <!-- Dismiss button label -->
     <!-- Webview loading error message -->
-    <!-- Updating webview message -->
-    <string name="Webview.updating">正在更新...</string>
     <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
     <!-- Top title of welcome screen -->
     <!-- Wipe wallet alert message -->
@@ -503,26 +381,15 @@
     <!-- Paper key instructions. -->
     <!-- button label -->
     <!-- button label -->
-    <!-- 1 of 3 -->
-    <string name="BottomNavItem.History.title">历史</string>
     <string name="ManageWallet.balance">平衡</string>
-    <string name="Login.currentLtcPrice">当前的LTC值 %1$s</string>
-    <string name="Settings.languages">语言能力</string>
     <string name="show_seed_label">展示</string>
     <string name="settings_show_seed">显示我的助记词</string>
     <string name="sync_preferences">同步偏好：%1$s 误报</string>
     <string name="radio_low_privacy">低隐私（约 19 分钟）</string>
     <string name="radio_semi_private">半私人（约 42 分钟）</string>
     <string name="radio_anonymous">匿名（约 77 分钟）</string>
-    <!-- Announce Updates View -->
-    <string name="Fees.Service">服务</string>
-    <string name="Network.feeLabel">网络</string>
     <string name="ConfirmationAllFees.Label">费用：</string>
-    <string name="cancel">取消</string>
     <string name="ok">好的</string>
-    <string name="please_grant_notification_permission">请授予通知权限</string>
-    <string name="permission_info">权限信息</string>
-    <string name="permission_notification_granted">已授予通知许可</string>
     <string name="back">后退</string>
     <string name="your_seed_words">你的种子词</string>
     <string name="your_seed_words_desc">“只为你。\n它是让你发送的。”</string>
@@ -599,7 +466,6 @@
     <string name="game_hub_tab_description">游戏控制器</string>
     <string name="history_tab_description">逆时针旋转的圆形箭头</string>
     <string name="history_title">记录</string>
-    <string name="ltc_ticker_as_of_timestamp">截至 %1$s</string>
     <string name="my_balance">我的余额</string>
     <string name="no_internet_dialog_title">没有网络无法同步！</string>
     <string name="no_internet_dialog_subtitle">请重新连接以完成同步。</string>
@@ -613,7 +479,6 @@
     <string name="fees_label">"手续费： "</string>
     <string name="no_transaction_detail_row">暂无记录。立即充值！</string>
     <string name="no_transaction_title_row">交易记录</string>
-    <string name="enter_passcode">输入密码</string>
     <string name="recipient_label">收款人：</string>
     <string name="send_litecoin_label">发送 Litecoin</string>
     <string name="confirm_send_label">确认发送详情：</string>
@@ -625,13 +490,9 @@
     <string name="exchange_rate_label">汇率：</string>
     <string name="send_error_message">请输入有效的 LTC 地址和金额后继续</string>
     <string name="enter_pin">输入 PIN</string>
-    <string name="favourites_label">最高机密</string>
     <string name="tutorials_label">教程</string>
-    <string name="coming_soon">敬请期待！</string>
     <string name="rice_partner_03_tagline">通过我们的合作伙伴5分钟内充值</string>
     <string name="unagi_social_01_tagline">点击关注我们！</string>
-    <string name="sign_up_messaging_title">注册以获取更新、新闻和竞赛信息！</string>
-    <string name="grant_for_notifications_message">"请允许我们的通知权限"</string>
     <string name="export_transaction_button_title">导出所有交易</string>
     <string name="copy_tx_details">复制交易详情</string>
     <string name="all_label">全部</string>
@@ -660,7 +521,6 @@
     <string name="send_tutorial_title_3b">发送前验证！</string>
     <string name="send_tutorial_description_3b">扫描或粘贴目标地址。仔细检查！更改您的本地法币以计算可以发送的金额。添加备忘录作为便捷提醒。点击继续。</string>
     <string name="Send.cameraUnavailabeMessage.android">在设置中允许摄像头访问</string>
-    <string name="shop_title">商店</string>
     <string name="shop_tagline">用 LTC 购买礼品卡！</string>
     <string name="security_brainwallet_phrase_title">Brainwallet短语</string>
     <string name="pick_emojis_title">选择3个表情符号</string>
@@ -678,4 +538,5 @@
     <string name="your_emojis_title">你的Brainwallet表情符号</string>
     <string name="your_emojis_description">你为游戏选择的这些表情符号可以帮助你记住你的助记词</string>
     <string name="your_emojis_reset">清除表情符号</string>
+    <string name="Send.unlockDeepLink">解锁...发送窗口将显示此地址。</string>
 </resources>

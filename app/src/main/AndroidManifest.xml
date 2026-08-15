@@ -116,18 +116,7 @@
         </activity>
 
         <activity
-            android:name=".presenter.activities.intro.RecoverActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".presenter.activities.settings.SyncBlockchainActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            />
-        <activity
-            android:name=".presenter.activities.settings.NotificationActivity"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
@@ -146,24 +135,6 @@
             />
         <activity
             android:name=".presenter.activities.DisabledActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            />
-        <activity
-            android:name=".presenter.activities.settings.NodesActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            />
-        <activity
-            android:name=".presenter.activities.camera.CameraActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            />
-        <activity
-            android:name=".presenter.activities.settings.TestActivity"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"

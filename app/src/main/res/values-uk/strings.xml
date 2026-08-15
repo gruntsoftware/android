@@ -31,10 +31,6 @@
     <string name="Alerts.pinSet">PIN набір</string>
     <!-- Send failure alert header label (the send failed to happen) -->
     <string name="Alerts.sendFailure">Не вдалося надіслати</string>
-    <!-- Send success alert header label (confirmation that the send happened) -->
-    <string name="Alerts.sendSuccess">Надіслати підтвердження</string>
-    <!-- Send success alert subheader label (e.g. the money was sent) -->
-    <string name="Alerts.sendSuccessSubheader">Гроші надіслано!</string>
     <!-- Fingerprint was recognized by the scanner -->
     <string name="Alerts.touchIdSucceeded.android">Розпізнано відбиток пальця</string>
     <!-- JSON Serialization error message -->
@@ -67,10 +63,6 @@
     <string name="Confirmation.totalLabel">Загальна вартість:</string>
     <!-- Confirm paper phrase view label. -->
     <!-- Word label eg. Word #1, Word #2 -->
-    <!-- Litecoin denomination picker label -->
-    <string name="DefaultCurrency.litecoinLabel">Litecoin Блок дисплея</string>
-    <!-- Exchange rate label -->
-    <string name="DefaultCurrency.rateLabel">Обмінний курс</string>
     <!-- Email unavailable alert title -->
     <!-- Email unavailable alert title -->
     <!-- Message that gets shown when we've detected the user has encountered the looping lock-screen bug. (preserve [ ] characters) -->
@@ -127,36 +119,12 @@
     <!-- Change Wallet name textfield label -->
     <!-- Manage wallet modal title -->
     <!-- Buy litecoin title -->
-    <!-- Menu button title -->
-    <string name="MenuButton.lock">Блокування гаманця</string>
-    <!-- Menu button title -->
-    <string name="MenuButton.security">Центр безпеки</string>
-    <!-- Menu button title -->
-    <string name="MenuButton.settings">Налаштування</string>
-    <!-- Menu button title -->
-    <string name="MenuButton.support">Підтримка клієнтів</string>
     <!-- button label -->
     <string name="MenuViewController.createButton">Створіть новий гаманець</string>
-    <!-- Menu modal title -->
-    <string name="MenuViewController.modalTitle">Меню</string>
     <!-- button label -->
-    <!-- Switch to automatic mode button label -->
-    <string name="NodeSelector.automaticButton">Перейти в автоматичний режим</string>
     <!-- Node is connected label -->
-    <!-- Enter node ip address view body -->
-    <string name="NodeSelector.enterBody">Введіть IP-адресу та порт вузла (необов’язково)</string>
-    <!-- Enter Node ip address view title -->
-    <string name="NodeSelector.enterTitle">Введіть Node</string>
-    <!-- Switch to manual mode button label -->
-    <string name="NodeSelector.manualButton">Перейти в ручний режим</string>
-    <!-- Node address label -->
-    <string name="NodeSelector.nodeLabel">Поточний первинний вузол</string>
     <!-- Node is not connected label -->
     <string name="NodeSelector.notConnected">Не під\'єднано</string>
-    <!-- Node status label -->
-    <string name="NodeSelector.statusLabel">Стан підключення вузла</string>
-    <!-- Node Selector view title -->
-    <string name="NodeSelector.title">Вузли Litecoin</string>
     <!-- Bad Payment request alert title -->
     <!-- Error opening payment protocol file message -->
     <string name="PaymentProtocol.Errors.corruptedDocument">Непідтримуваний або пошкоджений документ</string>
@@ -192,14 +160,8 @@
     <string name="Prompts.UpgradePin.body">Brainwallet оновлено до використання 6-значного PIN-коду. Торкніться тут, щоб оновити.</string>
     <!-- Upgrade PIN prompt title. -->
     <string name="Prompts.UpgradePin.title">Оновлення PIN</string>
-    <!-- Notifications will be added later but users can set their preferences now, which is why we specify "in the future". -->
-    <string name="PushNotifications.body">Увімкніть сповіщення, щоб у майбутньому отримувати спеціальні повідомлення від Brainwallet.</string>
-    <!-- Push notifications toggle switch label -->
-    <string name="PushNotifications.label">Push-повідомлення</string>
     <!-- Push notifications are off label -->
     <!-- Push notifications are on label -->
-    <!-- Push notifications settings view title label -->
-    <string name="PushNotifications.title">Сповіщення</string>
     <!-- Address copied message. -->
     <!-- Share via email button label -->
     <string name="Receive.emailButton">Електронна пошта</string>
@@ -209,14 +171,8 @@
     <!-- Share via text message (SMS) -->
     <!-- Receive modal title -->
     <string name="Receive.title">Отримати</string>
-    <!-- Done button text -->
-    <string name="RecoverWallet.done">Готово</string>
-    <!-- Recover wallet header -->
-    <string name="RecoverWallet.header">Відновити гаманець</string>
     <!-- Reset PIN with paper key: header -->
     <!-- Enter paper key instruction -->
-    <!-- Recover wallet intro -->
-    <string name="RecoverWallet.intro">Відновіть свій Brainwallet за допомогою паперового ключа.</string>
     <!-- Invalid paper key message -->
     <string name="RecoverWallet.invalid">Паперовий ключ, який ви ввели, недійсний. Перевірте кожне слово і повторіть спробу.</string>
     <!-- Previous button accessibility label -->
@@ -251,37 +207,17 @@
     <!-- Pending filter label -->
     <!-- Received filter label -->
     <!-- Sent filter label -->
-    <!-- Security Center Info -->
-    <string name="SecurityCenter.info">Увімкніть усі функції безпеки для максимального захисту.</string>
-    <!-- Paper Key button description -->
-    <string name="SecurityCenter.paperKeyDescription">Єдиний спосіб отримати доступ до свого Litecoin, якщо ви втратите або оновите свій телефон.</string>
     <!-- Paper Key button title -->
     <string name="SecurityCenter.paperKeyTitle">Паперовий ключ</string>
-    <!-- PIN button description -->
-    <string name="SecurityCenter.pinDescription">Захищає ваш Brainwallet від неавторизованих користувачів.</string>
-    <!-- PIN button title -->
-    <string name="SecurityCenter.pinTitle">4-значний PIN-код</string>
-    <!-- Security Center Title -->
-    <string name="SecurityCenter.title">Центр безпеки</string>
     <!-- Touch ID button description -->
     <!-- Touch ID button title -->
     <!-- Security center fingerprint authentication button -->
-    <!-- Send money amount label -->
-    <string name="Send.amountLabel">Сума</string>
-    <!-- Balance: $4.00 -->
-    <string name="Send.balance">Баланс: %1$s</string>
     <!-- Instructions how to allow the camera access for the app -->
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">Brainwallet не має доступу до камери</string>
     <!-- Camera not allowed message -->
     <!-- Camera not allowed alert title -->
-    <!-- Warning when sending to self. -->
-    <string name="Send.containsAddress">Пунктом призначення є ваша власна адреса. Ви не можете відправити собі.</string>
     <!-- Could not create transaction alert title -->
-    <!-- Description for sending money label -->
-    <string name="Send.descriptionLabel">Пам\'ятка</string>
-    <!-- Emtpy pasteboard error message -->
-    <string name="Send.emptyPasteboard">Картонний картон порожній</string>
     <!-- Network Fee: $0.01 -->
     <!-- Payee identity not certified alert title. -->
     <!-- Invalid address alert message -->
@@ -293,57 +229,27 @@
     <!-- We are loading the request (now) -->
     <!-- Empty address alert message -->
     <!-- Emtpy amount alert message -->
-    <!-- Paste button label -->
-    <string name="Send.pasteLabel">Вставити</string>
     <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
     <string name="Send.remoteRequestError">Не вдалося завантажити платіжний запит</string>
-    <!-- Scan button label -->
-    <string name="Send.scanLabel">Сканувати</string>
-    <!-- Send button label (the action, "press here to send") -->
-    <string name="Send.sendLabel">Надіслати</string>
     <!-- Send screen title (as in "this is the screen for sending money") -->
     <string name="Send.title">Надіслати</string>
-    <!-- Send money to label -->
-    <string name="Send.toLabel">Введіть адресу Litecoin</string>
     <!-- Enter to match domain name to LTC Address -->
     <!-- Or -->
     <!-- Lookup -->
     <!-- Your address was resolved! -->
-    <!-- Address already used alert message - first part -->
-    <string name="Send.UsedAddress.firstLine">Адреси Litecoin призначені лише для одноразового використання.</string>
-    <!-- Address already used alert message - second part -->
-    <string name="Send.UsedAddress.secondLIne">Повторне використання знижує конфіденційність як для вас, так і для одержувача і може призвести до втрати, якщо одержувач безпосередньо не контролює адресу.</string>
     <!-- Address already used alert title -->
-    <!-- About label -->
-    <string name="Settings.about">Про</string>
-    <!-- Advanced Settings title -->
-    <string name="Settings.advancedTitle">Розширені налаштування</string>
-    <!-- i.e. the currency which will be displayed -->
-    <string name="Settings.currency">Відображення валюти</string>
     <!-- Join Early access label -->
     <!-- Are you enjoying loaf alert message body -->
     <!-- Import wallet label -->
-    <!-- Manage settings section header -->
-    <string name="Settings.manage">Керувати</string>
     <!-- Notifications label -->
     <!-- Leave review button label -->
-    <!-- Share anonymous data label -->
-    <string name="Settings.shareData">Поділіться анонімними даними</string>
     <!-- Sync blockchain label -->
     <string name="Settings.sync">Синхронізувати блокчейн</string>
     <!-- Settings title -->
     <!-- Touch ID spending limit label -->
     <!-- The fingerprint spending limit -->
-    <!-- Wallet Settings section header -->
-    <string name="Settings.wallet">гаманець</string>
     <!-- Start or recover another wallet menu label. -->
-    <!-- Share data view body -->
-    <string name="ShareData.body">Допоможіть покращити Brainwallet, поділившись з нами своїми анонімними даними. Це не включає фінансову інформацію. Ми поважаємо вашу фінансову конфіденційність.</string>
-    <!-- Share data header -->
-    <string name="ShareData.header">Поділитися даними?</string>
-    <!-- Share data switch label. -->
-    <string name="ShareData.toggleLabel">Поділитися анонімними даними?</string>
     <!-- button label -->
     <!-- Paper key explanation text. -->
     <string name="StartPaperPhrase.body">Ваш паперовий ключ – це єдиний спосіб відновити Brainwallet, якщо ваш телефон втрачено, вкрадено, зламано чи оновлено.\n\nМи покажемо вам список слів, які потрібно записати на аркуші паперу та зберегти в безпеці.</string>
@@ -373,13 +279,7 @@
     <!-- Fingerprint authentication label -->
     <!-- Touch ID unavailable alert message -->
     <!-- Touch ID unavailable alert title -->
-    <!-- Always require passcode option -->
-    <string name="TouchIdSpendingLimit">Завжди вимагайте пароль</string>
-    <!-- Touch ID spending limit screen body -->
-    <string name="TouchIdSpendingLimit.body">Вам буде запропоновано ввести свій 6-значний PIN-код, щоб надіслати будь-яку трансакцію, яка перевищує ліміт витрат, і кожні 48 годин з моменту останнього введення 6-значного PIN-коду.</string>
     <!-- Touch Id spending limit screen title -->
-    <!-- name of spending limit when using fingerprint authorization -->
-    <string name="TouchIdSpendingLimit.title.android">Ліміт витрат на авторизацію відбитків пальців</string>
     <!-- Availability status text -->
     <string name="Transaction.available">Доступні для витрат</string>
     <!-- Transaction complete label -->
@@ -434,8 +334,6 @@
     <!-- Reset PIN with Paper Key button label. -->
     <string name="UnlockScreen.resetPin">Скинути PIN-код</string>
     <!-- Scan button title -->
-    <!-- Unlock Screen sub-header -->
-    <string name="UnlockScreen.subheader">Введіть PIN-код</string>
     <!-- Instruction to touch the sensor for fingerprint authentication -->
     <string name="UnlockScreen.touchIdInstructions.android">Сенсор дотику</string>
     <!-- TouchID prompt text -->
@@ -445,28 +343,12 @@
     <!-- View a transaction on the blockchain explorer -->
     <string name="ViewOnBlockchain">Перегляд на блокчейні</string>
     <!-- Device authentication title -->
-    <!-- Wallet unlocked message -->
-    <!-- Forget Seed Phrase or PIN -->
-    <string name="UnlockScreen.forgetSeedPhraseOrPIN">Забули пароль або PIN-код?</string>
-    <string name="UnlockScreen.unlocked">Гаманець розблоковано</string>
-    <!-- Update PIN caption text -->
-    <string name="UpdatePin.caption">Запам’ятайте цей PIN-код. Якщо ви забудете його, ви не зможете отримати доступ до свого Litecoin.</string>
     <!-- PIN creation info. -->
     <string name="UpdatePin.createInstruction">Ваш PIN-код буде використано для розблокування вашого Brainwallet та надсилання грошей.</string>
-    <!-- Update PIN title -->
-    <string name="UpdatePin.createTitle">Встановити PIN-код</string>
-    <!-- Update PIN title -->
-    <string name="UpdatePin.createTitleConfirm">Повторно введіть PIN-код</string>
     <!-- Enter current PIN instruction -->
     <string name="UpdatePin.enterCurrent">Введіть свій поточний PIN-код.</string>
-    <!-- Enter new PIN instruction -->
-    <string name="UpdatePin.enterNew">Введіть новий PIN-код.</string>
-    <!-- Re-Enter new PIN instruction -->
-    <string name="UpdatePin.reEnterNew">Повторно введіть новий PIN-код.</string>
     <!-- Update PIN failure error message. -->
     <!-- Update PIN failure alert view title -->
-    <!-- Update PIN title -->
-    <string name="UpdatePin.updateTitle">Оновіть PIN-код</string>
     <!-- Authorize to copy wallet addresses alert message -->
     <!-- Authorize to copy wallet address PIN view prompt. -->
     <!-- Authorize to copy wallet address alert title -->
@@ -478,8 +360,6 @@
     <!-- 'No wallet' warning for watch app -->
     <!-- Dismiss button label -->
     <!-- Webview loading error message -->
-    <!-- Updating webview message -->
-    <string name="Webview.updating">Оновлення...</string>
     <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
     <!-- Top title of welcome screen -->
     <!-- Wipe wallet alert message -->
@@ -499,15 +379,10 @@
     <!-- button label -->
     <!-- button label -->
     <!-- 1 of 3 -->
-    <!--Buy center - partners-->
-    <string name="BottomNavItem.History.title">Історія</string>
     <!-- Balance -->
     <string name="ManageWallet.balance">Баланс</string>
-    <string name="Login.currentLtcPrice">Поточне значення LTC в %1$s</string>
-    <string name="Settings.languages">Мови</string>
     <string name="UnlockScreen.touchIdTitle.android">Потрібна автентифікація</string>
     <string name="PaymentProtocol.Errors.badPaymentRequest">Поганий запит на оплату</string>
-    <string name="NodeSelector.connected">Підключено</string>
     <string name="Receive.copied">Скопійовано в буфер обміну.</string>
     <string name="URLHandling.copy">Копія</string>
     <string name="show_seed_label">Показати</string>
@@ -516,15 +391,8 @@
     <string name="radio_low_privacy">Низька конфіденційність (~19 хвилин)</string>
     <string name="radio_semi_private">Напівприватний (~42 хвилини)</string>
     <string name="radio_anonymous">Анонімно (~77 хвилин)</string>
-    <!-- Announce Updates View -->
-    <string name="Fees.Service">Сервіс</string>
-    <string name="Network.feeLabel">Мережа</string>
     <string name="ConfirmationAllFees.Label">Збори:</string>
-    <string name="cancel">Скасувати</string>
     <string name="ok">добре</string>
-    <string name="please_grant_notification_permission">Будь ласка, надайте дозвіл на сповіщення</string>
-    <string name="permission_info">Інформація про дозвіл</string>
-    <string name="permission_notification_granted">Дозвіл на сповіщення надано</string>
     <string name="back">Назад</string>
     <string name="your_seed_words">Ваші початкові слова</string>
     <string name="your_seed_words_desc">"Тільки для вас. \n Це те, що дозволяє надсилати."</string>
@@ -601,7 +469,6 @@
     <string name="game_hub_tab_description">ігровий контролер</string>
     <string name="history_tab_description">кругова стрілка, що обертається проти годинникової стрілки</string>
     <string name="history_title">Історія</string>
-    <string name="ltc_ticker_as_of_timestamp">станом на %1$s</string>
     <string name="my_balance">МІЙ БАЛАНС</string>
     <string name="no_internet_dialog_title">Синхронізація без інтернету неможлива!</string>
     <string name="no_internet_dialog_subtitle">Будь ласка, підключіться знову для завершення синхронізації.</string>
@@ -615,7 +482,6 @@
     <string name="fees_label">"Комісія: "</string>
     <string name="no_transaction_detail_row">Поки нічого. Поповніть зараз!</string>
     <string name="no_transaction_title_row">ІСТОРІЯ ТРАНЗАКЦІЙ</string>
-    <string name="enter_passcode">Введіть пароль</string>
     <string name="recipient_label">Одержувач:</string>
     <string name="send_litecoin_label">Відправити Litecoin</string>
     <string name="confirm_send_label">Підтвердіть деталі відправки:</string>
@@ -627,13 +493,9 @@
     <string name="exchange_rate_label">Курс обміну:</string>
     <string name="send_error_message">Введіть коректну адресу LTC та суму, щоб продовжити</string>
     <string name="enter_pin">Введіть PIN</string>
-    <string name="favourites_label">Топ Секрет</string>
     <string name="tutorials_label">Навчальні матеріали</string>
-    <string name="coming_soon">Скоро!</string>
     <string name="rice_partner_03_tagline">Поповніть рахунок за 5 хвилин через нашого партнера</string>
     <string name="unagi_social_01_tagline">Клікніть і слідкуйте за нами!</string>
-    <string name="sign_up_messaging_title">Підпишіться на оновлення, новини та конкурси!</string>
-    <string name="grant_for_notifications_message">"Будь ласка, дозвольте доступ до сповіщень"</string>
     <string name="export_transaction_button_title">Експортувати всі транзакції</string>
     <string name="copy_tx_details">Копіювати деталі транзакції</string>
     <string name="all_label">Усі</string>
@@ -662,7 +524,6 @@
     <string name="send_tutorial_title_3b">Перевірте перед відправленням!</string>
     <string name="send_tutorial_description_3b">Відсканюйте або вставте адресу призначення. Перевірте двічі! Змініть вашу місцеву валюту на фіатну, щоб дізнатися, скільки можна відправити. Додайте замітку як корисне нагадування. Натисніть «Продовжити».</string>
     <string name="Send.cameraUnavailabeMessage.android">Дозвольте доступ до камери в Налаштуваннях</string>
-    <string name="shop_title">Магазин</string>
     <string name="shop_tagline">Купуйте подарункові карти за LTC!</string>
     <string name="security_brainwallet_phrase_title">Фраза Brainwallet</string>
     <string name="pick_emojis_title">Виберіть 3 емодзі</string>
@@ -680,4 +541,5 @@
     <string name="your_emojis_title">Ваші емодзі Brainwallet</string>
     <string name="your_emojis_description">Ви виbrали ці емодзі для гри, щоб допомогти запам\'ятати вашу фразу насіння</string>
     <string name="your_emojis_reset">Очистити емодзі</string>
+    <string name="Send.unlockDeepLink">Розблокуйте... відкриється вікно надсилання з цією адресою.</string>
 </resources>

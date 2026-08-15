@@ -34,8 +34,7 @@ import kotlinx.coroutines.CoroutineStart;
 import kotlinx.coroutines.future.FutureKt;
 import timber.log.Timber;
 
-public class BRPeerManager {
-    private static BRPeerManager instance;
+public final class BRPeerManager {
 
     private static final List<OnTxStatusUpdate> statusUpdateListeners = new ArrayList<>();
     private static OnSyncSucceeded onSyncFinished;
@@ -46,11 +45,16 @@ public class BRPeerManager {
     private BRPeerManager() {
     }
 
+    // Initialization-on-demand holder: the JVM guarantees InstanceHolder is only
+    // classloaded (and INSTANCE only constructed) on the first call to getInstance(),
+    // and that this happens exactly once even under concurrent callers - no explicit
+    // synchronization needed, unlike the previous unsynchronized lazy-init.
+    private static final class InstanceHolder {
+        static final BRPeerManager INSTANCE = new BRPeerManager();
+    }
+
     public static BRPeerManager getInstance() {
-        if (instance == null) {
-            instance = new BRPeerManager();
-        }
-        return instance;
+        return InstanceHolder.INSTANCE;
     }
 
     /**
@@ -81,7 +85,7 @@ public class BRPeerManager {
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
             @Override
             public void run() {
-                BRSharedPrefs.putStartHeight(ctx, getCurrentBlockHeight());
+                BRSharedPrefs.putStartHeight(ctx, getInstance().getCurrentBlockHeight());
             }
         });
         if (onSyncFinished != null) onSyncFinished.onFinished();
@@ -105,7 +109,7 @@ public class BRPeerManager {
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
             @Override
             public void run() {
-                updateLastBlockHeight(getCurrentBlockHeight());
+                updateLastBlockHeight(getInstance().getCurrentBlockHeight());
             }
         });
     }
@@ -260,37 +264,45 @@ public class BRPeerManager {
         BRSharedPrefs.putLastBlockHeight(ctx, blockHeight);
     }
 
-    public native String getCurrentPeerName();
+    // All native methods below are instance methods on this singleton, marked synchronized:
+    // the JVM acquires this instance's monitor before entering native code and holds it until
+    // the native call returns. Since getInstance() always hands back the same object, this
+    // serializes every caller's access to the shared native BRPeerManager* - in particular it
+    // prevents connect() (which can spawn new native peer/DNS threads) from ever running
+    // concurrently with peerManagerFreeEverything() (which destroys the manager's mutex and
+    // frees it), which was letting a still-running background thread call pthread_mutex_lock()
+    // on an already-destroyed mutex (FORTIFY abort, Crashlytics issue 85c581edcdb39b941df627e7b1324a71).
+    public native synchronized String getCurrentPeerName();
 
-    public native void create(int earliestKeyTime, int blockCount, int peerCount, double fpRate);
+    public native synchronized void create(int earliestKeyTime, int blockCount, int peerCount, double fpRate);
 
-    public native void connect();
+    public native synchronized void connect();
 
-    public native void putPeer(byte[] peerAddress, byte[] peerPort, byte[] peerTimeStamp);
+    public native synchronized void putPeer(byte[] peerAddress, byte[] peerPort, byte[] peerTimeStamp);
 
-    public native void createPeerArrayWithCount(int count);
+    public native synchronized void createPeerArrayWithCount(int count);
 
-    public native void putBlock(byte[] block, int blockHeight);
+    public native synchronized void putBlock(byte[] block, int blockHeight);
 
-    public native void createBlockArrayWithCount(int count);
+    public native synchronized void createBlockArrayWithCount(int count);
 
-    public native static double syncProgress(int startHeight);
+    public native synchronized double syncProgress(int startHeight);
 
-    public native static int getCurrentBlockHeight();
+    public native synchronized int getCurrentBlockHeight();
 
-    public native static int getRelayCount(byte[] hash);
+    public native synchronized int getRelayCount(byte[] hash);
 
-    public native boolean setFixedPeer(String node, int port);
+    public native synchronized boolean setFixedPeer(String node, int port);
 
-    public native static int getEstimatedBlockHeight();
+    public native synchronized int getEstimatedBlockHeight();
 
-    public native boolean isCreated();
+    public native synchronized boolean isCreated();
 
-    public native boolean isConnected();
+    public native synchronized boolean isConnected();
 
-    public native void peerManagerFreeEverything();
+    public native synchronized void peerManagerFreeEverything();
 
-    public native long getLastBlockTimestamp();
+    public native synchronized long getLastBlockTimestamp();
 
-    public native void rescan();
+    public native synchronized void rescan();
 }

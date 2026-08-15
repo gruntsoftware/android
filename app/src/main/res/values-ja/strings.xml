@@ -32,10 +32,6 @@
     <string name="Alerts.pinSet">PINコードのセット</string>
     <!-- Send failure alert header label (the send failed to happen) -->
     <string name="Alerts.sendFailure">送金に失敗しました</string>
-    <!-- Send success alert header label (confirmation that the send happened) -->
-    <string name="Alerts.sendSuccess">送金のご確認</string>
-    <!-- Send success alert subheader label (e.g. the money was sent) -->
-    <string name="Alerts.sendSuccessSubheader">送金しました!</string>
     <!-- Fingerprint was recognized by the scanner -->
     <string name="Alerts.touchIdSucceeded.android">指紋が認識されました</string>
     <!-- JSON Serialization error message -->
@@ -68,10 +64,6 @@
     <string name="Confirmation.totalLabel">費用合計：</string>
     <!-- Confirm paper phrase view label. -->
     <!-- Word label eg. Word #1, Word #2 -->
-    <!-- Litecoin denomination picker label -->
-    <string name="DefaultCurrency.litecoinLabel">ライトコインの表示単位</string>
-    <!-- Exchange rate label -->
-    <string name="DefaultCurrency.rateLabel">為替レート</string>
     <!-- Email unavailable alert title -->
     <!-- Email unavailable alert title -->
     <!-- Messaging unavailable alert title -->
@@ -128,37 +120,11 @@
     <!-- Change Wallet name textfield label -->
     <!-- Manage wallet modal title -->
     <!-- Buy bitcoin title -->
-    <!-- Menu button title -->
-    <string name="MenuButton.lock">ウォレットにロックを設定する</string>
-    <!-- Menu button title -->
-    <string name="MenuButton.security">セキュリティセンター</string>
-    <!-- Menu button title -->
-    <string name="MenuButton.settings">設定</string>
-    <!-- Menu button title -->
-    <string name="MenuButton.support">顧客サポート</string>
     <!-- button label -->
     <string name="MenuViewController.createButton">新規ウォレットを作成</string>
-    <!-- Menu modal title -->
-    <string name="MenuViewController.modalTitle">メニュー</string>
     <!-- button label -->
-    <!-- Switch to automatic mode button label -->
-    <string name="NodeSelector.automaticButton">自動モードに切り替える</string>
-    <!-- Node is connected label -->
-    <string name="NodeSelector.connected">接続中</string>
-    <!-- Enter node ip address view body -->
-    <string name="NodeSelector.enterBody">ノードのIPアドレスとポートを入力する（任意）</string>
-    <!-- Enter Node ip address view title -->
-    <string name="NodeSelector.enterTitle">ノードを入力する</string>
-    <!-- Switch to manual mode button label -->
-    <string name="NodeSelector.manualButton">マニュアルモードに切り替える</string>
-    <!-- Node address label -->
-    <string name="NodeSelector.nodeLabel">現在のプライマリーノード</string>
     <!-- Node is not connected label -->
     <string name="NodeSelector.notConnected">未接続</string>
-    <!-- Node status label -->
-    <string name="NodeSelector.statusLabel">ノードの接続状況</string>
-    <!-- Node Selector view title -->
-    <string name="NodeSelector.title">ライトコインノード</string>
     <!-- Bad Payment request alert title -->
     <string name="PaymentProtocol.Errors.badPaymentRequest">不正な支払い要求</string>
     <!-- Error opening payment protocol file message -->
@@ -195,14 +161,8 @@
     <string name="Prompts.UpgradePin.body">ブレッドは6桁のPINコード使用にアップグレードされました。こちらをタップして更新してください。</string>
     <!-- Upgrade PIN prompt title. -->
     <string name="Prompts.UpgradePin.title">PINコードを更新する</string>
-    <!-- Notifications will be added later but users can set their preferences now, which is why we specify "in the future". -->
-    <string name="PushNotifications.body">今後、Loafからの特別なメッセージを受け取るために通知をオンにしてください。</string>
-    <!-- Push notifications toggle switch label -->
-    <string name="PushNotifications.label">プッシュ通知</string>
     <!-- Push notifications are off label -->
     <!-- Push notifications are on label -->
-    <!-- Push notifications settings view title label -->
-    <string name="PushNotifications.title">通知</string>
     <!-- Address copied message. -->
     <string name="Receive.copied">クリップボードにコピーされました。</string>
     <!-- Share via email button label -->
@@ -213,14 +173,8 @@
     <!-- Share via text message (SMS) -->
     <!-- Receive modal title -->
     <string name="Receive.title">受け取る</string>
-    <!-- Done button text -->
-    <string name="RecoverWallet.done">終了</string>
-    <!-- Recover wallet header -->
-    <string name="RecoverWallet.header">ウォレットを復元</string>
     <!-- Reset PIN with paper key: header -->
     <!-- Enter paper key instruction -->
-    <!-- Recover wallet intro -->
-    <string name="RecoverWallet.intro">紙の鍵を使用し、あなたのブレッドを復元する。</string>
     <!-- Invalid paper key message -->
     <string name="RecoverWallet.invalid">あなたが入力した紙の鍵は無効です。各フレーズを再確認の上、もう一度お試しください。</string>
     <!-- Previous button accessibility label -->
@@ -255,37 +209,17 @@
     <!-- Pending filter label -->
     <!-- Received filter label -->
     <!-- Sent filter label -->
-    <!-- Security Center Info -->
-    <string name="SecurityCenter.info">セキュリティを最大限に高めるため、すべてのセキュリティ設定を有効にしてください。</string>
-    <!-- Paper Key button description -->
-    <string name="SecurityCenter.paperKeyDescription">あなたが携帯電話を紛失したり、アップグレードした場合にご自身のライトコインへアクセスできる唯一の方法です。</string>
     <!-- Paper Key button title -->
     <string name="SecurityCenter.paperKeyTitle">ペーパーキー</string>
-    <!-- PIN button description -->
-    <string name="SecurityCenter.pinDescription">アクセス権限のないユーザーからあなたのブレッドを守ります。</string>
-    <!-- PIN button title -->
-    <string name="SecurityCenter.pinTitle">4桁のPINコード</string>
-    <!-- Security Center Title -->
-    <string name="SecurityCenter.title">セキュリティセンター</string>
     <!-- Touch ID button description -->
     <!-- Touch ID button title -->
     <!-- Security center fingerprint authentication button -->
-    <!-- Send money amount label -->
-    <string name="Send.amountLabel">金額</string>
-    <!-- Balance: $4.00 -->
-    <string name="Send.balance">残高: %1$s</string>
     <!-- Instructions how to allow the camera access for the app -->
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">ブレッドはカメラへのアクセスを許可されていません</string>
     <!-- Camera not allowed message -->
     <!-- Camera not allowed alert title -->
-    <!-- Warning when sending to self. -->
-    <string name="Send.containsAddress">送金先がご自身のアドレスになっています。自分宛てには送金できません。</string>
     <!-- Could not create transaction alert title -->
-    <!-- Description for sending money label -->
-    <string name="Send.descriptionLabel">メモ</string>
-    <!-- Emtpy pasteboard error message -->
-    <string name="Send.emptyPasteboard">ペーストボードが空です</string>
     <!-- Network Fee: $0.01 -->
     <!-- Payee identity not certified alert title. -->
     <!-- Invalid address alert message -->
@@ -297,57 +231,27 @@
     <!-- We are loading the request (now) -->
     <!-- Empty address alert message -->
     <!-- Emtpy amount alert message -->
-    <!-- Paste button label -->
-    <string name="Send.pasteLabel">貼り付け</string>
     <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
     <string name="Send.remoteRequestError">支払い要求がロードできませんでした</string>
-    <!-- Scan button label -->
-    <string name="Send.scanLabel">スキャン</string>
-    <!-- Send button label (the action, "press here to send") -->
-    <string name="Send.sendLabel">送金する</string>
     <!-- Send screen title (as in "this is the screen for sending money") -->
     <string name="Send.title">送金</string>
-    <!-- Send money to label -->
-    <string name="Send.toLabel">Litecoinのアドレスを入力してください。</string>
     <!-- Enter to match domain name to LTC Address -->
     <!-- Or -->
     <!-- Lookup -->
     <!-- Your address was resolved! -->
-    <!-- Adress already used alert message - first part -->
-    <string name="Send.UsedAddress.firstLine">ライトコインアドレスは、個人利用のみを想定しています。</string>
-    <!-- Adress already used alert message - second part -->
-    <string name="Send.UsedAddress.secondLIne">再利用は、最初の利用者と受取人の両方のプライバシーの侵害につながるおそれがあり、受取人がアドレスを直接管理しない場合、損害につながるおそれもあります。</string>
     <!-- Adress already used alert title -->
-    <!-- About label -->
-    <string name="Settings.about">概要</string>
-    <!-- Advanced Settings title -->
-    <string name="Settings.advancedTitle">詳細設定</string>
-    <!-- i.e. the currency which will be displayed -->
-    <string name="Settings.currency">表示される通貨</string>
     <!-- Join Early access label -->
     <!-- Are you enjoying Loaf alert message body -->
     <!-- Import wallet label -->
-    <!-- Manage settings section header -->
-    <string name="Settings.manage">管理</string>
     <!-- Notifications label -->
     <!-- Leave review button label -->
-    <!-- Share anonymous data label -->
-    <string name="Settings.shareData">匿名データをシェアする</string>
     <!-- Sync blockchain label -->
     <string name="Settings.sync">ブロックチェーン同期</string>
     <!-- Settings title -->
     <!-- Touch ID spending limit label -->
     <!-- The fingerprint spending limit -->
-    <!-- Wallet Settings section header -->
-    <string name="Settings.wallet">ウォレット</string>
     <!-- Start or recover another wallet menu label. -->
-    <!-- Share data view body -->
-    <string name="ShareData.body">匿名データをシェアして、ブレッドの改善にご協力ください。これにはいかなる財務情報も含まれません。私たちはあなたの財務プライバシーを尊重しています。</string>
-    <!-- Share data header -->
-    <string name="ShareData.header">データをシェしますか?</string>
-    <!-- Share data switch label. -->
-    <string name="ShareData.toggleLabel">匿名データをシェアしますか?</string>
     <!-- button label -->
     <!-- Paper key explanation text. -->
     <string name="StartPaperPhrase.body">紙の鍵は、あなたが携帯電話を紛失したり、盗まれたり、壊れたり、アップグレードした場合に、ご自身のブレッドを復元できる唯一の方法です。\n\nフレーズの一覧を表示しますので、紙に書き留めて安全に保管してください。</string>
@@ -377,13 +281,7 @@
     <!-- Fingerprint authentication label -->
     <!-- Touch ID unavailable alert message -->
     <!-- Touch ID unavailable alert title -->
-    <!-- Always require passcode option -->
-    <string name="TouchIdSpendingLimit">常にパスコードを要求する</string>
-    <!-- Touch ID spending limit screen body -->
-    <string name="TouchIdSpendingLimit.body">限度額を超える金額の送金を行う場合や、最後に6桁のPINコードを入力してから48時間毎に6桁のPINコードの入力が求められます。</string>
     <!-- Touch Id spending limit screen title -->
-    <!-- name of spending limit when using fingerprint authorization -->
-    <string name="TouchIdSpendingLimit.title.android">指紋認証利用上限</string>
     <!-- Availability status text -->
     <string name="Transaction.available">利用可能</string>
     <!-- Transaction complete label -->
@@ -438,8 +336,6 @@
     <!-- Reset PIN with Paper Key button label. -->
     <string name="UnlockScreen.resetPin">PINコードをリセット</string>
     <!-- Scan button title -->
-    <!-- Unlock Screen sub-header -->
-    <string name="UnlockScreen.subheader">PINコードを入力してください</string>
     <!-- Instruction to touch the sensor for fingerprint authentication -->
     <string name="UnlockScreen.touchIdInstructions.android">タッチセンサー</string>
     <!-- TouchID prompt text -->
@@ -449,28 +345,12 @@
     <!-- Device authentication title -->
     <string name="ViewOnBlockchain">ブロックチェーンで見る</string>
     <string name="UnlockScreen.touchIdTitle.android">認証が必要です</string>
-    <!-- Wallet unlocked message -->
-    <string name="UnlockScreen.unlocked">ウォレットのロックが解除されました</string>
-    <!-- Forget Seed Phrase or PIN -->
-    <string name="UnlockScreen.forgetSeedPhraseOrPIN">シードフレーズまたはPINをお忘れですか？</string>
-    <!-- Update PIN caption text -->
-    <string name="UpdatePin.caption">このPINコードは覚えておいてください。忘れた場合、ご自身のライトコインへアクセスできなくなります。</string>
     <!-- PIN creation info. -->
     <string name="UpdatePin.createInstruction">あなたのPINコードはご自身のブレッドのロックを解除したり、送金する時に利用します。</string>
-    <!-- Update PIN title -->
-    <string name="UpdatePin.createTitle">PINコードの設定</string>
-    <!-- Update PIN title -->
-    <string name="UpdatePin.createTitleConfirm">PINコードを再入力してください</string>
     <!-- Enter current PIN instruction -->
     <string name="UpdatePin.enterCurrent">現在のPINコードを入力してください。</string>
-    <!-- Enter new PIN instruction -->
-    <string name="UpdatePin.enterNew">新しいPINコードを入力してください。</string>
-    <!-- Re-Enter new PIN instruction -->
-    <string name="UpdatePin.reEnterNew">新しいPINコードを再入力してください。</string>
     <!-- Update PIN failure error message. -->
     <!-- Update PIN failure alert view title -->
-    <!-- Update PIN title -->
-    <string name="UpdatePin.updateTitle">PINコードを更新する</string>
     <!-- Authorize to copy wallet addresses alert message -->
     <!-- Authorize to copy wallet address PIN view prompt. -->
     <!-- Authorize to copy wallet address alert title -->
@@ -483,8 +363,6 @@
     <!-- 'No wallet' warning for watch app -->
     <!-- Dismiss button label -->
     <!-- Webview loading error message -->
-    <!-- Updating webview message -->
-    <string name="Webview.updating">更新中...</string>
     <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
     <!-- Top title of welcome screen -->
     <!-- Wipe wallet alert message -->
@@ -503,26 +381,15 @@
     <!-- Paper key instructions. -->
     <!-- button label -->
     <!-- button label -->
-    <!-- 1 of 3 -->
-    <string name="BottomNavItem.History.title">歴史</string>
     <string name="ManageWallet.balance">残高</string>
-    <string name="Login.currentLtcPrice">現在のLTC値 %1$s</string>
-    <string name="Settings.languages">言語</string>
     <string name="show_seed_label">見せる</string>
     <string name="settings_show_seed">私のシードフレーズを表示</string>
     <string name="sync_preferences">同期設定: %1$s 誤検知</string>
     <string name="radio_low_privacy">低プライバシー (~19 分)</string>
     <string name="radio_semi_private">セミプライベート（～42分）</string>
     <string name="radio_anonymous">匿名 (~77 分)</string>
-    <!-- Announce Updates View -->
-    <string name="Fees.Service">サービス</string>
-    <string name="Network.feeLabel">通信網</string>
     <string name="ConfirmationAllFees.Label">料金:</string>
-    <string name="cancel">キャンセル</string>
     <string name="ok">わかりました</string>
-    <string name="please_grant_notification_permission">通知許可を与えてください</string>
-    <string name="permission_info">許可情報</string>
-    <string name="permission_notification_granted">通知許可が付与されました</string>
     <string name="back">戻る</string>
     <string name="your_seed_words">あなたのシードワード</string>
     <string name="your_seed_words_desc">「あなただけに。\n を送信できるのは です。」</string>
@@ -599,7 +466,6 @@
     <string name="game_hub_tab_description">ゲームコントローラー</string>
     <string name="history_tab_description">反時計回りに回転する円形の矢印</string>
     <string name="history_title">履歴</string>
-    <string name="ltc_ticker_as_of_timestamp">%1$s 時点</string>
     <string name="my_balance">残高</string>
     <string name="no_internet_dialog_title">インターネットなしで同期できません！</string>
     <string name="no_internet_dialog_subtitle">同期を完了するには再接続してください。</string>
@@ -613,7 +479,6 @@
     <string name="fees_label">"手数料： "</string>
     <string name="no_transaction_detail_row">まだありません。今すぐチャージ！</string>
     <string name="no_transaction_title_row">取引履歴</string>
-    <string name="enter_passcode">パスコードを入力</string>
     <string name="recipient_label">受取人:</string>
     <string name="send_litecoin_label">Litecoinを送信</string>
     <string name="confirm_send_label">送信内容を確認:</string>
@@ -625,9 +490,7 @@
     <string name="exchange_rate_label">為替レート:</string>
     <string name="send_error_message">有効なLTCアドレスと金額を入力して続行してください</string>
     <string name="enter_pin">PINを入力</string>
-    <string name="favourites_label">トップシークレット</string>
     <string name="tutorials_label">チュートリアル</string>
-    <string name="coming_soon">近日公開予定!</string>
     <string name="rice_partner_03_tagline">パートナーでわずか5分でチャージできます</string>
     <string name="unagi_social_01_tagline">クリックしてフォローしてください！</string>
     <string name="export_transaction_button_title">すべてのトランザクションをエクスポート</string>
@@ -636,8 +499,6 @@
     <string name="received_label">受け取り</string>
     <string name="sent_label">送信</string>
     <string name="ltc_price_label">LTC 価格</string>
-    <string name="sign_up_messaging_title">アップデート、ニュース、コンテストの最新情報を受け取ろう！</string>
-    <string name="grant_for_notifications_message">"通知の許可をお願いします "</string>
     <string name="send_tutorial_title">Litecoinの送信方法</string>
     <string name="brainwallet_walkthrough_title">Brainwallet チュートリアル</string>
     <string name="brainwallet_walkthrough_description">送受信からキー管理まで、Brainwalletのすべての機能をお試しください。</string>
@@ -660,7 +521,6 @@
     <string name="send_tutorial_title_3b">送信前に確認！</string>
     <string name="send_tutorial_description_3b">宛先アドレスをスキャンまたは貼り付けます。よく確認してください！現地通貨で計算して送信可能な金額を確認します。メモを追加して便利に管理できます。続けるをタップします。</string>
     <string name="Send.cameraUnavailabeMessage.android">設定からカメラへのアクセスを許可してください</string>
-    <string name="shop_title">ショップ</string>
     <string name="shop_tagline">LTCでギフトカードを購入！</string>
     <string name="security_brainwallet_phrase_title">Brainwalletフレーズ</string>
     <string name="pick_emojis_title">絵文字を3つ選択</string>
@@ -678,4 +538,5 @@
     <string name="your_emojis_title">あなたのBrainwallet絵文字</string>
     <string name="your_emojis_description">ゲーム用に選択したこれらの絵文字は、シードフレーズを覚えるのに役立ちます</string>
     <string name="your_emojis_reset">絵文字をクリア</string>
+    <string name="Send.unlockDeepLink">ロックを解除...この宛先で送金画面が開きます。</string>
 </resources>

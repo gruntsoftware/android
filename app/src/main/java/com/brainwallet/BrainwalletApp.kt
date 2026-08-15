@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.res.Resources
+import android.os.Build
 import com.appsflyer.AppsFlyerLib
 import com.brainwallet.notification.NotificationHandler
 import com.brainwallet.presenter.activities.util.BRActivity
@@ -28,7 +29,7 @@ open class BrainwalletApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        ReLinker.loadLibrary(this, BWConstants.NATIVE_LIB_NAME)
+        loadNativeLibrary()
         val enableCrashlytics = !Utils.isEmulatorOrDebug(this)
         notificationHandler.setupNotificationChannels(this)
 
@@ -66,8 +67,54 @@ open class BrainwalletApp : Application() {
         }
     }
 
+    /**
+     * Loads the native wallet-crypto library (secp256k1 etc.).
+     *
+     * Tries the standard system loader first - it's the most reliable path on modern
+     * Android and sidesteps some known ReLinker/APK-extraction quirks on API 31+ - then
+     * falls back to ReLinker (kept for older/buggy OEM loaders it was originally added
+     * to work around). If both fail, the wallet cannot perform any crypto operations, so
+     * we record rich diagnostics (installer source + supported ABIs) as a non-fatal before
+     * rethrowing, since a totally missing native lib is otherwise indistinguishable from a
+     * tampered/repackaged APK installed outside the Play Store.
+     */
+    private fun loadNativeLibrary() {
+        try {
+            System.loadLibrary(BWConstants.NATIVE_LIB_NAME)
+        } catch (systemLoadError: UnsatisfiedLinkError) {
+            Timber.w(systemLoadError, "timber: System.loadLibrary failed, falling back to ReLinker")
+            try {
+                ReLinker.loadLibrary(this, BWConstants.NATIVE_LIB_NAME)
+            } catch (reLinkerError: Throwable) {
+                @Suppress("DEPRECATION")
+                val installerPackageName = try {
+                    packageManager.getInstallerPackageName(packageName)
+                } catch (e: IllegalArgumentException) {
+                    null
+                }
+                FirebaseCrashlytics.getInstance().apply {
+                    setCustomKey("native_lib_installer_package", installerPackageName ?: "unknown")
+                    setCustomKey("native_lib_supported_abis", Build.SUPPORTED_ABIS.joinToString())
+                    recordException(reLinkerError)
+                }
+                throw reLinkerError
+            }
+        }
+    }
+
     interface OnAppBackgrounded {
         fun onBackgrounded()
+    }
+
+    /**
+     * Fired the moment [activityCounter] transitions from 0 to positive, i.e. the app
+     * actually re-entering the foreground (not just navigating between two of its own
+     * activities). Used by [com.brainwallet.data.repository.SyncAnalyticsRepository] to
+     * bound its foreground-sync-duration segments, mirroring iOS's
+     * `didBecomeActiveNotification` observer in `WalletCoordinator`.
+     */
+    interface OnAppForegrounded {
+        fun onForegrounded()
     }
 
     companion object {
@@ -77,6 +124,7 @@ open class BrainwalletApp : Application() {
         @JvmField
         var HOST: String = "apigsltd.net"
         private var listeners: MutableList<OnAppBackgrounded>? = null
+        private var foregroundListeners: MutableList<OnAppForegrounded>? = null
         private var isBackgroundChecker: Timer? = null
 
         @JvmField
@@ -105,6 +153,17 @@ open class BrainwalletApp : Application() {
         fun addOnBackgroundedListener(listener: OnAppBackgrounded) {
             if (listeners == null) listeners = ArrayList()
             if (!listeners!!.contains(listener)) listeners!!.add(listener)
+        }
+
+        @JvmStatic
+        fun fireForegroundListeners() {
+            if (foregroundListeners == null) return
+            for (lis in foregroundListeners!!) lis.onForegrounded()
+        }
+
+        fun addOnForegroundedListener(listener: OnAppForegrounded) {
+            if (foregroundListeners == null) foregroundListeners = ArrayList()
+            if (!foregroundListeners!!.contains(listener)) foregroundListeners!!.add(listener)
         }
 
         @JvmStatic

@@ -19,7 +19,6 @@ import com.brainwallet.ui.screens.emojis.EmojiPagerScreen
 import com.brainwallet.ui.screens.emojis.YourEmojisScreen
 import com.brainwallet.ui.screens.ready.ReadyScreen
 import com.brainwallet.ui.screens.restore.RestoreScreen
-import com.brainwallet.ui.screens.send.SendScreen
 import com.brainwallet.ui.screens.setpasscode.SetPasscodeScreen
 import com.brainwallet.ui.screens.topup.TopUpScreen
 import com.brainwallet.ui.screens.unlock.UnLockScreen
@@ -126,7 +125,7 @@ fun NavGraphBuilder.mainNavGraph(
 
     composable<Route.Main> { navBackStackEntry ->
         val route: Route.Main = navBackStackEntry.toRoute()
-        MainScreen(onNavigate = onNavigate)
+        MainScreen(onNavigate = onNavigate, pendingSendAddress = route.pendingSendAddress)
     }
 
     composable<Route.UnLock> { navBackStackEntry ->
@@ -139,10 +138,11 @@ fun NavGraphBuilder.mainNavGraph(
         ReceiveDialog(onDismissRequest = {})
     }
 
-    composable<Route.Send> { navBackStackEntry ->
-        val route: Route.Send = navBackStackEntry.toRoute()
-        SendScreen(onNavigate = onNavigate)
-    }
+    // No composable<Route.Send> here, deliberately - Send is only ever reached as a modal
+    // inside MainScreen (tapping the bottom nav's Send tab, or Route.Main.pendingSendAddress
+    // after a litecoin: deep link's unlock), never as a standalone top-level destination.
+    // A top-level Route.Send would render outside MainScreen's Scaffold/bottom-nav entirely
+    // - see MainScreen's own `when (modalContentRoute) { is Route.Send -> SendScreen(...) }`.
 
     composable<Route.GameHub> { navBackStackEntry ->
         val route: Route.GameHub = navBackStackEntry.toRoute()

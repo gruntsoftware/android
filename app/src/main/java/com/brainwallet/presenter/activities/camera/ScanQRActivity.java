@@ -18,7 +18,7 @@ import com.brainwallet.R;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.tools.animation.SpringAnimator;
 import com.brainwallet.tools.qrcode.QRCodeReaderView;
-import com.brainwallet.tools.security.BitcoinUrlHandler;
+import com.brainwallet.tools.util.LitecoinURIHandler;
 
 import timber.log.Timber;
 
@@ -135,7 +135,7 @@ public class ScanQRActivity extends BRActivity implements ActivityCompat.OnReque
     @Override
     public void onQRCodeRead(final String text, PointF[] points) {
         if (handlingCode) return;
-        if (BitcoinUrlHandler.isBitcoinUrl(text)) {
+        if (LitecoinURIHandler.isValidLitecoinURI(text)) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

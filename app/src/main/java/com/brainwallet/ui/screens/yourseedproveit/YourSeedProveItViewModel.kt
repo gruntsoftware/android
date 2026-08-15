@@ -54,7 +54,7 @@ class YourSeedProveItViewModel() : BrainwalletViewModel<YourSeedProveItEvent>() 
 
             YourSeedProveItEvent.OnGameAndSync -> sendUiEffect(
                 UiEffect.Navigate(
-                    destinationRoute = Route.Main,
+                    destinationRoute = Route.Main(),
                     forcePopBackStack = true
                 )
             )

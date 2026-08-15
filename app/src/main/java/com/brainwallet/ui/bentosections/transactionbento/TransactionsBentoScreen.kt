@@ -23,11 +23,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
@@ -42,12 +46,15 @@ import com.brainwallet.constants.BWConstants.EXPAND_DURATION
 import com.brainwallet.constants.BWConstants.SHRINK_DURATION
 import com.brainwallet.constants.bentoCornerRadius
 import com.brainwallet.constants.bentoSpacer
+import com.brainwallet.constants.exportTxRowHt
 import com.brainwallet.constants.transactionActionHt
 import com.brainwallet.constants.transactionDetailHt
 import com.brainwallet.constants.transactionRowHt
 import com.brainwallet.constants.tripleBentoSpacer
+import com.brainwallet.domain.ExportedTransactionsMapper
 import com.brainwallet.presenter.entities.TxItem
 import com.brainwallet.ui.bentosections.transactionbento.subscreens.CopyTransactionsWidget
+import com.brainwallet.ui.bentosections.transactionbento.subscreens.ExportTxDataRow
 import com.brainwallet.ui.bentosections.transactionbento.subscreens.NoTxRow
 import com.brainwallet.ui.bentosections.transactionbento.subscreens.TransactionDetail
 import com.brainwallet.ui.bentosections.transactionbento.subscreens.TransactionFilterWidget
@@ -55,7 +62,11 @@ import com.brainwallet.ui.bentosections.transactionbento.subscreens.TransactionR
 import com.brainwallet.ui.composable.screenHeightPercent
 import com.brainwallet.ui.screens.main.MainScreenEvent
 import com.brainwallet.ui.screens.main.MainViewModel
+import com.brainwallet.ui.theme.DesignTheme
+import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
+import com.grunt.brainwallet.iap.presentation.screen.ExportTrxSheet
 import kotlinx.collections.immutable.ImmutableList
+import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -83,6 +94,7 @@ fun TransactionsBentoScreen(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TransactionsBentoScreen(
     transactions: ImmutableList<TxItem>,
@@ -92,9 +104,15 @@ fun TransactionsBentoScreen(
     shouldShowFiatValues: Boolean,
     onBentoTap: () -> Unit,
     modifier: Modifier = Modifier,
-    mainViewModel: MainViewModel = koinViewModel()
+    mainViewModel: MainViewModel = koinViewModel(),
+    exportedTransactionsMapper: ExportedTransactionsMapper = koinInject()
 ) {
     val listState = rememberLazyListState()
+    val exportSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    var showExportSheet by remember { mutableStateOf(false) }
+    val exportedTransactions = remember(transactions) {
+        exportedTransactionsMapper(transactions)
+    }
     val snappingLayout = remember(listState) { SnapLayoutInfoProvider(listState) }
     val flingBehavior = rememberSnapFlingBehavior(snappingLayout)
 
@@ -192,6 +210,33 @@ fun TransactionsBentoScreen(
                             )
                         }
                     }
+                    Spacer(modifier = Modifier.padding(bentoSpacer))
+
+                    if (!noTxItemsPresent) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(transactionActionHt)
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .clickable(
+                                        interactionSource = remember { MutableInteractionSource() }
+                                    ) {
+                                        // Call the ExportTrxSheet
+                                        showExportSheet = true
+                                    }
+                            ) {
+                                ExportTxDataRow(
+                                    isDarkMode = state.darkMode,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(exportTxRowHt)
+                                )
+                            }
+                        }
+                    }
                 }
             }
             Spacer(modifier = Modifier.weight(1f))
@@ -244,6 +289,25 @@ fun TransactionsBentoScreen(
                         }
                     }
                 }
+            }
+        }
+    }
+
+    if (showExportSheet) {
+        ModalBottomSheet(
+            sheetState = exportSheetState,
+            containerColor = DesignTheme.colors.surface,
+            contentColor = DesignTheme.colors.content,
+            onDismissRequest = { showExportSheet = false }
+        ) {
+            // ExportTrxSheet reads colors/typography from the core module's own
+            // BrainwalletTheme composition locals, which are only populated inside
+            // this wrapper - without it those resolve to Color.Unspecified.
+            BrainwalletTheme(darkTheme = state.darkMode) {
+                ExportTrxSheet(
+                    transactions = exportedTransactions,
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
         }
     }

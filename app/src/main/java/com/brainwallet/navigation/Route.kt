@@ -43,10 +43,24 @@ sealed class Route : JavaSerializable {
     data class YourEmojis(val emojis: List<String>) : Route()
 
     @Serializable
-    object Main : Route()
+    data class Main(
+        // Address from a scanned litecoin: QR code, carried through the unlock flow once
+        // the PIN is verified and the wallet is fully synced (see BrainwalletActivity.
+        // onUnlock) - MainScreen opens its Send modal with this address on load, the same
+        // way tapping the bottom nav's Send tab does (BentoBottomNavBar's onItemClick with
+        // Route.Send), rather than navigating to Route.Send as a disconnected top-level
+        // destination outside the normal Main nav/bottom-bar stack.
+        val pendingSendAddress: String? = null
+    ) : Route()
 
     @Serializable
-    data class UnLock(val isUpdatePin: Boolean = false) : Route()
+    data class UnLock @JvmOverloads constructor(
+        val isUpdatePin: Boolean = false,
+        // Address from a scanned litecoin: QR code, carried through the unlock flow so
+        // it can be pasted into Send once the PIN is verified - but only if the wallet
+        // is fully synced by then (see BrainwalletActivity.onUnlock).
+        val pendingSendAddress: String? = null
+    ) : Route()
 
     @Serializable
     object BuyReceive : Route()
@@ -55,7 +69,7 @@ sealed class Route : JavaSerializable {
     object History : Route()
 
     @Serializable
-    object Send : Route()
+    data class Send(val address: String? = null) : Route()
 
     @Serializable
     object TutorialWalkthrough : Route()

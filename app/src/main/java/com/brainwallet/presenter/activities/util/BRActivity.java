@@ -16,7 +16,7 @@ import com.brainwallet.tools.animation.BRAnimator;
 import com.brainwallet.tools.manager.InternetManager;
 import com.brainwallet.tools.security.AuthManager;
 import com.brainwallet.tools.security.BRKeyStore;
-import com.brainwallet.tools.security.BitcoinUrlHandler;
+import com.brainwallet.tools.util.LitecoinURIHandler;
 import com.brainwallet.tools.security.PostAuth;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.constants.BWConstants;
@@ -107,8 +107,11 @@ public class BRActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             String result = data.getStringExtra("result");
-                            if (BitcoinUrlHandler.isBitcoinUrl(result))
-                                BitcoinUrlHandler.processRequest(BRActivity.this, result);
+                            if (LitecoinURIHandler.isValidLitecoinURI(result))
+                                // In-app scan (e.g. Send screen's own "Scan" button) - not an
+                                // external deep link, so just paste into the current screen's
+                                // field instead of navigating/re-authenticating.
+                                LitecoinURIHandler.processRequest(BRActivity.this, result, false);
                             else
                                 Timber.i("timber: onActivityResult: not litecoin address NOR bitID");
                         }
@@ -141,7 +144,13 @@ public class BRActivity extends AppCompatActivity {
             if (AuthManager.getInstance().isWalletDisabled(app))
                 AuthManager.getInstance().setWalletDisabled(app);
 
-        BrainwalletApp.activityCounter.incrementAndGet();
+        // getAndIncrement lets us see whether this transition is the app actually
+        // re-entering the foreground (0 -> 1) versus navigating between two of its own
+        // activities (already >= 1) -- only the former should fire foreground listeners.
+        int activitiesBeforeThis = BrainwalletApp.activityCounter.getAndIncrement();
+        if (activitiesBeforeThis == 0) {
+            BrainwalletApp.fireForegroundListeners();
+        }
         BrainwalletApp.setBreadContext(app);
         //lock wallet if 3 minutes passed (180 * 1000)
         if (BrainwalletApp.backgroundedTime != 0 && hasTimeElapsedSinceInBackground(180 * 1000) && !(app instanceof DisabledActivity)) {

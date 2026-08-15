@@ -129,95 +129,50 @@ fun TransactionDetail(
     val txIDBrowserURL: String = run {
         "${BWConstants.BLOCKCHAIR_EXPLORER_BASE_URL}${currentTransaction?.txHashHexReversed ?: ""}"
     }
-    val sectionHeight = 220.dp
 
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(sectionHeight)
             .mainBentoSurface(isDarkMode)
     ) {
         Column {
             Row(
                 modifier = Modifier.padding(bentoSpacer)
             ) {
-                Column(
+                Column( // Amount Label , Blockheight Label Section
                     modifier = Modifier
-                        .padding(all = 6.dp)
+                        .padding(start = 6.dp, end = 6.dp, top = 6.dp)
+
                 ) {
                     Text(
                         modifier = Modifier,
                         text = stringResource(R.string.amount_label),
                         style = TextStyle(
                             fontFamily = IBMPlexSans,
-                            fontWeight = FontWeight.Normal,
+                            fontWeight = FontWeight.SemiBold,
                             fontSize = 12.sp,
                             color = if (isDarkMode) Color.White else Color.Black
                         ),
                         maxLines = 1
                     )
-                    if (!wasReceived) {
-                        Text(
-                            modifier = Modifier,
-                            text = stringResource(R.string.fees_label),
-                            style = TextStyle(
-                                fontFamily = IBMPlexSans,
-                                fontWeight = FontWeight.Normal,
-                                fontSize = 12.sp,
-                                color = if (isDarkMode) Color.White else Color.Black
-                            ),
-                            maxLines = 1
-                        )
-                    }
-                    Text(
-                        modifier = Modifier,
-                        text = stringResource(R.string.tx_id_label),
-                        style = TextStyle(
-                            fontFamily = IBMPlexSans,
-                            fontWeight = FontWeight.Normal,
-                            fontSize = 12.sp,
-                            color = if (isDarkMode) Color.White else Color.Black
-                        ),
-                        maxLines = 1
-                    )
-                    Text(
-                        modifier = Modifier,
-                        text = stringResource(R.string.memo_label),
-                        style = TextStyle(
-                            fontFamily = IBMPlexSans,
-                            fontWeight = FontWeight.Normal,
-                            fontSize = 12.sp,
-                            color = if (isDarkMode) Color.White else Color.Black
-                        ),
-                        maxLines = 1
-                    )
+
                     Text(
                         modifier = Modifier,
                         text = stringResource(R.string.block_height_label),
                         style = TextStyle(
                             fontFamily = IBMPlexSans,
-                            fontWeight = FontWeight.Normal,
-                            fontSize = 12.sp,
-                            color = if (isDarkMode) Color.White else Color.Black
-                        ),
-                        maxLines = 1
-                    )
-                    Text(
-                        modifier = Modifier,
-                        text = stringResource(R.string.date_label),
-                        style = TextStyle(
-                            fontFamily = IBMPlexSans,
-                            fontWeight = FontWeight.Normal,
+                            fontWeight = FontWeight.SemiBold,
                             fontSize = 12.sp,
                             color = if (isDarkMode) Color.White else Color.Black
                         ),
                         maxLines = 1
                     )
                 }
-                Spacer(modifier = Modifier.weight(0.2f))
-                Column(
+                Spacer(modifier = Modifier.weight(0.05f))
+                Column( // Amount Values , Blockheight Values Section
                     modifier = Modifier
-                        .padding(all = 6.dp)
+                        .padding(start = 6.dp, end = 6.dp, top = 6.dp)
+
                 ) {
                     Text(
                         modifier = Modifier,
@@ -230,6 +185,54 @@ fun TransactionDetail(
                         ),
                         maxLines = 1
                     )
+
+                    Text(
+                        modifier = Modifier,
+                        text = "${currentTransaction?.blockHeight ?: 0L}",
+                        style = TextStyle(
+                            fontFamily = IBMPlexSans,
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 12.sp,
+                            color = if (isDarkMode) Color.White else Color.Black
+                        ),
+                        maxLines = 1
+                    )
+                }
+                Spacer(modifier = Modifier.weight(0.1f))
+                Column( // Fees Label , Date Label Section
+                    modifier = Modifier
+                        .padding(start = 6.dp, end = 6.dp, top = 6.dp)
+                ) {
+                    if (!wasReceived) {
+                        Text(
+                            modifier = Modifier,
+                            text = stringResource(R.string.fees_label),
+                            style = TextStyle(
+                                fontFamily = IBMPlexSans,
+                                fontWeight = FontWeight.SemiBold,
+                                fontSize = 12.sp,
+                                color = if (isDarkMode) Color.White else Color.Black
+                            ),
+                            maxLines = 1
+                        )
+                    }
+                    Text(
+                        modifier = Modifier,
+                        text = stringResource(R.string.date_label),
+                        style = TextStyle(
+                            fontFamily = IBMPlexSans,
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 12.sp,
+                            color = if (isDarkMode) Color.White else Color.Black
+                        ),
+                        maxLines = 1
+                    )
+                }
+                Column(
+                    modifier = Modifier
+                        .padding(start = 6.dp, end = 6.dp, top = 6.dp)
+
+                ) {
                     if (!wasReceived) {
                         Text(
                             modifier = Modifier,
@@ -243,6 +246,53 @@ fun TransactionDetail(
                             maxLines = 1
                         )
                     }
+                    Text(
+                        modifier = Modifier,
+                        text = "$dateTimestamp",
+                        style = TextStyle(
+                            fontFamily = IBMPlexSans,
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 12.sp,
+                            color = if (isDarkMode) Color.White else Color.Black
+                        ),
+                        maxLines = 1
+                    )
+                }
+            }
+            Row(
+                modifier = Modifier.padding(start = 6.dp, end = 6.dp)
+            ) {
+                Column( // TXID Label , Memo Label Section
+                    modifier = Modifier.padding(start = 6.dp, end = 6.dp)
+                ) {
+                    Text(
+                        modifier = Modifier,
+                        text = stringResource(R.string.tx_id_label),
+                        style = TextStyle(
+                            fontFamily = IBMPlexSans,
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 12.sp,
+                            color = if (isDarkMode) Color.White else Color.Black
+                        ),
+                        maxLines = 1
+                    )
+
+                    Text(
+                        modifier = Modifier,
+                        text = stringResource(R.string.memo_label),
+                        style = TextStyle(
+                            fontFamily = IBMPlexSans,
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 12.sp,
+                            color = if (isDarkMode) Color.White else Color.Black
+                        ),
+                        maxLines = 1
+                    )
+                }
+                Column( // TXID Metadata , Memo Values Section
+                    modifier = Modifier
+                        .padding(start = 6.dp, end = 6.dp)
+                ) {
                     Text(
                         modifier = Modifier,
                         text = currentTransaction?.txHashHexReversed ?: "",
@@ -265,31 +315,10 @@ fun TransactionDetail(
                         ),
                         maxLines = 3
                     )
-                    Text(
-                        modifier = Modifier,
-                        text = "${currentTransaction?.blockHeight ?: 0L}",
-                        style = TextStyle(
-                            fontFamily = IBMPlexSans,
-                            fontWeight = FontWeight.Normal,
-                            fontSize = 12.sp,
-                            color = if (isDarkMode) Color.White else Color.Black
-                        ),
-                        maxLines = 1
-                    )
-                    Text(
-                        modifier = Modifier,
-                        text = "$dateTimestamp",
-                        style = TextStyle(
-                            fontFamily = IBMPlexSans,
-                            fontWeight = FontWeight.Normal,
-                            fontSize = 12.sp,
-                            color = if (isDarkMode) Color.White else Color.Black
-                        ),
-                        maxLines = 1
-                    )
                 }
-                Spacer(modifier = Modifier.weight(1f))
             }
+
+            // QR Address Section
             Row(
                 modifier = Modifier
                     .fillMaxWidth()

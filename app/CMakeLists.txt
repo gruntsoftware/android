@@ -64,8 +64,8 @@ add_library( # Specifies the name of the library.
              src/main/jni/core/BRBech32.c
              src/main/jni/core/BRBech32.h
 
-             src/main/jni/transition/core.c
-             src/main/jni/transition/core.h
+             src/main/jni/transition/JNIPaymentsCore.c
+             src/main/jni/transition/JNIPaymentsCore.h
              src/main/jni/transition/JNIBase58.c
              src/main/jni/transition/JNIBase58.h
              src/main/jni/transition/JNIBIP32Sequence.c

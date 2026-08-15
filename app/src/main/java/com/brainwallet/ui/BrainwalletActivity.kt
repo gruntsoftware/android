@@ -10,7 +10,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.brainwallet.BrainwalletApp
 import com.brainwallet.R
 import com.brainwallet.constants.BWConstants
@@ -49,8 +51,6 @@ import com.brainwallet.util.EventBus
 import com.brainwallet.wallet.BRPeerManager
 import com.brainwallet.wallet.BRWalletManager
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import timber.log.Timber
@@ -72,14 +72,19 @@ class BrainwalletActivity :
     private var mConnectionReceiver: InternetManager? = null
     var appVisible: Boolean = false
 
+    // The route this activity was started with - held onto (rather than a local val in
+    // onCreate) so onUnlock can read a pending Send address off it once the PIN is verified.
+    private var startDestination: Route = Route.Welcome
+
+    @Suppress("DEPRECATION") // still switches on the deprecated EventBus.Event.QRCodeScanned (no-op here)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         onConnectionChanged(InternetManager.getInstance().isConnected(this))
         BRSharedPrefs.getLTCViewingPreference(application)
 
-        val startDestination =
-            intent.getSerializableExtra(EXTRA_START_DESTINATION) ?: Route.Welcome
+        startDestination =
+            intent.getSerializableExtra(EXTRA_START_DESTINATION) as? Route ?: Route.Welcome
 
         if (startDestination is Route.UnLock) {
             onCheckPin()
@@ -106,18 +111,35 @@ class BrainwalletActivity :
          * why we are using this event bus?
          * we need to migrate gradually to compose, so that's why we still use legacy logic here
          * from compose just send event using this EventBus
+         *
+         * Lifecycle-gated (repeatOnLifecycle) rather than a bare lifecycleScope.launch: a
+         * litecoin: deep link opens a *new* BrainwalletActivity instance on Route.UnLock via
+         * LegacyNavigation.openComposeScreen, which doesn't finish/clear whatever instance was
+         * already running (e.g. one sitting on Route.Main in the background). lifecycleScope
+         * only cancels on ON_DESTROY, not ON_STOP, so that stale instance's collector would
+         * otherwise stay active while merely stopped - EventBus has no replay or lifecycle
+         * awareness of its own, so both instances would receive the same
+         * EventBus.Event.LegacyUnLock broadcast once the user enters their PIN, and both would
+         * call onUnlock and restart the Activity. The stale instance's onUnlock always resolves
+         * pendingSendAddress to null (its own startDestination isn't Route.UnLock), so if its
+         * restart-to-Route.Main() (no pending address) happened to land after the correct
+         * instance's restart-to-Route.Main(pendingSendAddress), it would silently clobber the
+         * deep link's destination. Gating on Lifecycle.State.STARTED means only the actually-
+         * visible instance collects.
          */
-        EventBus.events
-            .onEach { event ->
-                delay(70)
-                when (event) {
-                    is EventBus.Event.Message -> handleLegacyMessage(event.message)
-                    is EventBus.Event.LegacyPasscodeVerified -> onPasscodeVerified(event.passcode)
-                    is EventBus.Event.LegacyUnLock -> onUnlock(event.passcode)
-                    is EventBus.Event.QRCodeScanned -> Unit
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                EventBus.events.collect { event ->
+                    delay(70)
+                    when (event) {
+                        is EventBus.Event.Message -> handleLegacyMessage(event.message)
+                        is EventBus.Event.LegacyPasscodeVerified -> onPasscodeVerified(event.passcode)
+                        is EventBus.Event.LegacyUnLock -> onUnlock(event.passcode)
+                        is EventBus.Event.QRCodeScanned -> Unit
+                    }
                 }
             }
-            .launchIn(lifecycleScope)
+        }
     }
     private fun handleLegacyMessage(message: String) {
         when (message) {
@@ -221,7 +243,7 @@ class BrainwalletActivity :
         if (isConnected) {
             BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
                 Runnable {
-                    val progress = BRPeerManager.syncProgress(startHeight)
+                    val progress = BRPeerManager.getInstance().syncProgress(startHeight)
                     if (progress > 0 && progress < 1) {
                         SyncThreadManager.getInstance().startSyncing(startHeight)
                     }
@@ -282,11 +304,36 @@ class BrainwalletActivity :
             AuthManager.getInstance().authSuccess(this)
 
             AnalyticsManager.logCustomEvent(BWConstants._20200217_DU)
-            LegacyNavigation.startBrainwalletActivity(this, false)
+
+            // A litecoin: QR scan routes through here with the address it wants to send
+            // to (see LitecoinURIHandler.tryLitecoinURL) - only continue on to Send if
+            // the wallet is fully synced *now*, at the moment the PIN was verified, not
+            // whenever the QR code was originally scanned. Otherwise this is a normal
+            // unlock and nothing else happens beyond the usual restart into Main.
+            //
+            // Landing destination is always Route.Main, never Route.Send directly - Send
+            // only exists as a modal inside MainScreen (see MainScreen's pendingSendAddress
+            // param), not as a standalone top-level destination outside its Scaffold/
+            // bottom-nav. Route.Main.pendingSendAddress carries the address through so
+            // MainScreen can open that modal on load, the same way tapping the bottom nav's
+            // Send tab does.
+            val pendingSendAddress = (startDestination as? Route.UnLock)?.pendingSendAddress
+            val destination = if (pendingSendAddress != null && isWalletFullySynced()) {
+                Route.Main(pendingSendAddress = pendingSendAddress)
+            } else {
+                Route.Main()
+            }
+            LegacyNavigation.restartBrainwalletActivity(this, destination)
         } else {
             // Auth fail toast
             Toast.makeText(this, R.string.incorrect_passcode, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun isWalletFullySynced(): Boolean {
+        val startHeight = BRSharedPrefs.getStartHeight(this)
+        val progress = BRPeerManager.getInstance().syncProgress(startHeight)
+        return progress >= BWConstants.WALLET_FULLY_SYNCED_PROGRESS_THRESHOLD
     }
 
     private fun onPasscodeVerified(passcode: List<Int>) {

@@ -96,7 +96,7 @@ fun TransactionRow(
     )
 
     // For the first peers in the middle of confirmation
-    val peerRelayCount = BRPeerManager.getRelayCount(txItem.txHash)
+    val peerRelayCount = BRPeerManager.getInstance().getRelayCount(txItem.txHash)
 
     val confirmationLevel: Int = when {
         txItem.blockHeight == Int.MAX_VALUE -> peerRelayCount.coerceIn(0, 2)
