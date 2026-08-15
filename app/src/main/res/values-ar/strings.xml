@@ -245,5 +245,5 @@
     <string name="your_emojis_title">رموز Brainwallet التعبيرية الخاصة بك</string>
     <string name="your_emojis_description">اخترت هذه الرموز التعبيرية للعبة لمساعدتك على تذكر عبارة البذرة الخاصة بك</string>
     <string name="your_emojis_reset">مسح الرموز التعبيرية</string>
-    <string name="Send.qrAddressCopied">تم نسخ عنوان Litecoin إلى الحافظة الخاصة بك.</string>
+    <string name="Send.unlockDeepLink">افتح القفل... ستُفتح نافذة الإرسال بهذا العنوان.</string>
 </resources>

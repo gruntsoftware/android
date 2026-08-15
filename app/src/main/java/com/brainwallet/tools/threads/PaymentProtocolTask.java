@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 
 import com.brainwallet.tools.animation.BRDialog;
 import com.brainwallet.tools.manager.BRSharedPrefs;
-import com.brainwallet.tools.security.LitecoinURIHandler;
+import com.brainwallet.tools.util.LitecoinURIHandler;
 import com.brainwallet.tools.security.X509CertificateValidator;
 import com.brainwallet.constants.BWConstants;
 import com.brainwallet.tools.util.BRCurrency;

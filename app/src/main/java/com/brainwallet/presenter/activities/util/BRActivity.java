@@ -16,7 +16,7 @@ import com.brainwallet.tools.animation.BRAnimator;
 import com.brainwallet.tools.manager.InternetManager;
 import com.brainwallet.tools.security.AuthManager;
 import com.brainwallet.tools.security.BRKeyStore;
-import com.brainwallet.tools.security.LitecoinURIHandler;
+import com.brainwallet.tools.util.LitecoinURIHandler;
 import com.brainwallet.tools.security.PostAuth;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.constants.BWConstants;
@@ -108,7 +108,10 @@ public class BRActivity extends AppCompatActivity {
                         public void run() {
                             String result = data.getStringExtra("result");
                             if (LitecoinURIHandler.isValidLitecoinURI(result))
-                                LitecoinURIHandler.processRequest(BRActivity.this, result);
+                                // In-app scan (e.g. Send screen's own "Scan" button) - not an
+                                // external deep link, so just paste into the current screen's
+                                // field instead of navigating/re-authenticating.
+                                LitecoinURIHandler.processRequest(BRActivity.this, result, false);
                             else
                                 Timber.i("timber: onActivityResult: not litecoin address NOR bitID");
                         }

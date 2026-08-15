@@ -542,5 +542,5 @@
     <string name="your_emojis_title">Twoje emoji Brainwallet</string>
     <string name="your_emojis_description">Wybrałeś te emoji do gry i pomagają Ci zapamiętać frazę seed</string>
     <string name="your_emojis_reset">Wyczyść emoji</string>
-    <string name="Send.qrAddressCopied">Adres Litecoin skopiowany do schowka.</string>
+    <string name="Send.unlockDeepLink">Odblokuj... okno wysyłania otworzy się z tym adresem.</string>
 </resources>

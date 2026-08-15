@@ -1,4 +1,4 @@
-package com.brainwallet.tools.security
+package com.brainwallet.tools.util
 
 import android.content.Context
 import android.content.DialogInterface
@@ -10,10 +10,12 @@ import com.brainwallet.navigation.Route
 import com.brainwallet.presenter.customviews.BRDialogView
 import com.brainwallet.tools.animation.BRDialog
 import com.brainwallet.tools.manager.BRClipboardManager
+import com.brainwallet.util.EventBus
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
+import io.mockk.mockkObject
 import io.mockk.mockkStatic
 import io.mockk.slot
 import io.mockk.unmockkAll
@@ -69,6 +71,11 @@ class LitecoinURIHandlerTest {
                 any<Int>()
             )
         } just Runs
+
+        // EventBus is a plain Kotlin object (not @JvmStatic), so mockkObject's
+        // instance-based interception covers it fine.
+        mockkObject(EventBus)
+        every { EventBus.postQRCodeScanned(any()) } just Runs
 
         // openComposeScreen is @JvmStatic, which generates a real static forwarding
         // method that mockkObject's instance-based interception doesn't cover -
@@ -294,6 +301,7 @@ class LitecoinURIHandlerTest {
 
         assertTrue(LitecoinURIHandler.processRequest(activity, "someSweepKey", resolver))
 
+        verify(exactly = 0) { EventBus.postQRCodeScanned(any()) }
         verify(exactly = 0) { BRClipboardManager.putClipboard(any(), any()) }
         verify(exactly = 0) { LegacyNavigation.openComposeScreen(any(), any()) }
     }
@@ -319,19 +327,25 @@ class LitecoinURIHandlerTest {
         verifyDialogShown(activity)
     }
 
+    // isExternalDeepLink defaults to true on the 3-arg (AddressResolver) test overload,
+    // matching BreadActivity's real 2-arg processRequest(app, url) call - the manifest's
+    // litecoin: scheme intent-filter, i.e. the recipient's QR code scanned by the device
+    // camera/another app.
+
     @Test
-    fun `processRequest always copies the address and toasts, then deep links to UnLock carrying it`() {
-        // Sync state is no longer checked here at all - it's checked later, at the moment
-        // the PIN is verified in BrainwalletActivity.onUnlock, not now (which could be
-        // stale by the time the user actually unlocks). This scan-time step always copies
-        // the address, always toasts, and always routes through the real unlock flow.
+    fun `processRequest (external deep link) always copies the address and toasts, then opens Unlock carrying it`() {
+        // Sync state is not checked here at all - it's checked later, at the moment the PIN
+        // is verified in BrainwalletActivity.onUnlock, not now (which could be stale by the
+        // time the user actually unlocks). This scan-time step always copies the address,
+        // always toasts, and always routes through the real unlock flow.
         val activity = mockActivity()
 
         val result = LitecoinURIHandler.processRequest(activity, "litecoin:LQRScannedAddr", resolver)
 
         assertTrue(result)
+        verify(exactly = 0) { EventBus.postQRCodeScanned(any()) }
         verify(exactly = 1) { BRClipboardManager.putClipboard(activity, "LQRScannedAddr") }
-        verify(exactly = 1) { Toast.makeText(activity, R.string.Send_qrAddressCopied, Toast.LENGTH_LONG) }
+        verify(exactly = 1) { Toast.makeText(activity, R.string.Send_unlockDeepLink, Toast.LENGTH_LONG) }
 
         val routeSlot = slot<Route>()
         verify(exactly = 1) { LegacyNavigation.openComposeScreen(activity, capture(routeSlot)) }
@@ -339,7 +353,7 @@ class LitecoinURIHandlerTest {
     }
 
     @Test
-    fun `processRequest does not copy, toast, or navigate when an amount is present`() {
+    fun `processRequest (external deep link) does not copy, toast, or navigate when an amount is present`() {
         // Pinning existing behavior: a BIP21 URI with a non-zero amount is currently a
         // silent no-op beyond returning true - see tryLitecoinURL's amount guard.
         val activity = mockActivity()
@@ -347,6 +361,7 @@ class LitecoinURIHandlerTest {
         val result = LitecoinURIHandler.processRequest(activity, "litecoin:LQRScannedAddr?amount=1", resolver)
 
         assertTrue(result)
+        verify(exactly = 0) { EventBus.postQRCodeScanned(any()) }
         verify(exactly = 0) { BRClipboardManager.putClipboard(any(), any()) }
         verify(exactly = 0) { LegacyNavigation.openComposeScreen(any(), any()) }
     }
@@ -358,7 +373,36 @@ class LitecoinURIHandlerTest {
         val result = LitecoinURIHandler.processRequest(activity, "litecoin:?r=https://example.com/pay", resolver)
 
         assertTrue(result)
+        verify(exactly = 0) { EventBus.postQRCodeScanned(any()) }
         verify(exactly = 0) { BRClipboardManager.putClipboard(any(), any()) }
         verify(exactly = 0) { LegacyNavigation.openComposeScreen(any(), any()) }
+    }
+
+    // ── processRequest, in-app scan (isExternalDeepLink = false) ───────────────
+
+    @Test
+    fun `processRequest (in-app scan) posts the verified address via EventBus without navigating anywhere`() {
+        // e.g. tapping "Scan" on an already-open Send screen (BRActivity.onActivityResult's
+        // SCANNER_REQUEST case) - the user is already authenticated and already looking at
+        // Send, so this should just hand the address to whichever screen is listening
+        // (SendViewModel), not copy to clipboard/toast/navigate like an external deep link.
+        val activity = mockActivity()
+
+        val result = LitecoinURIHandler.processRequest(activity, "litecoin:LQRScannedAddr", false, resolver)
+
+        assertTrue(result)
+        verify(exactly = 1) { EventBus.postQRCodeScanned("LQRScannedAddr") }
+        verify(exactly = 0) { BRClipboardManager.putClipboard(any(), any()) }
+        verify(exactly = 0) { LegacyNavigation.openComposeScreen(any(), any()) }
+    }
+
+    @Test
+    fun `processRequest (in-app scan) does not post an address when an amount is present`() {
+        val activity = mockActivity()
+
+        val result = LitecoinURIHandler.processRequest(activity, "litecoin:LQRScannedAddr?amount=1", false, resolver)
+
+        assertTrue(result)
+        verify(exactly = 0) { EventBus.postQRCodeScanned(any()) }
     }
 }

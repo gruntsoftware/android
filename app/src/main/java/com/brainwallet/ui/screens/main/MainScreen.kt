@@ -114,12 +114,18 @@ import timber.log.Timber
 fun MainScreen(
     onNavigate: OnNavigate,
     modifier: Modifier = Modifier,
+    // Address from a scanned litecoin: QR code, carried here via Route.Main once the PIN is
+    // verified and the wallet is fully synced (see BrainwalletActivity.onUnlock). Opens the
+    // Send modal on load - the same modalContentRoute/isSheetOpen state BentoBottomNavBar's
+    // onItemClick sets when the user taps the Send tab themselves - rather than navigating
+    // to Route.Send as a disconnected top-level destination outside this screen entirely.
+    pendingSendAddress: String? = null,
     viewModel: MainViewModel = koinViewModel(),
     shopBentoViewModel: ShopBentoViewModel = koinViewModel(),
     gameHubViewModel: GameHubViewModel = koinViewModel()
 ) {
     val context = LocalContext.current
-    var currentRoute by remember { mutableStateOf<Route>(Route.Main) }
+    var currentRoute by remember { mutableStateOf<Route>(Route.Main()) }
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -173,6 +179,15 @@ fun MainScreen(
             .collect {
                 drawerState.close()
             }
+    }
+
+    LaunchedEffect(pendingSendAddress) {
+        if (!pendingSendAddress.isNullOrBlank()) {
+            val route = Route.Send(pendingSendAddress)
+            currentRoute = route
+            modalContentRoute = route
+            isSheetOpen = true
+        }
     }
 
     // / Splash setup animation
@@ -257,12 +272,12 @@ fun MainScreen(
                         noTxItemsPresent = noTxItemsPresent,
                         onToggleTransactionDetail = {
                             viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail)
-                            if (showTransactionDetail) currentRoute = Route.Main
+                            if (showTransactionDetail) currentRoute = Route.Main()
                         },
                         onItemClick = { route: Route ->
                             currentRoute = route
 
-                            if (route == Route.Main) {
+                            if (route is Route.Main) {
                                 scope.launch { sheetState.hide() }.invokeOnCompletion {
                                     if (!sheetState.isVisible) {
                                         isSheetOpen = false
@@ -271,7 +286,7 @@ fun MainScreen(
                                 onNavigate.invoke(UiEffect.Navigate(route))
                             } else if (route == Route.History) {
                                 viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail)
-                                if (showTransactionDetail) currentRoute = Route.Main
+                                if (showTransactionDetail) currentRoute = Route.Main()
                             } else if (route == Route.GameHub) {
                                 if (!BRSharedPrefs.wereEmojisChosen(context)) {
                                     modalContentRoute = Route.EmojiPickerPager
@@ -459,7 +474,7 @@ fun MainScreen(
                 launchParams = viewModel.produceLaunchParams(),
                 onExit = { _, _ ->
                     modalContentRoute = null
-                    currentRoute = Route.Main
+                    currentRoute = Route.Main()
                 }
             )
 

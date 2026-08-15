@@ -100,6 +100,18 @@ private fun SendScreen(
         }
     }
 
+    // Deep-linked / QR-scanned address (e.g. litecoin: URI from another app, or
+    // MainScreen's Send modal opened via Route.Main.pendingSendAddress) - paste it into
+    // the recipient field. Keyed on `address` rather than Unit so this re-fires if the
+    // address is set/changes after this screen's first composition (e.g. this composable
+    // instance was already alive with address == null when the modal opened), not just
+    // once at initial load.
+    LaunchedEffect(address) {
+        if (!address.isNullOrBlank()) {
+            viewModel.onEvent(SendEvent.OnRecipientAddressChanged(address))
+        }
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize(),

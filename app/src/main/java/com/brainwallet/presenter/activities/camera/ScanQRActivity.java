@@ -18,7 +18,7 @@ import com.brainwallet.R;
 import com.brainwallet.presenter.activities.util.BRActivity;
 import com.brainwallet.tools.animation.SpringAnimator;
 import com.brainwallet.tools.qrcode.QRCodeReaderView;
-import com.brainwallet.tools.security.LitecoinURIHandler;
+import com.brainwallet.tools.util.LitecoinURIHandler;
 
 import timber.log.Timber;
 

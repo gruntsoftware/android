@@ -245,5 +245,5 @@
     <string name="your_emojis_title">Je Brainwallet Emoji\'s</string>
     <string name="your_emojis_description">Je hebt deze emoji\'s voor het spel gekozen en ze helpen je je zaadzin te onthouden</string>
     <string name="your_emojis_reset">Emoji\'s wissen</string>
-    <string name="Send.qrAddressCopied">Litecoin-adres gekopieerd naar uw klembord.</string>
+    <string name="Send.unlockDeepLink">Ontgrendel... het verzendvenster wordt geopend met dit adres.</string>
 </resources>

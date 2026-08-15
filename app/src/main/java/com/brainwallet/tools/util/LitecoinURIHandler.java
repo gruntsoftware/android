@@ -1,4 +1,4 @@
-package com.brainwallet.tools.security;
+package com.brainwallet.tools.util;
 
 import android.content.Context;
 import android.widget.Toast;
@@ -7,14 +7,14 @@ import androidx.annotation.VisibleForTesting;
 import androidx.fragment.app.FragmentActivity;
 
 import com.brainwallet.R;
-import com.brainwallet.navigation.LegacyNavigation;
-import com.brainwallet.navigation.Route;
+import com.brainwallet.navigation.DeepLink;
 import com.brainwallet.presenter.customviews.BRDialogView;
 import com.brainwallet.presenter.entities.PaymentRequestWrapper;
 import com.brainwallet.presenter.entities.RequestObject;
 import com.brainwallet.tools.animation.BRDialog;
 import com.brainwallet.tools.manager.BRClipboardManager;
 import com.brainwallet.tools.threads.PaymentProtocolTask;
+import com.brainwallet.util.EventBus;
 import com.brainwallet.wallet.BRWalletManager;
 
 import java.io.UnsupportedEncodingException;
@@ -80,12 +80,42 @@ public class LitecoinURIHandler {
         }
     }
 
+    /**
+     * @see #processRequest(FragmentActivity, String, boolean) - defaults to treating this
+     * as an external deep link (the manifest's litecoin: scheme intent-filter).
+     */
     public static synchronized boolean processRequest(FragmentActivity app, String url) {
-        return processRequest(app, url, AddressResolver.usingWalletManager());
+        return processRequest(app, url, true);
+    }
+
+    /**
+     * @param isExternalDeepLink true for a litecoin: URI arriving from outside the app - the
+     *                           recipient's camera/QR app scanning ReceiveDialog's QR code,
+     *                           resolved via the manifest's litecoin: scheme intent-filter
+     *                           to BreadActivity. On a resolved address this always copies it
+     *                           to the clipboard and shows a toast, then opens the Unlock
+     *                           screen carrying the address; once the PIN is verified *and*
+     *                           the wallet is fully synced, BrainwalletActivity.onUnlock
+     *                           continues on to the existing Send screen (via Compose
+     *                           navigation, not a new Activity) with the address pasted in.
+     *                           <p>
+     *                           false for a QR code scanned in-app (e.g. tapping "Scan" on an
+     *                           already-open Send screen) - the user is already authenticated
+     *                           and already looking at Send, so this just pastes the address
+     *                           into its recipient field instead of tearing down to a new,
+     *                           disconnected BrainwalletActivity/re-auth flow.
+     */
+    public static synchronized boolean processRequest(FragmentActivity app, String url, boolean isExternalDeepLink) {
+        return processRequest(app, url, isExternalDeepLink, AddressResolver.usingWalletManager());
     }
 
     @VisibleForTesting
     static synchronized boolean processRequest(FragmentActivity app, String url, AddressResolver resolver) {
+        return processRequest(app, url, true, resolver);
+    }
+
+    @VisibleForTesting
+    static synchronized boolean processRequest(FragmentActivity app, String url, boolean isExternalDeepLink, AddressResolver resolver) {
         if (url == null) {
             Timber.d("timber: processRequest: url is null");
             return false;
@@ -110,7 +140,7 @@ public class LitecoinURIHandler {
         if (requestObject.r != null) {
             return tryPaymentRequest(requestObject);
         } else if (requestObject.address != null) {
-            return tryLitecoinURL(url, app, resolver);
+            return tryLitecoinURL(url, app, isExternalDeepLink, resolver);
         } else {
             if (app != null) {
                 BRDialog.showCustomDialog(app, app.getString(R.string.JailbreakWarnings_title),
@@ -227,7 +257,13 @@ public class LitecoinURIHandler {
         return true;
     }
 
-    private static boolean tryLitecoinURL(final String url, final FragmentActivity app, AddressResolver resolver) {
+    @SuppressWarnings("deprecation") // intentional EventBus#postQRCodeScanned use, see below
+    private static boolean tryLitecoinURL(
+            final String url,
+            final FragmentActivity app,
+            final boolean isExternalDeepLink,
+            AddressResolver resolver
+    ) {
         RequestObject requestObject = getRequestFromString(url, resolver);
         if (requestObject == null || requestObject.address == null || requestObject.address.isEmpty())
             return false;
@@ -235,22 +271,31 @@ public class LitecoinURIHandler {
         String amount = requestObject.amount;
 
         if (amount == null || amount.isEmpty() || new BigDecimal(amount).doubleValue() == 0) {
-            app.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    // Always copy the scanned address to the clipboard and let the user
-                    // know, regardless of sync state - it's still useful once the wallet
-                    // reaches Send below, and it's all the user gets if it doesn't.
-                    BRClipboardManager.putClipboard(app, requestObject.address);
-                    Toast.makeText(app, R.string.Send_qrAddressCopied, Toast.LENGTH_LONG).show();
-
-                    // Always go through the real unlock flow rather than jumping straight
-                    // to Send - this both enforces auth on a scan-triggered deep link and
-                    // gives BrainwalletActivity.onUnlock a chance to check sync progress
-                    // *at the moment the PIN is verified* (not now, which could be stale)
-                    // before deciding whether to continue on to Send with this address.
-                    LegacyNavigation.openComposeScreen(app, new Route.UnLock(false, requestObject.address));
+            // requestObject.address has already been through AddressResolver#validateAddress
+            // (see getRequestFromString above).
+            app.runOnUiThread(() -> {
+                if (!isExternalDeepLink) {
+                    // In-app scan (e.g. tapping "Scan" on an already-open Send screen): the
+                    // user is already authenticated and already looking at Send - just hand
+                    // the verified address off to whichever screen is listening (e.g.
+                    // SendViewModel) instead of tearing down to a new, disconnected
+                    // BrainwalletActivity/re-auth flow below. This is the one remaining
+                    // legacy EventBus bridge - see EventBus#postQRCodeScanned's deprecation
+                    // note; a true deep link (below) never touches EventBus.
+                    EventBus.INSTANCE.postQRCodeScanned(requestObject.address);
+                    return;
                 }
+
+                // External deep link (the recipient's QR code, scanned by the device
+                // camera/another app, resolved via BreadActivity's litecoin: intent-filter):
+                // always copy the address to the clipboard and let the user know - it's all
+                // they get if the wallet isn't synced enough to send yet below.
+                BRClipboardManager.putClipboard(app, requestObject.address);
+                Toast.makeText(app, R.string.Send_unlockDeepLink, Toast.LENGTH_LONG).show();
+
+                // Route through DeepLink (Compose Navigation, opening MainScreen's Send modal
+                // once authenticated+synced) rather than EventBus - see DeepLink's class doc.
+                DeepLink.sendToAddress(requestObject.address).open(app);
             });
         }
         return true;
