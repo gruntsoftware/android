@@ -547,5 +547,5 @@
     <string name="your_emojis_title">ਤੁਹਾਡੇ Brainwallet Emojis</string>
     <string name="your_emojis_description">ਤੁਸੀਂ ਇਹ emojis ਖੇਲ ਲਈ ਚੁਣੇ ਹਨ ਅਤੇ ਆਪਣੇ ਸੀਡ ਵਾਕਾਂਸ਼ ਨੂੰ ਯਾਦ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ</string>
     <string name="your_emojis_reset">Emojis ਨੂੰ ਸਾਫ਼ ਕਰੋ</string>
-    <string name="Send.qrAddressCopied">Litecoin ਪਤਾ ਤੁਹਾਡੇ ਕਲਿੱਪਬੋਰਡ ਵਿੱਚ ਕਾਪੀ ਕੀਤਾ ਗਿਆ।</string>
+    <string name="Send.unlockDeepLink">ਅਨਲੌਕ ਕਰੋ... ਇਸ ਪਤੇ ਨਾਲ ਭੇਜੋ ਵਿੰਡੋ ਖੁੱਲ੍ਹੇਗੀ।</string>
 </resources>

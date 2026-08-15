@@ -245,5 +245,5 @@
     <string name="your_emojis_title">आपके Brainwallet Emojis</string>
     <string name="your_emojis_description">आपने गेम के लिए ये emojis चुने हैं और अपने seed phrase को याद रखने में मदद करते हैं</string>
     <string name="your_emojis_reset">Emojis साफ़ करें</string>
-    <string name="Send.qrAddressCopied">Litecoin address आपके क्लिपबोर्ड पर कॉपी हो गया है।</string>
+    <string name="Send.unlockDeepLink">अनलॉक करें... इस पते के साथ भेजें विंडो खुल जाएगी।</string>
 </resources>

@@ -557,5 +557,5 @@
     <string name="your_emojis_title">Brainwallet Emojileriniz</string>
     <string name="your_emojis_description">Oyun için bu emojileri seçtiniz ve seed ifadenizi hatırlamanıza yardımcı oluyorlar</string>
     <string name="your_emojis_reset">Emojileri temizle</string>
-    <string name="Send.qrAddressCopied">Litecoin adresi panonuza kopyalandı.</string>
+    <string name="Send.unlockDeepLink">Kilidi aç... bu adresle gönderme ekranı açılacak.</string>
 </resources>

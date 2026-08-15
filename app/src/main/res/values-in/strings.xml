@@ -538,5 +538,5 @@
     <string name="your_emojis_title">Emoji Brainwallet Anda</string>
     <string name="your_emojis_description">Anda memilih emoji ini untuk permainan dan membantu Anda mengingat frasa seed Anda</string>
     <string name="your_emojis_reset">Hapus emoji</string>
-    <string name="Send.qrAddressCopied">Alamat Litecoin disalin ke papan klip Anda.</string>
+    <string name="Send.unlockDeepLink">Buka kunci... jendela kirim akan terbuka dengan alamat ini.</string>
 </resources>
