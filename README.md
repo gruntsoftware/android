@@ -74,6 +74,27 @@ For the full, up-to-date changelog see [GitHub Releases](https://github.com/grun
 
 ---
 
+### **v4.12.2**  [PR [#286](https://github.com/gruntsoftware/android/pull/286)]
+---
+#### 🐛 Bug Fixes
+Fixes a v4.12.1 regression where scanning a QR code from the Send screen's own "Scan" button tore down the screen and forced re-authentication, then rebuilds the external `litecoin:` deep-link flow (a recipient's QR code scanned by the device camera) so it correctly copies the address, unlocks, and lands the address in Send's recipient field via the existing `MainScreen` modal instead of a disconnected top-level screen.
+
+- `LitecoinURIHandler` (moved from `tools.security` to `tools.util`) now takes an `isExternalDeepLink` flag so the in-app "Scan" button can no longer be routed through the external deep-link path — the actual regression.
+- New `com.brainwallet.navigation.DeepLink` sealed class routes an already-verified external `litecoin:` deep link through Compose Navigation, replacing an inline `LegacyNavigation`/`Route` call.
+- `Route.Main` is now a data class carrying an optional `pendingSendAddress`, so `BrainwalletActivity.onUnlock` lands a synced deep link there instead of on a disconnected top-level `Route.Send` (which has been removed — Send is only ever reached as a modal inside `MainScreen`).
+- `BrainwalletActivity`'s `EventBus` subscription is now gated on `repeatOnLifecycle(Lifecycle.State.STARTED)` instead of a bare `lifecycleScope.launch`, fixing a race where a stale, backgrounded activity instance could clobber the correct instance's post-unlock destination.
+- Fixed two `LaunchedEffect` timing bugs in `SendScreen`/`PreSendAddressRow` that stopped the deep-linked address from actually rendering in the recipient field.
+
+#### 🧪 Test Coverage
+New `DeepLinkTest.kt`, plus updated `LitecoinURIHandlerTest.kt` coverage for the external vs. in-app deep-link paths (#286).
+
+#### 🔧 Chores
+- Version bumped: **v4.12.1 (202506354) → v4.12.2 (202506355)**
+
+**Full Changelog**: https://github.com/gruntsoftware/android/compare/v4.12.1...v4.12.2
+
+---
+
 ### **v4.12.1**  [PR [#284](https://github.com/gruntsoftware/android/pull/284)]
 ---
 #### 🐛 Bug Fixes
