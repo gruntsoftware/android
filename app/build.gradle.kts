@@ -76,14 +76,12 @@ android {
                 isDebuggable = true
                 isMinifyEnabled = false
             }
-            resValue("string", "firebase_analytics_collection_enabled", "false")
         }
         val release by getting {
             signingConfig = signingConfigs.getByName("release")
             isDebuggable = false
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            resValue("string", "firebase_analytics_collection_enabled", "true")
             ndk {
                 isDebuggable = false
                 isMinifyEnabled = true

@@ -1,19 +1,11 @@
 package com.brainwallet.wallet
 
 import android.content.Context
-import com.brainwallet.constants.BWConstants
-import com.brainwallet.tools.manager.AnalyticsManager
-import com.brainwallet.tools.manager.BRSharedPrefs
-import com.brainwallet.tools.security.BRKeyStore
-import com.brainwallet.tools.sqlite.TransactionDataSource
+import com.brainwallet.presenter.activities.util.ActivityUTILS
 import io.mockk.every
-import io.mockk.just
 import io.mockk.mockk
 import io.mockk.mockkStatic
-import io.mockk.Runs
-import io.mockk.Awaits
 import io.mockk.unmockkAll
-import io.mockk.verify
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -27,19 +19,19 @@ class BRWalletManagerTest {
     fun setUp() {
         context = mockk(relaxed = true)
 
-        mockkStatic(BRSharedPrefs::class)
-        mockkStatic(BRKeyStore::class)
-        mockkStatic(AnalyticsManager::class)
-        mockkStatic(TransactionDataSource::class)
+        mockkStatic(ActivityUTILS::class)
 
-        // Safe defaults so every test starts with a consistent baseline
-        every { AnalyticsManager.logCustomEvent(any()) } just Awaits
-        every { BRSharedPrefs.getFalsePositivesRate(any()) } returns 0.0f
-        every { BRSharedPrefs.getStartHeight(any()) } returns 0
-        every { BRSharedPrefs.putStartHeight(any(), any()) } just Runs
-        every { BRSharedPrefs.putFirstAddress(any(), any()) } just Runs
-        every { BRSharedPrefs.putCachedBalance(any(), any()) } just Runs
-        every { BRSharedPrefs.putReceiveAddress(any(), any()) } just Runs
+        // ActivityUTILS.isMainThread() must be stubbed here: with
+        // unitTests.isReturnDefaultValues = true (app/build.gradle.kts), the real
+        // Looper.myLooper()/getMainLooper() stubs both return null in a plain JVM
+        // unit test, so `myLooper() == getMainLooper()` is true unconditionally --
+        // even inside an explicit background Thread. Without this default,
+        // initWallet() throws NetworkOnMainThreadException before reaching any of
+        // the logic under test, and since that throw happens on a child Thread the
+        // test doesn't fail -- it just silently never exercises the intended code
+        // path. See the "on main thread" test below for the one case that wants
+        // the opposite behavior.
+        every { ActivityUTILS.isMainThread() } returns false
     }
 
     @After
@@ -60,55 +52,24 @@ class BRWalletManagerTest {
         assertTrue(first === second)
     }
 
-    // ── isInitiatingWallet guard ───────────────────────────────────────────
-
-    @Test
-    fun `initWallet sequential second call is not blocked by guard`() {
-        // Arrange — pubkey null causes early return without doing any native work
-        val mockDs = mockk<TransactionDataSource>(relaxed = true)
-        every { TransactionDataSource.getInstance(any()) } returns mockDs
-        every { mockDs.getAllTransactions() } returns emptyList()
-        every { BRKeyStore.getMasterPublicKey(any()) } returns null
-
-        val manager = BRWalletManager.getInstance()
-
-        // Act — two sequential calls on a background-like thread (not main)
-        val thread = Thread {
-            manager.initWallet(context)
-            manager.initWallet(context)
-        }
-        thread.start()
-        thread.join(3_000)
-
-        // Assert — guard WNI event never fired because calls were sequential
-        verify(exactly = 0) { AnalyticsManager.logCustomEvent(BWConstants._20200111_WNI) }
-    }
+    // ── isInitiatingWallet guard, initWallet early exits ────────────────────
+    //
+    // Both moved to BRWalletManagerInstrumentationTest (androidTest): the guarded
+    // code path in initWallet() calls BRWalletManager.isCreated(), a native
+    // method with no JVM fallback. In a plain JVM unit test that always throws
+    // UnsatisfiedLinkError before reaching either the pubkey-null check or a
+    // second sequential call, regardless of what's stubbed here -- so these
+    // couldn't actually exercise the behavior they were meant to verify. See
+    // BRPeerManagerTest's class doc for the same limitation on the peer-manager
+    // side.
 
     // ── initWallet throws on main thread ───────────────────────────────────
 
     @Test(expected = android.os.NetworkOnMainThreadException::class)
     fun `initWallet throws NetworkOnMainThreadException when called on main thread`() {
-        // ActivityUTILS.isMainThread() — mock it to simulate main thread
-        mockkStatic(com.brainwallet.presenter.activities.util.ActivityUTILS::class)
-        every { com.brainwallet.presenter.activities.util.ActivityUTILS.isMainThread() } returns true
+        // Override setUp()'s default to simulate being on the main thread.
+        every { ActivityUTILS.isMainThread() } returns true
 
         BRWalletManager.getInstance().initWallet(context)
-    }
-
-    // ── initWallet early exits ─────────────────────────────────────────────
-
-    @Test
-    fun `initWallet returns early when pubkey is null`() {
-        val mockDs = mockk<TransactionDataSource>(relaxed = true)
-        every { TransactionDataSource.getInstance(any()) } returns mockDs
-        every { mockDs.getAllTransactions() } returns emptyList()
-        every { BRKeyStore.getMasterPublicKey(any()) } returns null
-
-        val thread = Thread { BRWalletManager.getInstance().initWallet(context) }
-        thread.start()
-        thread.join(3_000)
-
-        // putFirstAddress is only reached after createWallet succeeds — it must not be called
-        verify(exactly = 0) { BRSharedPrefs.putFirstAddress(any(), any()) }
     }
 }

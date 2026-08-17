@@ -81,7 +81,15 @@ class StringsLocalisationCoverageTest {
     // Helpers
     // ──────────────────────────────────────────────────────────────────────
 
-    /** Parse all <string name="..."> keys from a strings.xml file. */
+    /**
+     * Parse all <string name="..."> keys from a strings.xml file.
+     *
+     * Keys marked `translatable="false"` are excluded — those are intentionally
+     * left untranslated (e.g. app_name, notification channel ids, format
+     * placeholders) and Android falls back to the default values/ resource for
+     * them at runtime, so a locale file never needing its own copy is correct,
+     * not a coverage gap.
+     */
     private fun parseStringKeys(file: File): Set<String> {
         if (!file.exists()) return emptySet()
         return try {
@@ -89,6 +97,7 @@ class StringsLocalisationCoverageTest {
             val nodes = doc.getElementsByTagName("string")
             (0 until nodes.length)
                 .map { nodes.item(it) as Element }
+                .filterNot { it.getAttribute("translatable") == "false" }
                 .mapNotNull { it.getAttribute("name").takeIf { n -> n.isNotBlank() } }
                 .toSet()
         } catch (e: Exception) {
