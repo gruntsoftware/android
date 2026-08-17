@@ -372,7 +372,6 @@
     <string name="ConfirmationAllFees.Label">هزینه‌ها:</string>
     <string name="ok">باشه</string>
     <!-- New Strings -->
-    <string name="empty_string" translatable="false"/>
     <string name="back">بازگشت</string>
     <string name="your_seed_words">کلمات بذر شما</string>
     <string name="your_seed_words_desc">"فقط برای تو. \n این است" <b>کلید خصوصی</b> "که به شما اجازه می‌دهد ارسال کنید."</string>

@@ -395,7 +395,6 @@
     <string name="ConfirmationAllFees.Label">فیس:</string>
     <string name="ok">ٹھیک ہے۔</string>
     <!-- New Strings -->
-    <string name="empty_string" translatable="false"/>
     <string name="back">واپس</string>
     <string name="your_seed_words">تہاڈے بیج دے الفاظ</string>
     <string name="your_seed_words_desc">"صرف آپ کے لئے۔

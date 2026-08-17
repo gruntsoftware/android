@@ -185,7 +185,7 @@ fun YourSeedProveItScreen(
 
             Spacer(modifier = Modifier.weight(1f))
             Text(
-                text = stringResource(if (state.orderCorrected) R.string.empty_string else R.string.tap_drag_a_word),
+                text = if (state.orderCorrected) "" else stringResource(R.string.tap_drag_a_word),
                 style = MaterialTheme.typography.bodyMedium.copy(
                     textAlign = TextAlign.Center,
                     color = Color.Gray

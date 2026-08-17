@@ -214,7 +214,6 @@
   <string name="ok">Ok</string>
 
     <!-- New Strings -->
-    <string name="empty_string" translatable="false"> </string>
     <string name="back">Back</string>
     <string name="your_seed_words">Your seed words</string>
     <string name="your_seed_words_desc">"Just for you. \n It is the <b>private key</b> that lets you send."</string>

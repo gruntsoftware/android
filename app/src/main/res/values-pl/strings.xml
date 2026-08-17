@@ -393,7 +393,6 @@
     <string name="ConfirmationAllFees.Label">Opłaty:</string>
     <string name="ok">Ok</string>
     <!-- New Strings -->
-    <string name="empty_string" translatable="false"/>
     <string name="back">Powrót</string>
     <string name="your_seed_words">Twoje słowa zalążkowe</string>
     <string name="your_seed_words_desc">"Tylko dla ciebie. \To jest <b>klucz prywatny</b> która umożliwia wysyłanie".</string>
