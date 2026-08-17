@@ -1,15 +1,9 @@
 package com.brainwallet.presenter.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.widget.TextView;
-import android.widget.ViewFlipper;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.brainwallet.R;
 import com.brainwallet.presenter.activities.util.BRActivity;
@@ -17,34 +11,20 @@ import com.brainwallet.tools.manager.InternetManager;
 import com.brainwallet.tools.util.LitecoinURIHandler;
 import com.brainwallet.tools.sqlite.TransactionDataSource;
 import com.brainwallet.tools.threads.BRExecutor;
-import com.brainwallet.ui.screens.settings.settingsrows.HomeSettingDrawerComposeView;
 import com.brainwallet.wallet.BRWalletManager;
-import com.google.android.material.navigation.NavigationView;
 
+@Deprecated
 public class BreadActivity extends BRActivity implements BRWalletManager.OnBalanceChanged,
         TransactionDataSource.OnTxAddedListener, InternetManager.ConnectionReceiverListener {
 
     public static final Point screenParametersPoint = new Point();
 
-    private TextView equals;
-    private TextView balanceTxtV;
-
     public static boolean appVisible = false;
-    public ViewFlipper barFlipper;
-    private ConstraintLayout toolBarConstraintLayout;
-    private boolean uiIsDone;
-
     private static BreadActivity app;
-
-    private Handler mHandler = new Handler();
-    private NavigationView navigationDrawer;
-    private HomeSettingDrawerComposeView homeSettingDrawerComposeView;
 
     public static BreadActivity getApp() {
         return app;
     }
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +32,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         setContentView(R.layout.activity_bread);
         app = this;
         getWindowManager().getDefaultDisplay().getSize(screenParametersPoint);
-
         onConnectionChanged(InternetManager.getInstance().isConnected(this));
-
         // Handle a litecoin: deep link (e.g. a QR code scanned by another app) on a
         // cold start too, not just when this activity is already running (onNewIntent).
         setUrlHandler(getIntent());
@@ -98,9 +76,10 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         addObservers();
 
         if (!BRWalletManager.getInstance().isCreated()) {
-            BRExecutor.getInstance().forBackgroundTasks().execute(() -> BRWalletManager.getInstance().initWallet(BreadActivity.this));
+            BRExecutor.getInstance().forBackgroundTasks()
+                .execute(() -> BRWalletManager.getInstance()
+                    .initWallet(BreadActivity.this));
         }
-
         BRWalletManager.getInstance().refreshBalance(this);
     }
 
@@ -113,19 +92,17 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @Override
     public void onBalanceChanged(final long balance) {
-
+        //no-op
     }
 
     @Override
     public void onTxAdded() {
-        BRWalletManager.getInstance().refreshBalance(BreadActivity.this);
+        BRWalletManager.getInstance()
+            .refreshBalance(BreadActivity.this);
     }
 
     @Override
     public void onConnectionChanged(boolean isConnected) {
-
-        Context thisContext = BreadActivity.this;
-        Context app = getApplicationContext();
-
+        //no-op
     }
 }
