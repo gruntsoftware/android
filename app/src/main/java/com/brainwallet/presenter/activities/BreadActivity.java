@@ -26,7 +26,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     public static final Point screenParametersPoint = new Point();
 
-    private InternetManager mConnectionReceiver;
     private TextView equals;
     private TextView balanceTxtV;
 
@@ -110,12 +109,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         super.onPause();
         appVisible = false;
         removeObservers();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(mConnectionReceiver);
     }
 
     @Override
