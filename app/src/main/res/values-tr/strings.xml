@@ -1,213 +1,95 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-    <!-- App name -->
-    <!-- About screen blog label -->
-    <!-- About screen footer -->
-    <!-- About app version -->
-    <!-- Privay Policy button label -->
-    <!-- About screen Instagram label -->
-    <!-- Terms of Use button label -->
-    <!-- About screen title -->
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">Kapat</string>
-    <!-- Support center accessibiliy label -->
-    <!-- Loading Wallet Message -->
-    <!-- Default wallet name -->
-    <!-- Third party keyboard warning -->
     <!-- Error alert title -->
     <string name="Alert.error">Hata</string>
-    <!-- Keystore error -->
     <!-- KeyStore error, keys are invalidated -->
     <string name="Alert.keystore.invalidated.android">Brainwallet şifreli verileriniz, Android kilit ekranınız devre dışı bırakıldığı için yakın zamanda geçersiz kılındı.</string>
     <!-- Keystore error title -->
     <string name="Alert.keystore.title.android">Android KeyStore Hatası</string>
-    <!-- No internet alert message -->
-    <!-- Warning alert title -->
-    <!-- 'the addresses were copied'' Alert title -->
-    <!-- Addresses Copied Alert sub header -->
-    <!-- Alert Header Label (the paper key was set) -->
-    <!-- Alert Subheader label (playfully positive) -->
     <!-- Alert Header label (the PIN was set) -->
     <string name="Alerts.pinSet">PIN Ayarı</string>
     <!-- Send failure alert header label (the send failed to happen) -->
     <string name="Alerts.sendFailure">Gönderilemedi</string>
     <!-- Fingerprint was recognized by the scanner -->
     <string name="Alerts.touchIdSucceeded.android">Parmak izi tanındı</string>
-    <!-- JSON Serialization error message -->
-    <!-- Wallet not ready error message -->
-    <!-- API Token error message -->
-    <!-- Send BCH view body. -->
-    <!-- Confirm sending <$5.00> to <address>? -->
-    <!-- Confirmation alert title -->
-    <!-- Generic bch erorr message -->
-    <!-- Transaction ID copied message -->
-    <!-- No address error message -->
-    <!-- Attempted to scan unsupported qr code error message. -->
-    <!-- BCH successfully sent alert message -->
-    <!-- Widthdraw BCH view title -->
-    <!-- Tx Hash button header -->
-    <!-- Approve button label -->
-    <!-- <sitename> is requesting authentication using your litecoin wallet -->
-    <!-- Deny button label -->
-    <!-- BitID error alert title -->
-    <!-- BitID error alert messaage (The payment service you are trying to use isn't working. Please contact them, as you may need to try again) -->
-    <!-- BitID success alert title -->
-    <!-- BitID Authentication Request alert view title -->
     <!-- Cancel button label -->
     <string name="Button.cancel">İptal etmek</string>
-    <!-- Ignore button label -->
-    <!-- menu button -->
     <!-- No button -->
     <string name="Button.no">Hayır</string>
     <!-- OK button label -->
     <string name="Button.ok">TAMAM MI</string>
-    <!-- receive button -->
     <!-- send button -->
     <string name="send_title">göndermek</string>
-    <!-- Settings button label -->
-    <!-- Settings button label -->
     <!-- Yes button -->
     <string name="Button.yes">Evet</string>
-    <!-- Camera plugin instruction -->
     <!-- Amount to Send: ($1.00) -->
     <string name="Confirmation.amountLabel">Gönderilecek tutar:</string>
-    <!-- Network Fee: ($1.00) -->
-    <!-- eg. Processing time: This transaction is predicted to complete in [10-60 minutes]. -->
-    <!-- Label for "send" button on final confirmation screen -->
-    <!-- Confirmation Screen title -->
     <!-- To: (address) -->
     <string name="Confirmation.to">İçin</string>
     <!-- Total Cost: ($5.00) -->
     <string name="Confirmation.totalLabel">Toplam tutar:</string>
-    <!-- Confirm paper phrase view label. -->
-    <!-- Word label eg. Word #1, Word #2 -->
-    <!-- Email unavailable alert title -->
-    <!-- Email unavailable alert title -->
     <!-- Message that gets shown when we've detected the user has encountered the looping lock-screen bug. (preserve [ ] characters) -->
     <string name="ErrorMessages.loopingLockScreen.android">Android sürümünüzdeki bir hata nedeniyle Brainwallet kimliği doğrulanamıyor. [Daha fazla bilgi için lütfen buraya dokunun.]</string>
-    <!-- Messaging unavailable alert title -->
-    <!-- Messaging unavailable alert title -->
     <!-- Fingerprint was not recognized by the scanner, please try scanning again -->
     <string name="ErrorMessages.touchIdFailed.android">Parmak izi tanınmadı. Lütfen tekrar deneyin.</string>
-    <!-- Economy fee -->
-    <!-- E.g. [This transaction is predicted to complete in] 1-24 hours -->
-    <!-- Warning message for economy fee -->
-    <!-- E.g. Estimated delivery: 10-60 minutes -->
-    <!-- Regular fee -->
-    <!-- E.g. [This transaction is predicted to complete in] 10-60 minutes -->
-    <!-- Fee Selector title -->
     <!-- Checking private key balance progress view text -->
     <string name="Import.checking">Özel anahtar bakiyesi kontrol ediliyor...</string>
     <!-- Sweep private key confirmation message -->
     <string name="Import.confirm">Send %1$s bu özel anahtardan cüzdanınıza mı? Litecoin ağı bir ücret alacak %2$s.</string>
-    <!-- Duplicate key error message -->
     <!-- empty private key error message -->
     <string name="Import.Error.empty">Bu özel anahtar boş.</string>
-    <!-- High fees error message -->
     <!-- Not a valid private key error message -->
     <string name="Import.Error.notValid">Geçerli bir özel anahtar değil</string>
     <!-- Import signing error message -->
     <string name="Import.Error.signing">İşlem imzalanırken hata oluştu</string>
-    <!-- Import button label -->
-    <!-- Importing wallet progress view label -->
-    <!-- Caption for graphics -->
-    <!-- Import wallet intro screen message -->
     <!-- Enter password alert view title -->
     <string name="Import.password">Bu özel anahtar şifre korumalıdır.</string>
-    <!-- password textfield placeholder -->
-    <!-- Caption for graphics -->
-    <!-- Scan Private key button label -->
-    <!-- Import wallet success alert title -->
-    <!-- Successfully imported wallet message body -->
-    <!-- Import Wallet screen title -->
-    <!-- Unlocking Private key activity view message. -->
-    <!-- Import wallet intro warning message -->
-    <!-- Wrong password alert message -->
-    <!-- Close app button -->
     <!-- Ignore jailbreak warning button -->
     <string name="JailbreakWarnings.ignore">Göz ardı etmek</string>
-    <!-- Jailbreak warning message -->
     <!-- Jailbreak warning title -->
     <string name="JailbreakWarnings.title">UYARI</string>
-    <!-- Location services disabled error -->
-    <!-- No permissions for location services -->
-    <!-- Wallet creation date prefix -->
-    <!-- Manage wallet description text -->
-    <!-- Change Wallet name textfield label -->
-    <!-- Manage wallet modal title -->
-    <!-- Buy litecoin title -->
     <!-- button label -->
     <string name="MenuViewController.createButton">Yeni Cüzdan Oluşturun</string>
-    <!-- button label -->
     <!-- Node is not connected label -->
     <string name="NodeSelector.notConnected">Bağlı değil</string>
     <!-- Bad Payment request alert title -->
     <string name="PaymentProtocol.Errors.badPaymentRequest">Kötü Ödeme İsteği</string>
     <!-- Error opening payment protocol file message -->
     <string name="PaymentProtocol.Errors.corruptedDocument">Desteklenmeyen veya bozuk belge</string>
-    <!-- Missing certificate payment protocol error message -->
     <!-- Request expired payment protocol error message -->
     <string name="PaymentProtocol.Errors.requestExpired">talebin süresi doldu</string>
-    <!-- Payment too small alert title -->
     <!-- Amount too small error message -->
     <string name="PaymentProtocol.Errors.smallPayment">Litecoin ödemeleri şu değerden az olamaz: %1$s.</string>
     <!-- Output too small error message. -->
     <string name="PaymentProtocol.Errors.smallTransaction">Litecoin işlem çıktıları şu değerden az olamaz: %1$s.</string>
-    <!-- Unsupported signature type payment protocol error message -->
     <!-- Untrusted certificate payment protocol error message -->
     <string name="PaymentProtocol.Errors.untrustedCertificate">güvenilmeyen sertifika</string>
-    <!-- No passcode set warning body -->
-    <!-- No Passcode set warning title -->
-    <!-- Instruction how to enable device encryption -->
-    <!-- Device encryption prompt title -->
-    <!-- Warning about paper key. -->
-    <!-- An action is required (You must do this action). -->
     <!-- Transaction rejected prompt body -->
     <string name="Prompts.RecommendRescan.body">Cüzdanınız senkronize olmayabilir. Bu genellikle blok zincirini yeniden tarayarak düzeltilebilir.</string>
     <!-- Transaction rejected prompt title -->
     <string name="Prompts.RecommendRescan.title">İşlem Reddedildi</string>
-    <!-- Share data prompt body -->
-    <!-- Share data prompt title -->
-    <!-- Enable touch ID prompt body -->
-    <!-- Enable Fingerprint prompt body -->
-    <!-- Enable touch ID prompt title -->
-    <!-- Enable Fingerprint prompt title -->
-    <!-- Button on fingerprint prompt so the user can enter their PIN instead -->
     <!-- Upgrade PIN prompt body. -->
     <string name="Prompts.UpgradePin.body">Brainwallet, 6 basamaklı bir PIN kullanarak yükseltildi. Yükseltmek için buraya dokunun.</string>
     <!-- Upgrade PIN prompt title. -->
     <string name="Prompts.UpgradePin.title">PIN\'i yükselt</string>
-    <!-- Push notifications are off label -->
-    <!-- Push notifications are on label -->
     <!-- Address copied message. -->
     <string name="Receive.copied">Panoya kopyalandı.</string>
     <!-- Share via email button label -->
     <string name="Receive.emailButton">E-posta adresi</string>
-    <!-- Request button label -->
     <!-- Share button label -->
     <string name="Receive.share">Paylaş</string>
-    <!-- Share via text message (SMS) -->
     <!-- Receive modal title -->
     <string name="Receive.title">Teslim almak</string>
-    <!-- Reset PIN with paper key: header -->
-    <!-- Enter paper key instruction -->
     <!-- Invalid paper key message -->
     <string name="RecoverWallet.invalid">Girdiğiniz kağıt anahtarı geçersiz. Lütfen her kelimeyi iki kez kontrol edin ve tekrar deneyin.</string>
-    <!-- Previous button accessibility label -->
     <!-- Next button label -->
     <string name="RecoverWallet.next">Sonraki</string>
-    <!-- Reset PIN with paper key: more information button. -->
-    <!-- Next button accessibility label -->
-    <!-- Recover wallet sub-header -->
-    <!-- Reset PIN with paper key: sub-header -->
-    <!-- No amount entered error message. -->
-    <!-- Request a specific amount of litecoin -->
     <!-- Alert action button label -->
     <string name="ReScan.alertAction">Senkronize et</string>
-    <!-- Alert message body -->
     <!-- Alert message title -->
     <string name="ReScan.alertTitle">Blockchain ile senkronize edilsin mi?</string>
-    <!-- extimated time -->
     <!-- Syncing explanation -->
     <string name="ReScan.body2">Bir işlem Litecoin ağında tamamlandı olarak gösteriliyor, ancak Brainwallet\'ınızda gösterilmiyorsa.</string>
     <!-- Syncing explanation -->
@@ -216,124 +98,48 @@
     <string name="ReScan.buttonTitle">Senkronizasyonu Başlat</string>
     <!-- Sync blockchain view footer -->
     <string name="ReScan.footer">Blockchain ile senkronize olurken para gönderemezsiniz.</string>
-    <!-- Sync Blockchain view header -->
-    <!-- Subheader label -->
     <!-- Subheader label -->
     <string name="ReScan.subheader2">Ne Zaman Senkronize Edilmeli?</string>
-    <!-- Scan litecoin address camera flash toggle -->
-    <!-- Complete filter label -->
-    <!-- Pending filter label -->
-    <!-- Received filter label -->
-    <!-- Sent filter label -->
     <!-- Paper Key button title -->
     <string name="SecurityCenter.paperKeyTitle">Kağıt Anahtarı</string>
-    <!-- Touch ID button description -->
-    <!-- Touch ID button title -->
-    <!-- Security center fingerprint authentication button -->
-    <!-- Instructions how to allow the camera access for the app -->
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">Brainwallet\'in kameraya erişmesine izin verilmiyor</string>
-    <!-- Camera not allowed message -->
-    <!-- Camera not allowed alert title -->
-    <!-- Could not create transaction alert title -->
-    <!-- Network Fee: $0.01 -->
-    <!-- Payee identity not certified alert title. -->
-    <!-- Invalid address alert message -->
-    <!-- Invalid address on pasteboard message -->
     <!-- Invalid address alert title -->
     <string name="Send.invalidAddressTitle">Geçersiz adres</string>
     <!-- Is rescanning error message -->
     <string name="Send.isRescanning">Tam yeniden tarama sırasında gönderme devre dışı bırakılır.</string>
-    <!-- We are loading the request (now) -->
-    <!-- Empty address alert message -->
-    <!-- Emtpy amount alert message -->
-    <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
     <string name="Send.remoteRequestError">Ödeme talebi yüklenemedi</string>
     <!-- Send screen title (as in "this is the screen for sending money") -->
     <string name="Send.title">Gönder</string>
-    <!-- Enter to match domain name to LTC Address -->
-    <!-- Or -->
-    <!-- Lookup -->
-    <!-- Your address was resolved! -->
-    <!-- Address already used alert title -->
-    <!-- Join Early access label -->
-    <!-- Are you enjoying loaf alert message body -->
-    <!-- Import wallet label -->
-    <!-- Notifications label -->
-    <!-- Leave review button label -->
     <!-- Sync blockchain label -->
     <string name="Settings.sync">Blok Zincirini Senkronize Et</string>
-    <!-- Settings title -->
-    <!-- Touch ID spending limit label -->
-    <!-- The fingerprint spending limit -->
-    <!-- Start or recover another wallet menu label. -->
-    <!-- button label -->
     <!-- Paper key explanation text. -->
     <string name="StartPaperPhrase.body">Telefonunuzun kaybolması, çalınması, kırılması veya yükseltilmesi durumunda Brainwallet\'inizi geri yüklemenin tek yolu kağıt anahtarınızdır. \n\ nBir kağıda yazıp güvende tutmanız için size bir kelime listesi göstereceğiz.</string>
     <!-- button label -->
     <string name="StartPaperPhrase.buttonTitle">Kağıt Anahtarını Yazın</string>
-    <!-- Argument is date -->
-    <!-- Start view message -->
-    <!-- Syncing view connectiong state header text -->
     <!-- Syncing view header text -->
     <string name="SyncingView.header">Senkronize ediliyor</string>
-    <!-- Retry button label -->
-    <!-- Syncing view syncing state header text -->
-    <!-- 6 d (6 days) -->
-    <!-- 6 h (6 hours) -->
-    <!-- 6 m (6 minutes) -->
-    <!-- 6 s (6 seconds) -->
-    <!-- You can customize your Touch ID Spending Limit from the [TouchIdSettings.linkText gets added here as a button] -->
-    <!-- Fingerprint enabling description body -->
-    <!-- Instruction for the fingerprint setup -->
-    <!-- Fingerprint Is Not Setup -->
-    <!-- Touch Id screen label -->
-    <!-- Link Text (see TouchIdSettings.customizeText) -->
-    <!-- Spending Limit: b100,000 ($100) -->
-    <!-- Touch id switch label. -->
-    <!-- Enable fingerprint for this wallet called Brainwallet -->
-    <!-- Touch ID settings view title -->
-    <!-- Fingerprint authentication label -->
-    <!-- Touch ID unavailable alert message -->
-    <!-- Touch ID unavailable alert title -->
-    <!-- Touch Id spending limit screen title -->
     <!-- Availability status text -->
     <string name="Transaction.available">Harcamak için uygun</string>
     <!-- Transaction complete label -->
     <string name="Transaction.complete">Tamamlayınız</string>
     <!-- eg. Ending balance: $50.00 -->
     <string name="Transaction.ending">Kapanış bakiyesi: %1$s</string>
-    <!-- Exchange rate on date header -->
-    <!-- Exchange rate on date header -->
-    <!-- (b600 fee) -->
     <!-- Invalid transaction -->
     <string name="Transaction.invalid">GEÇERSİZ</string>
-    <!-- Timestamp label for event that just happened -->
-    <!-- Receive status text: 'In progress: 20%' -->
-    <!-- Send status text: 'In progress: 20%' -->
     <!-- eg. Starting balance: $50.00 -->
     <string name="Transaction.starting">Başlangıç ​​dengesi: %1$s</string>
-    <!-- Waiting to be confirmed string -->
-    <!-- e.g. I received money from an account. -->
-    <!-- Amount section header -->
-    <!-- Block height label -->
     <!-- Memo section header -->
     <string name="TransactionDetails.commentsHeader">Not</string>
     <!-- Empty transaction list message. -->
     <string name="TransactionDetails.emptyMessage">İşlemleriniz burada görünecektir.</string>
     <!-- "Received [$5] at [which of my addresses]" => This is the "at [which of my addresses]" part. -->
     <string name="TransactionDetails.from">-de %1$s</string>
-    <!-- More button title -->
-    <!-- Moved $5.00 (as in "I moved $5 to another location") -->
-    <!-- Moved $5.00 -->
-    <!-- eg. Confirmed in Block: Not Confirmed -->
     <!-- "Received [$5] at [which of my addresses]" => This is the "Received [$5]" part. -->
     <string name="TransactionDetails.received">Alınan %1$s</string>
-    <!-- Received $5.00 -->
     <!-- "Sent [$5] to [address]" => This is the "Sent [$5]" part. -->
     <string name="TransactionDetails.sent">Gönderildi %1$s</string>
-    <!-- Sent $5.00 -->
     <!-- Status section header -->
     <string name="TransactionDetails.statusHeader">Durum</string>
     <!-- Transaction Details Title -->
@@ -346,18 +152,14 @@
     <string name="TransactionDirection.address">Bu Adrese Alındı</string>
     <!-- (this transaction was) Sent to this address: -->
     <string name="TransactionDirection.to">Bu Adrese Gönderildi</string>
-    <!-- Disabled until date -->
     <!-- My Address button title -->
     <string name="UnlockScreen.myAddress">Benim adresim</string>
     <!-- Reset PIN with Paper Key button label. -->
     <string name="UnlockScreen.resetPin">PIN\'i sıfırla</string>
-    <!-- Scan button title -->
     <!-- Instruction to touch the sensor for fingerprint authentication -->
     <string name="UnlockScreen.touchIdInstructions.android">Dokunma Sensörü</string>
-    <!-- TouchID prompt text -->
     <!-- Device authentication body -->
     <string name="UnlockScreen.touchIdPrompt.android">Devam etmek için lütfen Android cihazınızın kilidini açın.</string>
-    <!-- Unlock with TouchID accessibility label -->
     <!-- View a transaction on the blockchain explorer -->
     <string name="ViewOnBlockchain">Blockchain\'de görüntüle</string>
     <!-- Device authentication title -->
@@ -366,39 +168,14 @@
     <string name="UpdatePin.createInstruction">PIN kodunuz Brainwallet\'inizin kilidini açmak ve para göndermek için kullanılacaktır.</string>
     <!-- Enter current PIN instruction -->
     <string name="UpdatePin.enterCurrent">Mevcut PIN kodunuzu girin.</string>
-    <!-- Update PIN failure error message. -->
-    <!-- Update PIN failure alert view title -->
-    <!-- Authorize to copy wallet addresses alert message -->
-    <!-- Authorize to copy wallet address PIN view prompt. -->
-    <!-- Authorize to copy wallet address alert title -->
     <!-- Copy wallet addresses alert button label -->
     <string name="URLHandling.copy">Kopyala</string>
-    <!-- Verify PIN for transaction view body -->
-    <!-- Verify PIN view body -->
-    <!-- Verify PIN view title -->
-    <!-- Authorize transaction with touch id message -->
-    <!-- 'No wallet' warning for watch app -->
-    <!-- Dismiss button label -->
-    <!-- Webview loading error message -->
-    <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
-    <!-- Top title of welcome screen -->
     <!-- Wipe wallet alert message -->
     <string name="WipeWallet.alertMessage">Bu cüzdanı silmek istediğinizden emin misiniz?</string>
     <!-- Wipe wallet alert title -->
     <string name="WipeWallet.alertTitle">Cüzdan silinsin mi?</string>
-    <!-- Failed wipe wallet alert message -->
-    <!-- Failed wipe wallet alert title -->
-    <!-- Enter phrase to wipe wallet instruction. -->
-    <!-- Start wipe wallet view message -->
-    <!-- Start wipe wallet view warning -->
-    <!-- Wipe wallet navigation item title. -->
     <!-- Wipe wallet button title -->
     <string name="WipeWallet.wipe">Sil</string>
-    <!-- Wiping activity message -->
-    <!-- Paper key instructions. -->
-    <!-- button label -->
-    <!-- button label -->
-    <!-- 1 of 3 -->
     <!-- Balance -->
     <string name="ManageWallet.balance">Denge</string>
     <string name="show_seed_label">Göstermek</string>

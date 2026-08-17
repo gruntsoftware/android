@@ -1,17 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- App name -->
-    <!-- About screen blog label -->
-    <!-- About screen footer -->
-    <!-- About app version -->
-    <!-- Privay Policy button label -->
-    <!-- About screen Instagram label -->
-    <!-- Terms of Use button label -->
-    <!-- About screen title -->
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">بستن</string>
     <string name="Alert.error">خطا</string>
-    <!-- Keystore error -->
     <!-- KeyStore error, keys are invalidated -->
     <string name="Alert.keystore.invalidated.android">داده‌های رمزگذاری شده کیف پول ذهنی (Brainwallet) شما اخیراً به دلیل غیرفعال شدن صفحه قفل اندروید شما نامعتبر شده است.</string>
     <!-- Keystore error title -->
@@ -25,11 +16,8 @@
     <string name="Button.no">نه</string>
     <!-- OK button label -->
     <string name="Button.ok">خوب</string>
-    <!-- receive button -->
     <!-- send button -->
     <string name="send_title">ارسال کنید</string>
-    <!-- Settings button label -->
-    <!-- Settings button label -->
     <!-- Yes button -->
     <string name="Button.yes">بله</string>
     <!-- Amount to Send: ($1.00) -->
@@ -38,135 +26,66 @@
     <string name="Confirmation.to">به</string>
     <!-- Total Cost: ($5.00) -->
     <string name="Confirmation.totalLabel">هزینه کل:</string>
-    <!-- Confirm paper phrase view label. -->
-    <!-- Word label eg. Word #1, Word #2 -->
-    <!-- Email unavailable alert title -->
-    <!-- Email unavailable alert title -->
     <!-- Message that gets shown when we've detected the user has encountered the looping lock-screen bug. (preserve [ ] characters) -->
     <string name="ErrorMessages.loopingLockScreen.android">کیف پول مغزی به دلیل یک اشکال در نسخه اندروید شما قابل تأیید نیست. [لطفاً برای اطلاعات بیشتر اینجا ضربه بزنید.]</string>
-    <!-- Messaging unavailable alert title -->
-    <!-- Messaging unavailable alert title -->
     <!-- Fingerprint was not recognized by the scanner, please try scanning again -->
     <string name="ErrorMessages.touchIdFailed.android">اثر انگشت شناسایی نشد. لطفاً دوباره تلاش کنید.</string>
-    <!-- Economy fee -->
-    <!-- E.g. [This transaction is predicted to complete in] 1-24 hours -->
-    <!-- Warning message for economy fee -->
-    <!-- E.g. Estimated delivery: 10-60 minutes -->
-    <!-- Regular fee -->
-    <!-- E.g. [This transaction is predicted to complete in] 10-60 minutes -->
-    <!-- Fee Selector title -->
     <!-- Checking private key balance progress view text -->
     <string name="Import.checking">بررسی موجودی کلید خصوصی...</string>
     <!-- Sweep private key confirmation message -->
     <string name="Import.confirm">ارسال %1$s از این کلید خصوصی به کیف پول شما؟ شبکه لایت کوین هزینه‌ای به میزان %2$s دریافت خواهد کرد.</string>
-    <!-- Duplicate key error message -->
     <!-- empty private key error message -->
     <string name="Import.Error.empty">این کلید خصوصی خالی است.</string>
-    <!-- High fees error message -->
     <!-- Not a valid private key error message -->
     <string name="Import.Error.notValid">کلید خصوصی معتبر نیست</string>
     <!-- Import signing error message -->
     <string name="Import.Error.signing">خطا در امضای تراکنش</string>
-    <!-- Import button label -->
-    <!-- Importing wallet progress view label -->
-    <!-- Caption for graphics -->
-    <!-- Import wallet intro screen message -->
     <!-- Enter password alert view title -->
     <string name="Import.password">این کلید خصوصی با رمز عبور محافظت شده است.</string>
-    <!-- password textfield placeholder -->
-    <!-- Caption for graphics -->
-    <!-- Scan Private key button label -->
-    <!-- Import wallet success alert title -->
-    <!-- Successfully imported wallet message body -->
-    <!-- Import Wallet screen title -->
-    <!-- Unlocking Private key activity view message. -->
-    <!-- Import wallet intro warning message -->
-    <!-- Wrong password alert message -->
     <!-- Ignore jailbreak warning button -->
     <string name="JailbreakWarnings.ignore">نادیده بگیرید</string>
-    <!-- Jailbreak warning message -->
-    <!-- Jailbreak warning message -->
     <!-- Jailbreak warning title -->
     <string name="JailbreakWarnings.title">هشدار</string>
-    <!-- Location services disabled error -->
-    <!-- No permissions for location services -->
-    <!-- Wallet creation date prefix -->
-    <!-- Manage wallet description text -->
-    <!-- Change Wallet name textfield label -->
-    <!-- Manage wallet modal title -->
-    <!-- Buy litecoin title -->
     <!-- button label -->
     <string name="MenuViewController.createButton">ایجاد کیف پول جدید</string>
-    <!-- button label -->
     <!-- Node is not connected label -->
     <string name="NodeSelector.notConnected">متصل نیست</string>
     <!-- Bad Payment request alert title -->
     <string name="PaymentProtocol.Errors.badPaymentRequest">درخواست پرداخت نامعتبر</string>
     <!-- Error opening payment protocol file message -->
     <string name="PaymentProtocol.Errors.corruptedDocument">سند پشتیبانی نشده یا خراب شده</string>
-    <!-- Missing certificate payment protocol error message -->
     <!-- Request expired payment protocol error message -->
     <string name="PaymentProtocol.Errors.requestExpired">درخواست منقضی شده است</string>
-    <!-- Payment too small alert title -->
     <!-- Amount too small error message -->
     <string name="PaymentProtocol.Errors.smallPayment">پرداخت‌های لایت‌کوین نمی‌توانند کمتر از %1$s باشند.</string>
     <!-- Output too small error message. -->
     <string name="PaymentProtocol.Errors.smallTransaction">خروجی‌های تراکنش لایت‌کوین نمی‌توانند کمتر از %1$s باشند.</string>
-    <!-- Unsupported signature type payment protocol error message -->
     <!-- Untrusted certificate payment protocol error message -->
     <string name="PaymentProtocol.Errors.untrustedCertificate">گواهی نامه غیر قابل اعتماد</string>
-    <!-- No passcode set warning body -->
-    <!-- No Passcode set warning title -->
-    <!-- Instruction how to enable device encryption -->
-    <!-- Device encryption prompt title -->
-    <!-- Warning about paper key. -->
-    <!-- An action is required (You must do this action). -->
     <!-- Transaction rejected prompt body -->
     <string name="Prompts.RecommendRescan.body">کیف پول شما ممکن است ناهمگام باشد. این اغلب می‌تواند با اسکن مجدد بلاک‌چین برطرف شود.</string>
     <!-- Transaction rejected prompt title -->
     <string name="Prompts.RecommendRescan.title">تراکنش رد شد</string>
-    <!-- Share data prompt body -->
-    <!-- Share data prompt title -->
-    <!-- Enable touch ID prompt body -->
-    <!-- Enable Fingerprint prompt body -->
-    <!-- Enable touch ID prompt title -->
-    <!-- Enable Fingerprint prompt title -->
-    <!-- Button on fingerprint prompt so the user can enter their PIN instead -->
     <!-- Upgrade PIN prompt body. -->
     <string name="Prompts.UpgradePin.body">کیف پول مغزی به استفاده از یک پین ۶ رقمی ارتقا یافته است. اینجا را برای ارتقا لمس کنید.</string>
     <!-- Upgrade PIN prompt title. -->
     <string name="Prompts.UpgradePin.title">ارتقاء پین</string>
-    <!-- Push notifications are off label -->
-    <!-- Push notifications are on label -->
     <!-- Address copied message. -->
     <string name="Receive.copied">کپی شده به کلیپ‌بورد.</string>
     <!-- Share via email button label -->
     <string name="Receive.emailButton">ایمیل</string>
-    <!-- Request button label -->
     <!-- Share button label -->
     <string name="Receive.share">اشتراک گذاری</string>
-    <!-- Share via text message (SMS) -->
     <!-- Receive modal title -->
     <string name="Receive.title">دریافت کردن</string>
-    <!-- Reset PIN with paper key: header -->
-    <!-- Enter paper key instruction -->
     <!-- Invalid paper key message -->
     <string name="RecoverWallet.invalid">کلید کاغذی که وارد کردید نامعتبر است. لطفاً هر کلمه را دوباره بررسی کنید و مجدداً تلاش کنید.</string>
-    <!-- Previous button accessibility label -->
     <!-- Next button label -->
     <string name="RecoverWallet.next">بعدی</string>
-    <!-- Reset PIN with paper key: more information button. -->
-    <!-- Next button accessibility label -->
-    <!-- Recover wallet sub-header -->
-    <!-- Reset PIN with paper key: sub-header -->
-    <!-- No amount entered error message. -->
-    <!-- Request a specific amount of litecoin -->
     <!-- Alert action button label -->
     <string name="ReScan.alertAction">همگام‌سازی</string>
-    <!-- Alert message body -->
     <!-- Alert message title -->
     <string name="ReScan.alertTitle">همگام‌سازی با بلاکچین؟</string>
-    <!-- extimated time -->
     <!-- Syncing explanation -->
     <string name="ReScan.body2">اگر یک تراکنش در شبکه لایت‌کوین به عنوان تکمیل‌شده نشان داده می‌شود اما در کیف پول مغزی شما نمایش داده نمی‌شود.</string>
     <!-- Syncing explanation -->
@@ -175,126 +94,50 @@
     <string name="ReScan.buttonTitle">شروع همگام‌سازی</string>
     <!-- Sync blockchain view footer -->
     <string name="ReScan.footer">شما در حین همگام‌سازی با بلاک‌چین قادر به ارسال پول نخواهید بود.</string>
-    <!-- Sync Blockchain view header -->
-    <!-- Subheader label -->
     <!-- Subheader label -->
     <string name="ReScan.subheader2">چه زمانی همگام‌سازی کنیم؟</string>
-    <!-- Scan litecoin address camera flash toggle -->
-    <!-- Complete filter label -->
-    <!-- Pending filter label -->
-    <!-- Received filter label -->
-    <!-- Sent filter label -->
     <!-- Paper Key button title -->
     <string name="SecurityCenter.paperKeyTitle">کلید کاغذی</string>
-    <!-- Touch ID button description -->
-    <!-- Touch ID button title -->
-    <!-- Security center fingerprint authentication button -->
-    <!-- Instructions how to allow the camera access for the app -->
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">دیوار مغزی اجازه دسترسی به دوربین را ندارد</string>
-    <!-- Camera not allowed message -->
-    <!-- Camera not allowed alert title -->
-    <!-- Could not create transaction alert title -->
-    <!-- Network Fee: $0.01 -->
-    <!-- Payee identity not certified alert title. -->
-    <!-- Invalid address alert message -->
-    <!-- Invalid address on pasteboard message -->
     <!-- Invalid address alert title -->
     <string name="Send.invalidAddressTitle">آدرس نامعتبر</string>
     <!-- Is rescanning error message -->
     <string name="Send.isRescanning">ارسال در طول اسکن مجدد کامل غیرفعال است.</string>
-    <!-- We are loading the request (now) -->
-    <!-- Empty address alert message -->
-    <!-- Emtpy amount alert message -->
-    <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
     <string name="Send.remoteRequestError">نتوانست درخواست پرداخت را بارگذاری کند</string>
     <!-- Send screen title (as in "this is the screen for sending money") -->
     <string name="Send.title">ارسال کنید</string>
-    <!-- Enter to match domain name to LTC Address -->
-    <!-- Or -->
-    <!-- Lookup -->
-    <!-- Your address was resolved! -->
-    <!-- Address already used alert title -->
-    <!-- Join Early access label -->
-    <!-- Are you enjoying loaf alert message body -->
-    <!-- Import wallet label -->
-    <!-- Notifications label -->
-    <!-- Leave review button label -->
     <!-- Sync blockchain label -->
     <string name="Settings.sync">سینک بلاکچین</string>
-    <!-- Settings title -->
-    <!-- Touch ID spending limit label -->
-    <!-- The fingerprint spending limit -->
-    <!-- Start or recover another wallet menu label. -->
-    <!-- button label -->
     <!-- Paper key explanation text. -->
     <string name="StartPaperPhrase.body">کلید کاغذی شما تنها راه برای بازیابی کیف پول مغزی شما است اگر تلفن شما گم، دزدیده، خراب یا ارتقا داده شود.
 
 ما فهرستی از کلمات را به شما نشان خواهیم داد تا روی یک تکه کاغذ بنویسید و در جای امنی نگه دارید.</string>
     <!-- button label -->
     <string name="StartPaperPhrase.buttonTitle">کلید کاغذی را یادداشت کنید</string>
-    <!-- Argument is date -->
-    <!-- Start view message -->
-    <!-- Syncing view connectiong state header text -->
     <!-- Syncing view header text -->
     <string name="SyncingView.header">همگام‌سازی</string>
-    <!-- Retry button label -->
-    <!-- Syncing view syncing state header text -->
-    <!-- 6 d (6 days) -->
-    <!-- 6 h (6 hours) -->
-    <!-- 6 m (6 minutes) -->
-    <!-- 6 s (6 seconds) -->
-    <!-- You can customize your Touch ID Spending Limit from the [TouchIdSettings.linkText gets added here as a button] -->
-    <!-- Fingerprint enabling description body -->
-    <!-- Instruction for the fingerprint setup -->
-    <!-- Fingerprint Is Not Setup -->
-    <!-- Touch Id screen label -->
-    <!-- Link Text (see TouchIdSettings.customizeText) -->
-    <!-- Spending Limit: b100,000 ($100) -->
-    <!-- Touch id switch label. -->
-    <!-- Enable fingerprint for this wallet called Brainwallet -->
-    <!-- Touch ID settings view title -->
-    <!-- Fingerprint authentication label -->
-    <!-- Touch ID unavailable alert message -->
-    <!-- Touch ID unavailable alert title -->
-    <!-- Touch Id spending limit screen title -->
     <!-- Availability status text -->
     <string name="Transaction.available">موجودی قابل خرج</string>
     <!-- Transaction complete label -->
     <string name="Transaction.complete">کامل</string>
     <!-- eg. Ending balance: $50.00 -->
     <string name="Transaction.ending">موجودی پایانی: %1$s</string>
-    <!-- Exchange rate on date header -->
-    <!-- Exchange rate on date header -->
-    <!-- (b600 fee) -->
     <!-- Invalid transaction -->
     <string name="Transaction.invalid">نامعتبر</string>
-    <!-- Timestamp label for event that just happened -->
-    <!-- Receive status text: 'In progress: 20%' -->
-    <!-- Send status text: 'In progress: 20%' -->
     <!-- eg. Starting balance: $50.00 -->
     <string name="Transaction.starting">موجودی اولیه: %1$s</string>
-    <!-- Waiting to be confirmed string -->
-    <!-- e.g. I received money from an account. -->
-    <!-- Amount section header -->
-    <!-- Block height label -->
     <!-- Memo section header -->
     <string name="TransactionDetails.commentsHeader">یادداشت</string>
     <!-- Empty transaction list message. -->
     <string name="TransactionDetails.emptyMessage">تراکنش‌های شما اینجا نمایش داده خواهند شد.</string>
     <!-- "Received [$5] at [which of my addresses]" => This is the "at [which of my addresses]" part. -->
     <string name="TransactionDetails.from">در %1$s</string>
-    <!-- More button title -->
-    <!-- Moved $5.00 (as in "I moved $5 to another location") -->
-    <!-- Moved $5.00 -->
-    <!-- eg. Confirmed in Block: Not Confirmed -->
     <!-- "Received [$5] at [which of my addresses]" => This is the "Received [$5]" part. -->
     <string name="TransactionDetails.received">دریافت شد %1$s</string>
-    <!-- Received $5.00 -->
     <!-- "Sent [$5] to [address]" => This is the "Sent [$5]" part. -->
     <string name="TransactionDetails.sent">ارسال %1$sشد </string>
-    <!-- Sent $5.00 -->
     <!-- Status section header -->
     <string name="TransactionDetails.statusHeader">وضعیت</string>
     <!-- Transaction Details Title -->
@@ -307,18 +150,14 @@
     <string name="TransactionDirection.address">دریافت شده در این آدرس</string>
     <!-- (this transaction was) Sent to this address: -->
     <string name="TransactionDirection.to">ارسال شده به این آدرس</string>
-    <!-- Disabled until date -->
     <!-- My Address button title -->
     <string name="UnlockScreen.myAddress">آدرس من</string>
     <!-- Reset PIN with Paper Key button label. -->
     <string name="UnlockScreen.resetPin">بازنشانی پین</string>
-    <!-- Scan button title -->
     <!-- Instruction to touch the sensor for fingerprint authentication -->
     <string name="UnlockScreen.touchIdInstructions.android">سنسور لمسی</string>
-    <!-- TouchID prompt text -->
     <!-- Device authentication body -->
     <string name="UnlockScreen.touchIdPrompt.android">لطفاً دستگاه اندروید خود را برای ادامه باز کنید.</string>
-    <!-- Unlock with TouchID accessibility label -->
     <!-- View a transaction on the blockchain explorer -->
     <string name="ViewOnBlockchain">مشاهده در بلاک‌چین</string>
     <!-- Device authentication title -->
@@ -327,39 +166,14 @@
     <string name="UpdatePin.createInstruction">رمز شما برای باز کردن قفل کیف پول مغزی شما و ارسال پول استفاده خواهد شد.</string>
     <!-- Enter current PIN instruction -->
     <string name="UpdatePin.enterCurrent">پین فعلی خود را وارد کنید.</string>
-    <!-- Update PIN failure error message. -->
-    <!-- Update PIN failure alert view title -->
-    <!-- Authorize to copy wallet addresses alert message -->
-    <!-- Authorize to copy wallet address PIN view prompt. -->
-    <!-- Authorize to copy wallet address alert title -->
     <!-- Copy wallet addresses alert button label -->
     <string name="URLHandling.copy">کپی</string>
-    <!-- Verify PIN for transaction view body -->
-    <!-- Verify PIN view body -->
-    <!-- Verify PIN view title -->
-    <!-- Authorize transaction with touch id message -->
-    <!-- 'No wallet' warning for watch app -->
-    <!-- Dismiss button label -->
-    <!-- Webview loading error message -->
-    <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
-    <!-- Top title of welcome screen -->
     <!-- Wipe wallet alert message -->
     <string name="WipeWallet.alertMessage">آیا مطمئن هستید که می‌خواهید این کیف پول را حذف کنید؟</string>
     <!-- Wipe wallet alert title -->
     <string name="WipeWallet.alertTitle">پاک کردن کیف پول؟</string>
-    <!-- Failed wipe wallet alert message -->
-    <!-- Failed wipe wallet alert title -->
-    <!-- Enter phrase to wipe wallet instruction. -->
-    <!-- Start wipe wallet view message -->
-    <!-- Start wipe wallet view warning -->
-    <!-- Wipe wallet navigation item title. -->
     <!-- Wipe wallet button title -->
     <string name="WipeWallet.wipe">پاک کردن</string>
-    <!-- Wiping activity message -->
-    <!-- Paper key instructions. -->
-    <!-- button label -->
-    <!-- button label -->
-    <!-- 1 of 3 -->
     <!-- Balance -->
     <string name="ManageWallet.balance">تعادل</string>
     <!-- donation dialog -->

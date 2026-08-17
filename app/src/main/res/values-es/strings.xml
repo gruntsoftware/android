@@ -1,8 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-    <!-- About screen blog label -->
-    <!-- Privay Policy button label -->
-    <!-- About screen title -->
     <!-- Close modal button accessibility label -->
     <string name="AccessibilityLabels.close">Cerrar</string>
     <!-- Error alert title -->
@@ -17,154 +14,80 @@
     <string name="Alerts.sendFailure">Error en el envío</string>
     <!-- Fingerprint was recognized by the scanner -->
     <string name="Alerts.touchIdSucceeded.android">Huella digital reconocida</string>
-    <!-- JSON Serialization error message -->
-    <!-- Wallet not ready error message -->
-    <!-- API Token error message -->
     <!-- Cancel button label -->
     <string name="Button.cancel">Cancelar</string>
-    <!-- Ignore button label -->
-    <!-- menu button -->
     <!-- No button -->
     <string name="Button.no">No</string>
     <!-- OK button label -->
     <string name="Button.ok">Vale</string>
-    <!-- receive button -->
     <!-- send button -->
     <string name="send_title">Enviar</string>
-    <!-- Settings button label -->
-    <!-- Settings button label -->
     <!-- Yes button -->
     <string name="Button.yes">Sí</string>
     <!-- Amount to Send: ($1.00) -->
     <string name="Confirmation.amountLabel">Cantidad a enviar:</string>
-    <!-- Network Fee: ($1.00) -->
-    <!-- eg. Processing time: This transaction is predicted to complete in [10-60 minutes]. -->
-    <!-- Label for "send" button on final confirmation screen -->
-    <!-- Confirmation Screen title -->
     <!-- To: (address) -->
     <string name="Confirmation.to">Para</string>
     <!-- Total Cost: ($5.00) -->
     <string name="Confirmation.totalLabel">Costo total:</string>
-    <!-- Confirm paper phrase view label. -->
-    <!-- Word label eg. Word #1, Word #2 -->
-    <!-- Email unavailable alert title -->
     <!-- Messaging unavailable alert title -->
     <string name="ErrorMessages.loopingLockScreen.android">Brainwallet no se puede autenticar debido a un error en su versión de Android. [Toque aquí para obtener más información.]</string>
-    <!-- Messaging unavailable alert title -->
     <!-- Fingerprint was not recognized by the scanner, please try scanning again -->
     <string name="ErrorMessages.touchIdFailed.android">No se reconoce la huella digital. Por favor, inténtalo de nuevo.</string>
-    <!-- Economy fee -->
-    <!-- E.g. [This transaction is predicted to complete in] 1-24 hours -->
-    <!-- Warning message for economy fee -->
-    <!-- E.g. Estimated delivery: 10-60 minutes -->
-    <!-- Regular fee -->
-    <!-- E.g. [This transaction is predicted to complete in] 10-60 minutes -->
-    <!-- Fee Selector title -->
     <!-- Checking private key balance progress view text -->
     <string name="Import.checking">Averiguando el saldo de la clave privada...</string>
     <!-- Sweep private key confirmation message -->
     <string name="Import.confirm">¿Quieres enviar %1$s desde esta clave privada a tu monedero? La red Litecoin recibirá una comisión de  %2$s.</string>
-    <!-- Duplicate key error message -->
     <!-- empty private key error message -->
     <string name="Import.Error.empty">Esta clave privada está vacía.</string>
-    <!-- High fees error message -->
     <!-- Not a valid private key error message -->
     <string name="Import.Error.notValid">Clave privada no válida</string>
     <!-- Import signing error message -->
     <string name="Import.Error.signing">Error al firmar la transacción</string>
-    <!-- Import button label -->
-    <!-- Importing wallet progress view label -->
-    <!-- Caption for graphics -->
-    <!-- Import wallet intro screen message -->
     <!-- Enter password alert view title -->
     <string name="Import.password">Esta clave privada está protegida con una contraseña.</string>
-    <!-- password textfield placeholder -->
-    <!-- Caption for graphics -->
-    <!-- Scan Private key button label -->
-    <!-- Import wallet success alert title -->
-    <!-- Successfully imported wallet message body -->
-    <!-- Import Wallet screen title -->
-    <!-- Unlocking Private key activity view message. -->
-    <!-- Import wallet intro warning message -->
-    <!-- Wrong password alert message -->
-    <!-- Close app button -->
     <!-- Ignore jailbreak warning button -->
     <string name="JailbreakWarnings.ignore">Ignorar</string>
-    <!-- Jailbreak warning message -->
-    <!-- Jailbreak warning message -->
     <!-- Jailbreak warning title -->
     <string name="JailbreakWarnings.title">AVISO</string>
-    <!-- Wipe wallet button -->
-    <!-- Location services disabled error -->
-    <!-- No permissions for location services -->
-    <!-- Wallet creation date prefix -->
-    <!-- Manage wallet description text -->
-    <!-- Change Wallet name textfield label -->
-    <!-- Manage wallet modal title -->
-    <!-- Buy bitcoin title -->
     <!-- button label -->
     <string name="MenuViewController.createButton">Crear nueva cartera</string>
-    <!-- button label -->
     <!-- Node is not connected label -->
     <string name="NodeSelector.notConnected">No conectado</string>
     <!-- Bad Payment request alert title -->
     <string name="PaymentProtocol.Errors.badPaymentRequest">Solicitud de pago incorrecta</string>
     <!-- Error opening payment protocol file message -->
     <string name="PaymentProtocol.Errors.corruptedDocument">Documento dañado o no compatible</string>
-    <!-- Missing certificate payment protocol error message -->
     <!-- Request expired payment protocol error message -->
     <string name="PaymentProtocol.Errors.requestExpired">solicitud expirada</string>
-    <!-- Payment too small alert title -->
     <!-- Amount too small error message -->
     <string name="PaymentProtocol.Errors.smallPayment">Los pagos en Litecoins no pueden ser inferiores a %1$s.</string>
     <!-- Output too small error message. -->
     <string name="PaymentProtocol.Errors.smallTransaction">La transacción de Litecoins no puede ser inferior a %1$s.</string>
-    <!-- Unsupported signature type payment protocol error message -->
     <!-- Untrusted certificate payment protocol error message -->
     <string name="PaymentProtocol.Errors.untrustedCertificate">el certificado no es de confianza</string>
-    <!-- No passcode set warning body -->
-    <!-- No Passcode set warning title -->
-    <!-- Instruction how to enable device encryption -->
-    <!-- Device encryption prompt title -->
-    <!-- Warning about paper key. -->
-    <!-- An action is required (You must do this action). -->
     <!-- Transaction rejected prompt body -->
     <string name="Prompts.RecommendRescan.body">Tu cartera puede no estar sincronizada. Esto a menudo puede arreglarse volviendo a escanear la cadena de bloques.</string>
     <!-- Transaction rejected prompt title -->
     <string name="Prompts.RecommendRescan.title">Transacción rechazada</string>
-    <!-- Share data prompt body -->
-    <!-- Share data prompt title -->
-    <!-- Enable touch ID prompt body -->
-    <!-- Enable Fingerprint prompt body -->
-    <!-- Enable touch ID prompt title -->
-    <!-- Enable Fingerprint prompt title -->
-    <!-- Button on fingerprint prompt so the user can enter their PIN instead -->
     <!-- Upgrade PIN prompt body. -->
     <string name="Prompts.UpgradePin.body">Loaf se ha actualizado y ahora utiliza un PIN de 6 dígitos. Toca aquí para actualizar.</string>
     <!-- Upgrade PIN prompt title. -->
     <string name="Prompts.UpgradePin.title">Actualizar PIN</string>
-    <!-- Push notifications are off label -->
-    <!-- Push notifications are on label -->
     <!-- Address copied message. -->
     <string name="Receive.copied">Copiado en el portapapeles.</string>
     <!-- Share via email button label -->
     <string name="Receive.emailButton">Correo electrónico</string>
-    <!-- Request button label -->
     <!-- Share button label -->
     <string name="Receive.share">Compartir</string>
-    <!-- Share via text message (SMS) -->
     <!-- Receive modal title -->
     <string name="Receive.title">Recibir</string>
-    <!-- Reset PIN with paper key: header -->
-    <!-- Enter paper key instruction -->
     <!-- Invalid paper key message -->
     <string name="RecoverWallet.invalid">La clave en papel que acabas de introducir no es válida. Vuelve a comprobar cada palabra e inténtalo de nuevo.</string>
     <string name="RecoverWallet.next">Siguiente</string>
     <string name="ReScan.alertAction">Sincronizar</string>
-    <!-- Alert message body -->
     <!-- Alert message title -->
     <string name="ReScan.alertTitle">¿Quieres sincronizar con la cadena de bloques?</string>
-    <!-- extimated time -->
     <!-- Syncing explanation -->
     <string name="ReScan.body2">Si una transacción se muestra como completada en la red de Litecoin pero no en Loaf.</string>
     <!-- Syncing explanation -->
@@ -176,7 +99,6 @@
     <string name="ReScan.subheader2">¿Cuándo sincronizar?</string>
     <!-- Paper Key button title -->
     <string name="SecurityCenter.paperKeyTitle">Clave en papel</string>
-    <!-- Instructions how to allow the camera access for the app -->
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">Loaf no tiene permitido el acceso a la cámara</string>
     <string name="Send.invalidAddressTitle">Dirección inválida</string>
@@ -187,7 +109,6 @@
     <string name="Send.title">Enviar</string>
     <!-- Sync blockchain label -->
     <string name="Settings.sync">Sincronizar cadena de bloques</string>
-    <!-- button label -->
     <!-- Paper key explanation text. -->
     <string name="StartPaperPhrase.body">Tu clave de papel es la única manera de restaurar tu Loaf si pierdes tu teléfono, o te lo roban, se rompe o se actualiza.\n\nTe mostraremos una lista de palabras para apuntar en un trozo de papel y guardarlo en un sitio seguro.</string>
     <!-- button label -->
@@ -207,10 +128,8 @@
     <!-- "Received [$5] at [which of my addresses]" => This is the "at [which of my addresses]" part. -->
     <string name="TransactionDetails.from">en %1$s</string>
     <string name="TransactionDetails.received">Recibido %1$s</string>
-    <!-- Received $5.00 -->
     <!-- "Sent [$5] to [address]" => This is the "Sent [$5]" part. -->
     <string name="TransactionDetails.sent">Enviado %1$s</string>
-    <!-- Sent $5.00 -->
     <!-- Status section header -->
     <string name="TransactionDetails.statusHeader">Estado</string>
     <!-- Transaction Details Title -->
@@ -223,15 +142,12 @@
     <string name="TransactionDirection.address">Recibido en esta dirección</string>
     <!-- (this transaction was) Sent to this address: -->
     <string name="TransactionDirection.to">Enviado a esta dirección</string>
-    <!-- Disabled until date -->
     <!-- My Address button title -->
     <string name="UnlockScreen.myAddress">Mi dirección</string>
     <!-- Reset PIN with Paper Key button label. -->
     <string name="UnlockScreen.resetPin">Restablecer PIN</string>
-    <!-- Scan button title -->
     <!-- Instruction to touch the sensor for fingerprint authentication -->
     <string name="UnlockScreen.touchIdInstructions.android">Toca el sensor</string>
-    <!-- TouchID prompt text -->
     <!-- Device authentication body -->
     <string name="UnlockScreen.touchIdPrompt.android">Desbloquea tu dispositivo Android para continuar.</string>
     <string name="ViewOnBlockchain">Ver en cadena de bloques</string>

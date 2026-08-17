@@ -40,10 +40,8 @@
     <string name="Import.checking">Checking private key balance...</string>
     <!-- Sweep private key confirmation message -->
     <string name="Import.confirm">Send %1$s from this private key into your wallet? The Litecoin network will receive a fee of %2$s.</string>
-    <!-- Duplicate key error message -->
     <!-- empty private key error message -->
     <string name="Import.Error.empty">This private key is empty.</string>
-    <!-- High fees error message -->
     <!-- Not a valid private key error message -->
     <string name="Import.Error.notValid">Not a valid private key</string>
     <!-- Import signing error message -->
@@ -56,7 +54,6 @@
     <string name="JailbreakWarnings.title">WARNING</string>
     <!-- button label -->
     <string name="MenuViewController.createButton">Create New Wallet</string>
-    <!-- button label -->
     <!-- Node is not connected label -->
     <string name="NodeSelector.notConnected">Not Connected</string>
     <!-- Bad Payment request alert title -->
@@ -93,10 +90,8 @@
     <string name="RecoverWallet.next">Next</string>
     <!-- Alert action button label -->
     <string name="ReScan.alertAction">Sync</string>
-    <!-- Alert message body -->
     <!-- Alert message title -->
     <string name="ReScan.alertTitle">Sync with Blockchain?</string>
-    <!-- extimated time -->
     <!-- Syncing explanation -->
     <string name="ReScan.body2">If a transaction shows as completed on the Litecoin network but not in your Brainwallet.</string>
     <!-- Syncing explanation -->
@@ -113,28 +108,24 @@
     <string name="Send.cameraUnavailabeMessage.android">Allow camera access in Settings</string>
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">Brainwallet is not allowed to access the camera</string>
-    <!-- Could not create transaction alert title -->
     <!-- Invalid address alert title -->
     <string name="Send.invalidAddressTitle">Invalid Address</string>
     <!-- Is rescanning error message -->
     <string name="Send.isRescanning">Sending is disabled during a full rescan.</string>
     <!-- Toast shown whenever a litecoin: QR code is scanned - the address is always copied to the clipboard, whether or not Send also opens -->
     <string name="Send.unlockDeepLink">Unlock...send modal will open with this address.</string>
-    <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
     <string name="Send.remoteRequestError">Could not load payment request</string>
     <!-- Send screen title (as in "this is the screen for sending money") -->
     <string name="Send.title">Send</string>
     <!-- Sync blockchain label -->
     <string name="Settings.sync">Sync Blockchain</string>
-    <!-- button label -->
     <!-- Paper key explanation text. -->
     <string name="StartPaperPhrase.body">Your paper key is the only way to restore your Brainwallet if your phone is lost, stolen, broken, or upgraded.\n\nWe will show you a list of words to write down on a piece of paper and keep safe.</string>
     <!-- button label -->
     <string name="StartPaperPhrase.buttonTitle">Write Down Paper Key</string>
     <!-- Syncing view header text -->
     <string name="SyncingView.header">Syncing</string>
-    <!-- Touch Id spending limit screen title -->
     <!-- Availability status text -->
     <string name="Transaction.available">Available to Spend</string>
     <!-- Transaction complete label -->
@@ -153,10 +144,8 @@
     <string name="TransactionDetails.from">at %1$s</string>
     <!-- "Received [$5] at [which of my addresses]" => This is the "Received [$5]" part. -->
     <string name="TransactionDetails.received">Received %1$s</string>
-    <!-- Received $5.00 -->
     <!-- "Sent [$5] to [address]" => This is the "Sent [$5]" part. -->
     <string name="TransactionDetails.sent">Sent %1$s</string>
-    <!-- Sent $5.00 -->
     <!-- Status section header -->
     <string name="TransactionDetails.statusHeader">Status</string>
     <!-- Transaction Details Title -->
@@ -169,18 +158,14 @@
     <string name="TransactionDirection.address">Received at this Address</string>
     <!-- (this transaction was) Sent to this address: -->
     <string name="TransactionDirection.to">Sent to this Address</string>
-    <!-- Disabled until date -->
     <!-- My Address button title -->
     <string name="UnlockScreen.myAddress">My Address</string>
     <!-- Reset PIN with Paper Key button label. -->
     <string name="UnlockScreen.resetPin">Reset PIN</string>
-    <!-- Scan button title -->
     <!-- Instruction to touch the sensor for fingerprint authentication -->
     <string name="UnlockScreen.touchIdInstructions.android">Touch Sensor</string>
-    <!-- TouchID prompt text -->
     <!-- Device authentication body -->
     <string name="UnlockScreen.touchIdPrompt.android">Please unlock your Android device to continue.</string>
-    <!-- Unlock with TouchID accessibility label -->
     <!-- View a transaction on the blockchain explorer -->
     <string name="ViewOnBlockchain">View on blockchain</string>
     <!-- Device authentication title -->

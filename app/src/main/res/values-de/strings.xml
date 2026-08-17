@@ -1,10 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-    <!-- About screen footer -->
     <!-- Privay Policy button label -->
     <string name="AccessibilityLabels.close">Schließen</string>
     <string name="Alert.error">Fehler</string>
-    <!-- Keystore error -->
     <!-- KeyStore error, keys are invalidated -->
     <string name="Alert.keystore.invalidated.android">Ihre mit Loaf verschlüsselten Daten wurden vor Kurzem für ungültig erklärt, da Ihre Android-Bildschirmsperre deaktiviert war.</string>
     <!-- Keystore error title -->
@@ -36,7 +34,6 @@
     <string name="JailbreakWarnings.title">ACHTUNG</string>
     <!-- button label -->
     <string name="MenuViewController.createButton">Neues Wallet erstellen</string>
-    <!-- button label -->
     <!-- Node is not connected label -->
     <string name="NodeSelector.notConnected">Nicht verbunden</string>
     <!-- Bad Payment request alert title -->
@@ -58,22 +55,17 @@
     <string name="Receive.copied">In die Zwischenablage kopiert.</string>
     <!-- Share via email button label -->
     <string name="Receive.emailButton">E-Mail</string>
-    <!-- Request button label -->
     <!-- Share button label -->
     <string name="Receive.share">Teilen</string>
-    <!-- Share via text message (SMS) -->
     <!-- Receive modal title -->
     <string name="Receive.title">Erhalten</string>
     <!-- Invalid paper key message -->
     <string name="RecoverWallet.invalid">Der von dir eingegebene Offlineschlüssel ist ungültig. Bitte überprüfe nochmal jedes Wort und versuche es erneut.</string>
-    <!-- Previous button accessibility label -->
     <!-- Next button label -->
     <string name="RecoverWallet.next">Weiter</string>
     <string name="ReScan.alertAction">Synchronisieren</string>
-    <!-- Alert message body -->
     <!-- Alert message title -->
     <string name="ReScan.alertTitle">Mit der Blockchain synchronisieren?</string>
-    <!-- extimated time -->
     <!-- Syncing explanation -->
     <string name="ReScan.body2">Wenn eine Transaktion im Litecoin-Netzwerk, aber nicht in deinem Loaf als abgeschlossen angezeigt wird.</string>
     <!-- Syncing explanation -->
@@ -85,7 +77,6 @@
     <string name="ReScan.subheader2">Wann soll synchronisiert werden?</string>
     <!-- Paper Key button title -->
     <string name="SecurityCenter.paperKeyTitle">Offlineschlüssel</string>
-    <!-- Instructions how to allow the camera access for the app -->
     <!-- Permission required to access camera -->
     <string name="Send.cameraUnavailabeTitle.android">Loaf hat keine Berechtigung für Kamerazugriff</string>
     <string name="Send.invalidAddressTitle">Ungültige Adresse</string>
@@ -96,50 +87,31 @@
     <string name="Send.title">Senden</string>
     <!-- Sync blockchain label -->
     <string name="Settings.sync">Blockchain-Synchronisation</string>
-    <!-- Start or recover another wallet menu label. -->
-    <!-- button label -->
     <!-- Paper key explanation text. -->
     <string name="StartPaperPhrase.body">Dein Offlineschlüssel ist die einzige Möglichkeit, dein Loaf wiederherzustellen, falls du dein Smartphone verlierst, austauscht, es gestohlen wird oder kaputtgeht.\n\nHierfür zeigen wir dir eine Liste von Wörtern an, damit du sie dir auf ein Stück Papier notieren kannst, das es sicher aufzubewahren gilt.</string>
     <!-- button label -->
     <string name="StartPaperPhrase.buttonTitle">Offlineschlüssel notieren</string>
     <string name="SyncingView.header">Synchronisation läuft</string>
-    <!-- Touch Id spending limit screen title -->
     <!-- Availability status text -->
     <string name="Transaction.available">Verfügbar für Ausgaben</string>
     <!-- Transaction complete label -->
     <string name="Transaction.complete">Abgeschlossen</string>
     <!-- eg. Ending balance: $50.00 -->
     <string name="Transaction.ending">Endguthaben: %1$s</string>
-    <!-- Exchange rate on date header -->
-    <!-- Exchange rate on date header -->
-    <!-- (b600 fee) -->
     <!-- Invalid transaction -->
     <string name="Transaction.invalid">UNGÜLTIG</string>
-    <!-- Timestamp label for event that just happened -->
-    <!-- Receive status text: 'In progress: 20%' -->
-    <!-- Send status text: 'In progress: 20%' -->
     <!-- eg. Starting balance: $50.00 -->
     <string name="Transaction.starting">Startguthaben: %1$s</string>
-    <!-- Waiting to be confirmed string -->
-    <!-- e.g. I received money from an account. -->
-    <!-- Amount section header -->
-    <!-- Block height label -->
     <!-- Memo section header -->
     <string name="TransactionDetails.commentsHeader">Vermerk</string>
     <!-- Empty transaction list message. -->
     <string name="TransactionDetails.emptyMessage">Hier werden deine Transaktionen angezeigt.</string>
     <!-- "Received [$5] at [which of my addresses]" => This is the "at [which of my addresses]" part. -->
     <string name="TransactionDetails.from">an %1$s</string>
-    <!-- More button title -->
-    <!-- Moved $5.00 (as in "I moved $5 to another location") -->
-    <!-- Moved $5.00 -->
-    <!-- eg. Confirmed in Block: Not Confirmed -->
     <!-- "Received [$5] at [which of my addresses]" => This is the "Received [$5]" part. -->
     <string name="TransactionDetails.received">%1$s erhalten</string>
-    <!-- Received $5.00 -->
     <!-- "Sent [$5] to [address]" => This is the "Sent [$5]" part. -->
     <string name="TransactionDetails.sent">%1$s gesendet</string>
-    <!-- Sent $5.00 -->
     <!-- Status section header -->
     <string name="TransactionDetails.statusHeader">Status</string>
     <!-- Transaction Details Title -->
@@ -152,18 +124,14 @@
     <string name="TransactionDirection.address">An dieser Adresse empfangen</string>
     <!-- (this transaction was) Sent to this address: -->
     <string name="TransactionDirection.to">An diese Adresse versandt</string>
-    <!-- Disabled until date -->
     <!-- My Address button title -->
     <string name="UnlockScreen.myAddress">Meine Adresse</string>
     <!-- Reset PIN with Paper Key button label. -->
     <string name="UnlockScreen.resetPin">PIN zurücksetzen</string>
-    <!-- Scan button title -->
     <!-- Instruction to touch the sensor for fingerprint authentication -->
     <string name="UnlockScreen.touchIdInstructions.android">Sensor berühren</string>
-    <!-- TouchID prompt text -->
     <!-- Device authentication body -->
     <string name="UnlockScreen.touchIdPrompt.android">Bitte entsperren Sie Ihr Android-Gerät, um fortzufahren.</string>
-    <!-- Unlock with TouchID accessibility label -->
     <!-- Device authentication title -->
     <string name="ViewOnBlockchain">Blick auf die Blockchain</string>
     <string name="UnlockScreen.touchIdTitle.android">Authentifizierung erforderlich</string>
