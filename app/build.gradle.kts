@@ -31,8 +31,8 @@ android {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 36
-        versionCode = 202506355
-        versionName = "v4.12.2"
+        versionCode = 202506356
+        versionName = "v4.12.3"
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -76,14 +76,12 @@ android {
                 isDebuggable = true
                 isMinifyEnabled = false
             }
-            resValue("string", "firebase_analytics_collection_enabled", "false")
         }
         val release by getting {
             signingConfig = signingConfigs.getByName("release")
             isDebuggable = false
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            resValue("string", "firebase_analytics_collection_enabled", "true")
             ndk {
                 isDebuggable = false
                 isMinifyEnabled = true

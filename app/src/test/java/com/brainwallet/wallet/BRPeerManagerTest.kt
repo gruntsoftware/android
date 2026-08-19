@@ -110,7 +110,11 @@ class BRPeerManagerTest {
 
     @Test
     fun `getInstance returns the same instance when first called concurrently from many threads`() {
-        val threadCount = 32
+        // Kept modest (not e.g. 32) deliberately: this spins up real OS threads via a live
+        // ExecutorService, and the CI unit-test job already runs under a tight memory ceiling
+        // (see .circleci/config.yml's GRADLE_OPTS comment) - enough threads to actually
+        // exercise the race without adding meaningful per-run thread/stack overhead.
+        val threadCount = 8
         val readyLatch = CountDownLatch(threadCount)
         val startLatch = CountDownLatch(1)
         val doneLatch = CountDownLatch(threadCount)

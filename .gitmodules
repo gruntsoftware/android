@@ -3,7 +3,7 @@
 	url = https://github.com/bitcoin-core/secp256k1.git
 [submodule "app/src/main/jni/core"]
 	path = app/src/main/jni/core
-	url = https://github.com/brainwallet-co/core.git
+	url = https://github.com/gruntsoftware/core.git
 [submodule "modules/private-general-purpose"]
 	path = modules/private-general-purpose
 	url = https://github.com/gruntsoftware/android-private-general-purpose.git

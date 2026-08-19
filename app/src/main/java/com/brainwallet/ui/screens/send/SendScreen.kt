@@ -82,6 +82,11 @@ private fun SendScreen(
 
     LaunchedEffect(Unit) {
         viewModel.onEvent(SendEvent.OnLoad)
+        // Deep-linked / QR-scanned address (e.g. litecoin: URI from another app,
+        // or navigated straight to this screen) - paste it into the recipient field.
+        if (!address.isNullOrBlank()) {
+            viewModel.onEvent(SendEvent.OnRecipientAddressChanged(address))
+        }
         viewModel.uiEffect.collect { effect ->
             when (effect) {
                 is UiEffect.Navigate -> onNavigate.invoke(effect)
