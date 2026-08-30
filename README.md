@@ -74,6 +74,21 @@ For the full, up-to-date changelog see [GitHub Releases](https://github.com/grun
 
 ---
 
+### **v4.12.4**  [PR [#297](https://github.com/gruntsoftware/android/pull/297)]
+---
+#### 🎮 Fallinmoji Bug Fix
+**Exclude system gesture nav during gameplay** — Fallinmoji reads swipes and taps near the screen edges as gameplay input, which raced against Android's edge-swipe gesture navigation (back / predictive back) during a round, occasionally exiting the game or eating touches meant for it. `GdxFallinmojiGameFragment` now claims the whole game view via `systemGestureExclusionRects` for the duration of gameplay (cleared again in `onDestroyView`), so every edge touch reaches the game while it's on screen instead of the system. Ships with `bw-gdlib` bumped to v1.8.0 (#294).
+
+#### 🧪 Test Coverage
+Added 32 new unit tests across 5 new test classes, closing coverage gaps on previously-untested pure-logic utilities: `CryptoHelperTest` (`sha256`/`doubleSha256`/`md5`/`base58ofSha256` against known cross-checked hash vectors), `BRCurrencyTest` (decimal-place rules and currency symbol/name resolution), `ExtensionTest` (the pure functions in `Extension.kt`), `ExportedTransactionsMapperTest` (`TxItem` → `ExportedTransaction` field mapping and ordering), and `CountryHelperTest` (ISO country list construction and sorting) (#296).
+
+#### 🔧 Chores
+- Version bumped: **v4.12.3 (202506357) → v4.12.4 (202506358)**
+
+**Full Changelog**: https://github.com/gruntsoftware/android/compare/v4.12.3...v4.12.4
+
+---
+
 ### **v4.12.2**  [PR [#286](https://github.com/gruntsoftware/android/pull/286)]
 ---
 #### 🐛 Bug Fixes
