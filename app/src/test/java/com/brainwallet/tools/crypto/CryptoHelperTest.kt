@@ -14,10 +14,10 @@ class CryptoHelperTest {
 
     @Test
     fun `given known input, when sha256, then matches known digest`() {
-        val digest = CryptoHelper.sha256("hello".toByteArray(Charsets.UTF_8))
+        val digest = CryptoHelper.sha256("hellobrainwallet".toByteArray(Charsets.UTF_8))
 
         assertArrayEquals(
-            hexToBytes("2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"),
+            hexToBytes("250c7aea0eaa096ffbeb5becc11847c9bf2b1330d8eb1ad90bfff85e17f74e8e"),
             digest
         )
     }
