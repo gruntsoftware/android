@@ -12,7 +12,10 @@ import com.brainwallet.data.repository.SettingRepository
 import com.brainwallet.domain.LanguageSwitcherUseCase
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.tools.manager.FeeManager
+import com.brainwallet.tools.security.BRKeyStore
+import com.brainwallet.tools.util.TrustedNode
 import com.brainwallet.ui.BrainwalletViewModel
+import com.brainwallet.wallet.BRPeerManager
 import com.brainwallet.util.EventBus
 import com.brainwallet.util.VersionCodeProvider
 import kotlinx.coroutines.CoroutineDispatcher
@@ -88,6 +91,18 @@ class SettingsViewModel(
                 }
                 delay(4000)
             }
+        }
+        loadTrustedNode()
+    }
+
+    /**
+     * Reads the persisted trusted-node address off the main thread (BRKeyStore does blocking
+     * disk/Keystore IO) and publishes it to [SettingsState.trustedNodeAddress].
+     */
+    private fun loadTrustedNode() {
+        viewModelScope.launch(ioDispatcher) {
+            val address = runCatching { BRKeyStore.getTrustedNodeIPAddress(app, 0) }.getOrNull()
+            _state.update { it.copy(trustedNodeAddress = address) }
         }
     }
     fun hasUserSetEmojis(): Boolean {
@@ -178,6 +193,27 @@ class SettingsViewModel(
 
             is SettingsEvent.OnBlockchainSyncClick -> viewModelScope.launch {
                 EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_SYNC, address = null))
+            }
+
+            SettingsEvent.OnTrustedNodePurchased -> {
+                // Purchase unlocked the feature; the address-entry sheet opens next in the UI.
+                // Refresh so the row label reflects any address a previous purchase already set.
+                loadTrustedNode()
+            }
+
+            is SettingsEvent.OnTrustedNodeAddressSubmitted -> viewModelScope.launch(ioDispatcher) {
+                val address = event.address.trim()
+                if (!TrustedNode.isValid(address)) return@launch
+
+                val stored = runCatching {
+                    BRKeyStore.putTrustedNodeIPAddress(address, app, 0)
+                }.getOrDefault(false)
+                if (!stored) return@launch
+
+                // Keystore is the single source of truth; BRPeerManager.updateFixedPeer()
+                // reads it back and repoints the SPV connection at the new node.
+                runCatching { BRPeerManager.getInstance().updateFixedPeer(app) }
+                loadTrustedNode()
             }
 
             SettingsEvent.OnSecuritySeedPhraseClick -> viewModelScope.launch {

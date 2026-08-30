@@ -97,6 +97,7 @@ public class BRKeyStore {
     private static final String AUTH_KEY_IV = "ivauthkey";
     private static final String TOKEN_IV = "ivtoken";
     private static final String PASS_TIME_IV = "passtimetoken";
+    private static final String TRUSTED_NODE_IV = "ivtrustednode";
 
     public static final String PHRASE_ALIAS = "phrase";
     public static final String EMOJIS_ALIAS = "emojis";
@@ -111,6 +112,7 @@ public class BRKeyStore {
     public static final String AUTH_KEY_ALIAS = "authKey";
     public static final String TOKEN_ALIAS = "token";
     public static final String PASS_TIME_ALIAS = "passTime";
+    public static final String TRUSTED_NODE_ALIAS = "trustedNode";
     private static final String PHRASE_FILENAME = "my_phrase";
     private static final String EMOJIS_FILENAME = "my_emojis";
     private static final String CANARY_FILENAME = "my_canary";
@@ -124,6 +126,7 @@ public class BRKeyStore {
     private static final String AUTH_KEY_FILENAME = "my_auth_key";
     private static final String TOKEN_FILENAME = "my_token";
     private static final String PASS_TIME_FILENAME = "my_pass_time";
+    private static final String TRUSTED_NODE_FILENAME = "my_trusted_node";
 
     private static boolean bugMessageShowing;
 
@@ -145,6 +148,7 @@ public class BRKeyStore {
         aliasObjectMap.put(TOKEN_ALIAS, new AliasObject(TOKEN_ALIAS, TOKEN_FILENAME, TOKEN_IV));
         aliasObjectMap.put(PASS_TIME_ALIAS, new AliasObject(PASS_TIME_ALIAS, PASS_TIME_FILENAME, PASS_TIME_IV));
         aliasObjectMap.put(TOTAL_LIMIT_ALIAS, new AliasObject(TOTAL_LIMIT_ALIAS, TOTAL_LIMIT_FILENAME, TOTAL_LIMIT_IV));
+        aliasObjectMap.put(TRUSTED_NODE_ALIAS, new AliasObject(TRUSTED_NODE_ALIAS, TRUSTED_NODE_FILENAME, TRUSTED_NODE_IV));
 
     }
 
@@ -207,6 +211,45 @@ public class BRKeyStore {
             lock.unlock();
         }
 
+    }
+
+    /**
+     * Stores the raw trusted-node address (e.g. "1.2.3.4" or "1.2.3.4:9333", see
+     * {@link com.brainwallet.tools.util.TrustedNode}) that {@code BRPeerManager} should use
+     * as its fixed peer for syncing.
+     */
+    public synchronized static boolean putTrustedNodeIPAddress(String trustedNodeIPAddress, Context context, int requestCode)
+            throws UserNotAuthenticatedException {
+        if (PostAuth.isStuckWithAuthLoop) {
+            showLoopBugMessage(context);
+            throw new UserNotAuthenticatedException();
+        }
+        if (Utils.isNullOrEmpty(trustedNodeIPAddress)) return false;
+        AliasObject obj = aliasObjectMap.get(TRUSTED_NODE_ALIAS);
+        byte[] bytesToStore;
+        try {
+            bytesToStore = trustedNodeIPAddress.getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            Timber.e(e);
+            return false;
+        }
+        return _setData(context, bytesToStore, obj.alias, obj.datafileName, obj.ivFileName, requestCode, false);
+    }
+
+    public synchronized static String getTrustedNodeIPAddress(final Context context, int requestCode) throws UserNotAuthenticatedException {
+        if (PostAuth.isStuckWithAuthLoop) {
+            showLoopBugMessage(context);
+            throw new UserNotAuthenticatedException();
+        }
+        AliasObject obj = aliasObjectMap.get(TRUSTED_NODE_ALIAS);
+        byte[] result = _getData(context, obj.alias, obj.datafileName, obj.ivFileName, requestCode);
+        if (Utils.isNullOrEmpty(result)) return null;
+        try {
+            return new String(result, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            Timber.e(e);
+            return null;
+        }
     }
 
     private static void validateGet(String alias, String alias_file, String alias_iv) throws IllegalArgumentException {

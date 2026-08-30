@@ -25,5 +25,7 @@ data class SettingsState(
     val lastSyncMetadata: SyncAnalyticsRepository.SyncMetadata? = null,
     val currentFeeOptions: List<FeeOption> = Fee.Default.toFeeOptions(),
     val selectedFeeType: String = FeeManager.LUXURY,
-    val formattedVersion: String = ""
+    val formattedVersion: String = "",
+    /** Raw user-set trusted LTC node address ("host" or "host:port"); null when none is set. */
+    val trustedNodeAddress: String? = null
 )

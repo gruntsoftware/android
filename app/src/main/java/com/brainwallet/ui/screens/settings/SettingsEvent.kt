@@ -24,5 +24,15 @@ sealed class SettingsEvent {
     object OnFiatSelectorDismiss : SettingsEvent()
     data class OnFiatChange(val currency: CurrencyEntity) : SettingsEvent()
     object OnBlockchainSyncClick : SettingsEvent()
+
+    /** The trusted-LTC-node non-consumable was purchased from [LitecoinBlockchainDetail]'s IAP sheet. */
+    object OnTrustedNodePurchased : SettingsEvent()
+
+    /**
+     * A trusted-node address ("host" or "host:port") the user entered in the set-trusted-node
+     * sheet after purchasing. Already syntactically validated by the sheet; the ViewModel
+     * re-checks with [com.brainwallet.tools.util.TrustedNode.isValid] before persisting.
+     */
+    data class OnTrustedNodeAddressSubmitted(val address: String) : SettingsEvent()
     data class OnFeeTypeChange(val feeType: String) : SettingsEvent()
 }

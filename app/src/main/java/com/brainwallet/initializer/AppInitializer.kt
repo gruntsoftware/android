@@ -13,6 +13,7 @@ import org.koin.core.context.loadKoinModules
 import org.koin.ksp.generated.module
 import kotlin.concurrent.thread
 import com.brainwallet.gameinterface.gameModule
+import com.grunt.brainwallet.iap.di.IapModule
 
 class AppInitializer(
     private val componentProvider: Components = object : Components {
@@ -23,6 +24,7 @@ class AppInitializer(
                 listOf(
                     AppModule.dataModule,
                     AppModule.module,
+                    IapModule.module,
                     remoteConfigModule,
                     gameModule
                 )

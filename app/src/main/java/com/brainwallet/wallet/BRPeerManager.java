@@ -3,6 +3,7 @@ package com.brainwallet.wallet;
 import static com.brainwallet.data.source.RemoteConfigSource.KEY_FEATURE_SELECTED_PEERS_ENABLED;
 
 import android.content.Context;
+import android.security.keystore.UserNotAuthenticatedException;
 
 import com.brainwallet.BrainwalletApp;
 import com.brainwallet.data.model.LtcStats;
@@ -12,6 +13,7 @@ import com.brainwallet.presenter.entities.BlockEntity;
 import com.brainwallet.presenter.entities.PeerEntity;
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.tools.manager.sync.SyncThreadManager;
+import com.brainwallet.tools.security.BRKeyStore;
 import com.brainwallet.tools.sqlite.MerkleBlockDataSource;
 import com.brainwallet.tools.sqlite.PeerDataSource;
 import com.brainwallet.tools.threads.BRExecutor;
@@ -179,7 +181,16 @@ public final class BRPeerManager {
     }
 
     public void updateFixedPeer(Context ctx) {
-        String node = BRSharedPrefs.getTrustNode(ctx);
+        // The user-preferred node is persisted only in the Android Keystore
+        // (BRKeyStore#putTrustedNodeIPAddress). Absent / unreadable -> empty string,
+        // which clears any fixed peer and falls back to normal peer discovery.
+        String node = "";
+        try {
+            String stored = BRKeyStore.getTrustedNodeIPAddress(ctx, 0);
+            if (stored != null) node = stored;
+        } catch (UserNotAuthenticatedException e) {
+            Timber.e(e, "timber: updateFixedPeer: could not read trusted node from keystore");
+        }
         String host = TrustedNode.getNodeHost(node);
         int port = TrustedNode.getNodePort(node);
         boolean success = setFixedPeer(host, port);

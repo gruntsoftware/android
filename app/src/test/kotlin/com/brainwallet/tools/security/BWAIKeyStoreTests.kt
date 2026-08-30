@@ -703,4 +703,47 @@ class BWAIKeyStoreTests {
     fun `readBytesFromFile returns null for a non-existent path`() {
         assertNull(BRKeyStore.readBytesFromFile("/no/such/file.bin"))
     }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // putTrustedNodeIPAddress / getTrustedNodeIPAddress
+    // ─────────────────────────────────────────────────────────────────────────
+
+    @Test
+    fun `putTrustedNodeIPAddress returns false for null address`() {
+        assertFalse(BRKeyStore.putTrustedNodeIPAddress(null, mockContext, 0))
+    }
+
+    @Test
+    fun `putTrustedNodeIPAddress returns false for empty address`() {
+        assertFalse(BRKeyStore.putTrustedNodeIPAddress("", mockContext, 0))
+    }
+
+    @Test
+    fun `putTrustedNodeIPAddress returns true when KeyStoreManager succeeds`() {
+        every { mockKeyStoreManager.setDataBlocking(any(), any()) } returns true
+
+        assertTrue(BRKeyStore.putTrustedNodeIPAddress("165.227.48.221:9333", mockContext, 0))
+    }
+
+    @Test
+    fun `putTrustedNodeIPAddress returns false when KeyStoreManager fails`() {
+        every { mockKeyStoreManager.setDataBlocking(any(), any()) } returns false
+
+        assertFalse(BRKeyStore.putTrustedNodeIPAddress("165.227.48.221:9333", mockContext, 0))
+    }
+
+    @Test
+    fun `getTrustedNodeIPAddress decodes UTF-8 bytes back into the original address`() {
+        val expected = "165.227.48.221:9333"
+        every { mockKeyStoreManager.getDataBlocking(any()) } returns expected.toByteArray(Charsets.UTF_8)
+
+        assertEquals(expected, BRKeyStore.getTrustedNodeIPAddress(mockContext, 0))
+    }
+
+    @Test
+    fun `getTrustedNodeIPAddress returns null when no data is stored`() {
+        every { mockKeyStoreManager.getDataBlocking(any()) } returns null
+
+        assertNull(BRKeyStore.getTrustedNodeIPAddress(mockContext, 0))
+    }
 }
