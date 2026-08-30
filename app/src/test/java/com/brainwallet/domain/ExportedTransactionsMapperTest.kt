@@ -13,9 +13,9 @@ class ExportedTransactionsMapperTest {
         timeStamp: Long = 1_700_000_000L,
         blockHeight: Int = 123,
         txReversed: String = "deadbeef",
-        sent: Long = 500L,
+        sent: Long = 100000L,
         received: Long = 0L,
-        fee: Long = 10L,
+        fee: Long = 5460L,
         to: Array<String> = arrayOf("LTC1address"),
     ) = TxItem(
         timeStamp,
@@ -29,7 +29,7 @@ class ExportedTransactionsMapperTest {
         arrayOf("LTC1sender"),
         1_000L,
         250,
-        longArrayOf(500L),
+        longArrayOf(6000L),
         true,
     )
 
