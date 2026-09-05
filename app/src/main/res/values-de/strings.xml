@@ -301,4 +301,16 @@
     <string name="your_emojis_description">Du hast diese Emojis für das Spiel gewählt, um dir deine Seed-Phrase zu merken</string>
     <string name="your_emojis_reset">Emojis löschen</string>
     <string name="Send.unlockDeepLink">Entsperren … das Senden-Fenster öffnet sich mit dieser Adresse.</string>
+    <string name="trusted_ltc_node">Vertrauenswürdiger LTC-Knoten:</string>
+    <string name="set_node_ip_address">IP-Adresse einstellen</string>
+    <string name="trusted_node_entry_title">Vertrauenswürdigen Litecoin-Knoten / SPV-Peer einstellen</string>
+    <string name="trusted_node_entry_description">Geben Sie die IPv4-Adresse und den Port des Litecoin-Knotens ein, mit dem sich Ihr Brainwallet synchronisieren soll.</string>
+    <string name="trusted_node_entry_ip_label">IP-Adresse</string>
+    <string name="trusted_node_entry_port_label">Port</string>
+    <string name="trusted_node_entry_error">Geben Sie eine gültige IPv4-Adresse ein, z. B. 192.168.1.10 oder 192.168.1.10:9333</string>
+    <string name="trusted_node_entry_save">Vertrauenswürdigen Knoten speichern</string>
+    <string name="peer_sync_mode">Peer-Synchronisierungsmodus</string>
+    <string name="peer_sync_description">Wählen Sie SPV-Peers aus dem Litecoin-Mainnet oder einen vertrauenswürdigen Peer aus, um sich mit der Blockchain zu synchronisieren</string>
+    <string name="peer_toggle_label">Modus umschalten</string>
+    <string name="mainnet_peer_label">Litecoin-Mainnet</string>
 </resources>

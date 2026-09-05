@@ -246,4 +246,16 @@
     <string name="your_emojis_description">Je hebt deze emoji\'s voor het spel gekozen en ze helpen je je zaadzin te onthouden</string>
     <string name="your_emojis_reset">Emoji\'s wissen</string>
     <string name="Send.unlockDeepLink">Ontgrendel... het verzendvenster wordt geopend met dit adres.</string>
+    <string name="trusted_ltc_node">Vertrouwd LTC-knooppunt:</string>
+    <string name="set_node_ip_address">IP-adres instellen</string>
+    <string name="trusted_node_entry_title">Vertrouwd Litecoin-knooppunt / SPV-peer instellen</string>
+    <string name="trusted_node_entry_description">Voer het IPv4-adres en de poort in van het Litecoin-knooppunt waarmee uw Brainwallet moet synchroniseren.</string>
+    <string name="trusted_node_entry_ip_label">IP-adres</string>
+    <string name="trusted_node_entry_port_label">Poort</string>
+    <string name="trusted_node_entry_error">Voer een geldig IPv4-adres in, bijvoorbeeld 192.168.1.10 of 192.168.1.10:9333</string>
+    <string name="trusted_node_entry_save">Vertrouwd knooppunt opslaan</string>
+    <string name="peer_sync_mode">Peer-synchronisatiemodus</string>
+    <string name="peer_sync_description">Stel in vanuit SPV-peers in het Litecoin-mainnet of een vertrouwde peer om met de blockchain te synchroniseren</string>
+    <string name="peer_toggle_label">Modus omschakelen</string>
+    <string name="mainnet_peer_label">Litecoin-mainnet</string>
 </resources>

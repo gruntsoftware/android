@@ -344,4 +344,16 @@
     <string name="your_emojis_description">ਤੁਸੀਂ ਇਹ emojis ਖੇਲ ਲਈ ਚੁਣੇ ਹਨ ਅਤੇ ਆਪਣੇ ਸੀਡ ਵਾਕਾਂਸ਼ ਨੂੰ ਯਾਦ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ</string>
     <string name="your_emojis_reset">Emojis ਨੂੰ ਸਾਫ਼ ਕਰੋ</string>
     <string name="Send.unlockDeepLink">ਅਨਲੌਕ ਕਰੋ... ਇਸ ਪਤੇ ਨਾਲ ਭੇਜੋ ਵਿੰਡੋ ਖੁੱਲ੍ਹੇਗੀ।</string>
+    <string name="trusted_ltc_node">ਭਰੋਸੇਮੰਦ LTC ਨੋਡ:</string>
+    <string name="set_node_ip_address">IP ਐਡਰੈਸ ਸੈੱਟ ਕਰੋ</string>
+    <string name="trusted_node_entry_title">ਭਰੋਸੇਮੰਦ Litecoin ਨੋਡ / SPV ਪੀਅਰ ਸੈੱਟ ਕਰੋ</string>
+    <string name="trusted_node_entry_description">Litecoin ਨੋਡ ਦਾ IPv4 ਐਡਰੈਸ ਅਤੇ ਪੋਰਟ ਦਰਜ ਕਰੋ ਜਿਸ ਨਾਲ ਤੁਹਾਡਾ Brainwallet ਸਿੰਕ ਕਰਨਾ ਚਾਹੁੰਦਾ ਹੈ।</string>
+    <string name="trusted_node_entry_ip_label">IP ਐਡਰੈਸ</string>
+    <string name="trusted_node_entry_port_label">ਪੋਰਟ</string>
+    <string name="trusted_node_entry_error">ਵੈਧ IPv4 ਐਡਰੈਸ ਦਰਜ ਕਰੋ, ਉਦਾਹਰਣ ਲਈ 192.168.1.10 ਜਾਂ 192.168.1.10:9333</string>
+    <string name="trusted_node_entry_save">ਭਰੋਸੇਮੰਦ ਨੋਡ ਸੰਭਾਲੋ</string>
+    <string name="peer_sync_mode">ਪੀਅਰ ਸਿੰਕ ਮੋਡ</string>
+    <string name="peer_sync_description">Litecoin ਮੇਨਨੈੱਟ ਵਿੱਚ spv ਪੀਅਰਜ਼ ਜਾਂ ਬਲਾਕਚੇਨ ਨਾਲ ਸਿੰਕ ਕਰਨ ਲਈ ਭਰੋਸੇਮੰਦ ਪੀਅਰ ਤੋਂ ਸੈੱਟ ਕਰੋ</string>
+    <string name="peer_toggle_label">ਮੋਡ ਟਾਗਲ ਕਰੋ</string>
+    <string name="mainnet_peer_label">Litecoin ਮੇਨਨੈੱਟ</string>
 </resources>

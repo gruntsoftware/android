@@ -336,4 +336,16 @@
     <string name="your_emojis_description">شما این ایموجی‌ها را برای بازی انتخاب کردید و به یادآوری عبارت بذر خود کمک می‌کنند</string>
     <string name="your_emojis_reset">پاک کردن ایموجی‌ها</string>
     <string name="Send.unlockDeepLink">قفل را باز کنید... پنجره ارسال با این آدرس باز خواهد شد.</string>
+    <string name="trusted_ltc_node">گره LTC قابل اعتماد:</string>
+    <string name="set_node_ip_address">تنظیم آدرس IP</string>
+    <string name="trusted_node_entry_title">تنظیم گره Litecoin قابل اعتماد / همتای SPV</string>
+    <string name="trusted_node_entry_description">آدرس IPv4 و پورت گره Litecoin را وارد کنید که Brainwallet باید با آن همگام‌سازی شود.</string>
+    <string name="trusted_node_entry_ip_label">آدرس IP</string>
+    <string name="trusted_node_entry_port_label">پورت</string>
+    <string name="trusted_node_entry_error">آدرس IPv4 معتبری وارد کنید، مثلاً 192.168.1.10 یا 192.168.1.10:9333</string>
+    <string name="trusted_node_entry_save">ذخیره گره قابل اعتماد</string>
+    <string name="peer_sync_mode">حالت همگام‌سازی همتا</string>
+    <string name="peer_sync_description">از همتایان spv در شبکه اصلی Litecoin یا یک همتای قابل اعتماد برای همگام‌سازی با بلاک‌چین انتخاب کنید</string>
+    <string name="peer_toggle_label">تبدیل حالت</string>
+    <string name="mainnet_peer_label">شبکه اصلی Litecoin</string>
 </resources>

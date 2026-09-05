@@ -334,4 +334,16 @@
     <string name="your_emojis_description">Anda memilih emoji ini untuk permainan dan membantu Anda mengingat frasa seed Anda</string>
     <string name="your_emojis_reset">Hapus emoji</string>
     <string name="Send.unlockDeepLink">Buka kunci... jendela kirim akan terbuka dengan alamat ini.</string>
+    <string name="trusted_ltc_node">Node LTC Terpercaya:</string>
+    <string name="set_node_ip_address">Atur Alamat IP</string>
+    <string name="trusted_node_entry_title">Atur node Litecoin terpercaya / Peer SPV</string>
+    <string name="trusted_node_entry_description">Masukkan alamat IPv4 dan port node Litecoin yang ingin disinkronkan dengan Brainwallet Anda.</string>
+    <string name="trusted_node_entry_ip_label">Alamat IP</string>
+    <string name="trusted_node_entry_port_label">Port</string>
+    <string name="trusted_node_entry_error">Masukkan alamat IPv4 yang valid, misalnya 192.168.1.10 atau 192.168.1.10:9333</string>
+    <string name="trusted_node_entry_save">Simpan node terpercaya</string>
+    <string name="peer_sync_mode">Mode sinkronisasi peer</string>
+    <string name="peer_sync_description">Atur dari peer SPV di jaringan utama Litecoin atau peer terpercaya untuk disinkronkan dengan blockchain</string>
+    <string name="peer_toggle_label">Mode toggle</string>
+    <string name="mainnet_peer_label">Jaringan utama Litecoin</string>
 </resources>

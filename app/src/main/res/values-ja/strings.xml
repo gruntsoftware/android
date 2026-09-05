@@ -334,4 +334,16 @@
     <string name="your_emojis_description">ゲーム用に選択したこれらの絵文字は、シードフレーズを覚えるのに役立ちます</string>
     <string name="your_emojis_reset">絵文字をクリア</string>
     <string name="Send.unlockDeepLink">ロックを解除...この宛先で送金画面が開きます。</string>
+    <string name="trusted_ltc_node">信頼できるLTCノード:</string>
+    <string name="set_node_ip_address">IPアドレスを設定</string>
+    <string name="trusted_node_entry_title">信頼できるLitecoinノード / SPVピアを設定</string>
+    <string name="trusted_node_entry_description">BrainwalletがSyncする際に使用するLitecoinノードのIPv4アドレスとポート番号を入力してください。</string>
+    <string name="trusted_node_entry_ip_label">IPアドレス</string>
+    <string name="trusted_node_entry_port_label">ポート</string>
+    <string name="trusted_node_entry_error">有効なIPv4アドレスを入力してください。例: 192.168.1.10 または 192.168.1.10:9333</string>
+    <string name="trusted_node_entry_save">信頼できるノードを保存</string>
+    <string name="peer_sync_mode">ピアSyncモード</string>
+    <string name="peer_sync_description">Litecoinメインネットのspvピア、または信頼できるピアから選択してブロックチェーンとSyncします</string>
+    <string name="peer_toggle_label">モードを切り替え</string>
+    <string name="mainnet_peer_label">Litecoinメインネット</string>
 </resources>

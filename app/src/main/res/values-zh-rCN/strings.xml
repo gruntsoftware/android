@@ -334,4 +334,16 @@
     <string name="your_emojis_description">你为游戏选择的这些表情符号可以帮助你记住你的助记词</string>
     <string name="your_emojis_reset">清除表情符号</string>
     <string name="Send.unlockDeepLink">解锁...发送窗口将显示此地址。</string>
+    <string name="trusted_ltc_node">信任的 LTC 节点：</string>
+    <string name="set_node_ip_address">设置 IP 地址</string>
+    <string name="trusted_node_entry_title">设置信任的 Litecoin 节点 / SPV 对等节点</string>
+    <string name="trusted_node_entry_description">输入您的 Brainwallet 应该同步的 Litecoin 节点的 IPv4 地址和端口。</string>
+    <string name="trusted_node_entry_ip_label">IP 地址</string>
+    <string name="trusted_node_entry_port_label">端口</string>
+    <string name="trusted_node_entry_error">输入有效的 IPv4 地址，例如 192.168.1.10 或 192.168.1.10:9333</string>
+    <string name="trusted_node_entry_save">保存信任的节点</string>
+    <string name="peer_sync_mode">对等节点同步模式</string>
+    <string name="peer_sync_description">从 Litecoin 主网中的 SPV 对等节点或信任的对等节点进行设置以与区块链同步</string>
+    <string name="peer_toggle_label">切换模式</string>
+    <string name="mainnet_peer_label">Litecoin 主网</string>
 </resources>

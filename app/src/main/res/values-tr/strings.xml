@@ -335,4 +335,16 @@
     <string name="your_emojis_description">Oyun için bu emojileri seçtiniz ve seed ifadenizi hatırlamanıza yardımcı oluyorlar</string>
     <string name="your_emojis_reset">Emojileri temizle</string>
     <string name="Send.unlockDeepLink">Kilidi aç... bu adresle gönderme ekranı açılacak.</string>
+    <string name="trusted_ltc_node">Güvenilir LTC Düğümü:</string>
+    <string name="set_node_ip_address">IP Adresini Ayarla</string>
+    <string name="trusted_node_entry_title">Güvenilir Litecoin düğümü / SPV Peer ayarla</string>
+    <string name="trusted_node_entry_description">Brainwallet'ınızın senkronize olması gereken Litecoin düğümünün IPv4 adresi ve portunu girin.</string>
+    <string name="trusted_node_entry_ip_label">IP adresi</string>
+    <string name="trusted_node_entry_port_label">Port</string>
+    <string name="trusted_node_entry_error">Geçerli bir IPv4 adresi girin, örn. 192.168.1.10 veya 192.168.1.10:9333</string>
+    <string name="trusted_node_entry_save">Güvenilir düğümü kaydet</string>
+    <string name="peer_sync_mode">Peer senkronizasyon modu</string>
+    <string name="peer_sync_description">Litecoin mainnet'teki SPV peer'larından veya blokzincirle senkronize olmak için güvenilir bir peer'dan ayarla</string>
+    <string name="peer_toggle_label">Modu değiştir</string>
+    <string name="mainnet_peer_label">Litecoin mainnet</string>
 </resources>
