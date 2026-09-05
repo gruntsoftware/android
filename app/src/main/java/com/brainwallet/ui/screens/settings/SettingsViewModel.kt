@@ -252,12 +252,6 @@ class SettingsViewModel(
             is SettingsEvent.OnTrustedNodeAddressSubmitted -> viewModelScope.launch(ioDispatcher) {
                 val submitted = event.addressAndPort.trim()
                 if (!TrustedNode.isValid(submitted)) return@launch
-
-                // The port is just as required as the host, not optional: split it out and
-                // persist it as its own BRKeyStore value (BRKeyStore#putTrustedNodePort)
-                // rather than only folding it into a combined "host:port" string.
-                // SetTrustedNodeSheet already pre-fills TrustedNode.STANDARD_PORT when the
-                // user leaves the port blank, but default it here too as defense in depth.
                 val host = TrustedNode.getNodeHost(submitted)
                 val port = TrustedNode.getNodePort(submitted)
                     .let { parsed -> if (parsed > 0) parsed else TrustedNode.STANDARD_PORT }
@@ -269,9 +263,6 @@ class SettingsViewModel(
                     BRKeyStore.putTrustedNodePort(port, app, 0)
                 }.getOrDefault(false)
                 if (!addressStored || !portStored) return@launch
-
-                // Keystore is the single source of truth; BRPeerManager.updateFixedPeer()
-                // reads it back and repoints the SPV connection at the new node.
                 runCatching { BRPeerManager.getInstance().updateFixedPeer(app) }
                 loadTrustedNode()
             }

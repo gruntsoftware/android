@@ -355,7 +355,7 @@
     <string name="your_emojis_reset">Clear emojis</string>
     <string name="trusted_ltc_node">Trusted LTC Node:</string>
     <string name="set_node_ip_address">Set IP Address</string>
-    <string name="trusted_node_entry_title">Set trusted LTC node / SPV Peer</string>
+    <string name="trusted_node_entry_title">Set trusted Litecoin node / SPV Peer</string>
     <string name="trusted_node_entry_description">Enter the IPv4 address and port of the Litecoin node your Brainwallet should sync with.</string>
     <string name="trusted_node_entry_ip_label">IP address</string>
     <string name="trusted_node_entry_port_label">Port</string>
