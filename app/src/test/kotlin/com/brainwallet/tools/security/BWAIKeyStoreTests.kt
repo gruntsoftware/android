@@ -14,6 +14,7 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.mockkStatic
+import io.mockk.slot
 import io.mockk.unmockkStatic
 import io.mockk.verify
 import org.junit.After
@@ -626,6 +627,9 @@ class BWAIKeyStoreTests {
             BRKeyStore.AUTH_KEY_ALIAS,
             BRKeyStore.TOKEN_ALIAS,
             BRKeyStore.PASS_TIME_ALIAS,
+            BRKeyStore.TRUSTED_NODE_ALIAS,
+            BRKeyStore.TRUSTED_NODE_PORT_ALIAS,
+            BRKeyStore.TRUSTED_NODE_SYNC_PREF_ALIAS,
         )
         expected.forEach { alias ->
             assertTrue("aliasObjectMap is missing: $alias", BRKeyStore.aliasObjectMap.containsKey(alias))
@@ -745,5 +749,103 @@ class BWAIKeyStoreTests {
         every { mockKeyStoreManager.getDataBlocking(any()) } returns null
 
         assertNull(BRKeyStore.getTrustedNodeIPAddress(mockContext, 0))
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // putTrustedNodePort / getTrustedNodePort
+    // ─────────────────────────────────────────────────────────────────────────
+
+    @Test
+    fun `putTrustedNodePort persists the port as its UTF-8 string form`() {
+        val stored = slot<ByteArray>()
+        every { mockKeyStoreManager.setDataBlocking(any(), capture(stored)) } returns true
+
+        assertTrue(BRKeyStore.putTrustedNodePort(19335, mockContext, 0))
+        assertEquals("19335", String(stored.captured, Charsets.UTF_8))
+    }
+
+    @Test
+    fun `putTrustedNodePort returns false when KeyStoreManager fails`() {
+        every { mockKeyStoreManager.setDataBlocking(any(), any()) } returns false
+
+        assertFalse(BRKeyStore.putTrustedNodePort(9333, mockContext, 0))
+    }
+
+    @Test
+    fun `getTrustedNodePort parses the stored port`() {
+        every { mockKeyStoreManager.getDataBlocking(any()) } returns "19335".toByteArray(Charsets.UTF_8)
+
+        assertEquals(19335, BRKeyStore.getTrustedNodePort(mockContext, 0))
+    }
+
+    @Test
+    fun `getTrustedNodePort returns 0 when no data is stored`() {
+        every { mockKeyStoreManager.getDataBlocking(any()) } returns null
+
+        assertEquals(0, BRKeyStore.getTrustedNodePort(mockContext, 0))
+    }
+
+    @Test
+    fun `getTrustedNodePort returns 0 when the stored value is not a number`() {
+        every { mockKeyStoreManager.getDataBlocking(any()) } returns "not-a-port".toByteArray(Charsets.UTF_8)
+
+        assertEquals(0, BRKeyStore.getTrustedNodePort(mockContext, 0))
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // putTrustedNodeSyncPreference / getTrustedNodeSyncPreference
+    // ─────────────────────────────────────────────────────────────────────────
+
+    @Test
+    fun `putTrustedNodeSyncPreference persists true`() {
+        val stored = slot<ByteArray>()
+        every { mockKeyStoreManager.setDataBlocking(any(), capture(stored)) } returns true
+
+        assertTrue(BRKeyStore.putTrustedNodeSyncPreference(true, mockContext, 0))
+        assertEquals("true", String(stored.captured, Charsets.UTF_8))
+    }
+
+    @Test
+    fun `putTrustedNodeSyncPreference persists false`() {
+        val stored = slot<ByteArray>()
+        every { mockKeyStoreManager.setDataBlocking(any(), capture(stored)) } returns true
+
+        assertTrue(BRKeyStore.putTrustedNodeSyncPreference(false, mockContext, 0))
+        assertEquals("false", String(stored.captured, Charsets.UTF_8))
+    }
+
+    @Test
+    fun `putTrustedNodeSyncPreference returns false when KeyStoreManager fails`() {
+        every { mockKeyStoreManager.setDataBlocking(any(), any()) } returns false
+
+        assertFalse(BRKeyStore.putTrustedNodeSyncPreference(true, mockContext, 0))
+    }
+
+    @Test
+    fun `getTrustedNodeSyncPreference returns true when the stored value is true`() {
+        every { mockKeyStoreManager.getDataBlocking(any()) } returns "true".toByteArray(Charsets.UTF_8)
+
+        assertTrue(BRKeyStore.getTrustedNodeSyncPreference(mockContext, 0))
+    }
+
+    @Test
+    fun `getTrustedNodeSyncPreference returns false when the stored value is false`() {
+        every { mockKeyStoreManager.getDataBlocking(any()) } returns "false".toByteArray(Charsets.UTF_8)
+
+        assertFalse(BRKeyStore.getTrustedNodeSyncPreference(mockContext, 0))
+    }
+
+    @Test
+    fun `getTrustedNodeSyncPreference defaults to false when no data is stored`() {
+        every { mockKeyStoreManager.getDataBlocking(any()) } returns null
+
+        assertFalse(BRKeyStore.getTrustedNodeSyncPreference(mockContext, 0))
+    }
+
+    @Test
+    fun `getTrustedNodeSyncPreference defaults to false when the stored value is not parseable`() {
+        every { mockKeyStoreManager.getDataBlocking(any()) } returns "garbage".toByteArray(Charsets.UTF_8)
+
+        assertFalse(BRKeyStore.getTrustedNodeSyncPreference(mockContext, 0))
     }
 }
