@@ -238,6 +238,15 @@ class SettingsViewModel(
                     runCatching {
                         BRKeyStore.putTrustedNodeSyncPreference(event.userPrefersTrustedNode, app, 0)
                     }
+                    // Apply the new mode to the live SPV sync now, not just on next launch.
+                    // updateFixedPeer() re-reads the preference just persisted above and does a
+                    // stop -> re-resolve fixed peer -> restart in either direction:
+                    //  - to "Litecoin mainnet": clears any pinned peer, sync restarts against
+                    //    the random mainnet peer array;
+                    //  - to trusted-node: re-pins the stored node as the fixed peer and
+                    //    restarts the sync against it (or stays on mainnet until an address
+                    //    is entered, which triggers updateFixedPeer() again).
+                    runCatching { BRPeerManager.getInstance().updateFixedPeer(app) }
                 }
             }
 
