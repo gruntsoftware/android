@@ -1,7 +1,7 @@
 package com.brainwallet.domain
 
 import com.brainwallet.presenter.entities.TxItem
-import com.grunt.brainwallet.iap.presentation.model.ExportedTransaction
+import com.grunt.brainwallet.iap.export.transactions.presentation.model.ExportedTransaction
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
 import org.koin.core.annotation.Factory

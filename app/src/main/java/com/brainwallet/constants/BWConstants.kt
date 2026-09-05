@@ -59,6 +59,8 @@ object BWConstants {
 
     const val CLEAR_EMOJIS_REQUEST_CODE: Int = 122
 
+    const val PUT_TRUSTED_NODE_REQUEST_CODE: Int = 123
+
     /**
      * Request codes for taking pictures
      */
