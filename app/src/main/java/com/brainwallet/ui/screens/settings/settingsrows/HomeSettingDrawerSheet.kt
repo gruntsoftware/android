@@ -156,6 +156,7 @@ fun HomeSettingDrawerSheet(
                     selectedFeeType = state.selectedFeeType,
                     feeOptions = state.currentFeeOptions,
                     trustedNodeAddress = state.trustedNodeAddress,
+                    trustedNodeEntitled = state.trustedNodeEntitled,
                     onEvent = {
                         viewModel.onEvent(it)
                     }

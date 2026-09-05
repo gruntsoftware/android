@@ -361,4 +361,8 @@
     <string name="trusted_node_entry_port_label">Port</string>
     <string name="trusted_node_entry_error">Enter a valid IPv4 address, e.g. 192.168.1.10 or 192.168.1.10:9333</string>
     <string name="trusted_node_entry_save">Save node</string>
+    <string name="peer_sync_mode">Peer sync mode</string>
+    <string name="peer_sync_description">Set from spv peers in the Litecoin mainnet or a trusted peer to sync with the blockchain</string>
+    <string name="peer_toggle_label">Toogle mode</string>
+    <string name="mainnet_peer_label">Litecoin mainnet</string>
 </resources>

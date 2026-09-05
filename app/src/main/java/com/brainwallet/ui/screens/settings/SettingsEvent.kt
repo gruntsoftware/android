@@ -28,6 +28,8 @@ sealed class SettingsEvent {
     /** The trusted-LTC-node non-consumable was purchased from [LitecoinBlockchainDetail]'s IAP sheet. */
     object OnTrustedNodePurchased : SettingsEvent()
 
+    object OnTrustedNodeToggle : SettingsEvent()
+
     /**
      * A trusted-node address ("host" or "host:port") the user entered in the set-trusted-node
      * sheet after purchasing. Already syntactically validated by the sheet; the ViewModel

@@ -18,6 +18,7 @@ import com.brainwallet.ui.BrainwalletViewModel
 import com.brainwallet.wallet.BRPeerManager
 import com.brainwallet.util.EventBus
 import com.brainwallet.util.VersionCodeProvider
+import com.grunt.brainwallet.iap.domain.usecase.CheckTrustedLTCNodeEntitlementUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -32,6 +33,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
+import org.koin.core.context.GlobalContext
 
 @KoinViewModel
 class SettingsViewModel(
@@ -93,6 +95,7 @@ class SettingsViewModel(
             }
         }
         loadTrustedNode()
+        loadTrustedNodeEntitlement()
     }
 
     /**
@@ -103,6 +106,21 @@ class SettingsViewModel(
         viewModelScope.launch(ioDispatcher) {
             val address = runCatching { BRKeyStore.getTrustedNodeIPAddress(app, 0) }.getOrNull()
             _state.update { it.copy(trustedNodeAddress = address) }
+        }
+    }
+
+    /**
+     * Best-effort check of whether this account owns the trusted-LTC-node unlock, so the
+     * settings row can open the IP editor directly instead of the paywall. Any failure
+     * (IAP module not loaded, RevenueCat unreachable) leaves [SettingsState.trustedNodeEntitled]
+     * false and the paywall is shown.
+     */
+    private fun loadTrustedNodeEntitlement() {
+        val checkEntitlement = GlobalContext.getOrNull()
+            ?.getOrNull<CheckTrustedLTCNodeEntitlementUseCase>() ?: return
+        viewModelScope.launch(ioDispatcher) {
+            val entitled = runCatching { checkEntitlement(Unit) }.getOrDefault(false)
+            _state.update { it.copy(trustedNodeEntitled = entitled) }
         }
     }
     fun hasUserSetEmojis(): Boolean {
@@ -195,10 +213,15 @@ class SettingsViewModel(
                 EventBus.emit(EventBus.Event.Message(LEGACY_EFFECT_ON_SYNC, address = null))
             }
 
-            SettingsEvent.OnTrustedNodePurchased -> {
+            is SettingsEvent.OnTrustedNodeToggle -> {
+            }
+
+            is SettingsEvent.OnTrustedNodePurchased -> {
                 // Purchase unlocked the feature; the address-entry sheet opens next in the UI.
-                // Refresh so the row label reflects any address a previous purchase already set.
+                // Refresh so the row reflects the new entitlement and any address a previous
+                // purchase already set.
                 loadTrustedNode()
+                loadTrustedNodeEntitlement()
             }
 
             is SettingsEvent.OnTrustedNodeAddressSubmitted -> viewModelScope.launch(ioDispatcher) {
