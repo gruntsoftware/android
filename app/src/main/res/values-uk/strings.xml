@@ -331,4 +331,16 @@
     <string name="your_emojis_description">Ви виbrали ці емодзі для гри, щоб допомогти запам\'ятати вашу фразу насіння</string>
     <string name="your_emojis_reset">Очистити емодзі</string>
     <string name="Send.unlockDeepLink">Розблокуйте... відкриється вікно надсилання з цією адресою.</string>
+    <string name="trusted_ltc_node">Надійний вузол LTC:</string>
+    <string name="set_node_ip_address">Встановити IP-адресу</string>
+    <string name="trusted_node_entry_title">Встановити надійний вузол Litecoin / SPV Peer</string>
+    <string name="trusted_node_entry_description">Введіть IPv4-адресу та порт вузла Litecoin, з яким повинен синхронізуватися ваш Brainwallet.</string>
+    <string name="trusted_node_entry_ip_label">IP-адреса</string>
+    <string name="trusted_node_entry_port_label">Порт</string>
+    <string name="trusted_node_entry_error">Введіть дійсну IPv4-адресу, наприклад 192.168.1.10 або 192.168.1.10:9333</string>
+    <string name="trusted_node_entry_save">Зберегти надійний вузол</string>
+    <string name="peer_sync_mode">Режим синхронізації Peer</string>
+    <string name="peer_sync_description">Встановіть синхронізацію з SPV peers в основній мережі Litecoin або з надійним peer для синхронізації з блокчейном</string>
+    <string name="peer_toggle_label">Переключити режим</string>
+    <string name="mainnet_peer_label">Основна мережа Litecoin</string>
 </resources>

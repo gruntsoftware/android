@@ -246,4 +246,16 @@
     <string name="your_emojis_description">Du valde dessa emojis för spelet och för att hjälpa dig komma ihåg din seed-fraser</string>
     <string name="your_emojis_reset">Rensa emojis</string>
     <string name="Send.unlockDeepLink">Lås upp... sändfönstret öppnas med denna adress.</string>
+    <string name="trusted_ltc_node">Betrodd LTC-nod:</string>
+    <string name="set_node_ip_address">Ange IP-adress</string>
+    <string name="trusted_node_entry_title">Ange betrodd Litecoin-nod / SPV-peer</string>
+    <string name="trusted_node_entry_description">Ange IPv4-adressen och porten för den Litecoin-nod som din Brainwallet ska synkronisera med.</string>
+    <string name="trusted_node_entry_ip_label">IP-adress</string>
+    <string name="trusted_node_entry_port_label">Port</string>
+    <string name="trusted_node_entry_error">Ange en giltig IPv4-adress, t.ex. 192.168.1.10 eller 192.168.1.10:9333</string>
+    <string name="trusted_node_entry_save">Spara betrodd nod</string>
+    <string name="peer_sync_mode">Peer-synkroniseringsläge</string>
+    <string name="peer_sync_description">Välj mellan SPV-peers i Litecoin-huvudnätet eller en betrodd peer för synkronisering med blockkedjan</string>
+    <string name="peer_toggle_label">Växla läge</string>
+    <string name="mainnet_peer_label">Litecoin-huvudnät</string>
 </resources>

@@ -334,4 +334,16 @@
     <string name="your_emojis_description">Вы выбрали эти эмодзи для игры, чтобы помочь себе запомнить фразу-семя</string>
     <string name="your_emojis_reset">Очистить эмодзи</string>
     <string name="Send.unlockDeepLink">Разблокируйте... откроется окно отправки с этим адресом.</string>
+    <string name="trusted_ltc_node">Доверенный LTC узел:</string>
+    <string name="set_node_ip_address">Установить IP адрес</string>
+    <string name="trusted_node_entry_title">Установить доверенный узел Litecoin / SPV peer</string>
+    <string name="trusted_node_entry_description">Введите IPv4 адрес и порт узла Litecoin, с которым должен синхронизироваться ваш Brainwallet.</string>
+    <string name="trusted_node_entry_ip_label">IP адрес</string>
+    <string name="trusted_node_entry_port_label">Порт</string>
+    <string name="trusted_node_entry_error">Введите корректный IPv4 адрес, например 192.168.1.10 или 192.168.1.10:9333</string>
+    <string name="trusted_node_entry_save">Сохранить доверенный узел</string>
+    <string name="peer_sync_mode">Режим синхронизации с peer</string>
+    <string name="peer_sync_description">Выберите синхронизацию с SPV peers в основной сети Litecoin или с доверенным узлом для синхронизации с блокчейном</string>
+    <string name="peer_toggle_label">Переключить режим</string>
+    <string name="mainnet_peer_label">Основная сеть Litecoin</string>
 </resources>

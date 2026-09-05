@@ -318,4 +318,16 @@
     <string name="your_emojis_description">Elegiste estos emojis para el juego y te ayudan a recordar tu frase de recuperación</string>
     <string name="your_emojis_reset">Borrar emojis</string>
     <string name="Send.unlockDeepLink">Desbloquea... la ventana de envío se abrirá con esta dirección.</string>
+    <string name="trusted_ltc_node">Nodo LTC de confianza:</string>
+    <string name="set_node_ip_address">Establecer dirección IP</string>
+    <string name="trusted_node_entry_title">Establecer nodo Litecoin de confianza / Par SPV</string>
+    <string name="trusted_node_entry_description">Ingresa la dirección IPv4 y puerto del nodo Litecoin con el que tu Brainwallet debe sincronizarse.</string>
+    <string name="trusted_node_entry_ip_label">Dirección IP</string>
+    <string name="trusted_node_entry_port_label">Puerto</string>
+    <string name="trusted_node_entry_error">Ingresa una dirección IPv4 válida, p. ej. 192.168.1.10 o 192.168.1.10:9333</string>
+    <string name="trusted_node_entry_save">Guardar nodo de confianza</string>
+    <string name="peer_sync_mode">Modo de sincronización de pares</string>
+    <string name="peer_sync_description">Establece pares spv en la red principal de Litecoin o un par de confianza con el que sincronizar la cadena de bloques</string>
+    <string name="peer_toggle_label">Alternar modo</string>
+    <string name="mainnet_peer_label">Red principal de Litecoin</string>
 </resources>

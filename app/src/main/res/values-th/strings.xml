@@ -246,4 +246,16 @@
     <string name="your_emojis_description">คุณเลือก emoji เหล่านี้สำหรับเกมและช่วยให้คุณจำวลี seed ได้</string>
     <string name="your_emojis_reset">ล้าง emoji</string>
     <string name="Send.unlockDeepLink">ปลดล็อก... หน้าต่างส่งจะเปิดขึ้นพร้อมที่อยู่นี้</string>
+    <string name="trusted_ltc_node">โหนด LTC ที่เชื่อถือได้:</string>
+    <string name="set_node_ip_address">ตั้งค่าที่อยู่ IP</string>
+    <string name="trusted_node_entry_title">ตั้งค่าโหนด Litecoin ที่เชื่อถือได้ / SPV Peer</string>
+    <string name="trusted_node_entry_description">ป้อนที่อยู่ IPv4 และพอร์ตของโหนด Litecoin ที่ Brainwallet ของคุณควรซิงค์กับ</string>
+    <string name="trusted_node_entry_ip_label">ที่อยู่ IP</string>
+    <string name="trusted_node_entry_port_label">พอร์ต</string>
+    <string name="trusted_node_entry_error">ป้อนที่อยู่ IPv4 ที่ถูกต้อง เช่น 192.168.1.10 หรือ 192.168.1.10:9333</string>
+    <string name="trusted_node_entry_save">บันทึกโหนดที่เชื่อถือได้</string>
+    <string name="peer_sync_mode">โหมดซิงค์ Peer</string>
+    <string name="peer_sync_description">ตั้งค่าจาก SPV peers ในเครือข่าย Litecoin mainnet หรือ peer ที่เชื่อถือได้เพื่อซิงค์กับบล็อกเชน</string>
+    <string name="peer_toggle_label">สลับโหมด</string>
+    <string name="mainnet_peer_label">Litecoin mainnet</string>
 </resources>
