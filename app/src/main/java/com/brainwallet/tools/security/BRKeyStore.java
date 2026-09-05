@@ -98,6 +98,8 @@ public class BRKeyStore {
     private static final String TOKEN_IV = "ivtoken";
     private static final String PASS_TIME_IV = "passtimetoken";
     private static final String TRUSTED_NODE_IV = "ivtrustednode";
+    private static final String TRUSTED_NODE_PORT_IV = "ivtrustednodeport";
+    private static final String TRUSTED_NODE_SYNC_PREF_IV = "ivtrustednodesyncpref";
 
     public static final String PHRASE_ALIAS = "phrase";
     public static final String EMOJIS_ALIAS = "emojis";
@@ -113,6 +115,8 @@ public class BRKeyStore {
     public static final String TOKEN_ALIAS = "token";
     public static final String PASS_TIME_ALIAS = "passTime";
     public static final String TRUSTED_NODE_ALIAS = "trustedNode";
+    public static final String TRUSTED_NODE_PORT_ALIAS = "trustedNodePort";
+    public static final String TRUSTED_NODE_SYNC_PREF_ALIAS = "trustedNodeSyncPreference";
     private static final String PHRASE_FILENAME = "my_phrase";
     private static final String EMOJIS_FILENAME = "my_emojis";
     private static final String CANARY_FILENAME = "my_canary";
@@ -127,6 +131,8 @@ public class BRKeyStore {
     private static final String TOKEN_FILENAME = "my_token";
     private static final String PASS_TIME_FILENAME = "my_pass_time";
     private static final String TRUSTED_NODE_FILENAME = "my_trusted_node";
+    private static final String TRUSTED_NODE_PORT_FILENAME = "my_trusted_node_port";
+    private static final String TRUSTED_NODE_SYNC_PREF_FILENAME = "my_trusted_node_sync_pref";
 
     private static boolean bugMessageShowing;
 
@@ -149,6 +155,8 @@ public class BRKeyStore {
         aliasObjectMap.put(PASS_TIME_ALIAS, new AliasObject(PASS_TIME_ALIAS, PASS_TIME_FILENAME, PASS_TIME_IV));
         aliasObjectMap.put(TOTAL_LIMIT_ALIAS, new AliasObject(TOTAL_LIMIT_ALIAS, TOTAL_LIMIT_FILENAME, TOTAL_LIMIT_IV));
         aliasObjectMap.put(TRUSTED_NODE_ALIAS, new AliasObject(TRUSTED_NODE_ALIAS, TRUSTED_NODE_FILENAME, TRUSTED_NODE_IV));
+        aliasObjectMap.put(TRUSTED_NODE_PORT_ALIAS, new AliasObject(TRUSTED_NODE_PORT_ALIAS, TRUSTED_NODE_PORT_FILENAME, TRUSTED_NODE_PORT_IV));
+        aliasObjectMap.put(TRUSTED_NODE_SYNC_PREF_ALIAS, new AliasObject(TRUSTED_NODE_SYNC_PREF_ALIAS, TRUSTED_NODE_SYNC_PREF_FILENAME, TRUSTED_NODE_SYNC_PREF_IV));
 
     }
 
@@ -214,9 +222,57 @@ public class BRKeyStore {
     }
 
     /**
-     * Stores the raw trusted-node address (e.g. "1.2.3.4" or "1.2.3.4:9333", see
-     * {@link com.brainwallet.tools.util.TrustedNode}) that {@code BRPeerManager} should use
-     * as its fixed peer for syncing.
+     * Persists whether the user wants SPV sync pinned to their trusted node ({@code true}) or
+     * left on the default mainnet peer discovery ({@code false}). Stored as its own
+     * BRKeyStore value, independent of the host ({@link #putTrustedNodeIPAddress}) and port
+     * ({@link #putTrustedNodePort}) - the preference can be toggled off without discarding a
+     * previously entered address. Read back with {@link #getTrustedNodeSyncPreference}.
+     */
+    public synchronized static boolean putTrustedNodeSyncPreference(boolean userPrefersTrustedNode, Context context, int requestCode)
+            throws UserNotAuthenticatedException {
+        if (PostAuth.isStuckWithAuthLoop) {
+            showLoopBugMessage(context);
+            throw new UserNotAuthenticatedException();
+        }
+        AliasObject obj = aliasObjectMap.get(TRUSTED_NODE_SYNC_PREF_ALIAS);
+        byte[] bytesToStore;
+        try {
+            bytesToStore = String.valueOf(userPrefersTrustedNode).getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            Timber.e(e);
+            return false;
+        }
+        return _setData(context, bytesToStore, obj.alias, obj.datafileName, obj.ivFileName, requestCode, false);
+    }
+
+    /**
+     * Reads the persisted trusted-node sync preference, defaulting to {@code false} (default
+     * mainnet peer discovery) when nothing has been stored yet or the stored value can't be
+     * parsed.
+     */
+    public synchronized static boolean getTrustedNodeSyncPreference(final Context context, int requestCode) throws UserNotAuthenticatedException {
+        if (PostAuth.isStuckWithAuthLoop) {
+            showLoopBugMessage(context);
+            throw new UserNotAuthenticatedException();
+        }
+        AliasObject obj = aliasObjectMap.get(TRUSTED_NODE_SYNC_PREF_ALIAS);
+        byte[] result = _getData(context, obj.alias, obj.datafileName, obj.ivFileName, requestCode);
+        if (Utils.isNullOrEmpty(result)) return false;
+        try {
+            return Boolean.parseBoolean(new String(result, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            Timber.e(e);
+            return false;
+        }
+    }
+
+
+    /**
+     * Stores the trusted-node host (e.g. "1.2.3.4") that {@code BRPeerManager} should use as
+     * its fixed peer for syncing. The port is a separate, equally-required value - see
+     * {@link #putTrustedNodePort} - combined back with a host via
+     * {@link com.brainwallet.tools.util.TrustedNode#withPort(String, int)} wherever the two
+     * are needed together (display, connecting).
      */
     public synchronized static boolean putTrustedNodeIPAddress(String trustedNodeIPAddress, Context context, int requestCode)
             throws UserNotAuthenticatedException {
@@ -249,6 +305,51 @@ public class BRKeyStore {
         } catch (UnsupportedEncodingException e) {
             Timber.e(e);
             return null;
+        }
+    }
+
+    /**
+     * Stores the trusted-node port {@code BRPeerManager} should connect on, alongside the
+     * host from {@link #putTrustedNodeIPAddress}. Persisted as its own field - rather than
+     * only folded into a combined "host:port" string - so the port is just as
+     * first-class/required a value as the host, independently readable and writable.
+     */
+    public synchronized static boolean putTrustedNodePort(int trustedNodePort, Context context, int requestCode)
+            throws UserNotAuthenticatedException {
+        if (PostAuth.isStuckWithAuthLoop) {
+            showLoopBugMessage(context);
+            throw new UserNotAuthenticatedException();
+        }
+        AliasObject obj = aliasObjectMap.get(TRUSTED_NODE_PORT_ALIAS);
+        byte[] bytesToStore;
+        try {
+            bytesToStore = String.valueOf(trustedNodePort).getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            Timber.e(e);
+            return false;
+        }
+        return _setData(context, bytesToStore, obj.alias, obj.datafileName, obj.ivFileName, requestCode, false);
+    }
+
+    /**
+     * Reads the persisted trusted-node port, or 0 when none is stored (no trusted node set
+     * yet). Callers should treat 0 as "unset" and fall back to
+     * {@link com.brainwallet.tools.util.TrustedNode#STANDARD_PORT}, e.g. via
+     * {@link com.brainwallet.tools.util.TrustedNode#withPort(String, int)}.
+     */
+    public synchronized static int getTrustedNodePort(final Context context, int requestCode) throws UserNotAuthenticatedException {
+        if (PostAuth.isStuckWithAuthLoop) {
+            showLoopBugMessage(context);
+            throw new UserNotAuthenticatedException();
+        }
+        AliasObject obj = aliasObjectMap.get(TRUSTED_NODE_PORT_ALIAS);
+        byte[] result = _getData(context, obj.alias, obj.datafileName, obj.ivFileName, requestCode);
+        if (Utils.isNullOrEmpty(result)) return 0;
+        try {
+            return Integer.parseInt(new String(result, "UTF-8"));
+        } catch (Exception e) {
+            Timber.e(e);
+            return 0;
         }
     }
 

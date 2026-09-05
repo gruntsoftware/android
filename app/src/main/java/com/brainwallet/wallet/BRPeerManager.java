@@ -181,19 +181,27 @@ public final class BRPeerManager {
     }
 
     public void updateFixedPeer(Context ctx) {
-        // The user-preferred node is persisted only in the Android Keystore
-        // (BRKeyStore#putTrustedNodeIPAddress). Absent / unreadable -> empty string,
-        // which clears any fixed peer and falls back to normal peer discovery.
-        String node = "";
+        // The user-preferred node's host and port are persisted separately in the Android
+        // Keystore (BRKeyStore#putTrustedNodeIPAddress / #putTrustedNodePort) - the port is
+        // just as required as the host, not an optional extra, so it's always read back and
+        // applied here. Absent / unreadable host -> empty string, which clears any fixed
+        // peer and falls back to normal peer discovery.
+        String host = "";
+        int port = 0;
         try {
-            String stored = BRKeyStore.getTrustedNodeIPAddress(ctx, 0);
-            if (stored != null) node = stored;
+            String storedHost = BRKeyStore.getTrustedNodeIPAddress(ctx, 0);
+            if (storedHost != null) host = storedHost;
+            port = BRKeyStore.getTrustedNodePort(ctx, 0);
         } catch (UserNotAuthenticatedException e) {
             Timber.e(e, "timber: updateFixedPeer: could not read trusted node from keystore");
         }
-        String host = TrustedNode.getNodeHost(node);
-        int port = TrustedNode.getNodePort(node);
-        boolean success = setFixedPeer(host, port);
+        // A stored port of 0 means "unset" (e.g. a host saved before the port had its own
+        // field) - fall back to the mainnet standard port explicitly rather than relying on
+        // BRPeerManagerSetFixedPeer's own zero-means-default behavior, so the log below (and
+        // anything else built from this) states the real port being connected on.
+        int effectivePort = host.isEmpty() ? port : (port > 0 ? port : TrustedNode.STANDARD_PORT);
+        String node = host.isEmpty() ? "" : TrustedNode.withPort(host, port);
+        boolean success = setFixedPeer(host, effectivePort);
         if (!success) {
             Timber.i("timber: updateFixedPeer: Failed to updateFixedPeer with input: %s", node);
         } else {

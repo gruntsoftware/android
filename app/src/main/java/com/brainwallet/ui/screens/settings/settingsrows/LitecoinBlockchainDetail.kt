@@ -26,6 +26,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -36,6 +38,7 @@ import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.FeeOption
 import com.brainwallet.data.model.getFiatFormatted
 import com.brainwallet.data.model.getSelectedIndex
+import com.brainwallet.tools.util.TrustedNode
 import com.brainwallet.ui.screens.settings.SettingsEvent
 import com.brainwallet.ui.theme.DesignTheme
 import com.brainwallet.ui.theme.IBMPlexSans
@@ -49,24 +52,25 @@ fun LitecoinBlockchainDetail(
     selectedFeeType: String,
     feeOptions: List<FeeOption>,
     trustedNodeAddress: String?,
+    trustedNodePort: String?,
     trustedNodeEntitled: Boolean,
+    // Persisted trusted-node sync preference (BRKeyStore#getTrustedNodeSyncPreference),
+    // surfaced through SettingsState#userPrefersTrustedNode. Defaults to false when nothing
+    // has been stored, so the toggle below always renders the user's last choice on show.
+    trustedPeerEnabled: Boolean,
     onEvent: (SettingsEvent) -> Unit,
 ) {
     // / Layout values
-    // No fixed section heights here: the header row above (SettingRowItemExpandable's
-    // ListItem) already sizes to its content rather than a fixed dp value, so these
-    // sections wrap their content too and rely on vertical padding for rhythm. A fixed
-    // height risked clipping text on longer translations or larger accessibility font
-    // scales.
     val sectionVerticalPadding = 12
 
     val horizontalPadding = 14
 
-    val trustedNodeLabel = trustedNodeAddress ?: stringResource(R.string.set_node_ip_address)
+    val trustedNodeLabel = formatTrustedNodeLabel(trustedNodeAddress, trustedNodePort)
+        ?: stringResource(R.string.set_node_ip_address)
     val paywallSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val addressEntrySheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var trustedNodeStep by remember { mutableStateOf(TrustedNodeStep.None) }
-    var trustedPeerEnabled by remember { mutableStateOf(true) }
+
     val peerModeButtonLabel = if (trustedPeerEnabled) trustedNodeLabel else stringResource(R.string.mainnet_peer_label)
 
     SettingRowItemExpandable(
@@ -107,47 +111,51 @@ fun LitecoinBlockchainDetail(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 8.dp, bottom = 8.dp),
+                        .padding(8.dp, top = 8.dp, bottom = 8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(
-                        modifier = Modifier.padding(end = 8.dp),
-                        text = stringResource(R.string.peer_toggle_label),
-                        style = TextStyle(
-                            fontFamily = IBMPlexSans,
-                            fontWeight = FontWeight.SemiBold,
-                            fontSize = 14.sp
-                        ),
-                        maxLines = 1
-                    )
-                    Switch(
-                        modifier = Modifier.padding(start = 4.dp, end = 4.dp),
-                        checked = trustedPeerEnabled,
-                        onCheckedChange = { checked ->
-                            // Flip the local state so the switch actually reflects the tap;
-                            // previously only the event fired and the checked state never
-                            // changed, so the switch looked stuck.
-                            trustedPeerEnabled = checked
-                            onEvent.invoke(SettingsEvent.OnTrustedNodeToggle)
-                        }
-                    )
+                    // Label stacked above its switch (instead of both sitting inline next to
+                    // the button) so the switch reads as clearly tied to "Toggle mode" and
+                    // the button gets breathing room instead of sitting right against it.
+                    Column {
+                        Text(
+                            modifier = Modifier.padding(bottom = 4.dp),
+                            text = stringResource(R.string.peer_toggle_label),
+                            style = TextStyle(
+                                fontFamily = IBMPlexSans,
+                                fontWeight = FontWeight.SemiBold,
+                                fontSize = 14.sp
+                            ),
+                            maxLines = 1
+                        )
+                        Switch(
+                            checked = trustedPeerEnabled,
+                            onCheckedChange = { checked ->
+                                onEvent.invoke(SettingsEvent.OnTrustedNodeToggle(checked))
+                            }
+                        )
+                    }
                     Spacer(modifier = Modifier.weight(1f))
                     Button(
-                        modifier = Modifier,
+                        modifier = if (trustedPeerEnabled) {
+                            Modifier.shadow(
+                                elevation = 4.dp,
+                                shape = ButtonDefaults.shape,
+                                clip = false,
+                                ambientColor = Color.Black.copy(alpha = 0.5f),
+                                spotColor = Color.Black.copy(alpha = 0.8f)
+                            )
+                        } else {
+                            Modifier
+                        },
                         enabled = trustedPeerEnabled,
-                        // Default M3 button padding (24dp horizontal / 8dp vertical) plus the
-                        // label's own padding left too little room in this narrow, unweighted
-                        // slot - between the toggle label and the switch it was enough to force
-                        // the text to wrap. Tighten it here instead of padding the label itself.
                         contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
                         colors = ButtonDefaults.buttonColors(
-                            contentColor = DesignTheme.colors.content,
+                            contentColor = Color.White,
                             disabledContainerColor = DesignTheme.colors.content.copy(alpha = 0.12f),
                             disabledContentColor = DesignTheme.colors.content.copy(alpha = 0.6f)
                         ),
                         onClick = {
-                            // Already entitled (RevenueCat) or an address already set → go
-                            // straight to editing it; otherwise start with the paywall.
                             trustedNodeStep =
                                 if (trustedNodeEntitled || trustedNodeAddress != null) {
                                     TrustedNodeStep.AddressEntry
@@ -161,7 +169,8 @@ fun LitecoinBlockchainDetail(
                             style = TextStyle(
                                 fontFamily = IBMPlexSans,
                                 fontWeight = FontWeight.SemiBold,
-                                fontSize = 13.sp
+                                fontSize = 13.sp,
+                                letterSpacing = if (trustedPeerEnabled) 1.1.sp else 0.0.sp
                             ),
                             maxLines = 1
                         )
@@ -205,7 +214,14 @@ fun LitecoinBlockchainDetail(
 
             TrustedNodeStep.Paywall -> ModalBottomSheet(
                 sheetState = paywallSheetState,
-                onDismissRequest = { trustedNodeStep = TrustedNodeStep.None }
+                onDismissRequest = { trustedNodeStep = TrustedNodeStep.None },
+                // DesignTheme only themes typography, not MaterialTheme.colorScheme, so the
+                // sheet's default containerColor (colorScheme.surface) is always the unthemed
+                // M3 light default regardless of dark mode - while the sheet's own text uses
+                // DesignTheme.colors.content, which does flip to white in dark mode. That
+                // mismatch made the content unreadable (white-on-light) in dark mode. Drive
+                // the container off the same app theme the text uses.
+                containerColor = DesignTheme.colors.surface
             ) {
                 TrustedLTCNodeSheet(
                     onPurchased = {
@@ -219,12 +235,15 @@ fun LitecoinBlockchainDetail(
 
             TrustedNodeStep.AddressEntry -> ModalBottomSheet(
                 sheetState = addressEntrySheetState,
-                onDismissRequest = { trustedNodeStep = TrustedNodeStep.None }
+                onDismissRequest = { trustedNodeStep = TrustedNodeStep.None },
+                // See the Paywall sheet above: same fix, same reason.
+                containerColor = DesignTheme.colors.surface
             ) {
                 SetTrustedNodeSheet(
-                    currentAddress = trustedNodeAddress,
-                    onSubmit = { address ->
-                        onEvent.invoke(SettingsEvent.OnTrustedNodeAddressSubmitted(address))
+                    currentHost = trustedNodeAddress,
+                    currentPort = trustedNodePort,
+                    onSubmit = { addressAndPort ->
+                        onEvent.invoke(SettingsEvent.OnTrustedNodeAddressSubmitted(addressAndPort))
                         trustedNodeStep = TrustedNodeStep.None
                     },
                     modifier = Modifier.fillMaxWidth()
@@ -235,6 +254,8 @@ fun LitecoinBlockchainDetail(
 }
 
 private enum class TrustedNodeStep { None, Paywall, AddressEntry }
+private fun formatTrustedNodeLabel(host: String?, port: String?): String? =
+    host?.let { TrustedNode.withPort(it, port?.toIntOrNull() ?: 0) }
 
 @Composable
 private fun NetworkFeeSelector(

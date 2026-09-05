@@ -99,13 +99,29 @@ class SettingsViewModel(
     }
 
     /**
-     * Reads the persisted trusted-node address off the main thread (BRKeyStore does blocking
-     * disk/Keystore IO) and publishes it to [SettingsState.trustedNodeAddress].
+     * Reads the persisted trusted-node host, port and sync preference off the main thread
+     * (BRKeyStore does blocking disk/Keystore IO) and publishes them to
+     * [SettingsState.trustedNodeAddress] / [SettingsState.trustedNodePort] /
+     * [SettingsState.userPrefersTrustedNode]. Host and port are stored as independent
+     * BRKeyStore values - the port is just as required as the host - and only combined back
+     * into a "host:port" form where that's actually needed, via [TrustedNode.withPort]. The
+     * sync preference is its own stored flag and defaults to false (default peer discovery)
+     * when nothing has been persisted yet, so the toggle in [LitecoinBlockchainDetail]
+     * always renders the last value the user chose.
      */
     private fun loadTrustedNode() {
         viewModelScope.launch(ioDispatcher) {
             val address = runCatching { BRKeyStore.getTrustedNodeIPAddress(app, 0) }.getOrNull()
-            _state.update { it.copy(trustedNodeAddress = address) }
+            val port = runCatching { BRKeyStore.getTrustedNodePort(app, 0) }.getOrDefault(0)
+            val prefersTrustedNode =
+                runCatching { BRKeyStore.getTrustedNodeSyncPreference(app, 0) }.getOrDefault(false)
+            _state.update {
+                it.copy(
+                    trustedNodeAddress = address,
+                    trustedNodePort = port.takeIf { storedPort -> storedPort > 0 }?.toString(),
+                    userPrefersTrustedNode = prefersTrustedNode
+                )
+            }
         }
     }
 
@@ -214,6 +230,15 @@ class SettingsViewModel(
             }
 
             is SettingsEvent.OnTrustedNodeToggle -> {
+                // Reflect the switch immediately (synchronous state update), then persist the
+                // preference off the main thread so it survives process death and is what
+                // loadTrustedNode() reads back the next time the row is shown.
+                _state.update { it.copy(userPrefersTrustedNode = event.userPrefersTrustedNode) }
+                viewModelScope.launch(ioDispatcher) {
+                    runCatching {
+                        BRKeyStore.putTrustedNodeSyncPreference(event.userPrefersTrustedNode, app, 0)
+                    }
+                }
             }
 
             is SettingsEvent.OnTrustedNodePurchased -> {
@@ -225,13 +250,25 @@ class SettingsViewModel(
             }
 
             is SettingsEvent.OnTrustedNodeAddressSubmitted -> viewModelScope.launch(ioDispatcher) {
-                val address = event.address.trim()
-                if (!TrustedNode.isValid(address)) return@launch
+                val submitted = event.addressAndPort.trim()
+                if (!TrustedNode.isValid(submitted)) return@launch
 
-                val stored = runCatching {
-                    BRKeyStore.putTrustedNodeIPAddress(address, app, 0)
+                // The port is just as required as the host, not optional: split it out and
+                // persist it as its own BRKeyStore value (BRKeyStore#putTrustedNodePort)
+                // rather than only folding it into a combined "host:port" string.
+                // SetTrustedNodeSheet already pre-fills TrustedNode.STANDARD_PORT when the
+                // user leaves the port blank, but default it here too as defense in depth.
+                val host = TrustedNode.getNodeHost(submitted)
+                val port = TrustedNode.getNodePort(submitted)
+                    .let { parsed -> if (parsed > 0) parsed else TrustedNode.STANDARD_PORT }
+
+                val addressStored = runCatching {
+                    BRKeyStore.putTrustedNodeIPAddress(host, app, 0)
                 }.getOrDefault(false)
-                if (!stored) return@launch
+                val portStored = runCatching {
+                    BRKeyStore.putTrustedNodePort(port, app, 0)
+                }.getOrDefault(false)
+                if (!addressStored || !portStored) return@launch
 
                 // Keystore is the single source of truth; BRPeerManager.updateFixedPeer()
                 // reads it back and repoints the SPV connection at the new node.

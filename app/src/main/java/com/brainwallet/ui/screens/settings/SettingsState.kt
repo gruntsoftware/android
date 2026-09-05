@@ -26,12 +26,8 @@ data class SettingsState(
     val currentFeeOptions: List<FeeOption> = Fee.Default.toFeeOptions(),
     val selectedFeeType: String = FeeManager.LUXURY,
     val formattedVersion: String = "",
-    /** Raw user-set trusted LTC node address ("host" or "host:port"); null when none is set. */
     val trustedNodeAddress: String? = null,
-    /**
-     * Whether this account owns the trusted-LTC-node unlock (RevenueCat entitlement). When
-     * true the settings row skips the paywall and opens the IP editor directly. Best-effort:
-     * stays false if the IAP layer is unavailable.
-     */
-    val trustedNodeEntitled: Boolean = false
+    val trustedNodePort: String? = null,
+    val trustedNodeEntitled: Boolean = false,
+    val userPrefersTrustedNode: Boolean = false
 )
