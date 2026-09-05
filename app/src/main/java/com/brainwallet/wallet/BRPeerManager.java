@@ -180,28 +180,91 @@ public final class BRPeerManager {
         });
     }
 
-    public void updateFixedPeer(Context ctx) {
-        // The user-preferred node's host and port are persisted separately in the Android
-        // Keystore (BRKeyStore#putTrustedNodeIPAddress / #putTrustedNodePort) - the port is
-        // just as required as the host, not an optional extra, so it's always read back and
-        // applied here. Absent / unreadable host -> empty string, which clears any fixed
-        // peer and falls back to normal peer discovery.
+    /**
+     * The peer BRPeerManager should pin its SPV sync to, as resolved from the user's
+     * preferred trusted node in the Android Keystore. An empty {@link #host} means "no
+     * fixed peer" - either the user is on the default "Litecoin mainnet" sync mode, or
+     * trusted-node mode is on but no address has been entered yet - so the fixed peer is
+     * cleared and sync uses the random mainnet peer discovery. {@link #port} is always the
+     * real port to connect on (never 0).
+     */
+    static final class TrustedFixedPeer {
+        final String host;
+        final int port;
+
+        TrustedFixedPeer(String host, int port) {
+            this.host = host;
+            this.port = port;
+        }
+
+        boolean isSet() {
+            return !host.isEmpty();
+        }
+    }
+
+    /**
+     * Resolves the peer {@link #updateFixedPeer} should pin the SPV sync to, from the
+     * trusted-node values persisted in the Android Keystore:
+     * <ul>
+     *   <li>the sync-mode preference (BRKeyStore#getTrustedNodeSyncPreference) gates
+     *       everything - when the user is on the default "Litecoin mainnet" mode (preference
+     *       false) this returns an empty host so any previously-pinned peer is cleared and
+     *       sync goes back to the random mainnet peer array, regardless of whether a trusted
+     *       address is still stored;</li>
+     *   <li>otherwise the host/port are read (they're persisted separately -
+     *       BRKeyStore#putTrustedNodeIPAddress / #putTrustedNodePort - the port being just as
+     *       required as the host);</li>
+     *   <li>absent / unreadable host -> {@code ""} (clears any fixed peer);</li>
+     *   <li>a host with a stored port of 0 ("unset", e.g. saved before the port had its own
+     *       field) -> {@link TrustedNode#STANDARD_PORT}, so the port connected on is stated
+     *       explicitly rather than left to the native zero-means-default fallback.</li>
+     * </ul>
+     * Package-private so it can be unit-tested without the native library loaded.
+     */
+    static TrustedFixedPeer resolveTrustedFixedPeer(Context ctx) {
         String host = "";
         int port = 0;
         try {
-            String storedHost = BRKeyStore.getTrustedNodeIPAddress(ctx, 0);
-            if (storedHost != null) host = storedHost;
-            port = BRKeyStore.getTrustedNodePort(ctx, 0);
+            if (BRKeyStore.getTrustedNodeSyncPreference(ctx, 0)) {
+                String storedHost = BRKeyStore.getTrustedNodeIPAddress(ctx, 0);
+                if (storedHost != null) host = storedHost;
+                port = BRKeyStore.getTrustedNodePort(ctx, 0);
+            }
         } catch (UserNotAuthenticatedException e) {
-            Timber.e(e, "timber: updateFixedPeer: could not read trusted node from keystore");
+            Timber.e(e, "timber: resolveTrustedFixedPeer: could not read trusted node from keystore");
         }
-        // A stored port of 0 means "unset" (e.g. a host saved before the port had its own
-        // field) - fall back to the mainnet standard port explicitly rather than relying on
-        // BRPeerManagerSetFixedPeer's own zero-means-default behavior, so the log below (and
-        // anything else built from this) states the real port being connected on.
         int effectivePort = host.isEmpty() ? port : (port > 0 ? port : TrustedNode.STANDARD_PORT);
-        String node = host.isEmpty() ? "" : TrustedNode.withPort(host, port);
-        boolean success = setFixedPeer(host, effectivePort);
+        return new TrustedFixedPeer(host, effectivePort);
+    }
+
+    /**
+     * Applies the user's current peer-sync mode to the running SPV sync. Called at launch
+     * (BRWalletManager.initWallet -> pm.create -> here) and whenever the peer-sync mode or
+     * trusted-node address changes in settings.
+     *
+     * <p>The sequence is always <b>stop -> re-resolve the fixed peer -> restart</b>, in both
+     * toggle directions:
+     * <ol>
+     *   <li>the current sync is stopped up front ({@link SyncThreadManager#stopSyncing()}),
+     *       so the switch doesn't depend only on the native disconnect side effect of
+     *       {@code setFixedPeer} to end it;</li>
+     *   <li>{@link #resolveTrustedFixedPeer} re-reads the mode + trusted node from the
+     *       Keystore. An empty host (default "Litecoin mainnet" mode, or trusted-node mode
+     *       with no address yet) hands {@code ""} to the native {@code setFixedPeer} - it
+     *       disconnects, restores the full mainnet connection count and clears the peer
+     *       array; a resolved trusted node is pinned as the single fixed peer;</li>
+     *   <li>{@code wrapConnectV2()} reconnects, which restarts the sync against the freshly
+     *       rebuilt peer array (random mainnet peers, or the pinned trusted node).</li>
+     * </ol>
+     */
+    public void updateFixedPeer(Context ctx) {
+        TrustedFixedPeer peer = resolveTrustedFixedPeer(ctx);
+        // Stop first so a mode switch is an explicit stop -> re-pin -> restart. Harmless
+        // no-op at launch (nothing syncing yet) and idempotent with the native
+        // syncStopped callback setFixedPeer's disconnect will also fire.
+        SyncThreadManager.getInstance().stopSyncing();
+        String node = peer.isSet() ? TrustedNode.withPort(peer.host, peer.port) : "";
+        boolean success = setFixedPeer(peer.host, peer.port);
         if (!success) {
             Timber.i("timber: updateFixedPeer: Failed to updateFixedPeer with input: %s", node);
         } else {
