@@ -74,6 +74,29 @@ For the full, up-to-date changelog see [GitHub Releases](https://github.com/grun
 
 ---
 
+### **v4.13.0**  [PR [#301](https://github.com/gruntsoftware/android/pull/301)]
+---
+#### ✨ New Features
+**Set a trusted peer node to speed syncing** — the wallet's blockchain sync can now be pinned to a specific trusted Litecoin node instead of random mainnet peers. Under **Settings → Blockchain: Litecoin → Peer sync mode**, toggle between "Litecoin mainnet" (default random peer discovery) and a trusted node whose IPv4 address and port you enter. Flipping the toggle stops the running sync and restarts it in the chosen mode.
+
+- `BRKeyStore` gains dedicated fields for the trusted‑node host, port, and sync‑mode preference (#298).
+- `BRPeerManager.resolveTrustedFixedPeer()` is gated on that preference, so "Litecoin mainnet" mode clears any pinned peer even when a trusted address is still stored; `updateFixedPeer()` does an explicit stop → re‑resolve → restart (`SyncThreadManager.stopSyncing()` before `setFixedPeer` + `wrapConnectV2`) in both directions, and `SettingsViewModel.OnTrustedNodeToggle` applies it to the live sync rather than only on next launch (#300).
+- `core` submodule `7b88d54` → `683d7e2` ([gruntsoftware/core#24](https://github.com/gruntsoftware/core/pull/24)): `_BRPeerManagerFindPeersV2` now honours `manager->fixedPeer` — previously a fixed peer was set but never used, so sync still went out to random hardcoded peers. The bloom‑filter false‑positive rate is also tied to the mode: `BLOOM_TRUSTED_FALSEPOSITIVE_RATE` (0.1) while pinned to a single trusted node so it can't tell which addresses are yours, `BLOOM_DEFAULT_FALSEPOSITIVE_RATE` (0.001) on a mainnet (re)start.
+
+#### 🐛 Bug Fixes
+- Escaped unescaped `'` in the fr/it/tr auto‑translations of `set_node_ip_address` / `trusted_node_entry_description` / `peer_sync_description`, which were failing `aapt2`'s resource compile (regression from the `[skip ci]` auto‑translation sync in #299).
+
+#### 🧪 Test Coverage
+`TrustedNodeTest` (host/port parsing + validation), `BRPeerManagerTest` (fixed‑peer resolution, mode gating, port fallback, stop‑before‑restart ordering), and `BWAIKeyStoreTests` (the new trusted‑node Keystore fields) (#298, #300).
+
+#### 🔧 Chores
+- Routine i18n auto‑translation sync of the new trusted‑node strings across all locales (#299).
+- Version bumped: **v4.12.4 (202506359) → v4.13.0 (202506360)**
+
+**Full Changelog**: https://github.com/gruntsoftware/android/compare/v4.12.4...v4.13.0
+
+---
+
 ### **v4.12.4**  [PR [#297](https://github.com/gruntsoftware/android/pull/297)]
 ---
 #### 🎮 Fallinmoji Bug Fix
