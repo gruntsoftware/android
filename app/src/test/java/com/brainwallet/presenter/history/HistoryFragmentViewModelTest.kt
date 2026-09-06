@@ -6,7 +6,7 @@ import io.mockk.every
 import io.mockk.mockk
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.test.runTest
-import com.grunt.brainwallet.iap.presentation.model.ExportedTransaction
+import com.grunt.brainwallet.iap.export.transactions.presentation.model.ExportedTransaction
 import org.junit.Test
 import org.orbitmvi.orbit.test.test
 

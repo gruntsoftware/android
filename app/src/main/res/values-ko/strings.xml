@@ -334,4 +334,16 @@
     <string name="your_emojis_description">게임을 위해 선택한 이모지로 시드 문구를 기억하는 데 도움이 됩니다</string>
     <string name="your_emojis_reset">이모지 초기화</string>
     <string name="Send.unlockDeepLink">잠금 해제... 이 주소로 보내기 화면이 열립니다.</string>
+    <string name="trusted_ltc_node">신뢰할 수 있는 LTC 노드:</string>
+    <string name="set_node_ip_address">IP 주소 설정</string>
+    <string name="trusted_node_entry_title">신뢰할 수 있는 Litecoin 노드 / SPV 피어 설정</string>
+    <string name="trusted_node_entry_description">Brainwallet이 동기화할 Litecoin 노드의 IPv4 주소와 포트를 입력하세요.</string>
+    <string name="trusted_node_entry_ip_label">IP 주소</string>
+    <string name="trusted_node_entry_port_label">포트</string>
+    <string name="trusted_node_entry_error">유효한 IPv4 주소를 입력하세요. 예: 192.168.1.10 또는 192.168.1.10:9333</string>
+    <string name="trusted_node_entry_save">신뢰할 수 있는 노드 저장</string>
+    <string name="peer_sync_mode">피어 동기화 모드</string>
+    <string name="peer_sync_description">Litecoin 메인넷의 SPV 피어 또는 신뢰할 수 있는 피어에서 블록체인과 동기화하도록 설정하세요</string>
+    <string name="peer_toggle_label">모드 전환</string>
+    <string name="mainnet_peer_label">Litecoin 메인넷</string>
 </resources>

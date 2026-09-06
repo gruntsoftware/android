@@ -1,6 +1,25 @@
 package com.brainwallet.tools.util;
 
 public class TrustedNode {
+    /**
+     * Litecoin mainnet's standard P2P port (see {@code BRChainParams.h}'s {@code standardPort}).
+     * {@code BRPeerManager.setFixedPeer()}'s native side already falls back to this when given
+     * port 0, but that fallback was invisible to the user: an address saved without a port
+     * displayed as just the host, with the actual port it connects on left unstated. Callers
+     * that persist/display a trusted-node address should fill in this default explicitly via
+     * {@link #withPort(String, int)} instead of relying on the native fallback.
+     */
+    public static final int STANDARD_PORT = 9333;
+
+    /**
+     * Combines a host and a port into the canonical "host:port" form this app persists and
+     * displays, defaulting to {@link #STANDARD_PORT} when no explicit port (<= 0) is given.
+     */
+    public static String withPort(String host, int port) {
+        int effectivePort = port > 0 ? port : STANDARD_PORT;
+        return host + ":" + effectivePort;
+    }
+
     public static  String getNodeHost(String input) {
         if (input.contains(":")) {
             return input.split(":")[0];

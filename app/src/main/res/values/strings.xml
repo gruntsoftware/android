@@ -245,7 +245,7 @@
     <string name="settings_title_app_version">App version:</string>
     <string name="settings_title_sync_metadata">Sync metadata:</string>
     <string name="settings_blockchain_litecoin_button">Sync</string>
-    <string name="settings_blockchain_litecoin_description">Sync duration: >20 minutes</string>
+    <string name="settings_blockchain_litecoin_description">Sync duration: >20 min.</string>
     <string name="game_title">Game %1$d:</string>
     <string name="game_buy_price_1" translatable="false">%s</string>
     <string name="game_buy_price_2" translatable="false">%s</string>
@@ -353,4 +353,16 @@
     <string name="your_emojis_title">Your Brainwallet Emojis</string>
     <string name="your_emojis_description">You choose these emojis for the game and help you remember your seed phrase</string>
     <string name="your_emojis_reset">Clear emojis</string>
+    <string name="trusted_ltc_node">Trusted LTC Node:</string>
+    <string name="set_node_ip_address">Set IP Address</string>
+    <string name="trusted_node_entry_title">Set trusted Litecoin node / SPV Peer</string>
+    <string name="trusted_node_entry_description">Enter the IPv4 address and port of the Litecoin node your Brainwallet should sync with.</string>
+    <string name="trusted_node_entry_ip_label">IP address</string>
+    <string name="trusted_node_entry_port_label">Port</string>
+    <string name="trusted_node_entry_error">Enter a valid IPv4 address, e.g. 192.168.1.10 or 192.168.1.10:9333</string>
+    <string name="trusted_node_entry_save">Save trusted node</string>
+    <string name="peer_sync_mode">Peer sync mode</string>
+    <string name="peer_sync_description">Set from spv peers in the Litecoin mainnet or a trusted peer to sync with the blockchain</string>
+    <string name="peer_toggle_label">Toogle mode</string>
+    <string name="mainnet_peer_label">Litecoin mainnet</string>
 </resources>

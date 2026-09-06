@@ -25,5 +25,9 @@ data class SettingsState(
     val lastSyncMetadata: SyncAnalyticsRepository.SyncMetadata? = null,
     val currentFeeOptions: List<FeeOption> = Fee.Default.toFeeOptions(),
     val selectedFeeType: String = FeeManager.LUXURY,
-    val formattedVersion: String = ""
+    val formattedVersion: String = "",
+    val trustedNodeAddress: String? = null,
+    val trustedNodePort: String? = null,
+    val trustedNodeEntitled: Boolean = false,
+    val userPrefersTrustedNode: Boolean = false
 )

@@ -246,4 +246,16 @@
     <string name="your_emojis_description">اخترت هذه الرموز التعبيرية للعبة لمساعدتك على تذكر عبارة البذرة الخاصة بك</string>
     <string name="your_emojis_reset">مسح الرموز التعبيرية</string>
     <string name="Send.unlockDeepLink">افتح القفل... ستُفتح نافذة الإرسال بهذا العنوان.</string>
+    <string name="trusted_ltc_node">عقدة LTC موثوقة:</string>
+    <string name="set_node_ip_address">تعيين عنوان IP</string>
+    <string name="trusted_node_entry_title">تعيين عقدة Litecoin موثوقة / نظير SPV</string>
+    <string name="trusted_node_entry_description">أدخل عنوان IPv4 والمنفذ الخاص بعقدة Litecoin التي يجب على Brainwallet المزامنة معها.</string>
+    <string name="trusted_node_entry_ip_label">عنوان IP</string>
+    <string name="trusted_node_entry_port_label">المنفذ</string>
+    <string name="trusted_node_entry_error">أدخل عنوان IPv4 صحيح، مثل 192.168.1.10 أو 192.168.1.10:9333</string>
+    <string name="trusted_node_entry_save">حفظ العقدة الموثوقة</string>
+    <string name="peer_sync_mode">وضع مزامنة النظير</string>
+    <string name="peer_sync_description">اختر من نظراء spv في شبكة Litecoin الرئيسية أو نظير موثوق للمزامنة مع البلوكتشين</string>
+    <string name="peer_toggle_label">تبديل الوضع</string>
+    <string name="mainnet_peer_label">شبكة Litecoin الرئيسية</string>
 </resources>

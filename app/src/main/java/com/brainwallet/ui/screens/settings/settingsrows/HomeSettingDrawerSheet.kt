@@ -155,6 +155,10 @@ fun HomeSettingDrawerSheet(
                     selectedCurrency = state.selectedCurrency,
                     selectedFeeType = state.selectedFeeType,
                     feeOptions = state.currentFeeOptions,
+                    trustedNodeAddress = state.trustedNodeAddress,
+                    trustedNodePort = state.trustedNodePort,
+                    trustedNodeEntitled = state.trustedNodeEntitled,
+                    trustedPeerEnabled = state.userPrefersTrustedNode,
                     onEvent = {
                         viewModel.onEvent(it)
                     }

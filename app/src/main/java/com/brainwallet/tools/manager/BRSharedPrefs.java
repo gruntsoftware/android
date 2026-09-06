@@ -358,18 +358,6 @@ public class BRSharedPrefs {
         editor.apply();
     }
 
-    public static String getTrustNode(Context context) {
-        SharedPreferences prefs = context.getSharedPreferences(BWConstants.PREFS_NAME, Context.MODE_PRIVATE);
-        return prefs.getString("trustNode", "");
-    }
-
-    public static void putTrustNode(Context context, String trustNode) {
-        SharedPreferences prefs = context.getSharedPreferences(BWConstants.PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("trustNode", trustNode);
-        editor.apply();
-    }
-
     public static void incrementSendTransactionCount(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(BWConstants.PREFS_NAME, Context.MODE_PRIVATE);
         int currentTransactions = prefs.getInt(SEND_TRANSACTION_COUNT, 0);

@@ -246,4 +246,16 @@
     <string name="your_emojis_description">आपने गेम के लिए ये emojis चुने हैं और अपने seed phrase को याद रखने में मदद करते हैं</string>
     <string name="your_emojis_reset">Emojis साफ़ करें</string>
     <string name="Send.unlockDeepLink">अनलॉक करें... इस पते के साथ भेजें विंडो खुल जाएगी।</string>
+    <string name="trusted_ltc_node">विश्वसनीय LTC नोड:</string>
+    <string name="set_node_ip_address">IP पता सेट करें</string>
+    <string name="trusted_node_entry_title">विश्वसनीय Litecoin नोड / SPV पीयर सेट करें</string>
+    <string name="trusted_node_entry_description">अपने Brainwallet को सिंक करने के लिए Litecoin नोड का IPv4 पता और पोर्ट दर्ज करें।</string>
+    <string name="trusted_node_entry_ip_label">IP पता</string>
+    <string name="trusted_node_entry_port_label">पोर्ट</string>
+    <string name="trusted_node_entry_error">वैध IPv4 पता दर्ज करें, जैसे 192.168.1.10 या 192.168.1.10:9333</string>
+    <string name="trusted_node_entry_save">विश्वसनीय नोड सहेजें</string>
+    <string name="peer_sync_mode">पीयर सिंक मोड</string>
+    <string name="peer_sync_description">Litecoin मेननेट में SPV पीयर्स से या ब्लॉकचेन के साथ सिंक करने के लिए विश्वसनीय पीयर से सेट करें</string>
+    <string name="peer_toggle_label">मोड टॉगल करें</string>
+    <string name="mainnet_peer_label">Litecoin मेननेट</string>
 </resources>
