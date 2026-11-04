@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.brainwallet.R
 import com.brainwallet.constants.BWConstants
 import com.brainwallet.domain.EmojiLevelUp
+import com.brainwallet.data.repository.GameScoreRepository
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.GlobalCurrency
@@ -67,6 +68,7 @@ class MainViewModel(
     private val txRepository: TxRepository,
     private val connectivityRepository: ConnectivityRepository,
     private val balanceBentoViewModel: BalanceBentoViewModel,
+    private val gameScoreRepository: GameScoreRepository,
     private val getWalletManager: () -> WalletOperations = { BRWalletManager.getInstance() },
     versionCodeProvider: VersionCodeProvider,
 ) : BrainwalletViewModel<MainScreenEvent>(),
@@ -190,7 +192,7 @@ class MainViewModel(
     /** True when the game entry points should show the PIN + emojis 4 - 6 sheet. */
     fun shouldSetNextEmojis(): Boolean = EmojiLevelUp.shouldSetNextTriplet(
         emojiCount = EmojiLevelUp.countEmojis(storedEmojis()),
-        gamesPlayed = BRSharedPrefs.getGamesPlayedCount(app)
+        gamesPlayed = gameScoreRepository.gamesPlayedCount()
     )
 
     /** Appends emojis 4 - 6 to the stored first 3. Returns false if nothing was saved. */

@@ -119,17 +119,6 @@ public class BRSharedPrefs {
         editor.apply();
     }
 
-    public static int getGamesPlayedCount(Context context) {
-        SharedPreferences prefs = context.getSharedPreferences(BWConstants.PREFS_NAME, Context.MODE_PRIVATE);
-        return prefs.getInt(BWConstants.GAMES_PLAYED_COUNT, 0);
-    }
-
-    public static void incrementGamesPlayedCount(Context context) {
-        SharedPreferences prefs = context.getSharedPreferences(BWConstants.PREFS_NAME, Context.MODE_PRIVATE);
-        int current = prefs.getInt(BWConstants.GAMES_PLAYED_COUNT, 0);
-        prefs.edit().putInt(BWConstants.GAMES_PLAYED_COUNT, current + 1).apply();
-    }
-
     public static int getCurrencyListPosition(Context context) {
         SharedPreferences settings = context.getSharedPreferences(BWConstants.PREFS_NAME, 0);
         return settings.getInt(BWConstants.POSITION, 0);
