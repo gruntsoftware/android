@@ -35,6 +35,7 @@ fun TutorialSendPage2(
     modifier: Modifier = Modifier,
     inAppReviewService: InAppReviewService = koinInject()
 ) {
+    // Review ask: when page 2 of the send tutorial is shown
     LaunchedEffect(Unit) {
         inAppReviewService.showInAppReviewDialogIfNeeded()
         Timber.d("did_request_rating")
