@@ -86,6 +86,7 @@ object BWConstants {
     const val POSITION: String = "position"
     const val PHRASE_WRITTEN: String = "phraseWritten"
     const val EMOJIS_CHOSEN: String = "emojisChosen"
+    const val GAMES_PLAYED_COUNT: String = "gamesPlayedCount"
     const val ALLOW_SPEND: String = "allowSpend"
     const val USER_ID: String = "userId"
     const val GEO_PERMISSIONS_REQUESTED: String = "geoPermissionsRequested"

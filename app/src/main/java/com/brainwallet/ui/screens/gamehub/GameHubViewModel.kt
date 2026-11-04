@@ -10,6 +10,7 @@ import androidx.core.content.FileProvider
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.appreview.InAppReviewService
 import com.brainwallet.tools.manager.AnalyticsManager
+import com.brainwallet.tools.manager.BRSharedPrefs
 import com.brainwallet.ui.BrainwalletViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -44,6 +45,10 @@ class GameHubViewModel(
                     inAppReviewService.showInAppReviewDialogIfNeeded()
                     Timber.d("did_request_rating")
                 }
+            }
+            is GameHubEvent.OnGameScoreRecorded -> {
+                // Unlocks emojis 4 - 6 after EmojiLevelUp.GAMES_TO_UNLOCK_NEXT_TRIPLET games
+                BRSharedPrefs.incrementGamesPlayedCount(app)
             }
             is GameHubEvent.OnGameExited -> {
                 val unixTimestamp = System.currentTimeMillis() / 1000

@@ -61,6 +61,12 @@ import kotlin.collections.toByteArray
 fun PickEmojisScreen(
     firstThreeWords: ImmutableList<String>,
     modifier: Modifier = Modifier,
+    // Index of the seed word the first slot maps to: 0 for emojis 1 - 3, 3 for emojis 4 - 6
+    wordOffset: Int = 0,
+    title: String = stringResource(R.string.pick_emojis_title),
+    description: String = stringResource(R.string.pick_emojis_description),
+    // Saves the picked emojis and returns true on success. Null stores them as the first 3.
+    onSaveEmojis: ((List<String?>) -> Boolean)? = null,
     onEmojisPicked: (Boolean) -> Unit = {},
 ) {
     val context = LocalContext.current
@@ -105,7 +111,7 @@ fun PickEmojisScreen(
                         modifier = Modifier
                             .align(Alignment.CenterVertically)
                             .padding(start = 30.dp, end = 30.dp),
-                        text = stringResource(R.string.pick_emojis_title),
+                        text = title,
                         style = TextStyle(
                             fontFamily = IBMPlexSans,
                             fontWeight = FontWeight.SemiBold,
@@ -122,7 +128,7 @@ fun PickEmojisScreen(
                     .align(Alignment.CenterHorizontally)
                     .padding(start = 30.dp, end = 30.dp)
                     .padding(top = 2.dp, bottom = 2.dp),
-                text = stringResource(R.string.pick_emojis_description),
+                text = description,
                 style = TextStyle(
                     fontFamily = IBMPlexSans,
                     fontWeight = FontWeight.Normal,
@@ -159,8 +165,8 @@ fun PickEmojisScreen(
                     selectedEmojis.forEachIndexed { index, emoji ->
                         EmojiSlot(
                             emoji = emoji,
-                            word = firstThreeWords[index],
-                            index = index,
+                            word = firstThreeWords.getOrNull(wordOffset + index),
+                            index = wordOffset + index,
                             shouldShowWord = shouldShowSeedWords,
                             isActive = activeSlot == index,
                             onClick = { activeSlot = index },
@@ -246,17 +252,21 @@ fun PickEmojisScreen(
                 ),
                 onClick = {
                     if (updateEmojiState()) {
-                        val joined = selectedEmojis.joinToString(separator = "")
-                        val bytes = joined.toByteArray(Charsets.UTF_8)
-                        BRKeyStore.putEmojis(
-                            bytes,
-                            context,
-                            BWConstants.PUT_EMOJIS_REQUEST_CODE
-                        )
-                        BRSharedPrefs.putEmojisChosen(context, true)
-                        onEmojisPicked(true)
-                        AnalyticsManager
-                            .logCustomAdHocEvent("user_set_first_set_emojis", null)
+                        if (onSaveEmojis != null) {
+                            if (onSaveEmojis(selectedEmojis)) onEmojisPicked(true)
+                        } else {
+                            val joined = selectedEmojis.joinToString(separator = "")
+                            val bytes = joined.toByteArray(Charsets.UTF_8)
+                            BRKeyStore.putEmojis(
+                                bytes,
+                                context,
+                                BWConstants.PUT_EMOJIS_REQUEST_CODE
+                            )
+                            BRSharedPrefs.putEmojisChosen(context, true)
+                            onEmojisPicked(true)
+                            AnalyticsManager
+                                .logCustomAdHocEvent("user_set_first_set_emojis", null)
+                        }
                     }
                 },
                 shape = RoundedCornerShape(11.dp)
