@@ -350,6 +350,9 @@
     <string name="how_to_choose_emojis_bullet_three_title">Seed to your memory</string>
     <string name="how_to_choose_emojis_bullet_three_description">See the emoji, you\'ll remember the seed word. Memorize your emoji...get POINTS!</string>
     <string name="lets_play_label">Emojis set. Let\'s play!</string>
+    <string name="set_next_emojis_title">Level up to 6 emojis!</string>
+    <string name="set_next_emojis_enter_pin">Enter your PIN to set emojis 4 - 6</string>
+    <string name="set_next_emojis_description">Just like the first 3, match the next 3 seed words. Tap the eye to show seed words.</string>
     <string name="your_emojis_title">Your Brainwallet Emojis</string>
     <string name="your_emojis_description">You choose these emojis for the game and help you remember your seed phrase</string>
     <string name="your_emojis_reset">Clear emojis</string>

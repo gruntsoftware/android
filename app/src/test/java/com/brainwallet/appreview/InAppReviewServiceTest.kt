@@ -2,6 +2,7 @@ package com.brainwallet.appreview
 
 import android.app.Activity
 import android.app.Application
+import com.brainwallet.data.repository.GameScoreRepository
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
@@ -14,6 +15,8 @@ import io.mockk.mockkStatic
 import io.mockk.unmockkAll
 import io.mockk.verify
 import org.junit.After
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import java.lang.Void
@@ -26,9 +29,10 @@ class InAppReviewServiceTest {
     private lateinit var reviewInfo: ReviewInfo
     private lateinit var requestTask: Task<ReviewInfo>
     private lateinit var launchTask: Task<Void?>
+    private lateinit var gameScoreRepository: GameScoreRepository
 
     private fun service(activityResult: Activity? = activity) =
-        InAppReviewService(app) { activityResult }
+        InAppReviewService(app, gameScoreRepository) { activityResult }
 
     @Before
     fun setUp() {
@@ -38,6 +42,7 @@ class InAppReviewServiceTest {
         reviewInfo = mockk()
         requestTask = mockk()
         launchTask = mockk()
+        gameScoreRepository = mockk()
 
         mockkStatic(ReviewManagerFactory::class)
         every { ReviewManagerFactory.create(app) } returns manager
@@ -143,5 +148,57 @@ class InAppReviewServiceTest {
 
         verify { manager.launchReviewFlow(activity, reviewInfo) }
         verify(exactly = 0) { BRSharedPrefs.inAppReviewDone(app) }
+    }
+
+    // ── Game gate: 3+ recorded games, no sends needed (iOS requestReviewIfEnoughGamesPlayed) ──
+
+    @Test
+    fun `given 2 games played, when showInAppReviewDialogIfEnoughGamesPlayed, then does not request a review`() {
+        every { BRSharedPrefs.isInAppReviewDone(app) } returns false
+        every { gameScoreRepository.gamesPlayedCount() } returns 2
+
+        val requested = service().showInAppReviewDialogIfEnoughGamesPlayed()
+
+        assertFalse(requested)
+        verify(exactly = 0) { ReviewManagerFactory.create(any()) }
+    }
+
+    @Test
+    fun `given 3 games played and no sends, when showInAppReviewDialogIfEnoughGamesPlayed, then requests a review`() {
+        every { BRSharedPrefs.isInAppReviewDone(app) } returns false
+        every { gameScoreRepository.gamesPlayedCount() } returns 3
+        every { BRSharedPrefs.getSendTransactionCount(app) } returns 0
+        every { requestTask.isSuccessful() } returns true
+        every { requestTask.getResult() } returns reviewInfo
+        every { launchTask.isSuccessful() } returns true
+        every { BRSharedPrefs.inAppReviewDone(app) } returns Unit
+
+        val requested = service().showInAppReviewDialogIfEnoughGamesPlayed()
+
+        assertTrue(requested)
+        verify { manager.launchReviewFlow(activity, reviewInfo) }
+        verify { BRSharedPrefs.inAppReviewDone(app) }
+    }
+
+    @Test
+    fun `given review already done, when showInAppReviewDialogIfEnoughGamesPlayed, then does not request a review`() {
+        every { BRSharedPrefs.isInAppReviewDone(app) } returns true
+        every { gameScoreRepository.gamesPlayedCount() } returns 5
+
+        val requested = service().showInAppReviewDialogIfEnoughGamesPlayed()
+
+        assertFalse(requested)
+        verify(exactly = 0) { ReviewManagerFactory.create(any()) }
+    }
+
+    @Test
+    fun `given no current activity, when showInAppReviewDialogIfEnoughGamesPlayed, then does not request a review`() {
+        every { BRSharedPrefs.isInAppReviewDone(app) } returns false
+        every { gameScoreRepository.gamesPlayedCount() } returns 5
+
+        val requested = service(activityResult = null).showInAppReviewDialogIfEnoughGamesPlayed()
+
+        assertFalse(requested)
+        verify(exactly = 0) { ReviewManagerFactory.create(any()) }
     }
 }

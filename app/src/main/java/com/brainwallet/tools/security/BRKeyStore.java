@@ -35,6 +35,7 @@ import com.platform.tools.KVStoreManager;
 import org.koin.java.KoinJavaComponent;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -100,6 +101,7 @@ public class BRKeyStore {
     private static final String TRUSTED_NODE_IV = "ivtrustednode";
     private static final String TRUSTED_NODE_PORT_IV = "ivtrustednodeport";
     private static final String TRUSTED_NODE_SYNC_PREF_IV = "ivtrustednodesyncpref";
+    private static final String GAME_SCORES_IV = "ivgamescores";
 
     public static final String PHRASE_ALIAS = "phrase";
     public static final String EMOJIS_ALIAS = "emojis";
@@ -117,6 +119,7 @@ public class BRKeyStore {
     public static final String TRUSTED_NODE_ALIAS = "trustedNode";
     public static final String TRUSTED_NODE_PORT_ALIAS = "trustedNodePort";
     public static final String TRUSTED_NODE_SYNC_PREF_ALIAS = "trustedNodeSyncPreference";
+    public static final String GAME_SCORES_ALIAS = "gameScores";
     private static final String PHRASE_FILENAME = "my_phrase";
     private static final String EMOJIS_FILENAME = "my_emojis";
     private static final String CANARY_FILENAME = "my_canary";
@@ -133,6 +136,7 @@ public class BRKeyStore {
     private static final String TRUSTED_NODE_FILENAME = "my_trusted_node";
     private static final String TRUSTED_NODE_PORT_FILENAME = "my_trusted_node_port";
     private static final String TRUSTED_NODE_SYNC_PREF_FILENAME = "my_trusted_node_sync_pref";
+    private static final String GAME_SCORES_FILENAME = "my_game_scores";
 
     private static boolean bugMessageShowing;
 
@@ -157,6 +161,7 @@ public class BRKeyStore {
         aliasObjectMap.put(TRUSTED_NODE_ALIAS, new AliasObject(TRUSTED_NODE_ALIAS, TRUSTED_NODE_FILENAME, TRUSTED_NODE_IV));
         aliasObjectMap.put(TRUSTED_NODE_PORT_ALIAS, new AliasObject(TRUSTED_NODE_PORT_ALIAS, TRUSTED_NODE_PORT_FILENAME, TRUSTED_NODE_PORT_IV));
         aliasObjectMap.put(TRUSTED_NODE_SYNC_PREF_ALIAS, new AliasObject(TRUSTED_NODE_SYNC_PREF_ALIAS, TRUSTED_NODE_SYNC_PREF_FILENAME, TRUSTED_NODE_SYNC_PREF_IV));
+        aliasObjectMap.put(GAME_SCORES_ALIAS, new AliasObject(GAME_SCORES_ALIAS, GAME_SCORES_FILENAME, GAME_SCORES_IV));
 
     }
 
@@ -228,6 +233,36 @@ public class BRKeyStore {
      * ({@link #putTrustedNodePort}) - the preference can be toggled off without discarding a
      * previously entered address. Read back with {@link #getTrustedNodeSyncPreference}.
      */
+    /**
+     * Stores the finished-game history as a stringified JSON array (see GameScoreRepository).
+     * Like the iOS "brainwallet.gamescores" Keychain item, it is removed by
+     * {@link #resetWalletKeyStore} when the wallet is wiped. No user auth is required.
+     */
+    public synchronized static boolean putGameScores(String scoresJson, Context context, int requestCode)
+            throws UserNotAuthenticatedException {
+        if (PostAuth.isStuckWithAuthLoop) {
+            showLoopBugMessage(context);
+            throw new UserNotAuthenticatedException();
+        }
+        if (scoresJson == null) return false;
+        AliasObject obj = aliasObjectMap.get(GAME_SCORES_ALIAS);
+        byte[] bytesToStore = scoresJson.getBytes(StandardCharsets.UTF_8);
+        return _setData(context, bytesToStore, obj.alias, obj.datafileName, obj.ivFileName, requestCode, false);
+    }
+
+    /** Returns the stored game history JSON, or {@code null} when nothing has been stored yet. */
+    public synchronized static String getGameScores(final Context context, int requestCode)
+            throws UserNotAuthenticatedException {
+        if (PostAuth.isStuckWithAuthLoop) {
+            showLoopBugMessage(context);
+            throw new UserNotAuthenticatedException();
+        }
+        AliasObject obj = aliasObjectMap.get(GAME_SCORES_ALIAS);
+        byte[] result = _getData(context, obj.alias, obj.datafileName, obj.ivFileName, requestCode);
+        if (Utils.isNullOrEmpty(result)) return null;
+        return new String(result, StandardCharsets.UTF_8);
+    }
+
     public synchronized static boolean putTrustedNodeSyncPreference(boolean userPrefersTrustedNode, Context context, int requestCode)
             throws UserNotAuthenticatedException {
         if (PostAuth.isStuckWithAuthLoop) {

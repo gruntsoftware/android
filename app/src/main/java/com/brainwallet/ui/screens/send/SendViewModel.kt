@@ -292,6 +292,7 @@ class SendViewModel(
                             _effect.emit(SendEffect.DismissSheet)
                             AnalyticsManager.logCustomEvent(BWConstants._20191105_DSL)
                             BRSharedPrefs.incrementSendTransactionCount(app)
+                            // Review ask: after a successful send (also feeds the 2-send gate), 0.8s delay
                             delay(800L)
                             inAppReviewService.showInAppReviewDialogIfNeeded()
                             Timber.d("did_request_rating")

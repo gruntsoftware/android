@@ -106,7 +106,14 @@ fun GdxGameView(
                                 removeFragment(fm, tag)
                                 viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
                                 gameHubViewModel.onEvent(GameHubEvent.OnGameFinished)
-                                handleGameExit(jsonString, bytes, gameHubViewModel)
+                                handleGameExit(jsonString, bytes, gameHubViewModel)?.let { exitData ->
+                                    gameHubViewModel.onEvent(
+                                        GameHubEvent.OnGameScoreRecorded(
+                                            totalScore = exitData.totalScore,
+                                            gameTimestamp = exitData.timestamp
+                                        )
+                                    )
+                                }
                                 currentOnExit(jsonString, bytes)
                             }
                         }
@@ -131,16 +138,20 @@ private fun removeFragment(fm: FragmentManager, tag: String) {
     }
 }
 
+/**
+ * Returns the parsed exit data, i.e. a finished game to record, or null when the payload
+ * doesn't parse. Matches iOS, which only appends a game score after decoding the exit payload.
+ */
 internal fun handleGameExit(
     jsonString: String,
     bytes: ByteArray?,
     gameHubViewModel: GameHubViewModel,
-) {
+): GameExitData? {
     val payload = try {
         lenientJson.decodeFromString<GameExitPayload>(jsonString)
     } catch (e: Exception) {
         Timber.w(e, "Failed to parse game exit JSON: %s", jsonString)
-        return
+        return null
     }
     val exitData = payload.exitData
 
@@ -157,7 +168,7 @@ internal fun handleGameExit(
         "twitter", "instagram" -> {
             val screenshot = bytes?.takeIf { it.isNotEmpty() } ?: run {
                 Timber.w("Social share requested but no screenshot data")
-                return
+                return exitData
             }
             gameHubViewModel.onEvent(
                 GameHubEvent.OnGameExited(
@@ -173,6 +184,7 @@ internal fun handleGameExit(
 
         else -> Timber.d("Game completed, returning to wallet")
     }
+    return exitData
 }
 
 /** Forwards every analytics event collected during the game session to Firebase. */

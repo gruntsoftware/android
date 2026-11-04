@@ -61,6 +61,8 @@ object BWConstants {
 
     const val PUT_TRUSTED_NODE_REQUEST_CODE: Int = 123
 
+    const val GAME_SCORES_REQUEST_CODE: Int = 124
+
     /**
      * Request codes for taking pictures
      */

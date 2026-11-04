@@ -95,6 +95,10 @@ sealed class Route : JavaSerializable {
     @Serializable
     object PickEmojis : Route()
 
+    /** PIN, then emojis 4 - 6. Shown from the game entry points after enough games. */
+    @Serializable
+    object SetNextEmojis : Route()
+
     @Serializable
     object LinktreeWeb : Route()
 }

@@ -191,6 +191,7 @@ fun BalanceBentoScreen(
                         isSwapped = !isSwapped
                         boingAudioPlayer.start()
                         AnalyticsManager.logCustomEventWithParams("did_toggle_fiat_ltc", null)
+                        // Review ask: after swapping the balance to LTC/fiat, 0.8s delay
                         if (isSwapped) {
                             coroutineScope.launch {
                                 delay(800L)
@@ -272,6 +273,7 @@ fun BalanceBentoScreen(
                         ) {
                             onEvent(BalanceBentoEvent.OnToggleBalanceVisibility)
                             AnalyticsManager.logCustomEventWithParams("did_toggle_balance_visibility", null)
+                            // Review ask: after hiding the balance, 0.8s delay
                             if (state.balanceHidden) {
                                 coroutineScope.launch {
                                     delay(800L)
