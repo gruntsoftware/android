@@ -2,6 +2,7 @@ package com.brainwallet.appreview
 
 import android.app.Activity
 import android.app.Application
+import com.brainwallet.data.repository.GameScoreRepository
 import com.brainwallet.tools.manager.BRSharedPrefs
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
@@ -12,8 +13,8 @@ import java.lang.Void
 
 class InAppReviewService(
     private val app: Application,
+    private val gameScoreRepository: GameScoreRepository,
     private val activityProvider: () -> Activity?,
-
 ) {
     // Review gate for the non-game call sites: never reviewed yet and 2+ successful sends, else no-op
     public fun showInAppReviewDialogIfNeeded() {
@@ -29,7 +30,7 @@ class InAppReviewService(
      * Returns true when a review was requested.
      */
     public fun showInAppReviewDialogIfEnoughGamesPlayed(): Boolean {
-        if (BRSharedPrefs.getGamesPlayedCount(app) < GAMES_PLAYED_FOR_REVIEW) return false
+        if (gameScoreRepository.gamesPlayedCount() < GAMES_PLAYED_FOR_REVIEW) return false
         return launchReviewIfNotDone()
     }
 

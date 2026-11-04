@@ -13,8 +13,7 @@ import kotlinx.serialization.json.Json
 import org.junit.After
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 
@@ -196,26 +195,29 @@ class GdxGameViewTest {
     // ── Return value: whether the game counts as played (iOS appendGameScore parity) ──
 
     @Test
-    fun `given valid exit, when handleGameExit, then returns true`() {
+    fun `given valid exit, when handleGameExit, then returns the exit data to record`() {
         val gameHubViewModel = mockk<GameHubViewModel>(relaxed = true)
-        val json = """{"exitData": {"total_score":50}}"""
+        val json = """{"exitData": {"total_score":50, "timestamp":1700000000000}}"""
 
-        assertTrue(handleGameExit(json, null, gameHubViewModel))
+        val exitData = handleGameExit(json, null, gameHubViewModel)
+
+        assertEquals(50, exitData?.totalScore)
+        assertEquals(1_700_000_000_000L, exitData?.timestamp)
     }
 
     @Test
-    fun `given social exit without screenshot, when handleGameExit, then still returns true`() {
+    fun `given social exit without screenshot, when handleGameExit, then still returns the exit data`() {
         val gameHubViewModel = mockk<GameHubViewModel>(relaxed = true)
-        val json = """{"exitData": {"social_network":"twitter"}}"""
+        val json = """{"exitData": {"social_network":"twitter", "total_score":7}}"""
 
-        assertTrue(handleGameExit(json, null, gameHubViewModel))
+        assertEquals(7, handleGameExit(json, null, gameHubViewModel)?.totalScore)
     }
 
     @Test
-    fun `given malformed json, when handleGameExit, then returns false`() {
+    fun `given malformed json, when handleGameExit, then returns null`() {
         val gameHubViewModel = mockk<GameHubViewModel>(relaxed = true)
 
-        assertFalse(handleGameExit("not valid json", byteArrayOf(1), gameHubViewModel))
+        assertNull(handleGameExit("not valid json", byteArrayOf(1), gameHubViewModel))
     }
 
     // ── Event forwarding to Firebase (AnalyticsManager) ─────────────────────
