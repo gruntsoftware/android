@@ -40,15 +40,17 @@ class GameHubViewModel(
             }
             is GameHubEvent.OnGameFinished -> {
                 AnalyticsManager.logCustomEventWithParams("did_play_game", null)
-                viewModelScope.launch {
-                    delay(3_000L)
-                    inAppReviewService.showInAppReviewDialogIfNeeded()
-                    Timber.d("did_request_rating")
-                }
             }
             is GameHubEvent.OnGameScoreRecorded -> {
                 // Unlocks emojis 4 - 6 after EmojiLevelUp.GAMES_TO_UNLOCK_NEXT_TRIPLET games
                 BRSharedPrefs.incrementGamesPlayedCount(app)
+                // Review ask: after a recorded game once 3+ are played (iOS parity), 3s delay
+                viewModelScope.launch {
+                    delay(3_000L)
+                    if (inAppReviewService.showInAppReviewDialogIfEnoughGamesPlayed()) {
+                        Timber.d("did_request_rating")
+                    }
+                }
             }
             is GameHubEvent.OnGameExited -> {
                 val unixTimestamp = System.currentTimeMillis() / 1000
@@ -136,10 +138,7 @@ class GameHubViewModel(
                 }
 
                 AnalyticsManager.logCustomEventWithParams("did_play_game", null)
-                viewModelScope.launch {
-                    delay(800L)
-                    inAppReviewService.showInAppReviewDialogIfNeeded()
-                }
+                // No review ask here: a shared game is also recorded, so OnGameScoreRecorded asks
             }
         }
     }
