@@ -13,6 +13,8 @@ import kotlinx.serialization.json.Json
 import org.junit.After
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
@@ -189,6 +191,31 @@ class GdxGameViewTest {
         handleGameExit("not valid json", byteArrayOf(1), gameHubViewModel)
 
         verify(exactly = 0) { gameHubViewModel.onEvent(any()) }
+    }
+
+    // ── Return value: whether the game counts as played (iOS appendGameScore parity) ──
+
+    @Test
+    fun `given valid exit, when handleGameExit, then returns true`() {
+        val gameHubViewModel = mockk<GameHubViewModel>(relaxed = true)
+        val json = """{"exitData": {"total_score":50}}"""
+
+        assertTrue(handleGameExit(json, null, gameHubViewModel))
+    }
+
+    @Test
+    fun `given social exit without screenshot, when handleGameExit, then still returns true`() {
+        val gameHubViewModel = mockk<GameHubViewModel>(relaxed = true)
+        val json = """{"exitData": {"social_network":"twitter"}}"""
+
+        assertTrue(handleGameExit(json, null, gameHubViewModel))
+    }
+
+    @Test
+    fun `given malformed json, when handleGameExit, then returns false`() {
+        val gameHubViewModel = mockk<GameHubViewModel>(relaxed = true)
+
+        assertFalse(handleGameExit("not valid json", byteArrayOf(1), gameHubViewModel))
     }
 
     // ── Event forwarding to Firebase (AnalyticsManager) ─────────────────────

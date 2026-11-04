@@ -106,7 +106,9 @@ fun GdxGameView(
                                 removeFragment(fm, tag)
                                 viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
                                 gameHubViewModel.onEvent(GameHubEvent.OnGameFinished)
-                                handleGameExit(jsonString, bytes, gameHubViewModel)
+                                if (handleGameExit(jsonString, bytes, gameHubViewModel)) {
+                                    gameHubViewModel.onEvent(GameHubEvent.OnGameScoreRecorded)
+                                }
                                 currentOnExit(jsonString, bytes)
                             }
                         }
@@ -131,16 +133,20 @@ private fun removeFragment(fm: FragmentManager, tag: String) {
     }
 }
 
+/**
+ * Returns true when the exit payload parsed, i.e. a finished game to record.
+ * Matches iOS, which only appends a game score after decoding the exit payload.
+ */
 internal fun handleGameExit(
     jsonString: String,
     bytes: ByteArray?,
     gameHubViewModel: GameHubViewModel,
-) {
+): Boolean {
     val payload = try {
         lenientJson.decodeFromString<GameExitPayload>(jsonString)
     } catch (e: Exception) {
         Timber.w(e, "Failed to parse game exit JSON: %s", jsonString)
-        return
+        return false
     }
     val exitData = payload.exitData
 
@@ -157,7 +163,7 @@ internal fun handleGameExit(
         "twitter", "instagram" -> {
             val screenshot = bytes?.takeIf { it.isNotEmpty() } ?: run {
                 Timber.w("Social share requested but no screenshot data")
-                return
+                return true
             }
             gameHubViewModel.onEvent(
                 GameHubEvent.OnGameExited(
@@ -173,6 +179,7 @@ internal fun handleGameExit(
 
         else -> Timber.d("Game completed, returning to wallet")
     }
+    return true
 }
 
 /** Forwards every analytics event collected during the game session to Firebase. */

@@ -91,6 +91,7 @@ import com.brainwallet.ui.screens.main.SettingsButton
 import com.brainwallet.ui.screens.main.ThemeButton
 import com.brainwallet.ui.screens.main.WebModalScreen
 import com.brainwallet.ui.screens.emojis.EmojiPagerScreen
+import com.brainwallet.ui.screens.emojis.SetNextEmojisScreen
 import com.brainwallet.ui.screens.send.SendScreen
 import com.brainwallet.ui.screens.settings.settingsrows.HomeSettingDrawerSheet
 import com.brainwallet.ui.theme.BrainwalletAppTheme
@@ -149,6 +150,22 @@ fun MainScreen(
 
     var gameVisible by remember { mutableStateOf(false) }
     var isFirstComposition by remember { mutableStateOf(true) }
+
+    // Game Hub bento + Game tab: first 3 emojis, then (after enough games) PIN + emojis 4 - 6,
+    // otherwise straight into the game
+    val openGameOrEmojiSetup: () -> Unit = {
+        when {
+            !BRSharedPrefs.wereEmojisChosen(context) -> {
+                modalContentRoute = Route.EmojiPickerPager
+                isSheetOpen = true
+            }
+            viewModel.shouldSetNextEmojis() -> {
+                modalContentRoute = Route.SetNextEmojis
+                isSheetOpen = true
+            }
+            else -> viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
+        }
+    }
 
     val blurRadiusWhen by animateFloatAsState(
         targetValue = when {
@@ -288,12 +305,7 @@ fun MainScreen(
                                 viewModel.onEvent(MainScreenEvent.OnToggleTransactionsDetail)
                                 if (showTransactionDetail) currentRoute = Route.Main()
                             } else if (route == Route.GameHub) {
-                                if (!BRSharedPrefs.wereEmojisChosen(context)) {
-                                    modalContentRoute = Route.EmojiPickerPager
-                                    isSheetOpen = true
-                                } else {
-                                    viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
-                                }
+                                openGameOrEmojiSetup()
                             } else {
                                 modalContentRoute = route
                                 isSheetOpen = true
@@ -445,12 +457,7 @@ fun MainScreen(
                                             .clickable(
                                                 enabled = !showTransactionDetail
                                             ) {
-                                                if (BRSharedPrefs.wereEmojisChosen(context)) {
-                                                    viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
-                                                } else {
-                                                    modalContentRoute = Route.EmojiPickerPager
-                                                    isSheetOpen = true
-                                                }
+                                                openGameOrEmojiSetup()
                                             }
                                     ) {
                                         GameHubBentoScreen(
@@ -504,7 +511,8 @@ fun MainScreen(
                     Color.Black.copy(0.1f)
                 },
                 shape = RoundedCornerShape(24.dp),
-                sheetGesturesEnabled = modalContentRoute != Route.EmojiPickerPager,
+                sheetGesturesEnabled = modalContentRoute != Route.EmojiPickerPager &&
+                    modalContentRoute != Route.SetNextEmojis,
             ) {
                 Box(
                     modifier = Modifier
@@ -515,7 +523,8 @@ fun MainScreen(
                                 modalContentRoute == Route.TutorialWalkthrough ||
                                 modalContentRoute == Route.BitrefillWeb ||
                                 modalContentRoute == Route.LinktreeWeb ||
-                                modalContentRoute == Route.EmojiPickerPager
+                                modalContentRoute == Route.EmojiPickerPager ||
+                                modalContentRoute == Route.SetNextEmojis
                             ) {
                                 1f
                             } else {
@@ -524,7 +533,8 @@ fun MainScreen(
                         )
                         .background(
                             brush = if (modalContentRoute == Route.BuyReceive ||
-                                modalContentRoute == Route.EmojiPickerPager
+                                modalContentRoute == Route.EmojiPickerPager ||
+                                modalContentRoute == Route.SetNextEmojis
                             ) {
                                 bentoClearGradient
                             } else if (isDarkMode && modalContentRoute is Route.Send) {
@@ -593,6 +603,16 @@ fun MainScreen(
                             modifier = Modifier.fillMaxSize(),
                             onNavigate = onNavigate,
                             onDismissPickEmojis = {
+                                isSheetOpen = false
+                                viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
+                            },
+                            onDismiss = {
+                                isSheetOpen = false
+                            }
+                        )
+                        is Route.SetNextEmojis -> SetNextEmojisScreen(
+                            modifier = Modifier.fillMaxSize(),
+                            onEmojisSaved = {
                                 isSheetOpen = false
                                 viewModel.onEvent(MainScreenEvent.OnToggleGameHub)
                             },
