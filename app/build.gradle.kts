@@ -81,6 +81,7 @@ android {
             signingConfig = signingConfigs.getByName("release")
             isDebuggable = false
             isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             ndk {
                 isDebuggable = false
@@ -223,7 +224,6 @@ dependencies {
     implementation(libs.slf4j)
     implementation(libs.org.json)
     implementation(libs.sigpipe.jbsdiff)
-    implementation(libs.unstoppable.domain)
     implementation(libs.razir.progressbutton)
     implementation(libs.appsflyer)
     implementation(libs.android.installreferrer)

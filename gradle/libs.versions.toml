@@ -95,7 +95,6 @@ commons-io = "commons-io:commons-io:2.4"
 slf4j = "org.slf4j:slf4j-api:1.7.22"
 org-json = "org.json:json:20231013"
 sigpipe-jbsdiff = "io.sigpipe:jbsdiff:1.0"
-unstoppable-domain = "com.unstoppabledomains:resolution:5.0.0"
 razir-progressbutton = "com.github.razir.progressbutton:progressbutton:2.1.0"
 junit = { module = "junit:junit", version.ref = "junit" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }

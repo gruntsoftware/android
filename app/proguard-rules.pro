@@ -1,27 +1,38 @@
-# Add project specific ProGuard rules here.
-# By default, the flags in this file are appended to flags specified
-# in /Users/Mihail/Library/Android/sdk/tools/proguard/proguard-android.txt
-# You can edit the include path and order by changing the proguardFiles
-# directive in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+# R8 rules for the Brainwallet release build.
+# Shrinking, obfuscation and optimization are all ON (Play Console DEX optimization requirement).
+# Only keep what is reached by name at runtime (JNI); library consumer rules cover the rest.
 
-# Add any project specific keep options here:
+# ---------- Crash reporting ----------
+# Keep line numbers for Crashlytics; the plugin uploads mapping.txt automatically.
+-keepattributes SourceFile,LineNumberTable
+-renamesourcefileattribute SourceFile
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
--dontobfuscate
--dontoptimize
--dontshrink
--dontusemixedcaseclassnames
--dontskipnonpubliclibraryclasses
--dontpreverify
--verbose
+# ---------- JNI ----------
+# Native method names must match Java_<pkg>_<Class>_<method> symbols.
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+-keep class com.jniwrappers.** { *; }
+
+# Classes the C core looks up via FindClass/GetMethodID/GetFieldID
+# (app/src/main/jni/transition/{PeerManager,wallet,JNIPaymentsCore}.c).
+-keep class com.brainwallet.wallet.BRPeerManager { *; }
+-keep class com.brainwallet.wallet.BRWalletManager { *; }
+-keep class com.brainwallet.presenter.entities.BlockEntity { *; }
+-keep class com.brainwallet.presenter.entities.PeerEntity { *; }
+-keep class com.brainwallet.presenter.entities.TxItem { *; }
+-keep class com.brainwallet.presenter.entities.ImportPrivKeyEntity { *; }
+-keep class com.brainwallet.presenter.entities.PaymentRequestWrapper { *; }
+
+# ---------- Views inflated from XML ----------
+-keep public class * extends android.view.View {
+    public <init>(android.content.Context);
+    public <init>(android.content.Context, android.util.AttributeSet);
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+    public void set*(...);
+}
+
+# ---------- Missing optional classes referenced by libraries ----------
 -dontwarn com.google.android.gms.common.annotation.NoNullnessRewrite
 -dontwarn java.awt.Toolkit
 -dontwarn java.beans.Introspector
@@ -46,15 +57,3 @@
 -dontwarn com.badlogic.gdx.maps.tiled.AtlasTmxMapLoader$AtlasTiledMapLoaderParameters
 -dontwarn com.badlogic.gdx.maps.tiled.TmxMapLoader$Parameters
 -dontwarn com.badlogic.gdx.utils.StringBuilder
-
--keepclasseswithmembernames class * {
- native <methods>;
-}
-
--keep public class * extends android.view.View {
- public <init>(android.content.Context);
- public <init>(android.content.Context, android.util.AttributeSet);
- public <init>(android.content.Context, android.util.AttributeSet, int);
- public void set*(...);
-}
--optimizations !code/simplification/arithmetic,!field/*,!class/merging/*,!code/allocation/variable
