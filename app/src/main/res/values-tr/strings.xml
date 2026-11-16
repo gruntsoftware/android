@@ -347,7 +347,7 @@
     <string name="peer_sync_description">Litecoin mainnet\'teki SPV peer\'larından veya blokzincirle senkronize olmak için güvenilir bir peer\'dan ayarla</string>
     <string name="peer_toggle_label">Modu değiştir</string>
     <string name="mainnet_peer_label">Litecoin mainnet</string>
-    <string name="set_next_emojis_title">6 emoji'ye yüksel!</string>
-    <string name="set_next_emojis_enter_pin">Emoji 4 - 6'yı ayarlamak için PIN'inizi girin</string>
-    <string name="set_next_emojis_description">İlk 3'ü gibi, sonraki 3 seed kelimesini eşleştirin. Seed kelimeleri göstermek için göz simgesine dokunun.</string>
+    <string name="set_next_emojis_title">6 emoji\'ye yüksel!</string>
+    <string name="set_next_emojis_enter_pin">Emoji 4 - 6\'yı ayarlamak için PIN\'inizi girin</string>
+    <string name="set_next_emojis_description">İlk 3\'ü gibi, sonraki 3 seed kelimesini eşleştirin. Seed kelimeleri göstermek için göz simgesine dokunun.</string>
 </resources>
