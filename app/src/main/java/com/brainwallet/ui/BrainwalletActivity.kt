@@ -31,6 +31,7 @@ import com.brainwallet.tools.animation.BRAnimator
 import com.brainwallet.tools.animation.BRDialog
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.manager.BRSharedPrefs
+import com.brainwallet.tools.manager.WalletConfirmedEvents
 import com.brainwallet.tools.manager.InternetManager
 import com.brainwallet.tools.manager.sync.SyncThreadManager
 import com.brainwallet.tools.security.AuthManager
@@ -55,7 +56,6 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication
-import com.grunt.brainwallet.af.AFLauncher
 /**
  * Compose entry point here
  */
@@ -182,13 +182,7 @@ class BrainwalletActivity :
                 }.also { startActivity(it) }
             }
             LEGACY_EFFECT_ON_PAPERKEY_PROVED -> {
-                val firstConfirmation = !BRSharedPrefs.getPhraseWroteDown(this@BrainwalletActivity)
-                BRSharedPrefs.putPhraseWroteDown(this@BrainwalletActivity, true)
-                if (firstConfirmation) {
-                    AFLauncher.logEvent(BWConstants.AF_EVENT_E20261115A)
-                    val params = Bundle().apply { putString("completion", "create") }
-                    AnalyticsManager.logCustomAdHocEvent("user_confirmed_wallet", params)
-                }
+                WalletConfirmedEvents.onNewWalletConfirmed(this@BrainwalletActivity)
             }
             LEGACY_DIALOG_INVALID -> BRDialog.showCustomDialog(
                 BrainwalletApp.breadContext,
