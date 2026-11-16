@@ -343,4 +343,7 @@
     <string name="peer_sync_description">Встановіть синхронізацію з SPV peers в основній мережі Litecoin або з надійним peer для синхронізації з блокчейном</string>
     <string name="peer_toggle_label">Переключити режим</string>
     <string name="mainnet_peer_label">Основна мережа Litecoin</string>
+    <string name="set_next_emojis_title">Перейдіть на рівень 6 емодзі!</string>
+    <string name="set_next_emojis_enter_pin">Введіть ваш PIN для встановлення емодзі 4 - 6</string>
+    <string name="set_next_emojis_description">Як і перші 3, зіставте наступні 3 слова насіння. Натисніть на око, щоб показати слова насіння.</string>
 </resources>

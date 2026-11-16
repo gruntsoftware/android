@@ -346,4 +346,7 @@
     <string name="peer_sync_description">Litecoinメインネットのspvピア、または信頼できるピアから選択してブロックチェーンとSyncします</string>
     <string name="peer_toggle_label">モードを切り替え</string>
     <string name="mainnet_peer_label">Litecoinメインネット</string>
+    <string name="set_next_emojis_title">6つの絵文字にレベルアップ！</string>
+    <string name="set_next_emojis_enter_pin">PINを入力して絵文字 4 - 6 を設定してください</string>
+    <string name="set_next_emojis_description">最初の3つと同じように、次の3つのシードワードにマッチさせてください。目のアイコンをタップしてシードワードを表示できます。</string>
 </resources>

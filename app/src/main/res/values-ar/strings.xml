@@ -258,4 +258,7 @@
     <string name="peer_sync_description">اختر من نظراء spv في شبكة Litecoin الرئيسية أو نظير موثوق للمزامنة مع البلوكتشين</string>
     <string name="peer_toggle_label">تبديل الوضع</string>
     <string name="mainnet_peer_label">شبكة Litecoin الرئيسية</string>
+    <string name="set_next_emojis_title">ارتقِ إلى 6 رموز تعبيرية!</string>
+    <string name="set_next_emojis_enter_pin">أدخل رقم PIN الخاص بك لتعيين الرموز التعبيرية 4 - 6</string>
+    <string name="set_next_emojis_description">تمامًا مثل الثلاثة الأولى، طابق كلمات البذور الثلاث التالية. اضغط على العين لإظهار كلمات البذور.</string>
 </resources>

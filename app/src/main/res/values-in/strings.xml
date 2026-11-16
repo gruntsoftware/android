@@ -346,4 +346,7 @@
     <string name="peer_sync_description">Atur dari peer SPV di jaringan utama Litecoin atau peer terpercaya untuk disinkronkan dengan blockchain</string>
     <string name="peer_toggle_label">Mode toggle</string>
     <string name="mainnet_peer_label">Jaringan utama Litecoin</string>
+    <string name="set_next_emojis_title">Naik level ke 6 emoji!</string>
+    <string name="set_next_emojis_enter_pin">Masukkan PIN Anda untuk mengatur emoji 4 - 6</string>
+    <string name="set_next_emojis_description">Seperti 3 yang pertama, cocokkan 3 kata seed berikutnya. Ketuk ikon mata untuk menampilkan kata seed.</string>
 </resources>

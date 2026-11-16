@@ -258,4 +258,7 @@
     <string name="peer_sync_description">Defina a partir de pares SPV na rede principal Litecoin ou um par confiável para sincronizar com a blockchain</string>
     <string name="peer_toggle_label">Alternar modo</string>
     <string name="mainnet_peer_label">Rede principal Litecoin</string>
+    <string name="set_next_emojis_title">Suba de nível para 6 emojis!</string>
+    <string name="set_next_emojis_enter_pin">Digite seu PIN para definir os emojis 4 - 6</string>
+    <string name="set_next_emojis_description">Assim como os 3 primeiros, combine os próximos 3 palavras-chave. Toque no olho para mostrar as palavras-chave.</string>
 </resources>
