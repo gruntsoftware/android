@@ -349,4 +349,7 @@
     <string name="peer_sync_description">Ustaw synchronizację z peerami SPV w sieci mainnet Litecoin lub zaufanym perem w celu synchronizacji z łańcuchem bloków</string>
     <string name="peer_toggle_label">Przełącz tryb</string>
     <string name="mainnet_peer_label">Sieć mainnet Litecoin</string>
+    <string name="set_next_emojis_title">Przejdź na poziom 6 emoji!</string>
+    <string name="set_next_emojis_enter_pin">Wpisz swój PIN, aby ustawić emoji 4 - 6</string>
+    <string name="set_next_emojis_description">Tak jak pierwsze 3, dopasuj kolejne 3 słowa seed. Stuknij oko, aby pokazać słowa seed.</string>
 </resources>

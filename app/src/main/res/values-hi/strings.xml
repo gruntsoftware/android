@@ -258,4 +258,7 @@
     <string name="peer_sync_description">Litecoin मेननेट में SPV पीयर्स से या ब्लॉकचेन के साथ सिंक करने के लिए विश्वसनीय पीयर से सेट करें</string>
     <string name="peer_toggle_label">मोड टॉगल करें</string>
     <string name="mainnet_peer_label">Litecoin मेननेट</string>
+    <string name="set_next_emojis_title">6 इमोजी के लिए अपग्रेड करें!</string>
+    <string name="set_next_emojis_enter_pin">इमोजी 4 - 6 सेट करने के लिए अपना PIN दर्ज करें</string>
+    <string name="set_next_emojis_description">पहले 3 की तरह, अगले 3 seed शब्दों को मिलाएं। Seed शब्दों को दिखाने के लिए आंख पर टैप करें।</string>
 </resources>

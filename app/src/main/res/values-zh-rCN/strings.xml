@@ -346,4 +346,7 @@
     <string name="peer_sync_description">从 Litecoin 主网中的 SPV 对等节点或信任的对等节点进行设置以与区块链同步</string>
     <string name="peer_toggle_label">切换模式</string>
     <string name="mainnet_peer_label">Litecoin 主网</string>
+    <string name="set_next_emojis_title">升级到6个表情符号！</string>
+    <string name="set_next_emojis_enter_pin">输入PIN以设置表情符号4-6</string>
+    <string name="set_next_emojis_description">就像前3个一样，匹配接下来的3个种子词。点击眼睛图标显示种子词。</string>
 </resources>

@@ -356,4 +356,7 @@
     <string name="peer_sync_description">Litecoin ਮੇਨਨੈੱਟ ਵਿੱਚ spv ਪੀਅਰਜ਼ ਜਾਂ ਬਲਾਕਚੇਨ ਨਾਲ ਸਿੰਕ ਕਰਨ ਲਈ ਭਰੋਸੇਮੰਦ ਪੀਅਰ ਤੋਂ ਸੈੱਟ ਕਰੋ</string>
     <string name="peer_toggle_label">ਮੋਡ ਟਾਗਲ ਕਰੋ</string>
     <string name="mainnet_peer_label">Litecoin ਮੇਨਨੈੱਟ</string>
+    <string name="set_next_emojis_title">6 ਈਮੋਜੀਆਂ ਤੱਕ ਪੱਧਰ ਵਧਾਓ!</string>
+    <string name="set_next_emojis_enter_pin">ਈਮੋਜੀਆਂ 4 - 6 ਸੈੱਟ ਕਰਨ ਲਈ ਆਪਣਾ PIN ਦਰਜ ਕਰੋ</string>
+    <string name="set_next_emojis_description">ਪਹਿਲੀਆਂ 3 ਵਾਂਗ, ਅਗਲੀਆਂ 3 ਸੀਡ ਸ਼ਬਦਾਂ ਨੂੰ ਮੇਲ ਕਰੋ। ਸੀਡ ਸ਼ਬਦਾਂ ਨੂੰ ਦਿਖਾਉਣ ਲਈ ਅੱਖ 'ਤੇ ਟੈਪ ਕਰੋ।</string>
 </resources>

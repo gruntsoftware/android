@@ -258,4 +258,7 @@
     <string name="peer_sync_description">ตั้งค่าจาก SPV peers ในเครือข่าย Litecoin mainnet หรือ peer ที่เชื่อถือได้เพื่อซิงค์กับบล็อกเชน</string>
     <string name="peer_toggle_label">สลับโหมด</string>
     <string name="mainnet_peer_label">Litecoin mainnet</string>
+    <string name="set_next_emojis_title">ยupgrade เป็น 6 emojis!</string>
+    <string name="set_next_emojis_enter_pin">ป้อน PIN ของคุณเพื่อตั้งค่า emojis 4 - 6</string>
+    <string name="set_next_emojis_description">เช่นเดียวกับ 3 emojis แรก จับคู่ seed words 3 คำถัดไป แตะไอคอนตาเพื่อแสดง seed words</string>
 </resources>

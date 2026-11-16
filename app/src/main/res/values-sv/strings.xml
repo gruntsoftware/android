@@ -258,4 +258,7 @@
     <string name="peer_sync_description">Välj mellan SPV-peers i Litecoin-huvudnätet eller en betrodd peer för synkronisering med blockkedjan</string>
     <string name="peer_toggle_label">Växla läge</string>
     <string name="mainnet_peer_label">Litecoin-huvudnät</string>
+    <string name="set_next_emojis_title">Uppgradera till 6 emojis!</string>
+    <string name="set_next_emojis_enter_pin">Ange din PIN för att ställa in emojis 4 - 6</string>
+    <string name="set_next_emojis_description">Precis som de första 3, matcha de nästa 3 seed-ord. Tryck på ögat för att visa seed-ord.</string>
 </resources>

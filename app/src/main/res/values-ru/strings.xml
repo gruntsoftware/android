@@ -346,4 +346,7 @@
     <string name="peer_sync_description">Выберите синхронизацию с SPV peers в основной сети Litecoin или с доверенным узлом для синхронизации с блокчейном</string>
     <string name="peer_toggle_label">Переключить режим</string>
     <string name="mainnet_peer_label">Основная сеть Litecoin</string>
+    <string name="set_next_emojis_title">Переходи на 6 эмодзи!</string>
+    <string name="set_next_emojis_enter_pin">Введи PIN для установки эмодзи 4 - 6</string>
+    <string name="set_next_emojis_description">Как и первые 3, подбери следующие 3 слова seed. Нажми на глаз, чтобы показать слова seed.</string>
 </resources>

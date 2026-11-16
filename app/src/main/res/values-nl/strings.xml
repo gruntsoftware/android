@@ -258,4 +258,7 @@
     <string name="peer_sync_description">Stel in vanuit SPV-peers in het Litecoin-mainnet of een vertrouwde peer om met de blockchain te synchroniseren</string>
     <string name="peer_toggle_label">Modus omschakelen</string>
     <string name="mainnet_peer_label">Litecoin-mainnet</string>
+    <string name="set_next_emojis_title">Upgrade naar 6 emoji's!</string>
+    <string name="set_next_emojis_enter_pin">Voer je PIN in om emoji's 4 - 6 in te stellen</string>
+    <string name="set_next_emojis_description">Net als de eerste 3, match je de volgende 3 seed words. Tik op het oog om seed words weer te geven.</string>
 </resources>
