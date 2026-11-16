@@ -182,7 +182,13 @@ class BrainwalletActivity :
                 }.also { startActivity(it) }
             }
             LEGACY_EFFECT_ON_PAPERKEY_PROVED -> {
+                val firstConfirmation = !BRSharedPrefs.getPhraseWroteDown(this@BrainwalletActivity)
                 BRSharedPrefs.putPhraseWroteDown(this@BrainwalletActivity, true)
+                if (firstConfirmation) {
+                    AFLauncher.logEvent(BWConstants.AF_EVENT_E20261115A)
+                    val params = Bundle().apply { putString("completion", "create") }
+                    AnalyticsManager.logCustomAdHocEvent("user_confirmed_wallet", params)
+                }
             }
             LEGACY_DIALOG_INVALID -> BRDialog.showCustomDialog(
                 BrainwalletApp.breadContext,
@@ -305,7 +311,6 @@ class BrainwalletActivity :
             AuthManager.getInstance().authSuccess(this)
 
             AnalyticsManager.logCustomEvent(BWConstants._20200217_DU)
-            AFLauncher.logEvent(BWConstants.AF_EVENT_E20261115A)
 
             // A litecoin: QR scan routes through here with the address it wants to send
             // to (see LitecoinURIHandler.tryLitecoinURL) - only continue on to Send if

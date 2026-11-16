@@ -3,6 +3,7 @@ package com.brainwallet.tools.security;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.NetworkOnMainThreadException;
 import android.security.keystore.UserNotAuthenticatedException;
 
@@ -16,8 +17,10 @@ import com.brainwallet.presenter.activities.util.ActivityUTILS;
 import com.brainwallet.presenter.entities.PaymentRequestWrapper;
 import com.brainwallet.presenter.entities.TransactionItem;
 import com.brainwallet.tools.animation.BRDialog;
+import com.brainwallet.tools.manager.AnalyticsManager;
 import com.brainwallet.tools.manager.BRSharedPrefs;
 import com.brainwallet.constants.BWConstants;
+import com.grunt.brainwallet.af.AFLauncher;
 import com.brainwallet.tools.util.TypesConverter;
 import com.brainwallet.tools.util.Utils;
 import com.brainwallet.ui.BrainwalletActivity;
@@ -184,6 +187,12 @@ public class PostAuth {
                 if (phraseForKeyStore.length() != 0) {
                     BRSharedPrefs.putPhraseWroteDown(app, true);
                     Timber.d("timber: BRSharedPrefs.putPhraseWroteDown was set to true");
+                    AFLauncher.INSTANCE.logEvent(BWConstants.AF_EVENT_E20261115A);
+
+                    Bundle params = new Bundle();
+                    params.putString("completion", "restore");
+                    AnalyticsManager.logCustomAdHocEvent("user_confirmed_wallet", params);
+
                     bytePhrase = TypesConverter.getNullTerminatedPhrase(phraseForKeyStore.getBytes());
                     byte[] seed = BRWalletManager.getSeedFromPhrase(bytePhrase);
                     byte[] authKey = BRWalletManager.getAuthPrivKeyForAPI(seed);
