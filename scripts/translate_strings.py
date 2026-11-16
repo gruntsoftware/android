@@ -104,7 +104,47 @@ def normalise_indentation(tree):
             child.tail = "\n"
 
 
+# An apostrophe preceded by an even number (incl. zero) of backslashes is bare;
+# an odd number means it is already escaped (\' or \\\').
+_APOSTROPHE = re.compile(r"(\\*)'")
+
+
+def escape_apostrophes(text: str | None) -> str | None:
+    """
+    Escape bare apostrophes as \\' so aapt accepts the string resource.
+    Idempotent: already-escaped apostrophes are left alone.
+    """
+    if not text or "'" not in text:
+        return text
+
+    def fix(m: re.Match) -> str:
+        slashes = m.group(1)
+        return m.group(0) if len(slashes) % 2 else f"{slashes}\\'"
+
+    return _APOSTROPHE.sub(fix, text)
+
+
+def escape_tree_apostrophes(tree):
+    """
+    aapt rejects a bare ' in <string>/<item> values ("Failed to flatten XML ...
+    does not contain a valid string resource"), and translations often contain
+    them (l'occhio, emoji's, PIN'inizi). The prompt asks the model to keep \\',
+    but that isn't reliable, so enforce it on every value before writing.
+    Values wrapped entirely in double quotes are skipped: there a bare ' is legal.
+    """
+    for el in tree.getroot().iter("string", "item"):
+        text = el.text or ""
+        if len(el) == 0 and len(text) >= 2 and text[0] == '"' and text[-1] == '"':
+            continue
+        el.text = escape_apostrophes(el.text)
+        # Text inside and after inline markup such as <b>…</b>, still within el.
+        for child in el.iterdescendants():
+            child.text = escape_apostrophes(child.text)
+            child.tail = escape_apostrophes(child.tail)
+
+
 def write_tree(tree, path: Path):
+    escape_tree_apostrophes(tree)
     normalise_indentation(tree)
     path.parent.mkdir(parents=True, exist_ok=True)
     tree.write(
