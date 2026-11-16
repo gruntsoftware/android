@@ -44,13 +44,19 @@ class AppInitializerTest {
         initializer.create(context)
 
         verify { components.loadKoinModules() }
-        verify { remoteConfigSource.initialize() }
-        verify { messagingTopicHandler.initialize() }
+        // Both initialize() calls run on background threads (`thread { }` in AppInitializer.create),
+        // so wait for them instead of asserting immediately — the immediate check raced on slow CI.
+        verify(timeout = THREAD_TIMEOUT_MS) { remoteConfigSource.initialize() }
+        verify(timeout = THREAD_TIMEOUT_MS) { messagingTopicHandler.initialize() }
     }
 
     @Test
     fun `dependencies should include KoinInitializer`() {
         val deps = initializer.dependencies()
         assert(deps.contains(KoinInitializer::class.java))
+    }
+
+    private companion object {
+        const val THREAD_TIMEOUT_MS = 5_000L
     }
 }
