@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import com.brainwallet.databinding.FragmentHistoryBinding
 import com.brainwallet.presenter.activities.BreadActivity
@@ -19,7 +20,6 @@ import com.brainwallet.wallet.BRPeerManager.OnTxStatusUpdate
 import com.brainwallet.wallet.BRWalletManager
 import com.brainwallet.wallet.BRWalletManager.OnBalanceChanged
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.orbitmvi.orbit.compose.collectAsState
 import timber.log.Timber
 
 class HistoryFragment :
@@ -43,7 +43,7 @@ class HistoryFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.composeView.setContentWithTheme {
-            val exportedTransaction by viewModel.collectAsState()
+            val exportedTransaction by viewModel.state.collectAsState()
             HistoryFooter(exportedTransactions = exportedTransaction)
         }
         TxManager.getInstance().init(requireActivity() as BreadActivity, binding.recyclerView)
@@ -92,7 +92,7 @@ class HistoryFragment :
                 registerAnalyticsError("null_in_history_fragment_on_status_update")
             } else {
                 TxManager.getInstance().updateTxList(this.activity) {
-                    viewModel.updateTx(it.orEmpty())
+                    viewModel.onEvent(HistoryFragmentEvent.OnTxUpdated(it.orEmpty()))
                 }
             }
         }
@@ -104,7 +104,7 @@ class HistoryFragment :
                 registerAnalyticsError("null_in_history_fragment_on_tx_added")
             } else {
                 TxManager.getInstance().updateTxList(this.activity) {
-                    viewModel.updateTx(it.orEmpty())
+                    viewModel.onEvent(HistoryFragmentEvent.OnTxUpdated(it.orEmpty()))
                 }
             }
         }
@@ -118,7 +118,7 @@ class HistoryFragment :
                 Thread.currentThread().name =
                     Thread.currentThread().name + "HistoryFragment:updateUI"
                 TxManager.getInstance().updateTxList(this.activity) {
-                    viewModel.updateTx(it.orEmpty())
+                    viewModel.onEvent(HistoryFragmentEvent.OnTxUpdated(it.orEmpty()))
                 }
             }
         }

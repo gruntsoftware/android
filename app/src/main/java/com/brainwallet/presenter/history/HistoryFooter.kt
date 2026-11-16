@@ -11,6 +11,7 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -20,19 +21,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.brainwallet.R
 import com.brainwallet.data.model.AppSetting
+import com.brainwallet.ui.BrainwalletViewModel
 import com.brainwallet.ui.composable.BorderedLargeButton
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import com.brainwallet.ui.theme.DesignTheme
 import com.brainwallet.ui.theme.LocalIsDarkModeFlag
 import com.grunt.brainwallet.core.presentation.theme.BrainwalletTheme
-import com.grunt.brainwallet.core.presentation.util.BaseViewModel
 import com.grunt.brainwallet.iap.export.transactions.presentation.model.ExportedTransaction
 import com.grunt.brainwallet.iap.export.transactions.presentation.screen.ExportTrxSheet
 import org.koin.android.annotation.KoinViewModel
 import org.koin.compose.viewmodel.koinViewModel
-import org.orbitmvi.orbit.compose.collectAsState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,7 +45,7 @@ fun HistoryFooter(
     modifier: Modifier = Modifier,
     viewModel: HistoryFooterViewModel = koinViewModel()
 ) {
-    val showSheet by viewModel.collectAsState()
+    val showSheet by viewModel.state.collectAsState()
     AnimatedVisibility(
         exportedTransactions.isNotEmpty(),
         modifier = modifier
@@ -52,7 +56,7 @@ fun HistoryFooter(
         HistoryFooter(
             showSheet = showSheet,
             exportedTransactions = exportedTransactions,
-            onClick = viewModel::onClick
+            onClick = { viewModel.onEvent(HistoryFooterEvent.OnToggleExportSheet) }
         )
     }
 }
@@ -114,6 +118,15 @@ fun HistoryFooterPreview() {
 }
 
 @KoinViewModel
-class HistoryFooterViewModel : BaseViewModel<Boolean, Unit>(false) {
-    fun onClick() = intent { reduce { !state } }
+class HistoryFooterViewModel : BrainwalletViewModel<HistoryFooterEvent>() {
+
+    /** Whether the export-transactions sheet is showing. */
+    private val _state = MutableStateFlow(false)
+    val state: StateFlow<Boolean> = _state.asStateFlow()
+
+    override fun onEvent(event: HistoryFooterEvent) {
+        when (event) {
+            HistoryFooterEvent.OnToggleExportSheet -> _state.update { !it }
+        }
+    }
 }
