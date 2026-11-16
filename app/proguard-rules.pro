@@ -24,6 +24,21 @@
 -keep class com.brainwallet.presenter.entities.ImportPrivKeyEntity { *; }
 -keep class com.brainwallet.presenter.entities.PaymentRequestWrapper { *; }
 
+# ---------- Navigation Compose type-safe routes ----------
+# Navigation resolves enum route arguments by their serial (= fully qualified) name via
+# Class.forName, e.g. Route.Restore.Source. Obfuscating/removing them crashes NavHost setup:
+# "Cannot find class with name com.brainwallet.navigation.Route.Restore.Source?".
+# Route is also java.io.Serializable (saved state), so keep names of the whole hierarchy.
+-keepnames class com.brainwallet.navigation.Route
+-keepnames class com.brainwallet.navigation.Route$** { *; }
+-keep enum com.brainwallet.navigation.** { *; }
+
+# ---------- libGDX game exit payload ----------
+# GameExitJSON is written by libGDX's reflection-based Json, so its field names ARE the JSON
+# keys (bonus_amount, total_score, ...) parsed back in GdxGameView. Renaming them silently
+# drops game results because the app parser ignores unknown keys.
+-keep class ltd.grunt.brainwallet.gamegdx.models.** { *; }
+
 # ---------- Views inflated from XML ----------
 -keep public class * extends android.view.View {
     public <init>(android.content.Context);
