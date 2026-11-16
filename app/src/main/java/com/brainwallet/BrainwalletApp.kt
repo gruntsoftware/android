@@ -57,8 +57,7 @@ open class BrainwalletApp : Application() {
 //                        });
         DISPLAY_HEIGHT_PX = Resources.getSystem().displayMetrics.heightPixels
 
-        // AppsFlyer lives in the private :af module (key included); Brainwallet only calls
-        // AFLauncher. Release builds only, as before. The Android ID is never collected.
+        // AFLauncher
         if (!BuildConfig.DEBUG) {
             AFLauncher.configure(this)
         }
