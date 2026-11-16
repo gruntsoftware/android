@@ -144,6 +144,9 @@ object BWConstants {
     const val _20201118_DTGS: String = "did_tap_get_support"
     const val _20200217_DU: String = "did_unlock"
 
+    /** Opaque AppsFlyer event code sent on unlock; mapped to an event name inside the private :af module (AFEvents). */
+    const val AF_EVENT_E20261115A: String = "E20261115A"
+
     const val _20250517_WCINFO: String = "wallet_callback_info"
 
     /**
