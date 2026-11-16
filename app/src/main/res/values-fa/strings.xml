@@ -351,4 +351,5 @@
     <string name="set_next_emojis_title">ارتقا به 6 ایموجی!</string>
     <string name="set_next_emojis_enter_pin">PIN خود را وارد کنید تا ایموجی‌های 4 تا 6 را تنظیم کنید</string>
     <string name="set_next_emojis_description">درست مثل 3 مورد اول، 3 کلمه seed بعدی را مطابقت دهید. برای نمایش کلمات seed روی چشم ضربه بزنید.</string>
+    <string name="done_label">انجام شد</string>
 </resources>

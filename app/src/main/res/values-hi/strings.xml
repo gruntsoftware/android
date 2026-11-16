@@ -261,4 +261,5 @@
     <string name="set_next_emojis_title">6 इमोजी के लिए अपग्रेड करें!</string>
     <string name="set_next_emojis_enter_pin">इमोजी 4 - 6 सेट करने के लिए अपना PIN दर्ज करें</string>
     <string name="set_next_emojis_description">पहले 3 की तरह, अगले 3 seed शब्दों को मिलाएं। Seed शब्दों को दिखाने के लिए आंख पर टैप करें।</string>
+    <string name="done_label">पूर्ण</string>
 </resources>

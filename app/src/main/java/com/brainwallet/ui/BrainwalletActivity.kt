@@ -31,6 +31,7 @@ import com.brainwallet.tools.animation.BRAnimator
 import com.brainwallet.tools.animation.BRDialog
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.manager.BRSharedPrefs
+import com.brainwallet.tools.manager.WalletConfirmedEvents
 import com.brainwallet.tools.manager.InternetManager
 import com.brainwallet.tools.manager.sync.SyncThreadManager
 import com.brainwallet.tools.security.AuthManager
@@ -55,7 +56,6 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication
-import com.grunt.brainwallet.af.AFLauncher
 /**
  * Compose entry point here
  */
@@ -182,7 +182,7 @@ class BrainwalletActivity :
                 }.also { startActivity(it) }
             }
             LEGACY_EFFECT_ON_PAPERKEY_PROVED -> {
-                BRSharedPrefs.putPhraseWroteDown(this@BrainwalletActivity, true)
+                WalletConfirmedEvents.onNewWalletConfirmed(this@BrainwalletActivity)
             }
             LEGACY_DIALOG_INVALID -> BRDialog.showCustomDialog(
                 BrainwalletApp.breadContext,
@@ -305,7 +305,6 @@ class BrainwalletActivity :
             AuthManager.getInstance().authSuccess(this)
 
             AnalyticsManager.logCustomEvent(BWConstants._20200217_DU)
-            AFLauncher.logEvent(BWConstants.AF_EVENT_E20261115A)
 
             // A litecoin: QR scan routes through here with the address it wants to send
             // to (see LitecoinURIHandler.tryLitecoinURL) - only continue on to Send if

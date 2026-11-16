@@ -349,4 +349,5 @@
     <string name="set_next_emojis_title">Переходи на 6 эмодзи!</string>
     <string name="set_next_emojis_enter_pin">Введи PIN для установки эмодзи 4 - 6</string>
     <string name="set_next_emojis_description">Как и первые 3, подбери следующие 3 слова seed. Нажми на глаз, чтобы показать слова seed.</string>
+    <string name="done_label">Готово</string>
 </resources>

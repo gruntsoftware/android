@@ -261,4 +261,5 @@
     <string name="set_next_emojis_title">ยupgrade เป็น 6 emojis!</string>
     <string name="set_next_emojis_enter_pin">ป้อน PIN ของคุณเพื่อตั้งค่า emojis 4 - 6</string>
     <string name="set_next_emojis_description">เช่นเดียวกับ 3 emojis แรก จับคู่ seed words 3 คำถัดไป แตะไอคอนตาเพื่อแสดง seed words</string>
+    <string name="done_label">เสร็จสิ้น</string>
 </resources>

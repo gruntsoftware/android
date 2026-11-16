@@ -17,6 +17,7 @@ import com.brainwallet.presenter.entities.PaymentRequestWrapper;
 import com.brainwallet.presenter.entities.TransactionItem;
 import com.brainwallet.tools.animation.BRDialog;
 import com.brainwallet.tools.manager.BRSharedPrefs;
+import com.brainwallet.tools.manager.WalletConfirmedEvents;
 import com.brainwallet.constants.BWConstants;
 import com.brainwallet.tools.util.TypesConverter;
 import com.brainwallet.tools.util.Utils;
@@ -184,6 +185,8 @@ public class PostAuth {
                 if (phraseForKeyStore.length() != 0) {
                     BRSharedPrefs.putPhraseWroteDown(app, true);
                     Timber.d("timber: BRSharedPrefs.putPhraseWroteDown was set to true");
+                    WalletConfirmedEvents.onRestoredWalletConfirmed();
+
                     bytePhrase = TypesConverter.getNullTerminatedPhrase(phraseForKeyStore.getBytes());
                     byte[] seed = BRWalletManager.getSeedFromPhrase(bytePhrase);
                     byte[] authKey = BRWalletManager.getAuthPrivKeyForAPI(seed);

@@ -233,7 +233,7 @@ fun YourSeedProveItScreen(
             ) {
                 Text(
                     text = stringResource(
-                        if (state.orderCorrected) R.string.game_and_sync else R.string.reset_start_over
+                        if (state.orderCorrected) R.string.done_label else R.string.reset_start_over
                     ).uppercase(),
                     style = MaterialTheme.typography.labelLarge
                 )

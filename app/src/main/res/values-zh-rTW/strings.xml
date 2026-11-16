@@ -349,4 +349,5 @@
     <string name="set_next_emojis_title">升級到 6 個表情符號！</string>
     <string name="set_next_emojis_enter_pin">輸入 PIN 以設定表情符號 4 - 6</string>
     <string name="set_next_emojis_description">就像前 3 個一樣，配對接下來的 3 個種子詞。點擊眼睛圖示顯示種子詞。</string>
+    <string name="done_label">完成</string>
 </resources>

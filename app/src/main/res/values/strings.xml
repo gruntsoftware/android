@@ -368,4 +368,6 @@
     <string name="peer_sync_description">Set from spv peers in the Litecoin mainnet or a trusted peer to sync with the blockchain</string>
     <string name="peer_toggle_label">Toogle mode</string>
     <string name="mainnet_peer_label">Litecoin mainnet</string>
+    <string name="done_label">Done</string>
+
 </resources>
