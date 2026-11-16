@@ -6,16 +6,15 @@ import android.app.Application
 import android.content.Context
 import android.content.res.Resources
 import android.os.Build
-import com.appsflyer.AppsFlyerLib
 import com.brainwallet.notification.NotificationHandler
 import com.brainwallet.presenter.activities.util.BRActivity
-import com.brainwallet.presenter.entities.ServiceItems
 import com.brainwallet.tools.listeners.SyncReceiver
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.util.Utils
 import com.brainwallet.constants.BWConstants
 import com.getkeepsafe.relinker.ReLinker
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.grunt.brainwallet.af.AFLauncher
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 import timber.log.Timber.DebugTree
@@ -58,12 +57,10 @@ open class BrainwalletApp : Application() {
 //                        });
         DISPLAY_HEIGHT_PX = Resources.getSystem().displayMetrics.heightPixels
 
+        // AppsFlyer lives in the private :af module (key included); Brainwallet only calls
+        // AFLauncher. Release builds only, as before. The Android ID is never collected.
         if (!BuildConfig.DEBUG) {
-            val afID = Utils.fetchServiceItem(this, ServiceItems.AFDEVID)
-            val appsFlyerLib = AppsFlyerLib.getInstance()
-            appsFlyerLib.init(afID, null, this)
-            appsFlyerLib.setCollectAndroidID(true)
-            appsFlyerLib.start(this)
+            AFLauncher.configure(this)
         }
     }
 

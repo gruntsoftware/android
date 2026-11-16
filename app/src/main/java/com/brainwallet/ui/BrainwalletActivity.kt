@@ -55,6 +55,7 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication
+import com.grunt.brainwallet.af.AFLauncher
 /**
  * Compose entry point here
  */
@@ -304,6 +305,7 @@ class BrainwalletActivity :
             AuthManager.getInstance().authSuccess(this)
 
             AnalyticsManager.logCustomEvent(BWConstants._20200217_DU)
+            AFLauncher.logEvent(BWConstants.AF_EVENT_E20261115A)
 
             // A litecoin: QR scan routes through here with the address it wants to send
             // to (see LitecoinURIHandler.tryLitecoinURL) - only continue on to Send if

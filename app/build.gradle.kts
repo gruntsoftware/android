@@ -170,6 +170,7 @@ android {
 dependencies {
     implementation(project(":iap"))
     implementation(project(":core"))
+    implementation(project(":af"))
     implementation("androidx.webkit:webkit:1.9.0")
     implementation(libs.keepsafe.relinker)
     implementation(libs.androidx.benchmark.traceprocessor)
@@ -225,8 +226,6 @@ dependencies {
     implementation(libs.org.json)
     implementation(libs.sigpipe.jbsdiff)
     implementation(libs.razir.progressbutton)
-    implementation(libs.appsflyer)
-    implementation(libs.android.installreferrer)
     implementation(libs.androidx.material3)
     testImplementation(libs.junit)
     testImplementation(libs.mockk)

@@ -358,9 +358,6 @@ public class Utils {
                     }
                     return opsString.replaceAll("\\s+","");
                 }
-                else if (name == ServiceItems.AFDEVID) {
-                    return keyObject.optString(name.getKey());
-                }
                 else if (name == ServiceItems.AGENTPUBKEY) {
                     return keyObject.optString(name.getKey());
                 }

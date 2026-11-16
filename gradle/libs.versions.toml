@@ -89,8 +89,6 @@ jakewarthon-timber = { module = "com.jakewharton.timber:timber", version.ref = "
 eclipse-jetty-webapp = { module = "org.eclipse.jetty:jetty-webapp", version.ref = "eclipse-jetty" }
 eclipse-jetty-websocket = { module = "org.eclipse.jetty.websocket:websocket-server", version.ref = "eclipse-jetty" }
 eclipse-jetty-continuation = { module = "org.eclipse.jetty:jetty-continuation", version.ref = "eclipse-jetty" }
-appsflyer = "com.appsflyer:af-android-sdk:6.15.2"
-android-installreferrer = "com.android.installreferrer:installreferrer:2.2"
 commons-io = "commons-io:commons-io:2.4"
 slf4j = "org.slf4j:slf4j-api:1.7.22"
 org-json = "org.json:json:20231013"

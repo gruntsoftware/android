@@ -32,6 +32,7 @@ import com.brainwallet.ui.screens.unlock.UnLockEvent
 import com.brainwallet.ui.theme.BrainwalletAppTheme
 import com.brainwallet.ui.theme.DesignTheme
 import com.google.common.collect.ImmutableList
+import com.grunt.brainwallet.af.AFLauncher
 
 @Composable
 fun UnLockScreenBody(
@@ -69,6 +70,7 @@ fun UnLockScreenBody(
                     if (isValid) {
                         AuthManager.getInstance().authSuccess(context)
                         AnalyticsManager.logCustomEvent(BWConstants._20200217_DU)
+                        AFLauncher.logEvent(BWConstants.AF_EVENT_E20261115A)
                     } else {
                         Toast.makeText(context, R.string.incorrect_passcode, Toast.LENGTH_SHORT).show()
                     }
