@@ -7,6 +7,8 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.R
 import com.brainwallet.constants.BWConstants
+import com.brainwallet.domain.EmojiLevelUp
+import com.brainwallet.data.repository.GameScoreRepository
 import com.brainwallet.data.model.AppSetting
 import com.brainwallet.data.model.CurrencyEntity
 import com.brainwallet.data.model.GlobalCurrency
@@ -66,6 +68,7 @@ class MainViewModel(
     private val txRepository: TxRepository,
     private val connectivityRepository: ConnectivityRepository,
     private val balanceBentoViewModel: BalanceBentoViewModel,
+    private val gameScoreRepository: GameScoreRepository,
     private val getWalletManager: () -> WalletOperations = { BRWalletManager.getInstance() },
     versionCodeProvider: VersionCodeProvider,
 ) : BrainwalletViewModel<MainScreenEvent>(),
@@ -181,6 +184,31 @@ class MainViewModel(
                 }
         }
     }
+    private fun storedEmojis(): String? =
+        runCatching { BRKeyStore.getEmojis(app, BWConstants.SHOW_EMOJIS_REQUEST_CODE) }
+            .onFailure { Timber.w(it, "Unable to read stored emojis") }
+            .getOrNull()?.decodeToString()
+
+    /** True when the game entry points should show the PIN + emojis 4 - 6 sheet. */
+    fun shouldSetNextEmojis(): Boolean = EmojiLevelUp.shouldSetNextTriplet(
+        emojiCount = EmojiLevelUp.countEmojis(storedEmojis()),
+        gamesPlayed = gameScoreRepository.gamesPlayedCount()
+    )
+
+    /** Appends emojis 4 - 6 to the stored first 3. Returns false if nothing was saved. */
+    fun saveNextEmojis(nextEmojis: List<String?>): Boolean {
+        val combined = EmojiLevelUp.appendNextTriplet(storedEmojis(), nextEmojis) ?: return false
+        val saved = BRKeyStore.putEmojis(
+            combined.toByteArray(Charsets.UTF_8),
+            app,
+            BWConstants.PUT_EMOJIS_REQUEST_CODE
+        )
+        if (saved) {
+            AnalyticsManager.logCustomAdHocEvent("user_set_second_set_emojis", null)
+        }
+        return saved
+    }
+
     fun produceLaunchParams(): String {
         val address = BRSharedPrefs.getReceiveAddress(app)
         val timestamp = java.util.Date().time

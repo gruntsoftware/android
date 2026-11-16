@@ -10,6 +10,8 @@ import androidx.core.content.FileProvider
 import androidx.lifecycle.viewModelScope
 import com.brainwallet.appreview.InAppReviewService
 import com.brainwallet.tools.manager.AnalyticsManager
+import com.brainwallet.data.model.GameScoreRecord
+import com.brainwallet.data.repository.GameScoreRepository
 import com.brainwallet.ui.BrainwalletViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,6 +30,7 @@ import java.io.FileOutputStream
 class GameHubViewModel(
     private val app: Application,
     private val inAppReviewService: InAppReviewService,
+    private val gameScoreRepository: GameScoreRepository,
 ) : BrainwalletViewModel<GameHubEvent>() {
     private val _state =
         MutableStateFlow(GameHubState())
@@ -39,10 +42,22 @@ class GameHubViewModel(
             }
             is GameHubEvent.OnGameFinished -> {
                 AnalyticsManager.logCustomEventWithParams("did_play_game", null)
+            }
+            is GameHubEvent.OnGameScoreRecorded -> {
+                // Game history drives emojis 4 - 6 and the review ask. Like iOS, fall back to now
+                // when the game sent no timestamp
+                gameScoreRepository.appendGameScore(
+                    GameScoreRecord(
+                        totalScore = event.totalScore,
+                        timestamp = event.gameTimestamp.takeIf { it > 0 } ?: System.currentTimeMillis()
+                    )
+                )
+                // Review ask: after a recorded game once 3+ are played (iOS parity), 3s delay
                 viewModelScope.launch {
                     delay(3_000L)
-                    inAppReviewService.showInAppReviewDialogIfNeeded()
-                    Timber.d("did_request_rating")
+                    if (inAppReviewService.showInAppReviewDialogIfEnoughGamesPlayed()) {
+                        Timber.d("did_request_rating")
+                    }
                 }
             }
             is GameHubEvent.OnGameExited -> {
@@ -131,10 +146,7 @@ class GameHubViewModel(
                 }
 
                 AnalyticsManager.logCustomEventWithParams("did_play_game", null)
-                viewModelScope.launch {
-                    delay(800L)
-                    inAppReviewService.showInAppReviewDialogIfNeeded()
-                }
+                // No review ask here: a shared game is also recorded, so OnGameScoreRecorded asks
             }
         }
     }
