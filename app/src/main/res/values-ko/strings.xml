@@ -349,4 +349,5 @@
     <string name="set_next_emojis_title">6개의 이모지로 레벨 업하세요!</string>
     <string name="set_next_emojis_enter_pin">이모지 4 - 6을 설정하려면 PIN을 입력하세요</string>
     <string name="set_next_emojis_description">처음 3개와 마찬가지로 다음 3개의 시드 단어를 매칭하세요. 눈 아이콘을 눌러 시드 단어를 표시할 수 있습니다.</string>
+    <string name="done_label">완료</string>
 </resources>

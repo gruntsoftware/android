@@ -346,4 +346,5 @@
     <string name="set_next_emojis_title">Перейдіть на рівень 6 емодзі!</string>
     <string name="set_next_emojis_enter_pin">Введіть ваш PIN для встановлення емодзі 4 - 6</string>
     <string name="set_next_emojis_description">Як і перші 3, зіставте наступні 3 слова насіння. Натисніть на око, щоб показати слова насіння.</string>
+    <string name="done_label">Готово</string>
 </resources>
