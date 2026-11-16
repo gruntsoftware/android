@@ -23,9 +23,11 @@ import com.brainwallet.tools.security.BRKeyStore
 import com.brainwallet.tools.sqlite.TransactionDataSource
 import com.brainwallet.tools.util.BRExchange.ONE_LITECOIN_OF_LITOSHIS
 import com.brainwallet.ui.BrainwalletViewModel
+import com.brainwallet.ui.screens.settings.SettingsViewModel
 import com.brainwallet.ui.bentosections.balancebento.BalanceBentoViewModel
 import com.brainwallet.ui.bentosections.transactionbento.TransactionFilterState
 import com.brainwallet.util.CurrencyDataGetter
+import com.brainwallet.util.EventBus
 import com.brainwallet.util.VersionCodeProvider
 import com.brainwallet.wallet.BRPeerManager
 import com.brainwallet.wallet.BRWalletManager
@@ -423,6 +425,11 @@ class MainViewModel(
                 settingRepository.save(
                     currentSettings.copy(isDarkMode = !currentSettings.isDarkMode)
                 )
+            }
+
+            // Same effect as the Settings drawer's Lock row: BrainwalletActivity relaunches to UnLock.
+            is MainScreenEvent.OnLock -> viewModelScope.launch {
+                EventBus.emit(EventBus.Event.Message(SettingsViewModel.LEGACY_EFFECT_ON_LOCK, null))
             }
 
             is MainScreenEvent.OnToggleTransactionsDetail -> viewModelScope.launch {

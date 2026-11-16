@@ -88,7 +88,9 @@ import com.brainwallet.ui.screens.gamehub.GameHubViewModel
 import com.brainwallet.ui.screens.main.MainScreenEvent
 import com.brainwallet.ui.screens.main.MainViewModel
 import com.brainwallet.ui.screens.main.SettingsButton
+import com.brainwallet.ui.screens.main.LockButton
 import com.brainwallet.ui.screens.main.ThemeButton
+import com.brainwallet.ui.screens.main.TopNavCapsule
 import com.brainwallet.ui.screens.main.WebModalScreen
 import com.brainwallet.ui.screens.emojis.EmojiPagerScreen
 import com.brainwallet.ui.screens.emojis.SetNextEmojisScreen
@@ -115,11 +117,7 @@ import timber.log.Timber
 fun MainScreen(
     onNavigate: OnNavigate,
     modifier: Modifier = Modifier,
-    // Address from a scanned litecoin: QR code, carried here via Route.Main once the PIN is
-    // verified and the wallet is fully synced (see BrainwalletActivity.onUnlock). Opens the
-    // Send modal on load - the same modalContentRoute/isSheetOpen state BentoBottomNavBar's
-    // onItemClick sets when the user taps the Send tab themselves - rather than navigating
-    // to Route.Send as a disconnected top-level destination outside this screen entirely.
+    // Address from a scanned litecoin: QR code, carried here via Route.
     pendingSendAddress: String? = null,
     viewModel: MainViewModel = koinViewModel(),
     shopBentoViewModel: ShopBentoViewModel = koinViewModel(),
@@ -138,7 +136,6 @@ fun MainScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     val showTransactionDetail = state.showTransactionDetail
     val noTxItemsPresent = state.transactionItems.isEmpty()
-    val address = BRSharedPrefs.getReceiveAddress(context)
 
     // / Splash setup vars
     var splashAlpha by remember { mutableStateOf(0f) }
@@ -345,12 +342,18 @@ fun MainScreen(
                                 ),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
-                            ThemeButton(
-                                isDarkMode = isDarkMode,
-                                onClick = {
-                                    viewModel.onEvent(MainScreenEvent.OnToggleDarkMode)
-                                }
-                            )
+                            TopNavCapsule(isDarkMode = isDarkMode) {
+                                ThemeButton(
+                                    isDarkMode = isDarkMode,
+                                    onClick = {
+                                        viewModel.onEvent(MainScreenEvent.OnToggleDarkMode)
+                                    }
+                                )
+                                LockButton(
+                                    isDarkMode = isDarkMode,
+                                    onLock = { viewModel.onEvent(MainScreenEvent.OnLock) }
+                                )
+                            }
                             Spacer(modifier = Modifier.weight(1f))
                             SettingsButton(
                                 isDarkMode = isDarkMode,

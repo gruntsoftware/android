@@ -11,6 +11,7 @@ sealed class MainScreenEvent {
         val needFetch: Boolean = true
     ) : MainScreenEvent()
     data object OnToggleDarkMode : MainScreenEvent()
+    data object OnLock : MainScreenEvent()
     data object OnToggleTransactionsDetail : MainScreenEvent()
     data object OnToggleTransactionsFilter : MainScreenEvent()
     data object OnExportTransactions : MainScreenEvent()

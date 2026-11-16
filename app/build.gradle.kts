@@ -243,6 +243,9 @@ dependencies {
     androidTestImplementation(platform(grunt.androidx.compose.bom))
     androidTestImplementation("androidx.test:core-ktx:1.5.0")
     androidTestImplementation(grunt.bundles.androidx.compose.ui.test)
+    // Declares the ComponentActivity that createComposeRule() launches. It must be in the app's
+    // manifest, not the test APK's, so it goes in debug only (release builds don't get it).
+    debugImplementation(grunt.androidx.compose.ui.test.manifest)
     androidTestImplementation(libs.bundles.android.test)
     androidTestImplementation(libs.fastlane.screengrab)
     androidTestImplementation(libs.slf4j.android)
