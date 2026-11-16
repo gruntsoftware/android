@@ -349,4 +349,5 @@
     <string name="set_next_emojis_title">Passa a 6 emoji!</string>
     <string name="set_next_emojis_enter_pin">Inserisci il tuo PIN per impostare gli emoji 4 - 6</string>
     <string name="set_next_emojis_description">Come i primi 3, abbina i successivi 3 seed words. Tocca l\'occhio per visualizzare i seed words.</string>
+    <string name="done_label">Fatto</string>
 </resources>

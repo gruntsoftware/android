@@ -350,4 +350,5 @@
     <string name="set_next_emojis_title">6 emoji\'ye yüksel!</string>
     <string name="set_next_emojis_enter_pin">Emoji 4 - 6\'yı ayarlamak için PIN\'inizi girin</string>
     <string name="set_next_emojis_description">İlk 3\'ü gibi, sonraki 3 seed kelimesini eşleştirin. Seed kelimeleri göstermek için göz simgesine dokunun.</string>
+    <string name="done_label">Bitti</string>
 </resources>

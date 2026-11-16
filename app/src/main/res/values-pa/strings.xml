@@ -359,4 +359,5 @@
     <string name="set_next_emojis_title">6 ਈਮੋਜੀਆਂ ਤੱਕ ਪੱਧਰ ਵਧਾਓ!</string>
     <string name="set_next_emojis_enter_pin">ਈਮੋਜੀਆਂ 4 - 6 ਸੈੱਟ ਕਰਨ ਲਈ ਆਪਣਾ PIN ਦਰਜ ਕਰੋ</string>
     <string name="set_next_emojis_description">ਪਹਿਲੀਆਂ 3 ਵਾਂਗ, ਅਗਲੀਆਂ 3 ਸੀਡ ਸ਼ਬਦਾਂ ਨੂੰ ਮੇਲ ਕਰੋ। ਸੀਡ ਸ਼ਬਦਾਂ ਨੂੰ ਦਿਖਾਉਣ ਲਈ ਅੱਖ \'ਤੇ ਟੈਪ ਕਰੋ।</string>
+    <string name="done_label">ਪੂਰਾ ਹੋ ਗਿਆ</string>
 </resources>
