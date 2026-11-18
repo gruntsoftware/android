@@ -31,7 +31,8 @@ android {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 36
-        versionCode = 202506364
+        // Beta build CI may pass -PversionCodeOverride.
+        versionCode = (project.findProperty("versionCodeOverride") as String?)?.toInt() ?: 202506364
         versionName = "v4.14.0"
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")

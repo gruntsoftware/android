@@ -54,9 +54,8 @@ commands:
             SCREENGRAB_PAPERKEY=${SCREENGRAB_PAPERKEY}
             EOL
             ls && cat local.properties
-            # AppsFlyer dev key for the private :af module (BuildConfig.AF_DEV_KEY). Appended
-            # after the cat above so it never lands in the job log. Unset -> AppsFlyer stays off.
-            if [ -z "${AF_DEV_KEY:-}" ]; then echo "WARNING: AF_DEV_KEY is not set -- AppsFlyer will be disabled in this build"; fi
+            # AF dev key
+            if [ -z "${AF_DEV_KEY:-}" ]; then echo "WARNING: AF_DEV_KEY is not set"; fi
             echo "AF_DEV_KEY=${AF_DEV_KEY:-}" >> local.properties
       - run:
           name: Rewrite .gitmodules with token
@@ -80,7 +79,12 @@ jobs:
       # OOM-killed mid-build ("daemon has disappeared"). Reducing the daemon
       # heap and worker parallelism leaves more headroom for the AGP-forked
       # test JVMs without changing the resource class.
-      GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx3g -XX:MaxMetaspaceSize=512m -Dorg.gradle.daemon=false -Dorg.gradle.workers.max=1"
+      #
+      # Kotlin is compiled in-process (see the test command) so the separate Kotlin
+      # daemon (-Xmx2g from gradle.properties) never starts; it otherwise stays
+      # alive through the test phase and pushed the container into the OOM killer.
+      # That freed memory goes to the Gradle heap instead.
+      GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=512m -Dorg.gradle.daemon=false -Dorg.gradle.workers.max=1"
     steps:
       - setup_environment
       - run:
@@ -92,7 +96,7 @@ jobs:
           # need — real CPU/memory competing with compilation and the forked test
           # JVMs on this resource-constrained executor. Excluding it here only
           # affects this CI job, not local dev/lint workflows.
-          command: ./gradlew testBrainwalletDebugUnitTest --no-daemon --max-workers=1 -x detekt
+          command: ./gradlew testBrainwalletDebugUnitTest --no-daemon --max-workers=1 -x detekt -Pkotlin.compiler.execution.strategy=in-process
       - android/save_gradle_cache
       - run:
           name: Save test results
@@ -153,6 +157,23 @@ jobs:
 
             echo "Badge updated: ${message}"
 
+  beta-build:
+    executor:
+      name: android/android_docker
+      tag: 2024.07.1-ndk
+      resource_class: large
+    environment:
+      # No test JVM in this job, so R8 gets a bigger Gradle heap.
+      GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx5g -XX:MaxMetaspaceSize=512m -Dorg.gradle.daemon=false -Dorg.gradle.workers.max=1"
+    steps:
+      - setup_environment
+      - ruby/install:
+          version: '3.2.0'
+      - ruby/install-deps
+      - run:
+          name: "Beta build"
+          command: bundle exec fastlane android beta
+
   screengrab:
     executor:
       name: android/android_machine
@@ -211,6 +232,13 @@ workflows:
   test-and-build:
     jobs:
       - unit-test
+      - beta-build:
+          serial-group: << pipeline.project.slug >>/beta-build
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only: develop
 #      - screengrab:
 #          requires:
 #            - unit-test
