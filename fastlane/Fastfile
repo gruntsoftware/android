@@ -67,9 +67,110 @@ platform :android do
 #     # You can also use other beta testing services here
 #   end
 
-#   desc "Deploy a new version to the Google Play"
-#   lane :deploy do
-#     gradle(task: "clean assembleRelease")
-#     upload_to_play_store
-#   end
+  BUILD_GRADLE = File.expand_path("../app/build.gradle.kts", __dir__)
+  VERSION_CODE_REGEX = /(\?:\s*)(\d+)(\s*$)/
+
+  def play_json_key
+    raw = ENV["PLAY_SERVICE_ACCOUNT_JSON"]
+    UI.user_error!("PLAY_SERVICE_ACCOUNT_JSON is not set") if raw.nil? || raw.strip.empty?
+    require "base64"
+    raw.strip.start_with?("{") ? raw : Base64.decode64(raw)
+  end
+
+  def repo_version_code
+    line = File.read(BUILD_GRADLE)[/^\s*versionCode = .*$/]
+    UI.user_error!("versionCode line not found in #{BUILD_GRADLE}") unless line && line =~ VERSION_CODE_REGEX
+    Regexp.last_match(2).to_i
+  end
+
+  desc "Build a signed AAB and upload it to the Open testing (beta) track; bump versionCode on success"
+  desc "Options: track (default beta), validate_only (default false), push (default true)"
+  lane :beta do |options|
+    track = options[:track] || "beta"
+    validate_only = options[:validate_only] == true || options[:validate_only].to_s == "true"
+    push = options[:push].nil? ? true : options[:push].to_s == "true"
+    json_key_data = play_json_key
+
+    # 1-3. Pick a versionCode Play has never seen.
+    repo_code = repo_version_code
+    play_max = %w[internal alpha beta production].flat_map do |t|
+      begin
+        google_play_track_version_codes(track: t, json_key_data: json_key_data)
+      rescue => e
+        UI.important("Could not read track '#{t}': #{e.message}")
+        []
+      end
+    end.max || 0
+    code = [repo_code, play_max + 1].max
+    UI.message("versionCode: repo=#{repo_code}, play max=#{play_max} -> using #{code}")
+
+    # 4. Signed release bundle.
+    gradle(
+      task: "bundle",
+      flavor: "Brainwallet",
+      build_type: "Release",
+      properties: { "versionCodeOverride" => code },
+      flags: "-x detekt --no-daemon --max-workers=1"
+    )
+    aab = lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH]
+    mapping = lane_context[SharedValues::GRADLE_MAPPING_TXT_OUTPUT_PATH]
+    UI.user_error!("AAB not found after build") unless aab && File.exist?(aab)
+
+    # 5. Upload to Play.
+    upload_to_play_store(
+      track: track,
+      aab: aab,
+      mapping: (mapping if mapping && File.exist?(mapping)),
+      release_status: "completed",
+      json_key_data: json_key_data,
+      validate_only: validate_only,
+      skip_upload_apk: true,
+      skip_upload_metadata: true,
+      skip_upload_changelogs: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true
+    )
+
+    if validate_only
+      UI.success("validate_only: upload validated, versionCode not bumped")
+      next
+    end
+
+    # 6. Upload succeeded: write the next unused code back and commit it.
+    next_code = code + 1
+    content = File.read(BUILD_GRADLE).sub(/^(\s*versionCode = .*)$/) do |line|
+      line.sub(VERSION_CODE_REGEX) { "#{Regexp.last_match(1)}#{next_code}#{Regexp.last_match(3)}" }
+    end
+    File.write(BUILD_GRADLE, content)
+
+    unless push
+      UI.success("Uploaded #{code} to #{track}; wrote #{next_code} locally (push disabled)")
+      next
+    end
+
+    message = <<~MSG
+      chore(release): bump versionCode to #{next_code} [skip ci]
+
+      #{code} was uploaded to the Play #{track} track.
+
+      Co-Authored-By: grunt-claude-bot <admin@brainwallet.co>
+      Co-Authored-By: kcw-grunt <mrkerrywashington@icloud.com>
+    MSG
+    begin
+      Dir.chdir(File.expand_path("..", __dir__)) do
+        sh("git", "-c", "user.name=grunt-claude-bot", "-c", "user.email=admin@brainwallet.co",
+           "commit", "--author=grunt-claude-bot <admin@brainwallet.co>", "-m", message, "--", "app/build.gradle.kts")
+        if ENV["GH_TOKEN"] && ENV["CIRCLE_PROJECT_USERNAME"] && ENV["CIRCLE_PROJECT_REPONAME"]
+          remote = "https://x-access-token:#{ENV['GH_TOKEN']}@github.com/#{ENV['CIRCLE_PROJECT_USERNAME']}/#{ENV['CIRCLE_PROJECT_REPONAME']}.git"
+          sh("git", "push", remote, "HEAD:develop", log: false)
+        else
+          sh("git", "push", "origin", "HEAD:develop")
+        end
+      end
+      UI.success("Uploaded #{code} to #{track}; develop now at #{next_code}")
+    rescue => e
+      # Not fatal: the next run derives play_max + 1 from Play anyway.
+      UI.important("Upload succeeded but the versionCode bump was not pushed: #{e.message}")
+    end
+  end
 end

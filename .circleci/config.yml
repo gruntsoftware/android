@@ -153,6 +153,29 @@ jobs:
 
             echo "Badge updated: ${message}"
 
+  publish-open-testing:
+    executor:
+      name: android/android_docker
+      tag: 2024.07.1-ndk
+      resource_class: large
+    # Two quick merges must not race for the same versionCode.
+    serial-group: << pipeline.project.slug >>/play-publish-develop
+    environment:
+      GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx3g -XX:MaxMetaspaceSize=512m -Dorg.gradle.daemon=false -Dorg.gradle.workers.max=1"
+    steps:
+      - setup_environment
+      - ruby/install:
+          version: '3.2.0'
+      - ruby/install-deps
+      - run:
+          name: "Build signed AAB and upload to Play Open testing (beta)"
+          # Needs PLAY_SERVICE_ACCOUNT_JSON (base64 service-account key) and GH_TOKEN
+          # with Contents: write, used to push the versionCode bump back to develop.
+          command: bundle exec fastlane android beta
+      - store_artifacts:
+          path: app/build/outputs/bundle
+          destination: aab
+
   screengrab:
     executor:
       name: android/android_machine
@@ -211,6 +234,12 @@ workflows:
   test-and-build:
     jobs:
       - unit-test
+      - publish-open-testing:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only: develop
 #      - screengrab:
 #          requires:
 #            - unit-test
