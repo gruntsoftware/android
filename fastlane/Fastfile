@@ -72,11 +72,18 @@ platform :android do
 
   def play_json_key
     raw = ENV["PLAY_SERVICE_ACCOUNT_JSON"]
-    UI.user_error!("PLAY_SERVICE_ACCOUNT_JSON is not set") if raw.nil? || raw.strip.empty?
+    if (raw.nil? || raw.strip.empty?) && ENV["SUPPLY_JSON_KEY"]
+      # Local runs: use the key file SUPPLY_JSON_KEY points at.
+      path = File.expand_path(ENV["SUPPLY_JSON_KEY"])
+      UI.user_error!("SUPPLY_JSON_KEY points to #{path}, which does not exist") unless File.exist?(path)
+      UI.message("Using service account key from SUPPLY_JSON_KEY")
+      raw = File.read(path)
+    end
+    UI.user_error!("Set PLAY_SERVICE_ACCOUNT_JSON (CI) or SUPPLY_JSON_KEY (local key file)") if raw.nil? || raw.strip.empty?
     # supply fills `json_key` from these env vars; a stale path there conflicts with json_key_data.
     %w[SUPPLY_JSON_KEY ANDROID_JSON_KEY_FILE].each do |name|
       next unless ENV[name]
-      UI.important("Ignoring #{name}; using PLAY_SERVICE_ACCOUNT_JSON instead")
+      UI.verbose("Clearing #{name}; the key is passed to supply as json_key_data")
       ENV.delete(name)
     end
     require "base64"
