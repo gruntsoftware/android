@@ -110,7 +110,7 @@ platform :android do
       flavor: "Brainwallet",
       build_type: "Release",
       properties: { "versionCodeOverride" => code },
-      flags: "-x detekt --no-daemon --max-workers=1"
+      flags: "-x detekt --no-daemon --max-workers=1 -Pkotlin.compiler.execution.strategy=in-process"
     )
     aab = lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH]
     mapping = lane_context[SharedValues::GRADLE_MAPPING_TXT_OUTPUT_PATH]
