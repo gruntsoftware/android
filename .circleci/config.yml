@@ -158,8 +158,6 @@ jobs:
       name: android/android_docker
       tag: 2024.07.1-ndk
       resource_class: large
-    # Two quick merges must not race for the same versionCode.
-    serial-group: << pipeline.project.slug >>/play-publish-develop
     environment:
       GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx3g -XX:MaxMetaspaceSize=512m -Dorg.gradle.daemon=false -Dorg.gradle.workers.max=1"
     steps:
@@ -235,6 +233,8 @@ workflows:
     jobs:
       - unit-test
       - publish-open-testing:
+          # Two quick merges must not race for the same versionCode.
+          serial-group: << pipeline.project.slug >>/play-publish-develop
           requires:
             - unit-test
           filters:
