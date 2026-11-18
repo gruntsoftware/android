@@ -31,6 +31,16 @@ Runs all the unit tests
 
 Build screengrabDebug and test APK for screenshots
 
+### android beta
+
+```sh
+[bundle exec] fastlane android beta
+```
+
+Build a signed AAB and upload it to the Open testing (beta) track; bump versionCode on success
+
+Options: track (default beta), validate_only (default false), push (default true)
+
 ----
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.

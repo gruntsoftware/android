@@ -73,6 +73,12 @@ platform :android do
   def play_json_key
     raw = ENV["PLAY_SERVICE_ACCOUNT_JSON"]
     UI.user_error!("PLAY_SERVICE_ACCOUNT_JSON is not set") if raw.nil? || raw.strip.empty?
+    # supply fills `json_key` from these env vars; a stale path there conflicts with json_key_data.
+    %w[SUPPLY_JSON_KEY ANDROID_JSON_KEY_FILE].each do |name|
+      next unless ENV[name]
+      UI.important("Ignoring #{name}; using PLAY_SERVICE_ACCOUNT_JSON instead")
+      ENV.delete(name)
+    end
     require "base64"
     raw.strip.start_with?("{") ? raw : Base64.decode64(raw)
   end
@@ -93,14 +99,21 @@ platform :android do
 
     # 1-3. Pick a versionCode Play has never seen.
     repo_code = repo_version_code
+    tracks_read = 0
     play_max = %w[internal alpha beta production].flat_map do |t|
       begin
-        google_play_track_version_codes(track: t, json_key_data: json_key_data)
+        codes = google_play_track_version_codes(track: t, json_key_data: json_key_data)
+        tracks_read += 1
+        codes
       rescue => e
+        # A track that was never used can fail to read; that alone is fine.
         UI.important("Could not read track '#{t}': #{e.message}")
         []
       end
     end.max || 0
+    # Without at least one successful read, play_max is unknown and the repo value may
+    # already be used on Play. Stop rather than guess.
+    UI.user_error!("Could not read any Play track; check the service account key and its Play Console access") if tracks_read.zero?
     code = [repo_code, play_max + 1].max
     UI.message("versionCode: repo=#{repo_code}, play max=#{play_max} -> using #{code}")
 
