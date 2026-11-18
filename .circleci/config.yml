@@ -54,9 +54,8 @@ commands:
             SCREENGRAB_PAPERKEY=${SCREENGRAB_PAPERKEY}
             EOL
             ls && cat local.properties
-            # AppsFlyer dev key for the private :af module (BuildConfig.AF_DEV_KEY). Appended
-            # after the cat above so it never lands in the job log. Unset -> AppsFlyer stays off.
-            if [ -z "${AF_DEV_KEY:-}" ]; then echo "WARNING: AF_DEV_KEY is not set -- AppsFlyer will be disabled in this build"; fi
+            # AF dev key
+            if [ -z "${AF_DEV_KEY:-}" ]; then echo "WARNING: AF_DEV_KEY is not set"; fi
             echo "AF_DEV_KEY=${AF_DEV_KEY:-}" >> local.properties
       - run:
           name: Rewrite .gitmodules with token
