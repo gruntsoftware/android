@@ -157,7 +157,7 @@ jobs:
 
             echo "Badge updated: ${message}"
 
-  release:
+  beta-build:
     executor:
       name: android/android_docker
       tag: 2024.07.1-ndk
@@ -171,7 +171,7 @@ jobs:
           version: '3.2.0'
       - ruby/install-deps
       - run:
-          name: "Release build"
+          name: "Beta build"
           command: bundle exec fastlane android beta
 
   screengrab:
@@ -232,8 +232,8 @@ workflows:
   test-and-build:
     jobs:
       - unit-test
-      - release:
-          serial-group: << pipeline.project.slug >>/release
+      - beta-build:
+          serial-group: << pipeline.project.slug >>/beta-build
           requires:
             - unit-test
           filters:

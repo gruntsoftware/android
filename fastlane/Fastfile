@@ -15,7 +15,7 @@
 
 default_platform(:android)
 
-# Release lanes live in the private module.
+# Beta build lanes live in the private module.
 private_lanes = File.expand_path("../modules/private-general-purpose/fastlane/Fastfile", __dir__)
 import(private_lanes) if File.exist?(private_lanes)
 
