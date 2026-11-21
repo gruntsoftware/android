@@ -57,6 +57,8 @@ commands:
             # AF dev key
             if [ -z "${AF_DEV_KEY:-}" ]; then echo "WARNING: AF_DEV_KEY is not set"; fi
             echo "AF_DEV_KEY=${AF_DEV_KEY:-}" >> local.properties
+            if [ -z "${REVENUECAT_KEY:-}" ]; then echo "WARNING: REVENUECAT_KEY is not set"; fi
+            echo "REVENUECAT_KEY=${REVENUECAT_KEY:-}" >> local.properties
       - run:
           name: Rewrite .gitmodules with token
           command: |

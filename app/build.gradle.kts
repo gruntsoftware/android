@@ -17,6 +17,19 @@ plugins {
 
 val localProperties = gradleLocalProperties(rootDir, providers)
 
+val revenueCatKeyPresent = !localProperties.getProperty("REVENUECAT_KEY").isNullOrBlank()
+val verifyRevenueCatKey by tasks.registering {
+    group = "verification"
+    doLast {
+        if (!revenueCatKeyPresent) {
+            throw GradleException("REVENUECAT_KEY missing")
+        }
+    }
+}
+tasks.matching { it.name.startsWith("pre") && it.name.endsWith("ReleaseBuild") }.configureEach {
+    dependsOn(verifyRevenueCatKey)
+}
+
 android {
     namespace = "com.brainwallet"
     compileSdk = 36
