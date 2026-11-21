@@ -17,20 +17,12 @@ plugins {
 
 val localProperties = gradleLocalProperties(rootDir, providers)
 
-// The :iap module bakes REVENUECAT_KEY from local.properties into its BuildConfig, and its
-// IapInitializer calls Purchases.configure() during app startup. A blank key makes RevenueCat
-// throw "API key must be set" from InitializationProvider, crashing every launch (Crashlytics
-// ca4b0596b4a6eb1cfde6a8e80319c1f0). Fail release builds instead of shipping that APK.
 val revenueCatKeyPresent = !localProperties.getProperty("REVENUECAT_KEY").isNullOrBlank()
 val verifyRevenueCatKey by tasks.registering {
     group = "verification"
-    description = "Fails the build when REVENUECAT_KEY is missing from local.properties."
     doLast {
         if (!revenueCatKeyPresent) {
-            throw GradleException(
-                "REVENUECAT_KEY is missing or blank in local.properties. Release builds " +
-                    "crash on launch without it (RevenueCat is configured at startup)."
-            )
+            throw GradleException("REVENUECAT_KEY missing")
         }
     }
 }
