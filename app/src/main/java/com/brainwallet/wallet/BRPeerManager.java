@@ -22,11 +22,10 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import org.koin.java.KoinJavaComponent;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutionException;
 
 import kotlin.Suppress;
@@ -38,7 +37,10 @@ import timber.log.Timber;
 
 public final class BRPeerManager {
 
-    private static final List<OnTxStatusUpdate> statusUpdateListeners = new ArrayList<>();
+    // Iterated from the native peer thread while screens add/remove on the main thread;
+    // copy-on-write iteration works on a snapshot, so it can't throw ConcurrentModificationException.
+    private static final CopyOnWriteArrayList<OnTxStatusUpdate> statusUpdateListeners =
+            new CopyOnWriteArrayList<>();
     private static OnSyncSucceeded onSyncFinished;
 
     static long syncStartDate = new Date().getTime();
@@ -102,10 +104,8 @@ public final class BRPeerManager {
     public static void txStatusUpdate() {
         Timber.d("timber: txStatusUpdate");
 
-        synchronized (statusUpdateListeners) {
-            for (OnTxStatusUpdate listener : statusUpdateListeners) {
-                if (listener != null) listener.onStatusPeerManagerUpdate();
-            }
+        for (OnTxStatusUpdate listener : statusUpdateListeners) {
+            if (listener != null) listener.onStatusPeerManagerUpdate();
         }
 
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
@@ -301,8 +301,7 @@ public final class BRPeerManager {
     }
 
     public void addStatusUpdateListener(OnTxStatusUpdate listener) {
-        if (statusUpdateListeners.contains(listener)) return;
-        statusUpdateListeners.add(listener);
+        statusUpdateListeners.addIfAbsent(listener);
     }
 
     public void removeListener(OnTxStatusUpdate listener) {
