@@ -513,6 +513,120 @@ class SendViewModelTest {
     }
 
     // -------------------------------------------------------------------------
+    // REGRESSION: false send confirmation / "Sending…" modal
+    // -------------------------------------------------------------------------
+
+    @Test
+    fun `publishing flag stays set while waiting for the network confirmation`() = runTest {
+        val confirmation = kotlinx.coroutines.CompletableDeferred<BWSendResult>()
+        coEvery { bwSender.prepareTransaction(any()) } coAnswers { confirmation.await() }
+        val vm = buildViewModel()
+
+        vm.onEvent(SendEvent.OnSend(dummyTransactionItem()))
+        advanceUntilIdle()
+
+        assertTrue("Sending… modal must show until the core reports back", vm.state.value.brainwalletIsPublishing)
+        assertFalse("no success badge before confirmation", vm.state.value.isPasscodeAuthenticated)
+
+        confirmation.complete(BWSendResult.Success)
+        advanceUntilIdle()
+
+        assertFalse(vm.state.value.brainwalletIsPublishing)
+        assertTrue(vm.state.value.isPasscodeAuthenticated)
+    }
+
+    @Test
+    fun `rejected send never shows the success badge and brings the keypad back`() = runTest {
+        coEvery { bwSender.prepareTransaction(any()) } returns BWSendResult.Error.PublishRejected(110)
+        every { BRKeyStore.getPinCode(any()) } returns "1234"
+        val vm = buildViewModel()
+
+        listOf(1, 2, 3, 4).forEach { vm.onEvent(SendEvent.OnPasscodeDigitAdded(it)) }
+        advanceUntilIdle()
+
+        assertFalse(vm.state.value.isPasscodeAuthenticated)
+        assertFalse(vm.state.value.brainwalletIsPublishing)
+        assertTrue(vm.state.value.passcode.isEmpty())
+        assertTrue(vm.state.value.errorResultString.isNotEmpty())
+    }
+
+    @Test
+    fun `send success marks passcode authenticated`() = runTest {
+        coEvery { bwSender.prepareTransaction(any()) } returns BWSendResult.Success
+        val vm = buildViewModel()
+
+        vm.onEvent(SendEvent.OnSend(dummyTransactionItem()))
+        advanceUntilIdle()
+
+        assertTrue(vm.state.value.isPasscodeAuthenticated)
+        assertTrue(vm.state.value.errorResultString.isEmpty())
+    }
+
+    @Test
+    fun `each new failure type surfaces an error`() = runTest {
+        listOf(
+            BWSendResult.Error.WalletNotReady,
+            BWSendResult.Error.CreationFailed,
+            BWSendResult.Error.SigningFailed,
+            BWSendResult.Error.NotConnected,
+            BWSendResult.Error.PublishRejected(22),
+            BWSendResult.Error.ConfirmationTimedOut,
+        ).forEach { error ->
+            coEvery { bwSender.prepareTransaction(any()) } returns error
+            val vm = buildViewModel()
+
+            vm.onEvent(SendEvent.OnSend(dummyTransactionItem()))
+            advanceUntilIdle()
+
+            assertTrue("$error must surface a message", vm.state.value.errorResultString.isNotEmpty())
+            assertFalse("$error must not show success", vm.state.value.isPasscodeAuthenticated)
+        }
+    }
+
+    @Test
+    fun `second send while publishing is ignored`() = runTest {
+        val confirmation = kotlinx.coroutines.CompletableDeferred<BWSendResult>()
+        coEvery { bwSender.prepareTransaction(any()) } coAnswers { confirmation.await() }
+        val vm = buildViewModel()
+
+        vm.onEvent(SendEvent.OnSend(dummyTransactionItem()))
+        advanceUntilIdle()
+        vm.onEvent(SendEvent.OnSend(dummyTransactionItem()))
+        vm.onEvent(SendEvent.OnPasscodeDigitAdded(1))
+        advanceUntilIdle()
+
+        coVerify(exactly = 1) { bwSender.prepareTransaction(any()) }
+        assertTrue(vm.state.value.passcode.isEmpty())
+
+        confirmation.complete(BWSendResult.Success)
+        advanceUntilIdle()
+    }
+
+    @Test
+    fun `send with wallet not created does not call sender`() = runTest {
+        val vm = buildViewModel(isWalletCreated = { false })
+
+        vm.onEvent(SendEvent.OnSend(dummyTransactionItem()))
+        advanceUntilIdle()
+
+        coVerify(exactly = 0) { bwSender.prepareTransaction(any()) }
+        assertTrue(vm.state.value.errorResultString.isNotEmpty())
+        assertFalse(vm.state.value.brainwalletIsPublishing)
+    }
+
+    @Test
+    fun `dismissing the send error clears it`() = runTest {
+        coEvery { bwSender.prepareTransaction(any()) } returns BWSendResult.Error.NotConnected
+        val vm = buildViewModel()
+        vm.onEvent(SendEvent.OnSend(dummyTransactionItem()))
+        advanceUntilIdle()
+
+        vm.onEvent(SendEvent.OnDismissSendError)
+
+        assertTrue(vm.state.value.errorResultString.isEmpty())
+    }
+
+    // -------------------------------------------------------------------------
     // Helpers
     // -------------------------------------------------------------------------
 

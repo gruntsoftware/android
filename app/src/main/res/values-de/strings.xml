@@ -317,4 +317,11 @@
     <string name="set_next_emojis_enter_pin">Geben Sie Ihre PIN ein, um die Emojis 4 - 6 festzulegen</string>
     <string name="set_next_emojis_description">Genau wie die ersten 3, ordnen Sie die nächsten 3 Seed-Wörter zu. Tippen Sie auf das Auge, um Seed-Wörter anzuzeigen.</string>
     <string name="done_label">Fertig</string>
+    <string name="send_sending">Wird gesendet…</string>
+    <string name="send_error_wallet_not_ready">Die Wallet ist noch nicht bereit. Bitte versuchen Sie es erneut.</string>
+    <string name="send_error_creation_failed">Die Transaktion konnte nicht erstellt werden. Prüfen Sie den Betrag und Ihr Guthaben.</string>
+    <string name="send_error_signing_failed">Die Transaktion konnte nicht signiert werden. Ihre Litecoin wurden nicht gesendet.</string>
+    <string name="send_error_not_connected">Keine Verbindung zum Litecoin-Netzwerk. Ihre Litecoin wurden nicht gesendet.</string>
+    <string name="send_error_network_rejected">Das Litecoin-Netzwerk hat diese Transaktion nicht akzeptiert. Ihre Litecoin wurden nicht gesendet.</string>
+    <string name="send_error_confirmation_unknown">Das Netzwerk hat diese Sendung noch nicht bestätigt. Prüfen Sie Ihren Transaktionsverlauf, bevor Sie es erneut versuchen.</string>
 </resources>

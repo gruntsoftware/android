@@ -351,4 +351,11 @@
     <string name="set_next_emojis_enter_pin">Emoji 4 - 6\'yı ayarlamak için PIN\'inizi girin</string>
     <string name="set_next_emojis_description">İlk 3\'ü gibi, sonraki 3 seed kelimesini eşleştirin. Seed kelimeleri göstermek için göz simgesine dokunun.</string>
     <string name="done_label">Bitti</string>
+    <string name="send_sending">Gönderiliyor…</string>
+    <string name="send_error_wallet_not_ready">Cüzdan henüz hazır değil. Lütfen tekrar deneyin.</string>
+    <string name="send_error_creation_failed">İşlem oluşturulamadı. Tutarı ve bakiyenizi kontrol edin.</string>
+    <string name="send_error_signing_failed">İşlem imzalanamadı. Litecoin\'leriniz gönderilmedi.</string>
+    <string name="send_error_not_connected">Litecoin ağına bağlı değil. Litecoin\'leriniz gönderilmedi.</string>
+    <string name="send_error_network_rejected">Litecoin ağı bu işlemi kabul etmedi. Litecoin\'leriniz gönderilmedi.</string>
+    <string name="send_error_confirmation_unknown">Ağ bu gönderimi henüz onaylamadı. Tekrar denemeden önce işlem geçmişinizi kontrol edin.</string>
 </resources>

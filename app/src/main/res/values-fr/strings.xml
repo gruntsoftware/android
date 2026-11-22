@@ -350,4 +350,11 @@
     <string name="set_next_emojis_enter_pin">Entrez votre PIN pour définir les emojis 4 - 6</string>
     <string name="set_next_emojis_description">Comme les 3 premiers, associez les 3 prochains mots de semence. Appuyez sur l\'œil pour afficher les mots de semence.</string>
     <string name="done_label">Terminé</string>
+    <string name="send_sending">Envoi en cours…</string>
+    <string name="send_error_wallet_not_ready">Le portefeuille n\'est pas encore prêt. Veuillez réessayer.</string>
+    <string name="send_error_creation_failed">Impossible de créer la transaction. Vérifiez le montant et votre solde.</string>
+    <string name="send_error_signing_failed">Impossible de signer la transaction. Vos Litecoin n\'ont pas été envoyés.</string>
+    <string name="send_error_not_connected">Non connecté au réseau Litecoin. Vos Litecoin n\'ont pas été envoyés.</string>
+    <string name="send_error_network_rejected">Le réseau Litecoin n\'a pas accepté cette transaction. Vos Litecoin n\'ont pas été envoyés.</string>
+    <string name="send_error_confirmation_unknown">Le réseau n\'a pas encore confirmé cet envoi. Vérifiez votre historique de transactions avant de réessayer.</string>
 </resources>

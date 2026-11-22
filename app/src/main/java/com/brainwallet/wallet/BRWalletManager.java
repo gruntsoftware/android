@@ -370,6 +370,8 @@ public class BRWalletManager implements WalletOperations,
         params.putInt("error", error);
         params.putString("txHash", Arrays.toString(txHash));
         AnalyticsManager.logCustomEventWithParams(BWConstants._20250517_WCINFO, params);
+        // The core only calls back once the network relayed the tx back (success) or rejected it
+        TxPublishResults.onPublishResult(txHash, error);
     }
 
     public static void onBalanceChanged(final long balance) {
