@@ -262,4 +262,11 @@
     <string name="set_next_emojis_enter_pin">Voer je PIN in om emoji\'s 4 - 6 in te stellen</string>
     <string name="set_next_emojis_description">Net als de eerste 3, match je de volgende 3 seed words. Tik op het oog om seed words weer te geven.</string>
     <string name="done_label">Klaar</string>
+    <string name="send_sending">Bezig met verzenden…</string>
+    <string name="send_error_wallet_not_ready">De wallet is nog niet klaar. Probeer het opnieuw.</string>
+    <string name="send_error_creation_failed">Kan de transactie niet aanmaken. Controleer het bedrag en je saldo.</string>
+    <string name="send_error_signing_failed">Kan de transactie niet ondertekenen. Je Litecoin is niet verzonden.</string>
+    <string name="send_error_not_connected">Geen verbinding met het Litecoin-netwerk. Je Litecoin is niet verzonden.</string>
+    <string name="send_error_network_rejected">Het Litecoin-netwerk heeft deze transactie niet geaccepteerd. Je Litecoin is niet verzonden.</string>
+    <string name="send_error_confirmation_unknown">Het netwerk heeft deze verzending nog niet bevestigd. Controleer je transactiegeschiedenis voordat je het opnieuw probeert.</string>
 </resources>

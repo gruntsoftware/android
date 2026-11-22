@@ -350,4 +350,11 @@
     <string name="set_next_emojis_enter_pin">输入PIN以设置表情符号4-6</string>
     <string name="set_next_emojis_description">就像前3个一样，匹配接下来的3个种子词。点击眼睛图标显示种子词。</string>
     <string name="done_label">完成</string>
+    <string name="send_sending">正在发送…</string>
+    <string name="send_error_wallet_not_ready">钱包尚未就绪，请重试。</string>
+    <string name="send_error_creation_failed">无法创建交易。请检查金额和余额。</string>
+    <string name="send_error_signing_failed">无法签署交易。您的莱特币尚未发送。</string>
+    <string name="send_error_not_connected">未连接到莱特币网络。您的莱特币尚未发送。</string>
+    <string name="send_error_network_rejected">莱特币网络未接受此交易。您的莱特币尚未发送。</string>
+    <string name="send_error_confirmation_unknown">网络尚未确认此次发送。请在重试前查看您的交易记录。</string>
 </resources>

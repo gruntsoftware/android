@@ -350,4 +350,11 @@
     <string name="set_next_emojis_enter_pin">輸入 PIN 以設定表情符號 4 - 6</string>
     <string name="set_next_emojis_description">就像前 3 個一樣，配對接下來的 3 個種子詞。點擊眼睛圖示顯示種子詞。</string>
     <string name="done_label">完成</string>
+    <string name="send_sending">正在傳送…</string>
+    <string name="send_error_wallet_not_ready">錢包尚未就緒，請再試一次。</string>
+    <string name="send_error_creation_failed">無法建立交易。請檢查金額與餘額。</string>
+    <string name="send_error_signing_failed">無法簽署交易。您的萊特幣尚未傳送。</string>
+    <string name="send_error_not_connected">未連線至萊特幣網路。您的萊特幣尚未傳送。</string>
+    <string name="send_error_network_rejected">萊特幣網路未接受此交易。您的萊特幣尚未傳送。</string>
+    <string name="send_error_confirmation_unknown">網路尚未確認此次傳送。請在重試前查看您的交易紀錄。</string>
 </resources>

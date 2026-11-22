@@ -47,6 +47,10 @@ class BWSenderTest {
     private lateinit var sender: BWSender
 
     private val validSerializedTx = ByteArray(32) { (it + 1).toByte() }
+    private val txHash = ByteArray(32) { (it + 7).toByte() }
+
+    /** errno the fake core reports for the publish; 0 = relayed back by the network. */
+    private var publishResult = 0
 
     private fun buildTx(
         sendAddress: String? = "LValidAddr",
@@ -77,12 +81,16 @@ class BWSenderTest {
             every { getMinOutputAmount() } returns 1_000L
             every { getMinOutputAmountRequested() } returns 500L
         }
-        postAuth = mockk<PostAuth>(relaxed = true)
+        postAuth = mockk<PostAuth>(relaxed = true) {
+            every { onPublishTxAuth(any(), any()) } returns txHash
+        }
+        publishResult = 0
 
         sender = BWSender(
             context = context,
             getWalletManager = { walletManager },
-            getPostAuth = { postAuth }
+            getPostAuth = { postAuth },
+            awaitPublishResult = { publishResult }
         )
     }
 
@@ -130,14 +138,14 @@ class BWSenderTest {
     }
 
     @Test
-    fun `isSending is cleared after null transaction returns Unknown error`() = runTest {
+    fun `isSending is cleared after null transaction returns CreationFailed`() = runTest {
         every {
             walletManager.tryTransactionWithOps(any(), any(), any(), any())
         } returns null
 
         val result = sender.prepareTransaction(buildTx())
 
-        assertTrue(result is BWSendResult.Error.Unknown)
+        assertEquals(BWSendResult.Error.CreationFailed, result)
         assertFalse(sender.isSending)
     }
 
@@ -249,5 +257,92 @@ class BWSenderTest {
         assertEquals(BWSendResult.Success, result)
         verify(exactly = 1) { walletManager.getMinOutputAmountRequested() }
         verify(exactly = 0) { walletManager.getMinOutputAmount() }
+    }
+
+    // -------------------------------------------------------------------------
+    // REGRESSION: false send confirmation — success only once the network relays it back
+    // -------------------------------------------------------------------------
+
+    @Test
+    fun `success waits for the publish result of the published hash`() = runTest {
+        var awaitedHash: ByteArray? = null
+        sender = BWSender(
+            context = context,
+            getWalletManager = { walletManager },
+            getPostAuth = { postAuth },
+            awaitPublishResult = { hash ->
+                awaitedHash = hash
+                0
+            }
+        )
+
+        val result = sender.prepareTransaction(buildTx())
+
+        assertEquals(BWSendResult.Success, result)
+        assertTrue(awaitedHash?.contentEquals(txHash) == true)
+    }
+
+    @Test
+    fun `network rejection is not reported as success`() = runTest {
+        publishResult = 22 // EINVAL: tx rejected / no longer valid in the wallet
+
+        val result = sender.prepareTransaction(buildTx())
+
+        assertEquals(BWSendResult.Error.PublishRejected(22), result)
+        assertFalse(sender.isSending)
+    }
+
+    @Test
+    fun `unrelayed tx timing out in core is reported as rejected`() = runTest {
+        publishResult = 110 // ETIMEDOUT: no peer relayed the tx back
+
+        val result = sender.prepareTransaction(buildTx())
+
+        assertEquals(BWSendResult.Error.PublishRejected(110), result)
+    }
+
+    @Test
+    fun `not connected to the network is reported as NotConnected`() = runTest {
+        publishResult = BWSender.ENOTCONN
+
+        val result = sender.prepareTransaction(buildTx())
+
+        assertEquals(BWSendResult.Error.NotConnected, result)
+    }
+
+    @Test
+    fun `no hash from publish returns SigningFailed without waiting`() = runTest {
+        every { postAuth.onPublishTxAuth(any(), any()) } returns null
+        var awaited = false
+        sender = BWSender(
+            context = context,
+            getWalletManager = { walletManager },
+            getPostAuth = { postAuth },
+            awaitPublishResult = {
+                awaited = true
+                0
+            }
+        )
+
+        val result = sender.prepareTransaction(buildTx())
+
+        assertEquals(BWSendResult.Error.SigningFailed, result)
+        assertFalse("must not wait on a tx that was never published", awaited)
+    }
+
+    @Test
+    fun `missing publish callback times out as ConfirmationTimedOut and clears isSending`() = runTest {
+        sender = BWSender(
+            context = context,
+            getWalletManager = { walletManager },
+            getPostAuth = { postAuth },
+            awaitPublishResult = { kotlinx.coroutines.awaitCancellation() },
+            confirmationTimeoutMs = 50L
+        )
+
+        val result = sender.prepareTransaction(buildTx())
+
+        assertEquals(BWSendResult.Error.ConfirmationTimedOut, result)
+        assertFalse(sender.isSending)
     }
 }

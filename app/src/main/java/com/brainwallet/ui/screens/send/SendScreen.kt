@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -29,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import com.brainwallet.R
 import com.brainwallet.navigation.OnNavigate
 import com.brainwallet.navigation.UiEffect
+import com.brainwallet.ui.composable.LoadingDialog
 import com.brainwallet.ui.composable.SendContinueButton
 import com.brainwallet.ui.screens.main.MainViewModel
 import com.brainwallet.ui.theme.DesignTheme
@@ -110,6 +113,24 @@ private fun SendScreen(
         if (!address.isNullOrBlank()) {
             viewModel.onEvent(SendEvent.OnRecipientAddressChanged(address))
         }
+    }
+
+    // Modal while waiting for the network to relay the send back (the real confirmation)
+    if (state.brainwalletIsPublishing) {
+        LoadingDialog(text = stringResource(R.string.send_sending))
+    }
+
+    if (state.errorResultString.isNotEmpty()) {
+        AlertDialog(
+            onDismissRequest = { viewModel.onEvent(SendEvent.OnDismissSendError) },
+            title = { Text(stringResource(R.string.Alerts_sendFailure)) },
+            text = { Text(state.errorResultString) },
+            confirmButton = {
+                TextButton(onClick = { viewModel.onEvent(SendEvent.OnDismissSendError) }) {
+                    Text(stringResource(R.string.ok))
+                }
+            }
+        )
     }
 
     Box(

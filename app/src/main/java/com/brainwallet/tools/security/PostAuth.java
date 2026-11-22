@@ -2,6 +2,8 @@ package com.brainwallet.tools.security;
 
 import android.app.Activity;
 import android.content.Context;
+
+import androidx.annotation.Nullable;
 import android.content.Intent;
 import android.os.NetworkOnMainThreadException;
 import android.security.keystore.UserNotAuthenticatedException;
@@ -214,7 +216,15 @@ public class PostAuth {
         }
     }
 
-    public void onPublishTxAuth(final Context app, boolean authAsked) {
+    /**
+     * Signs and hands the pending transaction to the peer manager.
+     *
+     * @return the tx hash handed to the network, or null if nothing was published. A non-null hash
+     * does NOT mean the send succeeded; the outcome arrives later via
+     * {@link com.brainwallet.wallet.TxPublishResults}.
+     */
+    @Nullable
+    public byte[] onPublishTxAuth(final Context app, boolean authAsked) {
         if (ActivityUTILS.isMainThread()) throw new NetworkOnMainThreadException();
 
         final BRWalletManager walletManager = BRWalletManager.getInstance();
@@ -227,29 +237,31 @@ public class PostAuth {
                 }.getClass().getEnclosingMethod().getName());
                 isStuckWithAuthLoop = true;
             }
-            return;
+            return null;
         }
-        if (rawSeed.length < 10) return;
+        if (rawSeed.length < 10) return null;
         final byte[] seed = TypesConverter.getNullTerminatedPhrase(rawSeed);
         try {
             if (seed.length != 0) {
                 if (transactionItem != null && transactionItem.serializedTx != null) {
+                    final String comment = transactionItem.comment;
                     byte[] txHash = walletManager.publishSerializedTransaction(transactionItem.serializedTx, seed);
                     Timber.d("timber: onPublishTxAuth: txhash:" + Arrays.toString(txHash));
+                    transactionItem = null;
                     if (Utils.isNullOrEmpty(txHash)) {
                         Timber.d("timber: onPublishTxAuth: publishSerializedTransaction returned FALSE");
-                    } else {
-                        TxMetaData txMetaData = new TxMetaData();
-                        txMetaData.comment = transactionItem.comment;
-                        KVStoreManager.getInstance().putTxMetaData(app, txMetaData, txHash);
+                        return null;
                     }
-                    transactionItem = null;
+                    TxMetaData txMetaData = new TxMetaData();
+                    txMetaData.comment = comment;
+                    KVStoreManager.getInstance().putTxMetaData(app, txMetaData, txHash);
+                    return txHash;
                 } else {
                     throw new NullPointerException("payment item is null");
                 }
             } else {
                 Timber.d("timber: onPublishTxAuth: seed length is 0!");
-                return;
+                return null;
             }
         } finally {
             Arrays.fill(seed, (byte) 0);

@@ -350,4 +350,11 @@
     <string name="set_next_emojis_enter_pin">Введи PIN для установки эмодзи 4 - 6</string>
     <string name="set_next_emojis_description">Как и первые 3, подбери следующие 3 слова seed. Нажми на глаз, чтобы показать слова seed.</string>
     <string name="done_label">Готово</string>
+    <string name="send_sending">Отправка…</string>
+    <string name="send_error_wallet_not_ready">Кошелёк ещё не готов. Попробуйте ещё раз.</string>
+    <string name="send_error_creation_failed">Не удалось создать транзакцию. Проверьте сумму и баланс.</string>
+    <string name="send_error_signing_failed">Не удалось подписать транзакцию. Ваши Litecoin не отправлены.</string>
+    <string name="send_error_not_connected">Нет подключения к сети Litecoin. Ваши Litecoin не отправлены.</string>
+    <string name="send_error_network_rejected">Сеть Litecoin не приняла эту транзакцию. Ваши Litecoin не отправлены.</string>
+    <string name="send_error_confirmation_unknown">Сеть ещё не подтвердила эту отправку. Проверьте историю транзакций, прежде чем повторять попытку.</string>
 </resources>
