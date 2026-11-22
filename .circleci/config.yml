@@ -296,14 +296,13 @@ workflows:
   # Daily deploy from develop: unit tests (which also update the README badge),
   # then the beta lane picks an unused versionCode, builds and uploads the AAB,
   # and pushes the versionCode bump to develop ([skip ci]).
-  # Runs from the "daily-beta-build" scheduled pipeline (Project Settings >
-  # Triggers, branch develop), or by hand with run-beta-build=true. Scheduled
-  # runs end early when nothing has landed since the last deploy; manual runs
-  # always deploy.
+  # Runs from any scheduled pipeline on develop (Project Settings > Triggers),
+  # or by hand with run-beta-build=true. Scheduled runs end early when nothing
+  # has landed since the last deploy; manual runs always deploy.
   deploy:
     when:
       or:
-        - equal: [ daily-beta-build, << pipeline.schedule.name >> ]
+        - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
         - << pipeline.parameters.run-beta-build >>
     jobs:
       - unit-test:
