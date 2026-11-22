@@ -4,6 +4,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ServiceInfo
@@ -17,7 +18,7 @@ import androidx.core.app.ServiceCompat
 import androidx.core.content.ContextCompat
 import com.brainwallet.R
 import com.brainwallet.data.source.PeerManagerSource
-import com.brainwallet.presenter.activities.BreadActivity
+import com.brainwallet.ui.BrainwalletActivity
 import com.brainwallet.wallet.BRPeerManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -160,7 +161,7 @@ class SyncForegroundService : Service() {
         val contentIntent = PendingIntent.getActivity(
             this,
             0,
-            Intent(this, BreadActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
+            openAppIntent(this),
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
         return NotificationCompat.Builder(this, CHANNEL_ID)
@@ -176,6 +177,11 @@ class SyncForegroundService : Service() {
             .setContentIntent(contentIntent)
             .build()
     }
+
+    /** Opens the app like its launcher icon does; SINGLE_TOP returns to the screen already on top. */
+    private fun openAppIntent(context: Context): Intent =
+        Intent.makeMainActivity(ComponentName(context, BrainwalletActivity::class.java))
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
 
     private fun connectivityManager() =
         getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
