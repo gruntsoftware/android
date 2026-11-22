@@ -20,6 +20,7 @@ import com.brainwallet.tools.util.LitecoinURIHandler;
 import com.brainwallet.tools.security.PostAuth;
 import com.brainwallet.tools.threads.BRExecutor;
 import com.brainwallet.constants.BWConstants;
+import com.brainwallet.wallet.BRPeerManager;
 import com.brainwallet.wallet.BRWalletManager;
 
 import org.koin.java.KoinJavaComponent;
@@ -150,6 +151,7 @@ public class BRActivity extends AppCompatActivity {
         int activitiesBeforeThis = BrainwalletApp.activityCounter.getAndIncrement();
         if (activitiesBeforeThis == 0) {
             BrainwalletApp.fireForegroundListeners();
+            BRPeerManager.getInstance().onAppForegrounded(app.getApplicationContext());
         }
         BrainwalletApp.setBreadContext(app);
         //lock wallet if 3 minutes passed (180 * 1000)

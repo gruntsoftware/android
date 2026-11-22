@@ -8,10 +8,12 @@ import android.security.keystore.UserNotAuthenticatedException;
 import com.brainwallet.BrainwalletApp;
 import com.brainwallet.data.model.LtcStats;
 import com.brainwallet.data.repository.SelectedPeersRepository;
+import com.brainwallet.data.source.PeerManagerSource;
 import com.brainwallet.data.source.RemoteConfigSource;
 import com.brainwallet.presenter.entities.BlockEntity;
 import com.brainwallet.presenter.entities.PeerEntity;
 import com.brainwallet.tools.manager.BRSharedPrefs;
+import com.brainwallet.tools.manager.sync.SyncForegroundService;
 import com.brainwallet.tools.manager.sync.SyncThreadManager;
 import com.brainwallet.tools.security.BRKeyStore;
 import com.brainwallet.tools.sqlite.MerkleBlockDataSource;
@@ -281,6 +283,22 @@ public final class BRPeerManager {
                     wrapConnectV2();
                 }
             });
+    }
+
+    /**
+     * Restarts the keep-alive service when the app returns mid-sync, in case it could not be
+     * started while the app was in the background.
+     */
+    public void onAppForegrounded(Context ctx) {
+        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
+            @Override
+            public void run() {
+                if (!(SyncThreadManager.getInstance().getSyncState().getValue()
+                        instanceof SyncThreadManager.SyncState.Syncing)) return;
+                PeerManagerSource source = KoinJavaComponent.get(PeerManagerSource.class);
+                SyncForegroundService.startIfNeeded(ctx, source.getBlockInfo().getValue().getSyncProgress());
+            }
+        });
     }
 
     //wrap logic enable/disable connect with new flow
