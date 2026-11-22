@@ -373,4 +373,11 @@
     <string name="mainnet_peer_label">Litecoin mainnet</string>
     <string name="done_label">Done</string>
 
+    <string name="send_sending">Sending…</string>
+    <string name="send_error_wallet_not_ready">The wallet isn\'t ready yet. Please try again.</string>
+    <string name="send_error_creation_failed">Could not create the transaction. Check the amount and your balance.</string>
+    <string name="send_error_signing_failed">Could not sign the transaction. Your Litecoin has not been sent.</string>
+    <string name="send_error_not_connected">Not connected to the Litecoin network. Your Litecoin has not been sent.</string>
+    <string name="send_error_network_rejected">The Litecoin network did not accept this transaction. Your Litecoin has not been sent.</string>
+    <string name="send_error_confirmation_unknown">The network has not confirmed this send yet. Check your transaction history before trying again.</string>
 </resources>

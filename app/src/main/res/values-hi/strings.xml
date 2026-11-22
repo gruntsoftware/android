@@ -262,4 +262,11 @@
     <string name="set_next_emojis_enter_pin">इमोजी 4 - 6 सेट करने के लिए अपना PIN दर्ज करें</string>
     <string name="set_next_emojis_description">पहले 3 की तरह, अगले 3 seed शब्दों को मिलाएं। Seed शब्दों को दिखाने के लिए आंख पर टैप करें।</string>
     <string name="done_label">पूर्ण</string>
+    <string name="send_sending">भेजा जा रहा है…</string>
+    <string name="send_error_wallet_not_ready">वॉलेट अभी तैयार नहीं है। कृपया फिर से प्रयास करें।</string>
+    <string name="send_error_creation_failed">लेन-देन नहीं बनाया जा सका। राशि और अपना बैलेंस जांचें।</string>
+    <string name="send_error_signing_failed">लेन-देन पर हस्ताक्षर नहीं हो सका। आपके लाइटकॉइन नहीं भेजे गए हैं।</string>
+    <string name="send_error_not_connected">लाइटकॉइन नेटवर्क से कनेक्ट नहीं है। आपके लाइटकॉइन नहीं भेजे गए हैं।</string>
+    <string name="send_error_network_rejected">लाइटकॉइन नेटवर्क ने यह लेन-देन स्वीकार नहीं किया। आपके लाइटकॉइन नहीं भेजे गए हैं।</string>
+    <string name="send_error_confirmation_unknown">नेटवर्क ने अभी तक इस भेजने की पुष्टि नहीं की है। फिर से प्रयास करने से पहले अपना लेन-देन इतिहास जांचें।</string>
 </resources>

@@ -19,4 +19,5 @@ sealed class SendEvent {
     data class OnPasscodeDigitAdded(val digit: Int) : SendEvent()
     data object OnPasscodeDigitDeleted : SendEvent()
     data object OnEditSend : SendEvent()
+    data object OnDismissSendError : SendEvent()
 }

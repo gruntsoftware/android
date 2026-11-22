@@ -5,6 +5,8 @@
 #include "BRBIP39Mnemonic.h"
 #include "BRBase58.h"
 #include <assert.h>
+#include <stdlib.h>
+#include <string.h>
 #include <BRBIP38Key.h>
 #include <BRInt.h>
 #include <BRTransaction.h>
@@ -39,31 +41,42 @@ static JNIEnv *getEnv() {
 }
 
 //callback for tx publishing
+// info is a heap-allocated copy of the txHash (or NULL), owned by this callback. The core can free the
+// BRTransaction itself before calling back (e.g. unsigned tx, ENOTCONN, or a tx the network rejected), so the
+// tx pointer must never be passed as info and dereferenced here.
 void callback(void *info, int error) {
-    __android_log_print(ANDROID_LOG_ERROR, "Message from callback: ", "err: %s",
-                        strerror(error));
-    BRTransaction *tx = info;
-//    tx.
-    JNIEnv *env = getEnv();
+    UInt256 *txHashPtr = info;
+    UInt256 txid = txHashPtr ? *txHashPtr : UINT256_ZERO;
+    if (txHashPtr) free(txHashPtr);
 
-    if (!env || _walletManagerClass == NULL) return;
-
-    jmethodID mid = (*env)->GetStaticMethodID(env, _walletManagerClass, "publishCallback",
-                                              "(Ljava/lang/String;I[B)V");
-    //call java methods
     if (error) {
         __android_log_print(ANDROID_LOG_ERROR, "Message from callback: ", "publishing Failed: %s",
                             strerror(error));
     } else {
         __android_log_print(ANDROID_LOG_DEBUG, "Message from callback: ", "publishing Succeeded!");
     }
-    UInt256 txid = tx->txHash;
+
+    JNIEnv *env = getEnv();
+
+    if (!env || _walletManagerClass == NULL) return;
+
+    jmethodID mid = (*env)->GetStaticMethodID(env, _walletManagerClass, "publishCallback",
+                                              "(Ljava/lang/String;I[B)V");
+    if (!mid) return;
+
     jbyteArray JtxHash = (*env)->NewByteArray(env, sizeof(txid));
     (*env)->SetByteArrayRegion(env, JtxHash, 0, (jsize) sizeof(txid), (jbyte *) txid.u8);
 
     (*env)->CallStaticVoidMethod(env, _walletManagerClass, mid,
                                  (*env)->NewStringUTF(env, strerror(error)),
                                  error, JtxHash);
+}
+
+// heap copy of a tx hash to hand to BRPeerManagerPublishTx as callback info
+static UInt256 *copyTxHash(UInt256 txHash) {
+    UInt256 *copy = malloc(sizeof(UInt256));
+    if (copy) *copy = txHash;
+    return copy;
 }
 
 static void balanceChanged(void *info, uint64_t balance) {
@@ -695,12 +708,21 @@ Java_com_brainwallet_wallet_BRWalletManager_publishSerializedTransaction(JNIEnv 
     size_t seedSize = sizeof(key);
 
     BRWalletSignTransaction(_wallet, tmpTx, 0, key.u8, seedSize);
-    assert(BRTransactionIsSigned(tmpTx));
-    if (!tmpTx) return NULL;
-    BRPeerManagerPublishTx(_peerManager, tmpTx, tmpTx, callback);
+    key = UINT512_ZERO;
     (*env)->ReleaseByteArrayElements(env, phrase, bytePhrase, JNI_ABORT);
-    __android_log_print(ANDROID_LOG_DEBUG, "Message from C: ", "returning true");
+    (*env)->ReleaseByteArrayElements(env, serializedTransaction, byteTx, JNI_ABORT);
+
+    if (!BRTransactionIsSigned(tmpTx)) {
+        __android_log_print(ANDROID_LOG_ERROR, "Message from C: ", "publishSerializedTransaction: tx not signed");
+        BRTransactionFree(tmpTx);
+        return NULL;
+    }
+
+    // Read the hash before publishing: the core may free tmpTx inside BRPeerManagerPublishTx (e.g. ENOTCONN).
+    // The real outcome arrives later through callback() once the network relays the tx back (or rejects it).
     UInt256 txid = tmpTx->txHash;
+    BRPeerManagerPublishTx(_peerManager, tmpTx, copyTxHash(txid), callback);
+    __android_log_print(ANDROID_LOG_DEBUG, "Message from C: ", "publish requested, awaiting callback");
     jbyteArray JtxHash = (*env)->NewByteArray(env, sizeof(txid));
     (*env)->SetByteArrayRegion(env, JtxHash, 0, (jsize) sizeof(txid), (jbyte *) txid.u8);
 
@@ -869,7 +891,7 @@ Java_com_brainwallet_wallet_BRWalletManager_confirmKeySweep(JNIEnv *env, jobject
     uint8_t buf[BRTransactionSerialize(tmpTx, NULL, 0)];
     size_t len = BRTransactionSerialize(tmpTx, buf, sizeof(buf));
 
-    BRPeerManagerPublishTx(_peerManager, tmpTx, NULL, callback);
+    BRPeerManagerPublishTx(_peerManager, tmpTx, copyTxHash(tmpTx->txHash), callback);
     return JNI_TRUE;
 }
 
