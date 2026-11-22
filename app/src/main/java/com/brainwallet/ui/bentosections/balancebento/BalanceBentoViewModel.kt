@@ -122,6 +122,7 @@ class BalanceBentoViewModel(
 
     override fun onTxAdded() {
         viewModelScope.launch(Dispatchers.IO) {
+            delay(300)
             txRepository.refresh()
         }
     }

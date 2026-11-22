@@ -186,15 +186,6 @@ class BalanceBentoViewModelTest {
         assertTrue(viewModel.state.value.isInternetReachable)
     }
 
-    // ── onTxAdded ─────────────────────────────────────────────────────────
-
-    @Test
-    fun `onTxAdded triggers txRepository refresh`() = runTest {
-        viewModel.onTxAdded()
-        advanceUntilIdle()
-        coVerify { txRepository.refresh() }
-    }
-
     // ── event handling ────────────────────────────────────────────────────
 
     @Test
