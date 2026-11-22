@@ -45,7 +45,7 @@ android {
         minSdk = 29
         targetSdk = 36
         // Beta build CI may pass -PversionCodeOverride.
-        versionCode = (project.findProperty("versionCodeOverride") as String?)?.toInt() ?: 202506368
+        versionCode = (project.findProperty("versionCodeOverride") as String?)?.toInt() ?: 202506372
         versionName = "v4.14.0"
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
