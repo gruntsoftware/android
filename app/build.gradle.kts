@@ -17,6 +17,19 @@ plugins {
 
 val localProperties = gradleLocalProperties(rootDir, providers)
 
+val revenueCatKeyPresent = !localProperties.getProperty("REVENUECAT_KEY").isNullOrBlank()
+val verifyRevenueCatKey by tasks.registering {
+    group = "verification"
+    doLast {
+        if (!revenueCatKeyPresent) {
+            throw GradleException("REVENUECAT_KEY missing")
+        }
+    }
+}
+tasks.matching { it.name.startsWith("pre") && it.name.endsWith("ReleaseBuild") }.configureEach {
+    dependsOn(verifyRevenueCatKey)
+}
+
 android {
     namespace = "com.brainwallet"
     compileSdk = 36
@@ -32,7 +45,7 @@ android {
         minSdk = 29
         targetSdk = 36
         // Beta build CI may pass -PversionCodeOverride.
-        versionCode = (project.findProperty("versionCodeOverride") as String?)?.toInt() ?: 202506367
+        versionCode = (project.findProperty("versionCodeOverride") as String?)?.toInt() ?: 202506368
         versionName = "v4.14.0"
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")

@@ -4,6 +4,7 @@ import android.content.Context
 import android.security.keystore.UserNotAuthenticatedException
 import com.brainwallet.tools.manager.sync.SyncThreadManager
 import com.brainwallet.tools.security.BRKeyStore
+import com.brainwallet.tools.threads.BRExecutor
 import com.brainwallet.tools.util.TrustedNode
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import io.mockk.every
@@ -307,6 +308,71 @@ class BRPeerManagerTest {
         } finally {
             unmockkObject(SyncThreadManager.Companion)
             unmockkStatic(BRPeerManager::class)
+        }
+    }
+
+    // Regression for Crashlytics 726fa3edec67b0732e6f9659f9dd8eff: txStatusUpdate() iterated an
+    // ArrayList that screens add to / remove from (onResume/onPause), throwing
+    // ConcurrentModificationException. A listener changing the list from inside its own callback
+    // reproduces that deterministically on one thread.
+    @Test
+    fun `txStatusUpdate tolerates listeners being added and removed during dispatch`() {
+        mockkStatic(BRExecutor::class)
+        every { BRExecutor.getInstance() } returns mockk(relaxed = true)
+        val manager = BRPeerManager.getInstance()
+        val late = mockk<BRPeerManager.OnTxStatusUpdate>(relaxed = true)
+        val calls = mutableListOf<String>()
+        val first = object : BRPeerManager.OnTxStatusUpdate {
+            override fun onStatusPeerManagerUpdate() {
+                calls += "first"
+                manager.removeListener(this)
+                manager.addStatusUpdateListener(late)
+            }
+        }
+        val second = object : BRPeerManager.OnTxStatusUpdate {
+            override fun onStatusPeerManagerUpdate() {
+                calls += "second"
+            }
+        }
+        try {
+            manager.addStatusUpdateListener(first)
+            manager.addStatusUpdateListener(second)
+
+            BRPeerManager.txStatusUpdate()
+
+            // Listeners registered when dispatch started all run; one added mid-dispatch waits
+            // for the next update.
+            assertEquals(listOf("first", "second"), calls)
+            verify(exactly = 0) { late.onStatusPeerManagerUpdate() }
+
+            BRPeerManager.txStatusUpdate()
+
+            assertEquals(listOf("first", "second", "second"), calls)
+            verify(exactly = 1) { late.onStatusPeerManagerUpdate() }
+        } finally {
+            manager.removeListener(first)
+            manager.removeListener(second)
+            manager.removeListener(late)
+            unmockkStatic(BRExecutor::class)
+        }
+    }
+
+    @Test
+    fun `addStatusUpdateListener ignores a listener that is already registered`() {
+        mockkStatic(BRExecutor::class)
+        every { BRExecutor.getInstance() } returns mockk(relaxed = true)
+        val manager = BRPeerManager.getInstance()
+        val listener = mockk<BRPeerManager.OnTxStatusUpdate>(relaxed = true)
+        try {
+            manager.addStatusUpdateListener(listener)
+            manager.addStatusUpdateListener(listener)
+
+            BRPeerManager.txStatusUpdate()
+
+            verify(exactly = 1) { listener.onStatusPeerManagerUpdate() }
+        } finally {
+            manager.removeListener(listener)
+            unmockkStatic(BRExecutor::class)
         }
     }
 }

@@ -2,13 +2,18 @@ package com.brainwallet.wallet
 
 import android.content.Context
 import com.brainwallet.presenter.activities.util.ActivityUTILS
+import com.brainwallet.tools.manager.BRSharedPrefs
+import io.mockk.Runs
 import io.mockk.every
+import io.mockk.just
 import io.mockk.mockk
 import io.mockk.mockkStatic
 import io.mockk.unmockkAll
+import io.mockk.verify
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class BRWalletManagerTest {
@@ -71,5 +76,44 @@ class BRWalletManagerTest {
         every { ActivityUTILS.isMainThread() } returns true
 
         BRWalletManager.getInstance().initWallet(context)
+    }
+
+    // ── balance listener dispatch ──────────────────────────────────────────
+
+    // Same ConcurrentModificationException class as Crashlytics 726fa3edec67b0732e6f9659f9dd8eff
+    // (BRPeerManager): setBalance() iterates the listener list that screens add to / remove from.
+    @Test
+    fun `setBalance tolerates listeners being added and removed during dispatch`() {
+        mockkStatic(BRSharedPrefs::class)
+        every { BRSharedPrefs.putCachedBalance(any(), any()) } just Runs
+        mockkStatic(BRWalletManager::class)
+        every { BRWalletManager.refreshAddress(any()) } returns true
+        val manager = BRWalletManager.getInstance()
+        val late = mockk<BRWalletManager.OnBalanceChanged>(relaxed = true)
+        val calls = mutableListOf<String>()
+        val first = object : BRWalletManager.OnBalanceChanged {
+            override fun onBalanceChanged(balance: Long) {
+                calls += "first:$balance"
+                manager.removeListener(this)
+                manager.addBalanceChangedListener(late)
+            }
+        }
+        val second = object : BRWalletManager.OnBalanceChanged {
+            override fun onBalanceChanged(balance: Long) {
+                calls += "second:$balance"
+            }
+        }
+        manager.addBalanceChangedListener(first)
+        manager.addBalanceChangedListener(second)
+
+        manager.setBalance(context, 1L)
+
+        assertEquals(listOf("first:1", "second:1"), calls)
+        verify(exactly = 0) { late.onBalanceChanged(any()) }
+
+        manager.setBalance(context, 2L)
+
+        assertEquals(listOf("first:1", "second:1", "second:2"), calls)
+        verify(exactly = 1) { late.onBalanceChanged(2L) }
     }
 }

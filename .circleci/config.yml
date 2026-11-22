@@ -6,12 +6,44 @@ orbs:
   android: circleci/android@3.1.0
   ruby: circleci/ruby@2.5.3
 
+parameters:
+  # Set to true when triggering a pipeline on develop by hand to run the
+  # deploy outside the daily schedule.
+  run-beta-build:
+    type: boolean
+    default: false
+
 # Define reusable commands
 commands:
   setup_environment:
     description: "Sets up the basic environment for all jobs (checkout, credentials, submodules)"
+    parameters:
+      skip_if_unchanged:
+        description: "On scheduled runs, end the job early when develop has nothing new since the last deploy"
+        type: boolean
+        default: false
     steps:
       - checkout
+      - when:
+          condition:
+            and:
+              - << parameters.skip_if_unchanged >>
+              - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+          steps:
+            - run:
+                name: "Skip if nothing new since the last deploy"
+                # The beta lane ends each successful deploy by pushing a versionCode
+                # bump commit. If that is still the newest commit, develop hasn't
+                # changed since the last upload.
+                command: |
+                  subject=$(git log -1 --format=%s)
+                  echo "Latest commit: ${subject}"
+                  case "$subject" in
+                    "chore(release): bump versionCode to "*)
+                      echo "No new commits since the last deploy, skipping."
+                      circleci-agent step halt
+                      ;;
+                  esac
       - android/restore_gradle_cache
       - run:
           name: "Setup environment..."
@@ -57,6 +89,8 @@ commands:
             # AF dev key
             if [ -z "${AF_DEV_KEY:-}" ]; then echo "WARNING: AF_DEV_KEY is not set"; fi
             echo "AF_DEV_KEY=${AF_DEV_KEY:-}" >> local.properties
+            if [ -z "${REVENUECAT_KEY:-}" ]; then echo "WARNING: REVENUECAT_KEY is not set"; fi
+            echo "REVENUECAT_KEY=${REVENUECAT_KEY:-}" >> local.properties
       - run:
           name: Rewrite .gitmodules with token
           command: |
@@ -68,6 +102,10 @@ commands:
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
   unit-test:
+    parameters:
+      skip_if_unchanged:
+        type: boolean
+        default: false
     executor:
       name: android/android_docker
       tag: 2024.07.1-ndk
@@ -86,7 +124,8 @@ jobs:
       # That freed memory goes to the Gradle heap instead.
       GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=512m -Dorg.gradle.daemon=false -Dorg.gradle.workers.max=1"
     steps:
-      - setup_environment
+      - setup_environment:
+          skip_if_unchanged: << parameters.skip_if_unchanged >>
       - run:
           name: "Execute Unit Tests"
           # -x detekt: android-build-logic's DetektSetup.attachDetektTask() wires
@@ -110,8 +149,8 @@ jobs:
           path: ~/test-results/junit
       - run:
           name: "Update tests-passed badge (shields.io gist endpoint)"
-          # Only the primary branch's run should own the badge state - a feature
-          # branch with fewer/broken tests shouldn't flap the README badge.
+          # Only develop's run (the daily deploy workflow) owns the badge state - a
+          # feature branch with fewer/broken tests shouldn't flap the README badge.
           # Requires GIST_TOKEN (a PAT with only the `gist` scope) and GIST_ID
           # to be set as CircleCI project env vars.
           when: always
@@ -158,6 +197,10 @@ jobs:
             echo "Badge updated: ${message}"
 
   beta-build:
+    parameters:
+      skip_if_unchanged:
+        type: boolean
+        default: false
     executor:
       name: android/android_docker
       tag: 2024.07.1-ndk
@@ -166,7 +209,8 @@ jobs:
       # No test JVM in this job, so R8 gets a bigger Gradle heap.
       GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx5g -XX:MaxMetaspaceSize=512m -Dorg.gradle.daemon=false -Dorg.gradle.workers.max=1"
     steps:
-      - setup_environment
+      - setup_environment:
+          skip_if_unchanged: << parameters.skip_if_unchanged >>
       - ruby/install:
           version: '3.2.0'
       - ruby/install-deps
@@ -229,19 +273,52 @@ jobs:
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  test-and-build:
+  # PR gate: unit tests on every branch except develop/main. Code reaches those
+  # branches only through PRs that already passed this workflow, so it isn't
+  # re-run after a merge.
+  test:
+    when:
+      and:
+        - not:
+            equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+        - not: << pipeline.parameters.run-beta-build >>
     jobs:
-      - unit-test
+      - unit-test:
+          filters:
+            branches:
+              ignore:
+                - develop
+                - main
+#      - screengrab:
+#          requires:
+#            - unit-test
+
+  # Daily deploy from develop: unit tests (which also update the README badge),
+  # then the beta lane picks an unused versionCode, builds and uploads the AAB,
+  # and pushes the versionCode bump to develop ([skip ci]).
+  # Runs from the "daily-beta-build" scheduled pipeline (Project Settings >
+  # Triggers, branch develop), or by hand with run-beta-build=true. Scheduled
+  # runs end early when nothing has landed since the last deploy; manual runs
+  # always deploy.
+  deploy:
+    when:
+      or:
+        - equal: [ daily-beta-build, << pipeline.schedule.name >> ]
+        - << pipeline.parameters.run-beta-build >>
+    jobs:
+      - unit-test:
+          skip_if_unchanged: true
+          filters:
+            branches:
+              only: develop
       - beta-build:
+          skip_if_unchanged: true
           serial-group: << pipeline.project.slug >>/beta-build
           requires:
             - unit-test
           filters:
             branches:
               only: develop
-#      - screengrab:
-#          requires:
-#            - unit-test
 
   # Daily scheduled screengrab workflow
   # daily-screengrab:
