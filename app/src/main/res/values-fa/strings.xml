@@ -359,4 +359,7 @@
     <string name="send_error_not_connected">به شبکه لایت‌کوین متصل نیستید. لایت‌کوین شما ارسال نشده است.</string>
     <string name="send_error_network_rejected">شبکه لایت‌کوین این تراکنش را نپذیرفت. لایت‌کوین شما ارسال نشده است.</string>
     <string name="send_error_confirmation_unknown">شبکه هنوز این ارسال را تأیید نکرده است. پیش از تلاش دوباره، تاریخچه تراکنش‌های خود را بررسی کنید.</string>
+    <string name="sync_notification_channel_name">همگام‌سازی بلاک‌چین</string>
+    <string name="sync_notification_title">همگام‌سازی با شبکهٔ Litecoin</string>
+    <string name="sync_notification_progress">%1$d%% همگام‌سازی شد</string>
 </resources>

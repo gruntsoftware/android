@@ -357,4 +357,7 @@
     <string name="send_error_not_connected">未连接到莱特币网络。您的莱特币尚未发送。</string>
     <string name="send_error_network_rejected">莱特币网络未接受此交易。您的莱特币尚未发送。</string>
     <string name="send_error_confirmation_unknown">网络尚未确认此次发送。请在重试前查看您的交易记录。</string>
+    <string name="sync_notification_channel_name">区块链同步</string>
+    <string name="sync_notification_title">正在与Litecoin网络同步</string>
+    <string name="sync_notification_progress">已同步 %1$d%%</string>
 </resources>

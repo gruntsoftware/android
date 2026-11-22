@@ -269,4 +269,7 @@
     <string name="send_error_not_connected">Geen verbinding met het Litecoin-netwerk. Je Litecoin is niet verzonden.</string>
     <string name="send_error_network_rejected">Het Litecoin-netwerk heeft deze transactie niet geaccepteerd. Je Litecoin is niet verzonden.</string>
     <string name="send_error_confirmation_unknown">Het netwerk heeft deze verzending nog niet bevestigd. Controleer je transactiegeschiedenis voordat je het opnieuw probeert.</string>
+    <string name="sync_notification_channel_name">Blockchain-synchronisatie</string>
+    <string name="sync_notification_title">Synchroniseren met het Litecoin-netwerk</string>
+    <string name="sync_notification_progress">%1$d%% gesynchroniseerd</string>
 </resources>

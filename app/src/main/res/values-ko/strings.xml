@@ -357,4 +357,7 @@
     <string name="send_error_not_connected">라이트코인 네트워크에 연결되어 있지 않습니다. 라이트코인이 전송되지 않았습니다.</string>
     <string name="send_error_network_rejected">라이트코인 네트워크가 이 거래를 수락하지 않았습니다. 라이트코인이 전송되지 않았습니다.</string>
     <string name="send_error_confirmation_unknown">네트워크가 아직 이 전송을 확인하지 않았습니다. 다시 시도하기 전에 거래 내역을 확인하세요.</string>
+    <string name="sync_notification_channel_name">블록체인 동기화</string>
+    <string name="sync_notification_title">Litecoin 네트워크와 동기화 중</string>
+    <string name="sync_notification_progress">%1$d%% 동기화됨</string>
 </resources>
