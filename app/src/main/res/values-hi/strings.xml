@@ -269,4 +269,7 @@
     <string name="send_error_not_connected">लाइटकॉइन नेटवर्क से कनेक्ट नहीं है। आपके लाइटकॉइन नहीं भेजे गए हैं।</string>
     <string name="send_error_network_rejected">लाइटकॉइन नेटवर्क ने यह लेन-देन स्वीकार नहीं किया। आपके लाइटकॉइन नहीं भेजे गए हैं।</string>
     <string name="send_error_confirmation_unknown">नेटवर्क ने अभी तक इस भेजने की पुष्टि नहीं की है। फिर से प्रयास करने से पहले अपना लेन-देन इतिहास जांचें।</string>
+    <string name="sync_notification_channel_name">ब्लॉकचेन सिंक</string>
+    <string name="sync_notification_title">Litecoin नेटवर्क के साथ सिंक हो रहा है</string>
+    <string name="sync_notification_progress">%1$d%% सिंक हो गया</string>
 </resources>

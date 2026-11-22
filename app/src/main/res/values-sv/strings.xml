@@ -269,4 +269,7 @@
     <string name="send_error_not_connected">Inte ansluten till Litecoin-nätverket. Dina Litecoin har inte skickats.</string>
     <string name="send_error_network_rejected">Litecoin-nätverket accepterade inte den här transaktionen. Dina Litecoin har inte skickats.</string>
     <string name="send_error_confirmation_unknown">Nätverket har inte bekräftat den här överföringen än. Kontrollera din transaktionshistorik innan du försöker igen.</string>
+    <string name="sync_notification_channel_name">Blockkedjesynkronisering</string>
+    <string name="sync_notification_title">Synkroniserar med Litecoin-nätverket</string>
+    <string name="sync_notification_progress">%1$d%% synkroniserat</string>
 </resources>

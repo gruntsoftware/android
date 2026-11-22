@@ -357,4 +357,7 @@
     <string name="send_error_not_connected">Tidak terhubung ke jaringan Litecoin. Litecoin Anda belum terkirim.</string>
     <string name="send_error_network_rejected">Jaringan Litecoin tidak menerima transaksi ini. Litecoin Anda belum terkirim.</string>
     <string name="send_error_confirmation_unknown">Jaringan belum mengonfirmasi pengiriman ini. Periksa riwayat transaksi Anda sebelum mencoba lagi.</string>
+    <string name="sync_notification_channel_name">Sinkronisasi Blockchain</string>
+    <string name="sync_notification_title">Sinkronisasi dengan jaringan Litecoin</string>
+    <string name="sync_notification_progress">%1$d%% tersinkronisasi</string>
 </resources>

@@ -354,4 +354,7 @@
     <string name="send_error_not_connected">Немає з\'єднання з мережею Litecoin. Ваші Litecoin не надіслано.</string>
     <string name="send_error_network_rejected">Мережа Litecoin не прийняла цю транзакцію. Ваші Litecoin не надіслано.</string>
     <string name="send_error_confirmation_unknown">Мережа ще не підтвердила це надсилання. Перевірте історію транзакцій, перш ніж повторити спробу.</string>
+    <string name="sync_notification_channel_name">Синхронізація блокчейну</string>
+    <string name="sync_notification_title">Синхронізація з мережею Litecoin</string>
+    <string name="sync_notification_progress">Синхронізовано на %1$d%%</string>
 </resources>

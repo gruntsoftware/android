@@ -360,4 +360,7 @@
     <string name="send_error_not_connected">Brak połączenia z siecią Litecoin. Twoje Litecoin nie zostały wysłane.</string>
     <string name="send_error_network_rejected">Sieć Litecoin nie zaakceptowała tej transakcji. Twoje Litecoin nie zostały wysłane.</string>
     <string name="send_error_confirmation_unknown">Sieć nie potwierdziła jeszcze tej wysyłki. Sprawdź historię transakcji, zanim spróbujesz ponownie.</string>
+    <string name="sync_notification_channel_name">Synchronizacja blockchainu</string>
+    <string name="sync_notification_title">Synchronizacja z siecią Litecoin</string>
+    <string name="sync_notification_progress">Zsynchronizowano %1$d%%</string>
 </resources>
