@@ -341,4 +341,7 @@
     <string name="send_error_not_connected">Sin conexión a la red de Litecoin. Tus Litecoin no se han enviado.</string>
     <string name="send_error_network_rejected">La red de Litecoin no aceptó esta transacción. Tus Litecoin no se han enviado.</string>
     <string name="send_error_confirmation_unknown">La red aún no ha confirmado este envío. Revisa tu historial de transacciones antes de volver a intentarlo.</string>
+    <string name="sync_notification_channel_name">Sincronización de blockchain</string>
+    <string name="sync_notification_title">Sincronizando con la red Litecoin</string>
+    <string name="sync_notification_progress">%1$d%% sincronizado</string>
 </resources>

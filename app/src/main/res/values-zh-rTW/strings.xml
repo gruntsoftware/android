@@ -357,4 +357,7 @@
     <string name="send_error_not_connected">未連線至萊特幣網路。您的萊特幣尚未傳送。</string>
     <string name="send_error_network_rejected">萊特幣網路未接受此交易。您的萊特幣尚未傳送。</string>
     <string name="send_error_confirmation_unknown">網路尚未確認此次傳送。請在重試前查看您的交易紀錄。</string>
+    <string name="sync_notification_channel_name">區塊鏈同步</string>
+    <string name="sync_notification_title">與 Litecoin 網路同步中</string>
+    <string name="sync_notification_progress">已同步 %1$d%%</string>
 </resources>

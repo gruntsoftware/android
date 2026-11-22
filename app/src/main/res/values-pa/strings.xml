@@ -367,4 +367,7 @@
     <string name="send_error_not_connected">ਲਾਈਟਕੋਇਨ ਨੈੱਟਵਰਕ ਨਾਲ ਕਨੈਕਟ ਨਹੀਂ ਹੈ। ਤੁਹਾਡੇ ਲਾਈਟਕੋਇਨ ਨਹੀਂ ਭੇਜੇ ਗਏ।</string>
     <string name="send_error_network_rejected">ਲਾਈਟਕੋਇਨ ਨੈੱਟਵਰਕ ਨੇ ਇਹ ਲੈਣ-ਦੇਣ ਸਵੀਕਾਰ ਨਹੀਂ ਕੀਤਾ। ਤੁਹਾਡੇ ਲਾਈਟਕੋਇਨ ਨਹੀਂ ਭੇਜੇ ਗਏ।</string>
     <string name="send_error_confirmation_unknown">ਨੈੱਟਵਰਕ ਨੇ ਅਜੇ ਇਸ ਭੇਜਣ ਦੀ ਪੁਸ਼ਟੀ ਨਹੀਂ ਕੀਤੀ। ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਆਪਣਾ ਲੈਣ-ਦੇਣ ਇਤਿਹਾਸ ਜਾਂਚੋ।</string>
+    <string name="sync_notification_channel_name">ਬਲਾਕਚੇਨ ਸਮਕਾਲੀਕਰਣ</string>
+    <string name="sync_notification_title">Litecoin ਨੈੱਟਵਰਕ ਨਾਲ ਸਮਕਾਲੀ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ</string>
+    <string name="sync_notification_progress">%1$d%% ਸਮਕਾਲੀ ਹੋ ਗਿਆ</string>
 </resources>
