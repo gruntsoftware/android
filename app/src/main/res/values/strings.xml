@@ -196,6 +196,9 @@
   <string name="notification_channel_name_general" translatable="false">General</string>
   <string name="notification_channel_name_litecoin_news" translatable="false">Litecoin News</string>
   <string name="notification_channel_name_brainwallet_update" translatable="false">Brainwallet Update</string>
+  <string name="sync_notification_channel_name">Blockchain sync</string>
+  <string name="sync_notification_title">Syncing with the Litecoin network</string>
+  <string name="sync_notification_progress">%1$d%% synced</string>
   <string name="ok">Ok</string>
 
     <!-- New Strings -->

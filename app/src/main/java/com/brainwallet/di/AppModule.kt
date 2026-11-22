@@ -15,6 +15,8 @@ import com.brainwallet.data.source.RemoteApiSource
 import com.brainwallet.tools.sqlite.CurrencyDataSource
 import com.brainwallet.constants.BWConstants
 import com.brainwallet.data.repository.TxRepositoryImpl
+import com.brainwallet.data.source.PeerManagerSource
+import com.brainwallet.tools.manager.sync.SyncForegroundService
 import com.brainwallet.tools.manager.sync.SyncThreadManager
 import com.google.firebase.Firebase
 import com.google.firebase.remoteconfig.remoteConfig
@@ -51,7 +53,13 @@ object AppModule {
         single { CurrencyDataSource.getInstance(get()) }
         single<SharedPreferences> { provideSharedPreferences(context = androidApplication()) }
         single<TxRepository> { TxRepositoryImpl(get()) }
-        single { SyncThreadManager(get(), get()) }
+        single {
+            val app = androidApplication()
+            val peerManagerSource: PeerManagerSource = get()
+            SyncThreadManager(get(), get()) {
+                SyncForegroundService.startIfNeeded(app, peerManagerSource.blockInfo.value.syncProgress)
+            }
+        }
         single<GameScoreStorage> { KeyStoreGameScoreStorage(androidApplication()) }
         single<GameScoreRepository> { GameScoreRepositoryImpl(get()) }
         single {
