@@ -61,6 +61,8 @@ object BWConstants {
 
     const val PUT_TRUSTED_NODE_REQUEST_CODE: Int = 123
 
+    const val GAME_SCORES_REQUEST_CODE: Int = 124
+
     /**
      * Request codes for taking pictures
      */
@@ -141,7 +143,7 @@ object BWConstants {
     const val _20200112_DSR: String = "did_start_resync"
     const val _20201118_DTGS: String = "did_tap_get_support"
     const val _20200217_DU: String = "did_unlock"
-
+    const val AF_EVENT_E20261115A: String = "E20261115A"
     const val _20250517_WCINFO: String = "wallet_callback_info"
 
     /**

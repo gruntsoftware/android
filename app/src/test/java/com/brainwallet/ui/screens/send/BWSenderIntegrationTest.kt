@@ -40,6 +40,7 @@ class BWSenderIntegrationTest {
     private lateinit var sender: BWSender
 
     private val validTxBytes = byteArrayOf(0x01, 0x02, 0x03)
+    private val txHash = ByteArray(32) { it.toByte() }
     private val sendAmount = 100_000L
     private val minOutput = 10_000L
 
@@ -57,12 +58,14 @@ class BWSenderIntegrationTest {
         every { walletManager.getMinOutputAmount() } returns minOutput
         every { walletManager.getMinOutputAmountRequested() } returns minOutput
         every { postAuth.setTransactionItem(any()) } just Runs
-        every { postAuth.onPublishTxAuth(any(), any()) } just Runs
+        every { postAuth.onPublishTxAuth(any(), any()) } returns txHash
 
         sender = BWSender(
             context = context,
             getWalletManager = { walletManager },
             getPostAuth = { postAuth },
+            // the network relayed the tx back
+            awaitPublishResult = { 0 },
         )
     }
 
@@ -158,7 +161,7 @@ class BWSenderIntegrationTest {
     // ── wallet manager failures ───────────────────────────────────────────────
 
     @Test
-    fun `prepareTransaction returns Unknown when tryTransactionWithOps returns null`() = runTest {
+    fun `prepareTransaction returns CreationFailed when tryTransactionWithOps returns null`() = runTest {
         every {
             walletManager.tryTransactionWithOps(
                 any(),
@@ -170,7 +173,7 @@ class BWSenderIntegrationTest {
 
         val result = sender.prepareTransaction(makeTransactionItem())
 
-        assertTrue(result is BWSendResult.Error.Unknown)
+        assertEquals(BWSendResult.Error.CreationFailed, result)
     }
 
     @Test

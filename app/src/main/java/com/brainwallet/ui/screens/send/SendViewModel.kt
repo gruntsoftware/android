@@ -38,7 +38,6 @@ import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import timber.log.Timber
 import java.math.BigDecimal
-import java.util.Locale
 
 @KoinViewModel
 class SendViewModel(
@@ -267,6 +266,14 @@ class SendViewModel(
                 sendUiEffect(UiEffect.OnEnterAuthPasscode)
             }
             is SendEvent.OnSend -> {
+                // Ignore re-entry (e.g. Send button tapped while the PIN already triggered a send)
+                if (_state.value.brainwalletIsPublishing) return
+
+                if (!isWalletCreated()) {
+                    showSendError(app.getString(R.string.send_error_wallet_not_ready))
+                    return
+                }
+
                 val amountInLitoshi = _state.value.amountInLitoshi.toLong()
                 val transactionItem = TransactionItem(
                     _state.value.recipientLTCAddress,
@@ -279,64 +286,43 @@ class SendViewModel(
                     _state.value.userMemorandum
                 )
 
+                // Shows the "Sending…" modal until the network relays the tx back (or rejects it)
                 _state.update {
                     it.copy(
                         transactionItem = transactionItem,
-                        brainwalletIsPublishing = true
+                        brainwalletIsPublishing = true,
+                        errorResultString = ""
                     )
                 }
 
                 viewModelScope.launch {
-                    when (val result = bwSender.prepareTransaction(transactionItem)) {
-                        BWSendResult.Success -> {
-                            _effect.emit(SendEffect.DismissSheet)
-                            AnalyticsManager.logCustomEvent(BWConstants._20191105_DSL)
-                            BRSharedPrefs.incrementSendTransactionCount(app)
-                            delay(800L)
-                            inAppReviewService.showInAppReviewDialogIfNeeded()
-                            Timber.d("did_request_rating")
-                        }
-                        is Error.InsufficientFunds -> {
-                            _state.update {
-                                it.copy(
-                                    errorResultString = String.format(
-                                        Locale.getDefault(),
-                                        "%s",
-                                        app.getString(R.string.Import_Error_notValid)
-                                    )
-                                )
+                    try {
+                        when (val result = bwSender.prepareTransaction(transactionItem)) {
+                            BWSendResult.Success -> {
+                                // Only a confirmed send shows the success badge (which dismisses the sheet)
+                                _state.update {
+                                    it.copy(isPasscodeAuthenticated = true, brainwalletIsPublishing = false)
+                                }
+                                _effect.emit(SendEffect.DismissSheet)
+                                AnalyticsManager.logCustomEvent(BWConstants._20191105_DSL)
+                                BRSharedPrefs.incrementSendTransactionCount(app)
+                                // Review ask: after a successful send (also feeds the 2-send gate), 0.8s delay
+                                delay(800L)
+                                inAppReviewService.showInAppReviewDialogIfNeeded()
+                                Timber.d("did_request_rating")
+                            }
+                            is Error -> {
+                                Timber.e("Send failed: $result")
+                                showSendError(sendErrorMessage(result))
                             }
                         }
-                        is Error.AmountTooSmall -> {
-                            _state.update {
-                                it.copy(
-                                    errorResultString = String.format(
-                                        Locale.getDefault(),
-                                        "%s",
-                                        app.getString(R.string.Send_isRescanning)
-                                    )
-                                )
-                            }
-                        }
-                        Error.AlreadySending,
-                        Error.TimedOut,
-                        is Error.Unknown -> {
-                            Timber.e("Send unknown error: $result")
-                            _state.update {
-                                it.copy(
-                                    errorResultString = String.format(
-                                        Locale.getDefault(),
-                                        "%s",
-                                        app.getString(R.string.Alerts_sendFailure)
-                                    )
-                                )
-                            }
-                        }
+                    } finally {
+                        _state.update { it.copy(brainwalletIsPublishing = false) }
                     }
-
-                    _state.update { it.copy(isPasscodeAuthenticated = true) }
-                    _state.update { it.copy(brainwalletIsPublishing = false) }
                 }
+            }
+            is SendEvent.OnDismissSendError -> {
+                _state.update { it.copy(errorResultString = "") }
             }
             is SendEvent.OnUserMemorandumChanged -> {
                 _state.update { it.copy(userMemorandum = event.memo) }
@@ -354,6 +340,7 @@ class SendViewModel(
                 }
             }
             is SendEvent.OnPasscodeDigitAdded -> {
+                if (_state.value.brainwalletIsPublishing) return
                 if (_state.value.passcode.size < 4) {
                     _state.update { it.copy(passcode = it.passcode + event.digit) }
                 }
@@ -377,6 +364,34 @@ class SendViewModel(
             }
         }
     }
+
+    /** Stops the sending state, brings the keypad back so the user can retry, and says why. */
+    private fun showSendError(message: String) {
+        _state.update {
+            it.copy(
+                brainwalletIsPublishing = false,
+                isPasscodeAuthenticated = false,
+                passcode = emptyList(),
+                errorResultString = message
+            )
+        }
+    }
+
+    private fun sendErrorMessage(error: Error): String = app.getString(
+        when (error) {
+            is Error.InsufficientFunds -> R.string.Import_Error_notValid
+            is Error.AmountTooSmall -> R.string.Send_isRescanning
+            is Error.WalletNotReady -> R.string.send_error_wallet_not_ready
+            is Error.CreationFailed -> R.string.send_error_creation_failed
+            is Error.SigningFailed -> R.string.send_error_signing_failed
+            is Error.NotConnected -> R.string.send_error_not_connected
+            is Error.PublishRejected -> R.string.send_error_network_rejected
+            is Error.ConfirmationTimedOut -> R.string.send_error_confirmation_unknown
+            Error.AlreadySending,
+            Error.TimedOut,
+            is Error.Unknown -> R.string.Alerts_sendFailure
+        }
+    )
 
     sealed class SendEffect {
         data object DismissSheet : SendEffect()

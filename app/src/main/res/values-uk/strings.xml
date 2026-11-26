@@ -343,4 +343,18 @@
     <string name="peer_sync_description">Встановіть синхронізацію з SPV peers в основній мережі Litecoin або з надійним peer для синхронізації з блокчейном</string>
     <string name="peer_toggle_label">Переключити режим</string>
     <string name="mainnet_peer_label">Основна мережа Litecoin</string>
+    <string name="set_next_emojis_title">Перейдіть на рівень 6 емодзі!</string>
+    <string name="set_next_emojis_enter_pin">Введіть ваш PIN для встановлення емодзі 4 - 6</string>
+    <string name="set_next_emojis_description">Як і перші 3, зіставте наступні 3 слова насіння. Натисніть на око, щоб показати слова насіння.</string>
+    <string name="done_label">Готово</string>
+    <string name="send_sending">Надсилання…</string>
+    <string name="send_error_wallet_not_ready">Гаманець ще не готовий. Спробуйте ще раз.</string>
+    <string name="send_error_creation_failed">Не вдалося створити транзакцію. Перевірте суму та баланс.</string>
+    <string name="send_error_signing_failed">Не вдалося підписати транзакцію. Ваші Litecoin не надіслано.</string>
+    <string name="send_error_not_connected">Немає з\'єднання з мережею Litecoin. Ваші Litecoin не надіслано.</string>
+    <string name="send_error_network_rejected">Мережа Litecoin не прийняла цю транзакцію. Ваші Litecoin не надіслано.</string>
+    <string name="send_error_confirmation_unknown">Мережа ще не підтвердила це надсилання. Перевірте історію транзакцій, перш ніж повторити спробу.</string>
+    <string name="sync_notification_channel_name">Синхронізація блокчейну</string>
+    <string name="sync_notification_title">Синхронізація з мережею Litecoin</string>
+    <string name="sync_notification_progress">Синхронізовано на %1$d%%</string>
 </resources>

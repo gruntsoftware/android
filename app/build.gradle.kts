@@ -17,6 +17,19 @@ plugins {
 
 val localProperties = gradleLocalProperties(rootDir, providers)
 
+val revenueCatKeyPresent = !localProperties.getProperty("REVENUECAT_KEY").isNullOrBlank()
+val verifyRevenueCatKey by tasks.registering {
+    group = "verification"
+    doLast {
+        if (!revenueCatKeyPresent) {
+            throw GradleException("REVENUECAT_KEY missing")
+        }
+    }
+}
+tasks.matching { it.name.startsWith("pre") && it.name.endsWith("ReleaseBuild") }.configureEach {
+    dependsOn(verifyRevenueCatKey)
+}
+
 android {
     namespace = "com.brainwallet"
     compileSdk = 36
@@ -31,8 +44,9 @@ android {
         applicationId = "ltd.grunt.brainwallet"
         minSdk = 29
         targetSdk = 36
-        versionCode = 202506360
-        versionName = "v4.13.0"
+        // Beta build CI may pass -PversionCodeOverride.
+        versionCode = (project.findProperty("versionCodeOverride") as String?)?.toInt() ?: 202506372
+        versionName = "v4.14.0"
         multiDexEnabled = true
         base.archivesName.set("${defaultConfig.versionName}(${defaultConfig.versionCode})")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -81,6 +95,7 @@ android {
             signingConfig = signingConfigs.getByName("release")
             isDebuggable = false
             isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             ndk {
                 isDebuggable = false
@@ -169,6 +184,7 @@ android {
 dependencies {
     implementation(project(":iap"))
     implementation(project(":core"))
+    implementation(project(":af"))
     implementation("androidx.webkit:webkit:1.9.0")
     implementation(libs.keepsafe.relinker)
     implementation(libs.androidx.benchmark.traceprocessor)
@@ -223,10 +239,7 @@ dependencies {
     implementation(libs.slf4j)
     implementation(libs.org.json)
     implementation(libs.sigpipe.jbsdiff)
-    implementation(libs.unstoppable.domain)
     implementation(libs.razir.progressbutton)
-    implementation(libs.appsflyer)
-    implementation(libs.android.installreferrer)
     implementation(libs.androidx.material3)
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
@@ -244,6 +257,7 @@ dependencies {
     androidTestImplementation(platform(grunt.androidx.compose.bom))
     androidTestImplementation("androidx.test:core-ktx:1.5.0")
     androidTestImplementation(grunt.bundles.androidx.compose.ui.test)
+    debugImplementation(grunt.androidx.compose.ui.test.manifest)
     androidTestImplementation(libs.bundles.android.test)
     androidTestImplementation(libs.fastlane.screengrab)
     androidTestImplementation(libs.slf4j.android)

@@ -74,6 +74,45 @@ For the full, up-to-date changelog see [GitHub Releases](https://github.com/grun
 
 ---
 
+### **v4.14.0**
+---
+#### ✨ New Features
+**Sync keeps running in the background** — Android freezes an app soon after it leaves the screen, which dropped every peer connection and stalled the sync. While a sync is below 99%, a foreground service (with a sync notification) now keeps it going. It starts 5 seconds into the sync and stays until 100%. It reconnects on network changes or if the sync stops early, and gives up after 10 minutes without a new block (#328). Tapping the notification opens the wallet (#332).
+
+**Lock button in the top nav** — a new lock button sits next to the theme button in a shared bento capsule. Tapping it crossfades the open lock to a closed one, then locks the wallet the same way the Settings drawer's Lock row does (#317).
+
+**Six-emoji level-up and game score history (iOS parity)** — after 2 games, you can confirm your PIN and pick emojis for seed words 4–6 from the Game Hub or Game tab. Each finished game's score and timestamp is saved to the Keystore and wiped with the wallet. The in-app review prompt now appears after 3 recorded games instead of 2 sends (#305). Fallinmoji is updated to build 16 (`bw-gdlib` → `5aa8b8b`) (#310).
+
+**Better peer selection** — the core now prefers API-listed peers, keeps 2 connections for other peers, and has a refreshed list of hardcoded backup peers. Peer sockets use `TCP_NODELAY`, and the trusted-peer bloom false-positive rate is set at 0.0005 (#302, #329).
+
+#### 🐛 Bug Fixes
+- **Sends are reported as sent only once the network relays them** — the app now waits for the core's publish result instead of treating a handed-off transaction as sent. It shows a sending state and says why a send failed. A pending publish is no longer cancelled when a peer times out while connecting (#329).
+- **Fixed a native crash on peer disconnect** — `BRPeerManagerDisconnect` no longer double-decrements `peerThreadCount` for peers still mid-handshake. Teardown now waits for live peer threads before the manager is freed (core `6935cc1`, #319).
+- **Fixed a `ConcurrentModificationException` in the sync/balance listeners** — `BRPeerManager.statusUpdateListeners` and `BRWalletManager.balanceListeners` are now `CopyOnWriteArrayList`s, so screens can add or remove themselves while native callbacks iterate (#326).
+- The seed "prove it" completion button now reads **"Done"** instead of "Game & Sync". Wallet-confirmed analytics now fire when the seed is confirmed, not on unlock (#315).
+- Kept nav route and game payload names safe from R8 so release builds navigate correctly (#308).
+- `translate_strings.py` now escapes bare apostrophes before writing, fixing an `aapt2` resource-compile failure from auto-translations (#313).
+
+#### 🔒 Privacy & Build
+- Release builds now get R8 shrinking, obfuscation and optimization, with targeted keep rules for classes the JNI core looks up by name. Line numbers are kept for crash reports. Resource shrinking is on, and the unused Unstoppable Domains dependency is removed (#306).
+- The AppsFlyer SDK moved out of the public app into a private module that the app launches through `AFLauncher`. The Android ID is no longer collected (#311).
+- Release build configuration hardening (#325).
+
+#### 🧪 Test Coverage
+- `LockButtonTest` (5 Compose UI tests) (#317), wallet-confirmed event tests (#315), and listener-list regression tests that reproduce the old crash deterministically (#326).
+- `AppInitializerTest` now waits for its background-thread init calls instead of racing them (#308).
+
+#### 🔧 Chores
+- History ViewModels moved from Orbit to `BrainwalletViewModel` (#312).
+- `scripts/firebase-debug-devices.sh` marks test devices as Firebase developer traffic (#318). Removed the stale `android/scripts/translate_strings.py` (#314).
+- CI: added a beta-build job on develop and fixed the unit-test OOM. Tests now run on PRs only, with a once-a-day deploy (#322, #323, #324, #327, #331).
+- Routine i18n auto-translation syncs (#309, #330).
+- Version bumped: **v4.13.0 (202506360) → v4.14.0**
+
+**Full Changelog**: https://github.com/gruntsoftware/android/compare/v4.13.0...release/v4.14.0
+
+---
+
 ### **v4.13.0**  [PR [#301](https://github.com/gruntsoftware/android/pull/301)]
 ---
 #### ✨ New Features

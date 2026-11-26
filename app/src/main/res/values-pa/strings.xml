@@ -356,4 +356,18 @@
     <string name="peer_sync_description">Litecoin ਮੇਨਨੈੱਟ ਵਿੱਚ spv ਪੀਅਰਜ਼ ਜਾਂ ਬਲਾਕਚੇਨ ਨਾਲ ਸਿੰਕ ਕਰਨ ਲਈ ਭਰੋਸੇਮੰਦ ਪੀਅਰ ਤੋਂ ਸੈੱਟ ਕਰੋ</string>
     <string name="peer_toggle_label">ਮੋਡ ਟਾਗਲ ਕਰੋ</string>
     <string name="mainnet_peer_label">Litecoin ਮੇਨਨੈੱਟ</string>
+    <string name="set_next_emojis_title">6 ਈਮੋਜੀਆਂ ਤੱਕ ਪੱਧਰ ਵਧਾਓ!</string>
+    <string name="set_next_emojis_enter_pin">ਈਮੋਜੀਆਂ 4 - 6 ਸੈੱਟ ਕਰਨ ਲਈ ਆਪਣਾ PIN ਦਰਜ ਕਰੋ</string>
+    <string name="set_next_emojis_description">ਪਹਿਲੀਆਂ 3 ਵਾਂਗ, ਅਗਲੀਆਂ 3 ਸੀਡ ਸ਼ਬਦਾਂ ਨੂੰ ਮੇਲ ਕਰੋ। ਸੀਡ ਸ਼ਬਦਾਂ ਨੂੰ ਦਿਖਾਉਣ ਲਈ ਅੱਖ \'ਤੇ ਟੈਪ ਕਰੋ।</string>
+    <string name="done_label">ਪੂਰਾ ਹੋ ਗਿਆ</string>
+    <string name="send_sending">ਭੇਜਿਆ ਜਾ ਰਿਹਾ ਹੈ…</string>
+    <string name="send_error_wallet_not_ready">ਵਾਲਿਟ ਅਜੇ ਤਿਆਰ ਨਹੀਂ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
+    <string name="send_error_creation_failed">ਲੈਣ-ਦੇਣ ਨਹੀਂ ਬਣਾਇਆ ਜਾ ਸਕਿਆ। ਰਕਮ ਅਤੇ ਆਪਣਾ ਬਕਾਇਆ ਜਾਂਚੋ।</string>
+    <string name="send_error_signing_failed">ਲੈਣ-ਦੇਣ \'ਤੇ ਦਸਤਖ਼ਤ ਨਹੀਂ ਹੋ ਸਕੇ। ਤੁਹਾਡੇ ਲਾਈਟਕੋਇਨ ਨਹੀਂ ਭੇਜੇ ਗਏ।</string>
+    <string name="send_error_not_connected">ਲਾਈਟਕੋਇਨ ਨੈੱਟਵਰਕ ਨਾਲ ਕਨੈਕਟ ਨਹੀਂ ਹੈ। ਤੁਹਾਡੇ ਲਾਈਟਕੋਇਨ ਨਹੀਂ ਭੇਜੇ ਗਏ।</string>
+    <string name="send_error_network_rejected">ਲਾਈਟਕੋਇਨ ਨੈੱਟਵਰਕ ਨੇ ਇਹ ਲੈਣ-ਦੇਣ ਸਵੀਕਾਰ ਨਹੀਂ ਕੀਤਾ। ਤੁਹਾਡੇ ਲਾਈਟਕੋਇਨ ਨਹੀਂ ਭੇਜੇ ਗਏ।</string>
+    <string name="send_error_confirmation_unknown">ਨੈੱਟਵਰਕ ਨੇ ਅਜੇ ਇਸ ਭੇਜਣ ਦੀ ਪੁਸ਼ਟੀ ਨਹੀਂ ਕੀਤੀ। ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਆਪਣਾ ਲੈਣ-ਦੇਣ ਇਤਿਹਾਸ ਜਾਂਚੋ।</string>
+    <string name="sync_notification_channel_name">ਬਲਾਕਚੇਨ ਸਮਕਾਲੀਕਰਣ</string>
+    <string name="sync_notification_title">Litecoin ਨੈੱਟਵਰਕ ਨਾਲ ਸਮਕਾਲੀ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ</string>
+    <string name="sync_notification_progress">%1$d%% ਸਮਕਾਲੀ ਹੋ ਗਿਆ</string>
 </resources>

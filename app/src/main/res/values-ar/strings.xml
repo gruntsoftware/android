@@ -258,4 +258,18 @@
     <string name="peer_sync_description">اختر من نظراء spv في شبكة Litecoin الرئيسية أو نظير موثوق للمزامنة مع البلوكتشين</string>
     <string name="peer_toggle_label">تبديل الوضع</string>
     <string name="mainnet_peer_label">شبكة Litecoin الرئيسية</string>
+    <string name="set_next_emojis_title">ارتقِ إلى 6 رموز تعبيرية!</string>
+    <string name="set_next_emojis_enter_pin">أدخل رقم PIN الخاص بك لتعيين الرموز التعبيرية 4 - 6</string>
+    <string name="set_next_emojis_description">تمامًا مثل الثلاثة الأولى، طابق كلمات البذور الثلاث التالية. اضغط على العين لإظهار كلمات البذور.</string>
+    <string name="done_label">تم</string>
+    <string name="send_sending">جارٍ الإرسال…</string>
+    <string name="send_error_wallet_not_ready">المحفظة ليست جاهزة بعد. يُرجى المحاولة مرة أخرى.</string>
+    <string name="send_error_creation_failed">تعذّر إنشاء المعاملة. تحقّق من المبلغ ورصيدك.</string>
+    <string name="send_error_signing_failed">تعذّر توقيع المعاملة. لم يتم إرسال اللايتكوين الخاص بك.</string>
+    <string name="send_error_not_connected">غير متصل بشبكة لايتكوين. لم يتم إرسال اللايتكوين الخاص بك.</string>
+    <string name="send_error_network_rejected">لم تقبل شبكة لايتكوين هذه المعاملة. لم يتم إرسال اللايتكوين الخاص بك.</string>
+    <string name="send_error_confirmation_unknown">لم تؤكد الشبكة هذا الإرسال بعد. تحقّق من سجل معاملاتك قبل المحاولة مرة أخرى.</string>
+    <string name="sync_notification_channel_name">مزامنة البلوكتشين</string>
+    <string name="sync_notification_title">جاري المزامنة مع شبكة Litecoin</string>
+    <string name="sync_notification_progress">تمت مزامنة %1$d%%</string>
 </resources>

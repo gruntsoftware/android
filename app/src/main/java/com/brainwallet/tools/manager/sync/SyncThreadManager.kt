@@ -16,15 +16,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import org.koin.core.annotation.Single
 import org.koin.java.KoinJavaComponent
 import timber.log.Timber
 import kotlin.coroutines.cancellation.CancellationException
 
-@Single
 class SyncThreadManager(
     private val syncAnalyticsRepository: SyncAnalyticsRepository,
     private val sharedPrefs: BRSharedPrefs,
+    private val keepAlive: () -> Unit = {},
 ) {
     private val _syncState = MutableStateFlow<SyncState>(SyncState.Idle)
     val syncState: StateFlow<SyncState> = _syncState.asStateFlow()
@@ -49,6 +48,7 @@ class SyncThreadManager(
             val runTimestamp = System.currentTimeMillis()
             putStartSyncTimestamp(runTimestamp)
             syncAnalyticsRepository.startSync()
+            var keepAliveRequested = false
 
             try {
                 while (isActive) {
@@ -76,6 +76,13 @@ class SyncThreadManager(
                         currentBlockHeight = currentBlockHeight,
                     )
 
+                    if (!keepAliveRequested &&
+                        System.currentTimeMillis() - runTimestamp >= KEEP_ALIVE_GRACE_MS
+                    ) {
+                        keepAliveRequested = true
+                        keepAlive()
+                    }
+
                     delay(100)
                 }
             } catch (e: CancellationException) {
@@ -98,6 +105,9 @@ class SyncThreadManager(
     }
 
     companion object {
+        /** Short catch-up syncs finish within this, so they never show the sync notification. */
+        const val KEEP_ALIVE_GRACE_MS = 5_000L
+
         @JvmStatic
         fun getInstance(): SyncThreadManager = KoinJavaComponent
             .get(SyncThreadManager::class.java)

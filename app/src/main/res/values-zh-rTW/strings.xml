@@ -346,4 +346,18 @@
     <string name="peer_sync_description">從 Litecoin 主網中的 SPV 對等節點或信任的對等節點設定以與區塊鏈同步</string>
     <string name="peer_toggle_label">切換模式</string>
     <string name="mainnet_peer_label">Litecoin 主網</string>
+    <string name="set_next_emojis_title">升級到 6 個表情符號！</string>
+    <string name="set_next_emojis_enter_pin">輸入 PIN 以設定表情符號 4 - 6</string>
+    <string name="set_next_emojis_description">就像前 3 個一樣，配對接下來的 3 個種子詞。點擊眼睛圖示顯示種子詞。</string>
+    <string name="done_label">完成</string>
+    <string name="send_sending">正在傳送…</string>
+    <string name="send_error_wallet_not_ready">錢包尚未就緒，請再試一次。</string>
+    <string name="send_error_creation_failed">無法建立交易。請檢查金額與餘額。</string>
+    <string name="send_error_signing_failed">無法簽署交易。您的萊特幣尚未傳送。</string>
+    <string name="send_error_not_connected">未連線至萊特幣網路。您的萊特幣尚未傳送。</string>
+    <string name="send_error_network_rejected">萊特幣網路未接受此交易。您的萊特幣尚未傳送。</string>
+    <string name="send_error_confirmation_unknown">網路尚未確認此次傳送。請在重試前查看您的交易紀錄。</string>
+    <string name="sync_notification_channel_name">區塊鏈同步</string>
+    <string name="sync_notification_title">與 Litecoin 網路同步中</string>
+    <string name="sync_notification_progress">已同步 %1$d%%</string>
 </resources>

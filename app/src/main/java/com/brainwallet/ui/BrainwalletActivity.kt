@@ -31,6 +31,7 @@ import com.brainwallet.tools.animation.BRAnimator
 import com.brainwallet.tools.animation.BRDialog
 import com.brainwallet.tools.manager.AnalyticsManager
 import com.brainwallet.tools.manager.BRSharedPrefs
+import com.brainwallet.tools.manager.WalletConfirmedEvents
 import com.brainwallet.tools.manager.InternetManager
 import com.brainwallet.tools.manager.sync.SyncThreadManager
 import com.brainwallet.tools.security.AuthManager
@@ -181,7 +182,7 @@ class BrainwalletActivity :
                 }.also { startActivity(it) }
             }
             LEGACY_EFFECT_ON_PAPERKEY_PROVED -> {
-                BRSharedPrefs.putPhraseWroteDown(this@BrainwalletActivity, true)
+                WalletConfirmedEvents.onNewWalletConfirmed(this@BrainwalletActivity)
             }
             LEGACY_DIALOG_INVALID -> BRDialog.showCustomDialog(
                 BrainwalletApp.breadContext,

@@ -346,4 +346,18 @@
     <string name="peer_sync_description">Litecoin 메인넷의 SPV 피어 또는 신뢰할 수 있는 피어에서 블록체인과 동기화하도록 설정하세요</string>
     <string name="peer_toggle_label">모드 전환</string>
     <string name="mainnet_peer_label">Litecoin 메인넷</string>
+    <string name="set_next_emojis_title">6개의 이모지로 레벨 업하세요!</string>
+    <string name="set_next_emojis_enter_pin">이모지 4 - 6을 설정하려면 PIN을 입력하세요</string>
+    <string name="set_next_emojis_description">처음 3개와 마찬가지로 다음 3개의 시드 단어를 매칭하세요. 눈 아이콘을 눌러 시드 단어를 표시할 수 있습니다.</string>
+    <string name="done_label">완료</string>
+    <string name="send_sending">보내는 중…</string>
+    <string name="send_error_wallet_not_ready">지갑이 아직 준비되지 않았습니다. 다시 시도해 주세요.</string>
+    <string name="send_error_creation_failed">거래를 생성할 수 없습니다. 금액과 잔액을 확인하세요.</string>
+    <string name="send_error_signing_failed">거래에 서명할 수 없습니다. 라이트코인이 전송되지 않았습니다.</string>
+    <string name="send_error_not_connected">라이트코인 네트워크에 연결되어 있지 않습니다. 라이트코인이 전송되지 않았습니다.</string>
+    <string name="send_error_network_rejected">라이트코인 네트워크가 이 거래를 수락하지 않았습니다. 라이트코인이 전송되지 않았습니다.</string>
+    <string name="send_error_confirmation_unknown">네트워크가 아직 이 전송을 확인하지 않았습니다. 다시 시도하기 전에 거래 내역을 확인하세요.</string>
+    <string name="sync_notification_channel_name">블록체인 동기화</string>
+    <string name="sync_notification_title">Litecoin 네트워크와 동기화 중</string>
+    <string name="sync_notification_progress">%1$d%% 동기화됨</string>
 </resources>

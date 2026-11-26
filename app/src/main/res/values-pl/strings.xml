@@ -349,4 +349,18 @@
     <string name="peer_sync_description">Ustaw synchronizację z peerami SPV w sieci mainnet Litecoin lub zaufanym perem w celu synchronizacji z łańcuchem bloków</string>
     <string name="peer_toggle_label">Przełącz tryb</string>
     <string name="mainnet_peer_label">Sieć mainnet Litecoin</string>
+    <string name="set_next_emojis_title">Przejdź na poziom 6 emoji!</string>
+    <string name="set_next_emojis_enter_pin">Wpisz swój PIN, aby ustawić emoji 4 - 6</string>
+    <string name="set_next_emojis_description">Tak jak pierwsze 3, dopasuj kolejne 3 słowa seed. Stuknij oko, aby pokazać słowa seed.</string>
+    <string name="done_label">Gotowe</string>
+    <string name="send_sending">Wysyłanie…</string>
+    <string name="send_error_wallet_not_ready">Portfel nie jest jeszcze gotowy. Spróbuj ponownie.</string>
+    <string name="send_error_creation_failed">Nie udało się utworzyć transakcji. Sprawdź kwotę i saldo.</string>
+    <string name="send_error_signing_failed">Nie udało się podpisać transakcji. Twoje Litecoin nie zostały wysłane.</string>
+    <string name="send_error_not_connected">Brak połączenia z siecią Litecoin. Twoje Litecoin nie zostały wysłane.</string>
+    <string name="send_error_network_rejected">Sieć Litecoin nie zaakceptowała tej transakcji. Twoje Litecoin nie zostały wysłane.</string>
+    <string name="send_error_confirmation_unknown">Sieć nie potwierdziła jeszcze tej wysyłki. Sprawdź historię transakcji, zanim spróbujesz ponownie.</string>
+    <string name="sync_notification_channel_name">Synchronizacja blockchainu</string>
+    <string name="sync_notification_title">Synchronizacja z siecią Litecoin</string>
+    <string name="sync_notification_progress">Zsynchronizowano %1$d%%</string>
 </resources>

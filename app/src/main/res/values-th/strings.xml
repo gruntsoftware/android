@@ -258,4 +258,18 @@
     <string name="peer_sync_description">ตั้งค่าจาก SPV peers ในเครือข่าย Litecoin mainnet หรือ peer ที่เชื่อถือได้เพื่อซิงค์กับบล็อกเชน</string>
     <string name="peer_toggle_label">สลับโหมด</string>
     <string name="mainnet_peer_label">Litecoin mainnet</string>
+    <string name="set_next_emojis_title">ยupgrade เป็น 6 emojis!</string>
+    <string name="set_next_emojis_enter_pin">ป้อน PIN ของคุณเพื่อตั้งค่า emojis 4 - 6</string>
+    <string name="set_next_emojis_description">เช่นเดียวกับ 3 emojis แรก จับคู่ seed words 3 คำถัดไป แตะไอคอนตาเพื่อแสดง seed words</string>
+    <string name="done_label">เสร็จสิ้น</string>
+    <string name="send_sending">กำลังส่ง…</string>
+    <string name="send_error_wallet_not_ready">กระเป๋าเงินยังไม่พร้อม โปรดลองอีกครั้ง</string>
+    <string name="send_error_creation_failed">ไม่สามารถสร้างธุรกรรมได้ ตรวจสอบจำนวนเงินและยอดคงเหลือของคุณ</string>
+    <string name="send_error_signing_failed">ไม่สามารถลงนามธุรกรรมได้ Litecoin ของคุณยังไม่ถูกส่ง</string>
+    <string name="send_error_not_connected">ไม่ได้เชื่อมต่อกับเครือข่าย Litecoin Litecoin ของคุณยังไม่ถูกส่ง</string>
+    <string name="send_error_network_rejected">เครือข่าย Litecoin ไม่ยอมรับธุรกรรมนี้ Litecoin ของคุณยังไม่ถูกส่ง</string>
+    <string name="send_error_confirmation_unknown">เครือข่ายยังไม่ยืนยันการส่งนี้ ตรวจสอบประวัติธุรกรรมของคุณก่อนลองอีกครั้ง</string>
+    <string name="sync_notification_channel_name">การซิงค์ Blockchain</string>
+    <string name="sync_notification_title">กำลังซิงค์กับเครือข่าย Litecoin</string>
+    <string name="sync_notification_progress">ซิงค์แล้ว %1$d%%</string>
 </resources>

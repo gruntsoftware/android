@@ -54,10 +54,10 @@ import org.koin.java.KoinJavaComponent;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import kotlin.Suppress;
 import kotlinx.collections.immutable.ImmutableList;
@@ -68,7 +68,9 @@ public class BRWalletManager implements WalletOperations,
     WalletManager,
     com.brainwallet.data.source.TransactionSource {
     private static BRWalletManager instance;
-    public List<OnBalanceChanged> balanceListeners = new ArrayList<>();
+    // Iterated from native wallet callbacks while screens add/remove on the main thread;
+    // copy-on-write iteration works on a snapshot, so it can't throw ConcurrentModificationException.
+    private final CopyOnWriteArrayList<OnBalanceChanged> balanceListeners = new CopyOnWriteArrayList<>();
     private boolean isInitiatingWallet;
 
     public void setBalance(final Context context, long balance) {
@@ -368,6 +370,8 @@ public class BRWalletManager implements WalletOperations,
         params.putInt("error", error);
         params.putString("txHash", Arrays.toString(txHash));
         AnalyticsManager.logCustomEventWithParams(BWConstants._20250517_WCINFO, params);
+        // The core only calls back once the network relayed the tx back (success) or rejected it
+        TxPublishResults.onPublishResult(txHash, error);
     }
 
     public static void onBalanceChanged(final long balance) {
@@ -556,8 +560,7 @@ public class BRWalletManager implements WalletOperations,
     }
 
     public void addBalanceChangedListener(OnBalanceChanged listener) {
-        if (balanceListeners.contains(listener)) return;
-        balanceListeners.add(listener);
+        balanceListeners.addIfAbsent(listener);
     }
 
     public void removeListener(OnBalanceChanged listener) {

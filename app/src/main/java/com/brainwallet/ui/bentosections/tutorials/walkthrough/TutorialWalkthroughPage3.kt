@@ -34,6 +34,7 @@ fun TutorialWalkthroughPage3(
     modifier: Modifier = Modifier,
     inAppReviewService: InAppReviewService = koinInject()
 ) {
+    // Review ask: when page 3 of the walkthrough tutorial is shown
     LaunchedEffect(Unit) {
         inAppReviewService.showInAppReviewDialogIfNeeded()
         Timber.d("did_request_rating")

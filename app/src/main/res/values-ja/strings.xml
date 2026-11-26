@@ -346,4 +346,18 @@
     <string name="peer_sync_description">Litecoinメインネットのspvピア、または信頼できるピアから選択してブロックチェーンとSyncします</string>
     <string name="peer_toggle_label">モードを切り替え</string>
     <string name="mainnet_peer_label">Litecoinメインネット</string>
+    <string name="set_next_emojis_title">6つの絵文字にレベルアップ！</string>
+    <string name="set_next_emojis_enter_pin">PINを入力して絵文字 4 - 6 を設定してください</string>
+    <string name="set_next_emojis_description">最初の3つと同じように、次の3つのシードワードにマッチさせてください。目のアイコンをタップしてシードワードを表示できます。</string>
+    <string name="done_label">完了</string>
+    <string name="send_sending">送信中…</string>
+    <string name="send_error_wallet_not_ready">ウォレットの準備ができていません。もう一度お試しください。</string>
+    <string name="send_error_creation_failed">取引を作成できませんでした。金額と残高を確認してください。</string>
+    <string name="send_error_signing_failed">取引に署名できませんでした。Litecoinは送信されていません。</string>
+    <string name="send_error_not_connected">Litecoinネットワークに接続されていません。Litecoinは送信されていません。</string>
+    <string name="send_error_network_rejected">Litecoinネットワークがこの取引を受け付けませんでした。Litecoinは送信されていません。</string>
+    <string name="send_error_confirmation_unknown">ネットワークはまだこの送信を確認していません。再試行する前に取引履歴を確認してください。</string>
+    <string name="sync_notification_channel_name">ブロックチェーン同期</string>
+    <string name="sync_notification_title">Litecoinネットワークと同期中</string>
+    <string name="sync_notification_progress">%1$d%% 同期完了</string>
 </resources>

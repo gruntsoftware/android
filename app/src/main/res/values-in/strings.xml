@@ -346,4 +346,18 @@
     <string name="peer_sync_description">Atur dari peer SPV di jaringan utama Litecoin atau peer terpercaya untuk disinkronkan dengan blockchain</string>
     <string name="peer_toggle_label">Mode toggle</string>
     <string name="mainnet_peer_label">Jaringan utama Litecoin</string>
+    <string name="set_next_emojis_title">Naik level ke 6 emoji!</string>
+    <string name="set_next_emojis_enter_pin">Masukkan PIN Anda untuk mengatur emoji 4 - 6</string>
+    <string name="set_next_emojis_description">Seperti 3 yang pertama, cocokkan 3 kata seed berikutnya. Ketuk ikon mata untuk menampilkan kata seed.</string>
+    <string name="done_label">Selesai</string>
+    <string name="send_sending">Mengirim…</string>
+    <string name="send_error_wallet_not_ready">Dompet belum siap. Silakan coba lagi.</string>
+    <string name="send_error_creation_failed">Tidak dapat membuat transaksi. Periksa jumlah dan saldo Anda.</string>
+    <string name="send_error_signing_failed">Tidak dapat menandatangani transaksi. Litecoin Anda belum terkirim.</string>
+    <string name="send_error_not_connected">Tidak terhubung ke jaringan Litecoin. Litecoin Anda belum terkirim.</string>
+    <string name="send_error_network_rejected">Jaringan Litecoin tidak menerima transaksi ini. Litecoin Anda belum terkirim.</string>
+    <string name="send_error_confirmation_unknown">Jaringan belum mengonfirmasi pengiriman ini. Periksa riwayat transaksi Anda sebelum mencoba lagi.</string>
+    <string name="sync_notification_channel_name">Sinkronisasi Blockchain</string>
+    <string name="sync_notification_title">Sinkronisasi dengan jaringan Litecoin</string>
+    <string name="sync_notification_progress">%1$d%% tersinkronisasi</string>
 </resources>
