@@ -39,6 +39,14 @@
 # drops game results because the app parser ignores unknown keys.
 -keep class ltd.grunt.brainwallet.gamegdx.models.** { *; }
 
+# ---------- gdx-miniaudio (game audio) ----------
+# libgdx-miniaudio.so resolves Java callbacks by name in MiniAudio.jniInitContext
+# (GetMethodID on_native_sound_end(J)V / on_native_log(ILjava/lang/String;)V /
+# on_native_notification(I)V, FindClass MAFormatType). Nothing in Java calls them, so
+# R8 strips them and the game aborts on launch with NoSuchMethodError (SIGABRT).
+# The miniaudio jar ships no consumer rules; keep the whole package.
+-keep class games.rednblack.miniaudio.** { *; }
+
 # ---------- Views inflated from XML ----------
 -keep public class * extends android.view.View {
     public <init>(android.content.Context);
